@@ -23,10 +23,11 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (wombat)))
  '(ediff-diff-options "-w")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(package-selected-packages (quote (pdf-tools ess julia-mode ## poly-R))))
+ '(package-selected-packages (quote (ess julia-mode ## poly-R))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,12 +36,11 @@ There are two things you can do about this warning:
  )
 
 
-;; my customization
+;;*************** my customization******************
+
+
 ;; default open window vertically
 (custom-set-variables
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(ediff-diff-options "-w")
  '(ediff-split-window-function 'split-window-horizontally))
-
-;; pdf tools
-
