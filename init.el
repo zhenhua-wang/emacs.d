@@ -27,7 +27,9 @@ There are two things you can do about this warning:
  '(ediff-diff-options "-w")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(package-selected-packages (quote (company ess julia-mode ## poly-R))))
+ '(package-selected-packages
+   (quote
+    (grip-mode treemacs company ess julia-mode ## poly-R))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -37,21 +39,10 @@ There are two things you can do about this warning:
 
 
 ;; *************** my customization ***********************
-;; start: R auto complete
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(define-key company-active-map (kbd "M-h") 'company-show-doc-buffer)
-(define-key company-active-map (kbd "M-n") nil)
-(define-key company-active-map (kbd "M-p") nil)
-(define-key company-active-map (kbd "M-,") 'company-select-next)
-(define-key company-active-map (kbd "M-k") 'company-select-previous)
-(define-key company-active-map [return] nil)
-(define-key company-active-map [tab] 'company-complete-common)
-(define-key company-active-map (kbd "TAB") 'company-complete-common)
-(define-key company-active-map (kbd "M-TAB") 'company-complete-selection)
-(setq company-selection-wrap-around t
-      company-tooltip-align-annotations t
-      company-idle-delay 0.36
-      company-minimum-prefix-length 2
-      company-tooltip-limit 10)
-;; end.
+;; if graph emacs then turn off toolbars
+;; load my customization
+(load-file "~/.emacs.d/customization.el")
+
+(when (display-graphic-p) 
+    (load-file "~/.emacs.d/init_gui.el"))
+
