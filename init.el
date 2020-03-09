@@ -27,9 +27,11 @@ There are two things you can do about this warning:
  '(ediff-diff-options "-w")
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(ein:output-area-inlined-images t)
+ '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (grip-mode treemacs company ess julia-mode ## poly-R))))
+    (ein grip-mode treemacs company ess julia-mode ## poly-R))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -42,6 +44,9 @@ There are two things you can do about this warning:
 ;; if graph emacs then turn off toolbars
 ;; load my customization
 (load-file "~/.emacs.d/customization.el")
+
+;; load my packages
+(load-file "~/.emacs.d/customize-packages/htmlize.el")
 
 (when (display-graphic-p) 
     (load-file "~/.emacs.d/init_gui.el"))

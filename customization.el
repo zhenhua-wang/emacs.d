@@ -21,5 +21,18 @@
 (setq markdown-enable-math t)
 ;; end
 
-;; start: grip-mode for markdown live preview
-;; end
+;; start: ein jupyter
+(setq ein:polymode t)
+(setq ein:completion-backend '(ein:use-company-backend))
+;;end
+
+;; start: org-mode
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(setq org-src-tab-acts-natively t)
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+;;end
