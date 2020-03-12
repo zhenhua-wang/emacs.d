@@ -1,5 +1,5 @@
 * tricks
-
+  
   1. to use inline image in mac, you need to have svg support. Try install emacs-plus
   2. show images as soon as run. (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
   3. code indentation. (setq org-src-tab-acts-natively t)
@@ -8,7 +8,7 @@
 * useful commands
 
 export: C-c C-e
- for markdown: org-md-export-to-markdown
+  for markdown: org-md-export-to-markdown
 
 show inline image: C-c C-x C-v
 
@@ -30,7 +30,7 @@ org insert code block: ctrl + shift + i
 
 
 * example: R
-
+  
 ** not contain a valid graphics format
 #+begin_src R :file 1.png :results file graphics
 library(lattice)
@@ -65,7 +65,7 @@ xyplot(1:10 ~ 1:10)
 #+end_src
 
 #+RESULTS:
-[[file:4.png]]
+[[file:../img/4.png]]
 
 
 * exmple (python): access code from different blocks
