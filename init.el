@@ -10,7 +10,8 @@ There are two things you can do about this warning:
 2. Remove this warning from your init file so you won't see it again."))
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+	       '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
   ;; and `package-pinned-packages`. Most users will not need or want to do this.
   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
@@ -29,9 +30,10 @@ There are two things you can do about this warning:
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(ein:output-area-inlined-images t)
  '(inhibit-startup-screen t)
+ '(latex-preview-pane-use-frame nil)
  '(package-selected-packages
    (quote
-    (ein grip-mode treemacs company ess julia-mode ## poly-R))))
+    (neotree poly-org doom-modeline latex-preview-pane ein grip-mode company ess julia-mode ## poly-R))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,11 +45,10 @@ There are two things you can do about this warning:
 ;; *************** my customization ***********************
 ;; if graph emacs then turn off toolbars
 ;; load my customization
-(load-file "~/.emacs.d/customization.el")
+(load-file "~/.emacs.d/customization/customization.el")
 
 ;; load my packages
 (load-file "~/.emacs.d/customize-packages/htmlize.el")
 
 (when (display-graphic-p) 
-    (load-file "~/.emacs.d/init_gui.el"))
-
+    (load-file "~/.emacs.d/customization/init_gui.el"))
