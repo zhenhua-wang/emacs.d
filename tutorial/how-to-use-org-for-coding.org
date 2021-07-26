@@ -105,6 +105,11 @@ a + 10 ==100
 : False
 
 
+* example (ipython): inline image
+#+BEGIN_SRC ipython :session :exports both :results raw drawer
+
+#+END_SRC
+
 * example: latex
 
 \[
