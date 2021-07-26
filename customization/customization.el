@@ -63,8 +63,9 @@
 
 (setq org-confirm-babel-evaluate nil)
 (setq org-src-tab-acts-natively t)
-(setq org-hide-emphasis-markers t)
+;;(setq org-hide-emphasis-markers t)
 (setq org-src-fontify-natively t)
+(setq org-ellipsis " ▾")
 
 ;; change headline bullets
 (use-package org-bullets
@@ -94,20 +95,21 @@
                               `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
                               `(org-document-title ((t (,@headline ,@variable-tuple :height 1.5 :underline nil))))))
 
-;(custom-theme-set-faces
-;   'user
-;   '(org-block ((t (:inherit fixed-pitch))))
-;   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-;   '(org-document-info ((t (:foreground "dark orange"))))
-;   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-;   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-;   '(org-link ((t (:foreground "royal blue" :underline t))))
-;   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-;   '(org-property-value ((t (:inherit fixed-pitch))) t)
-;   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-;   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-;   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-;   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(custom-theme-set-faces
+   'user
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+   '(org-link ((t (:foreground "royal blue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 ;; keys for create a python workspace
 (add-hook 'org-mode-hook '(lambda ()
