@@ -22,3 +22,9 @@
 ;; line numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
+
+;; padding
+(lambda () (progn
+  (setq left-margin-width 2)
+  (setq right-margin-width 2)
+  (set-window-buffer nil (current-buffer))))
