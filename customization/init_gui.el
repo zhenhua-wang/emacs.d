@@ -23,8 +23,12 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
+;; Disable line numbers for some modes
+(dolist (mode '(xwidget-webkit-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
 ;; padding
-(lambda () (progn
-  (setq left-margin-width 2)
-  (setq right-margin-width 2)
-  (set-window-buffer nil (current-buffer))))
+;;(lambda () (progn
+;;  (setq left-margin-width 2)
+;;  (setq right-margin-width 2)
+;;  (set-window-buffer nil (current-buffer))))
