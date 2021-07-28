@@ -1,0 +1,42 @@
+ls
+cd 
+cd .emacs.d/
+ls
+git add * 
+git commit -m "updates"
+git push
+where R
+R
+where
+ls
+R
+python
+python
+where
+ls
+s
+a
+s
+whereis python
+ls
+ls -al
+use-theme 
+cd
+cd Desktop/
+ls
+cd workspace/
+ls
+cd emacs/
+ls
+asdas
+ls
+emacs 
+ls
+cd 
+cd Desktop/Graduate/duke/MIDS/semester_4/
+ls
+ls -al
+cd .
+cd 
+cd ~/.emacs.d/
+git add * 

@@ -1,3 +1,18 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  themes ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; doom
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
+;; rainbow delimiters
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;; icons
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(all-the-icons-ivy-setup)
+(all-the-icons-ivy-rich-mode 1)
+(all-the-icons-ibuffer-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ivy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; a package show completion buffer
 (require 'ivy-rich)
@@ -33,6 +48,20 @@
 (load "ess-autoloads")
 (require 'ess-site)
 (require 'ess-r-mode)
+;; ess syntax highlight
+(setq ess-R-font-lock-keywords
+      '((ess-R-fl-keyword:keywords   . t)
+        (ess-R-fl-keyword:constants  . t)
+        (ess-R-fl-keyword:modifiers  . t)
+        (ess-R-fl-keyword:fun-defs   . t)
+        (ess-R-fl-keyword:assign-ops . t)
+        (ess-R-fl-keyword:%op%       . t)
+        (ess-fl-keyword:fun-calls    . t)
+        (ess-fl-keyword:numbers)
+        (ess-fl-keyword:operators . t)
+        (ess-fl-keyword:delimiters)
+        (ess-fl-keyword:=)
+        (ess-R-fl-keyword:F&T)))
 ;; end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; markdown mode;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,6 +76,7 @@
 ;;end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Python completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq python-shell-completion-native-enable nil)        ; disable native completion
 (require 'company-box)
 (add-hook 'company-mode-hook 'company-box-mode)
 
@@ -65,10 +95,12 @@
    (ein . t)))
 
 (setq org-confirm-babel-evaluate nil)
-;;(setq org-src-tab-acts-natively t)
+(setq org-src-tab-acts-natively t)
 ;;(setq org-hide-emphasis-markers t)
 (setq org-src-fontify-natively t)
 (setq org-ellipsis " ▾")
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 ;; change headline bullets
 (use-package org-bullets
@@ -115,19 +147,21 @@
 
 ;; Ensure that anything that should be fixed-pitch in Org files appears that way
 (custom-theme-set-faces
-   'user
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+ 'user
+ '(variable-pitch ((t (:family "ETBembo" :height 160))))
+ ;;'(fixed-pitch ((t ( :family "Fira Code Retina" :height 140))))
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t (:foreground "dark orange"))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-link ((t (:foreground "royal blue" :underline t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 ;; keys for create a python workspace
 (add-hook 'org-mode-hook '(lambda ()
@@ -154,13 +188,35 @@
 ;;(setq ob-ipython-command "ipython3")
 ;;end
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  dired  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq insert-directory-program "gls" dired-use-ls-dired t)
+(setq dired-listing-switches "-agho --group-directories-first")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  themes ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; doom
-(require 'doom-modeline)
-(doom-modeline-mode 1)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; eshell ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun efs/configure-eshell ()
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
 
-;; rainbow delimiters
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  (setq eshell-history-size         10000
+        eshell-buffer-maximum-lines 10000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell-git-prompt
+  :after eshell)
+
+(use-package eshell
+  :hook (eshell-first-time-mode . efs/configure-eshell)
+  :config
+
+  (with-eval-after-load 'esh-opt
+    (setq eshell-destroy-buffer-when-process-dies t)
+    (setq eshell-visual-commands '("htop" "zsh" "vim")))
+  )
+
+(load-file "~/.emacs.d/customization/esh-custom.el")
+
 ;;end
