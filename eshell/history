@@ -1,12 +1,3 @@
-cat file1.txt 
-echo hello > file2.txt
-git status
-git add *
-git status
-echo world >> file1.txt
-git status
-git add file1.txt 
-git status
 git comment
 git commit
 find-file file1.txt 
@@ -119,10 +110,19 @@ rm *~
 ls
 cat init_gui.el 
 cat keybinds.el 
-  ~/.emacs.d/customization   master   17:39   11
+ ~/.emacs.d/customization   master   17:39   11
 ls
 rm packge-custom/
 ls
 cd ..
 ls
 git add *
+git push
+cd
+cd .emacs.d/
+tree .
+clear
+(erase-buffer)
+(let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
+(defun eshell/clear ()  "Clear the eshell buffer."  (let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
+clear

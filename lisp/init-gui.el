@@ -23,7 +23,8 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(xwidget-webkit-mode-hook
 		org-mode-hook
-		treemacs-mode-hook))
+		treemacs-mode-hook
+		neotree-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 
@@ -46,6 +47,14 @@
   (doom-modeline-mode 1)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (setq doom-modeline-github t))
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
+
+
 
 (use-package rainbow-delimiters
   :ensure t

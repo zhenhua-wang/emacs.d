@@ -71,4 +71,7 @@
   :ensure t
   :init (all-the-icons-ibuffer-mode 1))
 
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode))
+
 (provide 'init-IDE)
