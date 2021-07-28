@@ -88,3 +88,4 @@
 
 ;; Enable the new eshell prompt
 (setq eshell-prompt-function 'esh-prompt-func)
+

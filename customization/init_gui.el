@@ -32,7 +32,8 @@
 
 ;; starting
 (setq initial-scratch-message (format ";; Welcome to emacs, %s!\n\n" user-login-name))
-(add-hook 'emacs-startup-hook 'eshell)
+
+;;(add-hook 'emacs-startup-hook 'eshell)
 
 ;; padding
 ;;(lambda () (progn

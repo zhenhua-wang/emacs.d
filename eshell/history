@@ -1,33 +1,3 @@
-ls
-cd 
-cd .emacs.d/
-ls
-git add * 
-git commit -m "updates"
-git push
-where R
-R
-where
-ls
-R
-python
-python
-where
-ls
-s
-a
-s
-whereis python
-ls
-ls -al
-use-theme 
-cd
-cd Desktop/
-ls
-cd workspace/
-ls
-cd emacs/
-ls
 asdas
 ls
 emacs 
@@ -62,4 +32,97 @@ ls ~/.emacs.d/
 ls ~/.emacs.d/ -al
 git add *
 cd ~/.emacs.d/
+git add *
+git commit -m "change custom file name"
+cd
+cd Desktop/workspace/
+ls
+cd git/
+ls
+git config --global user.name
+git config --global user.name "Zhenhua Wang"
+git config --global user.email
+git config --global user.email wang_zhenhua1996@icloud.com
+git config --global user.email
+git config --global core.editor
+git config --global user.name
+git config --global core.autocrlf input
+git config --global core.autocrlf 
+git config --help
+ls
+mkdir Moon
+ls
+cd Moon/
+ls
+cd Moon
+git init
+ls
+ls -al
+cd ..
+ls -al
+git rm .git/
+git rm -r .git/
+git rm -r .git
+rm -r .git
+;s
+ls
+ls -al
+cd Moon/
+ls
+rm -r ./.git/
+ls
+git init
+cd .git/
+ls
+cd ..
+tree .git/
+echo hello > file1.txt
+ls
+cat file1.txt 
+echo hello > file2.txt
+git status
+git add *
+git status
+echo world >> file1.txt
+git status
+git add file1.txt 
+git status
+git comment
+git commit
+find-file file1.txt 
+echo world2 >> file1.txt
+git add file1.txt 
+git commit
+cd ..
+cd git 
+cd Moon/
+ls
+git commit
+emacsclient
+emacsclient file1.txt 
+cd ../git/Moon/
+ls
+git commit
+emacs -nw
+emacs -q
+cd ../git/Moon/
+ls
+git commit
+echo world23 >> file1.txt
+git add file1.txt 
+ls
+git status
+magit
+cd ../git/Moon/
+echo world4 >> file1.txt
+git add * 
+git commit -m "tes t magit"
+echo world5 >> file1.txt
+git add file1.txt 
+htop
+giftogd2 
+ls
+cd ~/.e
+cd ~/.emacs.d/
+ls
 git add *
