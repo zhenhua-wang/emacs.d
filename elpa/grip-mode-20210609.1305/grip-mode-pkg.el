@@ -1,0 +1,2 @@
+;;; Generated package description from grip-mode.el  -*- no-byte-compile: t -*-
+(define-package "grip-mode" "20210609.1305" "Instant GitHub-flavored Markdown/Org preview using grip." '((emacs "24.4")) :commit "c0ca78990395245e5f742166047b04eeff63cf6a" :authors '(("Vincent Zhang" . "seagle0128@gmail.com")) :maintainer '("Vincent Zhang" . "seagle0128@gmail.com") :keywords '("convenience" "markdown" "preview") :url "https://github.com/seagle0128/grip-mode")

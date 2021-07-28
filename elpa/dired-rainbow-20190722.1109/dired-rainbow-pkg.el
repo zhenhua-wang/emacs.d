@@ -1,0 +1,2 @@
+;;; Generated package description from dired-rainbow.el  -*- no-byte-compile: t -*-
+(define-package "dired-rainbow" "20190722.1109" "Extended file highlighting according to its type" '((dash "2.5.0") (dired-hacks-utils "0.0.1")) :commit "7c0ef09d57a80068a11edc74c3568e5ead5cc15a" :authors '(("Matus Goljer" . "matus.goljer@gmail.com")) :maintainer '("Matus Goljer" . "matus.goljer@gmail.com") :keywords '("files"))

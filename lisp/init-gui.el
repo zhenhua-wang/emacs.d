@@ -1,22 +1,17 @@
-;; my old settings
-;(add-to-list 'default-frame-alist '(width . 200))
-;(add-to-list 'default-frame-alist '(height . 120))
-;(toggle-scroll-bar -1)
-;(tool-bar-mode -1)
-
-
-;; new config starts
+;; hide startup screen
 (setq inhibit-startup-screen t)
+
+;; starting
+(setq initial-scratch-message (format ";; Welcome to emacs, %s! The %s!\n\n" user-login-name (sanityinc/show-init-time)))
+
+
+;; set window frame
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;;(add-to-list 'default-frame-alist '(width . 200))
-;;(add-to-list 'default-frame-alist '(height . 120))
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
-
-;(menu-bar-mode -1)            ; Disable the menu bar
 
 ;; Set up the visible bell
 (setq visible-bell t)
@@ -31,16 +26,6 @@
 		treemacs-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;; starting
-(setq initial-scratch-message (format ";; Welcome to emacs, %s! The %s!\n\n" user-login-name (sanityinc/show-init-time)))
-
-;;(add-hook 'emacs-startup-hook 'eshell)
-
-;; padding
-;;(lambda () (progn
-;;  (setq left-margin-width 2)
-;;  (setq right-margin-width 2)
-;;  (set-window-buffer nil (current-buffer))))
 
 ;;; Scrolling.
 ;; Good speed and allow scrolling through large images (pixel-scroll).
@@ -52,3 +37,27 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 (setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; packages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq doom-modeline-github t))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package command-log-mode :ensure t)
+
+(use-package neotree :ensure t)
+
+(use-package spacegray-theme :ensure t)
+(use-package doom-themes :ensure t)
+(use-package gruvbox-theme :ensure t)
+
+(provide 'init-gui)
