@@ -49,14 +49,14 @@
 ;;end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun setup-python-jedi ()
+  (add-to-list 'company-backends 'company-jedi))
+
 (use-package python-mode
-  :ensure t
   :config
   (setq python-shell-completion-native-enable nil)        ; disable native completion
-  (defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-  
-  (add-hook 'python-mode-hook 'my/python-mode-hook))
+  :hook
+  (python-mode . setup-python-jedi))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  git  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit
