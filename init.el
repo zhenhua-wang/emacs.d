@@ -94,7 +94,7 @@ There are two things you can do about this warning:
 
 ;; if graph emacs then turn off toolbars
 ;; load my customization
-(load-file "~/.emacs.d/customization/customization.el")
+(load-file "~/.emacs.d/customization/packages-custom.el")
 
 ;; load my packages
 (load-file "~/.emacs.d/customize-packages/htmlize.el")

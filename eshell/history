@@ -48,3 +48,18 @@ where
 whereis
 cd ~/.emacs.d/
 git add *
+git commit -m "add prescient package"
+git push
+ls
+open 
+open anaconda-mode/
+open .
+cd customization/
+ls
+mv customization.el packages-custom.el
+ls
+ls ~/.emacs.d/
+ls ~/.emacs.d/ -al
+git add *
+cd ~/.emacs.d/
+git add *
