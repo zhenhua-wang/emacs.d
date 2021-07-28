@@ -221,6 +221,7 @@
 
   ;; Use completion-at-point to provide completions in eshell
   (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+  ;; (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point)
 
   (setenv "PAGER" "cat")
 
@@ -246,6 +247,7 @@
 ;; fish completion
 (use-package fish-completion
   :hook (eshell-mode . fish-completion-mode))
+
 
 (use-package esh-autosuggest
   :hook (eshell-mode . esh-autosuggest-mode)

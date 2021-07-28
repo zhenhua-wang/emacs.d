@@ -1,18 +1,3 @@
-where
-whereis
-cd ~/.emacs.d/
-git add *
-git commit -m "add prescient package"
-git push
-ls
-open 
-open anaconda-mode/
-open .
-cd customization/
-ls
-mv customization.el packages-custom.el
-ls
-ls ~/.emacs.d/
 ls ~/.emacs.d/ -al
 git add *
 cd ~/.emacs.d/
@@ -125,4 +110,19 @@ git push
 ls
 cd .emacs.d/
 cd ~/.emacs.d/
+git add *
+git push
+(print 1)
+git status 
+(message "test")
+(list 1 2 3)
+(+ 10 10)
+[1 2]
+ca
+  ~/Desktop/workspace/emacs   14:53   0
+cd ~/.emacs.d/
+ls
+cd customization/
+ls
+cd ..
 git add *
