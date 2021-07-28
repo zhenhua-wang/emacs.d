@@ -56,7 +56,7 @@ There are two things you can do about this warning:
  '(latex-preview-pane-use-frame nil)
  '(objed-cursor-color "#c82829")
  '(package-selected-packages
-   '(eshell-git-prompt all-the-icons-ibuffer all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-dired magit company-box python-mode command-log-mode doom-themes ivy-rich rainbow-delimiters counsel company-jedi org-preview-html ob-ipython gruvbox-theme org-bullets neotree doom-modeline latex-preview-pane ein grip-mode company ess julia-mode ## poly-R))
+   '(company-prescient ivy-prescient eshell-git-prompt all-the-icons-ibuffer all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-dired magit company-box python-mode command-log-mode doom-themes ivy-rich rainbow-delimiters counsel company-jedi org-preview-html ob-ipython gruvbox-theme org-bullets neotree doom-modeline latex-preview-pane ein grip-mode company ess julia-mode ## poly-R))
  '(pdf-view-midnight-colors '("#fdf4c1" . "#32302f"))
  '(python-indent-guess-indent-offset-verbose nil)
  '(rustic-ansi-faces

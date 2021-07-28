@@ -25,6 +25,21 @@
 (global-set-key (kbd "C-x b") 'counsel-ibuffer)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
+;; precscient
+(use-package ivy-prescient
+  :after counsel
+  :config
+  (ivy-prescient-mode 1)
+  :custom
+  (setq ivy-prescient-enable-filtering nil))
+(use-package company-prescient
+  :after company
+  :config
+  (company-prescient-mode 1))
+
+(setq prescient-sort-length-enable nil)
+(prescient-persist-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;; R auto complete;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)

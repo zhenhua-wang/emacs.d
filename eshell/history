@@ -40,3 +40,11 @@ cd .
 cd 
 cd ~/.emacs.d/
 git add * 
+git commit -m "remove treemacs"
+git push
+delete mode 100644 elpa/lsp-treemacs-20210618.1722/icons/idea/package.png
+clear
+where
+whereis
+cd ~/.emacs.d/
+git add *
