@@ -23,8 +23,13 @@
         org-startup-folded 'content
         org-cycle-separator-lines 2
 	org-confirm-babel-evaluate nil)
+  ;; This is needed as of Org 9.2
+  (require 'org-tempo)
   
-  )
+  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("r" . "src R")))
 
 (use-package org-preview-html :ensure t)
 
@@ -38,9 +43,9 @@
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 ;; Replace list hyphen with dot
- (font-lock-add-keywords 'org-mode
-                         '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (let* ((variable-tuple
         (cond ((x-list-fonts "ETBembo")         '(:font "ETBembo"))

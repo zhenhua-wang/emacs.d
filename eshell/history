@@ -1,67 +1,3 @@
-git comment
-git commit
-find-file file1.txt 
-echo world2 >> file1.txt
-git add file1.txt 
-git commit
-cd ..
-cd git 
-cd Moon/
-ls
-git commit
-emacsclient
-emacsclient file1.txt 
-cd ../git/Moon/
-ls
-git commit
-emacs -nw
-emacs -q
-cd ../git/Moon/
-ls
-git commit
-echo world23 >> file1.txt
-git add file1.txt 
-ls
-git status
-magit
-cd ../git/Moon/
-echo world4 >> file1.txt
-git add * 
-git commit -m "tes t magit"
-echo world5 >> file1.txt
-git add file1.txt 
-htop
-giftogd2 
-ls
-cd ~/.e
-cd ~/.emacs.d/
-ls
-git add *
-git push
-cd
-ssh-keygen -t ed25519 -C "wang_zhenhua1996@icloud.com"
-eval "$(ssh-agent -s)"
-ssh-add -K ~/.ssh/id_ed25519
-cd .emacs.d/
-ls
-git push
-git remote -v
-git credential-osxkeychain
-git config --global credential.helper osxkeychain
-git push
-ls
-cd .emacs.d/
-cd ~/.emacs.d/
-git add *
-git push
-(print 1)
-git status 
-(message "test")
-(list 1 2 3)
-(+ 10 10)
-[1 2]
-ca
- ~/Desktop/workspace/emacs   14:53   0
 cd ~/.emacs.d/
 ls
 cd customization/
@@ -126,3 +62,67 @@ clear
 (let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
 (defun eshell/clear ()  "Clear the eshell buffer."  (let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
 clear
+cd 
+cd .emacs.d/
+ls
+cd lisp/
+ls
+git add init-IDE.el 
+git push
+cd
+cd .emacs.d/
+ls
+cd 
+cd Desktop/
+ls
+cd workspace/emacs/
+ls
+clear
+(clear)
+eshell/clear
+(eshell/clear)
+clear 1
+clear
+clear 1
+cd 
+cd .emacs.d/
+cd lisp/
+ls
+clear 1
+clear
+clear 1
+cd 
+cd .emacs.d/
+ls
+cd lisp/
+ls
+git add init-eshell.el 
+git push
+cd
+ls
+cd Desktop/workspace/git/
+ls
+cd larva/
+ls
+ls ~/.emacs.d/lisp
+ ~/PycharmProjects/nba_analysis   19:59   1
+cd
+cd Desktop/workspace/git/larva/
+ls
+emacs Magit-notes.org
+git add Magit-notes.org 
+ ~/Desktop/workspace/git/larva   master   20:10   7
+cd .
+cd ..
+cd .
+cd ..
+clear 1
+ls
+mkdir elisp
+cd elisp/
+ls ~
+ls ~/.emacs.d/lisp
+cd 
+cd .emacs.d/
+ls
+git add lisp/init-IDE.el lisp/init-org.el lisp/
