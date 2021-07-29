@@ -49,6 +49,13 @@
   :config
   (eshell-syntax-highlighting-global-mode +1))
 
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 ;;;;;;;;;;;;;;;;   custom command    ;;;;;;;;;;;;;;
 
 

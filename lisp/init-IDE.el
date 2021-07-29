@@ -70,6 +70,13 @@
 (use-package grip-mode :ensure t)
 (use-package latex-preview-pane :ensure t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  productivity  ;;;;;;;;;;;;;;;;;;;;;;;;
+;; fly check
+(use-package flycheck
+  :defer t
+  ;; :hook (python-mode . flycheck-mode)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; theme ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package all-the-icons-ibuffer
   :ensure t

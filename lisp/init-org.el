@@ -23,6 +23,9 @@
         org-startup-folded 'content
         org-cycle-separator-lines 2
 	org-confirm-babel-evaluate nil)
+  (setq org-todo-keyword-faces
+	'(("TODO" . (:foreground "orange red" :weight bold))
+	  ("DONE" . (:foreground "green" :weight bold))))
   ;; This is needed as of Org 9.2
   (require 'org-tempo)
   
