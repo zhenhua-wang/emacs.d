@@ -39,7 +39,7 @@
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  (org-superstar-remove-leading-stars t)
+  (org-superstar-remove-leading-stars nil)
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 ;; Replace list hyphen with dot
@@ -59,20 +59,20 @@
   
   (custom-theme-set-faces
    'user
-   `(org-level-8 ((t (,@headline ,@variable-tuple))))
-   `(org-level-7 ((t (,@headline ,@variable-tuple))))
-   `(org-level-6 ((t (,@headline ,@variable-tuple))))
-   `(org-level-5 ((t (,@headline ,@variable-tuple))))
-   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
-   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
-   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
-   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
-   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+   `(org-level-8 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.0))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.05))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.2))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 1.3 :underline nil))))))
 
 (custom-theme-set-faces
  'user
- '(variable-pitch ((t (:family "ETBembo" :height 180))))
- '(fixed-pitch ((t ( :family "Fira Code Retina" :height 160))))
+ '(variable-pitch ((t (:family "Cantarell" :height 180))))
+ '(fixed-pitch ((t ( :family "JetBrains Mono" :height 180))))
  '(org-block ((t (:inherit fixed-pitch))))
  '(org-code ((t (:inherit (shadow fixed-pitch)))))
  '(org-document-info ((t (:foreground "dark orange"))))
