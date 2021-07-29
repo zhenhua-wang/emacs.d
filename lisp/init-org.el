@@ -71,9 +71,9 @@
 
 (custom-theme-set-faces
  'user
- '(default ((t (:family "Fira Code Retina" :height 140))))
+ '(default ((t (:height 140))))
  '(fixed-pitch ((t (:family "Fira Code Retina" :height 140))))
- '(variable-pitch ((t (:family "ETBembo" :height 150 :weight thin))))
+ '(variable-pitch ((t (:family "ETBembo" :height 140 :weight thin))))
  '(org-block ((t (:inherit fixed-pitch))))
  '(org-code ((t (:inherit (shadow fixed-pitch)))))
  '(org-document-info ((t (:foreground "dark orange"))))
