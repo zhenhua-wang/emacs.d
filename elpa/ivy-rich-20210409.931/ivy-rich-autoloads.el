@@ -22,12 +22,14 @@ or call the function `ivy-rich-mode'.")
 (autoload 'ivy-rich-mode "ivy-rich" "\
 Toggle ivy-rich mode globally.
 
+If called interactively, enable Ivy-Rich mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
+
 \(fn &optional ARG)" t nil)
 
-(autoload 'ivy-rich-reload "ivy-rich" "\
-
-
-\(fn)" nil nil)
+(autoload 'ivy-rich-reload "ivy-rich" nil nil nil)
 
 (defvar ivy-rich-project-root-cache-mode nil "\
 Non-nil if Ivy-Rich-Project-Root-Cache mode is enabled.
@@ -41,6 +43,12 @@ or call the function `ivy-rich-project-root-cache-mode'.")
 
 (autoload 'ivy-rich-project-root-cache-mode "ivy-rich" "\
 Toggle ivy-rich-root-cache-mode globally.
+
+If called interactively, enable Ivy-Rich-Project-Root-Cache mode
+if ARG is positive, and disable it if ARG is zero or negative.
+If called from Lisp, also enable the mode if ARG is omitted or
+nil, and toggle it if ARG is `toggle'; disable the mode
+otherwise.
 
 \(fn &optional ARG)" t nil)
 

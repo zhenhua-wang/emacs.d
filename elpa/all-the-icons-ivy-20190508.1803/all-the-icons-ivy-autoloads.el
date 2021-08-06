@@ -1,4 +1,4 @@
-;;; all-the-icons-ivy-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; all-the-icons-ivy-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -13,7 +13,7 @@
 (autoload 'all-the-icons-ivy-setup "all-the-icons-ivy" "\
 Set ivy's display transformers to show relevant icons next to the candidates." nil nil)
 
-(register-definition-prefixes "all-the-icons-ivy" '("all-the-icons-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "all-the-icons-ivy" '("all-the-icons-")))
 
 ;;;***
 

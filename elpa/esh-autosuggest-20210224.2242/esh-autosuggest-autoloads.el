@@ -1,4 +1,4 @@
-;;; esh-autosuggest-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; esh-autosuggest-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -15,7 +15,7 @@
 
 \(fn COMMAND &optional ARG &rest IGNORED)" t nil)
 
-(register-definition-prefixes "esh-autosuggest" '("esh-autosuggest-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "esh-autosuggest" '("esh-autosuggest-")))
 
 ;;;***
 

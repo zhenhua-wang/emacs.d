@@ -1,0 +1,2 @@
+;;; Generated package description from pyvenv.el  -*- no-byte-compile: t -*-
+(define-package "pyvenv" "20210527.829" "Python virtual environment interface" 'nil :commit "045ff9476dac26086a04538d9b7ba186aa8f0fd1" :authors '(("Jorgen Schaefer" . "contact@jorgenschaefer.de")) :maintainer '("Jorgen Schaefer" . "contact@jorgenschaefer.de") :keywords '("python" "virtualenv" "tools") :url "http://github.com/jorgenschaefer/pyvenv")

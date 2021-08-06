@@ -1,4 +1,4 @@
-;;; prescient-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; prescient-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "prescient" "prescient.el" (0 0 0 0))
 ;;; Generated autoloads from prescient.el
 
-(register-definition-prefixes "prescient" '("prescient-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "prescient" '("prescient-")))
 
 ;;;***
 

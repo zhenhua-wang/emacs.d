@@ -1,4 +1,4 @@
-;;; fish-completion-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; fish-completion-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -13,26 +13,17 @@
 (autoload 'fish-completion-mode "fish-completion" "\
 Turn on/off fish shell completion in all future shells or Eshells.
 
-This is a minor mode.  If called interactively, toggle the
-`Fish-Completion mode' mode.  If the prefix argument is positive,
-enable the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `fish-completion-mode'.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Fish-Completion mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 In `shell', completion is replaced by fish completion.
 In `eshell', fish completion is only used when `pcomplete' fails.
 
 \(fn &optional ARG)" t nil)
 
-(register-definition-prefixes "fish-completion" '("fish-completion-" "global-fish-completion-mode" "turn-on-fish-completion-mode"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "fish-completion" '("fish-completion-" "global-fish-completion-mode" "turn-on-fish-completion-mode")))
 
 ;;;***
 

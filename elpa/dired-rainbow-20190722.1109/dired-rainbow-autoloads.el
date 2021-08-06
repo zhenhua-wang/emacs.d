@@ -1,4 +1,4 @@
-;;; dired-rainbow-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; dired-rainbow-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "dired-rainbow" "dired-rainbow.el" (0 0 0 0))
 ;;; Generated autoloads from dired-rainbow.el
 
-(register-definition-prefixes "dired-rainbow" '("dired-rainbow-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dired-rainbow" '("dired-rainbow-")))
 
 ;;;***
 

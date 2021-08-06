@@ -1,4 +1,4 @@
-;;; dired-ranger-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; dired-ranger-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -60,7 +60,7 @@ See also `dired-ranger-bookmark'.
 
 \(fn CHAR)" t nil)
 
-(register-definition-prefixes "dired-ranger" '("dired-ranger-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dired-ranger" '("dired-ranger-")))
 
 ;;;***
 

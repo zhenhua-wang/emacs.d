@@ -24,14 +24,14 @@
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from ein-contents-api.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-contents-api" '("ein:" "*ein:content-hierarchy*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-contents-api" '("*ein:content-hierarchy*" "ein:")))
 
 ;;;***
 
 ;;;### (autoloads nil "ein-core" "ein-core.el" (0 0 0 0))
 ;;; Generated autoloads from ein-core.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-core" '("ein:" "*ein:")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-core" '("*ein:" "ein:")))
 
 ;;;***
 
@@ -39,20 +39,14 @@
 ;;; Generated autoloads from ein-dev.el
 
 (autoload 'ein:dev-start-debug "ein-dev" "\
-Start logging a bunch of stuff.
-
-\(fn)" t nil)
+Start logging a bunch of stuff." t nil)
 
 (autoload 'ein:dev-stop-debug "ein-dev" "\
 Inverse of `ein:dev-start-debug'.
-Impossible to maintain because it needs to match start.
-
-\(fn)" t nil)
+Impossible to maintain because it needs to match start." t nil)
 
 (autoload 'ein:dev-bug-report-template "ein-dev" "\
-Open a buffer with bug report template.
-
-\(fn)" t nil)
+Open a buffer with bug report template." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-dev" '("ein:dev-")))
 
@@ -68,7 +62,7 @@ Open a buffer with bug report template.
 ;;;### (autoloads nil "ein-file" "ein-file.el" (0 0 0 0))
 ;;; Generated autoloads from ein-file.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-file" '("ein:" "*ein:file-buffername-template*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-file" '("*ein:file-buffername-template*" "ein:")))
 
 ;;;***
 
@@ -107,7 +101,7 @@ Open a buffer with bug report template.
 ;;;### (autoloads nil "ein-ipdb" "ein-ipdb.el" (0 0 0 0))
 ;;; Generated autoloads from ein-ipdb.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-ipdb" '("ein:ipdb-" "*ein:ipdb-sessions*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-ipdb" '("*ein:ipdb-sessions*" "ein:ipdb-")))
 
 ;;;***
 
@@ -135,9 +129,7 @@ Shell out to jupyter for its credentials knowledge.  Return list of (PASSWORD TO
 \(fn URL-OR-PORT)" nil nil)
 
 (autoload 'ein:jupyter-crib-running-servers "ein-jupyter" "\
-Shell out to jupyter for running servers.
-
-\(fn)" nil nil)
+Shell out to jupyter for running servers." nil nil)
 
 (autoload 'ein:jupyter-server-start "ein-jupyter" "\
 Start SERVER-COMMAND with `--notebook-dir' NOTEBOOK-DIRECTORY.
@@ -161,7 +153,7 @@ server command.
 
 \(fn &optional ASK-P URL-OR-PORT)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-jupyter" '("ein:" "*ein:jupyter-server-")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-jupyter" '("*ein:jupyter-server-" "ein:")))
 
 ;;;***
 
@@ -207,7 +199,7 @@ Major mode for editing ein:markdown files.
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-markdown-mode" '("ein:markdown" "defun-markdown-")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-markdown-mode" '("defun-markdown-" "ein:markdown")))
 
 ;;;***
 
@@ -241,7 +233,7 @@ where `created' indicates a new notebook or an existing one.
 
 \(fn URL-OR-PORT PATH &optional KERNELSPEC CALLBACK ERRBACK NO-POP)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-notebook" '("ein:" "*ein:notebook--pending-query*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-notebook" '("*ein:notebook--pending-query*" "ein:")))
 
 ;;;***
 
@@ -299,7 +291,7 @@ and the url-or-port argument of ein:notebooklist-open*.
 
 \(fn URL-OR-PORT CALLBACK &optional COOKIE-NAME COOKIE-CONTENT TOKEN)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-notebooklist" '("ein:" "render-" "generate-breadcrumbs")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-notebooklist" '("ein:" "generate-breadcrumbs" "render-")))
 
 ;;;***
 
@@ -368,23 +360,19 @@ and the url-or-port argument of ein:notebooklist-open*.
 ;;; Generated autoloads from ein-shared-output.el
 
 (autoload 'ein:shared-output-pop-to-buffer "ein-shared-output" "\
-Open shared output buffer.
-
-\(fn)" t nil)
+Open shared output buffer." t nil)
 
 (autoload 'ein:shared-output-show-code-cell-at-point "ein-shared-output" "\
 Show code cell at point in shared-output buffer.
 It is useful when the output of the cell at point is truncated.
-See also `ein:cell-max-num-outputs'.
-
-\(fn)" t nil)
+See also `ein:cell-max-num-outputs'." t nil)
 
 (autoload 'ein:shared-output-eval-string "ein-shared-output" "\
 Entry to `ein:cell-execute-internal' from the shared output cell.
 
 \(fn KERNEL CODE &rest ARGS)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-shared-output" '("ein:" "*ein:shared-output*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-shared-output" '("*ein:shared-output*" "ein:")))
 
 ;;;***
 
@@ -392,9 +380,7 @@ Entry to `ein:cell-execute-internal' from the shared output cell.
 ;;; Generated autoloads from ein-traceback.el
 
 (autoload 'ein:tb-show "ein-traceback" "\
-Show full traceback in traceback viewer.
-
-\(fn)" t nil)
+Show full traceback in traceback viewer." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ein-traceback" '("ein:t")))
 
@@ -426,7 +412,7 @@ Show full traceback in traceback viewer.
 
 (when (featurep 'org) (let* ((orig (get 'org-babel-load-languages 'custom-type)) (orig-cdr (cdr orig)) (choices (plist-get orig-cdr :key-type))) (push '(const :tag "Ein" ein) (nthcdr 1 choices)) (put 'org-babel-load-languages 'custom-type (cons (car orig) (plist-put orig-cdr :key-type choices)))))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ob-ein" '("ob-ein-" "*ob-ein-sentinel*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ob-ein" '("*ob-ein-sentinel*" "ob-ein-")))
 
 ;;;***
 

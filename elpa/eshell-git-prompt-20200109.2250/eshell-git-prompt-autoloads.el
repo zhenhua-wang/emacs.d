@@ -1,4 +1,4 @@
-;;; eshell-git-prompt-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; eshell-git-prompt-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -20,7 +20,7 @@ List all available themes and pick one from Eshell.
 
 \(fn &optional THEME)" nil nil)
 
-(register-definition-prefixes "eshell-git-prompt" '("eshell-git-prompt-" "with-face"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "eshell-git-prompt" '("eshell-git-prompt-" "with-face")))
 
 ;;;***
 

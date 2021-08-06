@@ -1,46 +1,29 @@
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
-(defconst *is-a-mac* (eq system-type 'darwin))
+;; load init
+(org-babel-load-file "~/.emacs.d/emacs.org")
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+;;  scratch mode
+(setq initial-major-mode 'org-mode)
 
-;; Load path for manually installed packages
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; print starting time to scratch
+(defun greet-time ()
+  (setq current-hour (string-to-number (format-time-string "%H" (current-time))))
+  (if (or (>= current-hour 20)
+	  (< current-hour 6))
+      (message "Good evening")
+    (if (and (>= current-hour 6)
+	     (< current-hour 12))
+	(message "Good morning")
+      (message "Good afternoon"))))
+(greet-time)
 
-;; load my theme
-(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+;; Profile emacs startup
+(setq startup-time (format "%.2f seconds"
+			   (float-time
+			    (time-subtract after-init-time before-init-time))))
 
-(require 'init-usepackage)
-
-;; *************** my customization ***********************
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))
-
-(add-to-list 'default-frame-alist
-             '(ns-appearance . light)) ;; or dark - depending on your theme
-
-(require 'init-benchmarking) ;; Measure startup time
-
-(require 'init-gui)
-
-(require 'init-dired)
-
-(require 'init-completion)
-
-(require 'init-ivy)
-
-(require 'init-org)
-
-(require 'init-eshell)
-
-(require 'init-IDE)
-
-;; load my customization
-
-;; load some random packages
-(load-file "~/.emacs.d/some-packages/htmlize.el")
-
-
-;; Some key-bindings
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(setq initial-scratch-message (format "%s, %s! The init completed in %s with %d garbage collections.\n\n"
+				      (greet-time)
+				      user-login-name
+				      startup-time
+				      gcs-done))
+;(setq initial-buffer-choice "~/Workspace/test/test.org")

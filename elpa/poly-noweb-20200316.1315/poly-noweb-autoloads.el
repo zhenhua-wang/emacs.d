@@ -12,7 +12,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.nw\\'" . poly-noweb-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "poly-noweb" '("poly-noweb-" "noweb-code-mode")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "poly-noweb" '("noweb-code-mode" "poly-noweb-")))
 
 ;;;***
 

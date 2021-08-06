@@ -50,7 +50,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.cpp[rR]\\'" . poly-c++r-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "poly-R" '("poly-" "pm--")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "poly-R" '("pm--" "poly-")))
 
 ;;;***
 

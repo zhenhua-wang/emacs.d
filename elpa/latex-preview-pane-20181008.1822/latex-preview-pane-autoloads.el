@@ -11,29 +11,15 @@
 ;;; Generated autoloads from latex-preview-pane.el
 
 (autoload 'latex-preview-pane-enable "latex-preview-pane" "\
-Enable `latex-preview-pane-mode' in `latex-mode'.
+Enable `latex-preview-pane-mode' in `latex-mode'." nil nil)
 
-\(fn)" nil nil)
+(autoload 'init-latex-preview-pane "latex-preview-pane" nil nil nil)
 
-(autoload 'init-latex-preview-pane "latex-preview-pane" "\
+(autoload 'latex-preview-update "latex-preview-pane" nil t nil)
 
+(autoload 'latex-preview-pane-update "latex-preview-pane" nil t nil)
 
-\(fn)" nil nil)
-
-(autoload 'latex-preview-update "latex-preview-pane" "\
-
-
-\(fn)" t nil)
-
-(autoload 'latex-preview-pane-update "latex-preview-pane" "\
-
-
-\(fn)" t nil)
-
-(autoload 'latex-preview-pane-update-p "latex-preview-pane" "\
-
-
-\(fn)" nil nil)
+(autoload 'latex-preview-pane-update-p "latex-preview-pane" nil nil nil)
 
 (autoload 'latex-preview-pane-mode "latex-preview-pane" "\
 Toggle Latex Preview Pane Mode.
@@ -44,6 +30,11 @@ Toggle Latex Preview Pane Mode.
      
      When Latex Preview Pane mode is enabled, saving a latex file will cause 
      a PDF preview pane of your document to appear.
+
+If called interactively, enable Latex-Preview-Pane mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 

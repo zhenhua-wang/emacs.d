@@ -1,4 +1,4 @@
-;;; all-the-icons-dired-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; all-the-icons-dired-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -13,24 +13,14 @@
 (autoload 'all-the-icons-dired-mode "all-the-icons-dired" "\
 Display all-the-icons icon for each file in a dired buffer.
 
-This is a minor mode.  If called interactively, toggle the
-`All-The-Icons-Dired mode' mode.  If the prefix argument is
-positive, enable the mode, and if it is zero or negative, disable
-the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `all-the-icons-dired-mode'.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable All-The-Icons-Dired mode if ARG
+is positive, and disable it if ARG is zero or negative.  If
+called from Lisp, also enable the mode if ARG is omitted or nil,
+and toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
-(register-definition-prefixes "all-the-icons-dired" '("all-the-icons-dired-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "all-the-icons-dired" '("all-the-icons-dired-")))
 
 ;;;***
 

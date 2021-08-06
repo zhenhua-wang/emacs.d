@@ -1,4 +1,4 @@
-;;; eshell-syntax-highlighting-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; eshell-syntax-highlighting-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -13,20 +13,11 @@
 (autoload 'eshell-syntax-highlighting-mode "eshell-syntax-highlighting" "\
 Toggle syntax highlighting for Eshell.
 
-This is a minor mode.  If called interactively, toggle the
-`Eshell-Syntax-Highlighting mode' mode.  If the prefix argument
-is positive, enable the mode, and if it is zero or negative,
-disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `eshell-syntax-highlighting-mode'.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Eshell-Syntax-Highlighting mode
+if ARG is positive, and disable it if ARG is zero or negative.
+If called from Lisp, also enable the mode if ARG is omitted or
+nil, and toggle it if ARG is `toggle'; disable the mode
+otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -44,19 +35,17 @@ or call the function `eshell-syntax-highlighting-global-mode'.")
 
 (autoload 'eshell-syntax-highlighting-global-mode "eshell-syntax-highlighting" "\
 Toggle Eshell-Syntax-Highlighting mode in all buffers.
-With prefix ARG, enable Eshell-Syntax-Highlighting-Global mode if
-ARG is positive; otherwise, disable it.  If called from Lisp, enable the
-mode if ARG is omitted or nil.
+With prefix ARG, enable Eshell-Syntax-Highlighting-Global mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
 
 Eshell-Syntax-Highlighting mode is enabled in all buffers where
 `eshell-syntax-highlighting--global-on' would do it.
-
-See `eshell-syntax-highlighting-mode' for more information on
-Eshell-Syntax-Highlighting mode.
+See `eshell-syntax-highlighting-mode' for more information on Eshell-Syntax-Highlighting mode.
 
 \(fn &optional ARG)" t nil)
 
-(register-definition-prefixes "eshell-syntax-highlighting" '("eshell-syntax-highlighting-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "eshell-syntax-highlighting" '("eshell-syntax-highlighting-")))
 
 ;;;***
 

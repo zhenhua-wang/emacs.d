@@ -1,128 +1,128 @@
-cd ~/.emacs.d/
 ls
-cd customization/
+cd R
 ls
-cd ..
-git add *
-git push
+cd x86_64-pc-linux-gnu-library/
 ls
-mkdir packge-custom
-ls
-cd ..
-ls
-cd ~/.emacs.d/
-ls
-mkdir lisp
-ls
-cd ..
-ls
-cd lisp/
-ls
-mv init-gui.el init-starting.el
-mv init-starting.el init-gui.el
-ls
-rm *~
-ls
-rm init-keybinds.el 
-ls
-cd 
-cd .emacs.d/
-ls
- ~/.emacs.d   master   16:52   3
-ls
-rm -r anaconda-mode/
-ls
-mv customize-packages/ some-packages/
-mv -r customize-packages/ some-packages
-open customize-packages/
-open .
-ls
-rm *~
-ls
-cd cus
-cd customization/
-ls
-rm *~
-ls
-cat init_gui.el 
-cat keybinds.el 
- ~/.emacs.d/customization   master   17:39   11
-ls
-rm packge-custom/
-ls
-cd ..
-ls
-git add *
-git push
 cd
-cd .emacs.d/
-tree .
-clear
-(erase-buffer)
-(let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
-(defun eshell/clear ()  "Clear the eshell buffer."  (let ((inhibit-read-only t))    (erase-buffer)    (eshell-send-input)))
-clear
-cd 
-cd .emacs.d/
+R
+rm -r R
 ls
-cd lisp/
+ls -a
+ls .config/
 ls
-git add init-IDE.el 
-git push
-cd
-cd .emacs.d/
-ls
-cd 
-cd Desktop/
-ls
-cd workspace/emacs/
-ls
-clear
-(clear)
-eshell/clear
-(eshell/clear)
-clear 1
-clear
-clear 1
-cd 
-cd .emacs.d/
-cd lisp/
-ls
-clear 1
-clear
-clear 1
-cd 
-cd .emacs.d/
-ls
-cd lisp/
-ls
-git add init-eshell.el 
-git push
+R --slave -e languageserver::run()
+R --slave -e run()
+R --slave -e rnorm
+R --slave -e (rnorm 1)
+R --slave -e "rnorm 1"
+R --slave -e "rnorm(1)"
+R --slave -e "languageserver::run()"
 cd
 ls
-cd Desktop/workspace/git/
+ls R
+ls R/x86_64-pc-linux-gnu-library/4.1/
+cd R
 ls
-cd larva/
-ls
-ls ~/.emacs.d/lisp
- ~/PycharmProjects/nba_analysis   19:59   1
-cd
-cd Desktop/workspace/git/larva/
-ls
-emacs Magit-notes.org
-git add Magit-notes.org 
- ~/Desktop/workspace/git/larva   master   20:10   7
+cat R_logs.txt
+touch R_logs.txt
 cd .
 cd ..
-cd .
-cd ..
-clear 1
+cat R_logs.txt
+cat R/R_logs.txt
 ls
-mkdir elisp
-cd elisp/
-ls ~
-ls ~/.emacs.d/lisp
+cat R/R_logs.txt
+lspci | grep -i net
+lspci
+sudo cpupower frequency-set -g powersave
+ls
 cd 
+cd Workspace/
+ls
+mkdir backups
+rm -r backups/
+rm -r backup
+mkdir backup
+cd Dotfiles/
+ls
+ls -a
+cp -r .emacs.d/ ../backup/
+cd
 cd .emacs.d/
 ls
-git add lisp/init-IDE.el lisp/init-org.el lisp/
+ls customization/
+ls
+rm -r customization/
+ls
+cd lisp/
+ls
+rm *
+cp ~/Workspace/backup/.emacs.d/lisp/init-benchmarking.el .
+ls
+cd ..
+ls
+rm README*
+ls
+cp ~/Workspace/backup/.emacs.d/README* .
+ls
+clear 1
+ls
+rm *~
+ls
+ls some-packages/
+rm -r some-packages/
+ls
+rm -r tutorial/
+ls
+ls OrgFiles/
+ls
+sudo cpupower frequency-set -g ondemand
+ls
+clear 1
+reboot
+ls
+cd .emacs.d/
+ls
+ls auto-save-list/
+ls
+ls auto-save-list/
+rm -r auto-save-list/
+ls
+rm recentf*
+ls
+rm -r var/
+rm recentf 
+cap recentf 
+cp recentf 
+rm -r request/
+rm -f recentf 
+ls -la
+rm -r img
+ls
+cd .emacs.d/
+ls
+rm emacs.el 
+rm emacs-development.el 
+rm emacs.org\~ 
+rm emacs-desktop.el 
+ls
+cd init/
+ls
+rm *~
+ls
+rm init-linux.el 
+ls
+cd .emacs.d/
+ls
+cat README.md 
+clear 1
+ls
+ls lisp/
+ls
+emacs lisp/init-benchmarking.el
+cd 
+ls
+cd .emacs.d/
+ls
+rm elpa/
+rm -r elpa/
+emacs 

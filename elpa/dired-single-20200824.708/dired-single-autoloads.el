@@ -1,4 +1,4 @@
-;;; dired-single-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; dired-single-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -60,7 +60,7 @@ Like `dired-up-directory' but with `dired-single-buffer'.
 
 \(fn &optional OTHER-WINDOW)" t nil)
 
-(register-definition-prefixes "dired-single" '("dired-single-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dired-single" '("dired-single-")))
 
 ;;;***
 
