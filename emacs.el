@@ -238,8 +238,8 @@
     (require 'org-tempo)
     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python"))
-    (add-to-list 'org-structure-template-alist '("r" . "src R")))
+    (add-to-list 'org-structure-template-alist '("py" . "src python :results output :session"))
+    (add-to-list 'org-structure-template-alist '("r" . "src R :session")))
   )
 
 (use-package org-superstar
@@ -334,6 +334,8 @@
 (defun zw\toggle-image-scroll ()
   (pixel-scroll-mode)
   )
+
+;;(setq split-width-threshold 1)
 
 ;; ivy
 (use-package ivy

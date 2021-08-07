@@ -152,6 +152,10 @@
           ([s-tab] . switch-to-buffer)
           ;; udo
           ([?\s-z] . undo)
+          ;; copy cup paste
+          ([?\s-x] . kill-region)
+          ([?\s-c] . kill-ring-save)
+          ([?\s-v] . yank)
 	  
           ;; Move between windows
           ([s-left] . windmove-left)

@@ -32,7 +32,7 @@
 ** main
 #+begin_src emacs-lisp
 (use-package lsp-mode
-  ;; :disabled
+  :disabled
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
@@ -56,8 +56,8 @@
 I also set up lsp-mode for python-mode. It's slightly complicated when runing with pyvenv. If you want to switch LSP to a different server, you need to kill the server (in the case of Python, jedi server) first. Then, rerun LSP
 #+begin_src emacs-lisp
 (use-package lsp-jedi
-  ;; :disabled
-  :after lsp-mode
+  :disabled
+  ;; :after lsp-mode
   :config
   (add-to-list 'lsp-disabled-clients 'pyls)
   (add-to-list 'lsp-enabled-clients 'jedi))
@@ -72,17 +72,17 @@ In order to use a particular language server, you need to add it to the ~'lsp-en
 ** other functions
 #+begin_src emacs-lisp
 (use-package lsp-ui
-  ;; :disabled
+  :disabled
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   lsp-ui-doc-position 'bottom)
 
 (use-package lsp-ivy
-  ;; :disabled
+  :disabled
   :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs
-  ;; :disabled
+  :disabled
   :commands lsp-treemacs-errors-list)
 #+end_src
 
@@ -177,6 +177,28 @@ Here are the polys
   (setenv "WORKON_HOME" "~/anaconda3/envs")
   (pyvenv-mode 1))
 #+end_src
+
+I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all, ~company-jedi~ can work in ~python-mode~, ~org-babel~ and ~EIN~, though it might be litte tedius in ~org-babel~. However, ~lsp-mode~ is totally not working in ~EIN~ (jupyter notebooks). Secondly, ~company-jedi~ is easier to use when you need to switch between python vitual envs. Simply by:
++ ~pyvenv-workon~ pick your current env,
++ ~jedi:stopserver~ restart your jedi server.
+
+  On the other hand, in ~lsp-mode~, you need to kill the server and then restart it (Maybe I didn't find the correct way to do so). 
+
+#+begin_src emacs-lisp
+(use-package company-jedi             
+  ;; :disabled
+  ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+  (setq jedi:use-shortcuts t)
+  (setq python-shell-completion-native-enable nil)
+  (defun config/enable-company-jedi ()
+    (add-to-list 'company-backends 'company-jedi))
+  (add-hook 'python-mode-hook 'config/enable-company-jedi)
+  )
+#+end_src
+
 ** EIN
 #+begin_src emacs-lisp
 (use-package ein
@@ -186,20 +208,6 @@ Here are the polys
   :config
   (setq ein:polymode t)
   )
-#+end_src
-I keep company-jedi in this config as we cannot use lsp-mode in EIN
-
-#+begin_src emacs-lisp
-;; (use-package company-jedi             
-;;    :ensure t
-;;    :config
-;;    (add-hook 'python-mode-hook 'jedi:setup)
-;;    (setq jedi:complete-on-dot t)
-;;    (setq jedi:use-shortcuts t)
-;;    (defun config/enable-company-jedi ()
-;;      (add-to-list 'company-backends 'company-jedi))
-;;    (add-hook 'python-mode-hook 'config/enable-company-jedi)
-;;    )
 #+end_src
 
 * Web

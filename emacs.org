@@ -44,6 +44,8 @@ Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's c
 #+end_src
 ** Package management
 *** package and use-packge
+To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
+
 + ~:hook~ - package will be loaded the first time one of the hooks is invoked
 + ~:bind~ - package will be loaded the first time one of the key bindings if used
 + ~:commands~ - package will be loaded when one of the commands are used
@@ -313,8 +315,8 @@ This part is largely copied from daviwil's course.
     (require 'org-tempo)
     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python"))
-    (add-to-list 'org-structure-template-alist '("r" . "src R")))
+    (add-to-list 'org-structure-template-alist '("py" . "src python :results output :session"))
+    (add-to-list 'org-structure-template-alist '("r" . "src R :session")))
   )
 #+end_src
 ** Beautify org look nice
@@ -421,6 +423,11 @@ This part is largely copied from daviwil's course.
   )
 #+end_src
 * Productivity
+** Custom settings
+*** Set default window split to horizontal split
+#+begin_src emacs-lisp
+;;(setq split-width-threshold 1)
+#+end_src
 ** Counsel & ivy
 *** main
 #+begin_src emacs-lisp

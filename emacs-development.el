@@ -22,7 +22,7 @@
   (company-prescient-mode 1))
 
 (use-package lsp-mode
-  ;; :disabled
+  :disabled
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
@@ -43,24 +43,24 @@
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-jedi
-  ;; :disabled
-  :after lsp-mode
+  :disabled
+  ;; :after lsp-mode
   :config
   (add-to-list 'lsp-disabled-clients 'pyls)
   (add-to-list 'lsp-enabled-clients 'jedi))
 
 (use-package lsp-ui
-  ;; :disabled
+  :disabled
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   lsp-ui-doc-position 'bottom)
 
 (use-package lsp-ivy
-  ;; :disabled
+  :disabled
   :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs
-  ;; :disabled
+  :disabled
   :commands lsp-treemacs-errors-list)
 
 (use-package eglot
@@ -133,6 +133,19 @@
   (setenv "WORKON_HOME" "~/anaconda3/envs")
   (pyvenv-mode 1))
 
+(use-package company-jedi             
+  ;; :disabled
+  ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+  (setq jedi:use-shortcuts t)
+  (setq python-shell-completion-native-enable nil)
+  (defun config/enable-company-jedi ()
+    (add-to-list 'company-backends 'company-jedi))
+  (add-hook 'python-mode-hook 'config/enable-company-jedi)
+  )
+
 (use-package ein
   :disabled
   :init
@@ -140,17 +153,6 @@
   :config
   (setq ein:polymode t)
   )
-
-;; (use-package company-jedi             
-;;    :ensure t
-;;    :config
-;;    (add-hook 'python-mode-hook 'jedi:setup)
-;;    (setq jedi:complete-on-dot t)
-;;    (setq jedi:use-shortcuts t)
-;;    (defun config/enable-company-jedi ()
-;;      (add-to-list 'company-backends 'company-jedi))
-;;    (add-hook 'python-mode-hook 'config/enable-company-jedi)
-;;    )
 
 (use-package impatient-mode
   :ensure simple-httpd
