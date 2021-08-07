@@ -2,7 +2,7 @@
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
 ;;  scratch mode
-(setq initial-major-mode 'org-mode)
+;; (setq initial-major-mode 'org-mode)
 
 ;; print starting time to scratch
 (defun greet-time ()
@@ -21,7 +21,7 @@
 			   (float-time
 			    (time-subtract after-init-time before-init-time))))
 
-(setq initial-scratch-message (format "%s, %s! The init completed in %s with %d garbage collections.\n\n"
+(setq initial-scratch-message (format ";; %s, %s! The init completed in %s with %d garbage collections.\n\n"
 				      (greet-time)
 				      user-login-name
 				      startup-time

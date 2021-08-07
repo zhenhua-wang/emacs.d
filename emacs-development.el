@@ -152,6 +152,12 @@
 ;;    (add-hook 'python-mode-hook 'config/enable-company-jedi)
 ;;    )
 
+(use-package impatient-mode
+  :ensure simple-httpd
+  :ensure htmlize
+  :config
+  (require 'impatient-mode))
+
 (use-package magit
   :commands magit
   :defer t)

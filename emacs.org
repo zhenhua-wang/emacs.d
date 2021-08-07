@@ -111,7 +111,13 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 * UI setting
 ** Theme
 #+begin_src emacs-lisp
-(load-theme 'doom-oceanic-next t)
+
+;; (use-package spacegray-theme)
+(use-package doom-themes)
+;; (use-package gruvbox-theme)
+
+;; (load-theme 'doom-oceanic-next t)
+(load-theme 'doom-wilmersdorf t)
 #+end_src
 
 ** Font face
@@ -152,7 +158,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
   (doom-modeline-github t)
   (doom-modeline-mu4e nil)
   (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
+  (doom-modeline-minor-modes nil)
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-major-mode-icon t)
@@ -166,17 +172,16 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+end_src
+** Use spaces instead of tabs for indentation
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
 ** Other packages
 #+begin_src emacs-lisp
 (use-package command-log-mode
   :commands command-log-mode)
 (use-package neotree
   :commands neotree)
-
-;; (use-package spacegray-theme :ensure t)
-(use-package doom-themes)
-;; (use-package gruvbox-theme :ensure t)
-
 #+end_src
 * Desktop (EXWM)
 This part is largely copied from daviwil's course.

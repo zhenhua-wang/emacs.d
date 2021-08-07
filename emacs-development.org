@@ -202,6 +202,22 @@ I keep company-jedi in this config as we cannot use lsp-mode in EIN
 ;;    )
 #+end_src
 
+* Web
+** Impatience mode
+
+Enable the web server provided by simple-httpd:
+~M-x httpd-start~
+Publish buffers by enabling the minor mode impatient-mode.
+~M-x impatient-mode~
+
+#+begin_src emacs-lisp
+(use-package impatient-mode
+  :ensure simple-httpd
+  :ensure htmlize
+  :config
+  (require 'impatient-mode))
+#+end_src
+
 * Utils
 ** git
 #+begin_src emacs-lisp

@@ -18,7 +18,7 @@
   (efs/start-panel)
 
   ;; Launch apps that will run in the background
-  ;; (efs/run-in-background "dunst")
+  (efs/run-in-background "dunst")
   (efs/run-in-background "nm-applet")
   ;; (efs/run-in-background "pasystray")
   ;; (efs/run-in-background "blueman-applet")
@@ -133,15 +133,15 @@
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-r] . exwm-reset)
-	  
-	  ;; resize window
-	  ([?\s-+] . enlarge-window-horizontally)
-	  ([?\s--] . shrink-window-horizontally)
-	  ([?\s-^] . enlarge-window)
-	  ;; switch tap
-	  ([s-tab] . switch-to-buffer)
-	  ;; udo
-	  ([?\s-z] . undo)
+          
+          ;; resize window
+          ([?\s-+] . enlarge-window-horizontally)
+          ([?\s--] . shrink-window-horizontally)
+          ([?\s-^] . enlarge-window)
+          ;; switch tap
+          ([s-tab] . switch-to-buffer)
+          ;; udo
+          ([?\s-z] . undo)
 	  
           ;; Move between windows
           ([s-left] . windmove-left)
@@ -214,6 +214,11 @@
 
 ;; Update panel indicator when workspace changes
 (add-hook 'exwm-workspace-switch-hook #'efs/send-polybar-exwm-workspace)
+
+(defun efs/dunstctl (command)
+  (start-process-shell-command "dunstctl" nil (concat "dunstctl " command)))
+
+(exwm-input-set-key (kbd "s-n") (lambda () (interactive) (efs/dunstctl "close-all")))
 
 (defun efs/disable-desktop-notifications ()
   (interactive)

@@ -68,7 +68,12 @@
 
 (server-start)
 
-(load-theme 'doom-oceanic-next t)
+;; (use-package spacegray-theme)
+(use-package doom-themes)
+;; (use-package gruvbox-theme)
+
+;; (load-theme 'doom-oceanic-next t)
+(load-theme 'doom-wilmersdorf t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
@@ -104,7 +109,7 @@
   (doom-modeline-github t)
   (doom-modeline-mu4e nil)
   (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
+  (doom-modeline-minor-modes nil)
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-major-mode-icon t)
@@ -116,14 +121,12 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+(setq-default indent-tabs-mode nil)
+
 (use-package command-log-mode
   :commands command-log-mode)
 (use-package neotree
   :commands neotree)
-
-;; (use-package spacegray-theme :ensure t)
-(use-package doom-themes)
-;; (use-package gruvbox-theme :ensure t)
 
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))

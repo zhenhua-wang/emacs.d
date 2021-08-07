@@ -25,7 +25,7 @@
   (efs/start-panel)
 
   ;; Launch apps that will run in the background
-  ;; (efs/run-in-background "dunst")
+  (efs/run-in-background "dunst")
   (efs/run-in-background "nm-applet")
   ;; (efs/run-in-background "pasystray")
   ;; (efs/run-in-background "blueman-applet")
@@ -143,15 +143,15 @@
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-r] . exwm-reset)
-	  
-	  ;; resize window
-	  ([?\s-+] . enlarge-window-horizontally)
-	  ([?\s--] . shrink-window-horizontally)
-	  ([?\s-^] . enlarge-window)
-	  ;; switch tap
-	  ([s-tab] . switch-to-buffer)
-	  ;; udo
-	  ([?\s-z] . undo)
+          
+          ;; resize window
+          ([?\s-+] . enlarge-window-horizontally)
+          ([?\s--] . shrink-window-horizontally)
+          ([?\s-^] . enlarge-window)
+          ;; switch tap
+          ([s-tab] . switch-to-buffer)
+          ;; udo
+          ([?\s-z] . undo)
 	  
           ;; Move between windows
           ([s-left] . windmove-left)
@@ -242,8 +242,15 @@ This change workspace number to icons. I don't plan to use it for now
     (4 "")))
 #+end_src
 * notifications
-not need for now
+
+For some reason (it is very likely that my emacs is not compiled with dbus support), my dunst won't work with ~exec dbus-launch -exit-with-session emacs~. It said it cannot connect to Dbus. I guess it's because the option ~-exit-with-session~ create a temporary Dbus that dunst cannot connect to. After removing this option from ~start-exwm.sh~, everything works fine.
+
 #+begin_src emacs-lisp
+(defun efs/dunstctl (command)
+  (start-process-shell-command "dunstctl" nil (concat "dunstctl " command)))
+
+(exwm-input-set-key (kbd "s-n") (lambda () (interactive) (efs/dunstctl "close-all")))
+
 (defun efs/disable-desktop-notifications ()
   (interactive)
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_PAUSE\""))
