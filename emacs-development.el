@@ -1,25 +1,11 @@
-(use-package company
-  ;; :hook (after-init . global-company-mode)
-  :hook (prog-mode . company-mode)
-  :if (eq system-type 'gnu/linux)
-  :bind
-  (:map company-active-map
-	      ("<tab>" . company-complete-selection))
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
-
-
-(use-package company-box
-  :after company
-  :if (eq system-type 'gnu/linux)
-  :hook (company-mode . company-box-mode))
-
-(use-package company-prescient
-  :after company
-  :if (eq system-type 'gnu/linux)
+(use-package yasnippet
+  :disabled
+  :hook (prog-mode . yas-minor-mode)
+  :ensure yasnippet-snippets
+  :bind (:map yas-minor-mode-map
+              ("<tab>" . yas-maybe-expand))
   :config
-  (company-prescient-mode 1))
+  (yas-reload-all))
 
 (use-package lsp-mode
   :disabled
@@ -128,7 +114,7 @@
 ;;   )
 
 (use-package pyvenv
-  :defer t
+  :hook ((python-mode . pyvenv-mode))
   :config
   (setenv "WORKON_HOME" "~/anaconda3/envs")
   (pyvenv-mode 1))
@@ -182,3 +168,8 @@
 
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode))
+
+;; Automatically clean whitespace
+(use-package ws-butler
+  :hook ((text-mode . ws-butler-mode)
+         (prog-mode . ws-butler-mode)))

@@ -2,32 +2,18 @@
 #+Author: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
-* Company
+
+* TODO Snippets
 #+begin_src emacs-lisp
-(use-package company
-  ;; :hook (after-init . global-company-mode)
-  :hook (prog-mode . company-mode)
-  :if (eq system-type 'gnu/linux)
-  :bind
-  (:map company-active-map
-	      ("<tab>" . company-complete-selection))
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
-
-
-(use-package company-box
-  :after company
-  :if (eq system-type 'gnu/linux)
-  :hook (company-mode . company-box-mode))
-
-(use-package company-prescient
-  :after company
-  :if (eq system-type 'gnu/linux)
+(use-package yasnippet
+  :disabled
+  :hook (prog-mode . yas-minor-mode)
+  :ensure yasnippet-snippets
+  :bind (:map yas-minor-mode-map
+              ("<tab>" . yas-maybe-expand))
   :config
-  (company-prescient-mode 1))
+  (yas-reload-all))
 #+end_src
-
 * LSP mode
 ** main
 #+begin_src emacs-lisp
@@ -172,7 +158,7 @@ Here are the polys
 
 #+begin_src emacs-lisp
 (use-package pyvenv
-  :defer t
+  :hook ((python-mode . pyvenv-mode))
   :config
   (setenv "WORKON_HOME" "~/anaconda3/envs")
   (pyvenv-mode 1))
@@ -180,7 +166,7 @@ Here are the polys
 
 I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all, ~company-jedi~ can work in ~python-mode~, ~org-babel~ and ~EIN~, though it might be litte tedius in ~org-babel~. However, ~lsp-mode~ is totally not working in ~EIN~ (jupyter notebooks). Secondly, ~company-jedi~ is easier to use when you need to switch between python vitual envs. Simply by:
 + ~pyvenv-workon~ pick your current env,
-+ ~jedi:stopserver~ restart your jedi server.
++ ~jedi:stop-server~ restart your jedi server. (sometimes you may need to you ~jedi:stop-all-servers~)
 
   On the other hand, in ~lsp-mode~, you need to kill the server and then restart it (Maybe I didn't find the correct way to do so). 
 
@@ -255,4 +241,8 @@ Publish buffers by enabling the minor mode impatient-mode.
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode))
 
+;; Automatically clean whitespace
+(use-package ws-butler
+  :hook ((text-mode . ws-butler-mode)
+         (prog-mode . ws-butler-mode)))
 #+end_src

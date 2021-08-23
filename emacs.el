@@ -71,31 +71,64 @@
 ;; (use-package spacegray-theme)
 (use-package doom-themes)
 ;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
 
 ;; (load-theme 'doom-oceanic-next t)
 (load-theme 'doom-wilmersdorf t)
+;; (load-theme 'doom-nord t)
+
+;; hightlight current row
+(global-hl-line-mode t)
+
+;; apply a beacon effect to the hightlighted line
+(use-package beacon
+  :config
+  ;; (setq beacon-blink-when-window-scrolls nil)
+  (beacon-mode))
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
-   (set-face-attribute 'default nil
+   (setq zw/font-size 140))
+  ('darwin
+   (setq zw/font-size 180)))
+
+;; set the default face
+(set-face-attribute 'default nil
                        :font "JetBrainsMono Nerd Font"
+                       ;; :background "black"
+                       ;; make fonts less tranparent
+                       :foreground "white"
                        :weight 'medium
-                       :height 140))
-  ('darwin (set-face-attribute 'default nil
-			       :font "Source Sans Pro"
-			       :height 140)))
+                       :height zw/font-size)
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
-		    :font "JetBrainsMono Nerd Font"
-		    :weight 'normal
-		    :height 130)
+                    :font "JetBrainsMono Nerd Font"
+                    ;; :background "black"
+                    :foreground "white"
+                    :weight 'normal
+                    :height zw/font-size)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
-		    :font "Iosevka Aile" ;"Cantarell"
-		    :weight 'light
-		    :height 140)
+                    :font "Iosevka Aile" ;"Cantarell"
+                    ;; :background "black"
+                    :foreground "white"
+                    :weight 'light
+                    :height zw/font-size)
+
+(column-number-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(add-hook 'conf-mode-hook 'display-line-numbers-mode)
+
+
+;; Override some modes which derive from the above
+(dolist (mode '(org-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-init)
@@ -121,15 +154,31 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+  (set-face-foreground 'show-paren-match "#BF616A") ;; set matched color red
+  (show-paren-mode 1))
+
 (setq-default indent-tabs-mode nil)
+
+(defun toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(75 . 75) '(100 . 100)))))
 
 (use-package command-log-mode
   :commands command-log-mode)
 (use-package neotree
   :commands neotree)
-
-(when (eq system-type 'gnu/linux)
-  (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
 
 (use-package exec-path-from-shell
   :init
@@ -138,10 +187,31 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+;; Set default connection mode to SSH
+(setq tramp-default-method "ssh")
+
+(use-package openwith
+  :if (eq system-type 'gnu/linux)
+  :config
+  (setq openwith-associations
+        (list
+         ;; (list (openwith-make-extension-regexp
+         ;;        '("xbm" "pbm" "pgm" "ppm" "pnm"
+         ;;          "png" "gif" "bmp" "tif" "jpeg" "jpg"))
+         ;;       "feh"
+         ;;       '(file))
+         (list (openwith-make-extension-regexp
+                '("pdf"))
+               "zathura"
+               '(file))))
+  (openwith-mode 1))
+
 (use-package dired
+  :straight (:type built-in)
   :ensure nil
   :defer 1
   :commands (dired dired-jump)
+  :bind (("C-c r" . ranger))
   :config
   (setq dired-listing-switches "-agho --group-directories-first"
         dired-omit-files "^\\.[^.].*"
@@ -149,7 +219,7 @@
         dired-hide-details-hide-symlink-targets nil
         delete-by-moving-to-trash t)
   (setq insert-directory-program "ls" dired-use-ls-dired t)        ; sort directories first in dired
-  
+
   (autoload 'dired-omit-mode "dired-x")
 
   (add-hook 'dired-load-hook
@@ -183,13 +253,13 @@
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
 (use-package dired-single
-  :defer t)
+  :defer 1)
 
 (use-package dired-ranger
-  :defer t)
+  :defer 1)
 
 (use-package dired-collapse
-  :defer t)
+  :defer 1)
 
 (use-package all-the-icons-dired
   :hook
@@ -202,13 +272,6 @@
   (org-mode . visual-line-mode)
   :commands (org-capture org-agenda)
   :config
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
-
-  (setq org-agenda-files
-        '("~/.emacs.d/OrgFiles/Tasks.org"))
-
   (setq org-ellipsis " ▾"
         org-hide-emphasis-markers t
         org-src-fontify-natively t
@@ -217,10 +280,16 @@
         org-hide-block-startup nil
         org-startup-folded  t;;'content
         org-cycle-separator-lines 2
-	org-confirm-babel-evaluate nil
-	org-src-preserve-indentation t    ; helps to indent python code in org mode
-	org-src-tab-acts-natively t
-	org-src-strip-leading-and-trailing-blank-lines t)
+        org-confirm-babel-evaluate nil
+        org-src-preserve-indentation t    ; helps to indent python code in org mode
+        org-src-tab-acts-natively t
+        org-src-strip-leading-and-trailing-blank-lines t
+        ;; show edit buffer below the current window, keeping all
+        org-src-window-setup 'split-window-below
+        ;; use user defined image size
+        org-image-actual-width nil
+        ;; make latex formula larger
+        org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (setq org-todo-keyword-faces
 	'(("TODO" . (:foreground "orange red" :weight bold))
 	  ("DONE" . (:foreground "green" :weight bold))))
@@ -233,7 +302,7 @@
        ;; (ipython . t)
        (R . t)
        (ein . t)))
-    
+
     ;; This is needed as of Org 9.2
     (require 'org-tempo)
     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
@@ -241,6 +310,54 @@
     (add-to-list 'org-structure-template-alist '("py" . "src python :results output :session"))
     (add-to-list 'org-structure-template-alist '("r" . "src R :session")))
   )
+
+(setq org-agenda-window-setup 'current-window)
+(setq org-agenda-start-with-log-mode t)
+(setq org-agenda-span 'day)
+(setq org-log-into-drawer t)
+;; Make done tasks show up in the agenda log
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
+
+(setq org-agenda-files
+      '("~/Workspace/Documents/OrgFiles/Tasks.org"
+        "~/Workspace/Documents/OrgFiles/Events.org"))
+
+;; refiling
+(setq org-refile-targets
+      '(("Tasks.org" :maxlevel . 1)
+        ("Events.org" :maxlevel . 1)))
+
+;; Save Org buffers after refiling!
+(advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+(setq org-capture-templates
+      `(("t" "Tasks / Projects")
+        ("tt" "Task" entry (file+olp "~/Workspace/Documents/OrgFiles/Tasks.org" "Inbox")
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+        ("tr" "Research" entry (file+olp "~/Workspace/Documents/OrgFiles/Tasks.org" "Research")
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+        ("ts" "Clocked Entry Subtask" entry (clock)
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+
+        ("e" "Events")
+        ("em" "Meeting" entry
+         (file+olp+datetree "~/Workspace/Documents/OrgFiles/Events.org", "Meeting")
+         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+         :clock-in :clock-resume
+         :empty-lines 1)))
+
+(use-package org-wild-notifier
+  :hook (after-init . org-wild-notifier-mode)
+  :config
+  (setq org-wild-notifier-alert-time '(15))
+  (setq org-wild-notifier-notification-title "Org Agenda")
+  (setq org-wild-notifier--alert-severity 'high)
+  (setq org-wild-notifier--day-wide-events t))
+
+(use-package alert
+  :config
+  (setq alert-default-style 'libnotify))
 
 (use-package org-superstar
   :after org
@@ -265,7 +382,7 @@
 ;; auto tangle
 (use-package org-auto-tangle
   ;; :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory 
-  :defer t
+  :defer 1
   :hook (org-mode . org-auto-tangle-mode))
 
 ;; Replace list hyphen with dot
@@ -273,7 +390,9 @@
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-(let* ((variable-tuple
+(let* (
+       ;; (variable-tuple '(:font "Source Sans Pro"))
+       (variable-tuple
         (cond ((x-list-fonts "ETBembo")         '(:font "ETBembo"))
               ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
               ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
@@ -317,47 +436,136 @@
   :custom
   (org-roam-directory "~/Workspace/Documents/RoamNotes")
   (org-roam-completion-everywhere t)
+  (org-roam-capture-templates
+   '(
+     ;; default template
+     ("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ;; few example templates
+     ("l" "programming language" plain
+      "* Characteristics\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+
+     ("b" "book notes" plain
+      "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+
+     ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+      :unnarrowed t)
+     ))
   :bind (("C-c n l" . org-roam-buffer-toggle)
-	 ("C-c n f" . org-roam-node-find)
-	 ("C-c n i" . org-roam-node-insert)
-	 :map org-mode-map
-	 ("C-M-i"   . completion-at-point))
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"   . completion-at-point))
   :config
   (org-roam-setup))
 
-(defun zw\org-fold-all-but-current ()
+(defun dw/org-present-prepare-slide ()
+  (org-overview)
+  (org-show-entry)
+  (org-show-children))
+
+(defun dw/org-present-hook ()
+  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                     (header-line (:height 4.5) variable-pitch)
+                                     (org-document-title (:height 1.75) org-document-title)
+                                     (org-code (:height 1.55) org-code)
+                                     (org-verbatim (:height 1.55) org-verbatim)
+                                     (org-block (:height 1.25) org-block)
+                                     (org-block-begin-line (:height 0.7) org-block)))
+  (setq header-line-format " ")
+  (org-appear-mode -1)
+  (org-display-inline-images)
+  (dw/org-present-prepare-slide))
+
+(defun dw/org-present-quit-hook ()
+  (setq-local face-remapping-alist '((default variable-pitch default)))
+  (setq header-line-format nil)
+  (org-present-small)
+  (org-remove-inline-images)
+  (org-appear-mode 1))
+
+(defun dw/org-present-prev ()
+  (interactive)
+  (org-present-prev)
+  (dw/org-present-prepare-slide))
+
+(defun dw/org-present-next ()
+  (interactive)
+  (org-present-next)
+  (dw/org-present-prepare-slide))
+
+(use-package org-present
+  :bind (:map org-present-mode-keymap
+         ("C-c n" . dw/org-present-next)
+         ("C-c p" . dw/org-present-prev)
+         ("C-c q" . org-present-quit))
+  :hook ((org-present-mode . dw/org-present-hook)
+         (org-present-mode-quit . dw/org-present-quit-hook)))
+
+(defun zw/org-fold-all-but-current ()
   (interactive)
   (org-remove-occur-highlights)
   (org-overview)
   (org-reveal))
 
-(defun zw\toggle-image-scroll ()
+(defun zw/toggle-image-scroll ()
+  (interactive)
   (pixel-scroll-mode)
   )
 
 ;;(setq split-width-threshold 1)
 
+(use-package company
+  ;; :hook (after-init . global-company-mode)
+  :hook ((prog-mode . company-mode)
+         (eshell-mode . company-mode))
+  ;; :if (eq system-type 'gnu/linux)
+  :bind
+  (:map company-active-map
+        ("<tab>" . company-complete-selection))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0)
+  :config
+  (setq completion-ignore-case t))
+
+
+(use-package company-box
+  :after company
+  ;; :if (eq system-type 'gnu/linux)
+  :hook (company-mode . company-box-mode))
+
+(use-package company-prescient
+  :after company
+  ;; :if (eq system-type 'gnu/linux)
+  :config
+  (company-prescient-mode 1))
+
 ;; ivy
 (use-package ivy
   :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+  :bind (("s-f" . swiper)
+         ("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ;; override s-tab from creating another minibuffer and make it behave mac-like
+         ("s-<tab>" . ivy-next-line) ; "C-j"
+         ;; ("s-SPC" . ivy-next-line)
+         ("<backtab>" . ivy-previous-line))
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-wrap t)
   (setq ivy-count-format "(%d/%d) ")
   (setq enable-recursive-minibuffers t)
+  (setq confirm-nonexistent-file-or-buffer t)
 
   ;; Set minibuffer height for different commands
   (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15)
@@ -365,55 +573,31 @@
   (setf (alist-get 'swiper ivy-height-alist) 15)
   (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
 
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1)
-  :after counsel
-  :config  
-  (setq ivy-format-function #'ivy-format-function-line)
-  (setq ivy-rich-display-transformers-list
-	(plist-put ivy-rich-display-transformers-list
-		   'ivy-switch-buffer
-		   '(:columns
-		     ((ivy-rich-candidate (:width 40))
-		      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
-		      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
-		      (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
-		      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
-		     :predicate
-		     (lambda (cand)
-		       (if-let ((buffer (get-buffer cand)))
-			   ;; Don't mess with EXWM buffers
-			   (with-current-buffer buffer
-			     (not (derived-mode-p 'exwm-mode)))))))))
-
 (use-package counsel
   :demand t
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
+	 ("C-x b" . switch-to-buffer)
 	 ("C-x C-f" . counsel-find-file)
-	 ;; ("C-M-j" . counsel-switch-buffer)
-	 ("C-M-l" . counsel-imenu)
+	 ;; ("C-c b" . counsel-switch-buffer)
+	 ("C-c i" . counsel-imenu)
+         ("C-c s" . 'counsel-search)
 	 :map minibuffer-local-map
 	 ("C-r" . 'counsel-minibuffer-history))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
+  (pcase system-type
+    ('darwin
+     (setq browse-url-browser-function 'xwidget-webkit-browse-url))
+    ('gnu/linux
+     (setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "qutebrowser")))
+  (setq counsel-search-engine 'google)
   (counsel-mode 1))
-
-(use-package all-the-icons-ivy
-  :hook
-  (after-init . all-the-icons-ivy-setup))
-
-(use-package all-the-icons-ivy-rich
-  :init (all-the-icons-ivy-rich-mode 1)
-  :config
-  (setq all-the-icons-ivy-rich-color-icon t))
 
 (use-package flx  ;; Improves sorting for fuzzy-matched results
   :after ivy
-  :defer t
+  :defer 1
   :init
   (setq ivy-flx-limit 10000))
 
@@ -437,13 +621,69 @@
   :config
   (ivy-prescient-mode 1)
   :custom
-  (setq ivy-prescient-enable-filtering nil))
+  (setq ivy-prescient-enable-filtering t)
+  )
 
 (use-package prescient
   :after counsel
   :config
   (prescient-persist-mode 1)
-  (setq prescient-sort-length-enable nil))
+  (setq prescient-sort-length-enable t)
+  ;; (setq prescient-history-length 20)
+  )
+
+(use-package all-the-icons-ivy
+  :hook
+  (after-init . all-the-icons-ivy-setup)
+  :config
+  (setq all-the-icons-ivy-file-commands
+        '(counsel-find-file counsel-recentf counsel-ibuffer counsel-switch-buffer)))
+
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1)
+  :config
+  (setq all-the-icons-ivy-rich-color-icon t))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1)
+  :after counsel
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+  (setq ivy-format-function #'ivy-format-function-line)
+  (setq ivy-rich-display-transformers-list
+        (plist-put ivy-rich-display-transformers-list
+                   'ivy-switch-buffer
+                   '(:columns
+                     ((ivy-rich-candidate (:width 40))
+                      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
+                      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
+                      (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
+                      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
+                     :predicate
+                     (lambda (cand)
+                       (if-let ((buffer (get-buffer cand)))
+                           ;; Don't mess with EXWM buffers
+                           (with-current-buffer buffer
+                             (not (derived-mode-p 'exwm-mode)))))))))
+
+(use-package undo-tree
+  :disabled
+  :init
+  (global-undo-tree-mode 1))
+
+(use-package super-save
+  :defer 1
+  :diminish super-save-mode
+  :config
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
+
+;; Revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
+
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
 
 ;; check word spelling
 (use-package flyspell
@@ -458,27 +698,176 @@
 
 ;; check code syntax
 (use-package flycheck
-  :defer t
-  ;; :hook (python-mode . flycheck-mode)
+  :hook (prog-mode . flycheck-mode)
   )
+
+(use-package winner
+  :config
+  (winner-mode))
+
+;; set preference to horizontal split
+(defun split-window-sensibly-prefer-horizontal (&optional window)
+  "Based on split-window-sensibly, but designed to prefer a horizontal split,
+i.e. windows tiled side-by-side."
+  (interactive)
+  (let ((window (or window (selected-window))))
+    (or (and (window-splittable-p window t)
+             ;; Split window horizontally
+             (with-selected-window window
+               (split-window-right)))
+        (and (window-splittable-p window)
+             ;; Split window vertically
+             (with-selected-window window
+               (split-window-below)))
+        (and
+         (let ((frame (window-frame window)))
+           (or
+            (eq window (frame-root-window frame))
+            (catch 'done
+              (walk-window-tree (lambda (w)
+                                  (unless (or (eq w window)
+                                              (window-dedicated-p w))
+                                    (throw 'done nil)))
+                                frame)
+              t)))
+         (not (window-minibuffer-p window))
+         (let ((split-width-threshold 0))
+           (when (window-splittable-p window t)
+             (with-selected-window window
+               (split-window-right))))))))
+
+(setq split-width-threshold  80
+      split-height-threshold 30
+      ;; xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal
+      )
+
+(use-package ace-window
+  ;:bind (("M-o" . ace-window))
+  :custom
+  (aw-scope 'frame)
+  (aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+  (aw-minibuffer-flag t)
+  :config
+  (ace-window-display-mode 1))
+
+(use-package popper
+  :bind (("s-`"   . popper-toggle-latest)
+         ("M-`"   . popper-cycle)
+         ("s-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("[Oo]utput\\*$"
+          "^\\*Warnings\\*"
+          "^\\*Compile-Log\\*"
+          "^\\*Messages\\*"
+          "^\\*Backtrace\\*"
+          "^\\*ielm\\*"
+          "^\\*Tex Help\\*"
+          "^\\*Shell Command Output\\*"
+          "^\\*Async Shell Command\\*"
+          "^\\*WordNut\\*"
+          "^\\*straight-process\\*"
+          help-mode
+          eshell-mode
+          inferior-ess-r-mode
+          inferior-python-mode
+          message-mode
+          compilation-mode))
+  ;; only show the popper in the same project
+  ;; (setq popper-group-function #'popper-group-by-project)
+  ;; (popper-mode -1)
+  (popper-mode +1))
+
+(setq display-buffer-base-action
+      '(display-buffer-reuse-mode-window
+        display-buffer-reuse-window
+        display-buffer-same-window))
+
+;; If a popup does happen, don't resize windows to be equal-sized
+(setq even-window-sizes nil)
+
+(setq display-buffer-alist
+      '(;; top side window
+        ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.16)
+         (side . top)
+         (slot . 0))
+        ("\\*Messages.*"
+         (display-buffer-in-side-window)
+         (window-height . 0.16)
+         (side . top)
+         (slot . 1))
+        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+         (display-buffer-in-side-window)
+         (window-height . 0.16)
+         (side . top)
+         (slot . 2))
+        ;; left side window
+        ("\\*Help.*"            ; See the hooks for `visual-line-mode'
+         (display-buffer-in-side-window)
+         (window-width . 0.5)
+         (side . right)
+         (slot . -1))
+        ;; bottom buffer (NOT side window)
+        ("\\*.*\\(e?shell\\|v?term\\).*"
+         (display-buffer-reuse-mode-window display-buffer-at-bottom)
+         (window-height . 0.35))
+        ;; below current window
+        ("\\*Calendar.*"
+         (display-buffer-reuse-mode-window display-buffer-below-selected)
+         (window-height . shrink-window-if-larger-than-buffer))))
+
+;; If a popup does happen, don't resize windows to be equal-sized
+(setq even-window-sizes nil)
 
 ;; preview markdown
 (use-package grip-mode)
-(use-package latex-preview-pane)
+
+;; latex
+(use-package tex
+  :ensure auctex
+  :straight (:type built-in)
+  :config
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-save-query nil))
+
+;; epub
+(use-package nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+;; pdf
+(use-package pdf-tools
+  :pin manual ;; don't reinstall when package updates
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (pdf-tools-install :no-query)
+  (require 'pdf-occur)
+  (setq pdf-view-use-scaling t
+        pdf-view-use-imagemagick t)
+  ;; revert the PDF-buffer after the TeX compilation has finished
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  )
+
+(use-package wordnut)
 
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-  
+
   ;; Truncate buffer for performance
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-  
+
   ;; Use completion-at-point to provide completions in eshell
   (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
   ;; (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point)
-  
+  ;; (define-key eshell-mode-map (kbd "<tab>") 'company-complete)
+
   (setenv "PAGER" "cat")
-  
+
   (setq eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
@@ -490,7 +879,7 @@
 (use-package eshell
   :hook (eshell-first-time-mode . efs/configure-eshell)
   :config
-  
+
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim")))
@@ -500,13 +889,15 @@
 (use-package fish-completion
   :hook (eshell-mode . fish-completion-mode))
 
-
+;; show complete history
 (use-package esh-autosuggest
+  ;; :disabled
   :hook (eshell-mode . esh-autosuggest-mode)
   :config
   (setq esh-autosuggest-delay 0.5)
   (set-face-foreground 'company-preview-common "#4b5668")
-  (set-face-background 'company-preview nil))
+  (set-face-background 'company-preview nil)
+  )
 
 ;; command highlight
 (use-package eshell-syntax-highlighting
@@ -515,24 +906,54 @@
   (eshell-syntax-highlighting-global-mode +1))
 
 (use-package eshell-info-banner
-  :defer t
+  :disabled
   :straight (eshell-info-banner :type git
                                 :host github
                                 :repo "phundrak/eshell-info-banner.el")
-  :hook (eshell-banner-load . eshell-info-banner-update-banner))
+  :hook (eshell-banner-load . eshell-info-banner-update-banner)
+  )
 
 ;; themes
-;; (load-file "~/.emacs.d/customization/esh-custom.el")
 (use-package eshell-prompt-extras
+  :after esh-mode
   :config
   (with-eval-after-load "esh-opt"
     (autoload 'epe-theme-lambda "eshell-prompt-extras")
-    (setq eshell-highlight-prompt t     ; damn! this means ineditable prompt! 
+    (setq eshell-highlight-prompt t     ; damn! this means ineditable prompt!
           eshell-prompt-function 'epe-theme-lambda))
   )
+
+(defun zw/show-eshell()
+  (interactive)
+  ;; (select-window (split-window-vertically -15))
+  (eshell)
+  ;; (text-scale-set 0.7)
+  )
+
+(when (eq system-type 'gnu/linux)
+  (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
 
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-development.org"))
 
+(when (eq system-type 'gnu/linux)
+  (org-babel-load-file "~/.emacs.d/emacs-system.org"))
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; undo
+(global-set-key (kbd "s-z") 'undo)
+;; cut copy paste
+(global-set-key (kbd "s-x") 'kill-region)
+(global-set-key (kbd "s-c") 'kill-ring-save)
+(global-set-key (kbd "s-v") 'yank)
+;; window
+(global-set-key (kbd "s-w") 'delete-window)
+(global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
+
+;; check dict
+(global-set-key (kbd "C-c w") 'wordnut-search)
+(global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
+
+;; toggle transparency
+(global-set-key (kbd "C-c t") 'toggle-transparency)

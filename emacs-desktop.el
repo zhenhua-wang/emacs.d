@@ -1,237 +1,305 @@
-(defun efs/run-in-background (command)
+(defun exwm/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-(defun efs/set-wallpaper ()
+(defun exwm/set-wallpaper ()
   (interactive)
-  ;; NOTE: You will need to update this to a valid background path!
+  ;; a good one! "/usr/share/wallpapers/Next/contents/images/5120x2880.png"
   (start-process-shell-command
-   "feh" nil  "feh --bg-scale /usr/share/wallpapers/Next/contents/images/5120x2880.png"))
-(defun efs/exwm-init-hook ()
+   "feh" nil  "feh --bg-scale ~/Pictures/pexels-eberhard-grossgasteiger-1287145.jpg"))
+
+(defun exwm/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
 
-  ;; Open eshell by default
-  ;; (eshell)
-
   ;; Start the Polybar panel
-  (efs/start-panel)
+  (exwm/start-panel)
 
   ;; Launch apps that will run in the background
-  (efs/run-in-background "dunst")
-  (efs/run-in-background "nm-applet")
-  ;; (efs/run-in-background "pasystray")
-  ;; (efs/run-in-background "blueman-applet")
+  (exwm/run-in-background "dunst")
+  (exwm/run-in-background "nm-applet")
+  ;; (exwm/run-in-background "pasystray")
+  (exwm/run-in-background "udiskie --no-automount -t")
+  ;; (exwm/run-in-background "blueman-applet")
   )
 
-(defun efs/exwm-update-class ()
+(defun exwm/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
-(defun efs/exwm-update-title ()
+(defun exwm/exwm-update-title ()
   (pcase exwm-class-name
-    ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
+    ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+    ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title)))
+    ("mpv" (exwm-workspace-rename-buffer (format "mpv: %s" exwm-title)))
+    ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))
+    ("Evince" (exwm-workspace-rename-buffer (format "Evince: %s" exwm-title)))))
 
 ;; This function isn't currently used, only serves as an example how to
 ;; position a window
-(defun efs/position-window ()
+(defun exwm/position-window ()
   (let* ((pos (frame-position))
          (pos-x (car pos))
-          (pos-y (cdr pos)))
-
+         (pos-y (cdr pos)))
     (exwm-floating-move (- pos-x) (- pos-y))))
 
-(defun efs/configure-window-by-class ()
+(defun exwm/configure-window-by-class ()
   (interactive)
   (pcase exwm-class-name
-    ("Firefox" (exwm-workspace-move-window 2))
-    ("Sol" (exwm-workspace-move-window 3))
-    ("mpv" (exwm-floating-toggle-floating)
-           (exwm-layout-toggle-mode-line))))
+    ("VirtualBox Manager" (exwm-workspace-move-window 3))
+    ("qutebrowser" (exwm-workspace-move-window 2))
+    ("URxvt" (exwm-floating-toggle-floating)
+     (exwm-layout-toggle-mode-line))
+    ("mpv" (exwm-workspace-move-window 2))))
 
 ;; This function should be used only after configuring autorandr!
-(defun efs/update-displays ()
-  (efs/run-in-background "autorandr --change --force")
-  (efs/set-wallpaper)
+(defun exwm/update-displays ()
+  (exwm/run-in-background "autorandr --change --force")
+  (exwm/set-wallpaper)
   (message "Display config: %s"
            (string-trim (shell-command-to-string "autorandr --current"))))
 
 (use-package exwm
+  :init
+  (setq
+   ;; Window focus should follow the mouse pointer
+   mouse-autoselect-window t
+   focus-follows-mouse t
+   ;; Automatically send the mouse cursor to the selected workspace's display
+   exwm-workspace-warp-cursor t
+   ;; Set the default number of workspaces
+   exwm-workspace-number 5)
   :config
-  ;; Set the default number of workspaces
-  (setq exwm-workspace-number 5)
-
   ;; When window "class" updates, use it to set the buffer name
-  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+  (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
 
   ;; When window title updates, use it to set the buffer name
-  (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
+  (add-hook 'exwm-update-title-hook #'exwm/exwm-update-title)
 
   ;; Configure windows as they're created
-  (add-hook 'exwm-manage-finish-hook #'efs/configure-window-by-class)
+  (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
 
   ;; When EXWM starts up, do some extra confifuration
-  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+  (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
-  ;; Rebind CapsLock to Ctrl
+  ;; load xmodmap for system key mapping
   (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
-
-  ;; NOTE: Uncomment the following two options if you want window buffers
-  ;;       to be available on all workspaces!
-
-  ;; Automatically move EXWM buffer to current workspace when selected
-  ;; (setq exwm-layout-show-all-buffers t)
-
-  ;; Display all EXWM buffers in every workspace buffer list
-  ;; (setq exwm-workspace-show-all-buffers t)
-
-  ;; NOTE: Uncomment this option if you want to detach the minibuffer!
-  ;; Detach the minibuffer (show it with exwm-workspace-toggle-minibuffer)
-  ;;(setq exwm-workspace-minibuffer-position 'top)
 
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
-  (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --mode 2880x1800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --off --output VIRTUAL1 --off")
+  ;; (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --mode 2880x1800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --off --output VIRTUAL1 --off")
+  (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --primary --mode 2880x1800 --pos 0x1080 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --mode 2560x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off")
+
 
   ;; This will need to be updated to the name of a display!  You can find
   ;; the names of your displays by looking at arandr or the output of xrandr
-  (setq exwm-randr-workspace-monitor-plist '(2 "Virtual-2" 3 "Virtual-2"))
+  (setq exwm-randr-workspace-monitor-plist '(2 "HDMI3" 3 "Virtual-2"))
 
   ;; NOTE: Uncomment these lines after setting up autorandr!
   ;; React to display connectivity changes, do initial display update
-  ;; (add-hook 'exwm-randr-screen-change-hook #'efs/update-displays)
-  ;; (efs/update-displays)
+  ;; (add-hook 'exwm-randr-screen-change-hook #'exwm/update-displays)
+  ;; (exwm/update-displays)
 
   ;; Set the wallpaper after changing the resolution
-  (efs/set-wallpaper)
+  (exwm/set-wallpaper)
 
-  ;; Automatically send the mouse cursor to the selected workspace's display
-  (setq exwm-workspace-warp-cursor t)
+  ;; Hide the modeline on all X windows
+  ;; (exwm-layout-hide-mode-line)
 
-  ;; Window focus should follow the mouse pointer
-  (setq mouse-autoselect-window t
-        focus-follows-mouse t)
-
-  ;; These keys should always pass through to Emacs
-  (setq exwm-input-prefix-keys
-    '(?\C-x
-      ?\C-u
-      ?\C-h
-      ?\M-x
-      ?\M-`
-      ?\M-&
-      ?\M-:
-      ?\C-\M-j  ;; Buffer list
-      ?\C-\ ))  ;; Ctrl+Space
-
-  ;; Ctrl+Q will enable the next key to be sent directly
-  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-
-  ;; Set up global key bindings.  These always work, no matter the input state!
-  ;; Keep in mind that changing this list after EXWM initializes has no effect.
-  (setq exwm-input-global-keys
-        `(
-          ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-          ([?\s-r] . exwm-reset)
-          
-          ;; resize window
-          ([?\s-+] . enlarge-window-horizontally)
-          ([?\s--] . shrink-window-horizontally)
-          ([?\s-^] . enlarge-window)
-          ;; switch tap
-          ([s-tab] . switch-to-buffer)
-          ;; udo
-          ([?\s-z] . undo)
-          ;; copy cup paste
-          ([?\s-x] . kill-region)
-          ([?\s-c] . kill-ring-save)
-          ([?\s-v] . yank)
-	  
-          ;; Move between windows
-          ([s-left] . windmove-left)
-          ([s-right] . windmove-right)
-          ([s-up] . windmove-up)
-          ([s-down] . windmove-down)
-
-          ;; Launch applications via shell command
-          ([?\s-&] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command command nil command)))
-
-          ;; Switch workspace
-          ([?\s-w] . exwm-workspace-switch)
-          ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-
-          ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
-                        (lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 9))))
-
-  (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
+  ;; enable resize from right side
+  (setq window-divider-default-right-width 1)
+  (window-divider-mode)
 
   (exwm-enable))
+
+;; These keys should always pass through to Emacs
+(eval-after-load 'exwm
+  (lambda ()
+    (setq exwm-input-prefix-keys
+          '(?\C-x
+            ;; ?\C-u
+            ?\C-h
+            ?\M-x
+            ?\s-`
+            ?\M-`
+            ?\M-&
+            ?\M-:
+            ;; ?\C-\M-j  ;; Buffer list
+            ;; ?\C-\
+            ))  ;; Ctrl+Space
+
+    ;; Ctrl+Q will enable the next key to be sent directly
+    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+    ;; Set up global key bindings.
+    (setq exwm-input-global-keys
+          `(
+            ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+            ;; ([?\s-R] . exwm-reset)
+            ([?\s-R] . exwm-input-toggle-keyboard)
+
+            ;; switch buffer
+            ([s-tab] . switch-to-buffer)
+            ;;close current buffer
+            ([?\s-q] . kill-this-buffer)
+
+            ;; resize window
+            ([?\s-+] . enlarge-window-horizontally)
+            ([?\s--] . shrink-window-horizontally)
+            ([?\s-^] . enlarge-window)
+            ;; Move between windows
+            ([s-left] . windmove-left)
+            ([s-right] . windmove-right)
+            ([s-up] . windmove-up)
+            ([s-down] . windmove-down)
+            ([?\s-o] . ace-window)
+            ;; winner undo/redo
+            ([?\s-u] . winner-undo)
+            ([?\s-U] . winner-redo)
+
+            ;; Launch applications via shell command
+            ([?\s-&] . (lambda (command)
+                         (interactive (list (read-shell-command "$ ")))
+                         (start-process-shell-command command nil command)))
+
+            ;; ([?\s-\ ] . counsel-linux-app)
+            ([?\s-\ ] . (lambda ()
+                          (interactive)
+                          (call-process-shell-command "rofi -show"))) ;; interestingly, start-process-shell-command isn't working in this case
+
+            ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+            ,@(mapcar (lambda (i)
+                        `(,(kbd (format "M-s-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (exwm-workspace-switch-create ,i))))
+                      (number-sequence 0 9))))
+
+    (exwm-input-set-key (kbd "<XF86LaunchA>") 'exwm-workspace-switch)
+    (exwm-input-set-key (kbd "s-i") 'zw/get-system-info)
+    (exwm-input-set-key (kbd "s-e") 'zw/show-eshell)
+    ;; unbind keys in EXWM line-mode
+
+    ))
 
 (use-package desktop-environment
   :after exwm
   :config (desktop-environment-mode)
-  :bind (("<XF86KbdBrightnessUp>" . desktop-environment-keyboard-backlight-increment)
-	 ("<XF86KbdBrightnessDown>" . desktop-environment-keyboard-backlight-decrement)
-	 ("<XF86MonBrightnessUp>" . desktop-environment-brightness-increment)
-	 ("<XF86MonBrightnessDown>" . desktop-environment-brightness-decrement)
-	 ("<XF86AudioRaiseVolume>" . desktop-environment-volume-increment)
-	 ("<XF86MonBrightnessDown>" . desktop-environment-volume-decrement)
-	 ("<XF86AudioMute>" . desktop-environment-toggle-mute)
-	 ("C-s-5". desktop-environment-screenshot))
   :custom
   (desktop-environment-brightness-small-increment "2%+")
   (desktop-environment-brightness-small-decrement "2%-")
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
+  (desktop-environment-keyboard-backlight-normal-increment 70)
+  (desktop-environment-keyboard-backlight-normal-decrement -70)
+  :config
+  (exwm-input-set-key (kbd "<XF86KbdBrightnessUp>") 'desktop-environment-keyboard-backlight-increment)
+  (exwm-input-set-key (kbd "<XF86KbdBrightnessDown>") 'desktop-environment-keyboard-backlight-decrement)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") 'desktop-environment-brightness-increment)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-brightness-decrement)
+  (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") 'desktop-environment-volume-increment)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-volume-decrement)
+  (exwm-input-set-key (kbd "<XF86AudioMute>") 'desktop-environment-toggle-mute)
+  (exwm-input-set-key (kbd "C-s-5") '(lambda ()
+                                       (interactive)
+                                       (desktop-environment-screenshot)
+                                       (sleep-for 0.2)
+                                       (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\""))))
 
-  (desktop-environment-keyboard-backlight-normal-increment 20)
-  (desktop-environment-keyboard-backlight-normal-decrement -20)
-  )
-
-(defvar efs/polybar-process nil
+(defvar exwm/polybar-process nil
   "Holds the process of the running Polybar instance, if any")
 
-(defun efs/kill-panel ()
+(defun exwm/kill-panel ()
   (interactive)
-  (when efs/polybar-process
+  (when exwm/polybar-process
     (ignore-errors
-      (kill-process efs/polybar-process)))
-  (setq efs/polybar-process nil))
+      (kill-process exwm/polybar-process)))
+  (setq exwm/polybar-process nil))
 
-(defun efs/start-panel ()
+(defun exwm/start-panel ()
   (interactive)
-  (efs/kill-panel)
-  (setq efs/polybar-process (start-process-shell-command "polybar" nil "polybar panel")))
+  (exwm/kill-panel)
+  (setq exwm/polybar-process (start-process-shell-command "polybar" nil "polybar panel")))
 
-(defun efs/send-polybar-hook (module-name hook-index)
+(defun exwm/send-polybar-hook (module-name hook-index)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
 
-(defun efs/send-polybar-exwm-workspace ()
-  (efs/send-polybar-hook "exwm-workspace" 1))
+(defun exwm/send-polybar-exwm-workspace ()
+  (exwm/send-polybar-hook "exwm-workspace" 1))
 
 ;; Update panel indicator when workspace changes
-(add-hook 'exwm-workspace-switch-hook #'efs/send-polybar-exwm-workspace)
+(add-hook 'exwm-workspace-switch-hook #'exwm/send-polybar-exwm-workspace)
 
-(defun efs/dunstctl (command)
+;; chinese
+(use-package chinese-number
+  :config
+  (setq chinese-number--use-lowercase t))
+
+(defun exwm/polybar-exwm-workspace-chinese ()
+  (car (last (split-string (chinese-number--convert-arabic-to-chinese
+                       exwm-workspace-current-index)))))
+
+;; roman
+(defun exwm/polybar-exwm-workspace-roman ()
+  (pcase exwm-workspace-current-index
+    (0 "N")
+    (1 "I")
+    (2 "II")
+    (3 "III")
+    (4 "IV")
+    (5 "V")))
+
+(defun exwm/dunstctl (command)
   (start-process-shell-command "dunstctl" nil (concat "dunstctl " command)))
 
-(exwm-input-set-key (kbd "s-n") (lambda () (interactive) (efs/dunstctl "close-all")))
+(exwm-input-set-key (kbd "s-n") (lambda () (interactive) (exwm/dunstctl "close-all")))
+(exwm-input-set-key (kbd "s-m") (lambda () (interactive) (exwm/dunstctl "history-pop")))
 
-(defun efs/disable-desktop-notifications ()
+(defun exwm/disable-desktop-notifications ()
   (interactive)
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_PAUSE\""))
 
-(defun efs/enable-desktop-notifications ()
+(defun exwm/enable-desktop-notifications ()
   (interactive)
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_RESUME\""))
 
-(defun efs/toggle-desktop-notifications ()
+(defun exwm/toggle-desktop-notifications ()
   (interactive)
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_TOGGLE\""))
+
+(defun zw/battery-status ()
+  "Outputs the battery percentage from acpi."
+  (let  ((battery-percent  (replace-regexp-in-string 
+                            ".*?\\([0-9.]+\\)%.*" "\\1%"
+                            (battery))))
+    (floor (string-to-number battery-percent))))
+
+;; I messed up with pcase..
+(defun zw/battery-status-icon (battery-percent)
+  "Outputs icon based the battery percentage from acpi."
+  (cond 
+   ((<= battery-percent 10) "")
+   ((<= battery-percent 20) "")
+   ((<= battery-percent 30) "")
+   ((<= battery-percent 40) "")
+   ((<= battery-percent 50) "")
+   ((<= battery-percent 60) "")
+   ((<= battery-percent 70) "")
+   ((<= battery-percent 80) "")
+   ((<= battery-percent 95) "")
+   ((> battery-percent 95)  "")))
+
+;; acpi not working for tempurature
+(defun zw/temperature ()
+  (replace-regexp-in-string
+   ".*? \\([0-9\.]+\\) .*" "Temp: \\1°C "
+   (substring (shell-command-to-string "acpi -t") 0 -1)))
+
+(defun zw/get-system-info ()
+  (interactive)
+  (let ((battery-percent (zw/battery-status)))
+    (start-process-shell-command "notify-send" nil
+                                 (format "notify-send \"%s: %s%%\n: %s\""
+                                         (zw/battery-status-icon battery-percent)
+                                         battery-percent
+                                         (format-time-string "%I:%M %p" (current-time))))))
