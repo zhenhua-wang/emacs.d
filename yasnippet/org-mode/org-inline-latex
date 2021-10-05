@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: inline latex block
+# key: <il
+# --
+
+\[ $0 \]

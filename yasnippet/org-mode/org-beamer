@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: beamer template
+# key: <beamer
+# --
+
+#+title: ${1:title}
+#+AUTHOR: Zhenhua Wang
+#+EMAIL:     zhenhua.wang@mail.missouri.edu
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:t \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:   d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
+
+$0

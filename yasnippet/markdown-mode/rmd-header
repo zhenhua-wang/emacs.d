@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: markdown header
+# key: <header
+# --
+
+---
+title: ${1:title}
+author: "Zhenhua Wang"
+output: pdf_document
+---
+
+$0

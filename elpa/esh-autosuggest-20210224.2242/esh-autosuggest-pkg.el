@@ -1,2 +1,0 @@
-;;; Generated package description from esh-autosuggest.el  -*- no-byte-compile: t -*-
-(define-package "esh-autosuggest" "20210224.2242" "History autosuggestions for eshell" '((emacs "24.4") (company "0.9.4")) :commit "30203fc7b8b63a489f34f74ca8b041bf61f4358f" :authors '(("Diego A. Mundo" . "dieggsy@pm.me")) :maintainer '("Diego A. Mundo" . "dieggsy@pm.me") :keywords '("completion" "company" "matching" "convenience" "abbrev") :url "http://github.com/dieggsy/esh-autosuggest")

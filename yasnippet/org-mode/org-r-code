@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: r source code
+# key: <r
+# --
+
+#+ATTR_LATEX: :options frame=lines
+#+begin_src R :session :results output :exports both
+$0
+#+end_src

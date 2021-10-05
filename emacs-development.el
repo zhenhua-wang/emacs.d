@@ -1,11 +1,8 @@
 (use-package yasnippet
-  :disabled
-  :hook (prog-mode . yas-minor-mode)
-  :ensure yasnippet-snippets
-  :bind (:map yas-minor-mode-map
-              ("<tab>" . yas-maybe-expand))
   :config
-  (yas-reload-all))
+  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
+  ;; (add-to-list 'company-backends 'company-yasnippet)
+  (yas-global-mode 1))
 
 (use-package lsp-mode
   :disabled
@@ -36,17 +33,14 @@
   (add-to-list 'lsp-enabled-clients 'jedi))
 
 (use-package lsp-ui
-  :disabled
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   lsp-ui-doc-position 'bottom)
 
 (use-package lsp-ivy
-  :disabled
   :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs
-  :disabled
   :commands lsp-treemacs-errors-list)
 
 (use-package eglot
@@ -58,12 +52,13 @@
 
 (use-package ess
   :defer t
+  :mode "\\.R|.r\\'"
   :config
   ;; (require 'ess-site)
-  (require 'ess-r-mode)  
+  (require 'ess-r-mode)
   ;; ess syntax highlight
   (setq ess-default-style 'RStudio-)
-  ;; Do not ask for ess startup location 
+  ;; Do not ask for ess startup location
   (setq ess-ask-for-ess-directory nil)
   ;; To make a new process start with just *R* for the below
   ;; shift enter
@@ -75,15 +70,18 @@
   (setq comint-scroll-to-bottom-on-input t)
   (setq comint-scroll-to-bottom-on-output t)
   (setq comint-move-point-for-output t)
+  ;; company completion
+  ;; (setq ess-r-company-backends
+        ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
   )
 
 (use-package markdown-mode
   ;;:ensure auctex
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode)
-	 ("\\.Rmd\\'" . markdown-mode))
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.Rmd\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
   :config
   (setq markdown-enable-math t)
@@ -96,6 +94,7 @@
   :ensure poly-R
   :ensure poly-noweb
   :ensure polymode
+  :ensure adaptive-wrap
   :config
   ;; R/tex polymodes
   (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
@@ -103,7 +102,6 @@
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   (setq markdown-enable-math t)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  ;; 
   )
 
 ;; (use-package python-mode
@@ -117,9 +115,10 @@
   :hook ((python-mode . pyvenv-mode))
   :config
   (setenv "WORKON_HOME" "~/anaconda3/envs")
+  ;; (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
 
-(use-package company-jedi             
+(use-package company-jedi
   ;; :disabled
   ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
   :config
@@ -140,6 +139,15 @@
   (setq ein:polymode t)
   )
 
+(use-package lua-mode)
+
+(use-package web-mode
+  :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
+  :config
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-attribute-indent-offset 2))
+
 (use-package impatient-mode
   :ensure simple-httpd
   :ensure htmlize
@@ -147,11 +155,16 @@
   (require 'impatient-mode))
 
 (use-package magit
-  :commands magit
+  :bind ("C-M-;" . magit-status)
+  :commands (magit-status magit-get-current-branch)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package magit-todos
   :defer t)
 
 (use-package which-key
-  :defer 0
+  :defer 1
   :init 
   :diminish which-key-mode
   :config

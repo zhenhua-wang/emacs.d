@@ -18,8 +18,9 @@
   ;; Launch apps that will run in the background
   (exwm/run-in-background "dunst")
   (exwm/run-in-background "nm-applet")
-  ;; (exwm/run-in-background "pasystray")
+  (exwm/run-in-background "pasystray")
   (exwm/run-in-background "udiskie --no-automount -t")
+  (exwm/run-in-background "ibus-daemon -drxR")
   ;; (exwm/run-in-background "blueman-applet")
   )
 
@@ -31,6 +32,9 @@
     ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
     ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title)))
     ("mpv" (exwm-workspace-rename-buffer (format "mpv: %s" exwm-title)))
+    ("libreoffice-writer" (exwm-workspace-rename-buffer (format "Libre-Writer: %s" exwm-title)))
+    ("libreoffice-impress" (exwm-workspace-rename-buffer (format "Libre-Slides: %s" exwm-title)))
+    ("okular" (exwm-workspace-rename-buffer (format "Okular: %s" exwm-title)))
     ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))
     ("Evince" (exwm-workspace-rename-buffer (format "Evince: %s" exwm-title)))))
 
@@ -45,11 +49,32 @@
 (defun exwm/configure-window-by-class ()
   (interactive)
   (pcase exwm-class-name
-    ("VirtualBox Manager" (exwm-workspace-move-window 3))
-    ("qutebrowser" (exwm-workspace-move-window 2))
-    ("URxvt" (exwm-floating-toggle-floating)
-     (exwm-layout-toggle-mode-line))
-    ("mpv" (exwm-workspace-move-window 2))))
+    ;; media
+    ("mpv"
+     (exwm-workspace-move-window 3)
+     (exwm-workspace-switch-create 3))
+    ;; social
+    ("Prospect Mail"
+     (exwm-workspace-move-window 4)
+     (exwm-workspace-switch-create 4))
+    ("discord"
+     (exwm-workspace-move-window 4)
+     (exwm-workspace-switch-create 4))
+    ("Slack"
+     (exwm-workspace-move-window 4)
+     (exwm-workspace-switch-create 4))
+    ("Qq"
+     (exwm-workspace-move-window 4)
+     (exwm-workspace-switch-create 4))
+    ;; vm
+    ("VirtualBox Manager"
+     (exwm-workspace-move-window 5)
+     (exwm-workspace-switch-create 5))
+    ;; floating utils
+    ("URxvt"
+     (exwm-floating-toggle-floating))
+    ("Emacs"
+     (exwm-floating-toggle-floating))))
 
 ;; This function should be used only after configuring autorandr!
 (defun exwm/update-displays ()
@@ -62,13 +87,32 @@
   :init
   (setq
    ;; Window focus should follow the mouse pointer
-   mouse-autoselect-window t
-   focus-follows-mouse t
+   mouse-autoselect-window nil
+   focus-follows-mouse nil
    ;; Automatically send the mouse cursor to the selected workspace's display
    exwm-workspace-warp-cursor t
    ;; Set the default number of workspaces
-   exwm-workspace-number 5)
+   exwm-workspace-number 6
+   ;; show buffer in all workspace
+   exwm-workspace-show-all-buffers nil
+   ;; able to move to buffer in inactive space
+   exwm-layout-show-all-buffers nil
+   )
   :config
+  ;; (require 'exwm-xim)
+  ;; (exwm-xim-enable)
+  ;; use ibus-rime for X11 apps
+  (setenv "GTK_IM_MODULE" "ibus")
+  (setenv "QT_IM_MODULE" "ibus")
+  (setenv "XMODIFIERS" "@im=ibus")
+  (setenv "LC_CTYPE" "zh_CN.UTF-8")
+
+  ;; set dpi
+  (setenv "QT_SCALE_FACTOR" "2")
+  ;; (setenv "QT_AUTO_SCREEN_SCALE_FACTOR" "1")
+  ;; (setenv "GDK_SCALE" "2")
+  ;; (setenv "GDK_DPI_SCALE" "0.5")
+
   ;; When window "class" updates, use it to set the buffer name
   (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
 
@@ -87,28 +131,33 @@
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
-  ;; (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --mode 2880x1800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --off --output VIRTUAL1 --off")
-  (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --primary --mode 2880x1800 --pos 0x1080 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --mode 2560x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off")
-
+  (start-process-shell-command "xrandr" nil "xrandr --output eDP1 --primary --mode 2880x1800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output HDMI3 --scale 1.5x1.5 --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off")
 
   ;; This will need to be updated to the name of a display!  You can find
   ;; the names of your displays by looking at arandr or the output of xrandr
-  (setq exwm-randr-workspace-monitor-plist '(2 "HDMI3" 3 "Virtual-2"))
+  (setq exwm-randr-workspace-monitor-plist '(0 "HDMI3" 3 "Virtual-2"))
 
   ;; NOTE: Uncomment these lines after setting up autorandr!
   ;; React to display connectivity changes, do initial display update
-  ;; (add-hook 'exwm-randr-screen-change-hook #'exwm/update-displays)
-  ;; (exwm/update-displays)
+  (add-hook 'exwm-randr-screen-change-hook #'exwm/update-displays)
+  (exwm/update-displays)
 
   ;; Set the wallpaper after changing the resolution
   (exwm/set-wallpaper)
 
   ;; Hide the modeline on all X windows
-  ;; (exwm-layout-hide-mode-line)
+  (add-hook 'exwm-floating-setup-hook
+            (lambda ()
+              (exwm-layout-hide-mode-line)))
 
   ;; enable resize from right side
   (setq window-divider-default-right-width 1)
   (window-divider-mode)
+
+  ;; system tray
+  ;; (require 'exwm-systemtray)
+  ;; (setq exwm-systemtray-height 30)
+  ;; (exwm-systemtray-enable)
 
   (exwm-enable))
 
@@ -124,6 +173,7 @@
             ?\M-`
             ?\M-&
             ?\M-:
+            ?\C-\\
             ;; ?\C-\M-j  ;; Buffer list
             ;; ?\C-\
             ))  ;; Ctrl+Space
@@ -144,7 +194,7 @@
             ([?\s-q] . kill-this-buffer)
 
             ;; resize window
-            ([?\s-+] . enlarge-window-horizontally)
+            ([?\s-=] . enlarge-window-horizontally)
             ([?\s--] . shrink-window-horizontally)
             ([?\s-^] . enlarge-window)
             ;; Move between windows
@@ -178,6 +228,14 @@
     (exwm-input-set-key (kbd "<XF86LaunchA>") 'exwm-workspace-switch)
     (exwm-input-set-key (kbd "s-i") 'zw/get-system-info)
     (exwm-input-set-key (kbd "s-e") 'zw/show-eshell)
+    ;; projectile find file
+    (exwm-input-set-key (kbd "s-p") 'counsel-projectile-switch-project)
+
+    (defun zw/show-urxvt ()
+      (interactive)
+      (start-process-shell-command "urxvt" nil "urxvt"))
+    (exwm-input-set-key (kbd "C-s-t") 'zw/show-urxvt)
+
     ;; unbind keys in EXWM line-mode
 
     ))
@@ -204,7 +262,8 @@
                                        (interactive)
                                        (desktop-environment-screenshot)
                                        (sleep-for 0.2)
-                                       (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\""))))
+                                       (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
+  (exwm-input-set-key (kbd "C-s-4") 'desktop-environment-screenshot-part))
 
 (defvar exwm/polybar-process nil
   "Holds the process of the running Polybar instance, if any")
@@ -232,6 +291,7 @@
 
 ;; chinese
 (use-package chinese-number
+  :disabled
   :config
   (setq chinese-number--use-lowercase t))
 
@@ -254,18 +314,6 @@
 
 (exwm-input-set-key (kbd "s-n") (lambda () (interactive) (exwm/dunstctl "close-all")))
 (exwm-input-set-key (kbd "s-m") (lambda () (interactive) (exwm/dunstctl "history-pop")))
-
-(defun exwm/disable-desktop-notifications ()
-  (interactive)
-  (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_PAUSE\""))
-
-(defun exwm/enable-desktop-notifications ()
-  (interactive)
-  (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_RESUME\""))
-
-(defun exwm/toggle-desktop-notifications ()
-  (interactive)
-  (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_TOGGLE\""))
 
 (defun zw/battery-status ()
   "Outputs the battery percentage from acpi."

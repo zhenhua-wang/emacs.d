@@ -1,14 +1,15 @@
 #!/bin/sh
 # Set the screen DPI (uncomment this if needed!)
 xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi 
-xrandr --dpi 168                  # set default app dpi
+# xrandr --dpi 168                  # set default app dpi
 
 
 # Run the screen compositor
-compton &
+# picom &
+picom --config  ~/.config/picom.conf -b
 
 # Enable screen locking on suspend
-xscreensaver --no-splash &
+# xscreensaver --no-splash &
 # xss-lock -- slock &
 # xss-lock -- i3lock -n -i ~/Pictures/XJu51Ly-arch-linux-wallpaper.png &
 
@@ -16,6 +17,9 @@ xscreensaver --no-splash &
 export VISUAL=emacsclient
 export EDITOR="$VISUAL"
 
+# start polybar wth theme
+# bash ~/.config/polybar/launch.sh --material
+
 # Fire it up
-# exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el 
-exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el 
+# exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el
+exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el

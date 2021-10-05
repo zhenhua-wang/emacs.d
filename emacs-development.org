@@ -3,16 +3,13 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
-* TODO Snippets
+* Snippets
 #+begin_src emacs-lisp
 (use-package yasnippet
-  :disabled
-  :hook (prog-mode . yas-minor-mode)
-  :ensure yasnippet-snippets
-  :bind (:map yas-minor-mode-map
-              ("<tab>" . yas-maybe-expand))
   :config
-  (yas-reload-all))
+  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
+  ;; (add-to-list 'company-backends 'company-yasnippet)
+  (yas-global-mode 1))
 #+end_src
 * LSP mode
 ** main
@@ -38,6 +35,10 @@
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
 #+end_src
+
+#+RESULTS:
+: efs/lsp-mode-setup
+
 ** python-LSP
 I also set up lsp-mode for python-mode. It's slightly complicated when runing with pyvenv. If you want to switch LSP to a different server, you need to kill the server (in the case of Python, jedi server) first. Then, rerun LSP
 #+begin_src emacs-lisp
@@ -58,17 +59,14 @@ In order to use a particular language server, you need to add it to the ~'lsp-en
 ** other functions
 #+begin_src emacs-lisp
 (use-package lsp-ui
-  :disabled
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   lsp-ui-doc-position 'bottom)
 
 (use-package lsp-ivy
-  :disabled
   :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs
-  :disabled
   :commands lsp-treemacs-errors-list)
 #+end_src
 
@@ -90,12 +88,13 @@ It has been outperformed in several aspect by LSP-mode. Eg, LSP-mode has better 
 #+begin_src emacs-lisp
 (use-package ess
   :defer t
+  :mode "\\.R|.r\\'"
   :config
   ;; (require 'ess-site)
-  (require 'ess-r-mode)  
+  (require 'ess-r-mode)
   ;; ess syntax highlight
   (setq ess-default-style 'RStudio-)
-  ;; Do not ask for ess startup location 
+  ;; Do not ask for ess startup location
   (setq ess-ask-for-ess-directory nil)
   ;; To make a new process start with just *R* for the below
   ;; shift enter
@@ -107,6 +106,9 @@ It has been outperformed in several aspect by LSP-mode. Eg, LSP-mode has better 
   (setq comint-scroll-to-bottom-on-input t)
   (setq comint-scroll-to-bottom-on-output t)
   (setq comint-move-point-for-output t)
+  ;; company completion
+  ;; (setq ess-r-company-backends
+        ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
   )
 #+end_src
 ** RMD
@@ -117,9 +119,9 @@ The idea is to run poly-R/markdown within the markdown mode
   ;;:ensure auctex
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode)
-	 ("\\.Rmd\\'" . markdown-mode))
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.Rmd\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
   :config
   (setq markdown-enable-math t)
@@ -135,6 +137,7 @@ Here are the polys
   :ensure poly-R
   :ensure poly-noweb
   :ensure polymode
+  :ensure adaptive-wrap
   :config
   ;; R/tex polymodes
   (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
@@ -142,9 +145,11 @@ Here are the polys
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
   (setq markdown-enable-math t)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  ;; 
   )
 #+end_src
+
+#+RESULTS:
+
 * Python
 ** python-mode
 #+begin_src emacs-lisp
@@ -156,11 +161,13 @@ Here are the polys
 ;;   )
 #+end_src
 
+In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
 #+begin_src emacs-lisp
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
   (setenv "WORKON_HOME" "~/anaconda3/envs")
+  ;; (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
 #+end_src
 
@@ -171,7 +178,7 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   On the other hand, in ~lsp-mode~, you need to kill the server and then restart it (Maybe I didn't find the correct way to do so). 
 
 #+begin_src emacs-lisp
-(use-package company-jedi             
+(use-package company-jedi
   ;; :disabled
   ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
   :config
@@ -196,13 +203,25 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   )
 #+end_src
 
+* Lua
+#+begin_src emacs-lisp
+(use-package lua-mode)
+#+end_src
 * Web
+** Web mode
+#+begin_src emacs-lisp
+(use-package web-mode
+  :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
+  :config
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-attribute-indent-offset 2))
+#+end_src
 ** Impatience mode
 
-Enable the web server provided by simple-httpd:
-~M-x httpd-start~
-Publish buffers by enabling the minor mode impatient-mode.
-~M-x impatient-mode~
+1. Enable the web server provided by simple-httpd: ~M-x httpd-start~
+2. Publish buffers by enabling the minor mode impatient-mode. ~M-x impatient-mode~
+3. And then point your browser to http://localhost:8080/imp/, select a buffer, and watch your changes appear as you type!
 
 #+begin_src emacs-lisp
 (use-package impatient-mode
@@ -216,14 +235,19 @@ Publish buffers by enabling the minor mode impatient-mode.
 ** git
 #+begin_src emacs-lisp
 (use-package magit
-  :commands magit
+  :bind ("C-M-;" . magit-status)
+  :commands (magit-status magit-get-current-branch)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package magit-todos
   :defer t)
 #+end_src
 
 ** other packages
 #+begin_src emacs-lisp
 (use-package which-key
-  :defer 0
+  :defer 1
   :init 
   :diminish which-key-mode
   :config

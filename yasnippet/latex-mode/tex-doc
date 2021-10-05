@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: tex document template
+# key: <tex
+# --
+
+\documentclass[12pt]{article}
+\setlength\parindent{0pt}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\title{${1:title}}
+\author{Zhenhua Wang}
+
+\maketitle
+
+$0
+
+% --------------------------------------------------------------
+%     You don't have to mess with anything below this line.
+% --------------------------------------------------------------
+
+\end{document}
