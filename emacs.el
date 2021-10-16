@@ -804,7 +804,6 @@ i.e. windows tiled side-by-side."
 ;; latex
 (use-package tex
   :ensure auctex
-  :straight (:type built-in)
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq

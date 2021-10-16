@@ -151,6 +151,7 @@
   (setq-default web-mode-attribute-indent-offset 2))
 
 (use-package impatient-mode
+  :straight t
   :ensure simple-httpd
   :ensure htmlize
   :config
