@@ -84,7 +84,7 @@
 (pcase system-type
   ('gnu/linux (load-theme 'doom-wilmersdorf t))
   ('darwin (load-theme 'doom-nova t))
-  ('windows-nt (load-theme 'doom-spacegray t)))
+  ('windows-nt (load-theme 'doom-nord t)))
 
 ;; hightlight current row
 (global-hl-line-mode t)
@@ -1058,7 +1058,7 @@ i.e. windows tiled side-by-side."
        ;; (ipython . t)
        (R . t)
        (shell . t)
-       (ein . t)
+       ;; (ein . t)
        (lisp . t)
        (latex . t)
        (teximg . t)))

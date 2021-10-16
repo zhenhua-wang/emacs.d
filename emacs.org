@@ -1292,7 +1292,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
        ;; (ipython . t)
        (R . t)
        (shell . t)
-       (ein . t)
+       ;; (ein . t)
        (lisp . t)
        (latex . t)
        (teximg . t)))
