@@ -1,2 +1,0 @@
-;;; Generated package description from eshell-syntax-highlighting.el  -*- no-byte-compile: t -*-
-(define-package "eshell-syntax-highlighting" "20210429.413" "Highlight eshell commands" '((emacs "25.1")) :commit "32d2568ebeb42553a30dda77e03c0e2ec8854199" :authors '(("Alex Kreisher" . "akreisher18@gmail.com")) :maintainer '("Alex Kreisher" . "akreisher18@gmail.com") :keywords '("convenience") :url "https://github.com/akreisher/eshell-syntax-highlighting")
