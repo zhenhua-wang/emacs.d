@@ -9,7 +9,8 @@
       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering)
+(use-package no-littering
+  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
 
 ;; Keep customization settings in a temporary file (thanks Ambrevar!)
 (setq custom-file
@@ -68,6 +69,8 @@
 
 (server-start)
 
+(when (display-graphic-p) (setq confirm-kill-emacs 'yes-or-no-p))
+
 (use-package spacegray-theme)
 (use-package doom-themes)
 (use-package gruvbox-theme)
@@ -80,7 +83,8 @@
 
 (pcase system-type
   ('gnu/linux (load-theme 'doom-wilmersdorf t))
-    ('darwin (load-theme 'doom-spacegrey t)))
+  ('darwin (load-theme 'doom-nova t))
+  (‘windows-nt (load-theme 'doom-spacegray t)))
 
 ;; hightlight current row
 (global-hl-line-mode t)
@@ -96,11 +100,11 @@
   ((or 'gnu/linux 'windows-nt 'cygwin)
    (setq zw/font-size 140))
   ('darwin
-   (setq zw/font-size 180)))
+   (setq zw/font-size 140)))
 
 ;; set the default face
 (set-face-attribute 'default nil
-                       :font "JetBrainsMono Nerd Font"
+                       :font "FiraMono Nerd Font"
                        ;; :background "black"
                        ;; make fonts less tranparent
                        :foreground "white"
@@ -133,28 +137,39 @@
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+(use-package moody
+  :disabled
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
 (use-package minions
   :hook (doom-modeline-mode . minions-mode))
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-init)
   :custom-face
-  (mode-line ((t (:height 0.5))))
-  (mode-line-inactive ((t (:height 0.5))))
+  (mode-line ((t (:height 1))))
+  (mode-line-inactive ((t (:height 1))))
   :custom
   (doom-modeline-height 10)
-  (doom-modeline-bar-width 6)
+  (doom-modeline-bar-width 5)
   (doom-modeline-lsp t)
   (doom-modeline-github t)
   (doom-modeline-mu4e nil)
   (doom-modeline-irc t)
-  (doom-modeline-minor-modes nil)
+  (doom-modeline-minor-modes t)
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-major-mode-icon t)
   :config
   (doom-modeline-mode 1)
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (if (eq system-type 'darwin)
+      (progn
+        (display-battery-mode)
+        (display-time-mode))))
 
 (use-package rainbow-delimiters
   :config
@@ -224,8 +239,8 @@
          (list (openwith-make-extension-regexp
                 '("pdf"))
                ;; "zathura"
-               "okular"
-               ;; "evince"
+               ;; "okular"
+               "evince"
                '(file))
          ;;I promise I will get rid of this someday..
          (list (openwith-make-extension-regexp
@@ -257,10 +272,7 @@
   (company-dabbrev-ignore-case nil)
   (company-selection-wrap-around t)
   (company-minimum-prefix-length 1)
-  (company-tooltip-align-annotations t)
-  (company-backends '((company-capf :with company-yasnippet)
-                           (company-dabbrev-code company-keywords company-files)
-                           company-dabbrev)))
+  (company-tooltip-align-annotations t))
 
 (use-package company-fuzzy
   :disabled
@@ -285,11 +297,14 @@
   :init
   (setq company-math-allow-latex-symbols-in-faces  t)
   :config
-  (defun org-latex-setup ()
+  (defun my-latex-setup ()
     (setq-local company-backends
                 (append '((company-math-symbols-latex company-latex-commands))
                         company-backends)))
-  (add-hook 'org-mode-hook 'org-latex-setup))
+  (add-hook 'org-mode-hook 'my-latex-setup)
+  (add-hook 'markdown-mode-hook 'my-latex-setup)
+  (add-hook 'LaTeX-mode-hook 'my-latex-setup)
+  (add-hook 'latex-mode-hook 'my-latex-setup))
 
 (use-package company-box
   :diminish
@@ -542,7 +557,7 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ;; ("C-c b" . counsel-switch-buffer)
 	 ("C-c i" . counsel-imenu)
-         ("C-c s" . 'counsel-search)
+         ("C-c l" . 'counsel-search)
 	 :map minibuffer-local-map
 	 ("C-r" . 'counsel-minibuffer-history))
   :custom
@@ -729,10 +744,10 @@ i.e. windows tiled side-by-side."
           "^\\*Async Shell Command\\*"
           "^\\*WordNut\\*"
           "^\\*straight-process\\*"
+          "^\\*help[R].*"
           help-mode
           eshell-mode
-          inferior-ess-r-mode
-          inferior-python-mode
+          vterm-mode
           message-mode
           compilation-mode))
   ;; only show the popper in the same project
@@ -766,7 +781,7 @@ i.e. windows tiled side-by-side."
          (side . top)
          (slot . 2))
         ;; left side window
-        ("\\*Help.*"            ; See the hooks for `visual-line-mode'
+        ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
          (display-buffer-in-side-window)
          (window-width . 0.5)
          (side . right)
@@ -790,6 +805,7 @@ i.e. windows tiled side-by-side."
 (use-package tex
   :ensure auctex
   :straight (:type built-in)
+  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq
    Tex-PDF-mode t
@@ -815,12 +831,6 @@ i.e. windows tiled side-by-side."
   (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
-;; preview latex
-(use-package latex-preview-pane
-  :disabled
-  :config
-  (latex-preview-pane-enable))
-
 ;; epub
 (use-package nov
   :defer 1
@@ -828,17 +838,20 @@ i.e. windows tiled side-by-side."
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;; pdf
+;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
-  :disabled
+  :if (eq system-type 'darwin)
   :pin manual ;; don't reinstall when package updates
   :magic ("%PDF" . pdf-view-mode)
+  :bind (:map pdf-view-mode-map
+              ("C-s" . isearch-forward))
   :config
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (pdf-tools-install :no-query)
   (require 'pdf-occur)
-  (setq pdf-view-use-scaling t
-        pdf-view-use-imagemagick t)
+  (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+        pdf-view-use-imagemagick nil)
   )
 
 (use-package wordnut)
@@ -981,17 +994,26 @@ i.e. windows tiled side-by-side."
   ;; (text-scale-set 0.7)
   )
 
+(use-package vterm
+  :ensure t
+  :bind
+  ((:map vterm-copy-mode-map
+         ("<return>" . vterm-copy-mode))
+   (:map vterm-mode-map
+         ("s-e" . delete-window))))
+
 (use-package org
   :hook
   (org-mode . org-indent-mode)
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . turn-on-org-cdlatex)
-  (org-mode . cdlatex-mode)
   ;; this is defined in "beautify org mode" section
   ;; (org-mode . org-icons)
   ;; refresh image after executing codes
   ;; (org-babel-after-execute . org-redisplay-inline-images)
+  :bind (:map org-mode-map
+              ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
   :commands (org-capture org-agenda)
   ;; :bind (:map org-mode-map
               ;; ("<C-tab>" . org-latex-preview))
@@ -1014,9 +1036,16 @@ i.e. windows tiled side-by-side."
    ;; show edit buffer below the current window, keeping all
    org-src-window-setup 'split-window-below
    ;; use user defined image size
-   org-image-actual-width nil
-   ;; make latex formula larger
-   org-format-latex-options (plist-put org-format-latex-options :scale 3.4))
+   org-image-actual-width nil)
+  ;; make latex formula larger
+  (pcase system-type
+    ((or 'gnu/linux 'windows-nt 'cygwin)
+     (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
+    ('darwin
+     (progn
+       (setq org-format-latex-options (plist-put org-format-latex-options :scale 2))
+       (setq org-latex-create-formula-image-program 'dvisvgm))))
+
   (setq org-todo-keyword-faces
 	'(("TODO" . (:foreground "orange red" :weight bold))
 	  ("DONE" . (:foreground "green" :weight bold))))
@@ -1070,6 +1099,7 @@ i.e. windows tiled side-by-side."
 
 (use-package org-fragtog
   :hook
+  :disabled
   (org-mode . org-fragtog-mode))
 
 (setq org-agenda-window-setup 'current-window)
@@ -1214,6 +1244,7 @@ i.e. windows tiled side-by-side."
   :init
   (setq org-roam-v2-ack t)
   :custom
+  (setq org-roam-db-location "~/.emacs.d/org-roam.db")
   (org-roam-directory "~/Workspace/Documents/RoamNotes")
   (org-roam-completion-everywhere t)
   (org-roam-capture-templates
@@ -1309,6 +1340,15 @@ i.e. windows tiled side-by-side."
 ;; teximg
 (require 'ob-teximg)
 
+;; (bind-key (kbd "<M-left>") 'xwidget-webkit-back xwidget-webkit-mode-map)
+;; (bind-key (kbd "<M-right>") 'xwidget-webkit-forward xwidget-webkit-mode-map)
+
+(add-hook 'xwidget-webkit-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "<M-left>") 'xwidget-webkit-back)
+             (local-set-key (kbd "<M-right>") 'xwidget-webkit-forward)
+             ))
+
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
 
@@ -1342,3 +1382,14 @@ i.e. windows tiled side-by-side."
 ;; toggle input
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 (bind-key "C-`" 'rime-send-keybinding rime-mode-map)
+
+;; consistent with EXWM
+(if (eq system-type 'darwin)
+    (progn
+      ;; vterm
+      (global-set-key (kbd "s-e") 'vterm)
+      ;; winner undo/redo
+      (global-set-key (kbd "s-u") 'winner-undo)
+      (global-set-key (kbd "s-U") 'winner-redo)
+      ;; projectile find file
+      (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)))

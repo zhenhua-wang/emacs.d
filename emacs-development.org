@@ -11,6 +11,7 @@
   ;; (add-to-list 'company-backends 'company-yasnippet)
   (yas-global-mode 1))
 #+end_src
+
 * LSP mode
 ** main
 #+begin_src emacs-lisp
@@ -111,6 +112,7 @@ It has been outperformed in several aspect by LSP-mode. Eg, LSP-mode has better 
         ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
   )
 #+end_src
+
 ** RMD
 The idea is to run poly-R/markdown within the markdown mode
 
@@ -123,8 +125,11 @@ The idea is to run poly-R/markdown within the markdown mode
          ("\\.markdown\\'" . markdown-mode)
          ("\\.Rmd\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
+  :custom
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-header-scaling t)
+  (markdown-enable-math t)
   :config
-  (setq markdown-enable-math t)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode)
   )
@@ -133,7 +138,6 @@ The idea is to run poly-R/markdown within the markdown mode
 Here are the polys
 #+begin_src emacs-lisp
 (use-package poly-markdown
-  :after markdwon-mode
   :ensure poly-R
   :ensure poly-noweb
   :ensure polymode
@@ -207,6 +211,7 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 #+begin_src emacs-lisp
 (use-package lua-mode)
 #+end_src
+
 * Web
 ** Web mode
 #+begin_src emacs-lisp

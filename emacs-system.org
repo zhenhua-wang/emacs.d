@@ -300,7 +300,7 @@ modules-right = temperature battery
 ; tray-position = none
 tray-position = right
 tray-padding = 2
-tray-maxsize = 25
+tray-maxsize = 28
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -354,7 +354,7 @@ format = <ramp> <label>
 format-foreground = ${colors.foreground}
 format-padding = 1
 
-format-warn = <ramp> <label-warn>
+format-warn = <label-warn>
 format-warn-foreground = ${colors.red}
 format-warn-padding = 1
 

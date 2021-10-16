@@ -355,6 +355,7 @@ This change workspace number to icons. I don't plan to use it for now
     (4 "IV")
     (5 "V")))
 #+end_src
+
 * Notifications
 
 For some reason (it is very likely that my emacs is not compiled with dbus support), my dunst won't work with ~exec dbus-launch -exit-with-session emacs~. It said it cannot connect to Dbus. I guess it's because the option ~-exit-with-session~ create a temporary Dbus that dunst cannot connect to. After removing this option from ~start-exwm.sh~, everything works fine.

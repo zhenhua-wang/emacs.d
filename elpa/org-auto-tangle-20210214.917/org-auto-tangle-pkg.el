@@ -1,2 +1,0 @@
-;;; Generated package description from org-auto-tangle.el  -*- no-byte-compile: t -*-
-(define-package "org-auto-tangle" "20210214.917" "Automatically and Asynchronously tangles org files on save" '((emacs "24.1") (async "1.9.3")) :commit "ea2ca74a68eb44d935b7240ffc8f19c8a4db334a" :authors '(("Yilkal Argaw")) :maintainer '("Yilkal Argaw") :keywords '("outlines") :url "https://github.com/yilkalargaw/org-auto-tangle")

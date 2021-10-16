@@ -83,14 +83,16 @@
          ("\\.markdown\\'" . markdown-mode)
          ("\\.Rmd\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
+  :custom
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-header-scaling t)
+  (markdown-enable-math t)
   :config
-  (setq markdown-enable-math t)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode)
   )
 
 (use-package poly-markdown
-  :after markdwon-mode
   :ensure poly-R
   :ensure poly-noweb
   :ensure polymode

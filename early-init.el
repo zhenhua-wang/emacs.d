@@ -29,7 +29,9 @@
 		 (add-to-list 'default-frame-alist '(alpha . (85 . 85))))))
   ('darwin (
             (lambda ()
-              (setq default-frame-alist '((width . 80) (height . 50)))
+              ;; (setq default-frame-alist '((width . 120) (height . 50)))
+              (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+              (add-to-list 'default-frame-alist '(fullscreen . maximized))
               ;; no title bar for mac
               (add-to-list 'default-frame-alist
                            '(ns-transparent-titlebar . t))
