@@ -309,7 +309,7 @@
 
 (use-package company-box
   :diminish
-  :if (display-graphic-p)
+  :if (and (display-graphic-p) (not (eq system-type 'windows-nt)))
   :defines company-box-icons-all-the-icons
   :hook (company-mode . company-box-mode)
   :custom
