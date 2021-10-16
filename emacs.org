@@ -49,6 +49,10 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 
 (require 'use-package)
 #+end_src
+
+#+RESULTS:
+: use-package
+
 *** straight
 #+begin_src emacs-lisp
 ;; Bootstrap straight.el
@@ -66,7 +70,7 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
   (load bootstrap-file nil 'nomessage))
 
 ;; Always use straight to install on systems other than Linux
-(setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
 
 ;; Use straight.el for use-package expressions
 (straight-use-package 'use-package)
@@ -109,7 +113,7 @@ Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's c
 ;; (require 'init-benchmarking)
 #+end_src
 
-** Server dode
+** Server mode
 Start the Emacs server from this instance so that all emacsclient calls are routed here.
 
 #+begin_src emacs-lisp
@@ -1612,6 +1616,8 @@ A simple presentation for org mode. I stole this from [[https://github.com/daviw
 #+begin_src emacs-lisp
 ;; (bind-key (kbd "<M-left>") 'xwidget-webkit-back xwidget-webkit-mode-map)
 ;; (bind-key (kbd "<M-right>") 'xwidget-webkit-forward xwidget-webkit-mode-map)
+
+(use-package request)
 
 (add-hook 'xwidget-webkit-mode-hook
           '(lambda ()
