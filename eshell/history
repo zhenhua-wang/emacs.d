@@ -1,6 +1,4 @@
 ls
-cd R
-ls
 cd x86_64-pc-linux-gnu-library/
 ls
 cd
@@ -126,3 +124,5 @@ ls
 rm elpa/
 rm -r elpa/
 emacs 
+cd .emacs.d/
+rm -r straight/
