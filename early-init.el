@@ -40,4 +40,8 @@
                            '(ns-appearance . dark)) ;; or dark - depending on your theme))
               ;; transparency
               (set-frame-parameter (selected-frame) 'alpha '(100 . 100))
-              (add-to-list 'default-frame-alist '(alpha . (100 . 100)))))))
+              (add-to-list 'default-frame-alist '(alpha . (100 . 100))))))
+    ('windows-nt (
+            (lambda ()
+              (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+              (add-to-list 'default-frame-alist '(fullscreen . maximized))))))
