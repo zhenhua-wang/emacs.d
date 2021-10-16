@@ -4,26 +4,6 @@
 ;; Load path for customied themes
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
-
-;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering
-  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
-
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
-(setq custom-file
-      (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-(load custom-file t)
-
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; (require 'init-benchmarking)
-
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -66,6 +46,26 @@
 
 ;; Load the helper package for commands like `straight-x-clean-unused-repos'
 (require 'straight-x)
+
+;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
+
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering
+  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; (require 'init-benchmarking)
 
 (server-start)
 

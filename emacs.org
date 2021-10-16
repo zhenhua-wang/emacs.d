@@ -16,37 +16,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 #+end_src
 
-** Keep .emacs.d Clean
-Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
-
-#+begin_src emacs-lisp
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
-
-;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering
-  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
-
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
-(setq custom-file
-      (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-(load custom-file t)
-#+end_src
-
-** Measuring start time
-
-Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
-
-#+begin_src emacs-lisp
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; (require 'init-benchmarking)
-#+end_src
-
 ** Package management
 *** package and use-packge
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
@@ -108,6 +77,37 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 
 #+RESULTS:
 : straight-x
+
+** Keep .emacs.d Clean
+Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
+
+#+begin_src emacs-lisp
+;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
+
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering
+  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
+#+end_src
+
+** Measuring start time
+
+Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
+
+#+begin_src emacs-lisp
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; (require 'init-benchmarking)
+#+end_src
 
 ** Server dode
 Start the Emacs server from this instance so that all emacsclient calls are routed here.
