@@ -202,6 +202,157 @@
   (setq rime-translate-keybindings
         '("C-f" "C-b" "C-n" "C-p" "C-g" "<left>" "<right>" "<up>" "<down>" "<prior>" "<next>" "<delete>")))
 
+(use-package dired
+  :ensure nil
+  :defer 1
+  :commands (dired dired-jump)
+  :bind (("C-c r" . ranger)
+         (:map dired-mode-map
+               ("C-c i" . image-dired)
+               ("C-<return>" . image-dired-dired-display-external)))
+  :config
+  (setq dired-listing-switches "-agho --group-directories-first"
+        dired-omit-files "^\\.[^.].*"
+        dired-omit-verbose nil
+        dired-hide-details-hide-symlink-targets nil
+        delete-by-moving-to-trash t)
+  (setq insert-directory-program "ls" dired-use-ls-dired t)        ; sort directories first in dired
+
+  (autoload 'dired-omit-mode "dired-x")
+
+  (add-hook 'dired-load-hook
+            (lambda ()
+              (interactive)
+              (dired-collapse)))
+  ;; due to a non-GNU version of ls, dired would show "Listing directory failed but ‘access-file’ worked"
+  (cond ((eq system-type 'darwin)
+         (setq insert-directory-program "/usr/local/bin/gls"))))
+
+(use-package dired-rainbow
+  :defer 2
+  :config
+  (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+  (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+  (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+  (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+  (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+  (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+  (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+  (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+  (dired-rainbow-define log "#c17d11" ("log"))
+  (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+  (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+  (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go"
+					    "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+  (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+  (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+  (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+  (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+  (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+  (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+  (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+  (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
+
+(use-package dired-single
+  :defer 1)
+
+(use-package dired-ranger
+  :defer 1)
+
+(use-package dired-collapse
+  :defer 1)
+
+(use-package all-the-icons-dired
+  :hook
+  (dired-mode . all-the-icons-dired-mode))
+
+(defun efs/configure-eshell ()
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  ;; Use completion-at-point to provide completions in eshell
+  (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+  ;; (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point)
+  ;; (define-key eshell-mode-map (kbd "<tab>") 'company-complete)
+
+  (setenv "PAGER" "cat")
+
+  (setq eshell-history-size         10000
+        eshell-buffer-maximum-lines 10000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell-git-prompt
+  :after eshell)
+
+(use-package eshell
+  :hook (eshell-first-time-mode . efs/configure-eshell)
+  :config
+
+  (with-eval-after-load 'esh-opt
+    (setq eshell-destroy-buffer-when-process-dies t)
+    (setq eshell-visual-commands '("htop" "zsh" "vim")))
+  )
+
+;; fish completion
+(use-package fish-completion
+  :hook (eshell-mode . fish-completion-mode))
+
+;; show complete history
+(use-package esh-autosuggest
+  ;; :disabled
+  :hook (eshell-mode . esh-autosuggest-mode)
+  :config
+  (setq esh-autosuggest-delay 0.5)
+  (set-face-foreground 'company-preview-common "#4b5668")
+  (set-face-background 'company-preview nil)
+  )
+
+;; command highlight
+(use-package eshell-syntax-highlighting
+  :after esh-mode
+  :config
+  (eshell-syntax-highlighting-global-mode +1))
+
+;; themes
+(use-package eshell-prompt-extras
+  :after esh-mode
+  :config
+  (with-eval-after-load "esh-opt"
+    (autoload 'epe-theme-lambda "eshell-prompt-extras")
+    (setq eshell-highlight-prompt t     ; damn! this means ineditable prompt!
+          eshell-prompt-function 'epe-theme-lambda))
+  )
+
+(defun zw/show-eshell()
+  (interactive)
+  ;; (select-window (split-window-vertically -15))
+  (eshell)
+  ;; (text-scale-set 0.7)
+  )
+
+(use-package vterm
+  :ensure t
+  :bind
+  ((:map vterm-copy-mode-map
+         ("<return>" . vterm-copy-mode))
+   (:map vterm-mode-map
+         ("s-e" . delete-window))))
+
+;; (bind-key (kbd "<M-left>") 'xwidget-webkit-back xwidget-webkit-mode-map)
+;; (bind-key (kbd "<M-right>") 'xwidget-webkit-forward xwidget-webkit-mode-map)
+
+(use-package request)
+
+(add-hook 'xwidget-webkit-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "<M-left>") 'xwidget-webkit-back)
+             (local-set-key (kbd "<M-right>") 'xwidget-webkit-forward)
+             ))
+
 (use-package openwith
   :if (eq system-type 'gnu/linux)
   :config
@@ -418,19 +569,6 @@
   :init
   (global-undo-tree-mode 1))
 
-(use-package super-save
-  :defer 1
-  :diminish super-save-mode
-  :config
-  (super-save-mode +1)
-  (setq super-save-auto-save-when-idle t))
-
-;; Revert Dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-
-;; Revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-
 ;; check word spelling
 (use-package flyspell
   :init
@@ -566,6 +704,19 @@ i.e. windows tiled side-by-side."
 ;; If a popup does happen, don't resize windows to be equal-sized
 (setq even-window-sizes nil)
 
+(use-package super-save
+  :defer 1
+  :diminish super-save-mode
+  :config
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
+
+;; Revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
+
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+
 ;; preview markdown
 (use-package grip-mode)
 
@@ -622,148 +773,6 @@ i.e. windows tiled side-by-side."
 ;;   )
 
 (use-package wordnut)
-
-
-
-(use-package dired
-  :ensure nil
-  :defer 1
-  :commands (dired dired-jump)
-  :bind (("C-c r" . ranger)
-         (:map dired-mode-map
-               ("C-c i" . image-dired)
-               ("C-<return>" . image-dired-dired-display-external)))
-  :config
-  (setq dired-listing-switches "-agho --group-directories-first"
-        dired-omit-files "^\\.[^.].*"
-        dired-omit-verbose nil
-        dired-hide-details-hide-symlink-targets nil
-        delete-by-moving-to-trash t)
-  (setq insert-directory-program "ls" dired-use-ls-dired t)        ; sort directories first in dired
-
-  (autoload 'dired-omit-mode "dired-x")
-
-  (add-hook 'dired-load-hook
-            (lambda ()
-              (interactive)
-              (dired-collapse)))
-  ;; due to a non-GNU version of ls, dired would show "Listing directory failed but ‘access-file’ worked"
-  (cond ((eq system-type 'darwin)
-         (setq insert-directory-program "/usr/local/bin/gls"))))
-
-(use-package dired-rainbow
-  :defer 2
-  :config
-  (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
-  (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
-  (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
-  (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
-  (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
-  (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
-  (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
-  (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
-  (dired-rainbow-define log "#c17d11" ("log"))
-  (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
-  (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
-  (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go"
-					    "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
-  (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
-  (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
-  (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
-  (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
-  (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
-  (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
-  (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
-  (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
-
-(use-package dired-single
-  :defer 1)
-
-(use-package dired-ranger
-  :defer 1)
-
-(use-package dired-collapse
-  :defer 1)
-
-(use-package all-the-icons-dired
-  :hook
-  (dired-mode . all-the-icons-dired-mode))
-
-(defun efs/configure-eshell ()
-  ;; Save command history when commands are entered
-  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-
-  ;; Truncate buffer for performance
-  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-
-  ;; Use completion-at-point to provide completions in eshell
-  (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
-  ;; (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point)
-  ;; (define-key eshell-mode-map (kbd "<tab>") 'company-complete)
-
-  (setenv "PAGER" "cat")
-
-  (setq eshell-history-size         10000
-        eshell-buffer-maximum-lines 10000
-        eshell-hist-ignoredups t
-        eshell-scroll-to-bottom-on-input t))
-
-(use-package eshell-git-prompt
-  :after eshell)
-
-(use-package eshell
-  :hook (eshell-first-time-mode . efs/configure-eshell)
-  :config
-
-  (with-eval-after-load 'esh-opt
-    (setq eshell-destroy-buffer-when-process-dies t)
-    (setq eshell-visual-commands '("htop" "zsh" "vim")))
-  )
-
-;; fish completion
-(use-package fish-completion
-  :hook (eshell-mode . fish-completion-mode))
-
-;; show complete history
-(use-package esh-autosuggest
-  ;; :disabled
-  :hook (eshell-mode . esh-autosuggest-mode)
-  :config
-  (setq esh-autosuggest-delay 0.5)
-  (set-face-foreground 'company-preview-common "#4b5668")
-  (set-face-background 'company-preview nil)
-  )
-
-;; command highlight
-(use-package eshell-syntax-highlighting
-  :after esh-mode
-  :config
-  (eshell-syntax-highlighting-global-mode +1))
-
-;; themes
-(use-package eshell-prompt-extras
-  :after esh-mode
-  :config
-  (with-eval-after-load "esh-opt"
-    (autoload 'epe-theme-lambda "eshell-prompt-extras")
-    (setq eshell-highlight-prompt t     ; damn! this means ineditable prompt!
-          eshell-prompt-function 'epe-theme-lambda))
-  )
-
-(defun zw/show-eshell()
-  (interactive)
-  ;; (select-window (split-window-vertically -15))
-  (eshell)
-  ;; (text-scale-set 0.7)
-  )
-
-(use-package vterm
-  :ensure t
-  :bind
-  ((:map vterm-copy-mode-map
-         ("<return>" . vterm-copy-mode))
-   (:map vterm-mode-map
-         ("s-e" . delete-window))))
 
 (use-package org
   :hook
@@ -1102,17 +1111,6 @@ i.e. windows tiled side-by-side."
 
 ;; teximg
 (require 'ob-teximg)
-
-;; (bind-key (kbd "<M-left>") 'xwidget-webkit-back xwidget-webkit-mode-map)
-;; (bind-key (kbd "<M-right>") 'xwidget-webkit-forward xwidget-webkit-mode-map)
-
-(use-package request)
-
-(add-hook 'xwidget-webkit-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "<M-left>") 'xwidget-webkit-back)
-             (local-set-key (kbd "<M-right>") 'xwidget-webkit-forward)
-             ))
 
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
