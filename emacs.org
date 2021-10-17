@@ -762,20 +762,20 @@ For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathur
 
 ;; pdf
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
-(use-package pdf-tools
-  :if (eq system-type 'darwin)
-  :pin manual ;; don't reinstall when package updates
-  :magic ("%PDF" . pdf-view-mode)
-  :bind (:map pdf-view-mode-map
-              ("C-s" . isearch-forward))
-  :config
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
-  (pdf-tools-install :no-query)
-  (require 'pdf-occur)
-  (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
-        pdf-view-use-imagemagick nil)
-  )
+;; (use-package pdf-tools
+;;   :if (eq system-type 'darwin)
+;;   :pin manual ;; don't reinstall when package updates
+;;   :magic ("%PDF" . pdf-view-mode)
+;;   :bind (:map pdf-view-mode-map
+;;               ("C-s" . isearch-forward))
+;;   :config
+;;   (setq-default pdf-view-display-size 'fit-page)
+;;   (setq pdf-annot-activate-created-annotations t)
+;;   (pdf-tools-install :no-query)
+;;   (require 'pdf-occur)
+;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+;;         pdf-view-use-imagemagick nil)
+;;   )
 #+end_src
 
 ** dictionary
@@ -787,6 +787,11 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 
 * Emacs Applications
 Don't try =Emacs Applicaiton Framework= untill you solve the overheating issue!!!!!!!!!!!!!!!!!!!!
+** EAF (on macOS only)
+#+begin_src emacs-lisp
+
+#+end_src
+
 ** Dired
 *** main
 #+begin_src emacs-lisp
@@ -814,7 +819,7 @@ Don't try =Emacs Applicaiton Framework= untill you solve the overheating issue!!
                 (dired-collapse)))
     ;; due to a non-GNU version of ls, dired would show "Listing directory failed but ‘access-file’ worked"
     (cond ((eq system-type 'darwin)
-           (setq insert-directory-program "/usr/local/bin/zoxide"))))
+           (setq insert-directory-program "/usr/local/bin/gls"))))
 #+end_src
 
 *** dired rainbow
