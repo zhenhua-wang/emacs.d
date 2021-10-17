@@ -15,7 +15,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 ;; Load path for customied themes
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 #+end_src
-
 ** Package management
 *** package and use-packge
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
@@ -48,83 +47,14 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 (setq use-package-verbose t)
 
 (require 'use-package)
-#+end_src
-
-#+RESULTS:
-: use-package
-
-*** straight
-#+begin_src emacs-lisp
-;; Bootstrap straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Always use straight to install on systems other than Linux
-;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
-(setq straight-use-package-by-default (eq system-type 'darwin))
-
-;; Use straight.el for use-package expressions
-(straight-use-package 'use-package)
-
-;; Load the helper package for commands like `straight-x-clean-unused-repos'
-(require 'straight-x)
-#+end_src
-
-#+RESULTS:
-: straight-x
-
-** Keep .emacs.d Clean
-Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
-
-#+begin_src emacs-lisp
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
   :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
-
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
-(setq custom-file
-      (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-(load custom-file t)
 #+end_src
 
-** Measuring start time
-
-Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
-
-#+begin_src emacs-lisp
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; (require 'init-benchmarking)
-#+end_src
-
-** Server mode
-Start the Emacs server from this instance so that all emacsclient calls are routed here.
-
-#+begin_src emacs-lisp
-(server-start)
-#+end_src
-
-** confirm quitting
-#+begin_src emacs-lisp
-(when (display-graphic-p) (setq confirm-kill-emacs 'yes-or-no-p))
-#+end_src
+#+RESULTS:
+: use-package
 
 * UI setting
 ** Theme
@@ -224,9 +154,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-init)
-  :custom-face
-  (mode-line ((t (:height 1))))
-  (mode-line-inactive ((t (:height 1))))
   :custom
   (doom-modeline-height 10)
   (doom-modeline-bar-width 5)
@@ -241,10 +168,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   (doom-modeline-mode 1)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (if (eq system-type 'darwin)
-      (progn
-        (display-battery-mode)
-        (display-time-mode))))
+
+  (set-face-attribute 'mode-line nil :height 100)
+  (set-face-attribute 'mode-line-inactive nil :height 100)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-battery-mode)
+       (display-time-mode)))))
 #+end_src
 
 ** Rain-bow-delimiters
@@ -721,7 +652,6 @@ i.e. windows tiled side-by-side."
           "^\\*Shell Command Output\\*"
           "^\\*Async Shell Command\\*"
           "^\\*WordNut\\*"
-          "^\\*straight-process\\*"
           "^\\*help[R].*"
           help-mode
           eshell-mode
@@ -793,7 +723,6 @@ For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathur
 
   ;; latex
   (use-package tex
-    :straight (:type built-in)
     :ensure auctex
     :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
     :config
@@ -836,9 +765,6 @@ For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathur
 (use-package pdf-tools
   :if (eq system-type 'darwin)
   :pin manual ;; don't reinstall when package updates
-  :straight (pdf-tools :type git
-                       :host github
-                       :repo "politza/pdf-tools")
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map
               ("C-s" . isearch-forward))
@@ -865,8 +791,6 @@ Don't try =Emacs Applicaiton Framework= untill you solve the overheating issue!!
 *** main
 #+begin_src emacs-lisp
   (use-package dired
-    ;; we dont need this line since we set use-package as default
-    :straight (:type built-in)
     :ensure nil
     :defer 1
     :commands (dired dired-jump)
@@ -887,7 +811,10 @@ Don't try =Emacs Applicaiton Framework= untill you solve the overheating issue!!
     (add-hook 'dired-load-hook
               (lambda ()
                 (interactive)
-                (dired-collapse))))
+                (dired-collapse)))
+    ;; due to a non-GNU version of ls, dired would show "Listing directory failed but ‘access-file’ worked"
+    (cond ((eq system-type 'darwin)
+           (setq insert-directory-program "/usr/local/bin/zoxide"))))
 #+end_src
 
 *** dired rainbow
@@ -991,14 +918,6 @@ Updates Aug 7, 2021: I decide to disable company-mode in eshell and use history 
   :after esh-mode
   :config
   (eshell-syntax-highlighting-global-mode +1))
-
-(use-package eshell-info-banner
-  :disabled
-  :straight (eshell-info-banner :type git
-                                :host github
-                                :repo "phundrak/eshell-info-banner.el")
-  :hook (eshell-banner-load . eshell-info-banner-update-banner)
-  )
 
 ;; themes
 (use-package eshell-prompt-extras

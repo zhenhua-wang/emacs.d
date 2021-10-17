@@ -24,53 +24,9 @@
 
 (require 'use-package)
 
-;; Bootstrap straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Always use straight to install on systems other than Linux
-;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
-(setq straight-use-package-by-default (eq system-type 'darwin))
-
-;; Use straight.el for use-package expressions
-(straight-use-package 'use-package)
-
-;; Load the helper package for commands like `straight-x-clean-unused-repos'
-(require 'straight-x)
-
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
-
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
   :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
-
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
-(setq custom-file
-      (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-(load custom-file t)
-
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; (require 'init-benchmarking)
-
-(server-start)
-
-(when (display-graphic-p) (setq confirm-kill-emacs 'yes-or-no-p))
 
 (use-package spacegray-theme)
 (use-package doom-themes)
@@ -150,9 +106,6 @@
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-init)
-  :custom-face
-  (mode-line ((t (:height 1))))
-  (mode-line-inactive ((t (:height 1))))
   :custom
   (doom-modeline-height 10)
   (doom-modeline-bar-width 5)
@@ -167,10 +120,14 @@
   :config
   (doom-modeline-mode 1)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (if (eq system-type 'darwin)
-      (progn
-        (display-battery-mode)
-        (display-time-mode))))
+
+  (set-face-attribute 'mode-line nil :height 100)
+  (set-face-attribute 'mode-line-inactive nil :height 100)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-battery-mode)
+       (display-time-mode)))))
 
 (use-package rainbow-delimiters
   :config
@@ -537,7 +494,6 @@ i.e. windows tiled side-by-side."
           "^\\*Shell Command Output\\*"
           "^\\*Async Shell Command\\*"
           "^\\*WordNut\\*"
-          "^\\*straight-process\\*"
           "^\\*help[R].*"
           help-mode
           eshell-mode
@@ -597,7 +553,6 @@ i.e. windows tiled side-by-side."
 
 ;; latex
 (use-package tex
-  :straight (:type built-in)
   :ensure auctex
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
@@ -636,9 +591,6 @@ i.e. windows tiled side-by-side."
 (use-package pdf-tools
   :if (eq system-type 'darwin)
   :pin manual ;; don't reinstall when package updates
-  :straight (pdf-tools :type git
-                       :host github
-                       :repo "politza/pdf-tools")
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map
               ("C-s" . isearch-forward))
@@ -654,8 +606,6 @@ i.e. windows tiled side-by-side."
 (use-package wordnut)
 
 (use-package dired
-  ;; we dont need this line since we set use-package as default
-  :straight (:type built-in)
   :ensure nil
   :defer 1
   :commands (dired dired-jump)
@@ -676,7 +626,10 @@ i.e. windows tiled side-by-side."
   (add-hook 'dired-load-hook
             (lambda ()
               (interactive)
-              (dired-collapse))))
+              (dired-collapse)))
+  ;; due to a non-GNU version of ls, dired would show "Listing directory failed but ‘access-file’ worked"
+  (cond ((eq system-type 'darwin)
+         (setq insert-directory-program "/usr/local/bin/zoxide"))))
 
 (use-package dired-rainbow
   :defer 2
@@ -766,14 +719,6 @@ i.e. windows tiled side-by-side."
   :after esh-mode
   :config
   (eshell-syntax-highlighting-global-mode +1))
-
-(use-package eshell-info-banner
-  :disabled
-  :straight (eshell-info-banner :type git
-                                :host github
-                                :repo "phundrak/eshell-info-banner.el")
-  :hook (eshell-banner-load . eshell-info-banner-update-banner)
-  )
 
 ;; themes
 (use-package eshell-prompt-extras

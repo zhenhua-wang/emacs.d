@@ -237,7 +237,6 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 
 #+begin_src emacs-lisp
 (use-package impatient-mode
-  :straight t
   :ensure simple-httpd
   :ensure htmlize
   :config
