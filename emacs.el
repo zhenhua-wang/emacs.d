@@ -633,23 +633,23 @@ i.e. windows tiled side-by-side."
 
 ;; pdf
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
-;; (use-package pdf-tools
-;;   :if (eq system-type 'darwin)
-;;   :pin manual ;; don't reinstall when package updates
-;;   :straight (pdf-tools :type git
-;;                        :host github
-;;                        :repo "politza/pdf-tools")
-;;   :magic ("%PDF" . pdf-view-mode)
-;;   :bind (:map pdf-view-mode-map
-;;               ("C-s" . isearch-forward))
-;;   :config
-;;   (setq-default pdf-view-display-size 'fit-page)
-;;   (setq pdf-annot-activate-created-annotations t)
-;;   (pdf-tools-install :no-query)
-;;   (require 'pdf-occur)
-;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
-;;         pdf-view-use-imagemagick nil)
-;;   )
+(use-package pdf-tools
+  :if (eq system-type 'darwin)
+  :pin manual ;; don't reinstall when package updates
+  :straight (pdf-tools :type git
+                       :host github
+                       :repo "politza/pdf-tools")
+  :magic ("%PDF" . pdf-view-mode)
+  :bind (:map pdf-view-mode-map
+              ("C-s" . isearch-forward))
+  :config
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (pdf-tools-install :no-query)
+  (require 'pdf-occur)
+  (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+        pdf-view-use-imagemagick nil)
+  )
 
 (use-package wordnut)
 
