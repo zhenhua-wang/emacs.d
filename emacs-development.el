@@ -157,11 +157,11 @@
   (setq-default web-mode-markup-indent-offset 2)
   (setq-default web-mode-attribute-indent-offset 2))
 
-(use-package impatient-mode
-  :ensure simple-httpd
-  :ensure htmlize
-  :config
-  (require 'impatient-mode))
+;; (use-package impatient-mode
+;;   :ensure simple-httpd
+;;   :ensure htmlize
+;;   :config
+;;   (require 'impatient-mode))
 
 (use-package magit
   :bind ("C-M-;" . magit-status)

@@ -236,11 +236,11 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 3. And then point your browser to http://localhost:8080/imp/, select a buffer, and watch your changes appear as you type!
 
 #+begin_src emacs-lisp
-(use-package impatient-mode
-  :ensure simple-httpd
-  :ensure htmlize
-  :config
-  (require 'impatient-mode))
+;; (use-package impatient-mode
+;;   :ensure simple-httpd
+;;   :ensure htmlize
+;;   :config
+;;   (require 'impatient-mode))
 #+end_src
 
 * Utils

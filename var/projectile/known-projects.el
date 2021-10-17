@@ -1,1 +1,1 @@
-("~/" "/Volumes/WORKSPACE/Documents/Graduate/Mizzou/" "/Volumes/WORKSPACE/Dotfiles/.emacs.d/" "/Volumes/")
+("~/" "/Volumes/WORKSPACE/Dotfiles/.emacs.d/" "/Volumes/WORKSPACE/Documents/Graduate/Mizzou/")
