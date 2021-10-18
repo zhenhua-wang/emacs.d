@@ -928,76 +928,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 * Reading & text editing
 
 For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathura-pdf-mupdf= supports pdf and epub
-** special tex mode
-
-#+begin_src emacs-lisp
-  ;; preview markdown
-  (use-package grip-mode)
-
-  ;; latex
-  (use-package tex
-    :ensure auctex
-    :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
-    :config
-    (setq
-     Tex-PDF-mode t
-     TeX-parse-self t
-     TeX-auto-save t
-     Tex-command-show "LaTex"
-     TeX-view-program-selection '((output-pdf "Okular"))
-     TeX-save-query nil)
-    ;; revert the PDF-buffer after the TeX compilation has finished
-    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-    (add-hook 'TeX-mode-hook 'flyspell-mode))
-
-  (use-package cdlatex
-    :bind (:map cdlatex-mode-map
-                ("TAB" . indent-for-tab-command)
-                ("<C-tab>" . cdlatex-tab)
-                ;; turn off auto pairing
-                ("$" . nil)
-                ("{" . nil)
-                ("[" . nil))
-    :hook
-    (LaTeX-mode . turn-on-cdlatex)
-    (latex-mode . turn-on-cdlatex)
-    (markdown-mode . turn-on-cdlatex))
-#+end_src
-
-** books
-
-#+begin_src emacs-lisp
-;; epub
-(use-package nov
-  :defer 1
-  :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
-
-;; pdf
-;; pdf-tools need to be deleted and reinstalled after after emacs update
-;; (use-package pdf-tools
-;;   :if (eq system-type 'darwin)
-;;   :pin manual ;; don't reinstall when package updates
-;;   :magic ("%PDF" . pdf-view-mode)
-;;   :bind (:map pdf-view-mode-map
-;;               ("C-s" . isearch-forward))
-;;   :config
-;;   (setq-default pdf-view-display-size 'fit-page)
-;;   (setq pdf-annot-activate-created-annotations t)
-;;   (pdf-tools-install :no-query)
-;;   (require 'pdf-occur)
-;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
-;;         pdf-view-use-imagemagick nil)
-;;   )
-#+end_src
-
-** dictionary
-
-you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
-#+begin_src emacs-lisp
-(use-package wordnut)
-#+end_src
-
 ** Org-mode
 *** Main
 #+begin_src emacs-lisp
@@ -1371,6 +1301,76 @@ A simple presentation for org mode. I stole this from [[https://github.com/daviw
 
 ;; teximg
 (require 'ob-teximg)
+#+end_src
+
+** special tex mode
+
+#+begin_src emacs-lisp
+  ;; preview markdown
+  (use-package grip-mode)
+
+  ;; latex
+  (use-package tex
+    :ensure auctex
+    :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
+    :config
+    (setq
+     Tex-PDF-mode t
+     TeX-parse-self t
+     TeX-auto-save t
+     Tex-command-show "LaTex"
+     TeX-view-program-selection '((output-pdf "Okular"))
+     TeX-save-query nil)
+    ;; revert the PDF-buffer after the TeX compilation has finished
+    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+    (add-hook 'TeX-mode-hook 'flyspell-mode))
+
+  (use-package cdlatex
+    :bind (:map cdlatex-mode-map
+                ("TAB" . indent-for-tab-command)
+                ("<C-tab>" . cdlatex-tab)
+                ;; turn off auto pairing
+                ("$" . nil)
+                ("{" . nil)
+                ("[" . nil))
+    :hook
+    (LaTeX-mode . turn-on-cdlatex)
+    (latex-mode . turn-on-cdlatex)
+    (markdown-mode . turn-on-cdlatex))
+#+end_src
+
+** pdf, epub
+
+#+begin_src emacs-lisp
+;; epub
+(use-package nov
+  :defer 1
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+;; pdf
+;; pdf-tools need to be deleted and reinstalled after after emacs update
+;; (use-package pdf-tools
+;;   :if (eq system-type 'darwin)
+;;   :pin manual ;; don't reinstall when package updates
+;;   :magic ("%PDF" . pdf-view-mode)
+;;   :bind (:map pdf-view-mode-map
+;;               ("C-s" . isearch-forward))
+;;   :config
+;;   (setq-default pdf-view-display-size 'fit-page)
+;;   (setq pdf-annot-activate-created-annotations t)
+;;   (pdf-tools-install :no-query)
+;;   (require 'pdf-occur)
+;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+;;         pdf-view-use-imagemagick nil)
+;;   )
+#+end_src
+
+** dictionary
+
+you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
+#+begin_src emacs-lisp
+(use-package wordnut)
 #+end_src
 
 * Desktop (EXWM)

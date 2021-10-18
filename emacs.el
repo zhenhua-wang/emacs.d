@@ -717,63 +717,6 @@ i.e. windows tiled side-by-side."
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
 
-;; preview markdown
-(use-package grip-mode)
-
-;; latex
-(use-package tex
-  :ensure auctex
-  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
-  :config
-  (setq
-   Tex-PDF-mode t
-   TeX-parse-self t
-   TeX-auto-save t
-   Tex-command-show "LaTex"
-   TeX-view-program-selection '((output-pdf "Okular"))
-   TeX-save-query nil)
-  ;; revert the PDF-buffer after the TeX compilation has finished
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-  (add-hook 'TeX-mode-hook 'flyspell-mode))
-
-(use-package cdlatex
-  :bind (:map cdlatex-mode-map
-              ("TAB" . indent-for-tab-command)
-              ("<C-tab>" . cdlatex-tab)
-              ;; turn off auto pairing
-              ("$" . nil)
-              ("{" . nil)
-              ("[" . nil))
-  :hook
-  (LaTeX-mode . turn-on-cdlatex)
-  (latex-mode . turn-on-cdlatex)
-  (markdown-mode . turn-on-cdlatex))
-
-;; epub
-(use-package nov
-  :defer 1
-  :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
-
-;; pdf
-;; pdf-tools need to be deleted and reinstalled after after emacs update
-;; (use-package pdf-tools
-;;   :if (eq system-type 'darwin)
-;;   :pin manual ;; don't reinstall when package updates
-;;   :magic ("%PDF" . pdf-view-mode)
-;;   :bind (:map pdf-view-mode-map
-;;               ("C-s" . isearch-forward))
-;;   :config
-;;   (setq-default pdf-view-display-size 'fit-page)
-;;   (setq pdf-annot-activate-created-annotations t)
-;;   (pdf-tools-install :no-query)
-;;   (require 'pdf-occur)
-;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
-;;         pdf-view-use-imagemagick nil)
-;;   )
-
-(use-package wordnut)
-
 (use-package org
   :hook
   (org-mode . org-indent-mode)
@@ -1111,6 +1054,63 @@ i.e. windows tiled side-by-side."
 
 ;; teximg
 (require 'ob-teximg)
+
+;; preview markdown
+(use-package grip-mode)
+
+;; latex
+(use-package tex
+  :ensure auctex
+  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
+  :config
+  (setq
+   Tex-PDF-mode t
+   TeX-parse-self t
+   TeX-auto-save t
+   Tex-command-show "LaTex"
+   TeX-view-program-selection '((output-pdf "Okular"))
+   TeX-save-query nil)
+  ;; revert the PDF-buffer after the TeX compilation has finished
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (add-hook 'TeX-mode-hook 'flyspell-mode))
+
+(use-package cdlatex
+  :bind (:map cdlatex-mode-map
+              ("TAB" . indent-for-tab-command)
+              ("<C-tab>" . cdlatex-tab)
+              ;; turn off auto pairing
+              ("$" . nil)
+              ("{" . nil)
+              ("[" . nil))
+  :hook
+  (LaTeX-mode . turn-on-cdlatex)
+  (latex-mode . turn-on-cdlatex)
+  (markdown-mode . turn-on-cdlatex))
+
+;; epub
+(use-package nov
+  :defer 1
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+;; pdf
+;; pdf-tools need to be deleted and reinstalled after after emacs update
+;; (use-package pdf-tools
+;;   :if (eq system-type 'darwin)
+;;   :pin manual ;; don't reinstall when package updates
+;;   :magic ("%PDF" . pdf-view-mode)
+;;   :bind (:map pdf-view-mode-map
+;;               ("C-s" . isearch-forward))
+;;   :config
+;;   (setq-default pdf-view-display-size 'fit-page)
+;;   (setq pdf-annot-activate-created-annotations t)
+;;   (pdf-tools-install :no-query)
+;;   (require 'pdf-occur)
+;;   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+;;         pdf-view-use-imagemagick nil)
+;;   )
+
+(use-package wordnut)
 
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
