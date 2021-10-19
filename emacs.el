@@ -1247,5 +1247,6 @@ i.e. windows tiled side-by-side."
      (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)))
   ('windows-nt
    (progn
+     (setq default-directory "c:/Users/wang_")
      ;; start CUA mode every time Emacs starts
      (cua-mode t))))
