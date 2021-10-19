@@ -243,6 +243,18 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 ;;   (require 'impatient-mode))
 #+end_src
 
+* Data
+** CSV mode
+#+begin_src emacs-lisp
+(use-package csv-mode
+  :mode
+  ("\\.[Cc][Ss][Vv]\\'". csv-mode)
+  :hook
+  (csv-mode . csv-align-mode)
+  :config
+  (setq csv-separators '("," ";" "|" " ")))
+#+end_src
+
 * Utils
 ** git
 #+begin_src emacs-lisp

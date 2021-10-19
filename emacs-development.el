@@ -163,6 +163,14 @@
 ;;   :config
 ;;   (require 'impatient-mode))
 
+(use-package csv-mode
+  :mode
+  ("\\.[Cc][Ss][Vv]\\'". csv-mode)
+  :hook
+  (csv-mode . csv-align-mode)
+  :config
+  (setq csv-separators '("," ";" "|" " ")))
+
 (use-package magit
   :bind ("C-M-;" . magit-status)
   :commands (magit-status magit-get-current-branch)
