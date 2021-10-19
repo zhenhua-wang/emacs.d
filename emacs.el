@@ -1087,6 +1087,13 @@ i.e. windows tiled side-by-side."
   (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
+;; auto async preview latex
+(use-package xenops
+  :config
+  (add-hook 'latex-mode-hook #'xenops-mode)
+  (add-hook 'LaTeX-mode-hook #'xenops-mode)
+  (setq xenops-math-image-scale-factor 2))
+
 ;; epub
 (use-package nov
   :defer 1
