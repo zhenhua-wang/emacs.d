@@ -1,13 +1,4 @@
 ls
-cd x86_64-pc-linux-gnu-library/
-ls
-cd
-R
-rm -r R
-ls
-ls -a
-ls .config/
-ls
 R --slave -e languageserver::run()
 R --slave -e run()
 R --slave -e rnorm
@@ -126,3 +117,12 @@ rm -r elpa/
 emacs 
 cd .emacs.d/
 rm -r straight/
+cd
+cd .emacs.d/
+ls
+git pull
+git reset --hard
+git pull
+cd
+cd .emacs.d/
+git pull

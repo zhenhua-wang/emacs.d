@@ -1235,12 +1235,17 @@ i.e. windows tiled side-by-side."
 (bind-key "C-`" 'rime-send-keybinding rime-mode-map)
 
 ;; consistent with EXWM
-(if (eq system-type 'darwin)
-    (progn
-      ;; vterm
-      (global-set-key (kbd "s-e") 'vterm)
-      ;; winner undo/redo
-      (global-set-key (kbd "s-u") 'winner-undo)
-      (global-set-key (kbd "s-U") 'winner-redo)
-      ;; projectile find file
-      (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)))
+(pcase system-type
+  ('darwin
+   (progn
+     ;; vterm
+     (global-set-key (kbd "s-e") 'vterm)
+     ;; winner undo/redo
+     (global-set-key (kbd "s-u") 'winner-undo)
+     (global-set-key (kbd "s-U") 'winner-redo)
+     ;; projectile find file
+     (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)))
+  ('windows-nt
+   (progn
+     ;; start CUA mode every time Emacs starts
+     (cua-mode t))))
