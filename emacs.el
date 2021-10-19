@@ -1094,6 +1094,11 @@ i.e. windows tiled side-by-side."
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;; pdf
+(use-package doc-view
+  :config
+  ;; (setq doc-view-resolution 300)
+  (setq doc-view-resolution 168))
+
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 ;; (use-package pdf-tools
 ;;   :if (eq system-type 'darwin)

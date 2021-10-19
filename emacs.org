@@ -52,6 +52,22 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 #+RESULTS:
 : use-package
 
+*** straight (No tangle for now)
+#+begin_src emacs-lisp :tangle "no"
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+end_src
+
 ** Keep .emacs.d Clean
 Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
 
@@ -1349,6 +1365,11 @@ A simple presentation for org mode. I stole this from [[https://github.com/daviw
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;; pdf
+(use-package doc-view
+  :config
+  ;; (setq doc-view-resolution 300)
+  (setq doc-view-resolution 168))
+
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 ;; (use-package pdf-tools
 ;;   :if (eq system-type 'darwin)

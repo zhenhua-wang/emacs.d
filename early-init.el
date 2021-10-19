@@ -45,3 +45,6 @@
             (lambda ()
               (add-to-list 'initial-frame-alist '(fullscreen . maximized))
               (add-to-list 'default-frame-alist '(fullscreen . maximized))))))
+
+;; prevent package.el loading packages prior to their init-file loading
+(setq package-enable-at-startup nil)
