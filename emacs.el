@@ -434,17 +434,8 @@
   (add-hook 'latex-mode-hook 'my-latex-setup))
 
 (use-package company-box
-  :disabled
-  :diminish
   :if (and (display-graphic-p) (not (eq system-type 'windows-nt)))
-  :defines company-box-icons-all-the-icons
-  :hook (company-mode . company-box-mode)
-  :custom
-  ;; (company-box-backends-colors nil)
-  (company-box-doc-delay 0.1)
-  (company-box-doc-frame-parameters '((internal-border-width . 1)
-                                      (left-fringe . 3)
-                                      (right-fringe . 3))))
+  :hook (company-mode . company-box-mode))
 
 ;; ivy
 (use-package ivy
