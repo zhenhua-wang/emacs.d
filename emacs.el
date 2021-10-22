@@ -572,13 +572,13 @@
 ;; check word spelling
 (use-package flyspell
   :init
-  (progn
-    (flyspell-mode 1))
+  (flyspell-mode 1)
   :config
-  (progn 
-    (setq ispell-program-name "aspell")
-    (setq ispell-list-command "--list") ;; run flyspell with aspell, not ispell
-    ))
+  (setq ispell-program-name "aspell")
+  (setq ispell-list-command "--list") ;; run flyspell with aspell, not ispell
+  ;; (if (eq system-type 'windows-nt)
+      ;; (setq ispell-program-name "C:/Program Files (x86)/Aspell/bin/aspell.exe"))
+  )
 
 ;; check code syntax
 (use-package flycheck
