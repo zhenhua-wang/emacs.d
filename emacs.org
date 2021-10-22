@@ -592,6 +592,7 @@ use =feh= to open images, use =evince= to open pdf
 *** Company box
 #+begin_src emacs-lisp
 (use-package company-box
+  :disabled
   :diminish
   :if (and (display-graphic-p) (not (eq system-type 'windows-nt)))
   :defines company-box-icons-all-the-icons

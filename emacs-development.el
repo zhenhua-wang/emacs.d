@@ -73,10 +73,10 @@
   (setq ess-gen-proc-buffer-name-function 'ess-gen-proc-buffer-name:simple)
   ;; The name of the ESS process associated with the buffer.
   (setq ess-local-process-name "R")
-  ;; (setq ansi-color-for-comint-mode 'filter)
-  ;; (setq comint-scroll-to-bottom-on-input t)
-  ;; (setq comint-scroll-to-bottom-on-output t)
-  ;; (setq comint-move-point-for-output t)
+  (setq ansi-color-for-comint-mode 'filter)
+  (setq comint-scroll-to-bottom-on-input t)
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq comint-move-point-for-output t)
   ;; company completion
   ;; (setq ess-r-company-backends
         ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
