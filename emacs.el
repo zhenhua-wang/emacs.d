@@ -434,6 +434,7 @@
   (add-hook 'latex-mode-hook 'my-latex-setup))
 
 (use-package company-box
+  :disabled
   :diminish
   :if (and (display-graphic-p) (not (eq system-type 'windows-nt)))
   :defines company-box-icons-all-the-icons
