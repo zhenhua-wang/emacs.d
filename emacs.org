@@ -1427,6 +1427,9 @@ A simple presentation for org mode. I stole this from [[https://github.com/daviw
   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-use-imagemagick nil)
   )
+
+(with-eval-after-load "pdf-tools"
+  (defun pdf-util-frame-scale-factor () 2))
 #+end_src
 
 ** dictionary
