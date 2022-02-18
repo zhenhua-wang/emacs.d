@@ -1406,10 +1406,10 @@ A simple presentation for org mode. I stole this from [[https://github.com/daviw
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 ;; pdf
-(use-package doc-view
-  :config
-  ;; (setq doc-view-resolution 300)
-  (setq doc-view-resolution 168))
+;; (use-package doc-view
+;;   :config
+;;   ;; (setq doc-view-resolution 300)
+;;   (setq doc-view-resolution 168))
 
 
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
