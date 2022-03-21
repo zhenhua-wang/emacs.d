@@ -1,0 +1,246 @@
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+  ;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
+
+(require 'use-package)
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(use-package emacs
+  :hook
+  (text-mode . visual-line-mode)
+  :custom
+  ;; completion
+  (completion-cycle-threshold nil)
+  (tab-always-indent 'complete)
+  (completions-detailed t)
+  (completion-ignore-case t)
+  ;; Revert Dired and other buffers
+  (global-auto-revert-non-file-buffers t)
+  ;; Use spaces instead of tabs for indentation
+  (indent-tabs-mode nil)
+  ;; echo area show only 1 line of doc
+  (eldoc-echo-area-use-multiline-p nil)
+  ;; fix minibuffer size
+  (resize-mini-windows nil)
+  :init
+  ;; ------------------- simplify yes no ---------------
+  (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
+    (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
+      (apply orig-fun r)))
+  (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
+  ;; ------------------- modes    ---------------------
+  ;; Revert buffers when the underlying file has changed
+  (global-auto-revert-mode 1)
+  ;; hightlight current row
+  (global-hl-line-mode t)
+  ;; ------------------- key bind ---------------------
+  ;; Keybonds
+  (global-set-key (kbd "s-z") 'undo)
+  (global-set-key (kbd "s-x") 'kill-region)
+  (global-set-key (kbd "s-c") 'kill-ring-save)
+  (global-set-key (kbd "s-v") 'yank)
+  (global-set-key (kbd "s-a") 'mark-whole-buffer)
+  (global-set-key (kbd "s-s") 'save-buffer)
+  (global-set-key (kbd "s-l") 'goto-line)
+  (global-set-key (kbd "s-q") 'kill-current-buffer)
+  ;; vterm
+  (global-set-key (kbd "s-e") 'vterm)
+  ;; eldoc
+  ;; (global-set-key (kbd "s-d") 'eldoc-doc-buffer)
+  ;; winner undo/redo
+  (global-set-key (kbd "s-u") 'winner-undo)
+  (global-set-key (kbd "s-U") 'winner-redo)
+  ;; projectile find file
+  (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
+  ;; Make ESC quit prompts
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  ;; window operations
+  (global-set-key (kbd "s-w") 'delete-window)
+  (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
+  (global-set-key [s-left] 'windmove-left)          ; move to left window
+  (global-set-key [s-right] 'windmove-right)        ; move to right window
+  (global-set-key [s-up] 'windmove-up)              ; move to upper window
+  (global-set-key [s-down] 'windmove-down)          ; move to lower window
+  ;; check dict
+  (global-set-key (kbd "C-c w") 'wordnut-search)
+  (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
+  ;; toggle transparency
+  (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
+  ;; get passwed
+  ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
+  ;; toggle input
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  ;; consistent with EXWM
+  (pcase system-type
+    ('darwin
+     (progn
+       (setq mac-command-modifier 'super)
+       (setq mac-option-modifier 'meta)))
+    ('windows-nt
+     (progn
+       (setq default-directory "c:/Users/wang_")
+       ;; start CUA mode every time Emacs starts
+       (cua-mode t)))))
+  ;; -------------- disable mouse and trackboard ----------------
+  ;; (global-unset-key (kbd "<down-mouse-1>"))
+  ;; (global-unset-key (kbd "<mouse-1>"))
+  ;; (global-unset-key (kbd "<down-mouse-3>"))
+  ;; (global-unset-key (kbd "<mouse-3>"))
+  ;; (mouse-wheel-mode -1)
+  ;; (global-set-key [wheel-down] 'ignore)
+  ;; (global-set-key [double-wheel-up] 'ignore)
+  ;; (global-set-key [double-wheel-down] 'ignore)
+  ;; (global-set-key [triple-wheel-up] 'ignore)
+  ;; (global-set-key [triple-wheel-down] 'ignore))
+
+(use-package corfu
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  (corfu-preselect-first nil)    ;; Disable candidate preselection
+  (corfu-quit-no-match nil)
+  (corfu-on-exact-match nil)
+  (corfu-preview-current nil)
+  (corfu-echo-documentation nil)
+  (corfu-min-width 80)
+  (corfu-max-width corfu-min-width)  ;; Always have the same width
+
+  ;; Use TAB for cycling, default is `corfu-complete'.
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
+        ([escape] . corfu-quit)
+        ([return] . corfu-insert)
+        ("M-d" . corfu-show-documentation)
+        ("M-l" . corfu-show-location))
+  :init
+  (corfu-global-mode)
+  :config
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      ;; (setq-local corfu-auto nil) Enable/disable auto completion
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+
+;; Use dabbrev with Corfu!
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand)))
+
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-use-icons t)
+  (kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
+  (kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
+  (kind-icon-blend-frac 0.08)
+    :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; Add extensions
+(use-package cape
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  ;; (add-to-list 'completion-at-point-functions #'cape-tex)
+  ;; (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+)
+
+(use-package ess
+  :commands R
+  :mode "\\.R|.r\\'"
+  :config
+  (if (eq system-type 'windows-nt)
+      (progn
+        (setq ess-directory-containing-R "C:/Program Files/")
+        ;; Add to list of prefixes recognized by ESS.
+        ;; Matching versions will appear after doing M-x R <TAB> <TAB>
+        (setq ess-r-versions '("R-1" "R-2" "R-3" "R-current" "R-devel" "R-patched"))
+        (setq inferior-R-program-name "C:/Program Files/R/R-4.1.1/bin/x64/Rterm.exe")))
+  ;; (require 'ess-site)
+  (require 'ess-r-mode)
+  ;; ess syntax highlight
+  (setq ess-default-style 'RStudio-)
+  ;; Do not ask for ess startup location
+  (setq ess-ask-for-ess-directory nil)
+  ;; company completion
+  ;; (setq ess-r-company-backends
+        ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
+  )
+
+(use-package markdown-mode
+  ;;:ensure auctex
+  :commands (markdown-mode gfm-mode)
+  ;; :mode (("README\\.md\\'" . gfm-mode)
+  ;;        ("\\.md\\'" . markdown-mode)
+  ;;        ("\\.markdown\\'" . markdown-mode)
+  ;;        ("\\.Rmd\\'" . markdown-mode))
+  ;; :init (setq markdown-command "multimarkdown")
+  :custom
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-header-scaling t)
+  (markdown-enable-math t)
+  :config
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode)
+  )
+
+(use-package polymode
+  :commands polymode-mode)
+
+(use-package adaptive-wrap)
+
+(use-package poly-markdown
+  :commands (poly-markdown-mode poly-gfm-mode)
+  :mode (("\\.md$" . poly-gfm-mode)
+         ("\\.rmd$" . poly-gfm-mode)
+         ("\\.markdown$" . poly-markdown-mode)))
+
+(use-package poly-noweb
+  :commands poly-noweb-mode)
+
+(use-package poly-R
+  :mode (("\\.Rmd" . poly-markdown+r-mode)
+         ("\\.rmd" . poly-markdown+r-mode)
+         ("\\.Rnw" . poly-noweb+r-mode)
+         ("\\.rnw" . poly-noweb+r-mode)
+         ))

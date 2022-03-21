@@ -6,132 +6,91 @@
 * Snippets
 #+begin_src emacs-lisp
 (use-package yasnippet
+  :defer 1
+  :bind
+  ;; ("M-<tab>" . yas-insert-snippet)
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
   ;; (add-to-list 'company-backends 'company-yasnippet)
   (yas-global-mode 1))
 #+end_src
 
-* LSP mode
-** main
-#+begin_src emacs-lisp
+* LSP
+
+  #+begin_src emacs-lisp
 (use-package lsp-mode
-  :disabled
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-print-io t) ;; print some debug info
-  :bind
-  (:map lsp-mode-map
-	("<tab>" . company-indent-or-complete-common))
-  :hook (
-	 ;; if you want which-key integration
-	 (lsp-mode . lsp-enable-which-key-integration)
-	 ;; find out where you are at your src
-	 (lsp-mode . efs/lsp-mode-setup))
-  :commands (lsp lsp-deferred)
-  )
-
-(defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-#+end_src
-
-#+RESULTS:
-: efs/lsp-mode-setup
-
-** python-LSP
-I also set up lsp-mode for python-mode. It's slightly complicated when runing with pyvenv. If you want to switch LSP to a different server, you need to kill the server (in the case of Python, jedi server) first. Then, rerun LSP
-#+begin_src emacs-lisp
-(use-package lsp-jedi
-  :disabled
-  ;; :after lsp-mode
-  :config
-  (add-to-list 'lsp-disabled-clients 'pyls)
-  (add-to-list 'lsp-enabled-clients 'jedi))
-#+end_src
-** R-LSP
-In order to use a particular language server, you need to add it to the ~'lsp-enabled-clients~. However, I don't plan to use lsp for R, since it is much slower than ess. Thus, I am setting ~:tangle no~
-#+begin_src emacs-lisp :tangle "no"
-(with-eval-after-load "lsp-mode"
-  (add-to-list 'lsp-enabled-clients 'lsp-r))
-#+end_src
-
-** other functions
-#+begin_src emacs-lisp
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :hook (lsp-mode . lsp-ui-mode)
   :custom
-  lsp-ui-doc-position 'bottom)
+  (lsp:se-completion-provider? :none) ;; we use Corfu!
+  :init
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(flex))) ;; Configure flex
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion)
+  :commands lsp
+  :config
+  (setq lsp-log-io nil)
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-sideline-show-hover t)
+  (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-ui-imenu-auto-refresh t))
+
+;; optionally
+(use-package lsp-ui
+  :after lsp
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (lsp-ui-doc-show))
 
 (use-package lsp-ivy
+  :disabled
   :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
-#+end_src
+
+;; Debug Adapter Protocol
+(use-package dap-mode
+  :disabled)
+  #+end_src
+
+  #+RESULTS:
 
 * Eglot
-It has been outperformed in several aspect by LSP-mode. Eg, LSP-mode has better user interface and supports org-babel.
+
 #+begin_src emacs-lisp
 (use-package eglot
-  :disabled
-  :hook
-  ;; i don't plan to use auto-hook for now
+  :disabled)
+  ;; :hook
   ;; (python-mode . eglot-ensure)
-  )
+  ;; (ess-r-mode . eglot-ensure))
 #+end_src
 
-#+RESULTS:
-
 * R
-** ESS
+  
 #+begin_src emacs-lisp
 (use-package ess
   :defer t
-  :mode "\\.R|.r\\'"
+  :commands R
+  :custom
+  (ess-ask-for-ess-directory nil)
+  (ess-style 'RStudio-)
+  (ess-use-company nil)
   :config
-  (if (eq system-type 'windows-nt)
-      (progn
-        (setq ess-directory-containing-R "C:/Program Files/")
-        ;; Add to list of prefixes recognized by ESS.
-        ;; Matching versions will appear after doing M-x R <TAB> <TAB>
-        (setq ess-r-versions '("R-1" "R-2" "R-3" "R-current" "R-devel" "R-patched"))
-        (setq inferior-R-program-name "C:/Program Files/R/R-4.1.1/bin/x64/Rterm.exe")))
-  (require 'ess-site)
-  ;; (require 'ess-r-mode)
-  ;; ess syntax highlight
-  (setq ess-default-style 'RStudio-)
-  ;; Do not ask for ess startup location
-  (setq ess-ask-for-ess-directory nil)
-  ;; To make a new process start with just *R* for the below
-  ;; shift enter
-  ;; see https://github.com/emacs-ess/ESS/issues/1073
-  (setq ess-gen-proc-buffer-name-function 'ess-gen-proc-buffer-name:simple)
-  ;; The name of the ESS process associated with the buffer.
-  (setq ess-local-process-name "R")
-  (setq ansi-color-for-comint-mode 'filter)
-  (setq comint-scroll-to-bottom-on-input t)
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq comint-move-point-for-output t)
-  ;; company completion
-  ;; (setq ess-r-company-backends
-        ;; '((company-tabnine company-R-library company-R-args company-R-objects :separate)))
-  )
+  (require 'ess-site))
 #+end_src
 
-** RMD
+* Polymode
 The idea is to run poly-R/markdown within the markdown mode
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
   ;;:ensure auctex
   :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode)
-         ("\\.Rmd\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown")
+  ;; :mode (("README\\.md\\'" . gfm-mode)
+  ;;        ("\\.md\\'" . markdown-mode)
+  ;;        ("\\.markdown\\'" . markdown-mode)
+  ;;        ("\\.Rmd\\'" . markdown-mode))
+  ;; :init (setq markdown-command "multimarkdown")
   :custom
   (markdown-fontify-code-blocks-natively t)
   (markdown-header-scaling t)
@@ -144,19 +103,26 @@ The idea is to run poly-R/markdown within the markdown mode
 
 Here are the polys
 #+begin_src emacs-lisp
+(use-package polymode
+  :commands polymode-mode)
+
+(use-package adaptive-wrap)
+
 (use-package poly-markdown
-  :ensure poly-R
-  :ensure poly-noweb
-  :ensure polymode
-  :ensure adaptive-wrap
-  :config
-  ;; R/tex polymodes
-  (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.rnw" . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-  (setq markdown-enable-math t)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  )
+  :commands (poly-markdown-mode poly-gfm-mode)
+  :mode (("\\.md$" . poly-gfm-mode)
+         ("\\.rmd$" . poly-gfm-mode)
+         ("\\.markdown$" . poly-markdown-mode)))
+
+(use-package poly-noweb
+  :commands poly-noweb-mode)
+
+(use-package poly-R
+  :mode (("\\.Rmd" . poly-markdown+r-mode)
+         ("\\.rmd" . poly-markdown+r-mode)
+         ("\\.Rnw" . poly-noweb+r-mode)
+         ("\\.rnw" . poly-noweb+r-mode)
+         ))
 #+end_src
 
 #+RESULTS:
@@ -177,7 +143,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" "~/anaconda3/envs")
+  (setenv "WORKON_HOME" "/usr/local/anaconda3/envs")
   ;; (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
 #+end_src
@@ -190,7 +156,7 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 
 #+begin_src emacs-lisp
 (use-package company-jedi
-  ;; :disabled
+  :disabled
   ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
   :config
   (add-hook 'python-mode-hook 'jedi:setup)
@@ -212,11 +178,6 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   :config
   (setq ein:polymode t)
   )
-#+end_src
-
-* Lua
-#+begin_src emacs-lisp
-(use-package lua-mode)
 #+end_src
 
 * Web
@@ -271,14 +232,6 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 
 ** other packages
 #+begin_src emacs-lisp
-(use-package which-key
-  :defer 1
-  :init 
-  :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.3))
-
 ;; add comment to your codes
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -288,10 +241,13 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   :init (all-the-icons-ibuffer-mode 1))
 
 (use-package highlight-indent-guides
-  :hook (prog-mode . highlight-indent-guides-mode))
+  :hook ((prog-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'character))
 
 ;; Automatically clean whitespace
 (use-package ws-butler
+  :disabled
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
 #+end_src
