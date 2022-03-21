@@ -407,7 +407,6 @@
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
   :straight t
-  :if (eq system-type 'darwin)
   :pin manual ;; don't reinstall when package updates
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map

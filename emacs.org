@@ -1,4 +1,4 @@
-#+Title: Emacs Configuration
+e#+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
@@ -150,7 +150,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 140))
+   (setq zw/font-size 180))
   ('darwin
    (setq zw/font-size 140)))
 
@@ -175,6 +175,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                     :weight 'light
                     :height zw/font-size)
 #+end_src
+
+#+RESULTS:
 
 ** Modeline
 *** Bespoke modeline
@@ -373,8 +375,6 @@ My key binding strategy:
 
 #+begin_src emacs-lisp
 (use-package emacs
-  :hook
-  (text-mode . visual-line-mode)
   :custom
   ;; completion
   (completion-cycle-threshold nil)
@@ -396,6 +396,7 @@ My key binding strategy:
       (apply orig-fun r)))
   (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
   ;; ------------------- modes    ---------------------
+  (global-visual-line-mode 1)
   ;; Revert buffers when the underlying file has changed
   (global-auto-revert-mode 1)
   ;; hightlight current row
@@ -778,6 +779,7 @@ use =feh= to open images, use =evince= to open pdf
 
 #+begin_src emacs-lisp
 (use-package openwith
+  :disabled
   :if (eq system-type 'gnu/linux)
   :config
   (setq openwith-associations
@@ -796,8 +798,8 @@ use =feh= to open images, use =evince= to open pdf
                 '("pdf"))
                ;; "zathura"
                ;; "okular"
-               "evince"
-               ;; "PDF Tools"
+               ;; "evince"
+               "PDF Tools"
                '(file))))
   (openwith-mode 1))
 #+end_src
@@ -1007,14 +1009,6 @@ Auto-Saving Changed Files
   :commands (sudo-edit))
    #+end_src
    
-* Desktop-EXWM
-This part is largely copied from daviwil's course.
-
-#+begin_src emacs-lisp
-(when (eq system-type 'gnu/linux)
-  (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
-#+end_src
-
 * Development
 
 #+begin_src emacs-lisp
@@ -1027,9 +1021,38 @@ This part is largely copied from daviwil's course.
 (org-babel-load-file "~/.emacs.d/emacs-text.org")
   #+end_src
 
-* System-Linux
+* System
 
-#+begin_src emacs-lisp
+** Desktop-EXWM
+This part is largely copied from daviwil's course.
+
+#+begin_src emacs-lisp :tangle "no"
+(when (eq system-type 'gnu/linux)
+  (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
+#+end_src
+
+** Archlinux
+
+#+begin_src emacs-lisp :tangle "no"
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-system.org"))
 #+end_src
+
+** WSL
+
+#+begin_src emacs-lisp
+(when (getenv "WSL_DISTRO_NAME")
+  (progn
+    (cua-mode 1)
+    (global-set-key (kbd "C-{") 'windmove-left)          ; move to left window
+    (global-set-key (kbd "C-|") 'windmove-right)        ; move to right window
+    (global-set-key (kbd "C-}") 'windmove-up)              ; move to upper window
+    (global-set-key (kbd "C-\"") 'windmove-down)          ; move to lower window
+    (global-set-key (kbd "M-#") 'winner-undo)
+    (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
+    (global-set-key (kbd "C-w") 'delete-window)
+    (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)))
+#+end_src
+
+#+RESULTS:
+: split-window-sensibly-prefer-horizontal

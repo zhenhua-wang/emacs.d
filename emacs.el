@@ -91,7 +91,7 @@
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 140))
+   (setq zw/font-size 180))
   ('darwin
    (setq zw/font-size 140)))
 
@@ -262,8 +262,6 @@
   (fringe-mode 0))
 
 (use-package emacs
-  :hook
-  (text-mode . visual-line-mode)
   :custom
   ;; completion
   (completion-cycle-threshold nil)
@@ -285,6 +283,7 @@
       (apply orig-fun r)))
   (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
   ;; ------------------- modes    ---------------------
+  (global-visual-line-mode 1)
   ;; Revert buffers when the underlying file has changed
   (global-auto-revert-mode 1)
   ;; hightlight current row
@@ -548,6 +547,7 @@
   (counsel-projectile-mode))
 
 (use-package openwith
+  :disabled
   :if (eq system-type 'gnu/linux)
   :config
   (setq openwith-associations
@@ -566,8 +566,8 @@
                 '("pdf"))
                ;; "zathura"
                ;; "okular"
-               "evince"
-               ;; "PDF Tools"
+               ;; "evince"
+               "PDF Tools"
                '(file))))
   (openwith-mode 1))
 
@@ -735,12 +735,18 @@ i.e. windows tiled side-by-side."
 (use-package sudo-edit
   :commands (sudo-edit))
 
-(when (eq system-type 'gnu/linux)
-  (org-babel-load-file "~/.emacs.d/emacs-desktop.org"))
-
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 
 (org-babel-load-file "~/.emacs.d/emacs-text.org")
 
-(when (eq system-type 'gnu/linux)
-  (org-babel-load-file "~/.emacs.d/emacs-system.org"))
+(when (getenv "WSL_DISTRO_NAME")
+  (progn
+    (cua-mode 1)
+    (global-set-key (kbd "C-{") 'windmove-left)          ; move to left window
+    (global-set-key (kbd "C-|") 'windmove-right)        ; move to right window
+    (global-set-key (kbd "C-}") 'windmove-up)              ; move to upper window
+    (global-set-key (kbd "C-\"") 'windmove-down)          ; move to lower window
+    (global-set-key (kbd "M-#") 'winner-undo)
+    (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
+    (global-set-key (kbd "C-w") 'delete-window)
+    (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)))

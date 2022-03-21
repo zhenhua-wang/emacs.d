@@ -24,9 +24,9 @@
   ('gnu/linux (
   	       (lambda ()
                  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-                 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-		 (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-		 (add-to-list 'default-frame-alist '(alpha . (85 . 85))))))
+                 (add-to-list 'default-frame-alist '(fullscreen . maximized)))))
+		 ;;(set-frame-parameter (selected-frame) 'alpha '(85 . 85))
+		 ;;(add-to-list 'default-frame-alist '(alpha . (85 . 85))))))
   ('darwin (
             (lambda ()
               ;; (setq default-frame-alist '((width . 120) (height . 50)))
