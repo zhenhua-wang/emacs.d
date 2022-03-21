@@ -1,8 +1,6 @@
-Thank you for using my configuration
-
 * Prerequisite
 
-- emacs-plus: this version has support for svg in OS X
+- emacs-port
 
 * install 
 
@@ -26,5 +24,3 @@ Following is a list of **main** packages you just installed. Check all packages 
 - tutorial: this folder contains some useful tutorials.
 - customize-packages: this folder contains all packages that are not in MELPA
 - customization: this folder contains my customizations. e.g. theme, key-bind.
-
-Have fun! 
