@@ -91,7 +91,7 @@
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 180))
+   (setq zw/font-size 140))
   ('darwin
    (setq zw/font-size 140)))
 

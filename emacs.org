@@ -150,7 +150,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 180))
+   (setq zw/font-size 140))
   ('darwin
    (setq zw/font-size 140)))
 
