@@ -1044,7 +1044,7 @@ To install emacs on wsl: https://emacsredux.com/blog/2021/12/19/using-emacs-on-w
    
 In old windows 10, you may not able to start emacs-gtk. Solution is:  https://github.com/microsoft/WSL/issues/4106#issuecomment-876470388
    
-#+begin_src emacs-lisp :tangle "no"
+#+begin_src emacs-lisp
 (when (getenv "WSL_DISTRO_NAME")
   (progn
     (cua-mode 1)
