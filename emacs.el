@@ -738,15 +738,3 @@ i.e. windows tiled side-by-side."
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 
 (org-babel-load-file "~/.emacs.d/emacs-text.org")
-
-(when (getenv "WSL_DISTRO_NAME")
-  (progn
-    (cua-mode 1)
-    (global-set-key (kbd "C-{") 'windmove-left)          ; move to left window
-    (global-set-key (kbd "C-|") 'windmove-right)        ; move to right window
-    (global-set-key (kbd "C-}") 'windmove-up)              ; move to upper window
-    (global-set-key (kbd "C-\"") 'windmove-down)          ; move to lower window
-    (global-set-key (kbd "M-#") 'winner-undo)
-    (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
-    (global-set-key (kbd "C-w") 'delete-window)
-    (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)))
