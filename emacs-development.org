@@ -175,9 +175,10 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   :disabled
   :init
   (require 'ein-jupyter)
-  :config
-  (setq ein:polymode t)
-  )
+  :custom
+  (ein:polymode t)
+  (ein:output-area-inlined-images t)
+  (ein:slice-image t))
 #+end_src
 
 * Web

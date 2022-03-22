@@ -126,9 +126,10 @@
   :disabled
   :init
   (require 'ein-jupyter)
-  :config
-  (setq ein:polymode t)
-  )
+  :custom
+  (ein:polymode t)
+  (ein:output-area-inlined-images t)
+  (ein:slice-image t))
 
 (use-package web-mode
   :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
