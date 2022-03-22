@@ -354,7 +354,12 @@
 (setq tramp-default-method "ssh")
 
 (use-package vterm
-  :ensure t
+  :straight `(:pre-build (("rm" "-fr" "build")
+			  ("mkdir" "build")
+			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"  ,(concat (straight--repos-dir "emacs-libvterm") "build"))
+			  ;;or
+			  ;; (shell-command "rm -fr build && mkdir build && cd $_ && cmake .. && make")
+			  ))
   :bind
   ((:map vterm-copy-mode-map
          ("<return>" . vterm-copy-mode))
@@ -750,12 +755,3 @@ i.e. windows tiled side-by-side."
     (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
     (global-set-key (kbd "C-w") 'delete-window)
     (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)))
-
-(use-package vterm
-  :if (getenv "WSL_DISTRO_NAME")
-  :straight `(:pre-build (("rm" "-fr" "build")
-			  ("mkdir" "build")
-			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"  ,(concat (straight--repos-dir "emacs-libvterm") "build"))
-			  ;;or
-			  ;; (shell-command "rm -fr build && mkdir build && cd $_ && cmake .. && make")
-			  )))
