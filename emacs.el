@@ -753,6 +753,6 @@ i.e. windows tiled side-by-side."
     (global-set-key (kbd "C-\"") 'windmove-down)          ; move to lower window
     (global-set-key (kbd "M-#") 'winner-undo)
     (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
-    (global-set-key (kbd "C-w") 'delete-window)
+    (global-set-key (kbd "C-(") 'delete-window)
     (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)
     (global-set-key (kbd "C-!") 'kill-current-buffer)))
