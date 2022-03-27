@@ -308,7 +308,8 @@
   ;; projectile find file
   (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
   ;; Make ESC quit prompts
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-set-key (kbd "<escape>") (kbd "C-g"))
   ;; window operations
   (global-set-key (kbd "s-w") 'delete-window)
   (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)

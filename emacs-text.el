@@ -10,8 +10,6 @@
   :bind (:map org-mode-map
               ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
   :commands (org-capture org-agenda)
-  ;; :bind (:map org-mode-map
-              ;; ("<C-tab>" . org-latex-preview))
   :config
   (setq ;; other options: "⤵"
    org-ellipsis " ▾"
@@ -32,7 +30,7 @@
    org-src-window-setup 'split-window-below
    ;; use user defined image size
    org-image-actual-width nil)
-  ;; make latex formula larger
+  ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))

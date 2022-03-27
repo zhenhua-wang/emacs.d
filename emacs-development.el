@@ -9,7 +9,7 @@
 
 (use-package lsp-mode
   :custom
-  (lsp:se-completion-provider? :none) ;; we use Corfu!
+  (lsp-completion-provider :none)
   :init
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :commands lsp
@@ -48,7 +48,6 @@
   :custom
   (ess-ask-for-ess-directory nil)
   (ess-style 'RStudio-)
-  (ess-use-company nil)
   :config
   (require 'ess-site))
 
