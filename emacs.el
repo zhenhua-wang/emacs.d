@@ -276,7 +276,6 @@
   (eldoc-echo-area-use-multiline-p nil)
   ;; fix minibuffer size
   (resize-mini-windows nil)
-  (x-select-enable-clipboard nil)
   :init
   ;; ------------------- simplify yes no ---------------
   (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
