@@ -276,6 +276,7 @@
   (eldoc-echo-area-use-multiline-p nil)
   ;; fix minibuffer size
   (resize-mini-windows nil)
+  (x-select-enable-clipboard nil)
   :init
   ;; ------------------- simplify yes no ---------------
   (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
@@ -287,9 +288,7 @@
   ;; Revert buffers when the underlying file has changed
   (global-auto-revert-mode 1)
   ;; hightlight current row
-  (global-hl-line-mode t)
-  (dolist (mode '(vterm-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (global-hl-line-mode 1)
   ;; ------------------- key bind ---------------------
   ;; Keybonds
   (global-set-key (kbd "s-z") 'undo)
