@@ -503,7 +503,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 #+begin_src emacs-lisp
 (use-package corfu
-  :disabled
   ;; Optional customizations
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -537,7 +536,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
 (use-package kind-icon
-  :disabled
   :after corfu
   :custom
   (kind-icon-use-icons t)
@@ -552,7 +550,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 ;; Add extensions
 (use-package cape
-  :disabled
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   ;; (add-to-list 'completion-at-point-functions #'cape-tex)
@@ -571,7 +568,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 ** Company
 *** Main
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp :tangle "no"
 (use-package company
   ;; :hook (after-init . global-company-mode)
   :hook ((prog-mode . company-mode)
@@ -610,7 +607,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+end_src
 
 *** Company math
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp :tangle "no"
 (use-package company-math
   :disabled
   :init
