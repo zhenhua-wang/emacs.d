@@ -23,11 +23,6 @@
   (lsp:se-completion-provider? :none) ;; we use Corfu!
   :init
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
-  (defun my/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(flex))) ;; Configure flex
-  :hook
-  (lsp-completion-mode . my/lsp-mode-setup-completion)
   :commands lsp
   :config
   (setq lsp-log-io nil)

@@ -367,6 +367,7 @@
          ("s-e" . delete-window))))
 
 (use-package corfu
+  :disabled
   ;; Optional customizations
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -399,13 +400,8 @@
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
-;; Use dabbrev with Corfu!
-(use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand)))
-
 (use-package kind-icon
+  :disabled
   :after corfu
   :custom
   (kind-icon-use-icons t)
@@ -417,6 +413,7 @@
 
 ;; Add extensions
 (use-package cape
+  :disabled
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   ;; (add-to-list 'completion-at-point-functions #'cape-tex)
@@ -431,6 +428,56 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 )
+
+(use-package company
+  ;; :hook (after-init . global-company-mode)
+  :hook ((prog-mode . company-mode)
+         (LaTeX-mode . company-mode)
+         (latex-mode . company-mode)
+         (markdown-mode . company-mode)
+         (org-mode . company-mode))
+  :bind
+  (:map company-mode-map
+         ("M-<tab>" . company-yasnippet))
+  (:map company-active-map
+        ("<tab>" . company-complete-selection)
+        ("M-<tab>" . company-yasnippet))
+  :custom
+  (company-idle-delay 0)
+  (company-show-numbers t)
+  (completion-ignore-case t)
+  (company-dabbrev-downcase nil)
+  (company-require-match 'never)
+  (company-dabbrev-ignore-case nil)
+  (company-selection-wrap-around t)
+  (company-minimum-prefix-length 1)
+  (company-tooltip-align-annotations t))
+
+(use-package company-fuzzy
+  :config
+  (global-company-fuzzy-mode 1))
+
+(use-package company-prescient
+  :after company
+  :config
+  (company-prescient-mode 1))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
+(use-package company-math
+  :disabled
+  :init
+  (setq company-math-allow-latex-symbols-in-faces  t)
+  :config
+  (defun my-latex-setup ()
+    (setq-local company-backends
+                (append '((company-math-symbols-latex company-latex-commands))
+                        company-backends)))
+  (add-hook 'org-mode-hook 'my-latex-setup)
+  (add-hook 'markdown-mode-hook 'my-latex-setup)
+  (add-hook 'LaTeX-mode-hook 'my-latex-setup)
+  (add-hook 'latex-mode-hook 'my-latex-setup))
 
 ;; ivy
 (use-package ivy
