@@ -1,4 +1,4 @@
-e#+Title: Emacs Configuration
+#+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
@@ -183,6 +183,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
     #+begin_src emacs-lisp
 (use-package bespoke-modeline
+  :disabled
   :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
   :custom
   (bespoke-modeline-space-top 0)
@@ -212,7 +213,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :hook (doom-modeline-mode . minions-mode))
 
 (use-package doom-modeline
-  :disabled
   :hook (after-init . doom-modeline-init)
   :custom
   (doom-modeline-height 10)

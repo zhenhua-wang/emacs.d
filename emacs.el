@@ -117,6 +117,7 @@
                     :height zw/font-size)
 
 (use-package bespoke-modeline
+  :disabled
   :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
   :custom
   (bespoke-modeline-space-top 0)
@@ -143,7 +144,6 @@
   :hook (doom-modeline-mode . minions-mode))
 
 (use-package doom-modeline
-  :disabled
   :hook (after-init . doom-modeline-init)
   :custom
   (doom-modeline-height 10)
