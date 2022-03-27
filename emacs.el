@@ -288,6 +288,8 @@
   (global-auto-revert-mode 1)
   ;; hightlight current row
   (global-hl-line-mode t)
+  (dolist (mode '(vterm-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
   ;; ------------------- key bind ---------------------
   ;; Keybonds
   (global-set-key (kbd "s-z") 'undo)
