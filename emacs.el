@@ -156,17 +156,17 @@
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-major-mode-icon t)
+  (display-time-format "%a %I:%M %p %D")
+  (display-time-default-load-average nil)
   :config
-  (setq display-time-format "%a %I:%M %p %D"
-        display-time-default-load-average nil)
   (doom-modeline-mode 1)
+  (display-time-mode)
   (set-face-attribute 'mode-line nil :height 120)
   (set-face-attribute 'mode-line-inactive nil :height 120)
   (pcase system-type
     ('darwin
      (progn
-       (display-battery-mode)
-       (display-time-mode)))))
+       (display-battery-mode)))))
 
 (use-package emacs
   :config
