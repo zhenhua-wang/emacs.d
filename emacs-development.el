@@ -36,8 +36,7 @@
 (use-package dap-mode
   :disabled)
 
-(use-package eglot
-  :disabled)
+(use-package eglot)
   ;; :hook
   ;; (python-mode . eglot-ensure)
   ;; (ess-r-mode . eglot-ensure))
