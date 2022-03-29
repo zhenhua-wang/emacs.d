@@ -59,11 +59,83 @@
 
 (server-start)
 
-(use-package spacegray-theme)
-(use-package doom-themes)
-(use-package gruvbox-theme)
-(use-package nord-theme)
-(use-package nano-theme)
+(use-package emacs
+  :custom
+  ;; completion
+  (completion-cycle-threshold nil)
+  (tab-always-indent 'complete)
+  (completions-detailed t)
+  (completion-ignore-case t)
+  ;; Revert Dired and other buffers
+  (global-auto-revert-non-file-buffers t)
+  ;; Use spaces instead of tabs for indentation
+  (indent-tabs-mode nil)
+  ;; echo area show only 1 line of doc
+  (eldoc-echo-area-use-multiline-p nil)
+  ;; fix minibuffer size
+  (resize-mini-windows nil)
+  :init
+  ;; ------------------- simplify yes no ---------------
+  (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
+    (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
+      (apply orig-fun r)))
+  (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
+  ;; ------------------- modes    ---------------------
+  (global-visual-line-mode 1)
+  ;; Revert buffers when the underlying file has changed
+  (global-auto-revert-mode 1)
+  ;; hightlight current row
+  (global-hl-line-mode 1)
+  ;; ------------------- key bind ---------------------
+  ;; Keybonds
+  (global-set-key (kbd "s-z") 'undo)
+  (global-set-key (kbd "s-x") 'kill-region)
+  (global-set-key (kbd "s-c") 'kill-ring-save)
+  (global-set-key (kbd "s-v") 'yank)
+  (global-set-key (kbd "s-a") 'mark-whole-buffer)
+  (global-set-key (kbd "s-s") 'save-buffer)
+  (global-set-key (kbd "s-l") 'goto-line)
+  (global-set-key (kbd "s-q") 'kill-current-buffer)
+  ;; vterm
+  (global-set-key (kbd "s-e") 'vterm)
+  ;; eldoc
+  ;; (global-set-key (kbd "s-d") 'eldoc-doc-buffer)
+  ;; winner undo/redo
+  (global-set-key (kbd "s-u") 'winner-undo)
+  (global-set-key (kbd "s-U") 'winner-redo)
+  ;; projectile find file
+  (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
+  ;; Make ESC quit prompts
+  ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-set-key (kbd "<escape>") (kbd "C-g"))
+  ;; window operations
+  (global-set-key (kbd "s-w") 'delete-window)
+  (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
+  (global-set-key [s-left] 'windmove-left)          ; move to left window
+  (global-set-key [s-right] 'windmove-right)        ; move to right window
+  (global-set-key [s-up] 'windmove-up)              ; move to upper window
+  (global-set-key [s-down] 'windmove-down)          ; move to lower window
+  ;; check dict
+  (global-set-key (kbd "C-c w") 'wordnut-search)
+  (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
+  ;; toggle transparency
+  (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
+  ;; get passwed
+  ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
+  ;; toggle input
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  ;; consistent with EXWM
+  (pcase system-type
+    ('darwin
+     (progn
+       (setq mac-command-modifier 'super)
+       (setq mac-option-modifier 'meta)))))
+
+;; (use-package spacegray-theme)
+;; (use-package doom-themes)
+;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
+;; (use-package nano-theme)
 (use-package bespoke-themes
   :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
   :config
@@ -80,14 +152,6 @@
 
 ;; Load theme
 (load-theme 'bespoke t)
-
-;; (load-theme 'nano-light t)
-;; (set-face-attribute 'mode-line nil
-;;                     :background "#eceff1"
-;;                     :box nil)
-;; (set-face-attribute 'mode-line-inactive nil
-;;                     :background "#eceff1"
-;;                     :box nil)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
@@ -261,89 +325,6 @@
   :config
   (fringe-mode 0))
 
-(use-package emacs
-  :custom
-  ;; completion
-  (completion-cycle-threshold nil)
-  (tab-always-indent 'complete)
-  (completions-detailed t)
-  (completion-ignore-case t)
-  ;; Revert Dired and other buffers
-  (global-auto-revert-non-file-buffers t)
-  ;; Use spaces instead of tabs for indentation
-  (indent-tabs-mode nil)
-  ;; echo area show only 1 line of doc
-  (eldoc-echo-area-use-multiline-p nil)
-  ;; fix minibuffer size
-  (resize-mini-windows nil)
-  :init
-  ;; ------------------- simplify yes no ---------------
-  (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
-    (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
-      (apply orig-fun r)))
-  (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
-  ;; ------------------- modes    ---------------------
-  (global-visual-line-mode 1)
-  ;; Revert buffers when the underlying file has changed
-  (global-auto-revert-mode 1)
-  ;; hightlight current row
-  (global-hl-line-mode 1)
-  ;; ------------------- key bind ---------------------
-  ;; Keybonds
-  (global-set-key (kbd "s-z") 'undo)
-  (global-set-key (kbd "s-x") 'kill-region)
-  (global-set-key (kbd "s-c") 'kill-ring-save)
-  (global-set-key (kbd "s-v") 'yank)
-  (global-set-key (kbd "s-a") 'mark-whole-buffer)
-  (global-set-key (kbd "s-s") 'save-buffer)
-  (global-set-key (kbd "s-l") 'goto-line)
-  (global-set-key (kbd "s-q") 'kill-current-buffer)
-  ;; vterm
-  (global-set-key (kbd "s-e") 'vterm)
-  ;; eldoc
-  ;; (global-set-key (kbd "s-d") 'eldoc-doc-buffer)
-  ;; winner undo/redo
-  (global-set-key (kbd "s-u") 'winner-undo)
-  (global-set-key (kbd "s-U") 'winner-redo)
-  ;; projectile find file
-  (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
-  ;; Make ESC quit prompts
-  ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (global-set-key (kbd "<escape>") (kbd "C-g"))
-  ;; window operations
-  (global-set-key (kbd "s-w") 'delete-window)
-  (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
-  (global-set-key [s-left] 'windmove-left)          ; move to left window
-  (global-set-key [s-right] 'windmove-right)        ; move to right window
-  (global-set-key [s-up] 'windmove-up)              ; move to upper window
-  (global-set-key [s-down] 'windmove-down)          ; move to lower window
-  ;; check dict
-  (global-set-key (kbd "C-c w") 'wordnut-search)
-  (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
-  ;; toggle transparency
-  (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
-  ;; get passwed
-  ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
-  ;; toggle input
-  (global-set-key (kbd "C-\\") 'toggle-input-method)
-  ;; consistent with EXWM
-  (pcase system-type
-    ('darwin
-     (progn
-       (setq mac-command-modifier 'super)
-       (setq mac-option-modifier 'meta)))))
-  ;; -------------- disable mouse and trackboard ----------------
-  ;; (global-unset-key (kbd "<down-mouse-1>"))
-  ;; (global-unset-key (kbd "<mouse-1>"))
-  ;; (global-unset-key (kbd "<down-mouse-3>"))
-  ;; (global-unset-key (kbd "<mouse-3>"))
-  ;; (mouse-wheel-mode -1)
-  ;; (global-set-key [wheel-down] 'ignore)
-  ;; (global-set-key [double-wheel-up] 'ignore)
-  ;; (global-set-key [double-wheel-down] 'ignore)
-  ;; (global-set-key [triple-wheel-up] 'ignore)
-  ;; (global-set-key [triple-wheel-down] 'ignore))
-
 (use-package exec-path-from-shell
   :init
   (setq exec-path-from-shell-check-startup-files nil)
@@ -371,6 +352,8 @@
   :custom
   (corfu-cycle t)
   (corfu-auto t)
+  (corfu-auto-delay 0)
+  (corfu-auto-prefix 0)
   (corfu-preselect-first nil)
   (corfu-quit-no-match nil)
   (corfu-on-exact-match nil)
@@ -378,7 +361,6 @@
   (corfu-echo-documentation nil)
   (corfu-min-width 80)
   (corfu-max-width corfu-min-width)
-
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)
@@ -539,37 +521,12 @@
   :config
   (counsel-projectile-mode))
 
-(use-package openwith
-  :disabled
-  :if (eq system-type 'gnu/linux)
-  :config
-  (setq openwith-associations
-        (list
-         ;; (list (openwith-make-extension-regexp
-         ;;        '("xbm" "pbm" "pgm" "ppm" "pnm"
-         ;;          "png" "gif" "bmp" "tif" "jpeg" "jpg"))
-         ;;       "feh"
-         ;;       '(file))
-         ;;I promise I will get rid of this someday..
-         (list (openwith-make-extension-regexp
-                '("doc" "docx" "ppt" "pptx"))
-               "libreoffice"
-               '(file))
-         (list (openwith-make-extension-regexp
-                '("pdf"))
-               ;; "zathura"
-               ;; "okular"
-               ;; "evince"
-               "PDF Tools"
-               '(file))))
-  (openwith-mode 1))
-
 (use-package which-key
   :defer 1
   :init
   :diminish which-key-mode
   :config
-  ;; (which-key-mode)
+  (which-key-mode)
   (setq which-key-idle-delay 0.3))
 
 (use-package neotree
@@ -585,8 +542,7 @@
 
 ;; check code syntax
 (use-package flycheck
-  :hook (prog-mode . flycheck-mode)
-  )
+  :hook (prog-mode . flycheck-mode))
 
 (use-package winner
   :config

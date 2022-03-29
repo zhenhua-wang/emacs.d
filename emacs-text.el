@@ -1,12 +1,9 @@
 (use-package org
+  :defer t
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . turn-on-org-cdlatex)
-  ;; this is defined in "beautify org mode" section
-  ;; (org-mode . org-icons)
-  ;; refresh image after executing codes
-  ;; (org-babel-after-execute . org-redisplay-inline-images)
   :bind (:map org-mode-map
               ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
   :commands (org-capture org-agenda)
@@ -90,68 +87,6 @@
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
   )
 
-(use-package org-fragtog
-  :disabled
-  :hook
-  (org-mode . org-fragtog-mode))
-
-(setq org-agenda-window-setup 'current-window)
-(setq org-agenda-start-with-log-mode t)
-(setq org-agenda-span 'day)
-(setq org-log-into-drawer t)
-;; Make done tasks show up in the agenda log
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-
-(setq org-agenda-files
-      '("~/Workspace/Documents/OrgFiles/Tasks.org"
-        "~/Workspace/Documents/OrgFiles/Events.org"))
-
-;; refiling
-(setq org-refile-targets
-      '(("Tasks.org" :maxlevel . 1)
-        ("Events.org" :maxlevel . 1)))
-
-;; Save Org buffers after refiling!
-(advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-(setq org-capture-templates
-      `(("t" "Tasks / Projects")
-        ("tt" "Task" entry (file+olp "~/Workspace/Documents/OrgFiles/Tasks.org" "Inbox")
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-        ("tr" "Research" entry (file+olp "~/Workspace/Documents/OrgFiles/Tasks.org" "Research")
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-        ("ts" "Clocked Entry Subtask" entry (clock)
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-
-        ("e" "Events")
-        ("em" "Meeting" entry
-         (file+olp+datetree "~/Workspace/Documents/OrgFiles/Events.org", "Meeting")
-         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-         :clock-in :clock-resume
-         :empty-lines 1)))
-
-(use-package org-wild-notifier
-  :hook (after-init . org-wild-notifier-mode)
-  :config
-  (setq org-wild-notifier-alert-time '(15))
-  (setq org-wild-notifier-notification-title "Org Agenda")
-  (setq org-wild-notifier--alert-severity 'high)
-  (setq org-wild-notifier--day-wide-events t))
-
-(use-package alert
-  :config
-  (setq alert-default-style 'libnotify))
-
-(use-package org-superstar
-  :disabled
-  :after org
-  :hook (org-mode . org-superstar-mode)
-  :custom
-  (org-superstar-remove-leading-stars nil)
-  ;; (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●"))
-  )
-
 (use-package org-modern
   :after org
   :hook (org-mode . org-modern-mode))
@@ -168,12 +103,6 @@
 ;; Auto-show Markup Symbols
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
-
-;; auto tangle
-(use-package org-auto-tangle
-  ;; :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory
-  :defer 1
-  :hook (org-mode . org-auto-tangle-mode))
 
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
@@ -218,24 +147,15 @@
                                          :bold t :height 1.0))))
    '(org-latex-and-related ((t (:foreground "#EBCB8B")))))
 
-(defun org-icons ()
-   "Beautify org mode keywords."
-   (setq prettify-symbols-alist '(("[ ]" . "")
-			          ("[X]" . "")
-			          ("[-]" . "")
-			          ("#+BEGIN_SRC" . "")
-			          ("#+END_SRC" . "―")
-                                  ("#+begin_src" . "")
-			          ("#+end_src" . "―")
-                                  ("#+results:" . "")
-                                  ("#+RESULTS:" . "")))
-   (prettify-symbols-mode))
-
-
-
 ;; (setq  org-src-block-faces '(("emacs-lisp" (:background "LightCyan1" :extend t))
 ;; 			     ("python" (:background "DarkSeaGreen1" :extend t))
 ;; 			     ("R" (:background "thistle1" :extend t))))
+
+;; auto tangle
+(use-package org-auto-tangle
+  ;; :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory
+  :defer 1
+  :hook (org-mode . org-auto-tangle-mode))
 
 (use-package org-roam
   :after org
@@ -274,55 +194,6 @@
          ("C-M-i"   . completion-at-point))
   :config
   (org-roam-setup))
-
-(defun dw/org-present-prepare-slide ()
-  (org-overview)
-  (org-show-entry)
-  (org-show-children))
-
-(defun dw/org-present-hook ()
-  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
-                                     (header-line (:height 4.5) variable-pitch)
-                                     (org-document-title (:height 1.75) org-document-title)
-                                     (org-code (:height 1.55) org-code)
-                                     (org-verbatim (:height 1.55) org-verbatim)
-                                     (org-block (:height 1.25) org-block)
-                                     (org-block-begin-line (:height 0.7) org-block)))
-  (setq header-line-format " ")
-  (org-appear-mode -1)
-  (org-display-inline-images)
-  (dw/org-present-prepare-slide))
-
-(defun dw/org-present-quit-hook ()
-  (setq-local face-remapping-alist '((default variable-pitch default)))
-  (setq header-line-format nil)
-  (org-present-small)
-  (org-remove-inline-images)
-  (org-appear-mode 1))
-
-(defun dw/org-present-prev ()
-  (interactive)
-  (org-present-prev)
-  (dw/org-present-prepare-slide))
-
-(defun dw/org-present-next ()
-  (interactive)
-  (org-present-next)
-  (dw/org-present-prepare-slide))
-
-(use-package org-present
-  :bind (:map org-present-mode-keymap
-         ("C-c n" . dw/org-present-next)
-         ("C-c p" . dw/org-present-prev)
-         ("C-c q" . org-present-quit)
-         ;; ([C-right] . org-present-next)
-         ;; ([C-left] . org-present-prev)
-         ([C-right] . dw/org-present-next)
-         ([C-left] . dw/org-present-prev)
-         ([right] . nil)
-         ([left] . nil))
-  :hook ((org-present-mode . dw/org-present-hook)
-         (org-present-mode-quit . dw/org-present-quit-hook)))
 
 (defun zw/org-fold-all-but-current ()
   (interactive)
@@ -372,35 +243,25 @@
 
 ;; auto async preview latex
 (use-package xenops
-  :custom
-  (xenops-reveal-on-entry t)
+  :hook
+  (latex-mode . xenops-mode)
+  (LaTeX-mode . xenops-mode)
   :config
-  (add-hook 'latex-mode-hook #'xenops-mode)
-  (add-hook 'LaTeX-mode-hook #'xenops-mode)
-  ;; This is not needed for emacs-macport
-  ;; (setq xenops-math-image-scale-factor 2)
-  )
+  (setq xenops-reveal-on-entry t))
 
 (use-package reftex
   :hook
   (LaTeX-mode . turn-on-reftex)
   (latex-mode . turn-on-reftex)
   (markdown-mode . turn-on-reftex)
-  :config
-  (setq reftex-plug-into-AUCTeX t))
+  :custom
+  (reftex-plug-into-AUCTeX t))
 
 ;; epub
 (use-package nov
   :defer 1
   :config
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
-
-;; pdf
-;; (use-package doc-view
-;;   :config
-;;   ;; (setq doc-view-resolution 300)
-;;   (setq doc-view-resolution 168))
-
 
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
