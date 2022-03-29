@@ -99,11 +99,7 @@
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
-  (pcase system-type
-    ('gnu/linux
-     (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs")))
-    ('darwin
-     (setenv "WORKON_HOME" "/usr/local/anaconda3/envs")))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
 
 (use-package company-jedi
