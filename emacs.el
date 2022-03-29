@@ -359,6 +359,7 @@
   (corfu-on-exact-match nil)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
+  (corfu-scroll-margin 5)
   ;; (corfu-min-width 80)
   ;; (corfu-max-width corfu-min-width)
   :bind
@@ -377,6 +378,15 @@
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand))
+  :custom
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace t))
 
 (use-package kind-icon
   :after corfu
@@ -398,11 +408,12 @@
 
 ;; Add extensions
 (use-package cape
+  :custom
+  (cape-dabbrev-min-length 1)
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 ;; ivy
 (use-package ivy
