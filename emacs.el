@@ -368,20 +368,17 @@
          ("s-e" . delete-window))))
 
 (use-package corfu
-  ;; Optional customizations
   :custom
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  ;; (corfu-separator ?\s)          ;; Orderless field separator
-  (corfu-preselect-first nil)    ;; Disable candidate preselection
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-preselect-first nil)
   (corfu-quit-no-match nil)
   (corfu-on-exact-match nil)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
   (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)  ;; Always have the same width
+  (corfu-max-width corfu-min-width)
 
-  ;; Use TAB for cycling, default is `corfu-complete'.
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)
@@ -396,7 +393,6 @@
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      ;; (setq-local corfu-auto nil) Enable/disable auto completion
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
@@ -407,24 +403,21 @@
   (kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
   (kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
   (kind-icon-blend-frac 0.08)
-    :config
+  :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; Use dabbrev with Corfu!
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand)))
 
 ;; Add extensions
 (use-package cape
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  ;; (add-to-list 'completion-at-point-functions #'cape-tex)
-  ;; (add-to-list 'completion-at-point-functions #'cape-keyword)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
-  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
-  ;;(add-to-list 'completion-at-point-functions #'cape-line)
 )
 
 ;; ivy

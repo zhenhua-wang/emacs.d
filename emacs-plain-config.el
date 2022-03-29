@@ -1,3 +1,9 @@
+;; Load path for manually installed packages
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; Load path for customied themes
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -30,6 +36,21 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
+;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
+
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering
+  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
 
 (use-package emacs
   :hook
@@ -184,6 +205,21 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 )
+
+(use-package pyvenv
+  :hook ((python-mode . pyvenv-mode))
+  :config
+  (pcase system-type
+    ('gnu/linux
+     (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs")))
+    ('darwin
+     (setenv "WORKON_HOME" "/usr/local/anaconda3/envs")))
+  (pyvenv-mode 1))
+
+(use-package eglot)
+  ;; :hook
+  ;; (python-mode . eglot-ensure)
+  ;; (ess-r-mode . eglot-ensure))
 
 (use-package ess
   :commands R

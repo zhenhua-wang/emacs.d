@@ -5,6 +5,15 @@
 
 --------------
 * Startup
+** Add custom file and path
+#+begin_src emacs-lisp
+;; Load path for manually installed packages
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; Load path for customied themes
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+#+end_src
+
 ** Package management
 *** package and use-packge
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
@@ -56,6 +65,26 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+#+end_src
+
+** Keep .emacs.d Clean
+Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
+
+#+begin_src emacs-lisp
+;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
+
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering
+  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
 #+end_src
 
 * General Emacs Settings
@@ -159,8 +188,13 @@ My key binding strategy:
   ;; (global-set-key [triple-wheel-down] 'ignore))
 #+end_src
 
+* Text Editor
 
-* Productivity
+  #+begin_src emacs-lisp :tangle "no"
+(org-babel-load-file "~/.emacs.d/emacs-text.org")
+  #+end_src
+
+* Configs
 ** Corfu
 *** Main
 
@@ -235,8 +269,29 @@ My key binding strategy:
 )
 #+end_src
 
+** python-mode
+   
+#+begin_src emacs-lisp
+(use-package pyvenv
+  :hook ((python-mode . pyvenv-mode))
+  :config
+  (pcase system-type
+    ('gnu/linux
+     (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs")))
+    ('darwin
+     (setenv "WORKON_HOME" "/usr/local/anaconda3/envs")))
+  (pyvenv-mode 1))
+#+end_src
 
-* Development
+** Eglot
+
+#+begin_src emacs-lisp
+(use-package eglot)
+  ;; :hook
+  ;; (python-mode . eglot-ensure)
+  ;; (ess-r-mode . eglot-ensure))
+#+end_src
+
 ** R
   
 #+begin_src emacs-lisp
@@ -310,3 +365,4 @@ Here are the polys
 #+end_src
 
 #+RESULTS:
+
