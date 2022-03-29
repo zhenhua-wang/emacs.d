@@ -355,7 +355,7 @@
   (corfu-auto-delay 0)
   (corfu-auto-prefix 0)
   (corfu-preselect-first nil)
-  (corfu-quit-no-match t)
+  (corfu-quit-no-match nil)
   (corfu-on-exact-match nil)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
