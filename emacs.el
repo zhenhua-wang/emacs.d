@@ -353,15 +353,15 @@
   (corfu-cycle t)
   (corfu-auto t)
   (corfu-auto-delay 0)
-  (corfu-auto-prefix 0)
+  (corfu-auto-prefix 1)
   (corfu-preselect-first nil)
   (corfu-quit-no-match nil)
-  (corfu-on-exact-match nil)
+  (corfu-on-exact-match 'insert)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
   (corfu-scroll-margin 5)
-  ;; (corfu-min-width 80)
-  ;; (corfu-max-width corfu-min-width)
+  (corfu-min-width 20)
+  (corfu-max-width 80)
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)
@@ -380,9 +380,6 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
 (use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand))
   :custom
   ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
   (dabbrev-case-fold-search nil)
