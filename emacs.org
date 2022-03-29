@@ -16,7 +16,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+end_src
 
 ** Package management
-*** package and use-packge
+*** package and use-pacakge
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
 
 + ~:hook~ - package will be loaded the first time one of the hooks is invoked
@@ -488,12 +488,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (corfu-auto-delay 0)
   (corfu-auto-prefix 0)
   (corfu-preselect-first nil)
-  (corfu-quit-no-match nil)
+  (corfu-quit-no-match t)
   (corfu-on-exact-match nil)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
-  (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)
+  ;; (corfu-min-width 80)
+  ;; (corfu-max-width corfu-min-width)
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)
@@ -510,7 +510,11 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+#+end_src
 
+*** Kind icon
+
+    #+begin_src emacs-lisp
 (use-package kind-icon
   :after corfu
   :custom
@@ -520,14 +524,20 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (kind-icon-blend-frac 0.08)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+    #+end_src
 
-;; Use dabbrev with Corfu!
-(use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand)))
-#+end_src
+*** Corfu doc
 
+    #+begin_src emacs-lisp
+(use-package corfu-doc
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  (:map corfu-map
+        ("M-p" . corfu-doc-scroll-down)
+        ("M-n" . corfu-doc-scroll-up)))
+    #+end_src
+    
 *** Cape
 #+begin_src emacs-lisp
 ;; Add extensions

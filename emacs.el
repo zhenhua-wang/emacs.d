@@ -355,12 +355,12 @@
   (corfu-auto-delay 0)
   (corfu-auto-prefix 0)
   (corfu-preselect-first nil)
-  (corfu-quit-no-match nil)
+  (corfu-quit-no-match t)
   (corfu-on-exact-match nil)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
-  (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)
+  ;; (corfu-min-width 80)
+  ;; (corfu-max-width corfu-min-width)
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)
@@ -388,11 +388,13 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-;; Use dabbrev with Corfu!
-(use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand)))
+(use-package corfu-doc
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  (:map corfu-map
+        ("M-p" . corfu-doc-scroll-down)
+        ("M-n" . corfu-doc-scroll-up)))
 
 ;; Add extensions
 (use-package cape
