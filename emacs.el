@@ -162,7 +162,7 @@
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'bespoke t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
@@ -399,7 +399,7 @@
 (use-package kind-icon
   :after corfu
   :custom
-  (kind-icon-use-icons t)
+  (kind-icon-use-icons nil)
   (kind-icon-default-face 'corfu-default)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))

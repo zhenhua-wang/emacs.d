@@ -230,7 +230,7 @@ My key binding strategy:
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'bespoke t)
 #+end_src
 
 ** Font face
@@ -540,7 +540,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package kind-icon
   :after corfu
   :custom
-  (kind-icon-use-icons t)
+  (kind-icon-use-icons nil)
   (kind-icon-default-face 'corfu-default)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
