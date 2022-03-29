@@ -148,6 +148,8 @@
 (use-package bespoke-themes
   :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
   :config
+  ;; Set evil cursor colors
+  (setq bespoke-set-evil-cursors t)
   ;; Set use of italics
   (setq bespoke-set-italic-comments t
         bespoke-set-italic-keywords t)
