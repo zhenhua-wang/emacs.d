@@ -555,46 +555,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 #+end_src
 
-** Company
-*** Main
-#+begin_src emacs-lisp :tangle "no"
-(use-package company
-  :hook ((prog-mode . company-mode)
-         (LaTeX-mode . company-mode)
-         (latex-mode . company-mode)
-         (markdown-mode . company-mode))
-  :bind
-  (:map company-mode-map
-        ("<tab>" . company-indent-or-complete-common)
-        ("M-<tab>" . company-yasnippet))
-  (:map company-active-map
-        ("<escape>" . company-abort))
-  :custom
-  (company-idle-delay 0.1)
-  (company-show-numbers t)
-  (completion-ignore-case t)
-  (company-dabbrev-downcase nil)
-  (company-require-match 'never)
-  (company-dabbrev-ignore-case nil)
-  (company-selection-wrap-around t)
-  (company-minimum-prefix-length 1)
-  (company-tooltip-align-annotations t))
-
-(use-package company-fuzzy
-  :config
-  (global-company-fuzzy-mode 1))
-
-(use-package company-prescient
-  :after company
-  :config
-  (company-prescient-mode 1))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-doc-enable nil))
-#+end_src
-
 ** Counsel & ivy
 *** main
 **** ivy 
