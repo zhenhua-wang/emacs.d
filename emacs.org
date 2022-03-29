@@ -139,8 +139,6 @@ My key binding strategy:
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
-;; echo area show only 1 line of doc
-(setq eldoc-echo-area-use-multiline-p nil)
 ;; fix minibuffer size
 (setq resize-mini-windows nil)
 ;; ------------------- simplify yes no ---------------
