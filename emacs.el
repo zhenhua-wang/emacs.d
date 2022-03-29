@@ -81,6 +81,7 @@
 (setq eldoc-echo-area-use-multiline-p nil)
 ;; fix minibuffer size
 (setq resize-mini-windows nil)
+(setq show-trailing-whitespace t)
 ;; ------------------- simplify yes no ---------------
 (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
