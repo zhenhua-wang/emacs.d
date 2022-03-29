@@ -546,8 +546,8 @@
 
 ;; check word spelling
 (use-package flyspell
-  :init
-  (flyspell-mode 1)
+  :hook
+  (text-mode . flyspell-mode)
   :config
   (setq ispell-program-name "aspell")
   (setq ispell-list-command "--list"))
