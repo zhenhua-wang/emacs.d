@@ -81,7 +81,6 @@
 (setq eldoc-echo-area-use-multiline-p nil)
 ;; fix minibuffer size
 (setq resize-mini-windows nil)
-(setq show-trailing-whitespace t)
 ;; ------------------- simplify yes no ---------------
 (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
@@ -698,6 +697,12 @@ i.e. windows tiled side-by-side."
 
 (use-package sudo-edit
   :commands (sudo-edit))
+
+(use-package ws-butler
+  :hook
+  (prog-mode . ws-butler-mode)
+  (text-mode . ws-butler-mode)
+  (org-mode . ws-butler-mode))
 
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 
