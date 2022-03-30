@@ -3,18 +3,6 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
-* Snippets
-#+begin_src emacs-lisp
-(use-package yasnippet
-  :defer 1
-  :bind
-  ;; ("M-<tab>" . yas-insert-snippet)
-  :config
-  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
-  ;; (add-to-list 'company-backends 'company-yasnippet)
-  (yas-global-mode 1))
-#+end_src
-
 * LSP
 
   #+begin_src emacs-lisp
@@ -209,8 +197,7 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   (setq csv-separators '("," ";" "|" " ")))
 #+end_src
 
-* Utils
-** git
+* Git
 #+begin_src emacs-lisp
 (use-package magit
   :ensure with-editor
@@ -221,20 +208,4 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 
 (use-package magit-todos
   :defer t)
-#+end_src
-
-** other packages
-#+begin_src emacs-lisp
-;; add comment to your codes
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-;; theme
-(use-package all-the-icons-ibuffer
-  :init (all-the-icons-ibuffer-mode 1))
-
-(use-package highlight-indent-guides
-  :hook ((prog-mode . highlight-indent-guides-mode))
-  :custom
-  (highlight-indent-guides-method 'character))
 #+end_src

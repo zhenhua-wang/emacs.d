@@ -124,7 +124,7 @@
        (setq mac-command-modifier 'super)
        (setq mac-option-modifier 'meta)))))
 
-(org-babel-load-file "~/.emacs.d/emacs-text.org")
+(org-babel-load-file "~/.emacs.d/emacs-writing.org")
 
 (use-package corfu
     ;; Optional customizations
@@ -177,17 +177,6 @@
 (use-package vertico
   :init
   (vertico-mode)
-
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
-
-  ;; Show more candidates
-  ;; (setq vertico-count 20)
-
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
-
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   (setq vertico-cycle t)
   )
 
@@ -236,7 +225,6 @@
     (marginalia-mode))
 
 (use-package all-the-icons-completion
-  :after (marginalia all-the-icons)
   :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
   :init
   (all-the-icons-completion-mode))

@@ -68,6 +68,12 @@
 
 (server-start)
 
+(global-visual-line-mode 1)
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+;; hightlight current row
+(global-hl-line-mode 1)
+
 ;; completion
 (setq completion-cycle-threshold nil)
 (setq tab-always-indent 'complete)
@@ -84,12 +90,7 @@
   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
     (apply orig-fun r)))
 (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
-;; ------------------- modes    ---------------------
-(global-visual-line-mode 1)
-;; Revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-;; hightlight current row
-(global-hl-line-mode 1)
+
 ;; ------------------- key bind ---------------------
 ;; Keybonds
 (global-set-key (kbd "s-z") 'undo)
@@ -418,23 +419,28 @@
          ("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
-         ;; override s-tab from creating another minibuffer and make it behave mac-like
-         ("s-<tab>" . ivy-next-line) ; "C-j"
-         ;; ("s-SPC" . ivy-next-line)
+         ("s-<tab>" . ivy-next-line)
          ("<backtab>" . ivy-previous-line))
+  :custom
+  (ivy-wrap t)
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d) ")
+  (enable-recursive-minibuffers t)
+  (confirm-nonexistent-file-or-buffer t)
   :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-wrap t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t)
-  (setq confirm-nonexistent-file-or-buffer t)
+  (all-the-icons-ivy-rich-mode 1)
+  (ivy-mode 1))
 
-  ;; Set minibuffer height for different commands
-  (setf (alist-get 'counsel-projectile-ag ivy-height-alist) 15)
-  (setf (alist-get 'counsel-projectile-rg ivy-height-alist) 15)
-  (setf (alist-get 'swiper ivy-height-alist) 15)
-  (setf (alist-get 'counsel-switch-buffer ivy-height-alist) 7))
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1) 
+  :custom
+  (all-the-icons-ivy-rich-color-icon t))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package counsel
   :demand t
@@ -470,51 +476,13 @@
   :config
   (ivy-prescient-mode 1)
   :custom
-  (setq ivy-prescient-enable-filtering t)
-  )
+  (setq ivy-prescient-enable-filtering t))
 
 (use-package prescient
   :after counsel
   :config
   (prescient-persist-mode 1)
-  (setq prescient-sort-length-enable t)
-  ;; (setq prescient-history-length 20)
-  )
-
-(use-package all-the-icons-ivy
-  :hook
-  (after-init . all-the-icons-ivy-setup)
-  :config
-  (setq all-the-icons-ivy-file-commands
-        '(counsel-find-file counsel-recentf counsel-ibuffer counsel-switch-buffer)))
-
-(use-package all-the-icons-ivy-rich
-  :init (all-the-icons-ivy-rich-mode 1)
-  :config
-  (setq all-the-icons-ivy-rich-color-icon t))
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1)
-  :after counsel
-  :config
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-  (setq ivy-format-function #'ivy-format-function-line)
-  (setq ivy-rich-display-transformers-list
-        (plist-put ivy-rich-display-transformers-list
-                   'ivy-switch-buffer
-                   '(:columns
-                     ((ivy-rich-candidate (:width 40))
-                      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
-                      (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
-                      (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
-                      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
-                     :predicate
-                     (lambda (cand)
-                       (if-let ((buffer (get-buffer cand)))
-                           ;; Don't mess with EXWM buffers
-                           (with-current-buffer buffer
-                             (not (derived-mode-p 'exwm-mode)))))))))
+  (setq prescient-sort-length-enable t))
 
 (use-package projectile
   :config (projectile-mode +1)
@@ -696,6 +664,22 @@ i.e. windows tiled side-by-side."
 (use-package ws-butler
   :hook
   (prog-mode . ws-butler-mode))
+
+(use-package yasnippet
+  :defer 1
+  :bind
+  ;; ("M-<tab>" . yas-insert-snippet)
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
+  (yas-global-mode 1))
+
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
+(use-package highlight-indent-guides
+  :hook ((prog-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'character))
 
 (org-babel-load-file "~/.emacs.d/emacs-programming.org")
 

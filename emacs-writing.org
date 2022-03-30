@@ -1,4 +1,4 @@
-#+Title: Text Editing
+#+Title: Text
 #+Author: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
@@ -243,7 +243,7 @@ For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathur
 (require 'ob-teximg)
 #+end_src
 
-* special tex mode
+* Latex
 
 LSP-mode with TexLab works perfect for Latex docs
 
@@ -299,7 +299,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (reftex-plug-into-AUCTeX t))
 #+end_src
 
-* pdf, epub
+* Reading
 
 #+begin_src emacs-lisp
 ;; epub

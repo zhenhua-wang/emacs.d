@@ -1,12 +1,3 @@
-(use-package yasnippet
-  :defer 1
-  :bind
-  ;; ("M-<tab>" . yas-insert-snippet)
-  :config
-  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
-  ;; (add-to-list 'company-backends 'company-yasnippet)
-  (yas-global-mode 1))
-
 (use-package lsp-mode
   :custom
   (lsp-completion-provider :none)
@@ -153,16 +144,3 @@
 
 (use-package magit-todos
   :defer t)
-
-;; add comment to your codes
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-;; theme
-(use-package all-the-icons-ibuffer
-  :init (all-the-icons-ibuffer-mode 1))
-
-(use-package highlight-indent-guides
-  :hook ((prog-mode . highlight-indent-guides-mode))
-  :custom
-  (highlight-indent-guides-method 'character))
