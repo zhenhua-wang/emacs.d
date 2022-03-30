@@ -258,10 +258,12 @@
 ;; (global-set-key (kbd "s-d") 'tab-close)
 (set-face-attribute 'tab-bar-tab nil
                     ;; :background (face-background 'mode-line)
+		    :foreground (face-foreground 'default)
                     :background (face-background 'default)
                     :underline "#950b96"
                     :font zw/default-font)
 (set-face-attribute 'tab-bar-tab-inactive nil
+		    :foreground (face-foreground 'default)
                     :background (face-background 'default)
                     :underline nil
                     :font zw/default-font)
