@@ -144,3 +144,18 @@
 
 (use-package magit-todos
   :defer t)
+
+(use-package format-all)
+
+(use-package highlight-indent-guides
+  :hook ((prog-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'character))
+
+(use-package ws-butler
+  :hook
+  (prog-mode . ws-butler-mode))
+
+;; check code syntax
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode))

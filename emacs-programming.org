@@ -209,3 +209,34 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 (use-package magit-todos
   :defer t)
 #+end_src
+
+* Format codes
+
+   #+begin_src emacs-lisp
+(use-package format-all)
+   #+end_src
+
+* Highlight indent
+
+   #+begin_src emacs-lisp
+(use-package highlight-indent-guides
+  :hook ((prog-mode . highlight-indent-guides-mode))
+  :custom
+  (highlight-indent-guides-method 'character))
+   #+end_src
+   
+
+* Clean whitespace
+
+   #+begin_src emacs-lisp
+(use-package ws-butler
+  :hook
+  (prog-mode . ws-butler-mode))
+   #+end_src
+
+* Flycheck
+#+begin_src emacs-lisp
+;; check code syntax
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode))
+#+end_src

@@ -284,3 +284,11 @@
 ;;   (defun pdf-util-frame-scale-factor () 2))
 
 (use-package wordnut)
+
+;; check word spelling
+(use-package flyspell
+  :hook
+  (text-mode . flyspell-mode)
+  :config
+  (setq ispell-program-name "aspell")
+  (setq ispell-list-command "--list"))

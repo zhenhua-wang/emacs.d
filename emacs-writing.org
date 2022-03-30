@@ -335,3 +335,14 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 #+begin_src emacs-lisp
 (use-package wordnut)
 #+end_src
+
+* Flyspell
+#+begin_src emacs-lisp
+;; check word spelling
+(use-package flyspell
+  :hook
+  (text-mode . flyspell-mode)
+  :config
+  (setq ispell-program-name "aspell")
+  (setq ispell-list-command "--list"))
+#+end_src

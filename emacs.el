@@ -291,9 +291,9 @@
 
 (use-package paren
   :config
-  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-foreground 'show-paren-match "#BF616A") ;; set matched color red
+  (set-face-foreground 'show-paren-match "red")
   (show-paren-mode 1))
 
 (defun zw/toggle-transparency ()
@@ -416,17 +416,19 @@
 (use-package ivy
   :diminish
   :bind (("s-f" . swiper)
-         ("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("s-<tab>" . ivy-next-line)
          ("<backtab>" . ivy-previous-line))
   :custom
   (ivy-wrap t)
+  (ivy-height 15)
   (ivy-use-virtual-buffers t)
-  (ivy-count-format "(%d/%d) ")
+  (ivy-count-format "[%d/%d] ")
   (enable-recursive-minibuffers t)
   (confirm-nonexistent-file-or-buffer t)
+  (swiper-use-visual-line nil)
+  (swiper-use-visual-line-p (lambda (a) nil))
   :config
   (all-the-icons-ivy-rich-mode 1)
   (ivy-mode 1))
@@ -447,7 +449,6 @@
   :bind (("M-x" . counsel-M-x)
 	 ("C-x b" . switch-to-buffer)
 	 ("C-x C-f" . counsel-find-file)
-	 ;; ("C-c b" . counsel-switch-buffer)
 	 ("C-c i" . counsel-imenu)
          ("C-c l" . 'counsel-search)
 	 :map minibuffer-local-map
@@ -508,18 +509,6 @@
 
 (use-package neotree
   :commands neotree)
-
-;; check word spelling
-(use-package flyspell
-  :hook
-  (text-mode . flyspell-mode)
-  :config
-  (setq ispell-program-name "aspell")
-  (setq ispell-list-command "--list"))
-
-;; check code syntax
-(use-package flycheck
-  :hook (prog-mode . flycheck-mode))
 
 (use-package winner
   :config
@@ -661,10 +650,6 @@ i.e. windows tiled side-by-side."
 (use-package sudo-edit
   :commands (sudo-edit))
 
-(use-package ws-butler
-  :hook
-  (prog-mode . ws-butler-mode))
-
 (use-package yasnippet
   :defer 1
   :bind
@@ -675,11 +660,6 @@ i.e. windows tiled side-by-side."
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-(use-package highlight-indent-guides
-  :hook ((prog-mode . highlight-indent-guides-mode))
-  :custom
-  (highlight-indent-guides-method 'character))
 
 (org-babel-load-file "~/.emacs.d/emacs-programming.org")
 
