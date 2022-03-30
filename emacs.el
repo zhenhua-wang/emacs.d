@@ -698,9 +698,7 @@ i.e. windows tiled side-by-side."
 
 (use-package ws-butler
   :hook
-  (prog-mode . ws-butler-mode)
-  (text-mode . ws-butler-mode)
-  (org-mode . ws-butler-mode))
+  (prog-mode . ws-butler-mode))
 
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 

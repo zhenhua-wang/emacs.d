@@ -919,9 +919,7 @@ Auto-Saving Changed Files
    #+begin_src emacs-lisp
 (use-package ws-butler
   :hook
-  (prog-mode . ws-butler-mode)
-  (text-mode . ws-butler-mode)
-  (org-mode . ws-butler-mode))
+  (prog-mode . ws-butler-mode))
    #+end_src
    
 * Development

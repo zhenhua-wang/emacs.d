@@ -237,9 +237,4 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   :hook ((prog-mode . highlight-indent-guides-mode))
   :custom
   (highlight-indent-guides-method 'character))
-
-;; Automatically clean whitespace
-(use-package ws-butler
-  :disabled
-  :hook ((prog-mode . ws-butler-mode)))
 #+end_src

@@ -166,8 +166,3 @@
   :hook ((prog-mode . highlight-indent-guides-mode))
   :custom
   (highlight-indent-guides-method 'character))
-
-;; Automatically clean whitespace
-(use-package ws-butler
-  :disabled
-  :hook ((prog-mode . ws-butler-mode)))
