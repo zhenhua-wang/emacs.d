@@ -170,5 +170,4 @@
 ;; Automatically clean whitespace
 (use-package ws-butler
   :disabled
-  :hook ((text-mode . ws-butler-mode)
-         (prog-mode . ws-butler-mode)))
+  :hook ((prog-mode . ws-butler-mode)))

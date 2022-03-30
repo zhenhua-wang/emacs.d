@@ -241,6 +241,5 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 ;; Automatically clean whitespace
 (use-package ws-butler
   :disabled
-  :hook ((text-mode . ws-butler-mode)
-         (prog-mode . ws-butler-mode)))
+  :hook ((prog-mode . ws-butler-mode)))
 #+end_src
