@@ -106,6 +106,7 @@
   )
 
 (use-package ein
+  :commands ein
   :init
   (require 'ein-jupyter)
   :custom

@@ -152,6 +152,7 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 ** EIN
 #+begin_src emacs-lisp
 (use-package ein
+  :commands ein
   :init
   (require 'ein-jupyter)
   :custom
