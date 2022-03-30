@@ -417,14 +417,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
          '(85 . 85) '(100 . 100)))))
 #+end_src
 
-** Good scroll mode
-#+begin_src emacs-lisp
-(use-package good-scroll
-  :disabled
-  :init
-  (good-scroll-mode 1))
-#+end_src
-
 ** Dim unactivated buffer
    
 #+begin_src emacs-lisp
@@ -448,8 +440,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (fringe-mode 0))
 #+end_src
 
-* Utilities
+* Tools
 ** Exec-path-from-shell
+   
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
   :init
@@ -487,7 +480,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          ("s-e" . delete-window))))
 #+end_src
 
-* Productivity
 ** Corfu
 *** Main
 
@@ -924,16 +916,16 @@ Auto-Saving Changed Files
   (prog-mode . ws-butler-mode))
    #+end_src
    
-* Development
+* Programming
 
 #+begin_src emacs-lisp
-(org-babel-load-file "~/.emacs.d/emacs-development.org")
+(org-babel-load-file "~/.emacs.d/emacs-programming.org")
 #+end_src
 
-* Text Editor
-
+* Writing
+  
   #+begin_src emacs-lisp
-(org-babel-load-file "~/.emacs.d/emacs-text.org")
+(org-babel-load-file "~/.emacs.d/emacs-writing.org")
   #+end_src
 
 * System

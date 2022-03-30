@@ -307,11 +307,6 @@
               100)
          '(85 . 85) '(100 . 100)))))
 
-(use-package good-scroll
-  :disabled
-  :init
-  (good-scroll-mode 1))
-
 ;; Dim inactive windows
 (use-package dimmer
   :disabled
@@ -702,9 +697,9 @@ i.e. windows tiled side-by-side."
   :hook
   (prog-mode . ws-butler-mode))
 
-(org-babel-load-file "~/.emacs.d/emacs-development.org")
+(org-babel-load-file "~/.emacs.d/emacs-programming.org")
 
-(org-babel-load-file "~/.emacs.d/emacs-text.org")
+(org-babel-load-file "~/.emacs.d/emacs-writing.org")
 
 (when (getenv "WSL_DISTRO_NAME")
   (progn

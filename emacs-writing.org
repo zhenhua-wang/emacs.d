@@ -1,0 +1,337 @@
+#+Title: Text Editing
+#+Author: Zhenhua Wang
+#+auto_tangle: t
+#+PROPERTY: header-args+ :tangle "yes"
+
+For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathura-pdf-mupdf= supports pdf and epub
+* Org-mode
+** Main
+#+begin_src emacs-lisp
+(use-package org
+  :defer t
+  :hook
+  (org-mode . variable-pitch-mode)
+  (org-mode . visual-line-mode)
+  (org-mode . turn-on-org-cdlatex)
+  :bind (:map org-mode-map
+              ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
+  :commands (org-capture org-agenda)
+  :config
+  (setq ;; other options: "⤵"
+   org-ellipsis " ▾"
+   org-hide-emphasis-markers t
+   org-src-fontify-natively t
+   org-fontify-quote-and-verse-blocks t
+   org-edit-src-content-indentation 2
+   org-hide-block-startup nil
+   ;; preview latex, etc at startup
+   org-pretty-entities nil
+   org-startup-folded  t;;'content
+   org-cycle-separator-lines 2
+   org-confirm-babel-evaluate nil
+   org-src-preserve-indentation t    ; helps to indent python code in org mode
+   org-src-tab-acts-natively t
+   org-src-strip-leading-and-trailing-blank-lines t
+   ;; show edit buffer below the current window, keeping all
+   org-src-window-setup 'split-window-below
+   ;; use user defined image size
+   org-image-actual-width nil)
+  ;; make LaTeX-mode formula larger
+  (pcase system-type
+    ((or 'gnu/linux 'windows-nt 'cygwin)
+     (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
+    ('darwin
+     (progn
+       (setq org-format-latex-options (plist-put org-format-latex-options :scale 2))
+       (setq org-latex-create-formula-image-program 'dvisvgm))))
+
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:foreground "orange red" :weight bold))
+          ("DONE" . (:foreground "green" :weight bold))))
+
+  ;; set org babel languages
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       ;; (ipython . t)
+       (R . t)
+       (shell . t)
+       ;; (ein . t)
+       (lisp . t)
+       (latex . t)
+       (teximg . t)))
+
+    ;; This is needed as of Org 9.2 (use yasnippet instead)
+    (require 'org-tempo)
+    (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python :session"))
+    (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output"))
+    (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
+  :config
+  ;; latex
+  (setq org-highlight-latex-and-related '(latex script entities))
+  ;; export to latex
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+                 '("org-plain-latex"
+                   "\\documentclass{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+  )
+#+end_src
+
+#+RESULTS:
+: cdlatex-tab
+
+** Beautify org mode
+*** by packages
+
+#+begin_src emacs-lisp
+(use-package org-modern
+  :after org
+  :hook (org-mode . org-modern-mode))
+
+
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+
+;; Auto-show Markup Symbols
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+#+end_src
+
+*** by setting
+
+#+begin_src emacs-lisp
+;; Replace list hyphen with dot
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(let* (
+       (variable-tuple '(:font "JetBrainsMono Nerd Font"))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1 :italic t :foreground "#FF8C94" :slant italic))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25 :foreground "#D08770"))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.50 :foreground "#88C0D0"))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75 :foreground "#5E81AC"))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline t))))))
+
+(custom-theme-set-faces
+   'user
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+   '(org-link ((t (:foreground "royal blue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   ;; hight code blocks
+   '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+                                           :bold t :height 1.0))))
+   '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+                                         :bold t :height 1.0))))
+   '(org-latex-and-related ((t (:foreground "#EBCB8B")))))
+
+;; (setq  org-src-block-faces '(("emacs-lisp" (:background "LightCyan1" :extend t))
+;; 			     ("python" (:background "DarkSeaGreen1" :extend t))
+;; 			     ("R" (:background "thistle1" :extend t))))
+#+end_src
+
+#+RESULTS:
+
+** Org-auto-tangle
+
+   #+begin_src emacs-lisp
+;; auto tangle
+(use-package org-auto-tangle
+  ;; :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory
+  :defer 1
+  :hook (org-mode . org-auto-tangle-mode))
+   #+end_src
+   
+** Org-roam
+#+begin_src emacs-lisp
+(use-package org-roam
+  :after org
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (setq org-roam-db-location "~/.emacs.d/org-roam.db")
+  (org-roam-directory "~/Workspace/Documents/RoamNotes")
+  (org-roam-completion-everywhere t)
+  (org-roam-capture-templates
+   '(
+     ;; default template
+     ("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ;; few example templates
+     ("l" "programming language" plain
+      "* Characteristics\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+
+     ("b" "book notes" plain
+      "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+
+     ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+      :unnarrowed t)
+     ))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"   . completion-at-point))
+  :config
+  (org-roam-setup))
+#+end_src
+
+** Custom functions
+#+begin_src emacs-lisp
+(defun zw/org-fold-all-but-current ()
+  (interactive)
+  (org-remove-occur-highlights)
+  (org-overview)
+  (org-reveal))
+
+(defun zw/toggle-image-scroll ()
+  (interactive)
+  (pixel-scroll-mode)
+  )
+
+;; teximg
+(require 'ob-teximg)
+#+end_src
+
+* special tex mode
+
+LSP-mode with TexLab works perfect for Latex docs
+
+  - =brew install texlab=
+  
+#+begin_src emacs-lisp
+;; latex
+(use-package tex
+  :ensure auctex
+  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
+  :config
+  (setq
+   Tex-PDF-mode t
+   TeX-parse-self t
+   TeX-auto-save t
+   Tex-command-show "LaTex"
+   ;; TeX-view-program-selection '((output-pdf "Okular"))
+   TeX-view-program-selection '((output-pdf "PDF Tools"))
+   TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+   TeX-save-query nil)
+  ;; revert the PDF-buffer after the TeX compilation has finished
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (add-hook 'TeX-mode-hook 'flyspell-mode))
+
+(use-package cdlatex
+  :bind (:map cdlatex-mode-map
+              ("TAB" . indent-for-tab-command)
+              ("<C-tab>" . cdlatex-tab)
+              ;; turn off auto pairing
+              ("$" . nil)
+              ("`" . nil)
+              ("{" . nil)
+              ("[" . nil))
+  :hook
+  (LaTeX-mode . turn-on-cdlatex)
+  (latex-mode . turn-on-cdlatex)
+  (markdown-mode . turn-on-cdlatex))
+
+;; auto async preview latex
+(use-package xenops
+  :hook
+  (latex-mode . xenops-mode)
+  (LaTeX-mode . xenops-mode)
+  :config
+  (setq xenops-reveal-on-entry t))
+
+(use-package reftex
+  :hook
+  (LaTeX-mode . turn-on-reftex)
+  (latex-mode . turn-on-reftex)
+  (markdown-mode . turn-on-reftex)
+  :custom
+  (reftex-plug-into-AUCTeX t))
+#+end_src
+
+* pdf, epub
+
+#+begin_src emacs-lisp
+;; epub
+(use-package nov
+  :defer 1
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
+;; pdf-tools need to be deleted and reinstalled after after emacs update
+(use-package pdf-tools
+  :straight t
+  :pin manual ;; don't reinstall when package updates
+  :magic ("%PDF" . pdf-view-mode)
+  :bind (:map pdf-view-mode-map
+              ("C-s" . isearch-forward))
+  :config
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (pdf-tools-install :no-query)
+  (require 'pdf-occur)
+  (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
+        pdf-view-use-imagemagick nil
+        pdf-view-continuous nil)
+  )
+
+;; (with-eval-after-load "pdf-tools"
+;;   (defun pdf-util-frame-scale-factor () 2))
+#+end_src
+
+* dictionary
+
+you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
+#+begin_src emacs-lisp
+(use-package wordnut)
+#+end_src
