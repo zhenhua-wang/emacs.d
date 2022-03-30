@@ -857,7 +857,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
 #+RESULTS:
 
-** Super save
+** Auto save
 
 Auto-Saving Changed Files
 
@@ -876,7 +876,7 @@ Auto-Saving Changed Files
 (use-package sudo-edit
   :commands (sudo-edit))
    #+end_src
-
+   
 ** Clean whitespace
 
    #+begin_src emacs-lisp
