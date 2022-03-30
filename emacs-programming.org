@@ -152,7 +152,6 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
 ** EIN
 #+begin_src emacs-lisp
 (use-package ein
-  :disabled
   :init
   (require 'ein-jupyter)
   :custom
@@ -225,7 +224,6 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   (highlight-indent-guides-method 'character))
    #+end_src
    
-
 * Clean whitespace
 
    #+begin_src emacs-lisp

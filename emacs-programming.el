@@ -106,7 +106,6 @@
   )
 
 (use-package ein
-  :disabled
   :init
   (require 'ein-jupyter)
   :custom
