@@ -79,17 +79,10 @@
          ("\\.rnw" . poly-noweb+r-mode)
          ))
 
-;; (use-package python-mode
-;;   :custom
-;;   (python-shell-interpreter "~/anaconda3/bin/python")
-;;   :config
-;;   (setq python-shell-completion-native-enable nil)        ; disable native completion  
-;;   )
-
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "envs"))
   (pyvenv-mode 1))
 
 (use-package company-jedi
@@ -99,15 +92,11 @@
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
   (setq jedi:use-shortcuts t)
-  (setq python-shell-completion-native-enable nil)
-  (defun config/enable-company-jedi ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'config/enable-company-jedi)
-  )
+  (setq python-shell-completion-native-enable nil))
 
 (use-package ein
   :defer t
-  :init
+  :config
   (require 'ein-jupyter)
   :custom
   (ein:polymode t)

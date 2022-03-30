@@ -110,25 +110,17 @@ Here are the polys
 
 * Python
 ** python-mode
-#+begin_src emacs-lisp
-;; (use-package python-mode
-;;   :custom
-;;   (python-shell-interpreter "~/anaconda3/bin/python")
-;;   :config
-;;   (setq python-shell-completion-native-enable nil)        ; disable native completion  
-;;   )
-#+end_src
-
+   
 In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
 #+begin_src emacs-lisp
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "envs"))
   (pyvenv-mode 1))
 #+end_src
 
-I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all, ~company-jedi~ can work in ~python-mode~, ~org-babel~ and ~EIN~, though it might be litte tedius in ~org-babel~. However, ~lsp-mode~ is totally not working in ~EIN~ (jupyter notebooks). Secondly, ~company-jedi~ is easier to use when you need to switch between python vitual envs. Simply by:
+I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all, ~company-jedi~ can work in ~python-mode~, ~org-babel~ and ~EIN~, though it might be little tedius in ~org-babel~. However, ~lsp-mode~ is totally not working in ~EIN~ (jupyter notebooks). Secondly, ~company-jedi~ is easier to use when you need to switch between python vitual envs. Simply by:
 + ~pyvenv-workon~ pick your current env,
 + ~jedi:stop-server~ restart your jedi server. (sometimes you may need to you ~jedi:stop-all-servers~)
 
@@ -142,18 +134,14 @@ I actually find ~company-jedi~ to be better than ~lsp-mode~ for me.First of all,
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
   (setq jedi:use-shortcuts t)
-  (setq python-shell-completion-native-enable nil)
-  (defun config/enable-company-jedi ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'config/enable-company-jedi)
-  )
+  (setq python-shell-completion-native-enable nil))
 #+end_src
 
 ** EIN
 #+begin_src emacs-lisp
 (use-package ein
   :defer t
-  :init
+  :config
   (require 'ein-jupyter)
   :custom
   (ein:polymode t)
