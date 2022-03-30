@@ -157,7 +157,7 @@
                       :box nil))
 
 ;; Load theme
-;; (load-theme 'bespoke t)
+(load-theme 'bespoke t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
