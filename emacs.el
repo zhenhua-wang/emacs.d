@@ -627,7 +627,7 @@ i.e. windows tiled side-by-side."
         ("\\*.*\\(e?shell\\|v?term\\).*"
          ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
          (display-buffer-in-side-window)
-         (window-height . 0.15)
+         (window-height . 0.2)
          (side . bottom))
         ;; ("\\*R.*"
         ;;  (display-buffer-reuse-mode-window display-buffer-at-bottom)

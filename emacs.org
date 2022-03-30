@@ -824,7 +824,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
         ("\\*.*\\(e?shell\\|v?term\\).*"
          ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
          (display-buffer-in-side-window)
-         (window-height . 0.15)
+         (window-height . 0.2)
          (side . bottom))
         ;; ("\\*R.*"
         ;;  (display-buffer-reuse-mode-window display-buffer-at-bottom)
