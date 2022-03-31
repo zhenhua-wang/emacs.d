@@ -519,7 +519,9 @@
   (setq which-key-idle-delay 0.3))
 
 (use-package neotree
-  :commands neotree)
+  :commands neotree
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (use-package winner
   :config
