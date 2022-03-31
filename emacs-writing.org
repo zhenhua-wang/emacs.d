@@ -3,7 +3,6 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
-For reading, I would use =zathura-pdf-mupdf= or =evince=. In particular, =zathura-pdf-mupdf= supports pdf and epub
 * Org-mode
 ** Main
 #+begin_src emacs-lisp

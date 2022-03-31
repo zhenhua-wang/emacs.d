@@ -169,7 +169,7 @@
                       :box nil))
 
 ;; Load theme
-;; (load-theme 'doom-nord t)
+(load-theme 'bespoke t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
