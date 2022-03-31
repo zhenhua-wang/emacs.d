@@ -235,7 +235,7 @@ My key binding strategy:
                       :box nil))
 
 ;; Load theme
-;; (load-theme 'bespoke t)
+(load-theme 'bespoke t)
 #+end_src
 
 ** Font face
