@@ -894,6 +894,21 @@ Auto-Saving Changed Files
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 #+end_src
 
+** Undo-tree
+
+   #+begin_src emacs-lisp
+(use-package undo-tree
+  :defer t
+  :diminish undo-tree-mode
+  :init (global-undo-tree-mode)
+  :bind
+  ("s-z" . undo-tree-undo)
+  ("s-Z" . undo-tree-redo)
+  :custom
+  (undo-tree-visualizer-diff t)
+  (undo-tree-visualizer-timestamps t))
+   #+end_src
+   
 * Programming
 
 #+begin_src emacs-lisp
