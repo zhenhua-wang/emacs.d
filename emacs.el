@@ -147,7 +147,6 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   :config
-  (doom-themes-neotree-config)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 ;; (use-package gruvbox-theme)
