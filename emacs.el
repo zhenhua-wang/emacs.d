@@ -74,6 +74,8 @@
 ;; hightlight current row
 (global-hl-line-mode 1)
 
+;; save clipboard before kill ring
+(setq save-interprogram-paste-before-kill t)
 ;; completion
 (setq completion-cycle-threshold nil)
 (setq tab-always-indent 'complete)
