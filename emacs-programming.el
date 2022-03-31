@@ -1,11 +1,12 @@
 (use-package lsp-mode
   :custom
   (lsp-completion-provider :none)
+  (lsp-log-io nil)
+  (lsp-signature-render-documentation nil)
   :init
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :commands lsp
   :config
-  (setq lsp-log-io nil)
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-hover t)
   (setq lsp-ui-doc-show-with-cursor nil)
@@ -26,6 +27,11 @@
 ;; Debug Adapter Protocol
 (use-package dap-mode
   :disabled)
+
+(use-package dap-mode
+  :config
+  (require 'dap-cpptools)
+  (dap-cpptools-setup))
 
 (use-package eglot)
   ;; :hook

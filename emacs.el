@@ -336,9 +336,9 @@
   (dimmer-configure-magit))
 
 (use-package auto-dim-other-buffers
-  :init (auto-dim-other-buffers-mode)
-  :config
-  (fringe-mode 0))
+  ;; :config
+  ;; (fringe-mode 0)
+  :init (auto-dim-other-buffers-mode))
 
 (use-package exec-path-from-shell
   :init
