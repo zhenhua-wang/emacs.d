@@ -169,6 +169,8 @@ My key binding strategy:
 (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "s-l") 'goto-line)
 (global-set-key (kbd "s-q") 'kill-current-buffer)
+(global-set-key (kbd "s-f") 'isearch-forward)
+(define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
 ;; eldoc
@@ -233,7 +235,7 @@ My key binding strategy:
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'bespoke t)
 #+end_src
 
 ** Font face
@@ -571,8 +573,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ;; ivy
 (use-package ivy
   :diminish
-  :bind (("s-f" . swiper)
-         :map ivy-minibuffer-map
+  :bind (:map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("s-<tab>" . ivy-next-line)
          ("<backtab>" . ivy-previous-line))

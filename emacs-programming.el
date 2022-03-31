@@ -82,17 +82,8 @@
 (use-package pyvenv
   :hook ((python-mode . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "envs"))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
-
-(use-package company-jedi
-  :disabled
-  ;; :hook (python-mode . jedi:setup) ; dont use this, since we want to use jedi in org-babel
-  :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
-  (setq jedi:use-shortcuts t)
-  (setq python-shell-completion-native-enable nil))
 
 (use-package ein
   :defer t

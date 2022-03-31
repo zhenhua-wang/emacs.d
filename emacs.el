@@ -101,6 +101,8 @@
 (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "s-l") 'goto-line)
 (global-set-key (kbd "s-q") 'kill-current-buffer)
+(global-set-key (kbd "s-f") 'isearch-forward)
+(define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
 ;; eldoc
@@ -158,7 +160,7 @@
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'bespoke t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
@@ -415,8 +417,7 @@
 ;; ivy
 (use-package ivy
   :diminish
-  :bind (("s-f" . swiper)
-         :map ivy-minibuffer-map
+  :bind (:map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("s-<tab>" . ivy-next-line)
          ("<backtab>" . ivy-previous-line))
