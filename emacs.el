@@ -440,7 +440,6 @@
   (swiper-use-visual-line nil)
   (swiper-use-visual-line-p (lambda (a) nil))
   :config
-  (all-the-icons-ivy-rich-mode 1)
   (ivy-mode 1))
 
 (use-package all-the-icons-ivy-rich
@@ -449,7 +448,9 @@
   (all-the-icons-ivy-rich-color-icon t))
 
 (use-package ivy-rich
+  :after counsel
   :init
+  (all-the-icons-ivy-rich-mode 1)
   (ivy-rich-mode 1)
   :config
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
