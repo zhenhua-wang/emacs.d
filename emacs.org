@@ -127,7 +127,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 ;; hightlight current row
 (global-hl-line-mode 1)
   #+end_src
-
+  
 *** settings
   #+begin_src emacs-lisp
 ;; completion
@@ -210,11 +210,25 @@ My key binding strategy:
 #+RESULTS:
 : meta
 * UI
+** All-the-icons
+
+   #+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p))
+   #+end_src
+   
 ** Theme
 #+begin_src emacs-lisp
 
 ;; (use-package spacegray-theme)
-;; (use-package doom-themes)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (doom-themes-neotree-config)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 ;; (use-package gruvbox-theme)
 ;; (use-package nord-theme)
 ;; (use-package nano-theme)
@@ -235,7 +249,7 @@ My key binding strategy:
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'doom-nord t)
 #+end_src
 
 ** Font face

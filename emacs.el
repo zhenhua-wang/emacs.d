@@ -138,8 +138,18 @@
      (setq mac-command-modifier 'super)
      (setq mac-option-modifier 'meta))))
 
+(use-package all-the-icons
+  :if (display-graphic-p))
+
 ;; (use-package spacegray-theme)
-;; (use-package doom-themes)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (doom-themes-neotree-config)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 ;; (use-package gruvbox-theme)
 ;; (use-package nord-theme)
 ;; (use-package nano-theme)
@@ -160,7 +170,7 @@
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+;; (load-theme 'doom-nord t)
 
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
