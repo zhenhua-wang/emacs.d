@@ -47,6 +47,14 @@
   ;; (ess-r-mode . eglot-ensure))
 #+end_src
 
+* C/C++
+
+  #+begin_src emacs-lisp
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+  #+end_src
+  
 * R
   
 #+begin_src emacs-lisp

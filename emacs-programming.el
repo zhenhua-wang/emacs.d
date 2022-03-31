@@ -32,6 +32,10 @@
   ;; (python-mode . eglot-ensure)
   ;; (ess-r-mode . eglot-ensure))
 
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
 (use-package ess
   :defer t
   :commands R
