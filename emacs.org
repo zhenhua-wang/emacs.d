@@ -910,6 +910,12 @@ Auto-Saving Changed Files
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t))
    #+end_src
+
+** Hydra
+   
+   #+begin_src emacs-lisp
+(use-package hydra)
+   #+end_src
    
 * Programming
 

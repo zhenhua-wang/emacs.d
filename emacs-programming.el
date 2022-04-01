@@ -29,6 +29,18 @@
   :disabled)
 
 (use-package dap-mode
+  :hook
+  (dap-stopped .
+            (lambda (arg) (call-interactively #'dap-hydra)))
+  :custom
+  (lsp-enable-dap-auto-configure nil)
+  :bind
+  (:map dap-mode-map
+        (("C-c C-n" . dap-next)
+	 ("C-c C-m" . dap-continue)
+         ("C-c C-i" . dap-step-in)
+         ("C-c C-o" . dap-step-out)
+         ("C-c C-b" . dap-breakpoint-toggle)))
   :config
   (require 'dap-cpptools)
   (dap-cpptools-setup))

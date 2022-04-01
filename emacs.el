@@ -687,6 +687,8 @@ i.e. windows tiled side-by-side."
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t))
 
+(use-package hydra)
+
 (org-babel-load-file "~/.emacs.d/emacs-programming.org")
 
 (org-babel-load-file "~/.emacs.d/emacs-writing.org")
