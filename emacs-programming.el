@@ -2,7 +2,6 @@
   :custom
   (lsp-completion-provider :none)
   (lsp-log-io nil)
-  (lsp-signature-render-documentation nil)
   :init
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :commands lsp
