@@ -85,8 +85,6 @@
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
-;; fix minibuffer size
-(setq resize-mini-windows nil)
 ;; ------------------- simplify yes no ---------------
 (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
