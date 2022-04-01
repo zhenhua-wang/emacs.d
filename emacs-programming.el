@@ -35,6 +35,10 @@
   :custom
   (lsp-enable-dap-auto-configure nil)
   :config
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  (dap-tooltip-mode 1)
+  (tooltip-mode 1)
   (require 'dap-cpptools)
   (dap-cpptools-setup))
 
@@ -48,12 +52,12 @@
   "
 ^debug mode^
 ^^^^^^^^----------------------------------------------------------------------------------------------------------------
-_n_: Next                _c_: Continue          _i_: Step in             _o_: Step out        
+_n_: Next                _c_: Continue          _i_: Step in               _o_: Step out        
 _ee_: Eval               _er_: Eval region      _ep_: Eval at point
-_b_: Toggle breakpoint   _d_: Start debug       _D_: Toggle debug mode    _Q_: Quit debugging
+_b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: Quit debugging
 "
-  ("d" dap-debug)
-  ("D" dap-auto-configure-mode)
+  ("dd" dap-debug)
+  ("de" dap-debug-edit-template)
   ("b" dap-breakpoint-toggle)
   ("ee" dap-eval)
   ("er" dap-eval-region)
