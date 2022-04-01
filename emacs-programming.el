@@ -31,9 +31,9 @@
 (use-package dap-mode
   :hook
   (dap-stopped .
-               (lambda (arg) (call-interactively #'debug-hydra)))
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
+   (lambda (arg) (call-interactively #'debug-hydra)))
+  :custom
+  (lsp-enable-dap-auto-configure nil)
   :config
   (require 'dap-cpptools)
   (dap-cpptools-setup))
@@ -48,10 +48,11 @@
   "
 ^debug mode^
 ^^^^^^^^----------------------------------------------------------------------------------------------------------------
-_n_: Next                _c_: Continue            _i_: Step in             _o_: Step out        
-_ee_: Eval               _er_: Eval region        _ep_: Eval at point
-_b_: Toggle breakpoint   _D_:Toggle debug mode    _Q_: Quit debugging
+_n_: Next                _c_: Continue          _i_: Step in             _o_: Step out        
+_ee_: Eval               _er_: Eval region      _ep_: Eval at point
+_b_: Toggle breakpoint   _d_: Start debug       _D_: Toggle debug mode    _Q_: Quit debugging
 "
+  ("d" dap-debug)
   ("D" dap-auto-configure-mode)
   ("b" dap-breakpoint-toggle)
   ("ee" dap-eval)
