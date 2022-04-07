@@ -82,14 +82,14 @@
 (setq completions-detailed t)
 (setq completion-ignore-case t)
 ;; Revert Dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
+;; (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
 ;; ------------------- simplify yes no ---------------
-(defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
-  (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
-    (apply orig-fun r)))
-(advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
+;; (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
+;;   (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
+;;    (apply orig-fun r)))
+;; (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
 
 ;; ------------------- key bind ---------------------
 ;; Keybonds
