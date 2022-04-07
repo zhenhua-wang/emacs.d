@@ -82,7 +82,7 @@
 (setq completions-detailed t)
 (setq completion-ignore-case t)
 ;; Revert Dired and other buffers
-;; (setq global-auto-revert-non-file-buffers t)
+(setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
 ;; ------------------- simplify yes no ---------------
