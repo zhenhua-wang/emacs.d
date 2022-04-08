@@ -79,6 +79,7 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   ;; (ess-r-mode . eglot-ensure))
 
 (use-package ccls
+  :defer t
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
 
@@ -88,6 +89,11 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   :custom
   (ess-ask-for-ess-directory nil)
   (ess-style 'RStudio-)
+  (ess-local-process-name "R")
+  (ansi-color-for-comint-mode 'filter)
+  (comint-scroll-to-bottom-on-input t)
+  (comint-scroll-to-bottom-on-output t)
+  (comint-move-point-for-output t)
   :config
   (require 'ess-site))
 
