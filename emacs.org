@@ -524,7 +524,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
         ("M-d" . corfu-show-documentation)
-        ("M-l" . corfu-show-location))
+        ("M-l" . corfu-show-location)
+	("SPC" . corfu-insert-separator))
   :init
   (corfu-global-mode)
   :config
@@ -539,6 +540,15 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
   (dabbrev-case-fold-search nil)
   (dabbrev-case-replace t))
+#+end_src
+
+*** Orderless
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 #+end_src
 
 *** Kind icon

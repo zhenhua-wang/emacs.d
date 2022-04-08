@@ -4,6 +4,11 @@
   (lsp-log-io nil)
   :init
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure orderless
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion)
   :commands lsp
   :config
   (setq lsp-ui-sideline-enable t)

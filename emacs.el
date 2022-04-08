@@ -379,7 +379,8 @@
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
         ("M-d" . corfu-show-documentation)
-        ("M-l" . corfu-show-location))
+        ("M-l" . corfu-show-location)
+	("SPC" . corfu-insert-separator))
   :init
   (corfu-global-mode)
   :config
@@ -394,6 +395,11 @@
   ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
   (dabbrev-case-fold-search nil)
   (dabbrev-case-replace t))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package kind-icon
   :after corfu
