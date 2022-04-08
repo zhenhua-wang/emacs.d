@@ -668,11 +668,13 @@ i.e. windows tiled side-by-side."
 
 (use-package yasnippet
   :defer 1
-  :bind
-  ;; ("M-<tab>" . yas-insert-snippet)
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
   (yas-global-mode 1))
+
+(use-package ivy-yasnippet
+  :bind
+  ("M-<tab>" . ivy-yasnippet))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
