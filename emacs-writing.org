@@ -16,17 +16,15 @@
               ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
   :commands (org-capture org-agenda)
   :config
-  (setq ;; other options: "⤵"
+  (setq
    org-ellipsis " ▾"
+   org-pretty-entities t
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
    org-edit-src-content-indentation 2
-   org-hide-block-startup nil
    ;; preview latex, etc at startup
-   org-pretty-entities nil
    org-startup-folded  t;;'content
-   org-cycle-separator-lines 2
    org-confirm-babel-evaluate nil
    org-src-preserve-indentation t    ; helps to indent python code in org mode
    org-src-tab-acts-natively t
@@ -53,7 +51,6 @@
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((python . t)
-       ;; (ipython . t)
        (R . t)
        (shell . t)
        ;; (ein . t)
