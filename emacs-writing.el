@@ -86,7 +86,9 @@
 
 (use-package org-modern
   :after org
-  :hook (org-mode . org-modern-mode))
+  :hook (org-mode . org-modern-mode)
+  :config
+  (defun org-modern--block-fringe () nil))
 
 
 (defun efs/org-mode-visual-fill ()
