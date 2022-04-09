@@ -521,10 +521,12 @@
   (which-key-mode)
   (setq which-key-idle-delay 0.3))
 
-(use-package neotree
-  :commands neotree
+(use-package treemacs
+  :commands treemacs)
+
+(use-package treemacs-all-the-icons
   :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  (treemacs-load-theme "all-the-icons"))
 
 (use-package winner
   :config
