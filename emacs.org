@@ -925,8 +925,8 @@ Auto-Saving Changed Files
 ** Xwidget
 
 #+begin_src emacs-lisp
-(if (featurep 'xwidget-internal
-	      (define-key xwidget-webkit-edit-mode-map (kbd "<escape>") 'xwidget-webkit-edit-mode)))
+  (if (boundp 'xwidget-webkit-edit-mode-map)
+      (define-key xwidget-webkit-edit-mode-map (kbd "<escape>") 'xwidget-webkit-edit-mode))
 
 #+end_src
 
