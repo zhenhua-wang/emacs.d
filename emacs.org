@@ -640,12 +640,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
-  (pcase system-type
-    ('darwin
-     (setq browse-url-browser-function 'xwidget-webkit-browse-url))
-    ('gnu/linux
-     (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "qutebrowser")))
+  (setq browse-url-browser-function 'xwidget-webkit-browse-url)
   (setq counsel-search-engine 'google)
   (counsel-mode 1))
 #+end_src
