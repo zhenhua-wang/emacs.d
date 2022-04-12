@@ -922,14 +922,6 @@ Auto-Saving Changed Files
 (use-package hydra)
    #+end_src
 
-** Xwidget
-
-#+begin_src emacs-lisp
-  (if (boundp 'xwidget-webkit-edit-mode-map)
-      (define-key xwidget-webkit-edit-mode-map (kbd "<escape>") 'xwidget-webkit-edit-mode))
-
-#+end_src
-
 * Programming
 
 #+begin_src emacs-lisp
