@@ -689,6 +689,9 @@ i.e. windows tiled side-by-side."
 
 (use-package hydra)
 
+(if (featurep 'xwidget)
+    (define-key xwidget-webkit-edit-mode-map (kbd "<escape>") 'xwidget-webkit-edit-mode))
+
 (org-babel-load-file "~/.emacs.d/emacs-programming.org")
 
 (org-babel-load-file "~/.emacs.d/emacs-writing.org")
