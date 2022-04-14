@@ -1,12 +1,10 @@
 (use-package org
-  :defer t
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . turn-on-org-cdlatex)
   :bind (:map org-mode-map
               ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
-  :commands (org-capture org-agenda)
   :config
   (setq
    org-ellipsis " ▾"
@@ -45,13 +43,13 @@
      '((python . t)
        (R . t)
        (shell . t)
-       ;; (ein . t)
        (lisp . t)
        (latex . t)
        (teximg . t)))
 
     ;; This is needed as of Org 9.2 (use yasnippet instead)
     (require 'org-tempo)
+    (add-to-list 'org-structure-template-alist '("la" . "src latex"))
     (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
     (add-to-list 'org-structure-template-alist '("py" . "src python :session"))
@@ -85,7 +83,6 @@
   )
 
 (use-package org-modern
-  :after org
   :hook (org-mode . org-modern-mode)
   :config
   (defun org-modern--block-fringe () nil))
@@ -139,12 +136,12 @@
    '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   '(org-latex-and-related ((t (:foreground "#EBCB8B"))))
    ;; hight code blocks
    '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
                                            :bold t :height 1.0))))
    '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
-                                         :bold t :height 1.0))))
-   '(org-latex-and-related ((t (:foreground "#EBCB8B")))))
+                                         :bold t :height 1.0)))))
 
 ;; (setq  org-src-block-faces '(("emacs-lisp" (:background "LightCyan1" :extend t))
 ;; 			     ("python" (:background "DarkSeaGreen1" :extend t))
@@ -152,49 +149,7 @@
 
 ;; auto tangle
 (use-package org-auto-tangle
-  ;; :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory
-  :defer 1
   :hook (org-mode . org-auto-tangle-mode))
-
-(use-package org-roam
-  :after org
-  :init
-  (setq org-roam-v2-ack t)
-  :custom
-  (setq org-roam-db-location "~/.emacs.d/org-roam.db")
-  (org-roam-directory "~/Workspace/Documents/RoamNotes")
-  (org-roam-completion-everywhere t)
-  (org-roam-capture-templates
-   '(
-     ;; default template
-     ("d" "default" plain
-      "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-     ;; few example templates
-     ("l" "programming language" plain
-      "* Characteristics\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-
-     ("b" "book notes" plain
-      "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-
-     ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
-      :unnarrowed t)
-     ))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         :map org-mode-map
-         ("C-M-i"   . completion-at-point))
-  :config
-  (org-roam-setup))
-
-(use-package org-ref)
 
 (defun zw/org-fold-all-but-current ()
   (interactive)
@@ -257,6 +212,44 @@
   (markdown-mode . turn-on-reftex)
   :custom
   (reftex-plug-into-AUCTeX t))
+
+(setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
+(use-package ivy-bibtex
+  :init
+  (setq bibtex-completion-bibliography (expand-file-name "references.bib" research-folder)
+	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
+	bibtex-completion-additional-search-fields '(keywords)
+	bibtex-completion-display-formats
+	'((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+	  (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+	  (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	  (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	  (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+	bibtex-completion-pdf-open-function
+	(lambda (fpath)
+	  (call-process "open" nil 0 nil fpath))))
+
+(use-package org-ref
+  :init
+  (require 'bibtex)
+  (require 'org-ref-ivy)
+  (require 'org-ref-arxiv)
+  (setq bibtex-autokey-year-length 4
+	bibtex-autokey-name-year-separator "-"
+	bibtex-autokey-year-title-separator "-"
+	bibtex-autokey-titleword-separator "-"
+	bibtex-autokey-titlewords 2
+	bibtex-autokey-titlewords-stretch 1
+	bibtex-autokey-titleword-length 5))
+
+
+(use-package org-ref-ivy
+  :ensure nil
+  :init (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+	      org-ref-insert-cite-function 'org-ref-cite-insert-ivy
+	      org-ref-insert-label-function 'org-ref-insert-label-link
+	      org-ref-insert-ref-function 'org-ref-insert-ref-link
+	      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
 ;; epub
 (use-package nov

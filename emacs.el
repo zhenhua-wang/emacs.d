@@ -128,6 +128,8 @@
 (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
 ;; toggle transparency
 (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
+;; ivy bib
+(global-set-key (kbd "C-c b") 'ivy-bibtex)
 ;; get passwed
 ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
 ;; toggle input
@@ -474,7 +476,8 @@
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
-  (setq browse-url-browser-function 'xwidget-webkit-browse-url)
+  (if (featurep 'xwidget-internal)
+      (setq browse-url-browser-function 'xwidget-webkit-browse-url))
   (setq counsel-search-engine 'google)
   (counsel-mode 1))
 
