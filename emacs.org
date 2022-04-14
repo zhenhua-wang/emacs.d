@@ -118,6 +118,14 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (server-start)
 #+end_src
 
+** Auto-update packages
+
+#+begin_src emacs-lisp
+(use-package auto-package-update
+  :config
+  (auto-package-update-maybe))
+#+end_src
+
 * General Emacs Settings
 *** modes
   #+begin_src emacs-lisp
@@ -245,7 +253,7 @@ My key binding strategy:
                       :box nil))
 
 ;; Load theme
-(load-theme 'bespoke t)
+(load-theme 'doom-nord-light t)
 #+end_src
 
 ** Font face
@@ -509,7 +517,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (corfu-auto t)
   (corfu-auto-delay 0)
   (corfu-auto-prefix 1)
-  (corfu-preselect-first nil)
+  (corfu-preselect-first t)
   (corfu-quit-no-match nil)
   (corfu-on-exact-match 'insert)
   (corfu-preview-current nil)
@@ -921,7 +929,7 @@ Auto-Saving Changed Files
    #+begin_src emacs-lisp
 (use-package hydra)
    #+end_src
-
+   
 * Programming
 
 #+begin_src emacs-lisp

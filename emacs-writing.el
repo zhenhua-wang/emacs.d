@@ -194,6 +194,8 @@
   :config
   (org-roam-setup))
 
+(use-package org-ref)
+
 (defun zw/org-fold-all-but-current ()
   (interactive)
   (org-remove-occur-highlights)

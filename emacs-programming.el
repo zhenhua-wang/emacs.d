@@ -14,6 +14,7 @@
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-hover t)
   (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-ui-doc-show-with-mouse nil)
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-imenu-auto-refresh t))
 
@@ -27,10 +28,6 @@
 (use-package lsp-ivy
   :disabled
   :commands lsp-ivy-workspace-symbol)
-
-;; Debug Adapter Protocol
-(use-package dap-mode
-  :disabled)
 
 (use-package dap-mode
   :hook

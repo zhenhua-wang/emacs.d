@@ -224,6 +224,12 @@
   (org-roam-setup))
 #+end_src
 
+** Org-ref
+
+#+begin_src emacs-lisp
+(use-package org-ref)
+#+end_src
+
 ** Custom functions
 #+begin_src emacs-lisp
 (defun zw/org-fold-all-but-current ()
