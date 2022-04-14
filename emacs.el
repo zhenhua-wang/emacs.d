@@ -371,7 +371,7 @@
   (corfu-auto-delay 0)
   (corfu-auto-prefix 1)
   (corfu-preselect-first t)
-  (corfu-quit-no-match nil)
+  (corfu-quit-no-match t)
   (corfu-on-exact-match 'insert)
   (corfu-preview-current nil)
   (corfu-echo-documentation nil)
