@@ -186,18 +186,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (pyvenv-mode 1))
 #+end_src
 
-** EIN
-#+begin_src emacs-lisp
-(use-package ein
-  :defer t
-  :config
-  (require 'ein-jupyter)
-  :custom
-  (ein:polymode t)
-  (ein:output-area-inlined-images t)
-  (ein:slice-image t))
-#+end_src
-
 * Web
 ** Web mode
 #+begin_src emacs-lisp

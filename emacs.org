@@ -101,7 +101,7 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 (load custom-file t)
 #+end_src
 
-** Measuring start time
+** Garbage collection
 Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
 
 #+begin_src emacs-lisp

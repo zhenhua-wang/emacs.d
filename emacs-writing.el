@@ -266,12 +266,12 @@
               ("C-s" . isearch-forward))
   :config
   (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
   (pdf-tools-install :no-query)
   (require 'pdf-occur)
   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-use-imagemagick nil
-        pdf-view-continuous nil)
+        pdf-view-continuous nil
+	pdf-annot-activate-created-annotations t)
   )
 
 ;; (with-eval-after-load "pdf-tools"

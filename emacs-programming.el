@@ -138,15 +138,6 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
   (pyvenv-mode 1))
 
-(use-package ein
-  :defer t
-  :config
-  (require 'ein-jupyter)
-  :custom
-  (ein:polymode t)
-  (ein:output-area-inlined-images t)
-  (ein:slice-image t))
-
 (use-package web-mode
   :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
   :config
