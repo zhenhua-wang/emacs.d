@@ -90,7 +90,7 @@
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
 ;; ------------------- simplify yes no ---------------
-(defalias 'yes-or-no-p 'y-or-n-p)
+;; (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; ------------------- key bind ---------------------
 ;; Keybonds
