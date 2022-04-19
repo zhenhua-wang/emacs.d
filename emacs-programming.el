@@ -70,7 +70,7 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   ("q" nil "quit" :color blue))
 
 (use-package eglot)
-  ;; :hook
+  :hook
   ;; (python-mode . eglot-ensure)
   ;; (ess-r-mode . eglot-ensure))
 
