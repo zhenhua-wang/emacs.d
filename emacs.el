@@ -93,7 +93,7 @@
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; ------------------- key bind ---------------------
-;; Keybonds
+;; Keybinds
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-c") 'kill-ring-save)
@@ -380,10 +380,8 @@
   (corfu-max-width 80)
   :bind
   (:map corfu-map
-	("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous)
+	("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
         ("M-d" . corfu-show-documentation)

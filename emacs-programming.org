@@ -17,21 +17,20 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
-  :commands lsp
-  :config
-  (setq lsp-ui-sideline-enable t)
-  (setq lsp-ui-sideline-show-hover t)
-  (setq lsp-ui-doc-show-with-cursor nil)
-  (setq lsp-ui-doc-show-with-mouse nil)
-  (setq lsp-ui-doc-position 'bottom)
-  (setq lsp-ui-imenu-auto-refresh t))
+  :commands lsp)
 
 ;; optionally
 (use-package lsp-ui
   :after lsp
   :hook (lsp-mode . lsp-ui-mode)
   :config
-  (lsp-ui-doc-show))
+  (lsp-ui-doc-show)
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-sideline-show-hover t)
+  (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-ui-doc-show-with-mouse nil)
+  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-ui-imenu-auto-refresh t))
 
 (use-package lsp-ivy
   :disabled
