@@ -556,9 +556,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 #+begin_src emacs-lisp
 (use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  :init
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
 #+end_src
 
 *** Kind icon

@@ -9,6 +9,8 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
+  (LaTeX-mode . lsp)
+  (latex-mode . lsp)
   :commands lsp)
 
 ;; optionally
@@ -70,8 +72,6 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   ("q" nil "quit" :color blue))
 
 (use-package eglot)
-  :hook
-  ;; (python-mode . eglot-ensure)
   ;; (ess-r-mode . eglot-ensure))
 
 (use-package ccls

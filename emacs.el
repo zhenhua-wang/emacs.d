@@ -403,9 +403,10 @@
   (dabbrev-case-replace t))
 
 (use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  :init
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
 
 (use-package kind-icon
   :after corfu
