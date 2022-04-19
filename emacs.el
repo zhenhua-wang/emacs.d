@@ -380,8 +380,10 @@
   (corfu-max-width 80)
   :bind
   (:map corfu-map
-        ("TAB" . corfu-insert)
-        ([tab] . corfu-insert)
+	("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous)
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
         ("M-d" . corfu-show-documentation)
