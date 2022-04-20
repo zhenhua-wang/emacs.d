@@ -149,8 +149,10 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
-;; ------------------- simplify yes no ---------------
+;; simplify yes no
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
+;; set fringe to 0
+(fringe-mode 0)
   #+end_src
 
 *** keybinding

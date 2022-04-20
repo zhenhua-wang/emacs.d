@@ -9,8 +9,6 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
-  (LaTeX-mode . lsp)
-  (latex-mode . lsp)
   :commands lsp)
 
 ;; optionally
@@ -26,11 +24,8 @@
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-imenu-auto-refresh t))
 
-(use-package lsp-ivy
-  :disabled
-  :commands lsp-ivy-workspace-symbol)
-
 (use-package dap-mode
+  :disabled
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -71,13 +66,10 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   ("c" dap-continue)
   ("q" nil "quit" :color blue))
 
-(use-package eglot)
-  ;; (ess-r-mode . eglot-ensure))
-
-(use-package ccls
-  :defer t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
+					("texlab"))))
 
 (use-package ess
   :defer t
@@ -143,12 +135,6 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   (setq-default web-mode-code-indent-offset 2)
   (setq-default web-mode-markup-indent-offset 2)
   (setq-default web-mode-attribute-indent-offset 2))
-
-;; (use-package impatient-mode
-;;   :ensure simple-httpd
-;;   :ensure htmlize
-;;   :config
-;;   (require 'impatient-mode))
 
 (use-package csv-mode
   :mode

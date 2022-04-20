@@ -17,8 +17,6 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
-  (LaTeX-mode . lsp)
-  (latex-mode . lsp)
   :commands lsp)
 
 ;; optionally
@@ -33,10 +31,6 @@
   (setq lsp-ui-doc-show-with-mouse nil)
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-imenu-auto-refresh t))
-
-(use-package lsp-ivy
-  :disabled
-  :commands lsp-ivy-workspace-symbol)
   #+end_src
 
   #+RESULTS:
@@ -46,6 +40,7 @@
   
   #+begin_src emacs-lisp
 (use-package dap-mode
+  :disabled
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -94,19 +89,12 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
 * Eglot
 
 #+begin_src emacs-lisp
-(use-package eglot)
-  ;; (ess-r-mode . eglot-ensure))
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
+					("texlab"))))
 #+end_src
 
-* C/C++
-
-  #+begin_src emacs-lisp
-(use-package ccls
-  :defer t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-  #+end_src
-  
 * R
   
 #+begin_src emacs-lisp
@@ -186,7 +174,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 #+end_src
 
 * Web
-** Web mode
 #+begin_src emacs-lisp
 (use-package web-mode
   :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
@@ -194,19 +181,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (setq-default web-mode-code-indent-offset 2)
   (setq-default web-mode-markup-indent-offset 2)
   (setq-default web-mode-attribute-indent-offset 2))
-#+end_src
-** Impatience mode
-
-1. Enable the web server provided by simple-httpd: ~M-x httpd-start~
-2. Publish buffers by enabling the minor mode impatient-mode. ~M-x impatient-mode~
-3. And then point your browser to http://localhost:8080/imp/, select a buffer, and watch your changes appear as you type!
-
-#+begin_src emacs-lisp
-;; (use-package impatient-mode
-;;   :ensure simple-httpd
-;;   :ensure htmlize
-;;   :config
-;;   (require 'impatient-mode))
 #+end_src
 
 * Data

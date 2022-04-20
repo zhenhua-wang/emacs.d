@@ -89,8 +89,10 @@
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
-;; ------------------- simplify yes no ---------------
+;; simplify yes no
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
+;; set fringe to 0
+(fringe-mode 0)
 
 ;; ------------------- key bind ---------------------
 ;; Keybinds
