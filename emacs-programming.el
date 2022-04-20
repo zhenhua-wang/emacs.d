@@ -44,6 +44,12 @@
   "Run `debug-hydra/body'."
   (interactive)
   (debug-hydra/body))
+;; toggle fringe-mode
+(defun toggle-fringe ()
+  (interactive)
+  (if (eq fringe-mode 0)
+      (fringe-mode nil)
+    (fringe-mode 0)))
 ;; hydra key def
 (defhydra debug-hydra (:color pink :hint nil :foreign-keys run)
   "
@@ -51,7 +57,7 @@
 ^^^^^^^^----------------------------------------------------------------------------------------------------------------
 _n_: Next                _c_: Continue          _i_: Step in               _o_: Step out        
 _ee_: Eval               _er_: Eval region      _ep_: Eval at point
-_b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: Quit debugging
+_b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: Toggle fringe   _Q_: Quit debugging
 "
   ("dd" dap-debug)
   ("de" dap-debug-edit-template)
@@ -64,6 +70,7 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _Q_: 
   ("i" dap-step-in)
   ("o" dap-step-out)
   ("c" dap-continue)
+  ("f" toggle-fringe)
   ("q" nil "quit" :color blue))
 
 (use-package eglot
