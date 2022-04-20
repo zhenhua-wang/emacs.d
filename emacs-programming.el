@@ -25,7 +25,6 @@
   (setq lsp-ui-imenu-auto-refresh t))
 
 (use-package dap-mode
-  :disabled
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -37,7 +36,8 @@
   (dap-tooltip-mode 1)
   (tooltip-mode 1)
   (require 'dap-cpptools)
-  (dap-cpptools-setup))
+  (dap-cpptools-setup)
+  (require 'dap-python))
 
 ;; hydra mode in debug
 (defun debug-hydra ()

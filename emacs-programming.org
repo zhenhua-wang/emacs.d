@@ -40,7 +40,6 @@
   
   #+begin_src emacs-lisp
 (use-package dap-mode
-  :disabled
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -52,7 +51,8 @@
   (dap-tooltip-mode 1)
   (tooltip-mode 1)
   (require 'dap-cpptools)
-  (dap-cpptools-setup))
+  (dap-cpptools-setup)
+  (require 'dap-python))
   #+end_src
   
 ** DAP hydra
