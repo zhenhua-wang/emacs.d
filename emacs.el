@@ -82,7 +82,7 @@
 (setq save-interprogram-paste-before-kill t)
 ;; completion
 (setq completion-cycle-threshold nil)
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 (setq completions-detailed t)
 (setq completion-ignore-case t)
 ;; Revert Dired and other buffers
@@ -106,6 +106,7 @@
 (global-set-key (kbd "s-q") 'kill-current-buffer)
 (global-set-key (kbd "s-f") 'isearch-forward)
 (define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
+(global-set-key (kbd "<C-tab>") 'completion-at-point)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
 ;; eldoc
