@@ -97,6 +97,8 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 
 #+begin_src emacs-lisp
 (use-package eglot
+  :hook
+  (ess-r-mode . 'eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))

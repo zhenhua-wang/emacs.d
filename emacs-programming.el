@@ -74,6 +74,8 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
   ("q" nil "quit" :color blue))
 
 (use-package eglot
+  :hook
+  (ess-r-mode . 'eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))
