@@ -102,6 +102,16 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 					("texlab"))))
 #+end_src
 
+* Tree sitter
+#+begin_src emacs-lisp
+(use-package tree-sitter
+  :init
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs)
+#+end_src
+
 * R
   
 #+begin_src emacs-lisp
@@ -117,6 +127,9 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
   (comint-scroll-to-bottom-on-output t)
   (comint-move-point-for-output t)
   :config
+  ;; fix freezing in macos by creating your process using pipe
+  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
+  ;; (setq process-connection-type nil)
   (require 'ess-site))
 #+end_src
 
