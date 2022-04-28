@@ -79,8 +79,8 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 					("texlab"))))
 
 (use-package tree-sitter
-  :straight t
-  :init
+  :straight t	  
+  :init	
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
