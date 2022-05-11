@@ -118,14 +118,6 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (server-start)
 #+end_src
 
-** Auto-update packages
-
-#+begin_src emacs-lisp
-(use-package auto-package-update
-  :config
-  (auto-package-update-maybe))
-#+end_src
-
 * General Emacs Settings
 *** modes
   #+begin_src emacs-lisp
@@ -534,7 +526,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         ("M-l" . corfu-show-location)
 	("SPC" . corfu-insert-separator))
   :init
-  (corfu-global-mode)
+  (global-corfu-mode)
   :config
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."

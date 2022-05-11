@@ -68,10 +68,6 @@
 
 (server-start)
 
-(use-package auto-package-update
-  :config
-  (auto-package-update-maybe))
-
 (global-visual-line-mode 1)
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
@@ -385,7 +381,7 @@
         ("M-l" . corfu-show-location)
 	("SPC" . corfu-insert-separator))
   :init
-  (corfu-global-mode)
+  (global-corfu-mode)
   :config
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
