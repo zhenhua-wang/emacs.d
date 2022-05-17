@@ -603,22 +603,22 @@ i.e. windows tiled side-by-side."
       '(;; top side window
         ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
          (display-buffer-in-side-window)
-         (window-height . 0.16)
+         (window-height . 0.1)
          (side . top)
          (slot . 0))
         ("\\*Messages.*"
          (display-buffer-in-side-window)
-         (window-height . 0.16)
+         (window-height . 0.1)
          (side . top)
          (slot . 1))
         ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
          (display-buffer-in-side-window)
-         (window-height . 0.16)
+         (window-height . 0.1)
          (side . top)
          (slot . 2))
         ("\\*polymode export.*"
          (display-buffer-in-side-window)
-         (window-height . 0.16)
+         (window-height . 0.1)
          (side . top)
          (slot . 1))
         ;; right side window
@@ -633,7 +633,7 @@ i.e. windows tiled side-by-side."
          (side . right)
          (slot . -1))
         ("\\*\\(R\\|Python\\).*"
-         (display-buffer-reuse-mode-window display-buffer-in-side-window)
+         (display-buffer-reuse-mode-window)
          (side . right)
          (slot . -1)
          (window-width . 0.3))
