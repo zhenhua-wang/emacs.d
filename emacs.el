@@ -360,7 +360,7 @@
 (use-package corfu
   :custom
   (corfu-cycle t)
-  (corfu-auto t)
+  (corfu-auto nil)
   (corfu-auto-delay 0)
   (corfu-auto-prefix 1)
   (corfu-preselect-first t)
