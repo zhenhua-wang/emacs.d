@@ -91,6 +91,8 @@
 (fringe-mode 0)
 
 ;; ------------------- key bind ---------------------
+;; disable C-z
+(global-unset-key (kbd "C-z"))
 ;; Keybinds
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
