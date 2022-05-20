@@ -693,7 +693,8 @@ i.e. windows tiled side-by-side."
   ("s-Z" . undo-tree-redo)
   :custom
   (undo-tree-visualizer-diff t)
-  (undo-tree-visualizer-timestamps t))
+  (undo-tree-visualizer-timestamps t)
+  (undo-tree-auto-save-history nil))
 
 (use-package hydra)
 
