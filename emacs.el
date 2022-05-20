@@ -362,7 +362,7 @@
 (use-package corfu
   :custom
   (corfu-cycle t)
-  (corfu-auto nil)
+  (corfu-auto t)
   (corfu-auto-delay 0)
   (corfu-auto-prefix 1)
   (corfu-preselect-first t)
@@ -389,7 +389,12 @@
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; disable corfu auto in following modes
+  (dolist (hook '(ess-r-mode-hook inferior-ess-r-mode-hook))
+    (add-hook hook
+	      (lambda ()
+		(setq-local corfu-auto nil)))))
 
 (use-package dabbrev
   :custom
