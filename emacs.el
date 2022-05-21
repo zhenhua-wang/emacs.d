@@ -246,12 +246,12 @@
   (display-time-default-load-average nil)
   :config
   (doom-modeline-mode 1)
-  (display-time-mode)
   (set-face-attribute 'mode-line nil :height 120)
   (set-face-attribute 'mode-line-inactive nil :height 120)
   (pcase system-type
     ('darwin
      (progn
+       (display-time-mode)
        (display-battery-mode)))))
 
 (tab-bar-mode 1)
