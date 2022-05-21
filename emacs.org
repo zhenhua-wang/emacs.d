@@ -930,7 +930,7 @@ Auto-Saving Changed Files
    #+begin_src emacs-lisp
 (use-package hydra)
    #+end_src
-   
+
 * Programming
 
 #+begin_src emacs-lisp
