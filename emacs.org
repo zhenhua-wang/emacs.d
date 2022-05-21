@@ -343,11 +343,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-modeline-mode 1)
   (set-face-attribute 'mode-line nil :height 120)
   (set-face-attribute 'mode-line-inactive nil :height 120)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode)))))
+  (display-time-mode)
+  (display-battery-mode))
 #+end_src
 
 ** Tab-bar-mode

@@ -248,11 +248,8 @@
   (doom-modeline-mode 1)
   (set-face-attribute 'mode-line nil :height 120)
   (set-face-attribute 'mode-line-inactive nil :height 120)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode)))))
+  (display-time-mode)
+  (display-battery-mode))
 
 (tab-bar-mode 1)
 (setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
