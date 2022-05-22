@@ -47,6 +47,33 @@ yay -S texlive-core
 yay -S texlive-latexextra
 #+end_src
 
+** System Settings
+*** Hibernation
+#+begin_src shell
+# create swapfile (12G)
+dd if=/dev/zero of=/swapfile bs=1M count=12288 status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+swapon /swapfile
+## edit the fstab (/etc/fstab) configuration to add an entry for the swap file:
+/swapfile none swap defaults 0 0
+# use hibernator to add resume to kernel parameters
+git clone https://github.com/Chrysostomus/hibernator.git
+cd hibernator
+sudo chmod +x hibernator
+./hibernator
+# update grub
+yay -S update-grub
+sudo update-grub
+# enable suspend-then-hibernate
+## edit /etc/systemd/logind.conf to add the following
+HandleLidSwitch=suspend-then-hibernate
+## edit HibernateDelaySec in /etc/systemd/sleep.conf
+HibernateDelaySec=20min
+## restart service
+sudo systemctl restart systemd-logind.service
+#+end_src
+
 * EXWM
 ** System setting
 *** Xdefaults
