@@ -1,15 +1,12 @@
 elpa/
-
 straight/
-
 auto-save-list/
-
 eln-cache/
+var/
+transient/
 
 network-security.data
-
 projectile-bookmarks.eld
-
 emacs-desktop.el
 emacs-development.el
 emacs-plain-config.el
