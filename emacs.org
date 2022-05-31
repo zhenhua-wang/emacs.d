@@ -126,6 +126,8 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (global-auto-revert-mode 1)
 ;; hightlight current row
 (global-hl-line-mode 1)
+;; yank overwrite what is selected
+(delete-selection-mode 1)
   #+end_src
 
 *** settings
@@ -159,9 +161,12 @@ My key binding strategy:
 
 #+begin_src emacs-lisp
 ;; ------------------- key bind ---------------------
-;; disable C-z
+;; general keybindings
+;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") (kbd "C-g"))
+(global-set-key (kbd "<C-tab>") 'completion-at-point)
 (global-unset-key (kbd "C-z"))
-;; Keybinds
+;; MacOS edits
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-c") 'kill-ring-save)
@@ -169,23 +174,17 @@ My key binding strategy:
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "s-l") 'goto-line)
-(global-set-key (kbd "s-q") 'kill-current-buffer)
 (global-set-key (kbd "s-f") 'isearch-forward)
 (define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
-(global-set-key (kbd "<C-tab>") 'completion-at-point)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
-;; eldoc
-;; (global-set-key (kbd "s-d") 'eldoc-doc-buffer)
-;; winner undo/redo
-(global-set-key (kbd "s-u") 'winner-undo)
-(global-set-key (kbd "s-U") 'winner-redo)
 ;; projectile find file
 (global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
-;; Make ESC quit prompts
-;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "<escape>") (kbd "C-g"))
+;; buffer operations
+(global-set-key (kbd "s-q") 'kill-current-buffer)
 ;; window operations
+(global-set-key (kbd "s-u") 'winner-undo)
+(global-set-key (kbd "s-U") 'winner-redo)
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
 (global-set-key [s-left] 'windmove-left)          ; move to left window
