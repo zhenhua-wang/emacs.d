@@ -372,6 +372,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (setq tab-bar-new-tab-choice "*scratch*")
 (setq tab-bar-new-button-show nil)
 (setq tab-bar-close-button-show nil)
+;; this should be placed after theme, since theme would overwrite these attributes
 (set-face-attribute 'tab-bar-tab nil
                     ;; :background (face-background 'mode-line)
 		    :foreground (face-foreground 'default)
@@ -384,6 +385,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                     :underline nil
                     :font zw/default-font)
 (set-face-background 'tab-bar (face-background 'default))
+;; add numbers before tab
+
 #+end_src
 
 #+RESULTS:
@@ -751,9 +754,8 @@ Auto-Saving Changed Files
   :commands (sudo-edit))
    #+end_src
 
-** Completion
-*** Corfu
-**** Main
+** Corfu
+*** Main
 
 #+begin_src emacs-lisp
 (use-package corfu
@@ -800,7 +802,7 @@ Auto-Saving Changed Files
   (dabbrev-case-replace t))
 #+end_src
 
-**** Orderless
+*** Orderless
 
 #+begin_src emacs-lisp
 (use-package orderless
@@ -810,7 +812,7 @@ Auto-Saving Changed Files
         completion-category-overrides nil))
 #+end_src
 
-**** Kind icon
+*** Kind icon
 
     #+begin_src emacs-lisp
 (use-package kind-icon
@@ -822,7 +824,7 @@ Auto-Saving Changed Files
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
     #+end_src
 
-**** Corfu doc
+*** Corfu doc
 
     #+begin_src emacs-lisp
 (use-package corfu-doc
@@ -834,7 +836,7 @@ Auto-Saving Changed Files
         ("M-n" . corfu-doc-scroll-up)))
     #+end_src
     
-**** Cape
+*** Cape
 #+begin_src emacs-lisp
 ;; Add extensions
 (use-package cape
