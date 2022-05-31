@@ -142,39 +142,6 @@
      (setq mac-command-modifier 'super)
      (setq mac-option-modifier 'meta))))
 
-(use-package all-the-icons
-  :if (display-graphic-p))
-
-;; (use-package spacegray-theme)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  :config
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-;; (use-package gruvbox-theme)
-;; (use-package nord-theme)
-;; (use-package nano-theme)
-(use-package bespoke-themes
-  :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
-  :config
-  ;; Set evil cursor colors
-  (setq bespoke-set-evil-cursors t)
-  ;; Set use of italics
-  (setq bespoke-set-italic-comments t
-        bespoke-set-italic-keywords t)
-  ;; Set variable pitch
-  (setq bespoke-set-variable-pitch t)
-  ;; Set initial theme variant
-  (setq bespoke-set-theme 'light)
-  ;; remove taskbar box
-  (set-face-attribute 'tab-bar-tab nil
-                      :box nil))
-
-;; Load theme
-(load-theme 'doom-nord-light t)
-
 (pcase system-type
   ((or 'gnu/linux 'windows-nt 'cygwin)
    (setq zw/font-size 140))
@@ -202,140 +169,6 @@
                     :weight 'light
                     :height zw/font-size)
 
-(use-package bespoke-modeline
-  :disabled
-  :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
-  :custom
-  (bespoke-modeline-space-top 0)
-  (bespoke-modeline-space-bottom 0)
-  :init
-  ;; Set header line
-  (setq bespoke-modeline-position 'bottom)
-  ;; Set mode-line height
-  (setq bespoke-modeline-size 3)
-  ;; Show diff lines in mode-line
-  (setq bespoke-modeline-git-diff-mode-line t)
-  ;; Set mode-line cleaner
-  (setq bespoke-modeline-cleaner t)
-  ;; Use mode-line visual bell
-  (setq bespoke-modeline-visual-bell nil)
-  ;; Set vc symbol
-  (setq  bespoke-modeline-vc-symbol "G:")
-  :config
-  ;; (set-face-attribute 'mode-line nil :height 120)
-  ;; (set-face-attribute 'mode-line-inactive nil :height 120)
-  (bespoke-modeline-mode))
-
-(use-package minions
-  :hook (doom-modeline-mode . minions-mode))
-
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-init)
-  :custom
-  (doom-modeline-height 10)
-  ;; (doom-modeline-bar-width 5)
-  (doom-modeline-lsp t)
-  (doom-modeline-github t)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
-  (doom-modeline-persp-name nil)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-icon t)
-  (display-time-format "%a %I:%M %p %D")
-  (display-time-default-load-average nil)
-  :config
-  (doom-modeline-mode 1)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode))))
-  (set-face-attribute 'mode-line nil :height 120)
-  (set-face-attribute 'mode-line-inactive nil :height 120))
-
-(tab-bar-mode 1)
-(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-(setq tab-bar-new-tab-choice "*scratch*")
-(setq tab-bar-new-button-show nil)
-(setq tab-bar-close-button-show nil)
-(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
-(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
-(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
-(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
-(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
-(global-set-key (kbd "s-n") 'tab-new)
-;; (global-set-key (kbd "s-d") 'tab-close)
-(set-face-attribute 'tab-bar-tab nil
-                    ;; :background (face-background 'mode-line)
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline "#950b96"
-                    :font zw/default-font)
-(set-face-attribute 'tab-bar-tab-inactive nil
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline nil
-                    :font zw/default-font)
-(set-face-background 'tab-bar (face-background 'default))
-
-;; line number mode
-(column-number-mode)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'text-mode-hook 'display-line-numbers-mode)
-(add-hook 'conf-mode-hook 'display-line-numbers-mode)
-;; Override some modes which derive from the above
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
-;; Sets the background of HTML color strings in buffers to be the color mentioned.
-(use-package rainbow-mode
-  :hook
-  (prog-mode . rainbow-mode)
-  (text-mode . rainbow-mode))
-
-(use-package paren
-  :config
-  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
-  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-foreground 'show-paren-match "red")
-  (show-paren-mode 1))
-
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-
-;; Dim inactive windows
-(use-package dimmer
-  :disabled
-  :hook (after-init . dimmer-mode)
-  :custom
-  (dimmer-fraction 0.3)
-  (dimmer-adjustment-mode :background)
-  (dimmer-use-colorspace :rgb)
-  (dimmer-watch-frame-focus-events nil)
-  :config
-  (fringe-mode 0)
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit))
-
-(use-package auto-dim-other-buffers
-  ;; :config
-  ;; (fringe-mode 0)
-  :init (auto-dim-other-buffers-mode))
-
 (use-package exec-path-from-shell
   :init
   (setq exec-path-from-shell-check-startup-files nil)
@@ -358,80 +191,6 @@
          ("<return>" . vterm-copy-mode))
    (:map vterm-mode-map
          ("s-e" . delete-window))))
-
-(use-package corfu
-  :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-delay 0)
-  (corfu-auto-prefix 1)
-  (corfu-preselect-first t)
-  (corfu-quit-no-match t)
-  (corfu-on-exact-match 'insert)
-  (corfu-preview-current nil)
-  (corfu-echo-documentation nil)
-  (corfu-scroll-margin 5)
-  (corfu-min-width 20)
-  (corfu-max-width 80)
-  :bind
-  (:map corfu-map
-	("TAB" . corfu-insert)
-        ([tab] . corfu-insert)
-        ([escape] . corfu-quit)
-        ([return] . corfu-insert)
-        ("M-d" . corfu-show-documentation)
-        ("M-l" . corfu-show-location)
-	("SPC" . corfu-insert-separator))
-  :init
-  (global-corfu-mode)
-  :config
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-    (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-  ;; disable corfu auto in following modes
-  (dolist (hook '(inferior-ess-r-mode-hook))
-    (add-hook hook
-	      (lambda ()
-		(setq-local corfu-auto nil)))))
-
-(use-package dabbrev
-  :custom
-  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
-  (dabbrev-case-fold-search nil)
-  (dabbrev-case-replace t))
-
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
-
-(use-package kind-icon
-  :after corfu
-  :custom
-  (kind-icon-use-icons nil)
-  (kind-icon-default-face 'corfu-default)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
-(use-package corfu-doc
-  :hook
-  (corfu-mode . corfu-doc-mode)
-  :bind
-  (:map corfu-map
-        ("M-p" . corfu-doc-scroll-down)
-        ("M-n" . corfu-doc-scroll-up)))
-
-;; Add extensions
-(use-package cape
-  :custom
-  (cape-dabbrev-min-length 1)
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 ;; ivy
 (use-package ivy
@@ -502,34 +261,174 @@
   (prescient-persist-mode 1)
   (setq prescient-sort-length-enable t))
 
-(use-package projectile
-  :config (projectile-mode +1)
-  :demand t
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
+(tab-bar-mode 1)
+(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
+(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
+(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
+(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
+(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
+(global-set-key (kbd "s-n") 'tab-new)
+;; (global-set-key (kbd "s-d") 'tab-close)
+(set-face-attribute 'tab-bar-tab nil
+                    ;; :background (face-background 'mode-line)
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline "#950b96"
+                    :font zw/default-font)
+(set-face-attribute 'tab-bar-tab-inactive nil
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline nil
+                    :font zw/default-font)
+(set-face-background 'tab-bar (face-background 'default))
+
+;; line number mode
+(column-number-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(add-hook 'conf-mode-hook 'display-line-numbers-mode)
+;; Override some modes which derive from the above
+(dolist (mode '(org-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+;; Sets the background of HTML color strings in buffers to be the color mentioned.
+(use-package rainbow-mode
+  :hook
+  (prog-mode . rainbow-mode)
+  (text-mode . rainbow-mode))
+
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+  (set-face-foreground 'show-paren-match "red")
+  (show-paren-mode 1))
+
+;; Dim inactive windows
+(use-package dimmer
+  :disabled
+  :hook (after-init . dimmer-mode)
+  :custom
+  (dimmer-fraction 0.3)
+  (dimmer-adjustment-mode :background)
+  (dimmer-use-colorspace :rgb)
+  (dimmer-watch-frame-focus-events nil)
+  :config
+  (fringe-mode 0)
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit))
+
+(use-package auto-dim-other-buffers
+  ;; :config
+  ;; (fringe-mode 0)
+  :init (auto-dim-other-buffers-mode))
+
+(use-package hydra)
+
+(use-package bespoke-modeline
+  :disabled
+  :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
+  :custom
+  (bespoke-modeline-space-top 0)
+  (bespoke-modeline-space-bottom 0)
   :init
-  (when (file-directory-p "~/Workspace/Documents/Graduate/Mizzou")
-    (setq projectile-project-search-path '("~/Workspace/Documents/Graduate/Mizzou"))))
-
-(use-package counsel-projectile
-  :after projectile
+  ;; Set header line
+  (setq bespoke-modeline-position 'bottom)
+  ;; Set mode-line height
+  (setq bespoke-modeline-size 3)
+  ;; Show diff lines in mode-line
+  (setq bespoke-modeline-git-diff-mode-line t)
+  ;; Set mode-line cleaner
+  (setq bespoke-modeline-cleaner t)
+  ;; Use mode-line visual bell
+  (setq bespoke-modeline-visual-bell nil)
+  ;; Set vc symbol
+  (setq  bespoke-modeline-vc-symbol "G:")
   :config
-  (counsel-projectile-mode))
+  ;; (set-face-attribute 'mode-line nil :height 120)
+  ;; (set-face-attribute 'mode-line-inactive nil :height 120)
+  (bespoke-modeline-mode))
 
-(use-package which-key
-  :defer 1
-  :init
-  :diminish which-key-mode
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-init)
+  :custom
+  (doom-modeline-height 10)
+  ;; (doom-modeline-bar-width 5)
+  (doom-modeline-lsp t)
+  (doom-modeline-github t)
+  (doom-modeline-mu4e nil)
+  (doom-modeline-irc t)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-persp-name nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-major-mode-icon t)
+  (display-time-format "%a %I:%M %p %D")
+  (display-time-default-load-average nil)
   :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.3))
+  (doom-modeline-mode 1)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-time-mode)
+       (display-battery-mode))))
+  (set-face-attribute 'mode-line nil :height 120)
+  (set-face-attribute 'mode-line-inactive nil :height 120))
 
-(use-package treemacs
-  :commands treemacs)
+(use-package all-the-icons
+  :if (display-graphic-p))
 
-(use-package treemacs-all-the-icons
+;; (use-package spacegray-theme)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
   :config
-  (treemacs-load-theme "all-the-icons"))
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
+;; (use-package nano-theme)
+(use-package bespoke-themes
+  :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
+  :config
+  ;; Set evil cursor colors
+  (setq bespoke-set-evil-cursors t)
+  ;; Set use of italics
+  (setq bespoke-set-italic-comments t
+        bespoke-set-italic-keywords t)
+  ;; Set variable pitch
+  (setq bespoke-set-variable-pitch t)
+  ;; Set initial theme variant
+  (setq bespoke-set-theme 'light)
+  ;; remove taskbar box
+  (set-face-attribute 'tab-bar-tab nil
+                      :box nil))
+
+;; Load theme
+(load-theme 'doom-nord-light t)
+
+(defun zw/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 85) '(100 . 100)))))
 
 (use-package winner
   :config
@@ -661,28 +560,20 @@ i.e. windows tiled side-by-side."
 ;; If a popup does happen, don't resize windows to be equal-sized
 (setq even-window-sizes nil)
 
-(use-package super-save
-  :defer 1
-  :diminish super-save-mode
+(use-package treemacs
+  :commands treemacs)
+
+(use-package treemacs-all-the-icons
   :config
-  (super-save-mode +1)
-  (setq super-save-auto-save-when-idle t))
+  (treemacs-load-theme "all-the-icons"))
 
-(use-package sudo-edit
-  :commands (sudo-edit))
-
-(use-package yasnippet
+(use-package which-key
   :defer 1
+  :init
+  :diminish which-key-mode
   :config
-  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
-  (yas-global-mode 1))
-
-(use-package ivy-yasnippet
-  :bind
-  ("M-<tab>" . ivy-yasnippet))
-
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
 
 (use-package undo-tree
   :defer t
@@ -696,11 +587,103 @@ i.e. windows tiled side-by-side."
   (undo-tree-visualizer-timestamps t)
   (undo-tree-auto-save-history nil))
 
-(use-package hydra)
+(use-package super-save
+  :defer 1
+  :diminish super-save-mode
+  :config
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
 
-(org-babel-load-file "~/.emacs.d/emacs-programming.org")
+(use-package sudo-edit
+  :commands (sudo-edit))
 
-(org-babel-load-file "~/.emacs.d/emacs-writing.org")
+(use-package corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-delay 0)
+  (corfu-auto-prefix 1)
+  (corfu-preselect-first t)
+  (corfu-quit-no-match t)
+  (corfu-on-exact-match 'insert)
+  (corfu-preview-current nil)
+  (corfu-echo-documentation nil)
+  (corfu-scroll-margin 5)
+  (corfu-min-width 20)
+  (corfu-max-width 80)
+  :bind
+  (:map corfu-map
+	("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
+        ([escape] . corfu-quit)
+        ([return] . corfu-insert)
+        ("M-d" . corfu-show-documentation)
+        ("M-l" . corfu-show-location)
+	("SPC" . corfu-insert-separator))
+  :init
+  (global-corfu-mode)
+  :config
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; disable corfu auto in following modes
+  (dolist (hook '(inferior-ess-r-mode-hook))
+    (add-hook hook
+	      (lambda ()
+		(setq-local corfu-auto nil)))))
+
+(use-package dabbrev
+  :custom
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace t))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-use-icons nil)
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(use-package corfu-doc
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  (:map corfu-map
+        ("M-p" . corfu-doc-scroll-down)
+        ("M-n" . corfu-doc-scroll-up)))
+
+;; Add extensions
+(use-package cape
+  :custom
+  (cape-dabbrev-min-length 1)
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+
+(use-package yasnippet
+  :defer 1
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
+  (yas-global-mode 1))
+
+(use-package ivy-yasnippet
+  :bind
+  ("M-<tab>" . ivy-yasnippet))
+
+(org-babel-load-file "~/.emacs.d/emacs-development.org")
+
+(org-babel-load-file "~/.emacs.d/emacs-reading.org")
 
 (when (getenv "WSL_DISTRO_NAME")
   (progn

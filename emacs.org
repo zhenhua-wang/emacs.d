@@ -213,49 +213,7 @@ My key binding strategy:
 
 #+RESULTS:
 : meta
-* UI
-** All-the-icons
-
-   #+begin_src emacs-lisp
-(use-package all-the-icons
-  :if (display-graphic-p))
-   #+end_src
-   
-** Theme
-#+begin_src emacs-lisp
-
-;; (use-package spacegray-theme)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  :config
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-;; (use-package gruvbox-theme)
-;; (use-package nord-theme)
-;; (use-package nano-theme)
-(use-package bespoke-themes
-  :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
-  :config
-  ;; Set evil cursor colors
-  (setq bespoke-set-evil-cursors t)
-  ;; Set use of italics
-  (setq bespoke-set-italic-comments t
-        bespoke-set-italic-keywords t)
-  ;; Set variable pitch
-  (setq bespoke-set-variable-pitch t)
-  ;; Set initial theme variant
-  (setq bespoke-set-theme 'light)
-  ;; remove taskbar box
-  (set-face-attribute 'tab-bar-tab nil
-                      :box nil))
-
-;; Load theme
-(load-theme 'doom-nord-light t)
-#+end_src
-
-** Font face
+*** Font face
    
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
 
@@ -290,177 +248,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 #+RESULTS:
 
-** Modeline
-*** Bespoke modeline
-
-    #+begin_src emacs-lisp
-(use-package bespoke-modeline
-  :disabled
-  :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
-  :custom
-  (bespoke-modeline-space-top 0)
-  (bespoke-modeline-space-bottom 0)
-  :init
-  ;; Set header line
-  (setq bespoke-modeline-position 'bottom)
-  ;; Set mode-line height
-  (setq bespoke-modeline-size 3)
-  ;; Show diff lines in mode-line
-  (setq bespoke-modeline-git-diff-mode-line t)
-  ;; Set mode-line cleaner
-  (setq bespoke-modeline-cleaner t)
-  ;; Use mode-line visual bell
-  (setq bespoke-modeline-visual-bell nil)
-  ;; Set vc symbol
-  (setq  bespoke-modeline-vc-symbol "G:")
-  :config
-  ;; (set-face-attribute 'mode-line nil :height 120)
-  ;; (set-face-attribute 'mode-line-inactive nil :height 120)
-  (bespoke-modeline-mode))
-    #+end_src
-    
-*** Doom modeline
-#+begin_src emacs-lisp
-(use-package minions
-  :hook (doom-modeline-mode . minions-mode))
-
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-init)
-  :custom
-  (doom-modeline-height 10)
-  ;; (doom-modeline-bar-width 5)
-  (doom-modeline-lsp t)
-  (doom-modeline-github t)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
-  (doom-modeline-persp-name nil)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-icon t)
-  (display-time-format "%a %I:%M %p %D")
-  (display-time-default-load-average nil)
-  :config
-  (doom-modeline-mode 1)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode))))
-  (set-face-attribute 'mode-line nil :height 120)
-  (set-face-attribute 'mode-line-inactive nil :height 120))
-#+end_src
-
-** Tab-bar-mode
-
-#+begin_src emacs-lisp
-(tab-bar-mode 1)
-(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-(setq tab-bar-new-tab-choice "*scratch*")
-(setq tab-bar-new-button-show nil)
-(setq tab-bar-close-button-show nil)
-(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
-(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
-(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
-(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
-(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
-(global-set-key (kbd "s-n") 'tab-new)
-;; (global-set-key (kbd "s-d") 'tab-close)
-(set-face-attribute 'tab-bar-tab nil
-                    ;; :background (face-background 'mode-line)
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline "#950b96"
-                    :font zw/default-font)
-(set-face-attribute 'tab-bar-tab-inactive nil
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline nil
-                    :font zw/default-font)
-(set-face-background 'tab-bar (face-background 'default))
-#+end_src
-
-#+RESULTS:
-: t
-
-** Line number mode
-
-   #+begin_src emacs-lisp
-;; line number mode
-(column-number-mode)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'text-mode-hook 'display-line-numbers-mode)
-(add-hook 'conf-mode-hook 'display-line-numbers-mode)
-;; Override some modes which derive from the above
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-   #+end_src
-
-** Rain-bow-delimiters
-#+begin_src emacs-lisp
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+end_src
-
-** Rainbow mode
-
-   #+begin_src emacs-lisp
-;; Sets the background of HTML color strings in buffers to be the color mentioned.
-(use-package rainbow-mode
-  :hook
-  (prog-mode . rainbow-mode)
-  (text-mode . rainbow-mode))
-   #+end_src
-
-** Highlight Matching Braces
-#+begin_src emacs-lisp
-(use-package paren
-  :config
-  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
-  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-foreground 'show-paren-match "red")
-  (show-paren-mode 1))
-#+end_src
-
-** Toggle transparency
-#+begin_src emacs-lisp
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-#+end_src
-
-** Dim unactivated buffer
-   
-#+begin_src emacs-lisp
-;; Dim inactive windows
-(use-package dimmer
-  :disabled
-  :hook (after-init . dimmer-mode)
-  :custom
-  (dimmer-fraction 0.3)
-  (dimmer-adjustment-mode :background)
-  (dimmer-use-colorspace :rgb)
-  (dimmer-watch-frame-focus-events nil)
-  :config
-  (fringe-mode 0)
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit))
-
-(use-package auto-dim-other-buffers
-  ;; :config
-  ;; (fringe-mode 0)
-  :init (auto-dim-other-buffers-mode))
-#+end_src
-
-* Tools
+* Integration
 ** Exec-path-from-shell
    
 #+begin_src emacs-lisp
@@ -500,101 +288,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          ("s-e" . delete-window))))
 #+end_src
 
-** Corfu
-*** Main
-
-#+begin_src emacs-lisp
-(use-package corfu
-  :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-delay 0)
-  (corfu-auto-prefix 1)
-  (corfu-preselect-first t)
-  (corfu-quit-no-match t)
-  (corfu-on-exact-match 'insert)
-  (corfu-preview-current nil)
-  (corfu-echo-documentation nil)
-  (corfu-scroll-margin 5)
-  (corfu-min-width 20)
-  (corfu-max-width 80)
-  :bind
-  (:map corfu-map
-	("TAB" . corfu-insert)
-        ([tab] . corfu-insert)
-        ([escape] . corfu-quit)
-        ([return] . corfu-insert)
-        ("M-d" . corfu-show-documentation)
-        ("M-l" . corfu-show-location)
-	("SPC" . corfu-insert-separator))
-  :init
-  (global-corfu-mode)
-  :config
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-    (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-  ;; disable corfu auto in following modes
-  (dolist (hook '(inferior-ess-r-mode-hook))
-    (add-hook hook
-	      (lambda ()
-		(setq-local corfu-auto nil)))))
-
-(use-package dabbrev
-  :custom
-  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
-  (dabbrev-case-fold-search nil)
-  (dabbrev-case-replace t))
-#+end_src
-
-*** Orderless
-
-#+begin_src emacs-lisp
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
-#+end_src
-
-*** Kind icon
-
-    #+begin_src emacs-lisp
-(use-package kind-icon
-  :after corfu
-  :custom
-  (kind-icon-use-icons nil)
-  (kind-icon-default-face 'corfu-default)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-    #+end_src
-
-*** Corfu doc
-
-    #+begin_src emacs-lisp
-(use-package corfu-doc
-  :hook
-  (corfu-mode . corfu-doc-mode)
-  :bind
-  (:map corfu-map
-        ("M-p" . corfu-doc-scroll-down)
-        ("M-n" . corfu-doc-scroll-up)))
-    #+end_src
-    
-*** Cape
-#+begin_src emacs-lisp
-;; Add extensions
-(use-package cape
-  :custom
-  (cape-dabbrev-min-length 1)
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
-#+end_src
-
-** Ivy
+* Interface Enhancement
+** Minibuffer
 *** ivy 
 #+begin_src emacs-lisp
 ;; ivy
@@ -676,53 +371,227 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq prescient-sort-length-enable t))
 #+end_src
 
-** Projectile
-+ Supported Project Types
-  - Directories that contain the special .projectile file
+** Tabbar
+*** Tab-bar-mode
 
-  - Directories under version control (e.g. a Git repo)
-
-  - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
 #+begin_src emacs-lisp
-(use-package projectile
-  :config (projectile-mode +1)
-  :demand t
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (when (file-directory-p "~/Workspace/Documents/Graduate/Mizzou")
-    (setq projectile-project-search-path '("~/Workspace/Documents/Graduate/Mizzou"))))
-
-(use-package counsel-projectile
-  :after projectile
-  :config
-  (counsel-projectile-mode))
+(tab-bar-mode 1)
+(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
+(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
+(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
+(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
+(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
+(global-set-key (kbd "s-n") 'tab-new)
+;; (global-set-key (kbd "s-d") 'tab-close)
+(set-face-attribute 'tab-bar-tab nil
+                    ;; :background (face-background 'mode-line)
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline "#950b96"
+                    :font zw/default-font)
+(set-face-attribute 'tab-bar-tab-inactive nil
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline nil
+                    :font zw/default-font)
+(set-face-background 'tab-bar (face-background 'default))
 #+end_src
 
-** Which key
+#+RESULTS:
+: t
+
+** Visualize
+*** Line number mode
 
    #+begin_src emacs-lisp
-(use-package which-key
-  :defer 1
-  :init
-  :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 0.3))
+;; line number mode
+(column-number-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(add-hook 'conf-mode-hook 'display-line-numbers-mode)
+;; Override some modes which derive from the above
+(dolist (mode '(org-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
    #+end_src
 
-** Treemacs
-
+*** Rain-bow-delimiters
 #+begin_src emacs-lisp
-(use-package treemacs
-  :commands treemacs)
-
-(use-package treemacs-all-the-icons
+(use-package rainbow-delimiters
   :config
-  (treemacs-load-theme "all-the-icons"))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+end_src
 
-** Window management
+*** Rainbow mode
+
+   #+begin_src emacs-lisp
+;; Sets the background of HTML color strings in buffers to be the color mentioned.
+(use-package rainbow-mode
+  :hook
+  (prog-mode . rainbow-mode)
+  (text-mode . rainbow-mode))
+   #+end_src
+
+*** Highlight Matching Braces
+#+begin_src emacs-lisp
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+  (set-face-foreground 'show-paren-match "red")
+  (show-paren-mode 1))
+#+end_src
+
+*** Dim unactivated buffer
+   
+#+begin_src emacs-lisp
+;; Dim inactive windows
+(use-package dimmer
+  :disabled
+  :hook (after-init . dimmer-mode)
+  :custom
+  (dimmer-fraction 0.3)
+  (dimmer-adjustment-mode :background)
+  (dimmer-use-colorspace :rgb)
+  (dimmer-watch-frame-focus-events nil)
+  :config
+  (fringe-mode 0)
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit))
+
+(use-package auto-dim-other-buffers
+  ;; :config
+  ;; (fringe-mode 0)
+  :init (auto-dim-other-buffers-mode))
+#+end_src
+
+** Key-bindings
+*** Hydra
+   
+   #+begin_src emacs-lisp
+(use-package hydra)
+   #+end_src
+   
+* Appearance
+** Bespoke modeline
+
+    #+begin_src emacs-lisp
+(use-package bespoke-modeline
+  :disabled
+  :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
+  :custom
+  (bespoke-modeline-space-top 0)
+  (bespoke-modeline-space-bottom 0)
+  :init
+  ;; Set header line
+  (setq bespoke-modeline-position 'bottom)
+  ;; Set mode-line height
+  (setq bespoke-modeline-size 3)
+  ;; Show diff lines in mode-line
+  (setq bespoke-modeline-git-diff-mode-line t)
+  ;; Set mode-line cleaner
+  (setq bespoke-modeline-cleaner t)
+  ;; Use mode-line visual bell
+  (setq bespoke-modeline-visual-bell nil)
+  ;; Set vc symbol
+  (setq  bespoke-modeline-vc-symbol "G:")
+  :config
+  ;; (set-face-attribute 'mode-line nil :height 120)
+  ;; (set-face-attribute 'mode-line-inactive nil :height 120)
+  (bespoke-modeline-mode))
+    #+end_src
+    
+** Doom modeline
+#+begin_src emacs-lisp
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-init)
+  :custom
+  (doom-modeline-height 10)
+  ;; (doom-modeline-bar-width 5)
+  (doom-modeline-lsp t)
+  (doom-modeline-github t)
+  (doom-modeline-mu4e nil)
+  (doom-modeline-irc t)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-persp-name nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-major-mode-icon t)
+  (display-time-format "%a %I:%M %p %D")
+  (display-time-default-load-average nil)
+  :config
+  (doom-modeline-mode 1)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-time-mode)
+       (display-battery-mode))))
+  (set-face-attribute 'mode-line nil :height 120)
+  (set-face-attribute 'mode-line-inactive nil :height 120))
+#+end_src
+
+** All-the-icons
+
+   #+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p))
+   #+end_src
+
+** Theme
+#+begin_src emacs-lisp
+
+;; (use-package spacegray-theme)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
+;; (use-package nano-theme)
+(use-package bespoke-themes
+  :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
+  :config
+  ;; Set evil cursor colors
+  (setq bespoke-set-evil-cursors t)
+  ;; Set use of italics
+  (setq bespoke-set-italic-comments t
+        bespoke-set-italic-keywords t)
+  ;; Set variable pitch
+  (setq bespoke-set-variable-pitch t)
+  ;; Set initial theme variant
+  (setq bespoke-set-theme 'light)
+  ;; remove taskbar box
+  (set-face-attribute 'tab-bar-tab nil
+                      :box nil))
+
+;; Load theme
+(load-theme 'doom-nord-light t)
+#+end_src
+
+** Toggle transparency
+#+begin_src emacs-lisp
+(defun zw/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 85) '(100 . 100)))))
+#+end_src
+
+* Window management
 *** Window history with winner-mode
 #+begin_src emacs-lisp
 (use-package winner
@@ -870,6 +739,48 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
 #+RESULTS:
 
+* File Manager
+** Treemacs
+
+#+begin_src emacs-lisp
+(use-package treemacs
+  :commands treemacs)
+
+(use-package treemacs-all-the-icons
+  :config
+  (treemacs-load-theme "all-the-icons"))
+#+end_src
+
+* Keys Cheat Sheet
+** Which key
+
+   #+begin_src emacs-lisp
+(use-package which-key
+  :defer 1
+  :init
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
+   #+end_src
+
+* Editing
+** Undo-tree
+
+   #+begin_src emacs-lisp
+(use-package undo-tree
+  :defer t
+  :diminish undo-tree-mode
+  :init (global-undo-tree-mode)
+  :bind
+  ("s-z" . undo-tree-undo)
+  ("s-Z" . undo-tree-redo)
+  :custom
+  (undo-tree-visualizer-diff t)
+  (undo-tree-visualizer-timestamps t)
+  (undo-tree-auto-save-history nil))
+   #+end_src
+
 ** Auto save
 
 Auto-Saving Changed Files
@@ -889,7 +800,102 @@ Auto-Saving Changed Files
 (use-package sudo-edit
   :commands (sudo-edit))
    #+end_src
-   
+
+** Completion
+*** Corfu
+**** Main
+
+#+begin_src emacs-lisp
+(use-package corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-delay 0)
+  (corfu-auto-prefix 1)
+  (corfu-preselect-first t)
+  (corfu-quit-no-match t)
+  (corfu-on-exact-match 'insert)
+  (corfu-preview-current nil)
+  (corfu-echo-documentation nil)
+  (corfu-scroll-margin 5)
+  (corfu-min-width 20)
+  (corfu-max-width 80)
+  :bind
+  (:map corfu-map
+	("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
+        ([escape] . corfu-quit)
+        ([return] . corfu-insert)
+        ("M-d" . corfu-show-documentation)
+        ("M-l" . corfu-show-location)
+	("SPC" . corfu-insert-separator))
+  :init
+  (global-corfu-mode)
+  :config
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; disable corfu auto in following modes
+  (dolist (hook '(inferior-ess-r-mode-hook))
+    (add-hook hook
+	      (lambda ()
+		(setq-local corfu-auto nil)))))
+
+(use-package dabbrev
+  :custom
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace t))
+#+end_src
+
+**** Orderless
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+#+end_src
+
+**** Kind icon
+
+    #+begin_src emacs-lisp
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-use-icons nil)
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+    #+end_src
+
+**** Corfu doc
+
+    #+begin_src emacs-lisp
+(use-package corfu-doc
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  (:map corfu-map
+        ("M-p" . corfu-doc-scroll-down)
+        ("M-n" . corfu-doc-scroll-up)))
+    #+end_src
+    
+**** Cape
+#+begin_src emacs-lisp
+;; Add extensions
+(use-package cape
+  :custom
+  (cape-dabbrev-min-length 1)
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+#+end_src
+
 ** Snippets
 #+begin_src emacs-lisp
 (use-package yasnippet
@@ -903,44 +909,16 @@ Auto-Saving Changed Files
   ("M-<tab>" . ivy-yasnippet))
 #+end_src
 
-** Fast comment
-#+begin_src emacs-lisp
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-#+end_src
-
-** Undo-tree
-
-   #+begin_src emacs-lisp
-(use-package undo-tree
-  :defer t
-  :diminish undo-tree-mode
-  :init (global-undo-tree-mode)
-  :bind
-  ("s-z" . undo-tree-undo)
-  ("s-Z" . undo-tree-redo)
-  :custom
-  (undo-tree-visualizer-diff t)
-  (undo-tree-visualizer-timestamps t)
-  (undo-tree-auto-save-history nil))
-   #+end_src
-
-** Hydra
-   
-   #+begin_src emacs-lisp
-(use-package hydra)
-   #+end_src
-
-* Programming
+* Development
 
 #+begin_src emacs-lisp
-(org-babel-load-file "~/.emacs.d/emacs-programming.org")
+(org-babel-load-file "~/.emacs.d/emacs-development.org")
 #+end_src
 
-* Writing
+* Reading
   
   #+begin_src emacs-lisp
-(org-babel-load-file "~/.emacs.d/emacs-writing.org")
+(org-babel-load-file "~/.emacs.d/emacs-reading.org")
   #+end_src
 
 * System
