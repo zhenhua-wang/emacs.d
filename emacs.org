@@ -191,6 +191,13 @@ My key binding strategy:
 (global-set-key [s-right] 'windmove-right)        ; move to right window
 (global-set-key [s-up] 'windmove-up)              ; move to upper window
 (global-set-key [s-down] 'windmove-down)          ; move to lower window
+;; tab operations
+(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
+(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
+(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
+(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
+(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
+(global-set-key (kbd "s-n") 'tab-new)
 ;; check dict
 (global-set-key (kbd "C-c w") 'wordnut-search)
 (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
@@ -212,41 +219,6 @@ My key binding strategy:
 
 #+RESULTS:
 : meta
-*** Font face
-   
-Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
-
-#+begin_src emacs-lisp
-(pcase system-type
-  ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 140))
-  ('darwin
-   (setq zw/font-size 140)))
-
-;; set the default face
-(setq zw/default-font "FiraMono Nerd Font")
-
-(set-face-attribute 'default nil
-                       :font zw/default-font
-                       ;; make fonts less tranparent
-                       :weight 'medium
-                       :height zw/font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil
-                    :font "JetBrainsMono Nerd Font"
-                    :weight 'normal
-                    :height zw/font-size)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil
-                    :font "Iosevka Aile" ;"Cantarell"
-                    :weight 'light
-                    :height zw/font-size)
-#+end_src
-
-#+RESULTS:
-
 * Integration
 ** Exec-path-from-shell
    
@@ -287,7 +259,135 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          ("s-e" . delete-window))))
 #+end_src
 
+* Appearance
+** Theme
+#+begin_src emacs-lisp
+;; (use-package spacegray-theme)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
+;; (use-package nano-theme)
+
+;; Load theme
+(load-theme 'doom-nord-light t)
+#+end_src
+
+** Doom modeline
+#+begin_src emacs-lisp
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-init)
+  :custom
+  (doom-modeline-height 10)
+  ;; (doom-modeline-bar-width 5)
+  (doom-modeline-lsp t)
+  (doom-modeline-github t)
+  (doom-modeline-mu4e nil)
+  (doom-modeline-irc t)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-persp-name nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-major-mode-icon t)
+  (display-time-format "%a %I:%M %p %D")
+  (display-time-default-load-average nil)
+  :config
+  (doom-modeline-mode 1)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-time-mode)
+       (display-battery-mode))))
+  (set-face-attribute 'mode-line nil :height 120)
+  (set-face-attribute 'mode-line-inactive nil :height 120))
+#+end_src
+
+** All-the-icons
+
+   #+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p))
+   #+end_src
+
+** Toggle transparency
+#+begin_src emacs-lisp
+(defun zw/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 85) '(100 . 100)))))
+#+end_src
+
 * Interface Enhancement
+** Font face
+   
+Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
+
+#+begin_src emacs-lisp
+(pcase system-type
+  ((or 'gnu/linux 'windows-nt 'cygwin)
+   (setq zw/font-size 140))
+  ('darwin
+   (setq zw/font-size 140)))
+
+;; set the default face
+(setq zw/default-font "FiraMono Nerd Font")
+
+(set-face-attribute 'default nil
+                       :font zw/default-font
+                       ;; make fonts less tranparent
+                       :weight 'medium
+                       :height zw/font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil
+                    :font "JetBrainsMono Nerd Font"
+                    :weight 'normal
+                    :height zw/font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil
+                    :font "Iosevka Aile" ;"Cantarell"
+                    :weight 'light
+                    :height zw/font-size)
+#+end_src
+
+** Tabbar
+#+begin_src emacs-lisp
+(tab-bar-mode 1)
+(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+(set-face-attribute 'tab-bar-tab nil
+                    ;; :background (face-background 'mode-line)
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline "#950b96"
+                    :font zw/default-font)
+(set-face-attribute 'tab-bar-tab-inactive nil
+		    :foreground (face-foreground 'default)
+                    :background (face-background 'default)
+                    :underline nil
+                    :font zw/default-font)
+(set-face-background 'tab-bar (face-background 'default))
+#+end_src
+
+#+RESULTS:
+
 ** Minibuffer
 *** ivy 
 #+begin_src emacs-lisp
@@ -370,39 +470,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq prescient-sort-length-enable t))
 #+end_src
 
-** Tabbar
-*** Tab-bar-mode
-
-#+begin_src emacs-lisp
-(tab-bar-mode 1)
-(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-(setq tab-bar-new-tab-choice "*scratch*")
-(setq tab-bar-new-button-show nil)
-(setq tab-bar-close-button-show nil)
-(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
-(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
-(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
-(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
-(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
-(global-set-key (kbd "s-n") 'tab-new)
-;; (global-set-key (kbd "s-d") 'tab-close)
-(set-face-attribute 'tab-bar-tab nil
-                    ;; :background (face-background 'mode-line)
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline "#950b96"
-                    :font zw/default-font)
-(set-face-attribute 'tab-bar-tab-inactive nil
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline nil
-                    :font zw/default-font)
-(set-face-background 'tab-bar (face-background 'default))
-#+end_src
-
-#+RESULTS:
-: t
-
 ** Visualize
 *** Line number mode
 
@@ -474,122 +541,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package hydra)
    #+end_src
    
-* Appearance
-** Bespoke modeline
-
-    #+begin_src emacs-lisp
-(use-package bespoke-modeline
-  :disabled
-  :straight (:type git :host github :repo "mclear-tools/bespoke-modeline")
-  :custom
-  (bespoke-modeline-space-top 0)
-  (bespoke-modeline-space-bottom 0)
-  :init
-  ;; Set header line
-  (setq bespoke-modeline-position 'bottom)
-  ;; Set mode-line height
-  (setq bespoke-modeline-size 3)
-  ;; Show diff lines in mode-line
-  (setq bespoke-modeline-git-diff-mode-line t)
-  ;; Set mode-line cleaner
-  (setq bespoke-modeline-cleaner t)
-  ;; Use mode-line visual bell
-  (setq bespoke-modeline-visual-bell nil)
-  ;; Set vc symbol
-  (setq  bespoke-modeline-vc-symbol "G:")
-  :config
-  ;; (set-face-attribute 'mode-line nil :height 120)
-  ;; (set-face-attribute 'mode-line-inactive nil :height 120)
-  (bespoke-modeline-mode))
-    #+end_src
-    
-** Doom modeline
-#+begin_src emacs-lisp
-(use-package minions
-  :hook (doom-modeline-mode . minions-mode))
-
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-init)
-  :custom
-  (doom-modeline-height 10)
-  ;; (doom-modeline-bar-width 5)
-  (doom-modeline-lsp t)
-  (doom-modeline-github t)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
-  (doom-modeline-persp-name nil)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-icon t)
-  (display-time-format "%a %I:%M %p %D")
-  (display-time-default-load-average nil)
-  :config
-  (doom-modeline-mode 1)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode))))
-  (set-face-attribute 'mode-line nil :height 120)
-  (set-face-attribute 'mode-line-inactive nil :height 120))
-#+end_src
-
-** All-the-icons
-
-   #+begin_src emacs-lisp
-(use-package all-the-icons
-  :if (display-graphic-p))
-   #+end_src
-
-** Theme
-#+begin_src emacs-lisp
-
-;; (use-package spacegray-theme)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  :config
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-;; (use-package gruvbox-theme)
-;; (use-package nord-theme)
-;; (use-package nano-theme)
-(use-package bespoke-themes
-  :straight (:host github :repo "mclear-tools/bespoke-themes" :branch "main")
-  :config
-  ;; Set evil cursor colors
-  (setq bespoke-set-evil-cursors t)
-  ;; Set use of italics
-  (setq bespoke-set-italic-comments t
-        bespoke-set-italic-keywords t)
-  ;; Set variable pitch
-  (setq bespoke-set-variable-pitch t)
-  ;; Set initial theme variant
-  (setq bespoke-set-theme 'light)
-  ;; remove taskbar box
-  (set-face-attribute 'tab-bar-tab nil
-                      :box nil))
-
-;; Load theme
-(load-theme 'doom-nord-light t)
-#+end_src
-
-** Toggle transparency
-#+begin_src emacs-lisp
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-#+end_src
-
 * Window management
 *** Window history with winner-mode
 #+begin_src emacs-lisp
@@ -921,7 +872,6 @@ Auto-Saving Changed Files
   #+end_src
 
 * System
-
 ** Desktop-EXWM
 This part is largely copied from daviwil's course.
 
@@ -959,3 +909,4 @@ In old windows 10, you may not able to start emacs-gtk. Solution is:  https://gi
 #+end_src
 
 #+RESULTS:
+
