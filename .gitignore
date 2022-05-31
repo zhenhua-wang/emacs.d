@@ -5,3 +5,14 @@ straight/
 auto-save-list/
 
 eln-cache/
+
+network-security.data
+
+projectile-bookmarks.eld
+
+emacs-desktop.el
+emacs-development.el
+emacs-plain-config.el
+emacs-reading.el
+emacs-system.el
+emacs.el
