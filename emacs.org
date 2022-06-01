@@ -260,78 +260,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+end_src
 
 * Appearance
-** Theme
-#+begin_src emacs-lisp
-;; (use-package spacegray-theme)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  :config
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-;; (use-package gruvbox-theme)
-;; (use-package nord-theme)
-;; (use-package nano-theme)
-
-;; Load theme
-(load-theme 'doom-nord-light t)
-#+end_src
-
-** Doom modeline
-#+begin_src emacs-lisp
-(use-package minions
-  :hook (doom-modeline-mode . minions-mode))
-
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-init)
-  :custom
-  (doom-modeline-height 10)
-  ;; (doom-modeline-bar-width 5)
-  (doom-modeline-lsp t)
-  (doom-modeline-github t)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-irc t)
-  (doom-modeline-minor-modes t)
-  (doom-modeline-persp-name nil)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-icon t)
-  (display-time-format "%a %I:%M %p %D")
-  (display-time-default-load-average nil)
-  :config
-  (doom-modeline-mode 1)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode))))
-  (set-face-attribute 'mode-line nil :height 120)
-  (set-face-attribute 'mode-line-inactive nil :height 120))
-#+end_src
-
-** All-the-icons
-
-   #+begin_src emacs-lisp
-(use-package all-the-icons
-  :if (display-graphic-p))
-   #+end_src
-
-** Toggle transparency
-#+begin_src emacs-lisp
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-#+end_src
-
-* Interface Enhancement
 ** Font face
    
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
@@ -365,6 +293,24 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                     :height zw/font-size)
 #+end_src
 
+** Theme
+#+begin_src emacs-lisp
+;; (use-package spacegray-theme)
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  :config
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+;; (use-package gruvbox-theme)
+;; (use-package nord-theme)
+;; (use-package nano-theme)
+
+;; Load theme
+(load-theme 'doom-nord-light t)
+#+end_src
+
 ** Tabbar
 #+begin_src emacs-lisp
 (tab-bar-mode 1)
@@ -390,7 +336,59 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+end_src
 
 #+RESULTS:
+** Modeline
+#+begin_src emacs-lisp
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
 
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-init)
+  :custom
+  (doom-modeline-height 1)
+  (doom-modeline-lsp t)
+  (doom-modeline-github t)
+  (doom-modeline-mu4e nil)
+  (doom-modeline-irc t)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-persp-name nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-major-mode-icon t)
+  (display-time-format "%a %I:%M %p %D")
+  (display-time-default-load-average nil)
+  :config
+  (doom-modeline-mode 1)
+  (set-face-attribute 'mode-line nil :height 120)
+  (set-face-attribute 'mode-line-inactive nil :height 120)
+  (pcase system-type
+    ('darwin
+     (progn
+       (display-time-mode)
+       (display-battery-mode)))))
+#+end_src
+
+** All-the-icons
+
+   #+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p))
+   #+end_src
+
+** Toggle transparency
+#+begin_src emacs-lisp
+(defun zw/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 85) '(100 . 100)))))
+#+end_src
+
+* Interface Enhancement
 ** Minibuffer
 *** ivy 
 #+begin_src emacs-lisp
