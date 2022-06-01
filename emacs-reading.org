@@ -126,7 +126,7 @@
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (let* (
-       (variable-tuple '(:font "JetBrainsMono Nerd Font"))
+       (variable-tuple (list ':font zw/font-title))
        (base-font-color     (face-foreground 'default nil 'default))
        (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
 

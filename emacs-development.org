@@ -219,7 +219,7 @@ Here are the polys
 #+RESULTS:
 
 ** Python
-** Pyvenv
+*** Pyvenv
    
 In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
 #+begin_src emacs-lisp

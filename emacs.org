@@ -119,7 +119,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 #+end_src
 
 * General Emacs Settings
-*** modes
+** modes
   #+begin_src emacs-lisp
 (global-visual-line-mode 1)
 ;; Revert buffers when the underlying file has changed
@@ -130,7 +130,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (delete-selection-mode 1)
   #+end_src
 
-*** settings
+** settings
   #+begin_src emacs-lisp
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
@@ -149,7 +149,19 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (fringe-mode 0)
   #+end_src
 
-*** keybinding
+** variables
+#+begin_src emacs-lisp
+(setq zw/font-size 140)
+(setq zw/default-font "FiraMono Nerd Font")
+(setq zw/font-size-modeline 120)
+(setq zw/font-modeline "Menlo-12")
+(setq zw/font-tab-bar "Menlo-12")
+(setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
+(setq zw/font-variable-pitch "Iosevka Aile")
+(setq zw/font-title "Iosevka Aile")
+#+end_src
+
+** keybinding
 key bindings in minibuffer will over the ones in major buffer. For example, in EXWM I defined ~s-<tab>~ to be ~switch-to-buffer~. Then, in the ivy's minibuffer, I overwrite ~s-<tab>~ to be navigate through the items in ivy.
 
 My key binding strategy:
@@ -265,15 +277,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
 
 #+begin_src emacs-lisp
-(pcase system-type
-  ((or 'gnu/linux 'windows-nt 'cygwin)
-   (setq zw/font-size 140))
-  ('darwin
-   (setq zw/font-size 140)))
-
-;; set the default face
-(setq zw/default-font "FiraMono Nerd Font")
-
 (set-face-attribute 'default nil
                        :font zw/default-font
                        ;; make fonts less tranparent
@@ -282,13 +285,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
-                    :font "JetBrainsMono Nerd Font"
+                    :font zw/font-fixed-pitch
                     :weight 'normal
                     :height zw/font-size)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
-                    :font "Iosevka Aile" ;"Cantarell"
+                    :font zw/font-variable-pitch
                     :weight 'light
                     :height zw/font-size)
 #+end_src
@@ -311,7 +314,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (load-theme 'doom-nord-light t)
 #+end_src
 
-** Tabbar
+** Tab bar
 #+begin_src emacs-lisp
 (tab-bar-mode 1)
 (setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
@@ -324,13 +327,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		    :foreground (face-foreground 'default)
                     :background (face-background 'default)
                     :underline "#950b96"
-                    :font zw/default-font)
+                    :font zw/font-tab-bar)
 (set-face-attribute 'tab-bar-tab-inactive nil
 		    :foreground (face-foreground 'default)
                     :background (face-background 'default)
                     :underline nil
-                    :font zw/default-font)
-(set-face-background 'tab-bar (face-background 'default))
+                    :font zw/font-tab-bar)
+(set-face-attribute 'tab-bar nil
+		    :background (face-background 'default))
 ;; add numbers before tab
 
 #+end_src
@@ -357,8 +361,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (display-time-default-load-average nil)
   :config
   (doom-modeline-mode 1)
-  (set-face-attribute 'mode-line nil :height 120)
-  (set-face-attribute 'mode-line-inactive nil :height 120)
+  (set-face-attribute 'mode-line nil :font zw/font-modeline :height zw/font-size-modeline)
+  (set-face-attribute 'mode-line-inactive nil :font zw/font-modeline :height zw/font-size-modeline)
+  (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
+  (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline)
   (pcase system-type
     ('darwin
      (progn
