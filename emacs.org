@@ -1,3 +1,4 @@
+
 #+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
@@ -154,8 +155,8 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (setq zw/font-size 140)
 (setq zw/default-font "FiraMono Nerd Font")
 (setq zw/font-size-modeline 120)
-(setq zw/font-modeline "Menlo-12")
-(setq zw/font-tab-bar "Menlo-12")
+(setq zw/font-modeline zw/default-font)
+(setq zw/font-tab-bar zw/default-font)
 (setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
 (setq zw/font-variable-pitch "Iosevka Aile")
 (setq zw/font-title "Iosevka Aile")
