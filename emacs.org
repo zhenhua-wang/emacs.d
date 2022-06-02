@@ -396,6 +396,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+end_src
 
 * Interface Enhancement
+** Dashboard
+#+begin_src emacs-lisp
+(add-hook 'kill-buffer-query-functions #'my/dont-kill-scratch)
+(defun my/dont-kill-scratch ()
+  (if (not (equal (buffer-name) "*scratch*"))
+      t
+    (message "Not allowed to kill %s, burying instead" (buffer-name))
+    (bury-buffer)
+    nil))
+#+end_src
+
 ** Minibuffer
 *** ivy 
 #+begin_src emacs-lisp
@@ -702,7 +713,9 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
 #+begin_src emacs-lisp
 (use-package treemacs
-  :commands treemacs)
+  :commands treemacs
+  :config
+  (treemacs-project-follow-mode 1))
 
 (use-package treemacs-all-the-icons
   :config
