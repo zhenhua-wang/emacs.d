@@ -398,9 +398,22 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 * Interface Enhancement
 ** Dashboard
 #+begin_src emacs-lisp
-(add-hook 'kill-buffer-query-functions #'my/dont-kill-scratch)
-(defun my/dont-kill-scratch ()
-  (if (not (equal (buffer-name) "*scratch*"))
+(use-package dashboard
+  :custom
+  (dashboard-center-content t)
+  (dashboard-items '((recents  . 5)
+                     (projects . 5)))
+  (dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
+  (dashboard-set-footer nil)
+  (dashboard-banner-logo-title nil)
+  :config
+  (dashboard-setup-startup-hook))
+
+;; make scratch and dashboard unkillable
+(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
+(defun zw/dont-kill-scratch ()
+  (if (not (or (equal (buffer-name) "*scratch*")
+	       (equal (buffer-name) "*dashboard*")))
       t
     (message "Not allowed to kill %s, burying instead" (buffer-name))
     (bury-buffer)
