@@ -1,4 +1,4 @@
-#+Title: Text
+#+Title: Academic
 #+Author: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"

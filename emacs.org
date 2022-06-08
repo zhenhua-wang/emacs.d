@@ -180,7 +180,7 @@ My key binding strategy:
 (global-set-key (kbd "<escape>") (kbd "C-g"))
 (global-set-key (kbd "<C-tab>") 'completion-at-point)
 (global-unset-key (kbd "C-z"))
-;; MacOS edits
+;; editing
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-c") 'kill-ring-save)
@@ -217,16 +217,18 @@ My key binding strategy:
 (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
 ;; toggle transparency
 (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
-;; ivy bib
-(global-set-key (kbd "C-c b") 'ivy-bibtex)
+;; keys for bib
+(global-set-key (kbd "H-p") 'ivy-bibtex)
+(global-set-key (kbd "H-b") 'org-ref-bibtex-hydra/body)
 ;; get passwed
 ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
 ;; toggle input
 (global-set-key (kbd "C-\\") 'toggle-input-method)
-;; consistent with EXWM
+;; macos keys
 (pcase system-type
   ('darwin
    (progn
+     (setq mac-right-command-modifier 'hyper)
      (setq mac-command-modifier 'super)
      (setq mac-option-modifier 'meta))))
 #+end_src
