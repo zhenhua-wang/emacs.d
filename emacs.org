@@ -896,10 +896,10 @@ Auto-Saving Changed Files
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 #+end_src
 
-* Reading
+* Academic
   
   #+begin_src emacs-lisp
-(org-babel-load-file "~/.emacs.d/emacs-reading.org")
+(org-babel-load-file "~/.emacs.d/emacs-academic.org")
   #+end_src
 
 * System
