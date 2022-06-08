@@ -129,6 +129,8 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (global-hl-line-mode 1)
 ;; yank overwrite what is selected
 (delete-selection-mode 1)
+;; fringe
+(fringe-mode nil)
   #+end_src
 
 ** settings
@@ -147,7 +149,6 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 ;; simplify yes no
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
 ;; set fringe to 0
-(fringe-mode 0)
   #+end_src
 
 ** variables
@@ -365,12 +366,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (set-face-attribute 'mode-line nil :font zw/font-modeline :height zw/font-size-modeline)
   (set-face-attribute 'mode-line-inactive nil :font zw/font-modeline :height zw/font-size-modeline)
   (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
-  (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline)
-  (pcase system-type
-    ('darwin
-     (progn
-       (display-time-mode)
-       (display-battery-mode)))))
+  (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline))
 #+end_src
 
 ** All-the-icons
@@ -556,11 +552,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (dimmer-use-colorspace :rgb)
   (dimmer-watch-frame-focus-events nil)
   :config
-  (fringe-mode 0)
   (dimmer-configure-which-key)
   (dimmer-configure-magit))
 
 (use-package auto-dim-other-buffers
+  :disabled
   ;; :config
   ;; (fringe-mode 0)
   :init (auto-dim-other-buffers-mode))

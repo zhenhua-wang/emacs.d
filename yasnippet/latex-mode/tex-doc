@@ -3,8 +3,8 @@
 # key: <tex
 # --
 
-\documentclass[12pt]{article}
-\setlength\parindent{0pt}
+\documentclass[11pt]{article}
+\usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{mathtools}
 \usepackage{amsmath}
 \usepackage{amssymb}
