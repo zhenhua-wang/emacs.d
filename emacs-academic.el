@@ -234,14 +234,14 @@
   (require 'bibtex)
   (require 'org-ref-ivy)
   (require 'org-ref-arxiv)
-  (setq bibtex-autokey-year-length 4
+  (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
+	bibtex-autokey-year-length 4
 	bibtex-autokey-name-year-separator "-"
 	bibtex-autokey-year-title-separator "-"
 	bibtex-autokey-titleword-separator "-"
 	bibtex-autokey-titlewords 2
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5))
-
 
 (use-package org-ref-ivy
   :ensure nil
