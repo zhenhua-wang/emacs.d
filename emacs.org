@@ -219,7 +219,7 @@ My key binding strategy:
 (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
 ;; keys for bib
 (global-set-key (kbd "H-p") 'ivy-bibtex)
-(global-set-key (kbd "H-b") 'org-ref-bibtex-hydra/body)
+(global-set-key (kbd "H-b") 'zw/org-ref-bibtex-hydra/body)
 ;; get passwed
 ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
 ;; toggle input

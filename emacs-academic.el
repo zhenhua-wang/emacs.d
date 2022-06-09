@@ -216,7 +216,7 @@
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
   :init
-  (setq bibtex-completion-bibliography (expand-file-name "references.bib" research-folder)
+  (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
 	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
 	bibtex-completion-additional-search-fields '(keywords)
 	bibtex-completion-display-formats
@@ -250,6 +250,54 @@
 	      org-ref-insert-label-function 'org-ref-insert-label-link
 	      org-ref-insert-ref-function 'org-ref-insert-ref-link
 	      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
+
+(defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
+  "Bibtex actions:
+"
+  ;; Open-like actions
+  ("p" org-ref-open-bibtex-pdf "PDF" :column "Open")
+  ("n" org-ref-open-bibtex-notes "Notes" :column "Open")
+  ("b" org-ref-open-in-browser "URL" :column "Open")
+
+  ;; edit/modify
+  ("K" (lambda ()
+         (interactive)
+         (org-ref-set-bibtex-keywords
+          (read-string "Keywords: "
+                       (bibtex-autokey-get-field "keywords"))
+          t))
+   "Keywords" :column "Edit")
+  ("a" org-ref-replace-nonascii "Replace nonascii" :column "Edit")
+  ("S" org-ref-sentence-case-article "Sentence case" :column "Edit")
+  ("U" (doi-utils-update-bibtex-entry-from-doi (org-ref-bibtex-entry-doi)) "Update entry" :column "Edit")
+  ("u" doi-utils-update-field "Update field" :column "Edit" :color red)
+  ("L" org-ref-clean-bibtex-entry "Clean entry" :column "Edit")
+  ("A" org-ref-bibtex-assoc-pdf-with-entry "Add pdf" :column "Edit")
+
+  ;; www
+  ("R" org-ref-bibtex-crossref "Crossref" :column "WWW")
+  ("g" org-ref-bibtex-google-scholar "Google Scholar" :column "WWW")
+
+
+  ;; Copy
+  ("o" (lambda ()
+	 (interactive)
+	 (bibtex-copy-entry-as-kill)
+	 (message "Use %s to paste the entry"
+		  (substitute-command-keys (format "\\[bibtex-yank]"))))
+   "Copy entry" :column "Copy")
+
+  ("y" (save-excursion
+	 (bibtex-beginning-of-entry)
+	 (when (looking-at bibtex-entry-maybe-empty-head)
+	   (kill-new (bibtex-key-in-head))))
+   "Copy key" :column "Copy")
+
+
+  ;; Miscellaneous
+  ("F" org-ref-bibtex-file/body "File hydra" :column "Misc")
+  ("N" org-ref-bibtex-new-entry/body "New entry" :column "Misc")
+  ("q" nil))
 
 ;; epub
 (use-package nov
