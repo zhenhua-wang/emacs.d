@@ -217,9 +217,6 @@ My key binding strategy:
 (global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
 ;; toggle transparency
 (global-set-key (kbd "C-c t") 'zw/toggle-transparency)
-;; keys for bib
-(global-set-key (kbd "H-p") 'ivy-bibtex)
-(global-set-key (kbd "H-b") 'zw/org-ref-bibtex-hydra/body)
 ;; get passwed
 ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
 ;; toggle input
@@ -544,23 +541,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** Dim unactivated buffer
    
 #+begin_src emacs-lisp
-;; Dim inactive windows
-(use-package dimmer
-  :disabled
-  :hook (after-init . dimmer-mode)
-  :custom
-  (dimmer-fraction 0.3)
-  (dimmer-adjustment-mode :background)
-  (dimmer-use-colorspace :rgb)
-  (dimmer-watch-frame-focus-events nil)
-  :config
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit))
-
 (use-package auto-dim-other-buffers
   :disabled
-  ;; :config
-  ;; (fringe-mode 0)
+  :config
+  (set-face-background 'auto-dim-other-buffers-face
+		       (ct-lessen (face-attribute 'default :background) 10))
   :init (auto-dim-other-buffers-mode))
 #+end_src
 
@@ -888,6 +873,11 @@ Auto-Saving Changed Files
 (use-package ivy-yasnippet
   :bind
   ("M-<tab>" . ivy-yasnippet))
+#+end_src
+
+** Color editing
+#+begin_src emacs-lisp
+(use-package ct)
 #+end_src
 
 * Development

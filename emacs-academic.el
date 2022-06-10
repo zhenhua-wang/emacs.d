@@ -213,6 +213,9 @@
   :custom
   (reftex-plug-into-AUCTeX t))
 
+;; keys for bib
+(global-set-key (kbd "H-p") 'ivy-bibtex)
+(global-set-key (kbd "H-o") 'zw/org-ref-bibtex-hydra/body)
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
   :init
