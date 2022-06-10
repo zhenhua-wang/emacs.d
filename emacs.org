@@ -272,6 +272,21 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          ("s-e" . delete-window))))
 #+end_src
 
+** Openwith
+#+begin_src emacs-lisp
+(use-package openwith
+  :config
+  (setq openwith-associations
+        (list
+	 (list (openwith-make-extension-regexp
+                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
+		  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
+               "open"
+               '(file))))
+  :init
+  (openwith-mode 1))
+#+end_src
+
 * Appearance
 ** Font face
    
