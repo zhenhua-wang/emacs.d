@@ -203,8 +203,7 @@ LSP-mode with TexLab works perfect for Latex docs
   
 #+begin_src emacs-lisp
 ;; latex
-(use-package tex
-  :ensure auctex
+(use-package auctex
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq
@@ -212,7 +211,6 @@ LSP-mode with TexLab works perfect for Latex docs
    TeX-parse-self t
    TeX-auto-save t
    Tex-command-show "LaTex"
-   ;; TeX-view-program-selection '((output-pdf "Okular"))
    TeX-view-program-selection '((output-pdf "PDF Tools"))
    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
    TeX-save-query nil)
@@ -234,6 +232,16 @@ LSP-mode with TexLab works perfect for Latex docs
   (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
+(use-package reftex  
+  :hook
+  (LaTeX-mode . turn-on-reftex)
+  (latex-mode . turn-on-reftex)
+  (markdown-mode . turn-on-reftex)
+  :custom
+  (reftex-plug-into-AUCTeX t)
+  (reftex-toc-split-windows-horizontally t)
+  (reftex-toc-split-windows-fraction 0.2))
+
 ;; auto async preview latex
 (use-package xenops
   :hook
@@ -241,14 +249,6 @@ LSP-mode with TexLab works perfect for Latex docs
   (LaTeX-mode . xenops-mode)
   :config
   (setq xenops-reveal-on-entry nil))
-
-(use-package reftex
-  :hook
-  (LaTeX-mode . turn-on-reftex)
-  (latex-mode . turn-on-reftex)
-  (markdown-mode . turn-on-reftex)
-  :custom
-  (reftex-plug-into-AUCTeX t))
 #+end_src
 
 * Bibliography
@@ -384,7 +384,10 @@ LSP-mode with TexLab works perfect for Latex docs
 
 you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
 #+begin_src emacs-lisp
-(use-package wordnut)
+(use-package wordnut
+  :bind
+  (("C-c w" . wordnut-search)
+   ("C-c W" . wordnut-lookup-current-word)))
 #+end_src
 
 * Flyspell

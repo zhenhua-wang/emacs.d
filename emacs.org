@@ -212,15 +212,12 @@ My key binding strategy:
 (global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
 (global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
 (global-set-key (kbd "s-n") 'tab-new)
-;; check dict
-(global-set-key (kbd "C-c w") 'wordnut-search)
-(global-set-key (kbd "C-c W") 'wordnut-lookup-current-word)
 ;; toggle transparency
-(global-set-key (kbd "C-c t") 'zw/toggle-transparency)
+(global-set-key (kbd "s-T") 'zw/toggle-transparency)
 ;; get passwed
 ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
 ;; toggle input
-(global-set-key (kbd "C-\\") 'toggle-input-method)
+(global-set-key (kbd "s-\\") 'toggle-input-method)
 ;; macos keys
 (pcase system-type
   ('darwin

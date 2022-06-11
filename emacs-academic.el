@@ -166,8 +166,7 @@
 (require 'ob-teximg)
 
 ;; latex
-(use-package tex
-  :ensure auctex
+(use-package auctex
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq
@@ -175,7 +174,6 @@
    TeX-parse-self t
    TeX-auto-save t
    Tex-command-show "LaTex"
-   ;; TeX-view-program-selection '((output-pdf "Okular"))
    TeX-view-program-selection '((output-pdf "PDF Tools"))
    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
    TeX-save-query nil)
@@ -197,6 +195,16 @@
   (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
+(use-package reftex  
+  :hook
+  (LaTeX-mode . turn-on-reftex)
+  (latex-mode . turn-on-reftex)
+  (markdown-mode . turn-on-reftex)
+  :custom
+  (reftex-plug-into-AUCTeX t)
+  (reftex-toc-split-windows-horizontally t)
+  (reftex-toc-split-windows-fraction 0.2))
+
 ;; auto async preview latex
 (use-package xenops
   :hook
@@ -204,14 +212,6 @@
   (LaTeX-mode . xenops-mode)
   :config
   (setq xenops-reveal-on-entry nil))
-
-(use-package reftex
-  :hook
-  (LaTeX-mode . turn-on-reftex)
-  (latex-mode . turn-on-reftex)
-  (markdown-mode . turn-on-reftex)
-  :custom
-  (reftex-plug-into-AUCTeX t))
 
 ;; keys for bib
 (global-set-key (kbd "H-p") 'ivy-bibtex)
@@ -328,7 +328,10 @@
 ;; (with-eval-after-load "pdf-tools"
 ;;   (defun pdf-util-frame-scale-factor () 2))
 
-(use-package wordnut)
+(use-package wordnut
+  :bind
+  (("C-c w" . wordnut-search)
+   ("C-c W" . wordnut-lookup-current-word)))
 
 ;; check word spelling
 (use-package flyspell
