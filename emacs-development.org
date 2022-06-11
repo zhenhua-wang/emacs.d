@@ -54,7 +54,7 @@
   
   #+begin_src emacs-lisp
 (use-package dap-mode
-  :defer
+  :defer t
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -283,6 +283,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
 #+begin_src emacs-lisp
 (use-package projectile
+  :defer t
   :config (projectile-mode +1)
   :demand t
   :bind-keymap

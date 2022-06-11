@@ -218,6 +218,7 @@
 (global-set-key (kbd "H-o") 'zw/org-ref-bibtex-hydra/body)
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
+  :defer t
   :init
   (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
 	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
