@@ -460,10 +460,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (dashboard-set-heading-icons nil)
   (dashboard-set-file-icons t)
   :config
-  (dashboard-setup-startup-hook))
-
-;; recentf ignore temp files
-(add-to-list 'recentf-exclude "/var/.*")
+  (dashboard-setup-startup-hook)
+  ;; recentf ignore temp files
+  (add-to-list 'recentf-exclude "/var/.*"))
 
 ;; make scratch and dashboard unkillable
 (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
