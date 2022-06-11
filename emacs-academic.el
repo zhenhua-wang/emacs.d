@@ -147,10 +147,6 @@
    '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
                                          :bold t :height 1.0)))))
 
-;; (setq  org-src-block-faces '(("emacs-lisp" (:background "LightCyan1" :extend t))
-;; 			     ("python" (:background "DarkSeaGreen1" :extend t))
-;; 			     ("R" (:background "thistle1" :extend t))))
-
 ;; auto tangle
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode))

@@ -217,8 +217,6 @@ Here are the polys
          ))
 #+end_src
 
-#+RESULTS:
-
 ** Python
 *** Pyvenv
    

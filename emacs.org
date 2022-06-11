@@ -239,7 +239,6 @@ My key binding strategy:
 : meta
 * Integration
 ** Exec-path-from-shell
-   
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
   :init
@@ -327,15 +326,45 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
-;; (use-package gruvbox-theme)
-;; (use-package nord-theme)
-;; (use-package nano-theme)
 
+(use-package modus-themes
+  :init
+  ;; Configure the Modus Themes' appearance
+  (setq modus-themes-mode-line '(borderless)
+	modus-themes-bold-constructs t
+	modus-themes-italic-constructs t
+	modus-themes-fringes 'subtle
+	modus-themes-tabs-accented t
+	modus-themes-paren-match '(bold intense)
+	modus-themes-prompts '(bold intense)
+	modus-themes-completions '((matches . (extrabold))
+                                   (selection . (semibold accented))
+                                   (popup . (accented intense)))
+	modus-themes-org-blocks 'tinted-background
+	modus-themes-scale-headings t
+	modus-themes-region '(bg-only)
+	modus-themes-headings '((1 . (rainbow overline background 1.4))
+				(2 . (rainbow background 1.3))
+				(3 . (rainbow bold 1.2))
+				(t . (semilight 1.1))))
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
+  :config
+  ;; Load the theme of your choice:
+  (modus-themes-load-operandi)
+  :bind ("<f5>" . zw/modus-themes-toggle))
+
+(defun zw/modus-themes-toggle ()
+  (interactive)
+  (modus-themes-toggle)
+  (zw/tab-bar-theme)
+  (zw/modeline-theme))
+ 
 ;; Load theme
-(load-theme 'doom-nord-light t)
+;; (load-theme 'doom-nord-light t)
 #+end_src
 
-** Tab bar
+** Tab-bar
 #+begin_src emacs-lisp
 (tab-bar-mode 1)
 (setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
@@ -343,31 +372,35 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (setq tab-bar-new-button-show nil)
 (setq tab-bar-close-button-show nil)
 ;; this should be placed after theme, since theme would overwrite these attributes
-(set-face-attribute 'tab-bar-tab nil
-                    ;; :background (face-background 'mode-line)
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline "#950b96"
-                    :font zw/font-tab-bar)
-(set-face-attribute 'tab-bar-tab-inactive nil
-		    :foreground (face-foreground 'default)
-                    :background (face-background 'default)
-                    :underline nil
-                    :font zw/font-tab-bar)
-(set-face-attribute 'tab-bar nil
-		    :background (face-background 'default))
+(defun zw/tab-bar-theme ()
+  (interactive)
+  (set-face-attribute 'tab-bar-tab nil
+                      ;; :background (face-background 'mode-line)
+		      :foreground (face-foreground 'default)
+                      :background (face-background 'default)
+                      :underline "#950b96"
+                      :font zw/font-tab-bar)
+  (set-face-attribute 'tab-bar-tab-inactive nil
+		      :foreground (face-foreground 'default)
+                      :background (face-background 'default)
+                      :underline nil
+                      :font zw/font-tab-bar)
+  (set-face-attribute 'tab-bar nil
+		      :background (face-background 'default)))
+;; set tab-bar theme
+(zw/tab-bar-theme)
 ;; add numbers before tab
 
 #+end_src
 
-#+RESULTS:
 ** Modeline
 #+begin_src emacs-lisp
 (use-package minions
   :hook (doom-modeline-mode . minions-mode))
 
 (use-package doom-modeline
-  :hook (after-init . doom-modeline-init)
+  :hook
+  (after-init . doom-modeline-init)
   :custom
   (doom-modeline-height 1)
   (doom-modeline-lsp t)
@@ -382,6 +415,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (display-time-default-load-average nil)
   :config
   (doom-modeline-mode 1)
+  (zw/modeline-theme))
+
+(defun zw/modeline-theme ()
+  (interactive)
   (set-face-attribute 'mode-line nil :font zw/font-modeline :height zw/font-size-modeline)
   (set-face-attribute 'mode-line-inactive nil :font zw/font-modeline :height zw/font-size-modeline)
   (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
@@ -553,6 +590,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** Highlight Matching Braces
 #+begin_src emacs-lisp
 (use-package paren
+  :disabled
   :config
   (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
