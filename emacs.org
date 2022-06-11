@@ -129,7 +129,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (global-hl-line-mode 1)
 ;; yank overwrite what is selected
 (delete-selection-mode 1)
-;; fringe
+;; fringe (nil is default)
 (fringe-mode nil)
   #+end_src
 

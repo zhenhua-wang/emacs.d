@@ -54,6 +54,7 @@
   
   #+begin_src emacs-lisp
 (use-package dap-mode
+  :defer
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
