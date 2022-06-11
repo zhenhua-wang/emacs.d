@@ -54,7 +54,7 @@
        (lisp . t)
        (latex . t)
        (teximg . t)))
-
+    
     ;; This is needed as of Org 9.2 (use yasnippet instead)
     (require 'org-tempo)
     (add-to-list 'org-structure-template-alist '("la" . "src latex"))
@@ -63,7 +63,7 @@
     (add-to-list 'org-structure-template-alist '("py" . "src python :session"))
     (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output"))
     (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
-  :config
+  
   ;; latex
   (setq org-highlight-latex-and-related '(latex script entities))
   ;; export to latex
