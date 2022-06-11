@@ -629,6 +629,7 @@ i.e. windows tiled side-by-side."
 *** Popper
 #+begin_src emacs-lisp
 (use-package popper
+  :defer t
   :bind (("s-`"   . popper-toggle-latest)
          ("M-`"   . popper-cycle)
          ("s-M-`" . popper-toggle-type))
@@ -901,7 +902,8 @@ Auto-Saving Changed Files
 
 ** Color editing
 #+begin_src emacs-lisp
-(use-package ct)
+(use-package ct
+  :defer t)
 #+end_src
 
 * Development
