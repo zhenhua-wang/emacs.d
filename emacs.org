@@ -119,6 +119,14 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (server-start)
 #+end_src
 
+** Benchmark
+#+begin_src emacs-lisp
+(use-package benchmark-init
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
+
 * General Emacs Settings
 ** modes
   #+begin_src emacs-lisp

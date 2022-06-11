@@ -1,4 +1,5 @@
 (use-package org
+  :defer t
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -57,9 +58,13 @@
     (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
   
   ;; latex
-  (setq org-highlight-latex-and-related '(latex script entities))
+  (setq org-highlight-latex-and-related '(latex script entities)))
+
+(use-package ox-latex
+  :defer 1
+  :ensure nil
+  :config
   ;; export to latex
-  (require 'ox-latex)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
 
@@ -79,8 +84,7 @@
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-  )
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
@@ -234,10 +238,8 @@
 	  (call-process "open" nil 0 nil fpath))))
 
 (use-package org-ref
+  :defer t
   :init
-  (require 'bibtex)
-  (require 'org-ref-ivy)
-  (require 'org-ref-arxiv)
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
 	bibtex-autokey-name-year-separator "-"
@@ -247,7 +249,12 @@
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5))
 
+(use-package org-ref-arxiv
+  :defer t
+  :ensure nil)
+
 (use-package org-ref-ivy
+  :defer t
   :ensure nil
   :init (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
 	      org-ref-insert-cite-function 'org-ref-cite-insert-ivy

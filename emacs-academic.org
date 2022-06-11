@@ -7,6 +7,7 @@
 ** Main
 #+begin_src emacs-lisp
 (use-package org
+  :defer t
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -65,9 +66,16 @@
     (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
   
   ;; latex
-  (setq org-highlight-latex-and-related '(latex script entities))
+  (setq org-highlight-latex-and-related '(latex script entities)))
+#+end_src
+
+** ox-latex
+#+begin_src emacs-lisp
+(use-package ox-latex
+  :defer 1
+  :ensure nil
+  :config
   ;; export to latex
-  (require 'ox-latex)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
 
@@ -87,12 +95,8 @@
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-  )
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 #+end_src
-
-#+RESULTS:
-: cdlatex-tab
 
 ** Beautify org mode
 *** by packages
@@ -276,10 +280,8 @@ LSP-mode with TexLab works perfect for Latex docs
 	  (call-process "open" nil 0 nil fpath))))
 
 (use-package org-ref
+  :defer t
   :init
-  (require 'bibtex)
-  (require 'org-ref-ivy)
-  (require 'org-ref-arxiv)
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
 	bibtex-autokey-name-year-separator "-"
@@ -289,7 +291,12 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5))
 
+(use-package org-ref-arxiv
+  :defer t
+  :ensure nil)
+
 (use-package org-ref-ivy
+  :defer t
   :ensure nil
   :init (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
 	      org-ref-insert-cite-function 'org-ref-cite-insert-ivy
