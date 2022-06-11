@@ -203,7 +203,7 @@
   (latex-mode . xenops-mode)
   (LaTeX-mode . xenops-mode)
   :config
-  (setq xenops-reveal-on-entry t))
+  (setq xenops-reveal-on-entry nil))
 
 (use-package reftex
   :hook
