@@ -725,9 +725,11 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 (use-package treemacs
   :commands treemacs
   :config
+  (defalias 'treemacs 'treemacs-display-current-project-exclusively)
   (treemacs-project-follow-mode 1))
 
 (use-package treemacs-all-the-icons
+  :after treemacs
   :config
   (treemacs-load-theme "all-the-icons"))
 #+end_src
