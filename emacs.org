@@ -945,6 +945,12 @@ Auto-Saving Changed Files
   :defer t)
 #+end_src
 
+** Visual regexp
+#+begin_src emacs-lisp
+(use-package visual-regexp
+  :defer t)
+#+end_src
+
 * Development
 
 #+begin_src emacs-lisp
