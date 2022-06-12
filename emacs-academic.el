@@ -234,7 +234,7 @@
 	  (call-process "open" nil 0 nil fpath))))
 
 (use-package org-ref
-  :defer t
+  :defer 1
   :init
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
@@ -246,11 +246,11 @@
 	bibtex-autokey-titleword-length 5))
 
 (use-package org-ref-arxiv
-  :defer t
+  :after org-ref
   :ensure nil)
 
 (use-package org-ref-ivy
-  :defer t
+  :after org-ref
   :ensure nil
   :init (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
 	      org-ref-insert-cite-function 'org-ref-cite-insert-ivy
