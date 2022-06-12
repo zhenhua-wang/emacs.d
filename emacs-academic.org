@@ -65,8 +65,8 @@
     (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output"))
     (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
   
-  ;; latex
-  (setq org-highlight-latex-and-related '(latex script entities)))
+  ;; latex '(latex script entities)
+  (setq org-highlight-latex-and-related '(latex entities)))
 #+end_src
 
 ** ox-latex
