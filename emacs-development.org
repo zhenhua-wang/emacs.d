@@ -158,12 +158,26 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
   :commands R
   :custom
   (ess-ask-for-ess-directory nil)
-  (ess-style 'RStudio-)
+  (ess-style 'RStudio)
   (ess-local-process-name "R")
   (ansi-color-for-comint-mode 'filter)
   (comint-scroll-to-bottom-on-input t)
   (comint-scroll-to-bottom-on-output t)
   (comint-move-point-for-output t)
+  (ess-eval-visibly-p 'nowait)
+  (ess-R-font-lock-keywords
+    '((ess-R-fl-keyword:keywords   . t)
+      (ess-R-fl-keyword:constants  . t)
+      (ess-R-fl-keyword:modifiers  . t)
+      (ess-R-fl-keyword:fun-defs   . t)
+      (ess-R-fl-keyword:assign-ops . t)
+      (ess-R-fl-keyword:%op%       . t)
+      (ess-fl-keyword:fun-calls    . t)
+      (ess-fl-keyword:delimiters . t)
+      (ess-fl-keyword:operators . t)
+      (ess-fl-keyword:numbers)
+      (ess-R-fl-keyword:F&T . t)
+      (ess-fl-keyword:= . t)))
   :config
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
