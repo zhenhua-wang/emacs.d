@@ -1,5 +1,4 @@
 (use-package org
-  :defer t
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
