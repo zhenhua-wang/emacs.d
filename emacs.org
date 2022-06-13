@@ -383,13 +383,15 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (set-face-attribute 'tab-bar-tab nil
                       ;; :background (face-background 'mode-line)
 		      :foreground (face-foreground 'default)
-                      :background (face-background 'default)
+                      :background (face-background 'mode-line)
                       :underline "#950b96"
+		      :box (face-background 'mode-line)
                       :font zw/font-tab-bar)
   (set-face-attribute 'tab-bar-tab-inactive nil
 		      :foreground (face-foreground 'default)
                       :background (face-background 'default)
                       :underline nil
+		      :box (face-background 'default)
                       :font zw/font-tab-bar)
   (set-face-attribute 'tab-bar nil
 		      :background (face-background 'default)))
