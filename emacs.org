@@ -291,6 +291,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (openwith-mode 1))
 #+end_src
 
+** Request
+#+begin_src emacs-lisp
+(use-package request
+  :defer t)
+#+end_src
+
 * Appearance
 ** Font face
    
