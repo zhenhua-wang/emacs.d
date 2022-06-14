@@ -470,7 +470,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   (dashboard-setup-startup-hook)
   ;; recentf ignore temp files
-  (add-to-list 'recentf-exclude "/var/.*"))
+  (add-to-list 'recentf-exclude "/var/.*")
+  (add-to-list 'recentf-exclude "/usr/local/.*"))
 
 ;; make scratch and dashboard unkillable
 (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
