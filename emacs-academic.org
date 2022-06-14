@@ -99,7 +99,7 @@
                   (format "Prepare local buffer environment for org source block (%s)."
                           (upcase ,lang))))))))
   (defvar org-babel-lang-list
-    '("ess-r" "python"))
+    '("ess-r" "R" "python"))
   (dolist (lang org-babel-lang-list)
     (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
