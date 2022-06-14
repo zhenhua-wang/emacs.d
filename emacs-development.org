@@ -19,7 +19,7 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
-  :commands lsp)
+  :commands (lsp lsp-org))
 
 ;; optionally
 (use-package lsp-ui
