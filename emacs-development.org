@@ -19,6 +19,7 @@
           '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
+  (c++-mode . lsp)
   :commands (lsp lsp-org))
 
 ;; optionally
