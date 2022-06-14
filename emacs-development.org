@@ -23,6 +23,7 @@
 
 ;; optionally
 (use-package lsp-ui
+  :disabled
   :after lsp
   :hook (lsp-mode . lsp-ui-mode)
   :config
