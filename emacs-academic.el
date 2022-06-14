@@ -3,8 +3,6 @@
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . turn-on-org-cdlatex)
-  :bind (:map org-mode-map
-              ("<C-tab>" . cdlatex-tab)) ;; just to be consistent with cdlatex mode
   :config
   (setq
    org-ellipsis " ▾"
@@ -36,28 +34,63 @@
         '(("TODO" . (:foreground "orange red" :weight bold))
           ("DONE" . (:foreground "green" :weight bold))))
 
-  ;; set org babel languages
-  (with-eval-after-load 'org
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((python . t)
-       (R . t)
-       (shell . t)
-       (lisp . t)
-       (latex . t)
-       (teximg . t)))
-    
-    ;; This is needed as of Org 9.2 (use yasnippet instead)
-    (require 'org-tempo)
-    (add-to-list 'org-structure-template-alist '("la" . "src latex"))
-    (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python :session"))
-    (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output"))
-    (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file")))
-  
   ;; latex '(latex script entities)
   (setq org-highlight-latex-and-related '(latex entities)))
+
+;; set org babel languages
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (R . t)
+     (shell . t)
+     (lisp . t)
+     (latex . t)
+     (teximg . t)))
+
+  ;; alias ess-r to R
+  (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
+  (defalias 'org-babel-ess-r-initiate-session
+    'org-babel-R-initiate-session)
+  
+  ;; This is needed as of Org 9.2 (use yasnippet instead)
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("la" . "src latex"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python :session"))
+  (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output"))
+  (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file"))
+  
+  ;; enabme lsp-org inside src block
+  (cl-defmacro lsp-org-babel-enable (lang)
+    "Support LANG in org source code block."
+    (setq centaur-lsp 'lsp-mode)
+    (cl-check-type lang stringp)
+    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+      `(progn
+	 (defun ,intern-pre (info)
+           (let ((file-name (->> info caddr (alist-get :file))))
+             (unless file-name
+               (setq file-name (make-temp-file "babel-lsp-")))
+             (setq buffer-file-name file-name)
+             (lsp-deferred)))
+	 (put ',intern-pre 'function-documentation
+              (format "Enable lsp-mode in the buffer of org source block (%s)."
+                      (upcase ,lang)))
+	 (if (fboundp ',edit-pre)
+             (advice-add ',edit-pre :after ',intern-pre)
+           (progn
+             (defun ,edit-pre (info)
+               (,intern-pre info))
+             (put ',edit-pre 'function-documentation
+                  (format "Prepare local buffer environment for org source block (%s)."
+                          (upcase ,lang))))))))
+  (defvar org-babel-lang-list
+    '("ess-r" "python"))
+  (dolist (lang org-babel-lang-list)
+    (eval `(lsp-org-babel-enable ,lang))))
 
 (use-package ox-latex
   :defer 1
