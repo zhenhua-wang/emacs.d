@@ -6,7 +6,7 @@
 ** Homebrew
 
 #+begin_src shell
-brew install emacs-mac --with-no-title-bars --with-sjrmanning-icon
+brew install emacs-mac --with-no-title-bars --with-sjrmanning-icon --with-starter
 #+end_src
 
 * Arch Linux
