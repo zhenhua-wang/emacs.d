@@ -13,7 +13,7 @@
   (lsp-completion-provider :none)
   (lsp-log-io nil)
   :init
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setq read-process-output-max (* 10 1024 1024)) ;; 1mb
   (defun zw/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
