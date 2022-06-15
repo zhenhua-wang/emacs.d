@@ -6,7 +6,7 @@
 ** Homebrew
 
 #+begin_src shell
-brew install emacs-mac --with-rsvg --with-imagemagick --with-modern-icon --with-glib --with-dbus --with-mac-metal --with-natural-title-bar --with-native-comp --with-xwidgets
+brew install emacs-mac --with-no-title-bars --with-sjrmanning-icon
 #+end_src
 
 * Arch Linux
