@@ -164,7 +164,6 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (setq zw/font-size 140)
 (setq zw/default-font "FiraMono Nerd Font")
 (setq zw/font-size-modeline 120)
-(setq zw/font-modeline zw/default-font)
 (setq zw/font-tab-bar zw/default-font)
 (setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
 (setq zw/font-variable-pitch "Iosevka Aile")
@@ -405,7 +404,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (use-package doom-modeline
   :hook
-  (after-init . doom-modeline-init)
+  (after-init . doom-modeline-mode)
   :custom
   (doom-modeline-height 1)
   (doom-modeline-lsp t)
@@ -417,7 +416,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   :config
-  (doom-modeline-mode 1)
   (zw/modeline-theme)
   ;; show that the R is running in inferior ess R mode
   (add-hook 'inferior-ess-mode-hook
@@ -426,8 +424,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (defun zw/modeline-theme ()
   (interactive)
-  (set-face-attribute 'mode-line nil :font zw/font-modeline :height zw/font-size-modeline)
-  (set-face-attribute 'mode-line-inactive nil :font zw/font-modeline :height zw/font-size-modeline)
+  (custom-set-faces '(mode-line ((t (:height 0.85))))
+                    '(mode-line-inactive ((t (:height 0.85)))))
   (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
   (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline))
 #+end_src
