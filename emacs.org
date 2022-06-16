@@ -414,9 +414,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-modeline-irc t)
   (doom-modeline-minor-modes t)
   (doom-modeline-persp-name nil)
+  (doom-modeline-major-mode-icon nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (display-time-format "%a %I:%M %p %D")
-  (display-time-default-load-average nil)
   :config
   (doom-modeline-mode 1)
   (zw/modeline-theme)
@@ -424,8 +423,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (add-hook 'inferior-ess-mode-hook
 	    (lambda ()
               (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings))))))
-
-(setq doom-modeline-major-mode-icon nil)
 
 (defun zw/modeline-theme ()
   (interactive)
@@ -439,7 +436,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
    #+begin_src emacs-lisp
 (use-package all-the-icons
-  :if (display-graphic-p))
+  :if (display-graphic-p)
+  :custom (all-the-icons-scale-factor 1))
    #+end_src
 
 ** Toggle transparency
