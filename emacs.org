@@ -418,7 +418,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-modeline-minor-modes t)
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-color-icon nil)
+  (doom-modeline-major-mode-color-icon t)
   (display-time-format "%a %I:%M %p %D")
   (display-time-default-load-average nil)
   :config
@@ -511,14 +511,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** ivy-rich
 #+begin_src emacs-lisp
 (use-package all-the-icons-ivy-rich
-  :init (all-the-icons-ivy-rich-mode 1) 
+  :if (display-graphic-p)
+  :init (all-the-icons-ivy-rich-mode 1)
   :custom
   (all-the-icons-ivy-rich-color-icon t))
 
 (use-package ivy-rich
   :after counsel
   :init
-  (all-the-icons-ivy-rich-mode 1)
   (ivy-rich-mode 1)
   :config
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
@@ -818,6 +818,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   (treemacs-project-follow-mode 1))
 
 (use-package treemacs-all-the-icons
+  :if (display-graphic-p)
   :after treemacs
   :config
   (treemacs-load-theme "all-the-icons"))
