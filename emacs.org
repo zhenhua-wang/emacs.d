@@ -363,11 +363,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (defun zw/modus-themes-toggle ()
   (interactive)
   (modus-themes-toggle)
-  (zw/tab-bar-theme)
-  (zw/modeline-theme))
- 
-;; Load theme
-;; (load-theme 'doom-nord-light t)
+  (zw/modeline-theme)
+  (zw/tab-bar-theme))
 #+end_src
 
 ** Tab-bar
@@ -418,12 +415,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-modeline-minor-modes t)
   (doom-modeline-persp-name nil)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-major-mode-color-icon t)
   (display-time-format "%a %I:%M %p %D")
   (display-time-default-load-average nil)
   :config
   (doom-modeline-mode 1)
-  (zw/modeline-theme))
+  (zw/modeline-theme)
+  ;; show that the R is running in inferior ess R mode
+  (add-hook 'inferior-ess-mode-hook
+	    (lambda ()
+              (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings))))))
+
+(setq doom-modeline-major-mode-icon nil)
 
 (defun zw/modeline-theme ()
   (interactive)
