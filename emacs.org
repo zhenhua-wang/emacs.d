@@ -428,8 +428,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (set-face-attribute 'mode-line-inactive nil :height zw/font-size-modeline)
   (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
   (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline))
-  ;; (custom-set-faces '(mode-line ((t (:height 0.85))))
-  ;;                   '(mode-line-inactive ((t (:height 0.85))))))
 #+end_src
 
 ** All-the-icons
