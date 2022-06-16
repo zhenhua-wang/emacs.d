@@ -163,6 +163,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 #+begin_src emacs-lisp
 (setq zw/font-size 140)
 (setq zw/default-font "FiraMono Nerd Font")
+(setq zw/font-size-modeline 120)
 (setq zw/font-tab-bar zw/default-font)
 (setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
 (setq zw/font-variable-pitch "Iosevka Aile")
@@ -423,10 +424,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (defun zw/modeline-theme ()
   (interactive)
-  (custom-set-faces '(mode-line ((t (:height 0.85))))
-                    '(mode-line-inactive ((t (:height 0.85))))
-		    '(doom-modeline ((t (:height 0.85))))
-		    '(doom-modeline-inactive ((t (:height 0.85))))))
+  (set-face-attribute 'mode-line nil :height zw/font-size-modeline)
+  (set-face-attribute 'mode-line-inactive nil :height zw/font-size-modeline)
+  (set-face-attribute 'doom-modeline nil :height zw/font-size-modeline)
+  (set-face-attribute 'doom-modeline-inactive nil :height zw/font-size-modeline))
+  ;; (custom-set-faces '(mode-line ((t (:height 0.85))))
+  ;;                   '(mode-line-inactive ((t (:height 0.85))))))
 #+end_src
 
 ** All-the-icons
