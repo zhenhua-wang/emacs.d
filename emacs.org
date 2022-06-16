@@ -362,7 +362,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (interactive)
   (modus-themes-toggle)
   (zw/modeline-theme)
-  (zw/tab-bar-theme))
+  (zw/tab-bar-theme)
+  (zw/set-org-headline))
 #+end_src
 
 ** Tab-bar
