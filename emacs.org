@@ -412,7 +412,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :hook
   (after-init . doom-modeline-mode)
   :custom
-  ;; (doom-modeline-height 1)
   (doom-modeline-lsp t)
   (doom-modeline-minor-modes t)
   (doom-modeline-icon t)
