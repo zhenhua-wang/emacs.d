@@ -21,23 +21,7 @@
   (lsp-completion-mode . zw/lsp-mode-setup-completion)
   (c++-mode . lsp)
   :commands (lsp lsp-org))
-
-;; optionally
-(use-package lsp-ui
-  :disabled
-  :after lsp
-  :hook (lsp-mode . lsp-ui-mode)
-  :config
-  (lsp-ui-doc-show)
-  (setq lsp-ui-sideline-enable t)
-  (setq lsp-ui-sideline-show-hover t)
-  (setq lsp-ui-doc-show-with-cursor nil)
-  (setq lsp-ui-doc-show-with-mouse nil)
-  (setq lsp-ui-doc-position 'bottom)
-  (setq lsp-ui-imenu-auto-refresh t))
   #+end_src
-
-  #+RESULTS:
 
 *** Eglot
 
@@ -56,7 +40,7 @@
   
   #+begin_src emacs-lisp
 (use-package dap-mode
-  :defer t
+  :defer 3
   :hook
   (dap-stopped .
    (lambda (arg) (call-interactively #'debug-hydra)))
@@ -113,20 +97,14 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 ** Tree sitter
 #+begin_src emacs-lisp
 (use-package tree-sitter
-  :straight t	  
+  :defer t
   :init	
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 (use-package tree-sitter-langs
-  :straight t)
+  :defer 3)
 #+end_src
-
-** Format codes
-
-   #+begin_src emacs-lisp
-(use-package format-all)
-   #+end_src
 
 ** Highlight indent
 
@@ -156,7 +134,7 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
   
 #+begin_src emacs-lisp
 (use-package ess
-  :defer t
+  :defer 3
   :commands R
   :custom
   (ess-ask-for-ess-directory nil)
@@ -192,13 +170,7 @@ The idea is to run poly-R/markdown within the markdown mode
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
-  ;;:ensure auctex
   :commands (markdown-mode gfm-mode)
-  ;; :mode (("README\\.md\\'" . gfm-mode)
-  ;;        ("\\.md\\'" . markdown-mode)
-  ;;        ("\\.markdown\\'" . markdown-mode)
-  ;;        ("\\.Rmd\\'" . markdown-mode))
-  ;; :init (setq markdown-command "multimarkdown")
   :custom
   (markdown-fontify-code-blocks-natively t)
   (markdown-header-scaling t)
@@ -277,7 +249,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package magit-todos
-  :defer t)
+  :defer 3)
 #+end_src
 
 * Flycheck
@@ -297,9 +269,8 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
 #+begin_src emacs-lisp
 (use-package projectile
-  :defer t
+  :defer 3
   :config (projectile-mode +1)
-  :demand t
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init

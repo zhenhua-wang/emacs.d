@@ -37,5 +37,5 @@
               (add-to-list 'initial-frame-alist '(fullscreen . maximized))
               (add-to-list 'default-frame-alist '(fullscreen . maximized))))))
 
-;; prevent package.el loading packages prior to their init-file loading
+;; Disable package.el in favor of straight.el
 (setq package-enable-at-startup nil)

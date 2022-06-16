@@ -7,6 +7,8 @@
 ** Main
 #+begin_src emacs-lisp
 (use-package org
+  :straight (:type built-in)
+  :mode (("\\.org$" . org-mode))
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -50,6 +52,10 @@
 #+begin_src emacs-lisp
 ;; set org babel languages
 (with-eval-after-load 'org
+  ;; zw/teximg
+  (require 'ob-teximg)
+  
+  ;; load
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
@@ -104,35 +110,6 @@
     (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
 
-** Ox-latex
-#+begin_src emacs-lisp
-(use-package ox-latex
-  :defer 1
-  :ensure nil
-  :config
-  ;; export to latex
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted)
-
-  (setq org-latex-pdf-process
-        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  (with-eval-after-load 'ox-latex
-    (add-to-list 'org-latex-classes
-                 '("org-plain-latex"
-                   "\\documentclass{article}
-           [NO-DEFAULT-PACKAGES]
-           [PACKAGES]
-           [EXTRA]"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}")
-                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
-#+end_src
-
 ** Org theme
 #+begin_src emacs-lisp
 (use-package org-modern
@@ -159,11 +136,10 @@
 #+end_src
 
 ** Org-auto-tangle
-
    #+begin_src emacs-lisp
-;; auto tangle
-(use-package org-auto-tangle
-  :hook (org-mode . org-auto-tangle-mode))
+     ;; auto tangle
+     (use-package org-auto-tangle
+       :hook (org-mode . org-auto-tangle-mode))
    #+end_src
    
 ** Custom functions
@@ -176,11 +152,7 @@
 
 (defun zw/toggle-image-scroll ()
   (interactive)
-  (pixel-scroll-mode)
-  )
-
-;; teximg
-(require 'ob-teximg)
+  (pixel-scroll-mode))
 #+end_src
 
 * Latex
@@ -243,12 +215,12 @@ LSP-mode with TexLab works perfect for Latex docs
 ** Org-ref
 
 #+begin_src emacs-lisp
-;; keys for bib
-(global-set-key (kbd "H-p") 'ivy-bibtex)
-(global-set-key (kbd "H-o") 'zw/org-ref-bibtex-hydra/body)
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
   :defer t
+  :bind
+  ;; keys for bib
+  ("H-p" . ivy-bibtex)
   :init
   (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
 	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
@@ -264,7 +236,9 @@ LSP-mode with TexLab works perfect for Latex docs
 	  (call-process "open" nil 0 nil fpath))))
 
 (use-package org-ref
-  :defer 1
+  :defer 3
+  :bind
+  ("H-o" . zw/org-ref-bibtex-hydra/body)
   :init
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
@@ -273,20 +247,14 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-autokey-titleword-separator "-"
 	bibtex-autokey-titlewords 2
 	bibtex-autokey-titlewords-stretch 1
-	bibtex-autokey-titleword-length 5))
-
-(use-package org-ref-arxiv
-  :after org-ref
-  :ensure nil)
-
-(use-package org-ref-ivy
-  :after org-ref
-  :ensure nil
-  :init (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-	      org-ref-insert-cite-function 'org-ref-cite-insert-ivy
-	      org-ref-insert-label-function 'org-ref-insert-label-link
-	      org-ref-insert-ref-function 'org-ref-insert-ref-link
-	      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
+	bibtex-autokey-titleword-length 5)
+  :config
+  (require 'org-ref-ivy)
+  (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+	org-ref-insert-cite-function 'org-ref-cite-insert-ivy
+	org-ref-insert-label-function 'org-ref-insert-label-link
+	org-ref-insert-ref-function 'org-ref-insert-ref-link
+	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 #+end_src
 
 ** Org-ref hydra
@@ -340,20 +308,14 @@ LSP-mode with TexLab works perfect for Latex docs
   ("q" nil))
 #+end_src
 
-** Download PDFs
-
 * Reading
-
 #+begin_src emacs-lisp
 ;; epub
 (use-package nov
-  :defer 1
-  :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+  :mode (("\\.epub$" . org-mode)))
 
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
-  :straight t
   :pin manual ;; don't reinstall when package updates
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map
@@ -366,15 +328,10 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-use-imagemagick nil
         pdf-view-continuous nil
-	pdf-annot-activate-created-annotations t)
-  )
-
-;; (with-eval-after-load "pdf-tools"
-;;   (defun pdf-util-frame-scale-factor () 2))
+	pdf-annot-activate-created-annotations t))
 #+end_src
 
 * dictionary
-
 you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
 #+begin_src emacs-lisp
 (use-package wordnut

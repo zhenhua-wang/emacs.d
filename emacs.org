@@ -1,4 +1,3 @@
-
 #+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
@@ -30,6 +29,22 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
    #+end_src
    
 ** Package management
+*** straight
+#+begin_src emacs-lisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+end_src
+
 *** package and use-pacakge
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
 
@@ -42,44 +57,13 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 + ~:command~ - must load at init
 
 #+begin_src emacs-lisp
-(require 'package)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-
-(unless package-archive-contents
-  (package-refresh-contents))
-
-  ;; Initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
+;; Install use-package
+(straight-use-package 'use-package)
+;; Configure use-package to use straight.el by default
+(use-package straight
+  :custom (straight-use-package-by-default t))
 (setq use-package-always-ensure t)
 (setq use-package-verbose t)
-
-(require 'use-package)
-#+end_src
-
-#+RESULTS:
-: use-package
-
-*** straight (No tangle for now)
-#+begin_src emacs-lisp
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
 #+end_src
 
 ** Keep .emacs.d Clean
@@ -106,10 +90,25 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
 
 #+begin_src emacs-lisp
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
+      gc-cons-percentage 0.6)
 
-;; (require 'init-benchmarking)
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq gc-cons-threshold 16777216 ; 16mb
+          gc-cons-percentage 0.1)))
+
+(defun doom-defer-garbage-collection-h ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun doom-restore-garbage-collection-h ()
+  ;; Defer it so that commands launched immediately after will enjoy the
+  ;; benefits.
+  (run-at-time
+   1 nil (lambda () (setq gc-cons-threshold 16777216))))
+
+(add-hook 'minibuffer-setup-hook #'doom-defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'doom-restore-garbage-collection-h)
 #+end_src
 
 ** Server mode
@@ -122,6 +121,8 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 ** Benchmark
 #+begin_src emacs-lisp
 (use-package benchmark-init
+  :init
+  (benchmark-init/activate)
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
@@ -154,6 +155,8 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq indent-tabs-mode nil)
+;; confirm emacs quit
+(setq confirm-kill-emacs 'yes-or-no-p)
 ;; simplify yes no
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
 ;; set fringe to 0
@@ -203,8 +206,6 @@ My key binding strategy:
 ;; buffer operations
 (global-set-key (kbd "s-q") 'kill-current-buffer)
 ;; window operations
-(global-set-key (kbd "s-u") 'winner-undo)
-(global-set-key (kbd "s-U") 'winner-redo)
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
 (global-set-key [s-left] 'windmove-left)          ; move to left window
@@ -322,15 +323,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Theme
 #+begin_src emacs-lisp
-;; (use-package spacegray-theme)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  :config
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
-
 (use-package modus-themes
   :init
   ;; Configure the Modus Themes' appearance
@@ -407,7 +399,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (set-face-attribute 'mode-line-inactive nil :box        nil))
 
 (use-package minions
-  :config (minions-mode 1))
+  :hook (doom-modeline . minions-mode))
 
 (use-package doom-modeline
   :hook
@@ -434,6 +426,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
    #+begin_src emacs-lisp
 (use-package all-the-icons
+  :defer t
   :if (display-graphic-p)
   :custom (all-the-icons-scale-factor 1))
    #+end_src
@@ -457,6 +450,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Dashboard
 #+begin_src emacs-lisp
 (use-package dashboard
+  :defer t
+  :init
+  (dashboard-setup-startup-hook)
   :custom
   (dashboard-startup-banner 1)
   (dashboard-center-content t)
@@ -467,7 +463,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (dashboard-set-heading-icons nil)
   (dashboard-set-file-icons nil)
   :config
-  (dashboard-setup-startup-hook)
   ;; recentf ignore temp files
   (add-to-list 'recentf-exclude "/var/.*")
   (add-to-list 'recentf-exclude "/usr/local/.*"))
@@ -502,7 +497,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (confirm-nonexistent-file-or-buffer t)
   (swiper-use-visual-line nil)
   (swiper-use-visual-line-p (lambda (a) nil))
-  :config
+  :init
   (ivy-mode 1))
 #+end_src
 
@@ -525,7 +520,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** counsel
 #+begin_src emacs-lisp
 (use-package counsel
-  :demand t
   :bind (("M-x" . counsel-M-x)
 	 ("C-x b" . switch-to-buffer)
 	 ("C-x C-f" . counsel-find-file)
@@ -535,28 +529,28 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 	 ("C-r" . 'counsel-minibuffer-history))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :init
+  (counsel-mode 1)
   :config
   (if (featurep 'xwidget-internal)
       (setq browse-url-browser-function 'xwidget-webkit-browse-url))
-  (setq counsel-search-engine 'google)
-  (counsel-mode 1))
+  (setq counsel-search-engine 'google))
 #+end_src
 
 *** ivy better search
 #+begin_src emacs-lisp
 (use-package flx  ;; Improves sorting for fuzzy-matched results
   :after ivy
-  :defer 1
-  :init
+  :config
   (setq ivy-flx-limit 10000))
 
 ;; precscient
 (use-package ivy-prescient
   :after counsel
-  :config
+  :init
   (ivy-prescient-mode 1)
   :custom
-  (setq ivy-prescient-enable-filtering t))
+  (ivy-prescient-enable-filtering t))
 
 (use-package prescient
   :after counsel
@@ -582,8 +576,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** Rain-bow-delimiters
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
 *** Rainbow mode
@@ -595,28 +589,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (prog-mode . rainbow-mode)
   (text-mode . rainbow-mode))
    #+end_src
-
-*** Highlight Matching Braces
-#+begin_src emacs-lisp
-(use-package paren
-  :disabled
-  :config
-  (set-face-attribute 'show-paren-match nil :background (face-foreground 'default))
-  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-foreground 'show-paren-match "red")
-  (show-paren-mode 1))
-#+end_src
-
-*** Dim unactivated buffer
-   
-#+begin_src emacs-lisp
-(use-package auto-dim-other-buffers
-  :disabled
-  :config
-  (set-face-background 'auto-dim-other-buffers-face
-		       (ct-lessen (face-attribute 'default :background) 10))
-  :init (auto-dim-other-buffers-mode))
-#+end_src
 
 *** Pulsar
 #+begin_src emacs-lisp
@@ -645,7 +617,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (pulsar-iterations 10)
   (pulsar-face 'pulsar-generic)
   (pulsar-highlight-face 'pulsar-yellow)
-  :config
+  :init
   (pulsar-global-mode 1))
 #+end_src
 
@@ -653,14 +625,18 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** Hydra
    
    #+begin_src emacs-lisp
-(use-package hydra)
+(use-package hydra
+  :defer 3)
    #+end_src
    
 * Window management
 *** Window history with winner-mode
 #+begin_src emacs-lisp
 (use-package winner
-  :config
+  :bind
+  ("s-u" . winner-undo)
+  ("s-U" . winner-redo)
+  :init
   (winner-mode))
 #+end_src
 
@@ -707,7 +683,6 @@ i.e. windows tiled side-by-side."
 *** Popper
 #+begin_src emacs-lisp
 (use-package popper
-  :defer t
   :bind (("s-`"   . popper-toggle-latest)
          ("M-`"   . popper-cycle)
          ("s-M-`" . popper-toggle-type))
@@ -827,11 +802,11 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
    #+begin_src emacs-lisp
 (use-package which-key
-  :defer 1
+  :defer t
+  :diminish super-save-mode
   :init
-  :diminish which-key-mode
-  :config
   (which-key-mode)
+  :config
   (setq which-key-idle-delay 0.3))
    #+end_src
 
@@ -840,7 +815,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
    #+begin_src emacs-lisp
 (use-package undo-tree
-  :defer t
   :diminish undo-tree-mode
   :init (global-undo-tree-mode)
   :bind
@@ -858,10 +832,11 @@ Auto-Saving Changed Files
 
  #+begin_src emacs-lisp
 (use-package super-save
-  :defer 1
+  :defer t
   :diminish super-save-mode
-  :config
+  :init
   (super-save-mode +1)
+  :config
   (setq super-save-auto-save-when-idle t))
  #+end_src
 
@@ -924,7 +899,8 @@ Auto-Saving Changed Files
 
 #+begin_src emacs-lisp
 (use-package orderless
-  :init
+  :after corfu
+  :config
   (setq completion-styles '(orderless partial-completion basic)
         completion-category-defaults nil
         completion-category-overrides nil))
@@ -958,6 +934,7 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 ;; Add extensions
 (use-package cape
+  :after corfu
   :custom
   (cape-dabbrev-min-length 1)
   :init
@@ -969,8 +946,8 @@ Auto-Saving Changed Files
 ** Snippets
 #+begin_src emacs-lisp
 (use-package yasnippet
-  :defer 1
-  :config
+  :defer t
+  :init
   (setq yas-snippet-dirs '("~/.emacs.d/yasnippet"))
   (yas-global-mode 1))
 
@@ -982,13 +959,13 @@ Auto-Saving Changed Files
 ** Color editing
 #+begin_src emacs-lisp
 (use-package ct
-  :defer t)
+  :defer 3)
 #+end_src
 
 ** Visual regexp
 #+begin_src emacs-lisp
 (use-package visual-regexp
-  :defer t)
+  :defer 3)
 #+end_src
 
 * Development
