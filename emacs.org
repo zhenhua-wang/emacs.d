@@ -413,6 +413,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :hook
   (after-init . doom-modeline-mode)
   :custom
+  (doom-modeline-bar-width 8)
   (doom-modeline-lsp t)
   (doom-modeline-enable-word-count t)
   (doom-modeline-icon t)
