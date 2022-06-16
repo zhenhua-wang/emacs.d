@@ -385,12 +385,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :font zw/font-tab-bar)
   (set-face-attribute 'tab-bar-tab-inactive nil
 		      :foreground (face-foreground 'default)
-                      :background (face-background 'default)
+                      :background (face-background 'mode-line)
                       :underline nil
-		      :box (face-background 'default)
+		      :box (face-background 'mode-line)
                       :font zw/font-tab-bar)
   (set-face-attribute 'tab-bar nil
-		      :background (face-background 'default)))
+		      :background (face-background 'mode-line)))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
 ;; add numbers before tab
