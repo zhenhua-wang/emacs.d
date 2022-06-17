@@ -347,18 +347,16 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
   :ensure nil
   :diminish
   :hook (((text-mode outline-mode) . flyspell-mode)
-         (prog-mode . flyspell-prog-mode)
-         (flyspell-mode . (lambda ()
-                            (dolist (key '("C-;" "C-," "C-."))
-                              (unbind-key key flyspell-mode-map)))))
+         (prog-mode . flyspell-prog-mode))
   :init (setq flyspell-issue-message-flag nil
+	      flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
               ispell-program-name "aspell"
-              ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together"))
-  :config
-  ;; Correcting words with flyspell via Ivy
-  (use-package flyspell-correct-ivy
-    :after ivy
-    :bind (:map flyspell-mode-map
-		("C-;" . flyspell-correct-wrapper))
-    :init (setq flyspell-correct-interface #'flyspell-correct-ivy)))
+              ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
+
+;; Correcting words with flyspell via Ivy
+(use-package flyspell-correct-ivy
+  :after flyspell
+  :bind (:map flyspell-mode-map
+	      ("C-;" . flyspell-correct-wrapper))
+  :init (setq flyspell-correct-interface #'flyspell-correct-ivy))
 #+end_src
