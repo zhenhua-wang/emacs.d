@@ -13,6 +13,7 @@
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . turn-on-org-cdlatex)
+  ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
    org-ellipsis " ▾"
@@ -137,9 +138,9 @@
 
 ** Org-auto-tangle
    #+begin_src emacs-lisp
-     ;; auto tangle
-     (use-package org-auto-tangle
-       :hook (org-mode . org-auto-tangle-mode))
+;; auto tangle
+(use-package org-auto-tangle
+  :hook (org-mode . org-auto-tangle-mode))
    #+end_src
    
 ** Custom functions
@@ -213,7 +214,6 @@ LSP-mode with TexLab works perfect for Latex docs
 
 * Bibliography
 ** Org-ref
-
 #+begin_src emacs-lisp
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
