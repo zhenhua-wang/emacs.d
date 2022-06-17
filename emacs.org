@@ -534,12 +534,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
    #+begin_src emacs-lisp
 ;; line number mode
-(column-number-mode)
+(setq column-number-mode t)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'text-mode-hook 'display-line-numbers-mode)
 (add-hook 'conf-mode-hook 'display-line-numbers-mode)
 ;; Override some modes which derive from the above
-(dolist (mode '(org-mode-hook))
+(dolist (mode '(org-mode-hook markdown-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
    #+end_src
 
@@ -595,7 +595,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (use-package iscroll
   :diminish
-  :hook (image-mode . iscroll-mode))
+  :hook
+  (image-mode . iscroll-mode)
+  (org-mode . iscroll-mode))
 #+end_src
 
 ** Key-bindings

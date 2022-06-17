@@ -78,7 +78,7 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
   (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output :file lsp-src.py"))
-  (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file :file lsp-src.py"))
+  (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file"))
   
   ;; enable lsp-org inside src block
   (cl-defmacro lsp-org-babel-enable (lang)

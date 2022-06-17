@@ -138,6 +138,7 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 	ansi-color-for-comint-mode 'filter
 	comint-scroll-to-bottom-on-input t
 	comint-scroll-to-bottom-on-output t
+	ess-use-flymake nil
 	comint-move-point-for-output t
 	ess-eval-visibly-p 'nowait
 	ess-R-font-lock-keywords
@@ -246,7 +247,12 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 #+begin_src emacs-lisp
 ;; check code syntax
 (use-package flycheck
-  :hook (prog-mode . flycheck-mode))
+  :hook (prog-mode . flycheck-mode)
+  :init
+  (setq flycheck-check-syntax-automatically '(save mode-enable)))
+
+(use-package flycheck-popup-tip
+      :hook (flycheck-mode . flycheck-popup-tip-mode))
 #+end_src
 
 * Project management
