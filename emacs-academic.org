@@ -342,11 +342,23 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 
 * Flyspell
 #+begin_src emacs-lisp
-;; check word spelling
+;; On-the-fly spell checker
 (use-package flyspell
-  :hook
-  (text-mode . flyspell-mode)
+  :ensure nil
+  :diminish
+  :hook (((text-mode outline-mode) . flyspell-mode)
+         (prog-mode . flyspell-prog-mode)
+         (flyspell-mode . (lambda ()
+                            (dolist (key '("C-;" "C-," "C-."))
+                              (unbind-key key flyspell-mode-map)))))
+  :init (setq flyspell-issue-message-flag nil
+              ispell-program-name "aspell"
+              ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together"))
   :config
-  (setq ispell-program-name "aspell")
-  (setq ispell-list-command "--list"))
+  ;; Correcting words with flyspell via Ivy
+  (use-package flyspell-correct-ivy
+    :after ivy
+    :bind (:map flyspell-mode-map
+		("C-;" . flyspell-correct-wrapper))
+    :init (setq flyspell-correct-interface #'flyspell-correct-ivy)))
 #+end_src

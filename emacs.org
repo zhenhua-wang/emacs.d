@@ -110,8 +110,6 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (global-visual-line-mode 1)
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
-;; hightlight current row
-(global-hl-line-mode 1)
 ;; yank overwrite what is selected
 (delete-selection-mode 1)
 ;; fringe (nil is default)
@@ -268,10 +266,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ** Request
 #+begin_src emacs-lisp
 (use-package request
-  :defer t)
+  :defer 1)
 #+end_src
 
-* Appearance
+* Interface Enhancement
 ** Font face
    
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
@@ -397,33 +395,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
               (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings))))))
 #+end_src
 
-** All-the-icons
-   #+begin_src emacs-lisp
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :init (setq all-the-icons-scale-factor 1))
-   #+end_src
-
-** Toggle transparency
-#+begin_src emacs-lisp
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-#+end_src
-
-* Interface Enhancement
 ** Dashboard
 #+begin_src emacs-lisp
 (use-package dashboard
-  :defer t
   :init
   (dashboard-setup-startup-hook)
   :custom
@@ -529,9 +503,46 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq prescient-sort-length-enable t))
 #+end_src
 
-** Visualize
-*** Line number mode
+** Scroll
+#+begin_src emacs-lisp
+;; Mouse & Smooth Scroll
+;; Scroll one line at a time (less "jumpy" than defaults)
+(when (display-graphic-p)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . hscroll))
+        mouse-wheel-scroll-amount-horizontal 1
+        mouse-wheel-progressive-speed nil))
+(setq scroll-step 1
+      scroll-margin 0
+      scroll-conservatively 100000
+      auto-window-vscroll nil
+      scroll-preserve-screen-position t)
 
+;; Good pixel line scrolling
+(if (fboundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode t)
+  (when (and emacs/>=27p (not sys/macp))
+    (use-package good-scroll
+      :diminish
+      :hook (after-init . good-scroll-mode)
+      :bind (([remap next] . good-scroll-up-full-screen)
+             ([remap prior] . good-scroll-down-full-screen)))))
+
+(use-package iscroll
+  :diminish
+  :hook
+  (image-mode . iscroll-mode)
+  (org-mode . iscroll-mode))
+#+end_src
+
+** Visualize
+*** All-the-icons
+   #+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :init (setq all-the-icons-scale-factor 1))
+   #+end_src
+
+*** Line number mode
    #+begin_src emacs-lisp
 ;; line number mode
 (setq column-number-mode t)
@@ -591,13 +602,152 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (after-init . pulsar-global-mode))
 #+end_src
 
-*** Smooth scrolling over images
+*** Toggle transparency
 #+begin_src emacs-lisp
-(use-package iscroll
-  :diminish
-  :hook
-  (image-mode . iscroll-mode)
-  (org-mode . iscroll-mode))
+(defun zw/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(85 . 85) '(100 . 100)))))
+#+end_src
+
+*** Highlight line
+#+begin_src emacs-lisp
+;; Highlight the current line
+(use-package hl-line
+  :ensure nil
+  :hook ((after-init . global-hl-line-mode)
+         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
+          (lambda () (setq-local global-hl-line-mode nil)))))
+#+end_src
+
+*** Paren
+#+begin_src emacs-lisp
+;; Highlight matching parens
+(use-package paren
+  :ensure nil
+  :hook (after-init . show-paren-mode)
+  :init (setq show-paren-when-point-inside-paren t
+              show-paren-when-point-in-periphery t)
+  :config
+  (with-no-warnings
+    ;; Display matching line for off-screen paren.
+    (defun display-line-overlay (pos str &optional face)
+      "Display line at POS as STR with FACE.
+FACE defaults to inheriting from default and highlight."
+      (let ((ol (save-excursion
+                  (goto-char pos)
+                  (make-overlay (line-beginning-position)
+                                (line-end-position)))))
+        (overlay-put ol 'display str)
+        (overlay-put ol 'face
+                     (or face '(:inherit highlight)))
+        ol))
+
+    (defvar-local show-paren--off-screen-overlay nil)
+    (defun show-paren-off-screen (&rest _args)
+      "Display matching line for off-screen paren."
+      (when (overlayp show-paren--off-screen-overlay)
+        (delete-overlay show-paren--off-screen-overlay))
+      ;; Check if it's appropriate to show match info,
+      (when (and (overlay-buffer show-paren--overlay)
+                 (not (or cursor-in-echo-area
+                          executing-kbd-macro
+                          noninteractive
+                          (minibufferp)
+                          this-command))
+                 (and (not (bobp))
+                      (memq (char-syntax (char-before)) '(?\) ?\$)))
+                 (= 1 (logand 1 (- (point)
+                                   (save-excursion
+                                     (forward-char -1)
+                                     (skip-syntax-backward "/\\")
+                                     (point))))))
+        ;; Rebind `minibuffer-message' called by `blink-matching-open'
+        ;; to handle the overlay display.
+        (cl-letf (((symbol-function #'minibuffer-message)
+                   (lambda (msg &rest args)
+                     (let ((msg (apply #'format-message msg args)))
+                       (setq show-paren--off-screen-overlay
+                             (display-line-overlay
+                              (window-start) msg ))))))
+          (blink-matching-open))))
+    (advice-add #'show-paren-function :after #'show-paren-off-screen)))
+#+end_src
+
+*** Highlight TODO
+#+begin_src emacs-lisp
+;; Highlight TODO and similar keywords in comments and strings
+(use-package hl-todo
+  :custom-face
+  (hl-todo ((t (:inherit default :height 0.9 :width condensed :weight bold :underline nil :inverse-video t))))
+  :bind (:map hl-todo-mode-map
+              ([C-f3] . hl-todo-occur)
+              ("C-c t p" . hl-todo-previous)
+              ("C-c t n" . hl-todo-next)
+              ("C-c t o" . hl-todo-occur)
+              ("C-c t i" . hl-todo-insert))
+  :hook (after-init . global-hl-todo-mode)
+  ;; :init (setq hl-todo-require-punctuation t
+	      ;; hl-todo-highlight-punctuation ":")
+  :config
+  (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'error)) hl-todo-keyword-faces))
+  (dolist (keyword '("WORKAROUND" "HACK" "TRICK"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'warning)) hl-todo-keyword-faces)))
+#+end_src
+
+*** Highlight uncommitted changes
+#+begin_src emacs-lisp
+;; Highlight uncommitted changes using VC
+(use-package diff-hl
+  :bind (:map diff-hl-command-map
+         ("SPC" . diff-hl-mark-hunk))
+  :hook ((after-init . global-diff-hl-mode)
+         (dired-mode . diff-hl-dired-mode)
+         ((after-load-theme server-after-make-frame) . my-set-diff-hl-faces))
+  :init (setq diff-hl-draw-borders nil)
+  :config
+  ;; Highlight on-the-fly
+  (diff-hl-flydiff-mode 1)
+
+  ;; Set fringe style
+  (setq-default fringes-outside-margins t)
+
+  (defun my-set-diff-hl-faces ()
+    "Set `diff-hl' faces."
+    (custom-set-faces
+     `(diff-hl-change ((t (:foreground ,(face-background 'highlight) :background nil))))
+     '(diff-hl-insert ((t (:inherit diff-added :background nil))))
+     '(diff-hl-delete ((t (:inherit diff-removed :background nil))))))
+
+  (with-no-warnings
+    (defun my-diff-hl-fringe-bmp-function (_type _pos)
+      "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+      (define-fringe-bitmap 'my-diff-hl-bmp
+        (vector #b11100000)
+        1 8
+        '(center t)))
+    (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
+
+    (unless (display-graphic-p)
+      ;; Fall back to the display margin since the fringe is unavailable in tty
+      (diff-hl-margin-mode 1)
+      ;; Avoid restoring `diff-hl-margin-mode'
+      (with-eval-after-load 'desktop
+        (add-to-list 'desktop-minor-mode-table
+                     '(diff-hl-margin-mode nil))))
+
+    ;; Integration with magit
+    (with-eval-after-load 'magit
+      (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+      (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))))
 #+end_src
 
 ** Key-bindings
@@ -657,6 +807,35 @@ i.e. windows tiled side-by-side."
       xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal
       )
 
+#+end_src
+
+*** Popper
+#+begin_src emacs-lisp
+(use-package popper
+  :bind (("s-`"   . popper-toggle-latest)
+         ("M-`"   . popper-cycle)
+         ("s-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("[Oo]utput\\*$"
+          "^\\*Warnings\\*"
+          "^\\*Compile-Log\\*"
+          "^\\*Messages\\*"
+          "^\\*Backtrace\\*"
+          "^\\*ielm\\*"
+          "^\\*Tex Help\\*"
+          "^\\*Shell Command Output\\*"
+          "^\\*Async Shell Command\\*"
+          "^\\*WordNut\\*"
+          "^\\*help[R].*"
+          "^\\*polymode export\\*"
+          help-mode
+          eshell-mode
+	  vterm-mode
+          message-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
 #+end_src
 
 *** Control Buffer Placement
@@ -725,8 +904,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 ;; If a popup does happen, don't resize windows to be equal-sized
 (setq even-window-sizes nil)
 #+end_src
-
-#+RESULTS:
 
 * File Manager
 ** Treemacs
@@ -889,15 +1066,15 @@ Auto-Saving Changed Files
   :bind ("M-<tab>" . ivy-yasnippet))
 #+end_src
 
-** Color editing
-#+begin_src emacs-lisp
-(use-package ct
-  :defer 3)
-#+end_src
-
 ** Visual regexp
 #+begin_src emacs-lisp
 (use-package visual-regexp
+  :defer 2)
+#+end_src
+
+** Color editing
+#+begin_src emacs-lisp
+(use-package ct
   :defer 3)
 #+end_src
 

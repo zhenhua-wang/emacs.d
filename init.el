@@ -22,12 +22,6 @@
 ;; Set up the visible bell
 (setq visible-bell t)
 
-;; Scrolling
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq scroll-step 1) ;; keyboard scroll one line at a time
-(setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
-
 ;; hide startup screen
 (setq-default inhibit-startup-screen t
 	      cursor-in-non-selected-windows nil)

@@ -90,7 +90,7 @@
 ** R
 #+begin_src emacs-lisp
 (use-package ess
-  :defer 3
+  :defer 10
   :commands R
   :config
   ;; fix freezing in macos by creating your process using pipe
@@ -203,9 +203,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package magit-todos
-  :defer 3)
 #+end_src
 
 * Project management
@@ -218,8 +215,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
 #+begin_src emacs-lisp
 (use-package projectile
-  :defer 3
-  :config (projectile-mode +1)
+  :hook (after-init . projectile-mode)
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -227,7 +223,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
     (setq projectile-project-search-path '("~/Workspace/Documents/Graduate/Mizzou"))))
 
 (use-package counsel-projectile
-  :after projectile
-  :config
-  (counsel-projectile-mode))
+  :hook (counsel-mode . counsel-projectile-mode)
+  :init (setq counsel-projectile-grep-initial-input '(ivy-thing-at-point)))
 #+end_src
