@@ -521,6 +521,18 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq prescient-sort-length-enable t))
 #+end_src
 
+** Imenu
+#+begin_src emacs-lisp
+(use-package imenu-list
+  :bind
+  ("C-c i" . imenu-list-smart-toggle)
+  :init
+  (setq-default imenu-list-position 'left
+		imenu-list-size 0.2)
+  :config
+  (defun imenu-list--set-mode-line () nil))
+#+end_src
+
 ** Scroll
 #+begin_src emacs-lisp
 ;; Mouse & Smooth Scroll
