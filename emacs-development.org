@@ -3,6 +3,11 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
+* Header
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*-
+#+end_src
+
 * IDE
 ** LSP
 *** lsp-mode

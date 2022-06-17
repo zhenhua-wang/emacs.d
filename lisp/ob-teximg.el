@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;;; Code:
 (require 'ob)
 (require 'ob-ref)

@@ -3,6 +3,11 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
+* Header
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*-
+#+end_src
+
 * Org-mode
 ** Main
 #+begin_src emacs-lisp
@@ -111,7 +116,7 @@
     (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
 
-** Org theme
+** Org-theme
 #+begin_src emacs-lisp
 (use-package org-modern
   :hook (org-mode . org-modern-mode)

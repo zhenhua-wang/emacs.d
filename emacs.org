@@ -5,6 +5,11 @@
 
 This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ to directly load it into init.el. Since this function will only tangle the file only if the current file is new, I am using ~if-else/when/pcase~ to detect OS. 
 --------------
+* Header
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*-
+#+end_src
+
 * Startup
 ** Package management
 *** Add custom file and path
@@ -118,6 +123,7 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
 (setq-default cursor-type 'bar)
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
+(setq-default select-enable-clipboard t)
 ;; completion
 (setq completion-cycle-threshold nil)
 (setq tab-always-indent t)

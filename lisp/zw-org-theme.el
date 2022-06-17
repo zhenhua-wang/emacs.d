@@ -1,3 +1,7 @@
+;; -*- lexical-binding: t -*-
+
+;;; code
+
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
