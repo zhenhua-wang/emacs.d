@@ -3,7 +3,7 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
-* Programming
+* IDE
 ** LSP
 *** lsp-mode
   #+begin_src emacs-lisp
@@ -33,6 +33,18 @@
   (setq eglot-stay-out-of '(flymake))
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))
+#+end_src
+
+** Flycheck
+#+begin_src emacs-lisp
+;; check code syntax
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode)
+  :init
+  (setq flycheck-check-syntax-automatically '(save mode-enable)))
+
+(use-package flycheck-popup-tip
+  :hook (flycheck-mode . flycheck-popup-tip-mode))
 #+end_src
 
 ** Debug
@@ -241,18 +253,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 
 (use-package magit-todos
   :defer 3)
-#+end_src
-
-* Flycheck
-#+begin_src emacs-lisp
-;; check code syntax
-(use-package flycheck
-  :hook (prog-mode . flycheck-mode)
-  :init
-  (setq flycheck-check-syntax-automatically '(save mode-enable)))
-
-(use-package flycheck-popup-tip
-      :hook (flycheck-mode . flycheck-popup-tip-mode))
 #+end_src
 
 * Project management
