@@ -1,29 +1,33 @@
+;;; init.el --- ZW Configuration.	-*- lexical-binding: t no-byte-compile: t -*-
+;;; Commentary:
+
+;;
+;; ZW Emacs
+;;
+
+;;; Code:
+
+;; Speed up startup
+(setq auto-mode-case-fold nil)
+(unless (or (daemonp) noninteractive init-file-debug)
+  (let ((old-file-name-handler-alist file-name-handler-alist))
+    (setq file-name-handler-alist nil)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                "Recover file name handlers."
+                (setq file-name-handler-alist
+                      (delete-dups (append file-name-handler-alist
+                                           old-file-name-handler-alist)))))))
+
+;; disable initial message
+(setq-default inhibit-redisplay t
+              inhibit-message t)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (setq-default inhibit-redisplay nil
+                          inhibit-message nil)
+            (redisplay)))
+
 ;; load init
 (org-babel-load-file "~/.emacs.d/emacs.org")
 ;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
-
-(setq initial-scratch-message nil)
-;; print starting time to scratch
-;; (defun greet-time ()
-;;   (let ((current-hour (string-to-number (format-time-string "%H" (current-time)))))
-;;     (cond
-;;      ((or (>= current-hour 20) (< current-hour 6))
-;;       "Good evening")
-;;      ((and (>= current-hour 6)
-;; 	   (< current-hour 12))
-;;       "Good morning")
-;;      (t "Good afternoon"))))
-
-;;  scratch mode
-;; (setq initial-major-mode 'org-mode)
-
-;; Profile emacs startup
-;; (let ((startup-time (format "%.2f seconds"
-;; 			   (float-time
-;; 			    (time-subtract after-init-time before-init-time)))))
-;;      (setq initial-scratch-message (format "\n+ %s, %s! The init completed in =%s= with =%d= garbage collections.\n\n"
-;; 				           (greet-time)
-;; 				           user-login-name
-;; 				           startup-time
-;; 				           gcs-done)))
-

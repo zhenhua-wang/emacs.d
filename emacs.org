@@ -6,7 +6,8 @@
 This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ to directly load it into init.el. Since this function will only tangle the file only if the current file is new, I am using ~if-else/when/pcase~ to detect OS. 
 --------------
 * Startup
-** Add custom file and path
+** Package management
+*** Add custom file and path
 #+begin_src emacs-lisp
 ;; Load path for manually installed packages
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -15,20 +16,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 #+end_src
 
-** Native Comp Support
-
-   #+begin_src emacs-lisp
-(when (and (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (progn
-    (setq native-comp-async-report-warnings-errors nil)
-    (setq comp-deferred-compilation t)
-    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
-    (setq package-native-compile t)
-    ))
-   #+end_src
-   
-** Package management
 *** straight
 #+begin_src emacs-lisp
 (defvar bootstrap-version)
@@ -76,7 +63,10 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
-  :if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)))
+  :config
+  (require 'recentf)
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory))
 
 ;; Keep customization settings in a temporary file (thanks Ambrevar!)
 (setq custom-file
@@ -87,35 +77,14 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 #+end_src
 
 ** Garbage collection
-Source: [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]] and [[https://github.com/purcell/emacs.d/blob/master/lisp/init-benchmarking.el][purcell's benchmarking]]
-
 #+begin_src emacs-lisp
-(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
-      gc-cons-percentage 0.6)
-
-(add-hook 'emacs-startup-hook
-  (lambda ()
-    (setq gc-cons-threshold 16777216 ; 16mb
-          gc-cons-percentage 0.1)))
-
-(defun doom-defer-garbage-collection-h ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun doom-restore-garbage-collection-h ()
-  ;; Defer it so that commands launched immediately after will enjoy the
-  ;; benefits.
-  (run-at-time
-   1 nil (lambda () (setq gc-cons-threshold 16777216))))
-
-(add-hook 'minibuffer-setup-hook #'doom-defer-garbage-collection-h)
-(add-hook 'minibuffer-exit-hook #'doom-restore-garbage-collection-h)
-#+end_src
-
-** Server mode
-Start the Emacs server from this instance so that all emacsclient calls are routed here.
-
-#+begin_src emacs-lisp
-(server-start)
+(use-package gcmh
+  :diminish
+  :init
+  (setq gcmh-idle-delay 'auto
+        gcmh-auto-idle-delay-factor 10
+        gcmh-high-cons-threshold #x1000000) ; 16MB
+  (gcmh-mode 1))
 #+end_src
 
 ** Benchmark
@@ -126,6 +95,13 @@ Start the Emacs server from this instance so that all emacsclient calls are rout
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
+
+** Server mode
+Start the Emacs server from this instance so that all emacsclient calls are routed here.
+
+#+begin_src emacs-lisp
+(server-start)
 #+end_src
 
 * General Emacs Settings
@@ -240,11 +216,10 @@ My key binding strategy:
 ** Exec-path-from-shell
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
   :init
   (setq exec-path-from-shell-check-startup-files nil)
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-initialize))
 #+end_src
 
 ** TRAMP
