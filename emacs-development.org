@@ -6,23 +6,21 @@
 * Programming
 ** LSP
 *** lsp-mode
-
   #+begin_src emacs-lisp
 (setq read-process-output-max (* 10 1024 1024)) ;; 1mb
-(setenv "LSP_USE_PLISTS" "true")
 
 (use-package lsp-mode
-  :custom
-  (lsp-completion-provider :none)
-  (lsp-log-io nil)
-  :init
-  (defun zw/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))) ;; Configure orderless
+  :commands (lsp lsp-org)
   :hook
   (lsp-completion-mode . zw/lsp-mode-setup-completion)
-  (c++-mode . lsp)
-  :commands (lsp lsp-org))
+  (c++-mode . lsp-deferred)
+  :init
+  (setq   lsp-completion-provider :none
+	  lsp-modeline-code-actions-enable nil
+          lsp-modeline-diagnostics-enable nil)
+  (defun zw/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))))
   #+end_src
 
 *** Eglot
@@ -125,38 +123,36 @@ _b_: Toggle breakpoint   _dd_: Start debug      _de_: Edit debug template  _f_: 
 
 * Programming Language
 ** R
-  
 #+begin_src emacs-lisp
 (use-package ess
   :defer 3
   :commands R
-  :custom
-  (ess-ask-for-ess-directory nil)
-  (ess-style 'RStudio)
-  (ess-local-process-name "R")
-  (ansi-color-for-comint-mode 'filter)
-  (comint-scroll-to-bottom-on-input t)
-  (comint-scroll-to-bottom-on-output t)
-  (comint-move-point-for-output t)
-  (ess-eval-visibly-p 'nowait)
-  (ess-R-font-lock-keywords
-    '((ess-R-fl-keyword:keywords   . t)
-      (ess-R-fl-keyword:constants  . t)
-      (ess-R-fl-keyword:modifiers  . t)
-      (ess-R-fl-keyword:fun-defs   . t)
-      (ess-R-fl-keyword:assign-ops . t)
-      (ess-R-fl-keyword:%op%       . t)
-      (ess-fl-keyword:fun-calls    . t)
-      (ess-fl-keyword:delimiters . t)
-      (ess-fl-keyword:operators . t)
-      (ess-fl-keyword:numbers)
-      (ess-R-fl-keyword:F&T . t)
-      (ess-fl-keyword:= . t)))
   :config
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
-  (require 'ess-site))
+  (require 'ess-site)
+  (setq ess-ask-for-ess-directory nil
+	ess-style 'RStudio
+	ess-local-process-name "R"
+	ansi-color-for-comint-mode 'filter
+	comint-scroll-to-bottom-on-input t
+	comint-scroll-to-bottom-on-output t
+	comint-move-point-for-output t
+	ess-eval-visibly-p 'nowait
+	ess-R-font-lock-keywords
+	'((ess-R-fl-keyword:keywords   . t)
+	  (ess-R-fl-keyword:constants  . t)
+	  (ess-R-fl-keyword:modifiers  . t)
+	  (ess-R-fl-keyword:fun-defs   . t)
+	  (ess-R-fl-keyword:assign-ops . t)
+	  (ess-R-fl-keyword:%op%       . t)
+	  (ess-fl-keyword:fun-calls    . t)
+	  (ess-fl-keyword:delimiters . t)
+	  (ess-fl-keyword:operators . t)
+	  (ess-fl-keyword:numbers)
+	  (ess-R-fl-keyword:F&T . t)
+	  (ess-fl-keyword:= . t))))
 #+end_src
 
 ** Polymode

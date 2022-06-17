@@ -536,19 +536,21 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** ivy better search
 #+begin_src emacs-lisp
 (use-package flx  ;; Improves sorting for fuzzy-matched results
-  :hook (counsel-mode . ivy-prescient-mode)
-  :config
+  :after ivy
+  :init
   (setq ivy-flx-limit 10000))
 
 ;; precscient
 (use-package ivy-prescient
-  :hook (counsel-mode . ivy-prescient-mode)
-  :config
+  :hook
+  (counsel-mode . ivy-prescient-mode)
+  :init
   (setq ivy-prescient-enable-filtering t))
 
 (use-package prescient
-  :hook (counsel-mode . ivy-prescient-mode)
-  :config
+  :hook
+  (counsel-mode . prescient-persist-mode)
+  :init
   (setq prescient-sort-length-enable t))
 #+end_src
 
@@ -680,35 +682,7 @@ i.e. windows tiled side-by-side."
 
 #+end_src
 
-*** Popper
-#+begin_src emacs-lisp
-(use-package popper
-  :hook (emacs-startup . popper-mode)
-  :bind (("s-`"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("s-M-`" . popper-toggle-type))
-  :init
-  (setq popper-reference-buffers
-        '("[Oo]utput\\*$"
-          "^\\*Warnings\\*"
-          "^\\*Compile-Log\\*"
-          "^\\*Messages\\*"
-          "^\\*Backtrace\\*"
-          "^\\*ielm\\*"
-          "^\\*Tex Help\\*"
-          "^\\*Shell Command Output\\*"
-          "^\\*Async Shell Command\\*"
-          "^\\*WordNut\\*"
-          "^\\*help[R].*"
-          "^\\*polymode export\\*"
-          help-mode
-          eshell-mode
-          message-mode
-          compilation-mode)))
-#+end_src
-
 *** Control Buffer Placement
-
 I combine this with =popper.el= now! This is a great feature, as popper turn these buffers to =pop= buffer, so that I could toggle with ~C-`~. Besides =pop= buffer would change my current window placement.
 #+begin_src emacs-lisp
 (setq display-buffer-base-action
