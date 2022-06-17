@@ -475,18 +475,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 *** ivy-rich
 #+begin_src emacs-lisp
 (use-package all-the-icons-ivy-rich
-  :hook
-  (ivy-mode . all-the-icons-ivy-rich-mode)
-  (ivy-rich-mode . ivy-rich-project-root-cache-mode)
-         (ivy-rich-mode . (lambda ()
-                            "Use abbreviate in `ivy-rich-mode'."
-                            (setq ivy-virtual-abbreviate
-                                  (or (and ivy-rich-mode 'abbreviate) 'name))))
-  :init
-  (setq all-the-icons-ivy-rich-color-icon t))
+  :hook (ivy-mode . all-the-icons-ivy-rich-mode)
+  :init (setq all-the-icons-ivy-rich-color-icon t))
 
 (use-package ivy-rich
-  :hook (counsel-mode . ivy-rich-mode)
+  :hook
+  (counsel-mode . ivy-rich-mode)
+  (ivy-rich-mode . ivy-rich-project-root-cache-mode)
+  (ivy-rich-mode . (lambda ()
+                     "Use abbreviate in `ivy-rich-mode'."
+                     (setq ivy-virtual-abbreviate
+                           (or (and ivy-rich-mode 'abbreviate) 'name))))
   :config
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 #+end_src
