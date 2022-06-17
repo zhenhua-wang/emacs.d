@@ -19,14 +19,21 @@
                       (delete-dups (append file-name-handler-alist
                                            old-file-name-handler-alist)))))))
 
-;; disable initial message
-(setq-default inhibit-redisplay t
-              inhibit-message t)
-(add-hook 'window-setup-hook
-          (lambda ()
-            (setq-default inhibit-redisplay nil
-                          inhibit-message nil)
-            (redisplay)))
+;; Set up the visible bell
+(setq visible-bell t)
+
+;; Scrolling
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+(setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
+
+;; hide startup screen
+(setq-default inhibit-startup-screen t
+	      cursor-in-non-selected-windows nil)
+
+;; hide initial message
+(setq initial-scratch-message nil)
 
 ;; load init
 (org-babel-load-file "~/.emacs.d/emacs.org")

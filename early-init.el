@@ -8,23 +8,11 @@
 
 ;;; Code:
 
-;; hide startup screen
-(setq-default inhibit-startup-screen t
-	      cursor-in-non-selected-windows nil)
-
+;; set UI
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (menu-bar-mode -1)            ; Disable the menu bar
-
-;; Set up the visible bell
-(setq visible-bell t)
-
-;; Scrolling
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq scroll-step 1) ;; keyboard scroll one line at a time
-(setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
 
 ;; Set frame
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -55,3 +43,25 @@
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
+
+;; Premature redisplays can substantially affect startup times and produce
+;; ugly flashes of unstyled Emacs.
+(setq-default inhibit-redisplay t
+              inhibit-message t)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (setq-default inhibit-redisplay nil
+                          inhibit-message nil)
+            (redisplay)))
+
+;; Site files tend to use `load-file', which emits "Loading X..." messages in
+;; the echo area, which in turn triggers a redisplay. Redisplays can have a
+;; substantial effect on startup times and in this case happens so early that
+;; Emacs may flash white while starting up.
+(define-advice load-file (:override (file) silence)
+  (load file nil 'nomessage))
+
+;; Undo our `load-file' advice above, to limit the scope of any edge cases it
+;; may introduce down the road.
+(define-advice startup--load-user-init-file (:before (&rest _) init-doom)
+  (advice-remove #'load-file #'load-file@silence))
