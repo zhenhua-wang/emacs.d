@@ -40,8 +40,9 @@
 ;; check code syntax
 (use-package flycheck
   :hook (prog-mode . flycheck-mode)
-  :init
-  (setq flycheck-check-syntax-automatically '(save mode-enable)))
+  :init (setq flycheck-emacs-lisp-load-path 'inherit
+              ;; Only check while saving and opening files
+              flycheck-check-syntax-automatically '(save mode-enabled)))
 
 (use-package flycheck-popup-tip
   :hook (flycheck-mode . flycheck-popup-tip-mode))

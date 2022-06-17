@@ -53,6 +53,17 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 (setq use-package-verbose t)
 #+end_src
 
+** Garbage collection
+#+begin_src emacs-lisp
+(use-package gcmh
+  :diminish
+  :init
+  (setq gcmh-idle-delay 'auto
+        gcmh-auto-idle-delay-factor 10
+        gcmh-high-cons-threshold #x1000000) ; 16MB
+  (gcmh-mode 1))
+#+end_src
+
 ** Keep .emacs.d Clean
 Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
 
@@ -74,17 +85,6 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
           (expand-file-name "custom.el" server-socket-dir)
           (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
 (load custom-file t)
-#+end_src
-
-** Garbage collection
-#+begin_src emacs-lisp
-(use-package gcmh
-  :diminish
-  :init
-  (setq gcmh-idle-delay 'auto
-        gcmh-auto-idle-delay-factor 10
-        gcmh-high-cons-threshold #x1000000) ; 16MB
-  (gcmh-mode 1))
 #+end_src
 
 ** Benchmark
@@ -712,7 +712,8 @@ FACE defaults to inheriting from default and highlight."
   :hook ((after-init . global-diff-hl-mode)
          (dired-mode . diff-hl-dired-mode)
          ((after-load-theme server-after-make-frame) . my-set-diff-hl-faces))
-  :init (setq diff-hl-draw-borders nil)
+  :init (setq diff-hl-draw-borders nil
+	      diff-hl-side 'right)
   :config
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
