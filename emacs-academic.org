@@ -132,7 +132,7 @@
   :hook (org-mode . org-appear-mode))
 
 (with-eval-after-load 'org
-  (require 'org-theme)
+  (require 'zw-org-theme)
   (zw/set-org-headline))
 #+end_src
 

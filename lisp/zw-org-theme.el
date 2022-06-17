@@ -42,4 +42,4 @@
    '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
                                          :bold t :height 1.0)))))
 
-(provide 'org-theme)
+(provide 'zw-org-theme)
