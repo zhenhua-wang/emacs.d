@@ -73,11 +73,7 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering
-  :config
-  (require 'recentf)
-  (add-to-list 'recentf-exclude no-littering-var-directory)
-  (add-to-list 'recentf-exclude no-littering-etc-directory))
+(use-package no-littering)
 
 ;; Keep customization settings in a temporary file (thanks Ambrevar!)
 (setq custom-file
@@ -269,6 +265,24 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :defer 1)
 #+end_src
 
+** Recentf
+#+begin_src emacs-lisp
+(use-package recentf
+  :ensure nil
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
+		no-littering-var-directory no-littering-etc-directory
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+#+end_src
+
 * Interface Enhancement
 ** Font face
    
@@ -400,19 +414,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package dashboard
   :init
   (dashboard-setup-startup-hook)
-  :custom
-  (dashboard-startup-banner 1)
-  (dashboard-center-content t)
-  (dashboard-items '((recents  . 10)))
-  (dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
-  (dashboard-set-footer nil)
-  (dashboard-banner-logo-title nil)
-  (dashboard-set-heading-icons nil)
-  (dashboard-set-file-icons nil)
-  :config
-  ;; recentf ignore temp files
-  (add-to-list 'recentf-exclude "/var/.*")
-  (add-to-list 'recentf-exclude "/usr/local/.*"))
+  (setq dashboard-startup-banner 1
+	dashboard-center-content t
+	dashboard-items '((recents  . 10))
+	dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name
+	dashboard-set-footer nil
+	dashboard-banner-logo-title nil
+	dashboard-set-heading-icons nil
+	dashboard-set-file-icons nil))
 
 ;; make scratch and dashboard unkillable
 (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
