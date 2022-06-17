@@ -110,6 +110,7 @@
 	comint-scroll-to-bottom-on-input t
 	comint-scroll-to-bottom-on-output t
 	ess-use-flymake nil
+	ess-use-company nil
 	comint-move-point-for-output t
 	ess-eval-visibly-p 'nowait
 	ess-R-font-lock-keywords
