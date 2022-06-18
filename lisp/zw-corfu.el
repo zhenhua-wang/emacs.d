@@ -57,7 +57,7 @@
 (use-package kind-icon
   :after corfu
   :init
-  (setq kind-icon-use-icons nil
+  (setq kind-icon-use-icons t
 	kind-icon-default-face 'corfu-default)
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
