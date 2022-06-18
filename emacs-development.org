@@ -134,8 +134,7 @@ The idea is to run poly-R/markdown within the markdown mode
   (markdown-enable-math t)
   :config
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode)
-  )
+  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode))
 #+end_src
 
 Here are the polys

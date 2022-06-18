@@ -142,7 +142,9 @@
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
+  :hook
+  (org-mode . efs/org-mode-visual-fill)
+  (markdown-mode . efs/org-mode-visual-fill))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
