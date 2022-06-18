@@ -1034,9 +1034,7 @@ Auto-Saving Changed Files
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
   ;; disable corfu auto in following modes
   (dolist (hook '(inferior-ess-r-mode-hook))
-    (add-hook hook
-	      (lambda ()
-		(setq-local corfu-auto nil)))))
+    (add-hook hook (lambda () (setq-local corfu-auto nil)))))
 
 (use-package dabbrev
   :custom
@@ -1081,12 +1079,14 @@ Auto-Saving Changed Files
 ;; Add extensions
 (use-package cape
   :after corfu
-  :custom
-  (cape-dabbrev-min-length 1)
+  :hook
+  (after-change-major-mode . add-cape-completion)
   :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+  (setq cape-dabbrev-min-length 1)
+  (defun add-cape-completion ()
+    ;; Add `completion-at-point-functions', used by `completion-at-point'.
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-file)))
 #+end_src
 
 ** Snippets
