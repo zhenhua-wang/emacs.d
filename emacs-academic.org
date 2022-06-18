@@ -14,6 +14,7 @@
 (use-package org
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
+  :bind (:map org-mode-map ("C-c =" . nil))
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -271,7 +272,9 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5)
   :config
-  (require 'org-ref-ivy)
+  (use-package org-ref-ivy
+    :straight (:type built-in)
+    :defer t)
   (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
 	org-ref-insert-cite-function 'org-ref-cite-insert-ivy
 	org-ref-insert-label-function 'org-ref-insert-label-link
@@ -343,7 +346,6 @@ LSP-mode with TexLab works perfect for Latex docs
   :config
   (setq-default pdf-view-display-size 'fit-page)
   (pdf-tools-install :no-query)
-  (require 'pdf-occur)
   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-use-imagemagick nil
         pdf-view-continuous nil

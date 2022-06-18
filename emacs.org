@@ -37,7 +37,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   (load bootstrap-file nil 'nomessage))
 #+end_src
 
-*** package and use-pacakge
+*** use-package
 To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
 
 + ~:hook~ - package will be loaded the first time one of the hooks is invoked
@@ -62,11 +62,12 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 #+begin_src emacs-lisp
 (use-package gcmh
   :diminish
+  :hook
+  (after-init . gcmh-mode)
   :init
   (setq gcmh-idle-delay 'auto
         gcmh-auto-idle-delay-factor 10
-        gcmh-high-cons-threshold #x1000000) ; 16MB
-  (gcmh-mode 1))
+        gcmh-high-cons-threshold #x1000000))
 #+end_src
 
 ** Keep .emacs.d Clean
@@ -98,23 +99,22 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
-** Server mode
-Start the Emacs server from this instance so that all emacsclient calls are routed here.
-
-#+begin_src emacs-lisp
-(server-start)
-#+end_src
-
 * General Emacs Settings
 ** modes
   #+begin_src emacs-lisp
-(global-visual-line-mode 1)
-;; Revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-;; yank overwrite what is selected
-(delete-selection-mode 1)
-;; fringe (nil is default)
-(fringe-mode nil)
+(use-package emacs
+  :ensure nil
+  :hook
+  (after-init . global-visual-line-mode)
+  ;; Revert buffers when the underlying file has changed
+  (after-init . global-auto-revert-mode)
+  ;; yank overwrite what is selected
+  (after-init . delete-selection-mode)
+  ;; fringe (nil is default)
+  (after-init . fringe-mode)
+  :config
+  ;; start server mode
+  (server-start))
   #+end_src
 
 ** settings
@@ -241,10 +241,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package vterm
   :straight `(:pre-build (("rm" "-fr" "build")
 			  ("mkdir" "build")
-			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"  ,(concat (straight--repos-dir "emacs-libvterm") "build"))
-			  ;;or
-			  ;; (shell-command "rm -fr build && mkdir build && cd $_ && cmake .. && make")
-			  ))
+			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
+			   ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
   :bind
   ((:map vterm-copy-mode-map
          ("<return>" . vterm-copy-mode))
@@ -255,6 +253,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ** Openwith
 #+begin_src emacs-lisp
 (use-package openwith
+  :hook
+  (after-init . openwith-mode)
   :config
   (setq openwith-associations
         (list
@@ -262,9 +262,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                 '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
 		  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
                "open"
-               '(file))))
-  :init
-  (openwith-mode 1))
+               '(file)))))
 #+end_src
 
 ** Request
@@ -525,7 +523,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (use-package imenu-list
   :bind
-  ("C-c i" . imenu-list-smart-toggle)
+  ("C-c =" . imenu-list-smart-toggle)
   :init
   (setq-default imenu-list-position 'left
 		imenu-list-size 0.2)
@@ -797,9 +795,7 @@ FACE defaults to inheriting from default and highlight."
   :hook (after-init . winner-mode)
   :bind
   ("s-u" . winner-undo)
-  ("s-U" . winner-redo)
-  :init
-  (winner-mode))
+  ("s-U" . winner-redo))
 #+end_src
 
 *** Window split preference
@@ -837,9 +833,7 @@ i.e. windows tiled side-by-side."
 
 (setq split-width-threshold  80
       split-height-threshold 80
-      xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal
-      )
-
+      xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal)
 #+end_src
 
 *** Popper
@@ -848,6 +842,9 @@ i.e. windows tiled side-by-side."
   :bind (("s-`"   . popper-toggle-latest)
          ("M-`"   . popper-cycle)
          ("s-M-`" . popper-toggle-type))
+  :hook
+  (after-init . popper-mode)
+  (popper-mode . popper-echo-mode)
   :init
   (setq popper-reference-buffers
         '("[Oo]utput\\*$"
@@ -866,85 +863,86 @@ i.e. windows tiled side-by-side."
           eshell-mode
 	  vterm-mode
           message-mode
-          compilation-mode))
-  (popper-mode +1)
-  (popper-echo-mode +1))
+          compilation-mode)))
 #+end_src
 
 *** Control Buffer Placement
 I combine this with =popper.el= now! This is a great feature, as popper turn these buffers to =pop= buffer, so that I could toggle with ~C-`~. Besides =pop= buffer would change my current window placement.
 #+begin_src emacs-lisp
-(setq display-buffer-base-action
-      '(display-buffer-reuse-mode-window
-        display-buffer-reuse-window
-        display-buffer-same-window))
+;; hook to popper-mode in case popper overwrite this behavior
+(add-hook 'popper-mode-hook (lambda ()
+  (setq display-buffer-base-action
+	'(display-buffer-reuse-mode-window
+          display-buffer-reuse-window
+          display-buffer-same-window))
 
-;; If a popup does happen, don't resize windows to be equal-sized
-(setq even-window-sizes nil)
+  ;; If a popup does happen, don't resize windows to be equal-sized
+  (setq even-window-sizes nil)
 
-(setq display-buffer-alist
-      '(;; top side window
-        ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
-         (display-buffer-in-side-window)
-         (window-height . 0.1)
-         (side . top)
-         (slot . 0))
-        ("\\*Messages.*"
-         (display-buffer-in-side-window)
-         (window-height . 0.1)
-         (side . top)
-         (slot . 1))
-        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
-         (display-buffer-in-side-window)
-         (window-height . 0.1)
-         (side . top)
-         (slot . 2))
-        ("\\*polymode export.*"
-         (display-buffer-in-side-window)
-         (window-height . 0.1)
-         (side . top)
-         (slot . 1))
-        ;; right side window
-        ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . -1))
-        ("\\*eglot doc.*"
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . -1))
-        ("\\*\\(R\\|Python\\).*"
-         (display-buffer-reuse-mode-window)
-         (side . right)
-         (slot . -1)
-         (window-width . 0.3))
-        ;; bottom buffer (NOT side window)
-        ("\\*.*\\(e?shell\\|v?term\\).*"
-         ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . bottom))
-        ;; ("\\*R.*"
-        ;;  (display-buffer-reuse-mode-window display-buffer-at-bottom)
-        ;;  (window-height . 0.3))
-        ;; below current window
-        ("\\*Calendar.*"
-         (display-buffer-reuse-mode-window display-buffer-below-selected)
-         (window-height . shrink-window-if-larger-than-buffer))))
+  (setq display-buffer-alist
+	'(;; top side window
+          ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
+           (display-buffer-in-side-window)
+           (window-height . 0.1)
+           (side . top)
+           (slot . 0))
+          ("\\*Messages.*"
+           (display-buffer-in-side-window)
+           (window-height . 0.1)
+           (side . top)
+           (slot . 1))
+          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+           (display-buffer-in-side-window)
+           (window-height . 0.1)
+           (side . top)
+           (slot . 2))
+          ("\\*polymode export.*"
+           (display-buffer-in-side-window)
+           (window-height . 0.1)
+           (side . top)
+           (slot . 1))
+          ;; right side window
+          ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
+           (display-buffer-in-side-window)
+           (window-width . 0.5)
+           (side . right)
+           (slot . -1))
+          ("\\*eglot doc.*"
+           (display-buffer-in-side-window)
+           (window-width . 0.5)
+           (side . right)
+           (slot . -1))
+          ("\\*\\(R\\|Python\\).*"
+           (display-buffer-reuse-mode-window)
+           (side . right)
+           (slot . -1)
+           (window-width . 0.3))
+          ;; bottom buffer (NOT side window)
+          ("\\*.*\\(e?shell\\|v?term\\).*"
+           ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
+           (display-buffer-in-side-window)
+           (window-height . 0.2)
+           (side . bottom))
+          ;; ("\\*R.*"
+          ;;  (display-buffer-reuse-mode-window display-buffer-at-bottom)
+          ;;  (window-height . 0.3))
+          ;; below current window
+          ("\\*Calendar.*"
+           (display-buffer-reuse-mode-window display-buffer-below-selected)
+           (window-height . shrink-window-if-larger-than-buffer))))
 
-;; If a popup does happen, don't resize windows to be equal-sized
-(setq even-window-sizes nil)
+  ;; If a popup does happen, don't resize windows to be equal-sized
+  (setq even-window-sizes nil)))
 #+end_src
 
 * File Manager
 ** Treemacs
 #+begin_src emacs-lisp
 (use-package treemacs
-  :commands treemacs
+  :defer t
+  :commands (treemacs treemacs-current)
   :config
-  (defalias 'treemacs 'treemacs-display-current-project-exclusively)
+  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t))
 
@@ -975,7 +973,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   :bind
   ("s-z" . undo-tree-undo)
   ("s-Z" . undo-tree-redo)
-  :init (global-undo-tree-mode)
+  :init
   (setq undo-tree-visualizer-diff t
 	undo-tree-visualizer-timestamps t
         undo-tree-enable-undo-in-region nil
@@ -997,6 +995,7 @@ Auto-Saving Changed Files
 ** Sudo-edit
    #+begin_src emacs-lisp
 (use-package sudo-edit
+  :defer 1
   :commands (sudo-edit))
    #+end_src
 
