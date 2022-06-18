@@ -782,6 +782,17 @@ FACE defaults to inheriting from default and highlight."
       (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))))
 #+end_src
 
+*** visual-fill-column
+#+begin_src emacs-lisp
+(use-package visual-fill-column
+  :hook
+  (org-mode . visual-fill-column-mode)
+  (markdown-mode . visual-fill-column-mode)
+  :init
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t))
+#+end_src
+
 ** Key-bindings
 *** Hydra
    #+begin_src emacs-lisp
