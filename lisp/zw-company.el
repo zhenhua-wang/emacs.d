@@ -146,13 +146,14 @@
     :init (company-prescient-mode 1))
 
   ;; fuzzy search
-  ;; (use-package company-fuzzy
-  ;; :hook (company-mode . company-fuzzy-mode)
-  ;; :init
-  ;; (setq company-fuzzy-sorting-backend 'flx
-  ;;       company-fuzzy-prefix-on-top nil
-  ;;       company-fuzzy-history-backends '(company-yasnippet)
-  ;;       company-fuzzy-trigger-symbols '("." "->" "<" "\"" "'" "@")))
+  (use-package company-fuzzy
+    :hook
+    (company-mode . company-fuzzy-mode)
+    :init
+    (setq company-fuzzy-sorting-backend 'flx
+          company-fuzzy-prefix-on-top nil
+          company-fuzzy-history-backends '(company-yasnippet)
+          company-fuzzy-trigger-symbols '("." "->" "<" "\"" "'" "@")))
 
   ;; Icons and quickhelp
   (use-package company-box
