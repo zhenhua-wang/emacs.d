@@ -782,6 +782,14 @@ FACE defaults to inheriting from default and highlight."
       (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))))
 #+end_src
 
+*** Page break lines
+#+begin_src emacs-lisp
+;; Display ugly ^L page breaks as tidy horizontal lines
+(use-package page-break-lines
+  :diminish
+  :hook (after-init . global-page-break-lines-mode))
+#+end_src
+
 ** Key-bindings
 *** Hydra
    #+begin_src emacs-lisp
