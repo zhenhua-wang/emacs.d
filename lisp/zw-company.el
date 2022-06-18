@@ -44,9 +44,11 @@
   (with-no-warnings
     ;; custom ess backends
     (defun my-ess-config ()
-      (make-variable-buffer-local 'company-backends)
-      (add-to-list 'company-backends
-		   '(company-R-args company-R-objects company-dabbrev-code :separate)))
+      (setq-local company-backends
+		  '((company-R-args company-R-objects)
+		    (company-capf :with company-yasnippet)
+		    (company-dabbrev-code company-keywords company-files)
+		    company-dabbrev)))
     (add-hook 'ess-mode-hook #'my-ess-config)
 
     ;; Company anywhere

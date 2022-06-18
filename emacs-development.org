@@ -93,10 +93,10 @@
   :defer t
   :commands R
   :config
+  (require 'ess-site)
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
-  (require 'ess-site)
   (setq ess-ask-for-ess-directory nil
 	ess-style 'RStudio
 	ess-local-process-name "R"
