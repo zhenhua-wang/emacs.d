@@ -17,7 +17,6 @@
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
-  (org-mode . turn-on-org-cdlatex)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
@@ -58,18 +57,30 @@
 #+begin_src emacs-lisp
 ;; set org babel languages
 (with-eval-after-load 'org
-  ;; zw/teximg
+  ;; defer load org babel languages
   (require 'ob-teximg)
-  
-  ;; load
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)
-     (R . t)
-     (shell . t)
-     (lisp . t)
-     (latex . t)
-     (teximg . t)))
+  (use-package ob-lisp
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:lisp))
+  (use-package ob-latex
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:latex))
+  (use-package ob-R
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:R))
+  (use-package ob-python
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:python))
+  (use-package ob-shell
+    :defer t
+    :straight (:type built-in)
+    :commands
+    (org-babel-execute:sh
+     org-babel-expand-body:sh))
 
   ;; alias ess-r to R
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
@@ -185,6 +196,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (add-hook 'TeX-mode-hook 'flyspell-mode))
 
 (use-package cdlatex
+  :disabled
   :bind (:map cdlatex-mode-map
               ;; ("TAB" . indent-for-tab-command)
               ;; ("<C-tab>" . cdlatex-tab)
@@ -194,11 +206,13 @@ LSP-mode with TexLab works perfect for Latex docs
               ("{" . nil)
               ("[" . nil))
   :hook
+  (org-mode . turn-on-org-cdlatex)
   (LaTeX-mode . turn-on-cdlatex)
   (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
-(use-package reftex  
+(use-package reftex
+  :disabled
   :hook
   (LaTeX-mode . turn-on-reftex)
   (latex-mode . turn-on-reftex)
@@ -218,7 +232,7 @@ LSP-mode with TexLab works perfect for Latex docs
 #+end_src
 
 * Bibliography
-** Org-ref
+** Ivy-bibtex
 #+begin_src emacs-lisp
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
 (use-package ivy-bibtex
@@ -239,9 +253,12 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-completion-pdf-open-function
 	(lambda (fpath)
 	  (call-process "open" nil 0 nil fpath))))
+#+end_src
 
+** Org-ref
+#+begin_src emacs-lisp
 (use-package org-ref
-  :defer 3
+  :defer t
   :bind
   ("H-o" . zw/org-ref-bibtex-hydra/body)
   :init
@@ -259,58 +276,55 @@ LSP-mode with TexLab works perfect for Latex docs
 	org-ref-insert-cite-function 'org-ref-cite-insert-ivy
 	org-ref-insert-label-function 'org-ref-insert-label-link
 	org-ref-insert-ref-function 'org-ref-insert-ref-link
-	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
-#+end_src
-
-** Org-ref hydra
-#+begin_src emacs-lisp
-(defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
-  "Bibtex actions:
+	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
+  ;; define hydra
+  (defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
+    "Bibtex actions:
 "
-  ;; Open-like actions
-  ("p" org-ref-open-bibtex-pdf "PDF" :column "Open")
-  ("n" org-ref-open-bibtex-notes "Notes" :column "Open")
-  ("b" org-ref-open-in-browser "URL" :column "Open")
+    ;; Open-like actions
+    ("p" org-ref-open-bibtex-pdf "PDF" :column "Open")
+    ("n" org-ref-open-bibtex-notes "Notes" :column "Open")
+    ("b" org-ref-open-in-browser "URL" :column "Open")
 
-  ;; edit/modify
-  ("K" (lambda ()
-         (interactive)
-         (org-ref-set-bibtex-keywords
-          (read-string "Keywords: "
-                       (bibtex-autokey-get-field "keywords"))
-          t))
-   "Keywords" :column "Edit")
-  ("a" org-ref-replace-nonascii "Replace nonascii" :column "Edit")
-  ("S" org-ref-sentence-case-article "Sentence case" :column "Edit")
-  ("U" (doi-utils-update-bibtex-entry-from-doi (org-ref-bibtex-entry-doi)) "Update entry" :column "Edit")
-  ("u" doi-utils-update-field "Update field" :column "Edit" :color red)
-  ("L" org-ref-clean-bibtex-entry "Clean entry" :column "Edit")
-  ("A" org-ref-bibtex-assoc-pdf-with-entry "Add pdf" :column "Edit")
+    ;; edit/modify
+    ("K" (lambda ()
+           (interactive)
+           (org-ref-set-bibtex-keywords
+            (read-string "Keywords: "
+			 (bibtex-autokey-get-field "keywords"))
+            t))
+     "Keywords" :column "Edit")
+    ("a" org-ref-replace-nonascii "Replace nonascii" :column "Edit")
+    ("S" org-ref-sentence-case-article "Sentence case" :column "Edit")
+    ("U" (doi-utils-update-bibtex-entry-from-doi (org-ref-bibtex-entry-doi)) "Update entry" :column "Edit")
+    ("u" doi-utils-update-field "Update field" :column "Edit" :color red)
+    ("L" org-ref-clean-bibtex-entry "Clean entry" :column "Edit")
+    ("A" org-ref-bibtex-assoc-pdf-with-entry "Add pdf" :column "Edit")
 
-  ;; www
-  ("R" org-ref-bibtex-crossref "Crossref" :column "WWW")
-  ("g" org-ref-bibtex-google-scholar "Google Scholar" :column "WWW")
-
-
-  ;; Copy
-  ("o" (lambda ()
-	 (interactive)
-	 (bibtex-copy-entry-as-kill)
-	 (message "Use %s to paste the entry"
-		  (substitute-command-keys (format "\\[bibtex-yank]"))))
-   "Copy entry" :column "Copy")
-
-  ("y" (save-excursion
-	 (bibtex-beginning-of-entry)
-	 (when (looking-at bibtex-entry-maybe-empty-head)
-	   (kill-new (bibtex-key-in-head))))
-   "Copy key" :column "Copy")
+    ;; www
+    ("R" org-ref-bibtex-crossref "Crossref" :column "WWW")
+    ("g" org-ref-bibtex-google-scholar "Google Scholar" :column "WWW")
 
 
-  ;; Miscellaneous
-  ("F" org-ref-bibtex-file/body "File hydra" :column "Misc")
-  ("N" org-ref-bibtex-new-entry/body "New entry" :column "Misc")
-  ("q" nil))
+    ;; Copy
+    ("o" (lambda ()
+	   (interactive)
+	   (bibtex-copy-entry-as-kill)
+	   (message "Use %s to paste the entry"
+		    (substitute-command-keys (format "\\[bibtex-yank]"))))
+     "Copy entry" :column "Copy")
+
+    ("y" (save-excursion
+	   (bibtex-beginning-of-entry)
+	   (when (looking-at bibtex-entry-maybe-empty-head)
+	     (kill-new (bibtex-key-in-head))))
+     "Copy key" :column "Copy")
+
+
+    ;; Miscellaneous
+    ("F" org-ref-bibtex-file/body "File hydra" :column "Misc")
+    ("N" org-ref-bibtex-new-entry/body "New entry" :column "Misc")
+    ("q" nil)))
 #+end_src
 
 * Reading

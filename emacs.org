@@ -1112,13 +1112,11 @@ Auto-Saving Changed Files
 #+end_src
 
 * Development
-
 #+begin_src emacs-lisp
 (org-babel-load-file "~/.emacs.d/emacs-development.org")
 #+end_src
 
 * Academic
-  
   #+begin_src emacs-lisp
 (org-babel-load-file "~/.emacs.d/emacs-academic.org")
   #+end_src
@@ -1145,7 +1143,7 @@ To install emacs on wsl: https://emacsredux.com/blog/2021/12/19/using-emacs-on-w
    
 In old windows 10, you may not able to start emacs-gtk. Solution is:  https://github.com/microsoft/WSL/issues/4106#issuecomment-876470388
    
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle "no"
 (when (getenv "WSL_DISTRO_NAME")
   (progn
     (cua-mode 1)
@@ -1159,6 +1157,3 @@ In old windows 10, you may not able to start emacs-gtk. Solution is:  https://gi
     (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)
     (global-set-key (kbd "C-!") 'kill-current-buffer)))
 #+end_src
-
-#+RESULTS:
-

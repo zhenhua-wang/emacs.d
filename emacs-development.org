@@ -96,7 +96,7 @@
 ** R
 #+begin_src emacs-lisp
 (use-package ess
-  :defer 10
+  :defer t
   :commands R
   :config
   ;; fix freezing in macos by creating your process using pipe
