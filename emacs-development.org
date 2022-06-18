@@ -17,19 +17,13 @@
 (use-package lsp-mode
   :commands (lsp lsp-org)
   :hook
-  (lsp-completion-mode . zw/lsp-mode-setup-completion)
   (c++-mode . lsp-deferred)
   :init
-  (setq   lsp-completion-provider :none
-	  lsp-modeline-code-actions-enable nil
-          lsp-modeline-diagnostics-enable nil)
-  (defun zw/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))))
+  (setq lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil))
   #+end_src
 
 *** Eglot
-
 #+begin_src emacs-lisp
 (use-package eglot
   :hook
@@ -109,8 +103,8 @@
 	ansi-color-for-comint-mode 'filter
 	comint-scroll-to-bottom-on-input t
 	comint-scroll-to-bottom-on-output t
-	ess-use-flymake nil
 	ess-use-company nil
+	ess-use-flymake nil
 	comint-move-point-for-output t
 	ess-eval-visibly-p 'nowait
 	ess-R-font-lock-keywords
