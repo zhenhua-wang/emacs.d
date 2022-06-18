@@ -19,7 +19,8 @@
   :hook
   (c++-mode . lsp-deferred)
   :init
-  (setq lsp-modeline-code-actions-enable nil
+  (setq lsp-completion-mode :none
+	lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil))
   #+end_src
 
