@@ -549,7 +549,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; Good pixel line scrolling
 (if (fboundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode t)
-  (when (and emacs/>=27p (not sys/macp))
+  (when (and (>= emacs-major-version 27)
+	     (not (eq system-type 'darwin)))
     (use-package good-scroll
       :diminish
       :hook (after-init . good-scroll-mode)
