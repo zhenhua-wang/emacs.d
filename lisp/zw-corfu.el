@@ -45,7 +45,8 @@
   ;; setup corfu in lsp mode
   (defun zw/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))))
+          '(orderless))
+    (setq lsp-completion-mode :none)))
 
 (use-package dabbrev
   :custom
