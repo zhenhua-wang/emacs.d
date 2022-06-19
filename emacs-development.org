@@ -20,7 +20,12 @@
   (c++-mode . lsp-deferred)
   :init
   (setq lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable nil))
+        lsp-modeline-diagnostics-enable nil)
+  :config
+  (use-package lsp-treemacs
+    :after lsp-mode
+    :hook (lsp-mode . lsp-treemacs-sync-mode)
+    :commands lsp-treemacs-errors-list))
   #+end_src
 
 *** Eglot
