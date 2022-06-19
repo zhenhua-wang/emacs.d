@@ -201,8 +201,8 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   :ensure with-editor
   :bind ("C-M-;" . magit-status)
   :commands (magit-status magit-get-current-branch)
-  :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+  :config
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 #+end_src
 
 * Project management
