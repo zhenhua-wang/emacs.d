@@ -219,7 +219,9 @@ My key binding strategy:
 ** Exec-path-from-shell
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
+  :if (or (eq system-type 'darwin)
+	  (eq system-type 'gnu/linux)
+	  (daemonp))
   :init
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))

@@ -20,7 +20,8 @@
   (c++-mode . lsp-deferred)
   (python-mode . (lambda ()
 		   (use-package lsp-pyright
-		     :after lsp-mode)))
+		     :after lsp-mode)
+		   (lsp-deferred)))
   :init
   (setq lsp-keep-workspace-alive nil
 	lsp-modeline-code-actions-enable nil
