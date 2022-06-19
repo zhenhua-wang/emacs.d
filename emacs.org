@@ -430,7 +430,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 	dashboard-items '((recents  . 10))
 	dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name
 	dashboard-set-footer nil
-	dashboard-banner-logo-title nil
+	dashboard-set-init-info nil
 	dashboard-set-heading-icons nil
 	dashboard-set-file-icons nil))
 
