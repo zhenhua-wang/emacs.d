@@ -18,7 +18,7 @@
   :commands (lsp lsp-org)
   :hook
   (c++-mode . lsp-deferred)
-  (python-mode . lsp-deferred)
+  ;; (python-mode . lsp-deferred)
   :init
   (setq lsp-keep-workspace-alive nil
 	lsp-modeline-code-actions-enable nil
@@ -31,6 +31,7 @@
 	lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
   :config
+  ;; install lsp-treemacs to ensure header icons loaded
   (use-package lsp-treemacs
     :after lsp-mode
     :hook (lsp-mode . lsp-treemacs-sync-mode)
@@ -39,7 +40,7 @@
     :after lsp-mode))
   #+end_src
 
-*** Eglot
+*** eglot
 #+begin_src emacs-lisp
 (use-package eglot
   :hook
