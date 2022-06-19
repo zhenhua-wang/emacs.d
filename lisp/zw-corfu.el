@@ -48,18 +48,24 @@
           '(orderless))
     (setq lsp-completion-mode :none))
   :config
+
   (use-package dabbrev
     :custom
     ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
     (dabbrev-case-fold-search nil)
     (dabbrev-case-replace t))
 
-  (use-package kind-icon
-    :after corfu
-    :init
-    (setq kind-icon-use-icons t
-	  kind-icon-default-face 'corfu-default)
-    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+  ;; set icon for corfu
+  (require 'kind-all-the-icons)
+  (add-to-list 'corfu-margin-formatters
+               #'kind-all-the-icons-margin-formatter)
+
+  ;; (use-package kind-icon
+  ;;   :after corfu
+  ;;   :init
+  ;;   (setq kind-icon-use-icons t
+  ;; 	  kind-icon-default-face 'corfu-default)
+  ;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
   (use-package corfu-doc
     :hook
