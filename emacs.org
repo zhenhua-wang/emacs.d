@@ -1026,7 +1026,7 @@ Auto-Saving Changed Files
   :init (setq yas-snippet-dirs '("~/.emacs.d/yasnippet")))
 
 (use-package ivy-yasnippet
-  :bind ("M-<tab>" . ivy-yasnippet))
+  :bind ("C-c C-y" . ivy-yasnippet))
 #+end_src
 
 ** Visual regexp

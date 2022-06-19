@@ -88,8 +88,8 @@
   (use-package cape
     :after corfu
     :bind
-    ("C-c f" . cape-file)
-    ("C-c d" . cape-dabbrev)
+    ("C-c C-f" . cape-file)
+    ("C-c C-d" . cape-dabbrev)
     :hook
     (after-change-major-mode . add-cape-completion)
     :init
