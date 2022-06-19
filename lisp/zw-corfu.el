@@ -10,8 +10,6 @@
 (use-package corfu
   :hook
   (after-init . global-corfu-mode)
-  ;; hook to lsp mode
-  (lsp-completion-mode . zw/lsp-mode-setup-completion)
   :bind
   (:map corfu-map
 	("TAB" . corfu-insert)
@@ -43,10 +41,10 @@
   (dolist (hook '(inferior-ess-r-mode-hook))
     (add-hook hook (lambda () (setq-local corfu-auto nil))))
   ;; setup corfu in lsp mode
-  (defun zw/lsp-mode-setup-completion ()
+  (with-eval-after-load 'lsp-mode
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))
-    (setq lsp-completion-mode :none))
+    (setq lsp-completion-provider :none))
   :config
 
   (use-package dabbrev
@@ -88,8 +86,8 @@
   (use-package cape
     :after corfu
     :bind
-    ("C-c C-f" . cape-file)
-    ("C-c C-d" . cape-dabbrev)
+    ("C-c f" . cape-file)
+    ("C-c d" . cape-dabbrev)
     :hook
     (after-change-major-mode . add-cape-completion)
     :init

@@ -18,14 +18,25 @@
   :commands (lsp lsp-org)
   :hook
   (c++-mode . lsp-deferred)
+  (python-mode . lsp-deferred)
   :init
-  (setq lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable nil)
+  (setq lsp-keep-workspace-alive nil
+	lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable nil
+	lsp-modeline-workspace-status-enable nil
+
+	lsp-enable-file-watchers nil
+        lsp-enable-folding nil
+	
+	lsp-enable-indentation nil
+        lsp-enable-on-type-formatting nil)
   :config
   (use-package lsp-treemacs
     :after lsp-mode
     :hook (lsp-mode . lsp-treemacs-sync-mode)
-    :commands lsp-treemacs-errors-list))
+    :commands lsp-treemacs-errors-list)
+  (use-package lsp-pyright
+    :after lsp-mode))
   #+end_src
 
 *** Eglot
@@ -168,7 +179,6 @@ Here are the polys
 
 ** Python
 *** Pyvenv
-   
 In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
 #+begin_src emacs-lisp
 (use-package pyvenv
