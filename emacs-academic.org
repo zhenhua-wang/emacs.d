@@ -356,7 +356,7 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell
-  :ensure nil
+  :straight (:type built-in)
   :diminish
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))

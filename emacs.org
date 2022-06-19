@@ -52,8 +52,9 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 ;; Install use-package
 (straight-use-package 'use-package)
 ;; Configure use-package to use straight.el by default
-(use-package straight
-  :custom (straight-use-package-by-default t))
+(setq straight-use-package-by-default t)
+;; disable checking at start-up
+(setq straight-check-for-modifications '(watch-files find-when-checking))
 (setq use-package-always-ensure t)
 (setq use-package-verbose t)
 #+end_src
@@ -103,7 +104,7 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 ** modes
   #+begin_src emacs-lisp
 (use-package emacs
-  :ensure nil
+  :straight (:type built-in)
   :hook
   (after-init . global-visual-line-mode)
   ;; Revert buffers when the underlying file has changed
@@ -274,7 +275,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ** Recentf
 #+begin_src emacs-lisp
 (use-package recentf
-  :ensure nil
+  :straight (:type built-in)
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
               recentf-exclude
@@ -652,7 +653,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 ;; Highlight the current line
 (use-package hl-line
-  :ensure nil
+  :straight (:type built-in)
   :hook ((after-init . global-hl-line-mode)
          ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
           (lambda () (setq-local global-hl-line-mode nil)))))
@@ -662,7 +663,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 ;; Highlight matching parens
 (use-package paren
-  :ensure nil
+  :straight (:type built-in)
   :hook (after-init . show-paren-mode)
   :init (setq show-paren-when-point-inside-paren t
               show-paren-when-point-in-periphery t)
