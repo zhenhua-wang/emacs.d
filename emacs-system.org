@@ -11,6 +11,17 @@ brew install emacs-plus@29 --with-imagemagick --with-modern-sjrmanning-icon
 #+end_src
 
 * Arch Linux
+** Zsh
+#+begin_src sh
+# add these to ".zshrc" to set workon_home
+conda activate py
+
+export CONDA_PREFIX="~/.conda/"
+
+# use open
+alias open="xdg-open"
+#+end_src
+
 ** Gnome
 *** Settings
 - theme: Orchis
