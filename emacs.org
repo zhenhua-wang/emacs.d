@@ -945,6 +945,12 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (side . right)
            (slot . -1)
            (window-width . 0.3))
+	  ;; left side window
+	  ("\\*Ilist*"
+           (display-buffer-in-side-window)
+           (window-width . 0.2)
+           (side . left)
+           (slot . -1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
            ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
