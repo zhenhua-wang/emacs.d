@@ -963,23 +963,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   (setq even-window-sizes nil)))
 #+end_src
 
-* File Manager
-** Treemacs
-#+begin_src emacs-lisp
-(use-package treemacs
-  :defer t
-  :commands (treemacs treemacs-current)
-  :config
-  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t))
-
-(use-package treemacs-all-the-icons
-  :after treemacs
-  :config
-  (treemacs-load-theme "all-the-icons"))
-#+end_src
-
 * Keys Cheat Sheet
 ** Which key
 

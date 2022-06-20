@@ -24,18 +24,13 @@
 	lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
 	lsp-modeline-workspace-status-enable nil
+	lsp-headerline-breadcrumb-enable nil
 
 	lsp-enable-file-watchers nil
         lsp-enable-folding nil
 	
 	lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil))
-
-;; install lsp-treemacs to ensure header icons loaded
-(use-package lsp-treemacs
-  :after lsp-mode
-  :hook (lsp-mode . lsp-treemacs-sync-mode)
-  :commands lsp-treemacs-errors-list)
 
 ;; microsoft pyright
 (use-package lsp-pyright

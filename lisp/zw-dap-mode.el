@@ -3,9 +3,10 @@
 ;;; code
 
 (use-package treemacs
-  :commands treemacs
+  :defer t
+  :commands (treemacs treemacs-current)
   :config
-  (defalias 'treemacs 'treemacs-display-current-project-exclusively)
+  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t))
 
@@ -13,6 +14,11 @@
   :after treemacs
   :config
   (treemacs-load-theme "all-the-icons"))
+
+(use-package lsp-treemacs
+  :after lsp-mode
+  :hook (lsp-mode . lsp-treemacs-sync-mode)
+  :commands lsp-treemacs-errors-list)
 
 (use-package dap-mode
   :hook
