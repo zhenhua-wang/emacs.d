@@ -528,10 +528,15 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :bind
   ("C-c =" . imenu-list-smart-toggle)
   :init
-  (setq-default imenu-list-position 'left
-		imenu-list-size 0.2)
   (setq imenu-list-focus-after-activation t)
   :config
+  ;; set window placement
+  (add-to-list 'display-buffer-alist
+               '("\\*Ilist*"
+		 (display-buffer-in-side-window)
+		 (window-width . 0.2)
+		 (side . left)
+		 (slot . -1)))
   ;; set modeline
   (defun zw/imenu-list--set-mode-line ()
     (setq zw/imenu-list-mode-line-format
@@ -945,12 +950,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (side . right)
            (slot . -1)
            (window-width . 0.3))
-	  ;; left side window
-	  ("\\*Ilist*"
-           (display-buffer-in-side-window)
-           (window-width . 0.2)
-           (side . left)
-           (slot . -1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
            ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
