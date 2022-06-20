@@ -532,7 +532,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   ;; set window placement
   (add-to-list 'display-buffer-alist
-               '("\\*Ilist*"
+               '("^\\*Ilist\\*$"
 		 (display-buffer-in-side-window)
 		 (window-width . 0.2)
 		 (side . left)
