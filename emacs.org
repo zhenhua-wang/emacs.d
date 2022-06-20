@@ -532,7 +532,22 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		imenu-list-size 0.2)
   (setq imenu-list-focus-after-activation t)
   :config
-  (defun imenu-list--set-mode-line () nil))
+  (defun imenu-list--set-mode-line () nil)
+  ;; fix eglot
+  (defun imenu-list--current-entry-via-excursion ()
+    (let ((point-pos (point-marker))
+          (offset (point-min-marker))
+          match-entry)
+      (dolist (entry imenu-list--line-entries match-entry)
+	(unless (imenu--subalist-p entry)
+          (let ((entry-pos (save-mark-and-excursion
+                             (imenu entry)
+                             (point))))          
+            (when (imenu-list-<= offset entry-pos point-pos)
+              (setq offset entry-pos)
+              (setq match-entry entry)))))))
+
+  (advice-add #'imenu-list--current-entry :override #'imenu-list--current-entry-via-excursion))
 #+end_src
 
 ** Scroll
