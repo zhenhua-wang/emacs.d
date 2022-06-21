@@ -27,7 +27,7 @@
 	lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
 	lsp-modeline-workspace-status-enable nil
-	lsp-headerline-breadcrumb-enable-diagnostics nil
+	lsp-headerline-breadcrumb-enable nil
 
 	lsp-enable-file-watchers nil
         lsp-enable-folding nil
@@ -35,7 +35,13 @@
 	lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
   :config
-  (setq lsp-response-timeout 0.5))
+  (setq lsp-response-timeout 0.5)
+  :config
+  (defun lsp-update-server ()
+    "Update LSP server."
+    (interactive)
+    ;; Equals to `C-u M-x lsp-install-server'
+    (lsp-install-server t)))
 
 ;; microsoft pyright
 (use-package lsp-pyright
