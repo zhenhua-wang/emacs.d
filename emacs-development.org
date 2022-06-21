@@ -19,6 +19,7 @@
   :hook
   (c++-mode . lsp-deferred)
   (python-mode . lsp-deferred)
+  (ess-r-mode . lsp-deferred)
   (latex-mode . lsp-deferred)
   (LaTeX-mode . lsp-deferred)
   :init
@@ -26,13 +27,15 @@
 	lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
 	lsp-modeline-workspace-status-enable nil
-	lsp-headerline-breadcrumb-enable nil
+	lsp-headerline-breadcrumb-enable-diagnostics nil
 
 	lsp-enable-file-watchers nil
         lsp-enable-folding nil
 	
 	lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil))
+        lsp-enable-on-type-formatting nil)
+  :config
+  (setq lsp-response-timeout 0.5))
 
 ;; microsoft pyright
 (use-package lsp-pyright
@@ -42,8 +45,6 @@
 *** eglot
 #+begin_src emacs-lisp
 (use-package eglot
-  :hook
-  (ess-r-mode . eglot-ensure)
   :config
   (setq eglot-stay-out-of '(flymake))
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
@@ -172,19 +173,12 @@ Here are the polys
 
 (use-package poly-markdown
   :commands (poly-markdown-mode poly-gfm-mode)
-  :mode (("\\.md$" . poly-gfm-mode)
-         ("\\.rmd$" . poly-gfm-mode)
-         ("\\.markdown$" . poly-markdown-mode)))
-
-(use-package poly-noweb
-  :commands poly-noweb-mode)
+  :mode (("\\.md$" . poly-gfm-mode)))
 
 (use-package poly-R
+  :commands (poly-markdown+r-mode)
   :mode (("\\.Rmd" . poly-markdown+r-mode)
-         ("\\.rmd" . poly-markdown+r-mode)
-         ("\\.Rnw" . poly-noweb+r-mode)
-         ("\\.rnw" . poly-noweb+r-mode)
-         ))
+         ("\\.rmd" . poly-markdown+r-mode)))
 #+end_src
 
 ** Python
