@@ -19,6 +19,8 @@
   :hook
   (c++-mode . lsp-deferred)
   (python-mode . lsp-deferred)
+  (latex-mode . lsp-deferred)
+  (LaTeX-mode . lsp-deferred)
   :init
   (setq lsp-keep-workspace-alive nil
 	lsp-modeline-code-actions-enable nil

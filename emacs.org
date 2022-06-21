@@ -1018,9 +1018,9 @@ Auto-Saving Changed Files
 ** Completion
 #+begin_src emacs-lisp
 ;; use company
-;; (require 'zw-company)
+(require 'zw-company)
 ;; use corfu
-(require 'zw-corfu)
+;; (require 'zw-corfu)
 #+end_src
 
 ** Snippets
@@ -1030,7 +1030,7 @@ Auto-Saving Changed Files
   :init (setq yas-snippet-dirs '("~/.emacs.d/yasnippet")))
 
 (use-package ivy-yasnippet
-  :bind ("C-c C-y" . ivy-yasnippet))
+  :bind ("C-c y" . ivy-yasnippet))
 #+end_src
 
 ** Visual regexp

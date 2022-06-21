@@ -42,15 +42,8 @@
                            company-dabbrev))
   :config
   (with-no-warnings
-    ;; custom ess backends
-    ;; (defun my-ess-config ()
-    ;;   (setq-local company-backends
-    ;; 		  '((company-R-args company-R-objects)
-    ;; 		    (company-capf :with company-yasnippet)
-    ;; 		    (company-dabbrev-code company-keywords company-files)
-    ;; 		    company-dabbrev)))
-    ;; (add-hook 'ess-mode-hook #'my-ess-config)
-
+    (with-eval-after-load "ess-mode"
+      (define-key ess-mode-map (kbd "M-<tab>") 'company-R-objects))
     ;; Company anywhere
     ;; @see https://github.com/zk-phi/company-anywhere
     (defun company-anywhere-after-finish (completion)
@@ -145,15 +138,16 @@
   (use-package company-prescient
     :init (company-prescient-mode 1))
 
-  ;; fuzzy search
-  (use-package company-fuzzy
-    :hook
-    (company-mode . company-fuzzy-mode)
-    :init
-    (setq company-fuzzy-sorting-backend 'flx
-          company-fuzzy-prefix-on-top nil
-          company-fuzzy-history-backends '(company-yasnippet)
-          company-fuzzy-trigger-symbols '("." "->" "<" "\"" "'" "@")))
+  ;; ;; fuzzy search
+  ;; (use-package company-fuzzy
+  ;;   :hook
+  ;;   (company-mode . company-fuzzy-mode)
+  ;;   (ess-mode . (lambda () (company-fuzzy-backend-add 'company-R-objects)))
+  ;;   :config
+  ;;   (add-hook 'eglot-managed-mode-hook (lambda ()
+  ;; 					 (setq-local company-backends '(company-fuzzy-all-other-backends))))
+  ;;   (setq company-fuzzy-prefix-on-top t
+  ;; 	  company-fuzzy-trigger-symbols '("." "->" "<" "\"" "'" "@" "$")))
 
   ;; Icons and quickhelp
   (use-package company-box
