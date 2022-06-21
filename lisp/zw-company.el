@@ -18,14 +18,16 @@
          :map company-mode-map
          ("<backtab>" . company-yasnippet)
          :map company-active-map
+	 ("M->" . company-select-last)
+	 ("M-<" . company-select-first)
 	 ("<tab>" . company-complete-selection)
          ("<backtab>" . my-company-yasnippet))
   :hook (after-init . global-company-mode)
   :init
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 12
-	company-tooltip-maximum-width 70
-	company-tooltip-minimum-width 70
+	company-tooltip-minimum-width 20
+	company-tooltip-maximum-width 80
 	company-selection-wrap-around t
         company-idle-delay 0
         company-echo-delay (if (display-graphic-p) nil 0)

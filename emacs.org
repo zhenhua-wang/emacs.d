@@ -1018,9 +1018,9 @@ Auto-Saving Changed Files
 ** Completion
 #+begin_src emacs-lisp
 ;; use company
-(require 'zw-company)
+;; (require 'zw-company)
 ;; use corfu
-;; (require 'zw-corfu)
+(require 'zw-corfu)
 #+end_src
 
 ** Snippets

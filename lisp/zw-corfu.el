@@ -30,6 +30,7 @@
 	corfu-preview-current nil
 	corfu-echo-documentation nil
 	corfu-scroll-margin 5
+	corfu-count 10
 	corfu-min-width 20
 	corfu-max-width 80)
   (defun corfu-enable-in-minibuffer ()
