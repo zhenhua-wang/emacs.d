@@ -56,7 +56,7 @@
   (marginalia-mode . all-the-icons-completion-mode)
   :init
   (setq marginalia-max-relative-age 0
-	marginalia-align 'right))
+	marginalia-align 'center))
 
 ;; Example configuration for Consult
 (use-package consult
