@@ -88,8 +88,18 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
-* General Settings
-** settings
+* General Setting
+** Global variable
+#+begin_src emacs-lisp
+(setq zw/font-size 140)
+(setq zw/default-font "FiraMono Nerd Font")
+(setq zw/font-tab-bar zw/default-font)
+(setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
+(setq zw/font-variable-pitch "Iosevka Aile")
+(setq zw/font-title "Iosevka Aile")
+#+end_src
+
+** Common setting
   #+begin_src emacs-lisp
 (use-package emacs
   :straight (:type built-in)
@@ -124,17 +134,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
   #+end_src
 
-** variables
-#+begin_src emacs-lisp
-(setq zw/font-size 140)
-(setq zw/default-font "FiraMono Nerd Font")
-(setq zw/font-tab-bar zw/default-font)
-(setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
-(setq zw/font-variable-pitch "Iosevka Aile")
-(setq zw/font-title "Iosevka Aile")
-#+end_src
-
-** keybinding
+** Keybinding
 #+begin_src emacs-lisp
 ;; ------------------- key bind ---------------------
 ;; general keybindings
@@ -209,7 +209,7 @@ For host with two factor auth, you need to
 (setq tramp-default-method "ssh")
 #+end_src
 
-** vterm
+** Vterm
 For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
 
 #+begin_src emacs-lisp
@@ -732,8 +732,38 @@ FACE defaults to inheriting from default and highlight."
         visual-fill-column-center-text t))
 #+end_src
 
-* Window management
-*** Window history with winner-mode
+* Window
+** Popper
+#+begin_src emacs-lisp
+(use-package popper
+  :bind (("s-`"   . popper-toggle-latest)
+         ("M-`"   . popper-cycle)
+         ("s-M-`" . popper-toggle-type))
+  :hook
+  (after-init . popper-mode)
+  (popper-mode . popper-echo-mode)
+  :init
+  (setq popper-reference-buffers
+        '("[Oo]utput\\*$"
+          "^\\*Warnings\\*"
+          "^\\*Compile-Log\\*"
+          "^\\*Messages\\*"
+          "^\\*Backtrace\\*"
+          "^\\*ielm\\*"
+          "^\\*Tex Help\\*"
+          "^\\*Shell Command Output\\*"
+          "^\\*Async Shell Command\\*"
+          "^\\*WordNut\\*"
+          "^\\*help[R].*"
+          "^\\*polymode export\\*"
+          help-mode
+          eshell-mode
+	  vterm-mode
+          message-mode
+          compilation-mode)))
+#+end_src
+
+** Window history with winner-mode
 #+begin_src emacs-lisp
 (use-package winner
   :hook (after-init . winner-mode)
@@ -742,7 +772,7 @@ FACE defaults to inheriting from default and highlight."
   ("s-U" . winner-redo))
 #+end_src
 
-*** Window split preference
+** Window split preference
 #+begin_src emacs-lisp
 ;; set preference to horizontal split
 (defun split-window-sensibly-prefer-horizontal (&optional window)
@@ -780,37 +810,7 @@ i.e. windows tiled side-by-side."
       xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal)
 #+end_src
 
-*** Popper
-#+begin_src emacs-lisp
-(use-package popper
-  :bind (("s-`"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("s-M-`" . popper-toggle-type))
-  :hook
-  (after-init . popper-mode)
-  (popper-mode . popper-echo-mode)
-  :init
-  (setq popper-reference-buffers
-        '("[Oo]utput\\*$"
-          "^\\*Warnings\\*"
-          "^\\*Compile-Log\\*"
-          "^\\*Messages\\*"
-          "^\\*Backtrace\\*"
-          "^\\*ielm\\*"
-          "^\\*Tex Help\\*"
-          "^\\*Shell Command Output\\*"
-          "^\\*Async Shell Command\\*"
-          "^\\*WordNut\\*"
-          "^\\*help[R].*"
-          "^\\*polymode export\\*"
-          help-mode
-          eshell-mode
-	  vterm-mode
-          message-mode
-          compilation-mode)))
-#+end_src
-
-*** Control Buffer Placement
+** Control Buffer Placement
 I combine this with =popper.el= now! This is a great feature, as popper turn these buffers to =pop= buffer, so that I could toggle with ~C-`~. Besides =pop= buffer would change my current window placement.
 #+begin_src emacs-lisp
 ;; hook to popper-mode in case popper overwrite this behavior
@@ -945,17 +945,235 @@ Auto-Saving Changed Files
 #+end_src
 
 ** Minibuffer Completion
+*** vertigo
 #+begin_src emacs-lisp
-;; (require 'zw-ivy)
-(require 'zw-vertico)
+(use-package vertico
+  :straight (:files (:defaults "extensions/*")
+		    :includes (vertico-buffer
+			       vertico-directory
+			       vertico-flat
+			       vertico-indexed
+			       vertico-mouse
+			       vertico-quick
+			       vertico-repeat
+			       vertico-reverse))
+  :hook
+  (after-init . vertico-mode)
+  ;; Tidy shadowed file names
+  (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  :init
+  (setq vertico-resize nil
+	vertico-scroll-margin 0
+	vertico-count 12
+	vertico-cycle t)
+  :config
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; extensions
+  (use-package vertico-directory :after vertico :straight nil))
+#+end_src
+
+*** marginalia
+#+begin_src emacs-lisp
+(use-package marginalia
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :hook (vertico-mode . marginalia-mode))
+
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook
+  (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  (marginalia-mode . all-the-icons-completion-mode)
+  :init
+  (setq marginalia-max-relative-age 0
+	marginalia-align 'center))
+#+end_src
+
+*** consult
+#+begin_src emacs-lisp
+(use-package consult
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+	 ("C-x C-d" . consult-dir)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+	 ("s-f" . consult-line)                ;; orig. yank-pop
+         ;; M-g bindings (goto-map)
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g i" . consult-imenu)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s g" . consult-grep)
+	 ("M-s b" . consult-bibtex-open-pdf)
+	 ("M-s y" . consult-yasnippet)
+	 ("M-s c" . consult-flycheck)
+	 :map isearch-mode-map
+         ("M-s" . consult-isearch-history)
+	 :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir))
+
+  :init
+  (setq consult-preview-key nil)
+  :config
+  (consult-customize
+   consult-theme
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-recent-file
+   consult--source-project-recent-file)
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<" ;; (kbd "C-+")
+	consult-line-numbers-widen t
+        consult-async-min-input 2
+        consult-async-refresh-delay  0.15
+        consult-async-input-throttle 0.2
+        consult-async-input-debounce 0.1)
+
+  ;; use projectile in consult
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-function (lambda (_) (projectile-project-root)))
+
+  ;; Preview while using consult-theme
+  (consult-customize consult-theme :preview-key '(:debounce 0.5 any))
+  ;; Preview immediately on M-., on up/down after 0.5s, on any other key after 1s
+  (consult-customize consult-theme
+                     :preview-key
+                     (list (kbd "M-.")
+                           :debounce 0.5 (kbd "<up>") (kbd "<down>")
+                           :debounce 1 'any))
+
+  ;; custom consult packages
+  (use-package consult-yasnippet :after consult)
+  (use-package consult-bibtex :after consult
+    :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
+  (use-package consult-dir :after consult)
+  (use-package  consult-lsp :after consult
+    :config
+    (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
+  (use-package consult-flycheck
+		:after (consult flycheck)))
+#+end_src
+
+*** embark
+#+begin_src emacs-lisp
+(use-package embark
+  :bind
+  (("C-," . embark-act)         ;; pick some comfortable binding
+   ("M-." . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
 #+end_src
 
 ** Code Completion
+*** dabbrev
 #+begin_src emacs-lisp
-;; use company
-;; (require 'zw-company)
-;; use corfu
-(require 'zw-corfu)
+(use-package dabbrev
+  :custom
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace t))
+#+end_src
+
+*** corfu
+#+begin_src emacs-lisp
+(use-package corfu
+  :hook
+  (after-init . global-corfu-mode)
+  :bind
+  (:map corfu-map
+	("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
+        ([escape] . corfu-quit)
+        ([return] . corfu-insert)
+        ("M-d" . corfu-show-documentation)
+        ("M-l" . corfu-show-location)
+	("SPC" . corfu-insert-separator))
+  :init
+  (setq corfu-cycle t
+	corfu-auto t
+	corfu-auto-delay 0
+	corfu-auto-prefix 1
+	corfu-preselect-first t
+	corfu-quit-no-match t
+	corfu-on-exact-match 'insert
+	corfu-preview-current nil
+	corfu-echo-documentation nil
+	corfu-scroll-margin 5
+	corfu-count 10
+	corfu-min-width 20
+	corfu-max-width 80)
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; disable corfu auto in following modes
+  (dolist (hook '(inferior-ess-r-mode-hook))
+    (add-hook hook (lambda () (setq-local corfu-auto nil))))
+  ;; setup corfu in lsp mode
+  (with-eval-after-load 'lsp-mode
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))
+    (setq lsp-completion-provider :none))
+  :config
+  ;; set icon for corfu
+  (require 'kind-all-the-icons)
+  (add-to-list 'corfu-margin-formatters
+               #'kind-all-the-icons-margin-formatter))
+#+end_src
+
+*** corfu doc
+#+begin_src emacs-lisp
+(use-package corfu-doc
+  :hook
+  (corfu-mode . corfu-doc-mode)
+  :bind
+  (:map corfu-map
+        ("M-p" . corfu-doc-scroll-down)
+        ("M-n" . corfu-doc-scroll-up)))
+#+end_src
+
+*** cape
+#+begin_src emacs-lisp
+(use-package cape
+  :after corfu
+  :bind
+  ("C-c f" . cape-file)
+  ("C-c d" . cape-dabbrev)
+  :hook
+  (after-change-major-mode . add-cape-completion)
+  :init
+  (setq cape-dabbrev-min-length 1)
+  (defun add-cape-completion ()
+    ;; Add `completion-at-point-functions', used by `completion-at-point'.
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev t)))
 #+end_src
 
 * Development
