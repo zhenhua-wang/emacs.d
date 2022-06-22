@@ -91,7 +91,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 * General Setting
 ** Global variable
 #+begin_src emacs-lisp
-(setq zw/font-size 160)
+(setq zw/font-size 170)
 (setq zw/font-size-fixed-pitch 140)
 (setq zw/font-size-variable-pitch 140)
 (setq zw/default-font "Ubuntu Mono")
@@ -871,6 +871,11 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (window-width . 0.5)
            (side . right)
            (slot . -1))
+	  ("\\*Man.*"
+           (display-buffer-in-side-window)
+           (window-width . 0.5)
+           (side . right)
+           (slot . -1))
           ("\\*eglot doc.*"
            (display-buffer-in-side-window)
            (window-width . 0.5)
@@ -1058,11 +1063,11 @@ Auto-Saving Changed Files
   (setq consult-preview-key nil)
   :config
   (consult-customize
-   consult-theme
+   consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-recent-file
-   consult--source-project-recent-file)
+   consult--source-project-recent-file :preview-key (kbd "M-."))
 
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
@@ -1099,7 +1104,7 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package embark
   :bind
-  (("C-," . embark-act)         ;; pick some comfortable binding
+  (("M-," . embark-act)         ;; pick some comfortable binding
    ("M-." . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
