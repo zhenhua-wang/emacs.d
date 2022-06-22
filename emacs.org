@@ -427,6 +427,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** iMenu
 #+begin_src emacs-lisp
 (use-package imenu-list
+  ;; don't lazy load this, otherwise its face won't break
   :demand
   :bind
   ("C-c =" . imenu-list-smart-toggle)
