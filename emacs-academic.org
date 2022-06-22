@@ -224,14 +224,11 @@ LSP-mode with TexLab works perfect for Latex docs
 #+end_src
 
 * Bibliography
-** Ivy-bibtex
+** Bibtex-completion
 #+begin_src emacs-lisp
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
-(use-package ivy-bibtex
+(use-package bibtex-completion
   :defer t
-  :bind
-  ;; keys for bib
-  ("H-p" . ivy-bibtex)
   :init
   (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
 	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
@@ -252,7 +249,7 @@ LSP-mode with TexLab works perfect for Latex docs
 (use-package org-ref
   :defer t
   :bind
-  ("H-o" . zw/org-ref-bibtex-hydra/body)
+  ("M-s r" . zw/org-ref-bibtex-hydra/body)
   :init
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
@@ -263,14 +260,6 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5)
   :config
-  (use-package org-ref-ivy
-    :straight (:type built-in)
-    :defer t)
-  (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-	org-ref-insert-cite-function 'org-ref-cite-insert-ivy
-	org-ref-insert-label-function 'org-ref-insert-label-link
-	org-ref-insert-ref-function 'org-ref-insert-ref-link
-	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
   ;; define hydra
   (defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
     "Bibtex actions:
@@ -365,10 +354,10 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
               ispell-program-name "aspell"
               ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
 
-;; Correcting words with flyspell via Ivy
-(use-package flyspell-correct-ivy
+(use-package flyspell-correct
   :after flyspell
-  :bind (:map flyspell-mode-map
-	      ("C-;" . flyspell-correct-wrapper))
-  :init (setq flyspell-correct-interface #'flyspell-correct-ivy))
+  :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
 #+end_src
+
+
+

@@ -73,14 +73,6 @@
         ("M-p" . corfu-doc-scroll-down)
         ("M-n" . corfu-doc-scroll-up)))
 
-;; orderless
-(use-package orderless
-  ;; :after corfu
-  :config
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
-
 ;; Add extensions
 (use-package cape
   :after corfu
@@ -99,4 +91,4 @@
 (provide 'zw-corfu)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; zw-company.el ends here
+;;; zw-corfu.el ends here

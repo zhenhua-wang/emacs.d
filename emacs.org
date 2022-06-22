@@ -168,6 +168,7 @@ My key binding strategy:
 (global-set-key (kbd "<escape>") (kbd "C-g"))
 (global-set-key (kbd "<C-tab>") 'completion-at-point)
 (global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-b"))
 ;; editing
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
@@ -176,12 +177,9 @@ My key binding strategy:
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "s-l") 'goto-line)
-(global-set-key (kbd "s-f") 'isearch-forward)
 (define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
-;; projectile find file
-(global-set-key (kbd "s-p") 'counsel-projectile-switch-project)
 ;; buffer operations
 (global-set-key (kbd "s-q") 'kill-current-buffer)
 ;; window operations
@@ -284,12 +282,19 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
               '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
                 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
                 "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
 		no-littering-var-directory no-littering-etc-directory
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+#+end_src
+
+** Savehist
+#+begin_src emacs-lisp
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :hook (after-init . savehist-mode))
 #+end_src
 
 * Interface Enhancement
@@ -443,83 +448,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
     ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
     (bury-buffer)
     nil))
-#+end_src
-
-** Minibuffer
-*** counsel
-#+begin_src emacs-lisp
-(use-package counsel
-  :diminish ivy-mode counsel-mode
-  :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . switch-to-buffer)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-c i" . counsel-imenu)
-         ("C-c l" . 'counsel-search)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history)
-	 :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
-         ("s-<tab>" . ivy-next-line)
-         ("<backtab>" . ivy-previous-line))
-  :hook ((after-init . ivy-mode)
-         (ivy-mode . counsel-mode))
-  :init
-  (setq enable-recursive-minibuffers t
-	confirm-nonexistent-file-or-buffer t)
-  (setq ivy-wrap t
-	ivy-height 12
-        ivy-use-selectable-prompt t
-        ivy-use-virtual-buffers t    ; Enable bookmarks and recentf
-        ivy-fixed-height-minibuffer t
-        ivy-count-format "[%d/%d] "
-        ivy-ignore-buffers '("\\` " "\\`\\*tramp/" "\\`\\*xref" "\\`\\*helpful "
-                             "\\`\\*.+-posframe-buffer\\*" "\\` ?\\*company-.+\\*")
-        ivy-on-del-error-function #'ignore
-        ivy-initial-inputs-alist nil)
-  :config
-  (setq counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  (if (featurep 'xwidget-internal)
-      (setq browse-url-browser-function 'xwidget-webkit-browse-url))
-  (setq counsel-search-engine 'google))
-#+end_src
-
-*** ivy-rich
-#+begin_src emacs-lisp
-(use-package all-the-icons-ivy-rich
-  :hook (ivy-mode . all-the-icons-ivy-rich-mode)
-  :init (setq all-the-icons-ivy-rich-color-icon t))
-
-(use-package ivy-rich
-  :hook
-  (counsel-mode . ivy-rich-mode)
-  (ivy-rich-mode . ivy-rich-project-root-cache-mode)
-  (ivy-rich-mode . (lambda ()
-                     "Use abbreviate in `ivy-rich-mode'."
-                     (setq ivy-virtual-abbreviate
-                           (or (and ivy-rich-mode 'abbreviate) 'name))))
-  :config
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
-#+end_src
-
-*** ivy better search
-#+begin_src emacs-lisp
-(use-package flx  ;; Improves sorting for fuzzy-matched results
-  :after ivy
-  :init
-  (setq ivy-flx-limit 10000))
-
-;; precscient
-(use-package ivy-prescient
-  :hook
-  (counsel-mode . ivy-prescient-mode)
-  :init
-  (setq ivy-prescient-enable-filtering t))
-
-(use-package prescient
-  :hook
-  (counsel-mode . prescient-persist-mode)
-  :init
-  (setq prescient-sort-length-enable t))
 #+end_src
 
 ** iMenu
@@ -820,7 +748,16 @@ FACE defaults to inheriting from default and highlight."
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))
    #+end_src
-   
+
+*** Which key
+   #+begin_src emacs-lisp
+(use-package which-key
+  :diminish
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+   #+end_src
+
 * Window management
 *** Window history with winner-mode
 #+begin_src emacs-lisp
@@ -968,16 +905,30 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   (setq even-window-sizes nil)))
 #+end_src
 
-* Keys Cheat Sheet
-** Which key
-
-   #+begin_src emacs-lisp
-(use-package which-key
-  :diminish
-  :hook (after-init . which-key-mode)
+* Completion
+** Orderless
+#+begin_src emacs-lisp
+;; orderless
+(use-package orderless
   :config
-  (setq which-key-idle-delay 0.3))
-   #+end_src
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+#+end_src
+
+** Minibuffer Completion
+#+begin_src emacs-lisp
+;; (require 'zw-ivy)
+(require 'zw-vertico)
+#+end_src
+
+** Code Completion
+#+begin_src emacs-lisp
+;; use company
+;; (require 'zw-company)
+;; use corfu
+(require 'zw-corfu)
+#+end_src
 
 * Editing
 ** Undo-tree
@@ -1015,22 +966,11 @@ Auto-Saving Changed Files
   :commands (sudo-edit))
    #+end_src
 
-** Completion
-#+begin_src emacs-lisp
-;; use company
-;; (require 'zw-company)
-;; use corfu
-(require 'zw-corfu)
-#+end_src
-
 ** Snippets
 #+begin_src emacs-lisp
 (use-package yasnippet
   :hook (after-init . yas-global-mode)
   :init (setq yas-snippet-dirs '("~/.emacs.d/yasnippet")))
-
-(use-package ivy-yasnippet
-  :bind ("C-c y" . ivy-yasnippet))
 #+end_src
 
 ** Visual regexp

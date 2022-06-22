@@ -31,6 +31,7 @@
 
 	lsp-enable-file-watchers nil
         lsp-enable-folding nil
+	lsp-enable-text-document-color nil
 	
 	lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
@@ -50,7 +51,9 @@
 
 *** eglot
 #+begin_src emacs-lisp
+;; note enable eglot would override "M-." key to xref
 (use-package eglot
+  :disabled
   :config
   (setq eglot-stay-out-of '(flymake))
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
@@ -246,8 +249,4 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   :init
   (when (file-directory-p "~/Workspace/Documents/Graduate/Mizzou")
     (setq projectile-project-search-path '("~/Workspace/Documents/Graduate/Mizzou"))))
-
-(use-package counsel-projectile
-  :hook (counsel-mode . counsel-projectile-mode)
-  :init (setq counsel-projectile-grep-initial-input '(ivy-thing-at-point)))
 #+end_src
