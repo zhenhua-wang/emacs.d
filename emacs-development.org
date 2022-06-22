@@ -22,6 +22,7 @@
   (ess-r-mode . lsp-deferred)
   (latex-mode . lsp-deferred)
   (LaTeX-mode . lsp-deferred)
+  (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
   (setq lsp-keep-workspace-alive nil
 	lsp-modeline-code-actions-enable nil
@@ -42,7 +43,11 @@
     "Update LSP server."
     (interactive)
     ;; Equals to `C-u M-x lsp-install-server'
-    (lsp-install-server t)))
+    (lsp-install-server t))
+  ;; disable imenu for ess-r-mode
+  (defun disable-lsp-imenu-in-ess-r ()
+    (if (featurep 'ess-r-mode)
+	(setq-local lsp-enable-imenu nil))))
 
 ;; microsoft pyright
 (use-package lsp-pyright
