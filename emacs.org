@@ -427,18 +427,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** iMenu
 #+begin_src emacs-lisp
 (use-package imenu-list
+  :demand
   :bind
   ("C-c =" . imenu-list-smart-toggle)
   :init
   (setq imenu-list-focus-after-activation t)
   :config
   ;; set window placement
-  (add-to-list 'display-buffer-alist
-               '("^\\*Ilist\\*$"
-		 (display-buffer-in-side-window)
-		 (window-width . 0.2)
-		 (side . left)
-		 (slot . -1)))
   ;; set modeline
   (defun zw/imenu-list--set-mode-line ()
     (setq zw/imenu-list-mode-line-format
@@ -861,6 +856,12 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (side . right)
            (slot . -1)
            (window-width . 0.3))
+          ;; left side window
+	  ("^\\*Ilist\\*$"
+	   (display-buffer-in-side-window)
+	   (window-width . 0.2)
+	   (side . left)
+	   (slot . -1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
            ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
@@ -1065,9 +1066,6 @@ Auto-Saving Changed Files
   (use-package consult-bibtex :after consult
     :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
   (use-package consult-dir :after consult)
-  (use-package  consult-lsp :after consult
-    :config
-    (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols))
   (use-package consult-flycheck
 		:after (consult flycheck)))
 #+end_src
