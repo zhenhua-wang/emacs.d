@@ -14,7 +14,9 @@
 (use-package org
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
-  :bind (:map org-mode-map ("C-c =" . nil))
+  :bind (:map org-mode-map
+	      ("C-c =" . nil)
+	      ("C-," . nil))
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -349,6 +351,7 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
   :diminish
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
+  :bind (:map flyspell-mode-map ("C-," . nil))
   :init (setq flyspell-issue-message-flag nil
 	      flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
               ispell-program-name "aspell"

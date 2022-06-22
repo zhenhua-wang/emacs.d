@@ -28,9 +28,9 @@
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
   :init
-  (setq vertico-resize t
+  (setq vertico-resize nil
 	vertico-scroll-margin 0
-	vertico-count 15
+	vertico-count 12
 	vertico-cycle t)
   :config
   ;; Do not allow the cursor in the minibuffer prompt

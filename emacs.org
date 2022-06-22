@@ -38,16 +38,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+end_src
 
 *** use-package
-To update packages, run ~list-packages~ then hit U to mark available upgrades, then x to upgrade.
-
-+ ~:hook~ - package will be loaded the first time one of the hooks is invoked
-+ ~:bind~ - package will be loaded the first time one of the key bindings if used
-+ ~:commands~ - package will be loaded when one of the commands are used
-+ ~:mode~ - package will be loaded the first time a file with a particular extension is opened
-+ ~:after~ - loaded after other specific packages are loaded
-+ ~:defer~ - if no other options apply, defer loading after startup
-+ ~:command~ - must load at init
-
 #+begin_src emacs-lisp
 ;; Install use-package
 (straight-use-package 'use-package)
@@ -72,8 +62,6 @@ To update packages, run ~list-packages~ then hit U to mark available upgrades, t
 #+end_src
 
 ** Keep .emacs.d Clean
-Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
-
 #+begin_src emacs-lisp
 ;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
@@ -100,8 +88,8 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
-* General Emacs Settings
-** modes
+* General Settings
+** settings
   #+begin_src emacs-lisp
 (use-package emacs
   :straight (:type built-in)
@@ -115,30 +103,25 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
   (after-init . fringe-mode)
   :config
   ;; start server mode
-  (server-start))
-  #+end_src
-
-** settings
-  #+begin_src emacs-lisp
-;; cursor
-(setq-default cursor-type 'bar)
-;; save clipboard before kill ring
-(setq save-interprogram-paste-before-kill t)
-(setq-default select-enable-clipboard t)
-;; completion
-(setq completion-cycle-threshold nil)
-(setq tab-always-indent t)
-(setq completions-detailed t)
-(setq completion-ignore-case t)
-;; Revert Dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-;; Use spaces instead of tabs for indentation
-(setq indent-tabs-mode nil)
-;; confirm emacs quit
-(setq confirm-kill-emacs 'yes-or-no-p)
+  (server-start)
+  ;; cursor
+  (setq-default cursor-type 'bar)
+  ;; save clipboard before kill ring
+  (setq save-interprogram-paste-before-kill t)
+  (setq-default select-enable-clipboard t)
+  ;; completion
+  (setq completion-cycle-threshold nil)
+  (setq tab-always-indent t)
+  (setq completions-detailed t)
+  (setq completion-ignore-case t)
+  ;; Revert Dired and other buffers
+  (setq global-auto-revert-non-file-buffers t)
+  ;; Use spaces instead of tabs for indentation
+  (setq indent-tabs-mode nil)
+  ;; confirm emacs quit
+  (setq confirm-kill-emacs 'yes-or-no-p))
 ;; simplify yes no
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
-;; set fringe to 0
   #+end_src
 
 ** variables
@@ -152,15 +135,6 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 #+end_src
 
 ** keybinding
-key bindings in minibuffer will over the ones in major buffer. For example, in EXWM I defined ~s-<tab>~ to be ~switch-to-buffer~. Then, in the ivy's minibuffer, I overwrite ~s-<tab>~ to be navigate through the items in ivy.
-
-My key binding strategy:
-+ super key is used for exwm/frame/window/buffer level commands
-+ super key is also used for some MacOS keys
-+ ctrl key is used for tab level commands
-+ ctrl+x prefix is used for emacs' default commands
-+ ctrl+c prefix is used for custom commands
-
 #+begin_src emacs-lisp
 ;; ------------------- key bind ---------------------
 ;; general keybindings
@@ -297,7 +271,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook (after-init . savehist-mode))
 #+end_src
 
-* Interface Enhancement
+* Interface
 ** Font face
    
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
@@ -359,7 +333,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (zw/set-org-headline))
 #+end_src
 
-** Tab-bar
+** Tab bar
 #+begin_src emacs-lisp
 (tab-bar-mode 1)
 (setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
@@ -513,6 +487,22 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
 #+end_src
+
+** Keybinding Hints
+*** Hydra
+   #+begin_src emacs-lisp
+(use-package hydra
+  :hook (emacs-lisp-mode . hydra-add-imenu))
+   #+end_src
+
+*** Which key
+   #+begin_src emacs-lisp
+(use-package which-key
+  :diminish
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+   #+end_src
 
 ** Visualize
 *** All-the-icons
@@ -742,22 +732,6 @@ FACE defaults to inheriting from default and highlight."
         visual-fill-column-center-text t))
 #+end_src
 
-** Key-bindings
-*** Hydra
-   #+begin_src emacs-lisp
-(use-package hydra
-  :hook (emacs-lisp-mode . hydra-add-imenu))
-   #+end_src
-
-*** Which key
-   #+begin_src emacs-lisp
-(use-package which-key
-  :diminish
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
-   #+end_src
-
 * Window management
 *** Window history with winner-mode
 #+begin_src emacs-lisp
@@ -905,33 +879,8 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   (setq even-window-sizes nil)))
 #+end_src
 
-* Completion
-** Orderless
-#+begin_src emacs-lisp
-;; orderless
-(use-package orderless
-  :config
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
-#+end_src
-
-** Minibuffer Completion
-#+begin_src emacs-lisp
-;; (require 'zw-ivy)
-(require 'zw-vertico)
-#+end_src
-
-** Code Completion
-#+begin_src emacs-lisp
-;; use company
-;; (require 'zw-company)
-;; use corfu
-(require 'zw-corfu)
-#+end_src
-
 * Editing
-** Undo-tree
+** Undo tree
 
    #+begin_src emacs-lisp
 (use-package undo-tree
@@ -948,7 +897,6 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
    #+end_src
    
 ** Auto save
-
 Auto-Saving Changed Files
 
  #+begin_src emacs-lisp
@@ -959,7 +907,7 @@ Auto-Saving Changed Files
   (setq super-save-auto-save-when-idle t))
  #+end_src
 
-** Sudo-edit
+** Sudo edit
    #+begin_src emacs-lisp
 (use-package sudo-edit
   :defer 1
@@ -983,6 +931,31 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package ct
   :defer 3)
+#+end_src
+
+* Completion
+** Orderless
+#+begin_src emacs-lisp
+;; orderless
+(use-package orderless
+  :config
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+** Minibuffer Completion
+#+begin_src emacs-lisp
+;; (require 'zw-ivy)
+(require 'zw-vertico)
+#+end_src
+
+** Code Completion
+#+begin_src emacs-lisp
+;; use company
+;; (require 'zw-company)
+;; use corfu
+(require 'zw-corfu)
 #+end_src
 
 * Development
