@@ -92,9 +92,9 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 ** Global variable
 #+begin_src emacs-lisp
 (setq zw/font-size 140)
-(setq zw/default-font "FiraMono Nerd Font")
+(setq zw/default-font "Roboto Mono Light")
 (setq zw/font-tab-bar zw/default-font)
-(setq zw/font-fixed-pitch "JetBrainsMono Nerd Font")
+(setq zw/font-fixed-pitch "JetBrains Mono")
 (setq zw/font-variable-pitch "Iosevka Aile")
 (setq zw/font-title "Iosevka Aile")
 #+end_src
@@ -129,9 +129,18 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; Use spaces instead of tabs for indentation
   (setq indent-tabs-mode nil)
   ;; confirm emacs quit
-  (setq confirm-kill-emacs 'yes-or-no-p))
-;; simplify yes no
-;; (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq confirm-kill-emacs 'yes-or-no-p)
+  ;; simplify yes no
+  ;; (defalias 'yes-or-no-p 'y-or-n-p)
+  ;; make scratch and dashboard unkillable
+  (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
+  (defun zw/dont-kill-scratch ()
+    (if (not (or (equal (buffer-name) "*scratch*")
+		 (equal (buffer-name) "*dashboard*")))
+	t
+      ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
+      (bury-buffer)
+      nil)))
   #+end_src
 
 ** Keybinding
@@ -412,16 +421,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 	dashboard-set-init-info nil
 	dashboard-set-heading-icons nil
 	dashboard-set-file-icons nil))
-
-;; make scratch and dashboard unkillable
-(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
-(defun zw/dont-kill-scratch ()
-  (if (not (or (equal (buffer-name) "*scratch*")
-	       (equal (buffer-name) "*dashboard*")))
-      t
-    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
-    (bury-buffer)
-    nil))
 #+end_src
 
 ** iMenu
