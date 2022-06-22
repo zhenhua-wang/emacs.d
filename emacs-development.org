@@ -169,6 +169,11 @@ The idea is to run poly-R/markdown within the markdown mode
 #+begin_src emacs-lisp
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
+  :hook (markdown-mode . (lambda ()
+			     (setq-local buffer-face-mode-face
+				   (list ':family zw/font-fixed-pitch
+					 ':height zw/font-size-fixed-pitch))
+			     (buffer-face-mode 1)))
   :custom
   (markdown-fontify-code-blocks-natively t)
   (markdown-header-scaling t)

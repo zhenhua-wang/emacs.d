@@ -91,8 +91,10 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 * General Setting
 ** Global variable
 #+begin_src emacs-lisp
-(setq zw/font-size 140)
-(setq zw/default-font "Roboto Mono Light")
+(setq zw/font-size 160)
+(setq zw/font-size-fixed-pitch 140)
+(setq zw/font-size-variable-pitch 140)
+(setq zw/default-font "Ubuntu Mono")
 (setq zw/font-fixed-pitch "JetBrains Mono")
 (setq zw/font-variable-pitch "Iosevka Aile")
 (setq zw/font-title "Iosevka Aile")
@@ -281,27 +283,46 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 * Interface
 ** Font face
-   
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
                        :font zw/default-font
                        ;; make fonts less tranparent
-                       :weight 'medium
+                       ;; :weight 'medium
                        :height zw/font-size)
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
                     :font zw/font-fixed-pitch
                     :weight 'normal
-                    :height zw/font-size)
+                    :height zw/font-size-fixed-pitch)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
                     :font zw/font-variable-pitch
                     :weight 'light
-                    :height zw/font-size)
+                    :height zw/font-size-variable-pitch)
+
+;; Use variable width font faces in current buffer
+(defun zw/buffer-face-mode-variable ()
+  "Set font to a variable width (proportional) fonts in current buffer"
+  (interactive)
+  (setq buffer-face-mode-face
+	(list ':family zw/font-variable-pitch ':height zw/font-size-variable-pitch))
+  (buffer-face-mode))
+
+;; Use monospaced font faces in current buffer
+(defun zw/buffer-face-mode-fixed ()
+  "Sets a fixed width (monospace) font in current buffer"
+  (interactive)
+  (setq buffer-face-mode-face
+	(list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
+  (buffer-face-mode))
+
+;; Set default font faces for Info and ERC modes
+(add-hook 'text-mode-hook 'zw/buffer-face-mode-variable)
+(add-hook 'prog-mode-hook 'zw/buffer-face-mode-fixed)
 #+end_src
 
 ** Theme
@@ -410,6 +431,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package dashboard
   :bind
   (:map dashboard-mode-map ("<tab>" . dashboard-return))
+  :hook (dashboard-mode . (lambda ()
+			    (setq buffer-face-mode-face
+				    (list ':family zw/font-fixed-pitch
+					  ':height zw/font-size-fixed-pitch))
+			    (buffer-face-mode)))
   :init
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 1
