@@ -93,7 +93,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+begin_src emacs-lisp
 (setq zw/font-size 140)
 (setq zw/default-font "Roboto Mono Light")
-(setq zw/font-tab-bar zw/default-font)
 (setq zw/font-fixed-pitch "JetBrains Mono")
 (setq zw/font-variable-pitch "Iosevka Aile")
 (setq zw/font-title "Iosevka Aile")
@@ -358,13 +357,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :background (face-background 'mode-line)
                       :underline "#950b96"
 		      :box (face-background 'mode-line)
-                      :font zw/font-tab-bar)
+                      :font zw/default-font)
   (set-face-attribute 'tab-bar-tab-inactive nil
 		      :foreground (face-foreground 'default)
                       :background (face-background 'mode-line)
                       :underline nil
 		      :box (face-background 'mode-line)
-                      :font zw/font-tab-bar)
+                      :font zw/default-font)
   (set-face-attribute 'tab-bar nil
 		      :background (face-background 'mode-line)))
 ;; set tab-bar theme
