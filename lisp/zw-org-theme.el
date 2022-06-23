@@ -26,24 +26,25 @@
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline t)))))))
 
 (custom-theme-set-faces
-   'user
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
-   ;; '(org-latex-and-related ((t (:foreground "#EBCB8B"))))
-   ;; hight code blocks
-   '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
-                                           :bold t :height 1.0))))
-   '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
-                                         :bold t :height 1.0)))))
+ 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t (:foreground "dark orange"))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-link ((t (:foreground "royal blue" :underline t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+ ;; '(org-latex-and-related ((t (:foreground "#EBCB8B"))))
+ ;; hight code blocks
+ '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+                                         :bold t :height 1.0))))
+ '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+                                       :bold t :height 1.0)))))
 
 (provide 'zw-org-theme)
+;;; zw-org-theme.el ends here
