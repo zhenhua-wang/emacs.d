@@ -186,11 +186,6 @@
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :hook
-  (markdown-mode . (lambda ()
-		     (setq-local buffer-face-mode-face
-				 (list ':family zw/font-fixed-pitch
-				       ':height zw/font-size-fixed-pitch))
-		     (buffer-face-mode 1)))
   (markdown-mode-hook . adaptive-wrap-prefix-mode)
   :init
   (setq markdown-enable-math t
@@ -224,9 +219,7 @@ LSP-mode with TexLab works perfect for Latex docs
    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
    TeX-save-query nil)
   ;; revert the PDF-buffer after the TeX compilation has finished
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-  (add-hook 'TeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode))
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package cdlatex
   :disabled

@@ -325,6 +325,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; Set default font faces for Info and ERC modes
 (add-hook 'text-mode-hook 'zw/buffer-face-mode-variable)
 (add-hook 'prog-mode-hook 'zw/buffer-face-mode-fixed)
+(add-hook 'markdown-mode-hook 'zw/buffer-face-mode-fixed)
+(add-hook 'latex-mode-hook 'zw/buffer-face-mode-fixed)
+(add-hook 'LaTeX-mode-hook 'zw/buffer-face-mode-fixed)
 #+end_src
 
 ** Theme
