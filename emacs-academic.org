@@ -120,7 +120,7 @@
                   (format "Prepare local buffer environment for org source block (%s)."
                           (upcase ,lang))))))))
   (defvar org-babel-lang-list
-    '("ess-r" "R" "python"))
+    '("ess-r" "R" "python" "latex"))
   (dolist (lang org-babel-lang-list)
     (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
@@ -167,6 +167,11 @@
   (org-appear-autoentities t)
   (org-appear-autokeywords t)
   (org-appear-inside-latex t))
+
+;; toggle inline latex
+(use-package org-fragtog
+  :hook
+  (org-mode . org-fragtog-mode))
 #+end_src
 
 ** Org-auto-tangle

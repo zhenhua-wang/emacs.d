@@ -17,25 +17,24 @@
 (use-package lsp-mode
   :commands (lsp lsp-org)
   :hook
-  (c++-mode . lsp-deferred)
   (python-mode . lsp-deferred)
+  (c++-mode . lsp-deferred)
   (ess-r-mode . lsp-deferred)
-  (latex-mode . lsp-deferred)
-  (LaTeX-mode . lsp-deferred)
+  ((latex-mode LaTeX-mode) . lsp-deferred)
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
   (setq lsp-keep-workspace-alive t
-	lsp-modeline-code-actions-enable nil
+        lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
-	lsp-modeline-workspace-status-enable nil
-	lsp-headerline-breadcrumb-enable nil
-	lsp-signature-render-documentation nil
-	
-	lsp-enable-file-watchers nil
+        lsp-modeline-workspace-status-enable nil
+        lsp-headerline-breadcrumb-enable nil
+        lsp-signature-render-documentation nil
+
+        lsp-enable-file-watchers nil
         lsp-enable-folding nil
-	lsp-enable-text-document-color nil
-	
-	lsp-enable-indentation nil
+        lsp-enable-text-document-color nil
+
+        lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
   :config
   (defun lsp-update-server ()
@@ -46,7 +45,7 @@
   ;; disable imenu for ess-r-mode
   (defun disable-lsp-imenu-in-ess-r ()
     (if (featurep 'ess-r-mode)
-	(setq-local lsp-enable-imenu nil))))
+        (setq-local lsp-enable-imenu nil))))
 
 ;; microsoft pyright
 (use-package lsp-pyright
@@ -57,11 +56,23 @@
 #+begin_src emacs-lisp
 ;; note enable eglot would override "M-." key to xref
 (use-package eglot
-  :disabled
+  :commands (eglot)
   :config
   (setq eglot-stay-out-of '(flymake))
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))
+#+end_src
+
+*** lsp-bridge
+#+begin_src emacs-lisp :tangle "no"
+(add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
+(use-package posframe)
+(require 'lsp-bridge)
+(setq lsp-bridge-enable-log t)
+(setq lsp-bridge-org-babel-lang-list nil)
+;; adding hook
+(add-hook 'python-mode-hook 'lsp-bridge-mode)
+(setq corfu-excluded-modes '(python-mode))
 #+end_src
 
 ** Flycheck
@@ -103,7 +114,6 @@
    #+end_src
    
 ** Clean whitespace
-
    #+begin_src emacs-lisp
 (use-package ws-butler
   :hook
