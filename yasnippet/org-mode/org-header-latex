@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: latex template
+# key: <header-latex
+# --
+
+#+TITLE: ${1:title}
+#+SUBTITLE: ${2:subtitle}
+#+AUTHOR: Zhenhua Wang
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [letterpaper]
+#+SETUPFILE: ~/.emacs.d/OrgFiles/LatexTemplates/zw-latex-standard.setup
+#+OPTIONS: toc:nil
+
+$0

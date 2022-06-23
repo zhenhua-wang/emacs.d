@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: python source code
+# key: <py
+# --
+
+#+ATTR_LATEX: :options frame=lines
+#+begin_src python :session :results output :exports both :file lsp-src.py
+$0
+#+end_src

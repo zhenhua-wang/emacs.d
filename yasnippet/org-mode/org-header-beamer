@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer template
-# key: <beamer
+# key: <header-beamer
 # --
 
 #+title: ${1:title}
