@@ -258,9 +258,10 @@ LSP-mode with TexLab works perfect for Latex docs
 
 ;; auto async preview latex
 (use-package xenops
-  :hook
-  (latex-mode . xenops-mode)
-  (LaTeX-mode . xenops-mode)
+  ;; :hook
+  ;; (latex-mode . xenops-mode)
+  ;; (LaTeX-mode . xenops-mode)
+  :commands (xenops-mode)
   :config
   (setq xenops-reveal-on-entry nil))
 #+end_src
