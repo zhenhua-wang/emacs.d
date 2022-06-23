@@ -1211,7 +1211,6 @@ Auto-Saving Changed Files
   :hook
   (after-change-major-mode . add-cape-completion)
   :init
-  (setq cape-dabbrev-min-length 1)
   (defun add-cape-completion ()
     ;; Add `completion-at-point-functions', used by `completion-at-point'.
     (add-to-list 'completion-at-point-functions #'cape-file)
