@@ -20,20 +20,19 @@
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
-  (org-mode . org-indent-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
    org-ellipsis " ▾"
-   org-pretty-entities nil
+   org-pretty-entities t
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
    org-edit-src-content-indentation 2
-   ;; preview latex, etc at startup
+   ;; helps to indent python code in org mode
+   org-src-preserve-indentation t
    org-startup-folded  t;;'content
    org-confirm-babel-evaluate nil
-   org-src-preserve-indentation t    ; helps to indent python code in org mode
    org-src-tab-acts-natively t
    org-src-strip-leading-and-trailing-blank-lines t
    ;; show edit buffer below the current window, keeping all
@@ -153,11 +152,21 @@
 (use-package org-modern-indent
   :straight `(org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
   :hook
-  (org-indent-mode . org-modern-indent-mode))
+  (org-mode . org-indent-mode)
+  (org-indent-mode . org-modern-indent-mode)
+  :init
+  ; use org-indent but don't indent, just to show src lines
+  (setq org-indent-indentation-per-level 0))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
-  :hook (org-mode . org-appear-mode))
+  :hook (org-mode . org-appear-mode)
+  :custom
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  (org-appear-autoentities t)
+  (org-appear-autokeywords t)
+  (org-appear-inside-latex t))
 #+end_src
 
 ** Org-auto-tangle
