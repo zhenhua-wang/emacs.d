@@ -20,6 +20,7 @@
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
+  (org-mode . org-indent-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
@@ -136,6 +137,11 @@
   :hook (org-mode . org-modern-mode)
   :config
   (defun org-modern--block-fringe () nil))
+
+(use-package org-modern-indent
+  :straight `(org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
+  :hook
+  (org-indent-mode . org-modern-indent-mode))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear

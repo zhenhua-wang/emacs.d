@@ -33,7 +33,7 @@
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
  '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
  '(org-link ((t (:foreground "royal blue" :underline t))))
- '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-meta-line ((t (:inherit (bold fixed-pitch) :weight bold))))
  '(org-property-value ((t (:inherit fixed-pitch))) t)
  '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
  '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
@@ -41,10 +41,12 @@
  '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
  ;; '(org-latex-and-related ((t (:foreground "#EBCB8B"))))
  ;; hight code blocks
- '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
-                                         :bold t :height 1.0))))
- '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
-                                       :bold t :height 1.0)))))
+ ;; '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+ ;;                                         :bold t :height 1.0))))
+ ;; '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
+ ;;                                       :bold t :height 1.0))))
+ '(org-block-begin-line ((t (:extend t :bold t :italic t))))
+ '(org-block-end-line ((t (:extend t :bold t :italic t)))))
 
 (provide 'zw-org-theme)
 ;;; zw-org-theme.el ends here
