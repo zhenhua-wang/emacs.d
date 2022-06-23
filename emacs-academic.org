@@ -225,6 +225,14 @@ LSP-mode with TexLab works perfect for Latex docs
               ("$" . nil)
               ("`" . nil)
               ("{" . nil)
+              ("[" . nil)
+	      :map org-cdlatex-mode-map
+              ;; ("TAB" . indent-for-tab-command)
+              ;; ("<C-tab>" . cdlatex-tab)
+              ;; turn off auto pairing
+              ("$" . nil)
+              ("`" . nil)
+              ("{" . nil)
               ("[" . nil))
   :hook
   (org-mode . turn-on-org-cdlatex)
