@@ -431,6 +431,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Dashboard
 #+begin_src emacs-lisp
 (use-package dashboard
+  :disabled
   :bind
   (:map dashboard-mode-map ("<tab>" . dashboard-return))
   :init

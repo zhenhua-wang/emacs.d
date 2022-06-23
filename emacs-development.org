@@ -37,8 +37,6 @@
 	lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil)
   :config
-  (setq lsp-response-timeout 0.5)
-  :config
   (defun lsp-update-server ()
     "Update LSP server."
     (interactive)
@@ -163,47 +161,6 @@
   (setq ess-smart-equals-padding-right 'none))
 #+end_src
 
-** Polymode
-The idea is to run poly-R/markdown within the markdown mode
-
-#+begin_src emacs-lisp
-(use-package markdown-mode
-  :commands (markdown-mode gfm-mode)
-  :hook (markdown-mode . (lambda ()
-			     (setq-local buffer-face-mode-face
-				   (list ':family zw/font-fixed-pitch
-					 ':height zw/font-size-fixed-pitch))
-			     (buffer-face-mode 1)))
-  :custom
-  (markdown-fontify-code-blocks-natively t)
-  (markdown-header-scaling t)
-  (markdown-enable-math t)
-  :config
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode))
-#+end_src
-
-Here are the polymodes
-#+begin_src emacs-lisp
-(use-package polymode
-  :commands polymode-mode
-  :init
-  ;; disable this for now because of reverse-typing issue in poly-R
-  (setq polymode-lsp-integration nil))
-
-(use-package adaptive-wrap)
-
-(use-package poly-markdown
-  :commands (poly-markdown-mode poly-gfm-mode)
-  :mode
-  ("\\.md$" . poly-gfm-mode))
-
-(use-package poly-R
-  :commands (poly-markdown+r-mode)
-  :mode
-  ("\\.[rR]md\\'" . poly-gfm+r-mode))
-#+end_src
-
 ** Python
 *** Pyvenv
 In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
@@ -225,7 +182,47 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (setq-default web-mode-attribute-indent-offset 2))
 #+end_src
 
-** Data
+* Literate programming
+** Markdown
+#+begin_src emacs-lisp
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :hook (markdown-mode . (lambda ()
+			     (setq-local buffer-face-mode-face
+				   (list ':family zw/font-fixed-pitch
+					 ':height zw/font-size-fixed-pitch))
+			     (buffer-face-mode 1)))
+  :custom
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-header-scaling t)
+  (markdown-enable-math t)
+  :config
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode))
+#+end_src
+
+** Polymode
+#+begin_src emacs-lisp
+(use-package polymode
+  :commands polymode-mode
+  :init
+  ;; disable this for now because of reverse-typing issue in poly-R
+  (setq polymode-lsp-integration nil))
+
+(use-package adaptive-wrap)
+
+(use-package poly-markdown
+  :commands (poly-markdown-mode poly-gfm-mode)
+  :mode
+  ("\\.md$" . poly-gfm-mode))
+
+(use-package poly-R
+  :commands (poly-markdown+r-mode)
+  :mode
+  ("\\.[rR]md\\'" . poly-gfm+r-mode))
+#+end_src
+
+* Data
 *** CSV mode
 #+begin_src emacs-lisp
 (use-package csv-mode
