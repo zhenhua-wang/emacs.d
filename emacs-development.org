@@ -29,7 +29,8 @@
         lsp-modeline-diagnostics-enable nil
 	lsp-modeline-workspace-status-enable nil
 	lsp-headerline-breadcrumb-enable nil
-
+	lsp-signature-render-documentation nil
+	
 	lsp-enable-file-watchers nil
         lsp-enable-folding nil
 	lsp-enable-text-document-color nil
