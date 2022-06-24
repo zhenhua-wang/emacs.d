@@ -346,7 +346,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 	modus-themes-completions '((matches . (extrabold))
                                    (selection . (semibold accented))
                                    (popup . (accented intense)))
-	modus-themes-org-blocks 'tinted-background
+	modus-themes-org-blocks 'gray-background
 	modus-themes-scale-headings t
 	modus-themes-headings '((1 . (rainbow overline background 1.4))
 				(2 . (rainbow background 1.3))
