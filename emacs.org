@@ -1071,11 +1071,11 @@ Auto-Saving Changed Files
 	 ("M-s b" . consult-bibtex-open-pdf)
 	 ("M-s y" . consult-yasnippet)
 	 ("M-s c" . consult-flycheck)
+	 ("M-s m" . consult-minor-mode-menu)
 	 :map isearch-mode-map
          ("M-s" . consult-isearch-history)
 	 :map minibuffer-local-completion-map
          ("C-x C-d" . consult-dir))
-
   :init
   (setq consult-preview-key nil)
   :config
