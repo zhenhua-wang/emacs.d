@@ -24,7 +24,6 @@
   :config
   (setq
    org-ellipsis " ▾"
-   org-pretty-entities t
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
@@ -155,12 +154,14 @@
   (org-mode . org-indent-mode)
   (org-indent-mode . org-modern-indent-mode)
   :init
-  ; use org-indent but don't indent, just to show src lines
+  ;; use org-indent but don't indent, just to show src lines
   (setq org-indent-indentation-per-level 0))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
+  :init
+  (setq org-pretty-entities t)
   :custom
   (org-appear-autolinks t)
   (org-appear-autosubmarkers t)
