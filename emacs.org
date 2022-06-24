@@ -357,13 +357,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (modus-themes-load-operandi)
   :bind ("<f5>" . zw/modus-themes-toggle))
 
-(defun zw/modus-themes-toggle ()
+(defun zw/update-theme ()
   (interactive)
-  (modus-themes-toggle)
   (zw/modeline-theme)
   (zw/tab-bar-theme)
   (zw/set-org-headline)
   (zw/set-md-headline))
+
+(defun zw/modus-themes-toggle ()
+  (interactive)
+  (modus-themes-toggle)
+  (zw/update-theme))
 #+end_src
 
 ** Tab bar
