@@ -312,7 +312,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq xenops-reveal-on-entry nil))
 #+end_src
 
-* Bibliography
+* References
 ** Bibtex-completion
 #+begin_src emacs-lisp
 (setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
@@ -404,7 +404,7 @@ LSP-mode with TexLab works perfect for Latex docs
     ("q" nil)))
 #+end_src
 
-* Reading
+* Readers
 #+begin_src emacs-lisp
 ;; epub
 (use-package nov
@@ -435,7 +435,7 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
    ("C-c W" . wordnut-lookup-current-word)))
 #+end_src
 
-* Flyspell
+* Spellchecker
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell
