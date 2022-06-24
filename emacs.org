@@ -97,7 +97,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (setq zw/font-size-dashboard 200)
 (setq zw/default-font "Ubuntu Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
-(setq zw/font-variable-pitch "ETBembo")
+(setq zw/font-variable-pitch "ETBembo Italic")
 (setq zw/font-title "ETBembo")
 (setq zw/font-dashboard "Ubuntu")
 #+end_src
