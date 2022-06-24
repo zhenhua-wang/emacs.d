@@ -145,6 +145,8 @@
 #+begin_src emacs-lisp
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
+  :init
+  (setq org-modern-table nil)
   :config
   (defun org-modern--block-fringe () nil))
 
@@ -314,9 +316,9 @@ LSP-mode with TexLab works perfect for Latex docs
 ** Org-ref
 #+begin_src emacs-lisp
 (use-package org-ref
-  :defer t
   :bind
   ("H-b" . zw/org-ref-bibtex-hydra/body)
+  ("H-c" . org-ref-insert-cite-link)
   :init
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
