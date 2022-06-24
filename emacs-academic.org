@@ -149,6 +149,7 @@
   (defun org-modern--block-fringe () nil))
 
 (use-package org-modern-indent
+  :disabled
   :straight `(org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
   :hook
   (org-mode . org-indent-mode)

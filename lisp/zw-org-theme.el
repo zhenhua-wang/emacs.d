@@ -41,12 +41,8 @@
  '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
  '(org-latex-and-related ((t (:inherit (shadow fixed-pitch))))) ;;  :foreground "#EBCB8B"
  ;; hight code blocks
- ;; '(org-block-begin-line ((t (:background "#4C566A" :foreground "#bfbfbf"
- ;;                                         :bold t :height 1.0))))
- ;; '(org-block-end-line ((t (:background "#4C566A" :foreground "#bfbfbf"
- ;;                                       :bold t :height 1.0))))
- '(org-block-begin-line ((t (:extend t :bold t :italic t))))
- '(org-block-end-line ((t (:extend t :bold t :italic t)))))
+ '(org-block-begin-line ((t (:extend t :bold t :italic t :underline nil :overline t))))
+ '(org-block-end-line ((t (:extend t :bold t :italic t :underline t :overline nil)))))
 
 (provide 'zw-org-theme)
 ;;; zw-org-theme.el ends here
