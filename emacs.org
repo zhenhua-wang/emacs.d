@@ -1047,6 +1047,7 @@ Auto-Saving Changed Files
          ("C-c k" . consult-kmacro)
          ;; C-x bindings (ctl-x-map)
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+	 ("C-x C-b" . consult-buffer)
 	 ("C-x C-d" . consult-dir)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
