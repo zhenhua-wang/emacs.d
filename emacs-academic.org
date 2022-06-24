@@ -339,7 +339,7 @@ LSP-mode with TexLab works perfect for Latex docs
   :commands (org-ref-find-bibliography)
   :bind
   ("H-b" . zw/org-ref-bibtex-hydra/body)
-  ("H-c" . org-ref-insert-cite-link)
+  ("H-r" . org-ref-insert-link-hydra/body)
   :init
   ;; require this to export citations in org-mode
   (require 'org-ref-citation-links)
@@ -351,6 +351,8 @@ LSP-mode with TexLab works perfect for Latex docs
 	bibtex-autokey-titlewords 2
 	bibtex-autokey-titlewords-stretch 1
 	bibtex-autokey-titleword-length 5)
+  ;; export org-ref labels
+  (setq org-latex-prefer-user-labels t)
   :config
   ;; define hydra
   (defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
