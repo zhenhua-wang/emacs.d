@@ -55,75 +55,6 @@
   (setq org-highlight-latex-and-related '(latex entities)))
 #+end_src
 
-** Org-babel
-#+begin_src emacs-lisp
-;; set org babel languages
-(with-eval-after-load 'org
-  ;; defer load org babel languages
-  (require 'ob-teximg)
-  (use-package ob-lisp
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:lisp))
-  (use-package ob-latex
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:latex))
-  (use-package ob-R
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:R))
-  (use-package ob-python
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:python))
-  (use-package ob-shell
-    :defer t
-    :straight (:type built-in)
-    :commands
-    (org-babel-execute:sh
-     org-babel-expand-body:sh))
-
-  ;; alias ess-r to R
-  (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
-  (defalias 'org-babel-ess-r-initiate-session
-    'org-babel-R-initiate-session)
-
-  ;; This is needed as of Org 9.2 (use yasnippet instead)
-  (require 'org-tempo)
-  ;; (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
-  
-  ;; enable lsp-org inside src block
-  (cl-defmacro lsp-org-babel-enable (lang)
-    "Support LANG in org source code block."
-    (setq centaur-lsp 'lsp-mode)
-    (cl-check-type lang stringp)
-    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
-      `(progn
-	 (defun ,intern-pre (info)
-           (let ((file-name (->> info caddr (alist-get :file))))
-             (unless file-name
-               (setq file-name (make-temp-file "babel-lsp-")))
-             (setq buffer-file-name file-name)
-             (lsp-deferred)))
-	 (put ',intern-pre 'function-documentation
-              (format "Enable lsp-mode in the buffer of org source block (%s)."
-                      (upcase ,lang)))
-	 (if (fboundp ',edit-pre)
-             (advice-add ',edit-pre :after ',intern-pre)
-           (progn
-             (defun ,edit-pre (info)
-               (,intern-pre info))
-             (put ',edit-pre 'function-documentation
-                  (format "Prepare local buffer environment for org source block (%s)."
-                          (upcase ,lang))))))))
-  (defvar org-babel-lang-list
-    '("ess-r" "R" "python" "latex"))
-  (dolist (lang org-babel-lang-list)
-    (eval `(lsp-org-babel-enable ,lang))))
-#+end_src
-
 ** Org-export
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
@@ -225,6 +156,95 @@
   (zw/set-md-headline))
 #+end_src
 
+* Literate programming
+** Org-babel
+#+begin_src emacs-lisp
+;; set org babel languages
+(with-eval-after-load 'org
+  ;; defer load org babel languages
+  (require 'ob-teximg)
+  (use-package ob-lisp
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:lisp))
+  (use-package ob-latex
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:latex))
+  (use-package ob-R
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:R))
+  (use-package ob-python
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:python))
+  (use-package ob-shell
+    :defer t
+    :straight (:type built-in)
+    :commands
+    (org-babel-execute:sh
+     org-babel-expand-body:sh))
+
+  ;; alias ess-r to R
+  (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
+  (defalias 'org-babel-ess-r-initiate-session
+    'org-babel-R-initiate-session)
+
+  ;; This is needed as of Org 9.2 (use yasnippet instead)
+  (require 'org-tempo)
+  ;; (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
+  
+  ;; enable lsp-org inside src block
+  (cl-defmacro lsp-org-babel-enable (lang)
+    "Support LANG in org source code block."
+    (setq centaur-lsp 'lsp-mode)
+    (cl-check-type lang stringp)
+    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+      `(progn
+	 (defun ,intern-pre (info)
+           (let ((file-name (->> info caddr (alist-get :file))))
+             (unless file-name
+               (setq file-name (make-temp-file "babel-lsp-")))
+             (setq buffer-file-name file-name)
+             (lsp-deferred)))
+	 (put ',intern-pre 'function-documentation
+              (format "Enable lsp-mode in the buffer of org source block (%s)."
+                      (upcase ,lang)))
+	 (if (fboundp ',edit-pre)
+             (advice-add ',edit-pre :after ',intern-pre)
+           (progn
+             (defun ,edit-pre (info)
+               (,intern-pre info))
+             (put ',edit-pre 'function-documentation
+                  (format "Prepare local buffer environment for org source block (%s)."
+                          (upcase ,lang))))))))
+  (defvar org-babel-lang-list
+    '("ess-r" "R" "python" "latex"))
+  (dolist (lang org-babel-lang-list)
+    (eval `(lsp-org-babel-enable ,lang))))
+#+end_src
+
+** Polymode
+#+begin_src emacs-lisp
+(use-package polymode
+  :commands polymode-mode
+  :init
+  ;; disable this for now because of reverse-typing issue in poly-R
+  (setq polymode-lsp-integration nil))
+
+(use-package poly-markdown
+  :commands (poly-markdown-mode poly-gfm-mode)
+  :mode
+  ("\\.md$" . poly-gfm-mode))
+
+(use-package poly-R
+  :commands (poly-markdown+r-mode)
+  :mode
+  ("\\.[rR]md\\'" . poly-gfm+r-mode))
+#+end_src
+
 * Latex
 
 LSP-mode with TexLab works perfect for Latex docs
@@ -321,6 +341,7 @@ LSP-mode with TexLab works perfect for Latex docs
   ("H-b" . zw/org-ref-bibtex-hydra/body)
   ("H-c" . org-ref-insert-cite-link)
   :init
+  ;; require this to export citations in org-mode
   (require 'org-ref-citation-links)
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
