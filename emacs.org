@@ -1104,9 +1104,10 @@ Auto-Saving Changed Files
     :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
   (use-package consult-dir :after consult)
   (use-package consult-flycheck
-		:after (consult flycheck))
-  ;; use this for now untill consult have its web-search
-  (use-package google-this :bind ("C-c l" . google-this-search)))
+		:after (consult flycheck)))
+
+;; use this for now untill consult have its web-search
+(use-package google-this :bind ("C-c l" . google-this-search))
 #+end_src
 
 *** embark
