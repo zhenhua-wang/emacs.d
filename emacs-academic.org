@@ -316,10 +316,12 @@ LSP-mode with TexLab works perfect for Latex docs
 ** Org-ref
 #+begin_src emacs-lisp
 (use-package org-ref
+  :commands (org-ref-find-bibliography)
   :bind
   ("H-b" . zw/org-ref-bibtex-hydra/body)
   ("H-c" . org-ref-insert-cite-link)
   :init
+  (require 'org-ref-citation-links)
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
 	bibtex-autokey-year-length 4
 	bibtex-autokey-name-year-separator "-"
