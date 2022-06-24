@@ -197,8 +197,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
      (setq mac-option-modifier 'meta))))
 #+end_src
 
-#+RESULTS:
-: meta
 * Integration
 ** Exec-path-from-shell
 #+begin_src emacs-lisp
@@ -358,14 +356,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; Load the theme of your choice:
   (modus-themes-load-operandi)
   :bind ("<f5>" . zw/modus-themes-toggle))
-
-(with-eval-after-load 'org
-  (require 'zw-org-theme)
-  (zw/set-org-headline))
-
-(with-eval-after-load 'markdown-mode
-  (require 'zw-md-theme)
-  (zw/set-md-headline))
 
 (defun zw/modus-themes-toggle ()
   (interactive)
