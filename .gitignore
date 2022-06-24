@@ -9,6 +9,7 @@ network-security.data
 projectile-bookmarks.eld
 emacs-desktop.el
 emacs-development.el
+emacs-plain-config.org
 emacs-plain-config.el
 emacs-academic.el
 emacs-system.el
