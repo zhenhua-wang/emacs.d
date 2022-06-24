@@ -1106,7 +1106,7 @@ Auto-Saving Changed Files
   (use-package consult-flycheck
 		:after (consult flycheck))
   ;; use this for now untill consult have its web-search
-  (use-package web-search :bind ("C-c l" . web-search)))
+  (use-package google-this :bind ("C-c l" . google-this-search)))
 #+end_src
 
 *** embark
