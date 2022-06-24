@@ -1096,7 +1096,7 @@ Auto-Saving Changed Files
 
   ;; custom consult packages
   (use-package consult-yasnippet :after consult :commands (consult-yasnippet))
-  (use-package consult-bibtex :after consult :commands (consult-bibtex)
+  (use-package consult-bibtex :after consult
     :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
   (use-package consult-dir :after consult)
   (use-package consult-flycheck
