@@ -341,117 +341,36 @@ My key binding strategy:
 
 
 * Test
-** lsp-mode
-  #+begin_src emacs-lisp
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-(use-package lsp-mode
-  :commands (lsp lsp-org)
-  :hook
-  (c++-mode . lsp-deferred)
-  (python-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
-  (latex-mode . lsp-deferred)
-  (LaTeX-mode . lsp-deferred)
-  :init
-  (setq lsp-keep-workspace-alive t
-	lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable nil
-	lsp-modeline-workspace-status-enable nil
-	lsp-headerline-breadcrumb-enable nil
-
-	lsp-enable-file-watchers nil
-        lsp-enable-folding nil
-	lsp-enable-text-document-color nil
-	
-	lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil)
-  :config
-  (setq lsp-response-timeout 0.5))
-
-;; microsoft pyright
-(use-package lsp-pyright
-  :after lsp-mode)
-  #+end_src
-  
-** R
+** Corfu
 #+begin_src emacs-lisp
-(use-package ess
-  :defer t
-  :commands R
-  :config
-  (require 'ess-site)
-  ;; fix freezing in macos by creating your process using pipe
-  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
-  ;; (setq process-connection-type nil)
-  (setq ess-ask-for-ess-directory nil
-	ess-style 'RStudio
-	ess-local-process-name "R"
-	ansi-color-for-comint-mode 'filter
-	comint-scroll-to-bottom-on-input t
-	comint-scroll-to-bottom-on-output t
-	ess-use-company nil
-	ess-use-flymake nil
-	comint-move-point-for-output t
-	ess-eval-visibly-p 'nowait
-	ess-R-font-lock-keywords
-	'((ess-R-fl-keyword:keywords   . t)
-	  (ess-R-fl-keyword:constants  . t)
-	  (ess-R-fl-keyword:modifiers  . t)
-	  (ess-R-fl-keyword:fun-defs   . t)
-	  (ess-R-fl-keyword:assign-ops . t)
-	  (ess-R-fl-keyword:%op%       . t)
-	  (ess-fl-keyword:fun-calls    . t)
-	  (ess-fl-keyword:delimiters . t)
-	  (ess-fl-keyword:operators . t)
-	  (ess-fl-keyword:numbers)
-	  (ess-R-fl-keyword:F&T . t)
-	  (ess-fl-keyword:= . t))))
-
-(use-package ess-smart-equals
-  :after (:any ess-r-mode inferior-ess-r-mode ess-r-transcript-mode)
-  :hook ((ess-r-mode . ess-smart-equals-mode)
-         (inferior-ess-r-mode . ess-smart-equals-mode)
-         (ess-r-transcript-mode . ess-smart-equals-mode)
-         (ess-roxy-mode . ess-smart-equals-mode))
-  :config
-  (setq ess-smart-equals-padding-left 'some-space)
-  (setq ess-smart-equals-padding-right 'none))
-#+end_src
-
-** Polymode
-The idea is to run poly-R/markdown within the markdown mode
-
-#+begin_src emacs-lisp
-(use-package markdown-mode
-  :commands (markdown-mode gfm-mode)
-  :hook (markdown-mode . (lambda ()
-			     (setq-local buffer-face-mode-face
-				   (list ':family zw/font-fixed-pitch
-					 ':height zw/font-size-fixed-pitch))
-			     (buffer-face-mode 1)))
+(use-package corfu
+  ;; Optional customizations
   :custom
-  (markdown-fontify-code-blocks-natively t)
-  (markdown-header-scaling t)
-  (markdown-enable-math t)
-  :config
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode))
-#+end_src
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-quit-no-match t)      ;; Never quit, even if there is no match
+  (corfu-preview-current nil)    ;; Disable current candidate preview
+  (corfu-preselect-first nil)    ;; Disable candidate preselection
+  (corfu-on-exact-match 'insert)     ;; Configure handling of exact matches
+  (corfu-echo-documentation nil) ;; Disable documentation in the echo area
+  (corfu-scroll-margin 5)        ;; Use scroll margin
+  :init
+  (global-corfu-mode))
 
-Here are the polys
-#+begin_src emacs-lisp
-(use-package polymode
-  :commands polymode-mode)
-
-(use-package adaptive-wrap)
-
-(use-package poly-markdown
-  :commands (poly-markdown-mode poly-gfm-mode)
-  :mode (("\\.md$" . poly-gfm-mode)))
-
-(use-package poly-R
-  :commands (poly-markdown+r-mode)
-  :mode (("\\.Rmd" . poly-gfm+r-mode)
-         ("\\.rmd" . poly-gfm+r-mode)))
+(use-package cape
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+)
 #+end_src
