@@ -303,7 +303,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
                     :font zw/font-variable-pitch
-                    :weight 'thin
+                    :weight 'light
                     :height zw/font-size-variable-pitch)
 
 ;; Use variable width font faces in current buffer
