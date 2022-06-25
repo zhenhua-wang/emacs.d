@@ -13,4 +13,6 @@
 #+LATEX_HEADER: \metroset{block=fill}
 #+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
 
+-----
+
 $0
