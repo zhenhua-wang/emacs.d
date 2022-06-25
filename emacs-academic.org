@@ -23,21 +23,21 @@
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
+   ;; init appearance
    org-ellipsis " ▾"
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
    org-edit-src-content-indentation 2
-   ;; helps to indent python code in org mode
-   org-src-preserve-indentation t
-   org-startup-folded  t;;'content
+   org-startup-folded  t               ;'content
+   org-image-actual-width nil          ; use user defined image size
+   org-src-strip-leading-and-trailing-blank-lines t
+      
+   ;; init org-babel
+   org-src-preserve-indentation t      ; helps to indent python code in org mode
    org-confirm-babel-evaluate nil
    org-src-tab-acts-natively t
-   org-src-strip-leading-and-trailing-blank-lines t
-   ;; show edit buffer below the current window, keeping all
-   org-src-window-setup 'split-window-below
-   ;; use user defined image size
-   org-image-actual-width nil)
+   org-src-window-setup 'split-window-below)
   ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)

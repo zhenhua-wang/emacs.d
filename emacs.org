@@ -372,7 +372,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Tab bar
 #+begin_src emacs-lisp
-(tab-bar-mode 1)
 (setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
 (setq tab-bar-new-tab-choice "*scratch*")
 (setq tab-bar-new-button-show nil)
@@ -397,8 +396,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		      :background (face-background 'mode-line)))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
-;; add numbers before tab
-
+;; display battery to the right
+(setq tab-bar-format '(tab-bar-format-history
+		       tab-bar-format-tabs
+		       tab-bar-separator
+		       tab-bar-format-align-right
+		       tab-bar-format-global))
+(display-battery-mode 1)
+(tab-bar-mode 1)
 #+end_src
 
 ** Modeline
