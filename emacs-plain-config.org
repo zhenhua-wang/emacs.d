@@ -1,4 +1,3 @@
-
 #+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
@@ -335,5 +334,46 @@ My key binding strategy:
 (require 'zw-ivy)
 #+end_src
 
+* Modeline
+#+begin_src emacs-lisp
+(use-package doom-modeline
+  :hook
+  (after-init . doom-modeline-mode))
+#+end_src
 
-* Test
+* Tab-bar
+#+begin_src emacs-lisp
+(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+;; this should be placed after theme, since theme would overwrite these attributes
+(defun zw/tab-bar-theme ()
+  (interactive)
+  (set-face-attribute 'tab-bar-tab nil
+                      ;; :background (face-background 'mode-line)
+		      :foreground (face-foreground 'default)
+                      :background (face-background 'mode-line)
+                      :underline "#950b96"
+		      :box (face-background 'mode-line))
+  (set-face-attribute 'tab-bar-tab-inactive nil
+		      :foreground (face-foreground 'default)
+                      :background (face-background 'mode-line)
+                      :underline nil
+		      :box (face-background 'mode-line))
+  (set-face-attribute 'tab-bar nil
+		      :background (face-background 'mode-line)))
+;; set tab-bar theme
+(zw/tab-bar-theme)
+;; display battery to the right
+(setq tab-bar-format '(tab-bar-format-history
+		       tab-bar-format-tabs
+		       tab-bar-separator
+		       tab-bar-format-align-right
+		       tab-bar-format-global))
+(display-battery-mode 1)
+(tab-bar-mode 1)
+#+end_src
+
+
+
