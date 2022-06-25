@@ -151,7 +151,8 @@
 #+end_src
 
 * Literate Programming
-** Init Org-babel
+** Org-babel
+*** init
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
   ;; init org-babel
@@ -196,7 +197,7 @@
   )
 #+end_src
 
-** Org-babel lsp
+*** enable lsp
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
   ;; enable lsp-org inside src block
