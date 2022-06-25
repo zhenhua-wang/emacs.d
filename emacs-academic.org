@@ -31,13 +31,7 @@
    org-edit-src-content-indentation 2
    org-startup-folded  t               ;'content
    org-image-actual-width nil          ; use user defined image size
-   org-src-strip-leading-and-trailing-blank-lines t
-      
-   ;; init org-babel
-   org-src-preserve-indentation t      ; helps to indent python code in org mode
-   org-confirm-babel-evaluate nil
-   org-src-tab-acts-natively t
-   org-src-window-setup 'split-window-below)
+   org-src-strip-leading-and-trailing-blank-lines t)
   ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
@@ -157,10 +151,15 @@
 #+end_src
 
 * Literate Programming
-** Org-babel
+** Init Org-babel
 #+begin_src emacs-lisp
-;; set org babel languages
 (with-eval-after-load 'org
+  ;; init org-babel
+  (setq org-src-window-setup 'split-window-below
+	org-src-preserve-indentation t      ; helps to indent python code in org mode
+	org-confirm-babel-evaluate nil
+	org-src-tab-acts-natively t)
+  
   ;; defer load org babel languages
   (require 'ob-teximg)
   (use-package ob-lisp
@@ -190,11 +189,16 @@
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
   (defalias 'org-babel-ess-r-initiate-session
     'org-babel-R-initiate-session)
-
+  
   ;; This is needed as of Org 9.2 (use yasnippet instead)
   (require 'org-tempo)
   ;; (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
-  
+  )
+#+end_src
+
+** Org-babel lsp
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
   ;; enable lsp-org inside src block
   (cl-defmacro lsp-org-babel-enable (lang)
     "Support LANG in org source code block."

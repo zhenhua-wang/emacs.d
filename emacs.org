@@ -442,7 +442,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; show that the R is running in inferior ess R mode
   (add-hook 'inferior-ess-mode-hook
 	    (lambda ()
-              (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings))))))
+              (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings)))))
+  ;; hide battery on modeline and show it on tab-bar
+  (remove-hook 'display-battery-mode-hook #'doom-modeline-override-battery-modeline)
+  (remove-hook 'doom-modeline-mode-hook #'doom-modeline-override-battery-modeline))
 #+end_src
 
 ** Dashboard
@@ -528,6 +531,41 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (image-mode . iscroll-mode)
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
+#+end_src
+
+** Posframe
+#+begin_src emacs-lisp
+(use-package posframe
+  :hook ((after-load-theme . posframe-delete-all)
+         ((after-load-theme server-after-make-frame) . my-set-posframe-faces))
+  :init
+  (defface posframe-border
+    `((t (:background ,(face-foreground 'shadow nil t))))
+    "Face used by the `posframe' border."
+    :group 'posframe)
+
+  (defun my-set-posframe-faces ()
+    "Set `posframe' faces."
+    (custom-set-faces
+     `(posframe-border ((t (:background ,(face-foreground 'shadow nil t)))))))
+
+  (with-eval-after-load 'persp-mode
+    (add-hook 'persp-load-buffer-functions
+              (lambda (&rest _)
+                (posframe-delete-all))))
+  :config
+  (with-no-warnings
+    (defun my-posframe--prettify-frame (&rest _)
+      (set-face-background 'fringe nil posframe--frame))
+    (advice-add #'posframe--create-posframe :after #'my-posframe--prettify-frame)
+
+    (defun posframe-poshandler-frame-center-near-bottom (info)
+      (cons (/ (- (plist-get info :parent-frame-width)
+                  (plist-get info :posframe-width))
+               2)
+            (/ (+ (plist-get info :parent-frame-height)
+                  (* 2 (plist-get info :font-height)))
+               2)))))
 #+end_src
 
 ** Keybinding Hints
@@ -778,9 +816,9 @@ FACE defaults to inheriting from default and highlight."
 ** Popper
 #+begin_src emacs-lisp
 (use-package popper
-  :bind (("s-`"   . popper-toggle-latest)
+  :bind (("C-`"   . popper-toggle-latest)
          ("M-`"   . popper-cycle)
-         ("s-M-`" . popper-toggle-type))
+         ("C-M-`" . popper-toggle-type))
   :hook
   (after-init . popper-mode)
   (popper-mode . popper-echo-mode)
