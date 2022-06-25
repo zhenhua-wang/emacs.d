@@ -2,7 +2,6 @@
 # name: beamer template
 # key: <header-beamer
 # --
-
 #+title: ${1:title}
 #+AUTHOR: Zhenhua Wang
 #+EMAIL:     zhenhua.wang@mail.missouri.edu

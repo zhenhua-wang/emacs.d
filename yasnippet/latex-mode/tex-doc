@@ -2,7 +2,6 @@
 # name: tex document template
 # key: <tex
 # --
-
 \documentclass[11pt]{article}
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{mathtools}

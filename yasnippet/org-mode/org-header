@@ -2,7 +2,6 @@
 # name: org header
 # key: <header
 # --
-
 #+title: ${1:title}
 #+author: Zhenhua Wang
 #+SETUPFILE: ~/Workspace/templates/org-themes/src/simple_whiteblue/simple_whiteblue.theme

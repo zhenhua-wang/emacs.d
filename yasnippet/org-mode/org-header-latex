@@ -2,7 +2,6 @@
 # name: latex template
 # key: <header-latex
 # --
-
 #+TITLE: ${1:title}
 #+SUBTITLE: ${2:subtitle}
 #+AUTHOR: Zhenhua Wang
