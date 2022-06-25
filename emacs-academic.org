@@ -156,7 +156,7 @@
   (zw/set-md-headline))
 #+end_src
 
-* Literate programming
+* Literate Programming
 ** Org-babel
 #+begin_src emacs-lisp
 ;; set org babel languages
@@ -426,7 +426,8 @@ LSP-mode with TexLab works perfect for Latex docs
 	pdf-annot-activate-created-annotations t))
 #+end_src
 
-* dictionary
+* Dictionary
+** Wordnut
 you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
 #+begin_src emacs-lisp
 (use-package wordnut
@@ -435,7 +436,7 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
    ("C-c W" . wordnut-lookup-current-word)))
 #+end_src
 
-* Spellchecker
+** Flyspell
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell

@@ -177,10 +177,9 @@
 In order for =pyvenv= to find the envirment in anaconda, you need to first properly initialize it. For example, you may run ~conda install pip~ and conda would figured out some necessary pacakges it need.
 #+begin_src emacs-lisp
 (use-package pyvenv
-  :hook ((python-mode . pyvenv-mode))
+  :hook ((after-init . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
-  (pyvenv-mode 1))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs")))
 #+end_src
 
 ** Web
