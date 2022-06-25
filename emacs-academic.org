@@ -25,13 +25,12 @@
   (setq
    ;; init appearance
    org-ellipsis " ▾"
+   org-startup-folded  t               ;'content
+   org-image-actual-width nil          ; use user defined image size
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
-   org-edit-src-content-indentation 2
-   org-startup-folded  t               ;'content
-   org-image-actual-width nil          ; use user defined image size
-   org-src-strip-leading-and-trailing-blank-lines t)
+   org-edit-src-content-indentation 2)
   ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
