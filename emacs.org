@@ -403,11 +403,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		       tab-bar-format-align-right
 		       tab-bar-format-global))
 (require 'battery)
-(when (and battery-status-function
-       (not (string-match-p "N/A"
-                (battery-format "%B"
-                        (funcall battery-status-function)))))
-  (display-battery-mode 1))
+(setq have-battery-status-p
+      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+    (and perc-charged
+         (not (zerop (string-to-number (cdr perc-charged)))))))
+(if have-battery-status-p
+    (display-battery-mode 1))
 (tab-bar-mode 1)
 #+end_src
 
