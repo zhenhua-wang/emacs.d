@@ -93,7 +93,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+begin_src emacs-lisp
 (setq zw/font-size 170)
 (setq zw/font-size-fixed-pitch 140)
-(setq zw/font-size-variable-pitch 170)
+(setq zw/font-size-variable-pitch 180)
 (setq zw/font-size-dashboard 200)
 (setq zw/default-font "Ubuntu Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
@@ -1203,10 +1203,19 @@ Auto-Saving Changed Files
         ("M-l" . corfu-show-location)
 	("SPC" . corfu-insert-separator))
   :init
+  ;; fast aggressive auto completion
+  (defun orderless-fast-dispatch (word index total)
+    (and (= index 0) (= total 1) (length< word 4)
+	 `(orderless-regexp . ,(concat "^" (regexp-quote word)))))
+  (orderless-define-completion-style orderless-fast
+    (orderless-dispatch '(orderless-fast-dispatch))
+    (orderless-matching-styles '(orderless-literal orderless-regexp)))
+  
   (setq corfu-cycle t
 	corfu-auto t
 	corfu-auto-delay 0
-	corfu-auto-prefix 1
+	corfu-auto-prefix 0
+	completion-styles '(orderless-fast)
 	corfu-preselect-first t
 	corfu-quit-no-match t
 	corfu-on-exact-match 'insert
