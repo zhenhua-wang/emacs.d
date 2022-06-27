@@ -158,7 +158,7 @@
 	  (ess-fl-keyword:fun-calls    . t)
 	  (ess-fl-keyword:delimiters . t)
 	  (ess-fl-keyword:operators . t)
-	  (ess-fl-keyword:numbers)
+	  (ess-fl-keyword:numbers . t)
 	  (ess-R-fl-keyword:F&T . t)
 	  (ess-fl-keyword:= . t))))
 
@@ -171,6 +171,9 @@
   :config
   (setq ess-smart-equals-padding-left 'some-space)
   (setq ess-smart-equals-padding-right 'none))
+
+(use-package ess-view-data
+  :hook (ess-r-mode . ess-view-data-mode))
 #+end_src
 
 ** Python
