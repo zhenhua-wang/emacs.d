@@ -71,7 +71,18 @@
 ;; adding hook
 (add-hook 'python-mode-hook 'lsp-bridge-mode)
 (setq corfu-excluded-modes '(python-mode))
-(setq acm-enable-doc nil)
+(setq acm-enable-doc nil
+      acm-candidate-match-function 'orderless-prefixes)
+;; acm keys
+(define-key acm-mode-map (kbd "M->") 'acm-select-last)
+(define-key acm-mode-map (kbd "M-<") 'acm-select-first)
+;; acm font
+(set-face-attribute 'acm-select-face nil
+		    :bold t
+		    :foreground (face-foreground
+				 'default)
+		    :background (face-background
+				 'modus-themes-completion-selected))
 #+end_src
 
 ** Flycheck
