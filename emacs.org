@@ -278,7 +278,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :hook (after-init . savehist-mode))
+  :hook (after-init . savehist-mode)
+  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+		history-length 1000))
 #+end_src
 
 * Interface
