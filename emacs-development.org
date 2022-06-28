@@ -134,6 +134,8 @@
 (use-package ess
   :defer t
   :commands R
+  :bind (:map ess-r-mode-map
+	      ("M-<tab>" . ess-complete-object-name))
   :config
   (require 'ess-site)
   ;; fix freezing in macos by creating your process using pipe
