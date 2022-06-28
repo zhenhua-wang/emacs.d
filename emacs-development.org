@@ -72,6 +72,7 @@
 (add-hook 'python-mode-hook 'lsp-bridge-mode)
 (setq corfu-excluded-modes '(python-mode))
 (setq acm-enable-doc nil
+      acm-backend-lsp-enable-auto-import nil
       acm-candidate-match-function 'orderless-prefixes)
 ;; acm keys
 (define-key acm-mode-map (kbd "M->") 'acm-select-last)
@@ -82,7 +83,7 @@
 		    :foreground (face-foreground
 				 'default)
 		    :background (face-background
-				 'modus-themes-completion-selected))
+				 'modus-themes-completion-selected-popup))
 #+end_src
 
 ** Flycheck
