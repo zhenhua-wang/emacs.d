@@ -1,0 +1,3 @@
+[submodule "lisp/lsp-bridge"]
+	path = lisp/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git

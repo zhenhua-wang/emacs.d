@@ -17,7 +17,7 @@
 (use-package lsp-mode
   :commands (lsp lsp-org)
   :hook
-  (python-mode . lsp-deferred)
+  ;; (python-mode . lsp-deferred)
   (c++-mode . lsp-deferred)
   (ess-r-mode . lsp-deferred)
   ((latex-mode LaTeX-mode) . lsp-deferred)
@@ -65,15 +65,13 @@
 #+end_src
 
 *** lsp-bridge
-#+begin_src emacs-lisp :tangle "no"
+#+begin_src emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
-(use-package posframe)
 (require 'lsp-bridge)
-(setq lsp-bridge-enable-log t)
-(setq lsp-bridge-org-babel-lang-list nil)
 ;; adding hook
 (add-hook 'python-mode-hook 'lsp-bridge-mode)
 (setq corfu-excluded-modes '(python-mode))
+(setq acm-enable-doc nil)
 #+end_src
 
 ** Flycheck
