@@ -23,7 +23,8 @@
   ((latex-mode LaTeX-mode) . lsp-deferred)
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
-  (setq lsp-keep-workspace-alive nil
+  (setq lsp-auto-guess-root t
+	lsp-keep-workspace-alive nil
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
