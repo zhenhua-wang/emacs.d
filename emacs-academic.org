@@ -41,8 +41,8 @@
        (setq org-latex-create-formula-image-program 'dvisvgm))))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "orange red" :weight bold))
-          ("DONE" . (:foreground "green" :weight bold))))
+        '(("TODO" . (:inherit fixed-pitch :foreground "orange red" :weight bold))
+          ("DONE" . (:inherit fixed-pitch :foreground "green" :weight bold))))
 
   ;; latex '(latex script entities)
   (setq org-highlight-latex-and-related '(latex entities)))
@@ -70,7 +70,8 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-table nil)
+  (setq org-modern-table nil
+	org-modern-todo nil)
   :config
   (defun org-modern--block-fringe () nil))
 
