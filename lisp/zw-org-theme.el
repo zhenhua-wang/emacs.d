@@ -2,11 +2,6 @@
 
 ;;; code
 
-;; Replace list hyphen with dot
-(font-lock-add-keywords 'org-mode
-                        '(("^ *\\([-]\\) "
-                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
 (defun zw/set-org-headline ()
   (let* (
 	 (variable-tuple (list ':font zw/font-title))
@@ -25,21 +20,22 @@
      `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75 :foreground "#5e81ac"))))
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline t))))))
 
-  (custom-theme-set-faces
-   'user
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch) :foreground "#242F9B" :background "#E8F9FD"))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (bold fixed-pitch) :weight bold))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch) :foreground "#B25068" :background "#FFEDDB"))))
-   '(org-latex-and-related ((t (:inherit (shadow fixed-pitch))))))
+  ;; setup fixed pitch fonts
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-meta-line nil :inherit '(bold fixed-pitch))
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch) :foreground "#242F9B" :background "#E8F9FD")
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch) :foreground "#B25068" :background "#FFEDDB")
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch :foreground "#83a598")
+  (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-latex-and-related nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-link nil :inherit 'fixed-pitch :foreground "royal blue" :underline t)
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-property-value nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-tag nil :inherit '(shadow fixed-pitch) :weight 'bold :height 0.8)
+  (set-face-attribute 'org-document-info nil :foreground "dark orange")
+  (set-face-attribute 'org-document-info-keyword nil :inherit '(shadow fixed-pitch))
+
   ;; hight code blocks
   (set-face-attribute 'org-block-begin-line nil
 		      :foreground "#4c566a"
