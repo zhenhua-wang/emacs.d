@@ -171,9 +171,6 @@
   :config
   (setq ess-smart-equals-padding-left 'some-space)
   (setq ess-smart-equals-padding-right 'none))
-
-(use-package ess-view-data
-  :hook (ess-r-mode . ess-view-data-mode))
 #+end_src
 
 ** Python

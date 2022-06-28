@@ -536,8 +536,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Posframe
 #+begin_src emacs-lisp
 (use-package posframe
-  :hook ((after-load-theme . posframe-delete-all)
-         ((after-load-theme server-after-make-frame) . my-set-posframe-faces))
   :init
   (defface posframe-border
     `((t (:background ,(face-foreground 'shadow nil t))))
