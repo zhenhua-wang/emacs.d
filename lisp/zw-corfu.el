@@ -71,7 +71,10 @@
   :bind
   (:map corfu-map
         ("M-p" . corfu-doc-scroll-down)
-        ("M-n" . corfu-doc-scroll-up)))
+        ("M-n" . corfu-doc-scroll-up)
+	("M-d" . corfu-doc-toggle))
+  :config
+  (setq corfu-doc-auto nil))
 
 ;; Add extensions
 (use-package cape
