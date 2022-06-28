@@ -1203,10 +1203,20 @@ Auto-Saving Changed Files
         ("M-l" . corfu-show-location)
 	("SPC" . corfu-insert-separator))
   :init
+  ;; fast prefix filtering
+  (defun orderless-fast-dispatch (word index total)
+    (and (= index 0) (= total 1) (length< word 4)
+       `(orderless-regexp . ,(concat "^" (regexp-quote word)))))
+
+  (orderless-define-completion-style orderless-fast
+    (orderless-dispatch '(orderless-fast-dispatch))
+    (orderless-matching-styles '(orderless-literal orderless-regexp)))
+
   (setq corfu-cycle t
 	corfu-auto t
 	corfu-auto-delay 0
 	corfu-auto-prefix 1
+	completion-styles '(orderless-fast)
 	corfu-preselect-first t
 	corfu-quit-no-match t
 	corfu-on-exact-match 'insert
