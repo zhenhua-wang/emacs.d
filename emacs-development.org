@@ -65,12 +65,12 @@
 #+end_src
 
 *** lsp-bridge
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle "no"
 (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
 (require 'lsp-bridge)
 ;; adding hook
-;; (add-hook 'python-mode-hook 'lsp-bridge-mode)
-;; (setq corfu-excluded-modes '(python-mode))
+(add-hook 'python-mode-hook 'lsp-bridge-mode)
+(setq corfu-excluded-modes '(python-mode))
 (setq acm-enable-doc nil
       acm-backend-lsp-enable-auto-import nil
       acm-candidate-match-function 'orderless-prefixes)
