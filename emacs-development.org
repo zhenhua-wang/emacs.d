@@ -152,7 +152,8 @@
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
   (setq ess-ask-for-ess-directory nil
-	ess-style 'RStudio
+	ess-nuke-trailing-whitespace-p t
+	ess-style 'DEFAULT
 	ess-local-process-name "R"
 	ansi-color-for-comint-mode 'filter
 	comint-scroll-to-bottom-on-input t
