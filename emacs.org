@@ -93,7 +93,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+begin_src emacs-lisp
 (setq zw/font-size 170)
 (setq zw/font-size-fixed-pitch 140)
-(setq zw/font-size-variable-pitch 180)
+(setq zw/font-size-variable-pitch 200)
 (setq zw/font-size-dashboard 200)
 (setq zw/default-font "Ubuntu Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"

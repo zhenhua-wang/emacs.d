@@ -15,10 +15,10 @@
      `(org-level-6 ((t (,@headline ,@variable-tuple))))
      `(org-level-5 ((t (,@headline ,@variable-tuple))))
      `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1 :italic t :slant italic))))
-     `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25 :foreground "#d08770"))))
-     `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.50 :foreground "#446A46"))))
-     `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75 :foreground "#5e81ac"))))
-     `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline t))))))
+     `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.125 :foreground "#d08770"))))
+     `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.25 :foreground "#446A46"))))
+     `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.5 :foreground "#5e81ac"))))
+     `(org-document-title ((t (,@headline ,@variable-tuple :height 1.625 :underline t))))))
 
   ;; setup fixed pitch fonts
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
