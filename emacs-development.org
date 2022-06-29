@@ -17,7 +17,7 @@
 (use-package lsp-mode
   :commands (lsp lsp-org)
   :hook
-  ;; (python-mode . lsp-deferred)
+  (python-mode . lsp-deferred)
   (c++-mode . lsp-deferred)
   (ess-r-mode . lsp-deferred)
   ((latex-mode LaTeX-mode) . lsp-deferred)
@@ -69,8 +69,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
 (require 'lsp-bridge)
 ;; adding hook
-(add-hook 'python-mode-hook 'lsp-bridge-mode)
-(setq corfu-excluded-modes '(python-mode))
+;; (add-hook 'python-mode-hook 'lsp-bridge-mode)
+;; (setq corfu-excluded-modes '(python-mode))
 (setq acm-enable-doc nil
       acm-backend-lsp-enable-auto-import nil
       acm-candidate-match-function 'orderless-prefixes)
@@ -120,6 +120,7 @@
 
    #+begin_src emacs-lisp
 (use-package highlight-indent-guides
+  :disabled
   :hook ((prog-mode . highlight-indent-guides-mode))
   :custom
   (highlight-indent-guides-method 'character))
