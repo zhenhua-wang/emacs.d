@@ -509,6 +509,15 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (advice-add #'imenu-list--current-entry :override #'imenu-list--current-entry-via-excursion))
 #+end_src
 
+** Helpful
+#+begin_src emacs-lisp
+(use-package helpful
+  :bind
+  ("C-h f" . helpful-callable)
+  ("C-h v" . helpful-variable)
+  ("C-h k" . helpful-key))
+#+end_src
+
 ** Scroll
 #+begin_src emacs-lisp
 ;; Mouse & Smooth Scroll
