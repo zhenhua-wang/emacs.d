@@ -399,11 +399,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; set tab-bar theme
 (zw/tab-bar-theme)
 ;; display battery to the right
-(setq tab-bar-format '(tab-bar-format-history
+(setq tab-bar-format '(tab-bar-format-menu-bar
+		       tab-bar-format-history
 		       tab-bar-format-tabs
 		       tab-bar-separator
 		       tab-bar-format-align-right
 		       tab-bar-format-global))
+;; show battery
 (require 'battery)
 (setq have-battery-status-p
       (let ((perc-charged (assoc ?p (funcall battery-status-function))))
@@ -411,6 +413,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
          (not (zerop (string-to-number (cdr perc-charged)))))))
 (if have-battery-status-p
     (display-battery-mode 1))
+;; show menu
+(defun tab-bar-format-menu-bar ()
+  "Produce the Menu button for the tab bar that shows the menu bar."
+  `((menu-bar menu-item (propertize " •" 'face 'tab-bar)
+              tab-bar-menu-bar :help "Menu Bar")))
+
 (tab-bar-mode 1)
 #+end_src
 
