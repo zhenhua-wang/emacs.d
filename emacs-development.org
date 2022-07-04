@@ -195,7 +195,9 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 (use-package pyvenv
   :hook ((after-init . pyvenv-mode))
   :config
-  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs")))
+  (setenv "WORKON_HOME" (concat (exec-path-from-shell-copy-env "CONDA_PREFIX") "/envs"))
+  ;; restart python when the virtual environment changes
+  (add-hook 'pyvenv-post-activate-hooks #'pyvenv-restart-python))
 #+end_src
 
 ** Web
