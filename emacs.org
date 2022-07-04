@@ -826,8 +826,8 @@ FACE defaults to inheriting from default and highlight."
   (org-mode . visual-fill-column-mode)
   (markdown-mode . visual-fill-column-mode)
   :init
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t))
+  (setq-default visual-fill-column-center-text t
+		visual-fill-column-width 100))
 #+end_src
 
 * Window
