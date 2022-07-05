@@ -830,6 +830,17 @@ FACE defaults to inheriting from default and highlight."
 		visual-fill-column-width 100))
 #+end_src
 
+*** Writeroom-mode
+#+begin_src emacs-lisp
+(use-package writeroom-mode
+  :commands (writeroom-mode)
+  :hook
+  (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
+  (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
+  :config
+  (setq writeroom-fullscreen-effect 'maximized))
+#+end_src
+
 * Window
 ** Popper
 #+begin_src emacs-lisp
