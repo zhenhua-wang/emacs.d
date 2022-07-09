@@ -250,6 +250,23 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (zw/set-vterm-color))
 #+end_src
 
+** Dired
+#+begin_src emacs-lisp
+(use-package dired-single
+  :config
+  (define-key dired-mode-map [remap dired-find-file]
+	      'dired-single-buffer)
+  (define-key dired-mode-map [remap dired-mouse-find-file-other-window]
+	      'dired-single-buffer-mouse)
+  (define-key dired-mode-map [remap dired-up-directory]
+	      'dired-single-up-directory))
+
+(use-package all-the-icons-dired
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode)
+  :init (setq all-the-icons-dired-monochrome nil))
+#+end_src
+
 ** Openwith
 #+begin_src emacs-lisp
 (use-package openwith

@@ -202,6 +202,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 
 ** Web
 #+begin_src emacs-lisp
+;; Web
 (use-package web-mode
   :mode
   (("\\.phtml\\'" . web-mode)
@@ -223,6 +224,10 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (setq web-mode-comment-style 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-markup-indent-offset 2))
+
+;; CSS
+(setq css-indent-level 2)
+(setq css-indent-offset 2)
 #+end_src
 
 * Data
