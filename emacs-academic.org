@@ -111,7 +111,6 @@
   (org-mode . org-fragtog-mode))
 
 (with-eval-after-load 'org
-  (require 'zw-org-theme)
   (zw/set-org-headline))
 #+end_src
 
@@ -154,7 +153,6 @@
 	markdown-asymmetric-header t))
 
 (with-eval-after-load 'markdown-mode
-  (require 'zw-md-theme)
   (zw/set-md-headline))
 #+end_src
 

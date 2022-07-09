@@ -247,14 +247,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 		(when (not (one-window-p))
 		  (delete-window window)))))
   :config
-  (set-face-attribute 'vterm-color-black nil :foreground "#3B4252" :background "#3B4252")
-  (set-face-attribute 'vterm-color-red nil :foreground "#B25068" :background "#B25068")
-  (set-face-attribute 'vterm-color-green nil :foreground "#A3BE8C" :background "#A3BE8C")
-  (set-face-attribute 'vterm-color-yellow nil :foreground "#F4E06D" :background "#F4E06D")
-  (set-face-attribute 'vterm-color-blue nil :foreground "#396EB0" :background "#396EB0")
-  (set-face-attribute 'vterm-color-magenta nil :foreground "#FF869E" :background "#FF869E")
-  (set-face-attribute 'vterm-color-cyan nil :foreground "#32C1CD" :background "#32C1CD")
-  (set-face-attribute 'vterm-color-white nil :foreground "#E5E9F0" :background "#E5E9F0"))
+  (zw/set-vterm-color))
 #+end_src
 
 ** Openwith
@@ -379,6 +372,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi)
+  (require 'zw-org-theme)
+  (require 'zw-md-theme)
+  (require 'zw-vterm-theme)
   :bind ("<f5>" . zw/modus-themes-toggle))
 
 (defun zw/update-theme ()
@@ -386,7 +382,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (zw/modeline-theme)
   (zw/tab-bar-theme)
   (zw/set-org-headline)
-  (zw/set-md-headline))
+  (zw/set-md-headline)
+  (zw/set-vterm-color))
 
 (defun zw/modus-themes-toggle ()
   (interactive)
