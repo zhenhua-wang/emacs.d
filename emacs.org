@@ -245,7 +245,16 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 	      (let* ((buffer (current-buffer))
 		     (window (get-buffer-window buffer)))
 		(when (not (one-window-p))
-		  (delete-window window))))))
+		  (delete-window window)))))
+  :config
+  (set-face-attribute 'vterm-color-black nil :foreground "#073642" :background "#002b36")
+  (set-face-attribute 'vterm-color-red nil :foreground "#dc322f" :background "#cb4b16")
+  (set-face-attribute 'vterm-color-green nil :foreground "#859900" :background "#586e75")
+  (set-face-attribute 'vterm-color-yellow nil :foreground "#b58900" :background "#657b83")
+  (set-face-attribute 'vterm-color-blue nil :foreground "#268bd2" :background "#839496")
+  (set-face-attribute 'vterm-color-magenta nil :foreground "#d33682" :background "#6c71c4")
+  (set-face-attribute 'vterm-color-cyan nil :foreground "#2aa198" :background "#93a1a1")
+  (set-face-attribute 'vterm-color-white nil :foreground "#eee8d5" :background "#fdf6e3"))
 #+end_src
 
 ** Openwith
