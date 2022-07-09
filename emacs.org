@@ -232,7 +232,16 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   ((:map vterm-copy-mode-map
          ("<return>" . vterm-copy-mode))
    (:map vterm-mode-map
-         ("s-e" . delete-window))))
+         ("s-e" . delete-window)))
+  :init
+  (setq vterm-kill-buffer-on-exit t)
+  ;; close window when vterm exit
+  (add-hook 'vterm-exit-functions
+	    (lambda (_ _)
+	      (let* ((buffer (current-buffer))
+		     (window (get-buffer-window buffer)))
+		(when (not (one-window-p))
+		  (delete-window window))))))
 #+end_src
 
 ** Openwith
@@ -984,8 +993,8 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 	   (slot . -1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
-           ;; (display-buffer-reuse-mode-window display-buffer-at-bottom)
-           (display-buffer-in-side-window)
+           (display-buffer-at-bottom)
+           ;; (display-buffer-in-side-window)
            (window-height . 0.2)
            (side . bottom))
           ;; ("\\*R.*"
