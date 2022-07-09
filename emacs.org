@@ -247,14 +247,14 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 		(when (not (one-window-p))
 		  (delete-window window)))))
   :config
-  (set-face-attribute 'vterm-color-black nil :foreground "#073642" :background "#002b36")
-  (set-face-attribute 'vterm-color-red nil :foreground "#dc322f" :background "#cb4b16")
-  (set-face-attribute 'vterm-color-green nil :foreground "#859900" :background "#586e75")
-  (set-face-attribute 'vterm-color-yellow nil :foreground "#b58900" :background "#657b83")
-  (set-face-attribute 'vterm-color-blue nil :foreground "#268bd2" :background "#839496")
-  (set-face-attribute 'vterm-color-magenta nil :foreground "#d33682" :background "#6c71c4")
-  (set-face-attribute 'vterm-color-cyan nil :foreground "#2aa198" :background "#93a1a1")
-  (set-face-attribute 'vterm-color-white nil :foreground "#eee8d5" :background "#fdf6e3"))
+  (set-face-attribute 'vterm-color-black nil :foreground "#3B4252" :background "#3B4252")
+  (set-face-attribute 'vterm-color-red nil :foreground "#BF616A" :background "#BF616A")
+  (set-face-attribute 'vterm-color-green nil :foreground "#A3BE8C" :background "#A3BE8C")
+  (set-face-attribute 'vterm-color-yellow nil :foreground "#EBCB8B" :background "#EBCB8B")
+  (set-face-attribute 'vterm-color-blue nil :foreground "#5E81AC" :background "#5E81AC")
+  (set-face-attribute 'vterm-color-magenta nil :foreground "#B48EAD" :background "#B48EAD")
+  (set-face-attribute 'vterm-color-cyan nil :foreground "#88C0D0" :background "#88C0D0")
+  (set-face-attribute 'vterm-color-white nil :foreground "#E5E9F0" :background "#E5E9F0"))
 #+end_src
 
 ** Openwith
