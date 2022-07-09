@@ -155,6 +155,10 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (global-set-key (kbd "<C-tab>") 'completion-at-point)
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-b"))
+(global-unset-key (kbd "C-<mouse-4>"))          ; disable scroll zoom
+(global-unset-key (kbd "C-<mouse-5>"))          ; disable scroll zoom
+(global-unset-key (kbd "C-<wheel-down>"))       ; disable scroll zoom
+(global-unset-key (kbd "C-<wheel-up>"))         ; disable scroll zoom
 ;; editing
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
