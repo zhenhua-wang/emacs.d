@@ -45,7 +45,7 @@
 		      :overline nil
 		      :extend t)
   (set-face-attribute 'org-block-end-line nil
-		      :background	(face-background 'org-block)
+		      :background (face-background 'org-block)
 		      :bold t
 		      :italic t
 		      :underline nil
