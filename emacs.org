@@ -391,10 +391,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi)
-  (require 'zw-org-theme)
-  (require 'zw-md-theme)
-  (require 'zw-vterm-theme)
   :bind ("<f5>" . zw/modus-themes-toggle))
+
+(require 'zw-org-theme)
+(require 'zw-md-theme)
+(require 'zw-vterm-theme)
 
 (defun zw/update-theme ()
   (interactive)
