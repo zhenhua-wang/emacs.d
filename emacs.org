@@ -115,6 +115,8 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; fringe (nil is default)
   (after-init . fringe-mode)
   :config
+  ;; setq default folder
+  (setq default-directory (concat (getenv "HOME") "/"))
   ;; default coding
   (set-default-coding-systems 'utf-8)
   ;; start server mode
