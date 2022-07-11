@@ -1303,7 +1303,7 @@ Auto-Saving Changed Files
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
   ;; disable corfu auto in following modes
-  (dolist (hook '(inferior-ess-r-mode-hook))
+  (dolist (hook '(inferior-ess-r-mode-hook eshell-mode-hook shell-mode-hook))
     (add-hook hook (lambda () (setq-local corfu-auto nil))))
   ;; setup corfu in lsp mode
   (with-eval-after-load 'lsp-mode
