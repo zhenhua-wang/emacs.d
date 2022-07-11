@@ -231,28 +231,27 @@ For host with two factor auth, you need to
 For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
 
 #+begin_src emacs-lisp
-(when (not (eq system-type 'windows-nt))
-  (use-package vterm
-    :straight `(:pre-build (("rm" "-fr" "build")
-			    ("mkdir" "build")
-			    ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
-			     ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
-    :bind
-    ((:map vterm-copy-mode-map
-           ("<return>" . vterm-copy-mode))
-     (:map vterm-mode-map
-           ("s-e" . delete-window)))
-    :init
-    (setq vterm-kill-buffer-on-exit t)
-    ;; close window when vterm exit
-    (add-hook 'vterm-exit-functions
-	      (lambda (_ _)
-		(let* ((buffer (current-buffer))
-		       (window (get-buffer-window buffer)))
-		  (when (not (one-window-p))
-		    (delete-window window)))))
-    :config
-    (zw/set-vterm-color)))
+(use-package vterm
+  :straight `(:pre-build (("rm" "-fr" "build")
+			  ("mkdir" "build")
+			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
+			   ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
+  :bind
+  ((:map vterm-copy-mode-map
+         ("<return>" . vterm-copy-mode))
+   (:map vterm-mode-map
+         ("s-e" . delete-window)))
+  :init
+  (setq vterm-kill-buffer-on-exit t)
+  ;; close window when vterm exit
+  (add-hook 'vterm-exit-functions
+	    (lambda (_ _)
+	      (let* ((buffer (current-buffer))
+		     (window (get-buffer-window buffer)))
+		(when (not (one-window-p))
+		  (delete-window window)))))
+  :config
+  (zw/set-vterm-color))
 #+end_src
 
 ** Dired

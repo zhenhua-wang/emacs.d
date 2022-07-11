@@ -18,8 +18,7 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; no title bar on macos
-(when (not (eq system-type 'windows-nt))
-  (add-to-list 'default-frame-alist '(undecorated . t)))
+(add-to-list 'default-frame-alist '(undecorated . t))
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
