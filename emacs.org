@@ -227,6 +227,19 @@ For host with two factor auth, you need to
 (setq tramp-default-method "ssh")
 #+end_src
 
+** Comint
+#+begin_src emacs-lisp
+(use-package comint
+  :straight (:type built-in)
+  :config
+  ;; Make processes’ outputs read-only. The prompt is easy.
+  (setq comint-prompt-read-only t
+	ansi-color-for-comint-mode 'filter
+	comint-scroll-to-bottom-on-input t
+	comint-scroll-to-bottom-on-output nil
+	comint-move-point-for-output nil))
+#+end_src
+
 ** Vterm
 For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
 

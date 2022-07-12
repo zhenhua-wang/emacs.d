@@ -145,10 +145,17 @@
 (use-package ess
   :defer t
   :commands R
+  :hook
+  (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind (:map ess-r-mode-map
 	      ("M-<tab>" . ess-complete-object-name))
   :config
   (require 'ess-site)
+  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
+    ;; See https://github.com/emacs-ess/ESS/issues/300"
+  (defun my/ess-fix-read-only-inferior-ess-mode ()
+    (setq-local comint-use-prompt-regexp nil)
+    (setq-local inhibit-field-text-motion nil))
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
@@ -156,12 +163,8 @@
 	ess-nuke-trailing-whitespace-p t
 	ess-style 'DEFAULT
 	ess-local-process-name "R"
-	ansi-color-for-comint-mode 'filter
-	comint-scroll-to-bottom-on-input t
-	comint-scroll-to-bottom-on-output t
 	ess-use-company nil
 	ess-use-flymake nil
-	comint-move-point-for-output t
 	ess-eval-visibly-p 'nowait
 	ess-R-font-lock-keywords
 	'((ess-R-fl-keyword:keywords   . t)
