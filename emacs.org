@@ -430,7 +430,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (zw/tab-bar-theme)
   (zw/set-org-headline)
   (zw/set-md-headline)
-  (zw/set-vterm-color))
+  (when (featurep 'vterm)
+    (zw/set-vterm-color))
+  (if (string= (frame-parameter nil 'background-mode) "dark")
+      (progn
+	(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+	(when (derived-mode-p 'pdf-view-mode)
+	  (pdf-view-midnight-minor-mode 1)))
+    (progn
+      (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+      (when (derived-mode-p 'pdf-view-mode)
+	(pdf-view-midnight-minor-mode 0)))))
 
 (defun zw/modus-themes-toggle ()
   (interactive)
