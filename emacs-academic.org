@@ -432,7 +432,8 @@ LSP-mode with TexLab works perfect for Latex docs
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map
               ("C-s" . isearch-forward)
-	      ("s-f" . isearch-forward))
+	      ("s-f" . isearch-forward)
+	      ("q" . nil))
   :config
   (setq-default pdf-view-display-size 'fit-page)
   (pdf-tools-install :no-query)
