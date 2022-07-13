@@ -418,7 +418,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi)
-  :bind ("<f5>" . zw/modus-themes-toggle))
+  :bind ("<f12>" . zw/modus-themes-toggle))
 
 (require 'zw-org-theme)
 (require 'zw-md-theme)
@@ -912,13 +912,17 @@ FACE defaults to inheriting from default and highlight."
 (use-package writeroom-mode
   :commands (writeroom-mode)
   :hook
-  (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
-  (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
-  (kill-buffer . (lambda () (tab-bar-mode 1)))
   (pdf-view-mode . (lambda () (setq-local writeroom-width 0)))
-  :bind ("<f6>" . writeroom-mode)
+  :bind ("<f11>" . writeroom-mode)
   :config
-  (setq writeroom-fullscreen-effect 'maximized))
+  (setq writeroom-fullscreen-effect 'fullscreen)
+  (defun zw-disable-tab-bar-writeroom (arg)
+    (cond
+     ((= arg 1)
+      (tab-bar-mode 0))
+     ((= arg -1)
+      (tab-bar-mode 1))))
+  (add-to-list 'writeroom-global-effects 'zw-disable-tab-bar-writeroom))
 #+end_src
 
 * Window
