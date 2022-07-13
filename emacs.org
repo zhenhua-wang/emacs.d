@@ -904,6 +904,8 @@ FACE defaults to inheriting from default and highlight."
   (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
   (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
+  (pdf-view-mode . (lambda () (setq-local writeroom-width 0)))
+  :bind ("<f6>" . writeroom-mode)
   :config
   (setq writeroom-fullscreen-effect 'maximized))
 #+end_src
