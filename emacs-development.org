@@ -59,7 +59,8 @@
 (use-package eglot
   :commands (eglot)
   :config
-  (setq eglot-stay-out-of '(flymake imenu))
+  (setq eglot-stay-out-of '(flymake imenu)
+	eglot-autoshutdown t)
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))
 #+end_src
