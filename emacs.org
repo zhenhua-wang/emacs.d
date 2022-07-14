@@ -649,7 +649,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (use-package keycast
   :hook (after-init . keycast-tab-bar-mode)
-  :init (setq keycast-tab-bar-location 'tab-bar-separator))
+  :init (setq keycast-tab-bar-location 'tab-bar-separator
+	      keycast-tab-bar-format "%k%c%R"))
 #+end_src
 
 ** Keybinding Hints
