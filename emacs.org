@@ -475,6 +475,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		       tab-bar-separator
 		       tab-bar-format-align-right
 		       tab-bar-format-global))
+;; set string for tab-bar-separator
+(setq tab-bar-separator "  ")
+
 ;; show battery
 (require 'battery)
 (setq have-battery-status-p
@@ -646,7 +649,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (use-package keycast
   :hook (after-init . keycast-tab-bar-mode)
-  :init (setq keycast-tab-bar-location 'tab-bar-format-tabs))
+  :init (setq keycast-tab-bar-location 'tab-bar-separator))
 #+end_src
 
 ** Keybinding Hints
