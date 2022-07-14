@@ -901,7 +901,7 @@ FACE defaults to inheriting from default and highlight."
   (pdf-view-mode . (lambda () (setq-local writeroom-width 0)))
   :bind ("<f11>" . writeroom-mode)
   :config
-  (setq writeroom-fullscreen-effect 'maximized)
+  (setq writeroom-fullscreen-effect 'fullscreen)
   (defun zw-disable-tab-bar-writeroom (arg)
     (cond
      ((= arg 1)
