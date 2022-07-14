@@ -911,6 +911,15 @@ FACE defaults to inheriting from default and highlight."
   (add-to-list 'writeroom-global-effects 'zw-disable-tab-bar-writeroom))
 #+end_src
 
+*** Zone
+#+begin_src emacs-lisp
+(use-package zone
+  :straight (:type built-in)
+  :config
+  ;; set emacs screen-saver
+  (zone-when-idle 120))
+#+end_src
+
 * Window
 ** Popper
 #+begin_src emacs-lisp
