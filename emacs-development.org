@@ -256,10 +256,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package magit-todos
-  :hook (magit-mode . magit-todos-mode)
-  :config
-  ;; make colon optional
-  (setq magit-todos-keyword-suffix "\\(?:([^)]+)\\)?:?"))
+  :hook (magit-mode . magit-todos-mode))
 #+end_src
 
 * Project management
@@ -274,8 +271,5 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 (use-package projectile
   :hook (after-init . projectile-mode)
   :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (when (file-directory-p "~/Workspace/Documents/Graduate/Mizzou")
-    (setq projectile-project-search-path '("~/Workspace/Documents/Graduate/Mizzou"))))
+  ("C-c p" . projectile-command-map))
 #+end_src
