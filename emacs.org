@@ -277,10 +277,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
 
-(use-package dired-git-info
-  :hook (dired-after-readin . dired-git-info-auto-enable)
-  :init (setq dgi-auto-hide-details-p nil))
-
 (use-package dired+
   :init
   (setq diredp-hide-details-initially-flag nil)
