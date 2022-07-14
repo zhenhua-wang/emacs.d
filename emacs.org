@@ -93,7 +93,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+begin_src emacs-lisp
 (setq zw/font-size 170)
 (setq zw/font-size-fixed-pitch 140)
-(setq zw/font-size-variable-pitch 170)
+(setq zw/font-size-variable-pitch 200)
 (setq zw/font-size-dashboard 200)
 (setq zw/default-font "Ubuntu Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
@@ -890,7 +890,7 @@ FACE defaults to inheriting from default and highlight."
   (markdown-mode . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t
-		visual-fill-column-width 100))
+		visual-fill-column-width 80))
 #+end_src
 
 *** Writeroom-mode
