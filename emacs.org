@@ -678,8 +678,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
    #+begin_src emacs-lisp
 (use-package all-the-icons
   :if (display-graphic-p)
-  :init
-  (setq all-the-icons-scale-factor 1)
+  :init (setq all-the-icons-scale-factor 1)
   :config
   (add-to-list 'all-the-icons-extension-icon-alist
 	       '("rmd" all-the-icons-fileicon "R" :face all-the-icons-lblue)))
