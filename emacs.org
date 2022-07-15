@@ -527,6 +527,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (add-hook 'inferior-ess-mode-hook
 	    (lambda ()
               (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings)))))
+  ;; show keycast in misc-info
+  ;; (add-to-list 'mode-line-misc-info '("" keycast-mode-line))
+  ;; (add-hook 'pre-command-hook 'keycast--update t)
   ;; hide battery on modeline and show it on tab-bar
   (remove-hook 'display-battery-mode-hook #'doom-modeline-override-battery-modeline)
   (remove-hook 'doom-modeline-mode-hook #'doom-modeline-override-battery-modeline))
