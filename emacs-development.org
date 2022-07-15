@@ -19,7 +19,7 @@
   :hook
   (python-mode . lsp-deferred)
   (c++-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
+  ;; (ess-r-mode . lsp-deferred)
   ((latex-mode LaTeX-mode) . lsp-deferred)
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
@@ -58,6 +58,8 @@
 ;; note enable eglot would override "M-." key to xref
 (use-package eglot
   :commands (eglot)
+  :hook
+  (ess-r-mode . eglot-ensure)
   :config
   (setq eglot-stay-out-of '(flymake imenu)
 	eglot-autoshutdown t)
