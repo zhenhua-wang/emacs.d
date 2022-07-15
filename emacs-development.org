@@ -188,8 +188,8 @@
          (ess-r-transcript-mode . ess-smart-equals-mode)
          (ess-roxy-mode . ess-smart-equals-mode))
   :config
-  (setq ess-smart-equals-padding-left 'some-space)
-  (setq ess-smart-equals-padding-right 'none))
+  (setq ess-smart-equals-padding-left 'one-space)
+  (setq ess-smart-equals-padding-right 'no-space))
 #+end_src
 
 ** Python
