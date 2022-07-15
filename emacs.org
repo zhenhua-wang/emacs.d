@@ -365,7 +365,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   "Set font to a variable width (proportional) fonts in current buffer"
   (interactive)
   (setq buffer-face-mode-face
-	(list ':family zw/font-variable-pitch ':height zw/font-size-variable-pitch))
+	(list ':family zw/font-variable-pitch ':height zw/font-size-fixed-pitch))
   (buffer-face-mode))
 
 ;; Use monospaced font faces in current buffer
