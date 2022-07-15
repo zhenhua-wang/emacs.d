@@ -1303,6 +1303,9 @@ Auto-Saving Changed Files
 (use-package corfu
   :hook
   (after-init . global-corfu-mode)
+  (corfu-mode . yas-minor-mode)
+  ;; force corfu start in ess-r-mode
+  (ess-r-mode . corfu-mode)
   :bind
   (:map corfu-map
 	("TAB" . corfu-insert)
