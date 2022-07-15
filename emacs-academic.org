@@ -245,6 +245,8 @@
   ;; disable this for now because of reverse-typing issue in poly-R
   (setq polymode-lsp-integration nil)
   :config
+  ;; disable flycheck in polymode
+  (add-hook 'polymode-init-inner-hook (lambda () (setq-local lsp-diagnostics-provider :none)))
   ;; add workspace variables for R
   (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
   ;; don't know its functionality yet
