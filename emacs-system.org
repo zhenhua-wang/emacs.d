@@ -1,6 +1,5 @@
 #+title: System Configuration
 #+author: Zhenhua Wang
-# #+auto_tangle: t
 
 * MacOS
 ** Homebrew
