@@ -368,7 +368,7 @@ For some reason (it is very likely that my emacs is not compiled with dbus suppo
 (exwm-input-set-key (kbd "s-m") (lambda () (interactive) (exwm/dunstctl "history-pop")))
 #+end_src
 
-** TODO Send system info as notification
+** Send system info as notification
 #+begin_src emacs-lisp
 (defun zw/battery-status ()
   "Outputs the battery percentage from acpi."

@@ -1572,7 +1572,6 @@ install from aur: ~yay -S bcwc-pcie-git~
 Run depmod for kernel to be able to find and load it: ~sudo depmod~
 Load kernel module: ~sudo modprobe facetimehd~
 
-*** TODO libreoffice
 ** Fonts
 *** noto-fonts-emoji -- emoji
 this package is useful for displaying emoji in x windows
