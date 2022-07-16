@@ -14,7 +14,10 @@ Thank you for using my configuration
 # Prerequisite
 
 -   emacs-plus: this version has support for svg in OS X
-
+-   ubuntu mono: https://fonts.google.com/specimen/Ubuntu+Mono
+-   ubuntu: https://fonts.google.com/specimen/Ubuntu
+-   hack: https://github.com/source-foundry/Hack
+-   etbembo: https://github.com/edwardtufte/et-book/tree/gh-pages/et-book
 
 <a id="orgf33587f"></a>
 
