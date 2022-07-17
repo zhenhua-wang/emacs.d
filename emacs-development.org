@@ -76,8 +76,8 @@
 			       (eglot-ensure)
 			     (lsp-deferred))))
 (add-hook 'ess-r-mode-hook (lambda ()
-			     (when (not (file-remote-p default-directory)
-					(lsp-deferred)))))
+			     (when (not (file-remote-p default-directory))
+			       (lsp-deferred))))
 #+end_src
 
 ** Flycheck
