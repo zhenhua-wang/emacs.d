@@ -62,7 +62,9 @@
   (setq eglot-stay-out-of '(flymake imenu)
 	eglot-autoshutdown t)
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
-					("texlab"))))
+					("texlab")))
+  (setq-default eglot-workspace-configuration
+		'((:pyright . ((useLibraryCodeForTypes . t))))))
 #+end_src
 
 *** hooks
