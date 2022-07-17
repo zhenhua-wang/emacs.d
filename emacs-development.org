@@ -63,15 +63,6 @@
 	eglot-autoshutdown t)
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab"))))
-
-;; disable lsp and enable eglot in tramp
-(when tramp-mode
-  (remove-hook 'python-mode-hook 'lsp-deferred)
-  (remove-hook 'c++-mode-hook 'lsp-deferred)
-  (remove-hook 'ess-r-mode-hook 'lsp-deferred)
-  (add-hook 'python-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure)
-  (add-hook 'ess-r-mode-hook 'eglot-ensure))
 #+end_src
 
 *** lsp-bridge

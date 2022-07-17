@@ -228,6 +228,21 @@ For host with two factor auth, you need to
 #+begin_src emacs-lisp
 ;; Set default connection mode to SSH
 (setq tramp-default-method "ssh")
+
+(defun zw/set-up-tramp ()
+  ;; disable lsp and enable eglot in tramp
+  (when (file-remote-p default-directory)
+    (remove-hook 'python-mode-hook 'lsp-deferred)
+    (remove-hook 'c++-mode-hook 'lsp-deferred)
+    (remove-hook 'ess-r-mode-hook 'lsp-deferred)
+    (add-hook 'python-mode-hook 'eglot-ensure)
+    (add-hook 'c++-mode-hook 'eglot-ensure)
+    (add-hook 'ess-r-mode-hook 'eglot-ensure)
+    ;; use flymake in tramp
+    (flycheck-mode -1)
+    (flymake-mode 1)))
+
+(add-hook 'prog-mode-hook 'zw/set-up-tramp)
 #+end_src
 
 ** Comint
