@@ -241,6 +241,22 @@ For host with two factor auth, you need to
                          "-o ControlMaster=auto -o ControlPersist=yes"))
 #+end_src
 
+Tips:
+- use ssh config file
+#+begin_example :tangle "no"
+Host vm-server
+    HostName 127.0.0.1
+    User zhenhua
+    Port 3022
+#+end_example
+
+- enable ssh on server
+#+begin_example :tangle "no"
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+#+end_example
+
 ** Comint
 #+begin_src emacs-lisp
 (use-package comint
@@ -1219,6 +1235,7 @@ Auto-Saving Changed Files
 	 ("C-x C-b" . consult-buffer)
 	 ("C-x C-d" . consult-dir)
 	 ("C-x C-p" . consult-projectile-switch-project)
+	 ("C-x C-t" . consult-tramp)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
          ("<help> a" . consult-apropos)            ;; orig. apropos-command
@@ -1278,7 +1295,12 @@ Auto-Saving Changed Files
   (use-package consult-flycheck
 		:after (consult flycheck))
   (use-package consult-projectile
-    :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master")))
+    :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+  (use-package consult-tramp
+    :straight
+    (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
+    :init
+    (setq consult-tramp-method "ssh")))
 
 ;; use this for now untill consult have its web-search
 (use-package google-this :bind ("C-c l" . google-this-search))
