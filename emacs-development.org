@@ -81,7 +81,7 @@
 			       (lsp-deferred))))
 #+end_src
 
-** Syntax checking
+** Flycheck
 #+begin_src emacs-lisp
 ;; check code syntax
 (use-package flycheck
