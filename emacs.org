@@ -222,6 +222,9 @@ For host with two factor auth, you need to
 1. enter password
 2. enter the second-step code
 
+ Usage:
+- ~(find-file "/ssh:zhenhua@127.0.0.1#3022:~/")~
+
 #+begin_src emacs-lisp
 ;; Set default connection mode to SSH
 (setq tramp-default-method "ssh")
