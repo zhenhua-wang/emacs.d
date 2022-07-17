@@ -17,9 +17,9 @@
 (use-package lsp-mode
   :commands (lsp lsp-org)
   :hook
-  (python-mode . lsp-deferred)
-  (c++-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
+  ;; (python-mode . lsp-deferred)
+  ;; (c++-mode . lsp-deferred)
+  ;; (ess-r-mode . lsp-deferred)
   ((latex-mode LaTeX-mode) . lsp-deferred)
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
@@ -65,39 +65,39 @@
 					("texlab"))))
 #+end_src
 
-*** lsp-bridge
-#+begin_src emacs-lisp :tangle "no"
-(add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
-(require 'lsp-bridge)
-;; adding hook
-(add-hook 'python-mode-hook 'lsp-bridge-mode)
-(setq corfu-excluded-modes '(python-mode))
-(setq acm-enable-doc nil
-      acm-backend-lsp-enable-auto-import nil
-      acm-candidate-match-function 'orderless-prefixes)
-;; acm keys
-(define-key acm-mode-map (kbd "M->") 'acm-select-last)
-(define-key acm-mode-map (kbd "M-<") 'acm-select-first)
-;; acm font
-(set-face-attribute 'acm-select-face nil
-		    :bold t
-		    :foreground (face-foreground
-				 'default)
-		    :background (face-background
-				 'modus-themes-completion-selected-popup))
+*** hooks
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook (lambda ()
+			      (if (file-remote-p default-directory)
+				  (eglot-ensure)
+				(lsp-deferred))))
+(add-hook 'c++-mode-hook (lambda ()
+			   (if (file-remote-p default-directory)
+			       (eglot-ensure)
+			     (lsp-deferred))))
+(add-hook 'ess-r-mode-hook (lambda ()
+			     (if (file-remote-p default-directory)
+				 (eglot-ensure)
+			       (lsp-deferred))))
 #+end_src
 
-** Flycheck
+** Syntax checking
 #+begin_src emacs-lisp
 ;; check code syntax
 (use-package flycheck
-  :hook (prog-mode . flycheck-mode)
+  :commands (flycheck)
   :init (setq flycheck-emacs-lisp-load-path 'inherit
               ;; Only check while saving and opening files
               flycheck-check-syntax-automatically '(save mode-enabled)))
 
 (use-package flycheck-popup-tip
   :hook (flycheck-mode . flycheck-popup-tip-mode))
+
+(add-hook 'prog-mode-hook (lambda ()
+			    (if (file-remote-p default-directory)
+				;; use flymake in tramp
+				(flymake-mode)
+			      (flycheck-mode))))
 #+end_src
 
 ** Debug
