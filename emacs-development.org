@@ -94,9 +94,7 @@
   :hook (flycheck-mode . flycheck-popup-tip-mode))
 
 (add-hook 'prog-mode-hook (lambda ()
-			    (if (file-remote-p default-directory)
-				;; use flymake in tramp
-				(flymake-mode)
+			    (when (not (file-remote-p default-directory))
 			      (flycheck-mode))))
 #+end_src
 
