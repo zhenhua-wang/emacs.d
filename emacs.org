@@ -235,6 +235,10 @@ For host with two factor auth, you need to
 (setq password-cache-expiry nil)
 (setq remote-file-name-inhibit-cache nil)
 (setq tramp-use-ssh-controlmaster-options nil)
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
 (with-eval-after-load 'tramp
   (customize-set-variable 'tramp-ssh-controlmaster-options
 			  (concat
