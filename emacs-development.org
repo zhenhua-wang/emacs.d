@@ -203,7 +203,7 @@
   :hook (magit-mode . magit-todos-mode))
 #+end_src
 
-* Programming Language
+* Language
 ** R
 #+begin_src emacs-lisp
 (use-package ess
