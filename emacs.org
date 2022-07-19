@@ -1144,7 +1144,6 @@ Auto-Saving Changed Files
 ** Sudo edit
    #+begin_src emacs-lisp
 (use-package sudo-edit
-  :defer 1
   :commands (sudo-edit))
    #+end_src
 
