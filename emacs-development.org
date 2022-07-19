@@ -51,6 +51,11 @@
 ;; microsoft pyright
 (use-package lsp-pyright
   :after lsp-mode)
+
+(use-package lsp-treemacs
+  :after lsp-mode
+  :hook (lsp-mode . lsp-treemacs-sync-mode)
+  :commands lsp-treemacs-errors-list)
   #+end_src
 
 *** eglot
@@ -64,7 +69,14 @@
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
 					("texlab")))
   (setq-default eglot-workspace-configuration
-		'((:pyright . ((useLibraryCodeForTypes . t))))))
+		'((:pyright . ((useLibraryCodeForTypes . t)))))
+  ;; Bridge projectile and project together so packages that depend on project
+  ;; like eglot work
+  (defun my-projectile-project-find-function (dir)
+    (let ((root (projectile-project-root dir)))
+      (and root (cons 'transient root))))
+  (with-eval-after-load 'project
+    (add-to-list 'project-find-functions 'my-projectile-project-find-function)))
 #+end_src
 
 *** hooks
@@ -97,6 +109,26 @@
 (add-hook 'prog-mode-hook (lambda ()
 			    (when (not (file-remote-p default-directory))
 			      (flycheck-mode))))
+#+end_src
+
+** Treemacs
+#+begin_src emacs-lisp
+(use-package treemacs
+  :commands (treemacs treemacs-current)
+  :config
+  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t))
+
+(use-package treemacs-all-the-icons
+  :after treemacs
+  :config
+  (treemacs-load-theme "all-the-icons"))
+
+(use-package treemacs-projectile
+  :after projectile
+  :bind (:map projectile-command-map
+              ("h" . treemacs-projectile)))
 #+end_src
 
 ** Debug
@@ -270,5 +302,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 (use-package projectile
   :hook (after-init . projectile-mode)
   :bind-keymap
-  ("C-c p" . projectile-command-map))
+  ("C-c p" . projectile-command-map)
+  :init (setq projectile-sort-order 'recentf))
 #+end_src
