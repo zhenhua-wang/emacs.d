@@ -237,10 +237,6 @@ For host with two factor auth, you need to
 	(expand-file-name "tramp-connection-history" user-emacs-directory))
   (setq password-cache-expiry nil)
   (setq remote-file-name-inhibit-cache nil)
-  (setq vc-ignore-dir-regexp
-	(format "\\(%s\\)\\|\\(%s\\)"
-		vc-ignore-dir-regexp
-		tramp-file-name-regexp))
   (setq tramp-use-ssh-controlmaster-options nil)
   (customize-set-variable 'tramp-ssh-controlmaster-options
 			  (concat

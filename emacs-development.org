@@ -167,6 +167,12 @@
 #+begin_src emacs-lisp
 (use-package neotree
   :commands (neotree neotree-project-dir)
+  :hook
+  (neotree-mode . (lambda ()
+		    (setq zw/neotree-mode-line-format
+			  '("%e" (:eval (doom-modeline-segment--bar))
+			    "  Neotree"))
+		    (setq-local mode-line-format zw/neotree-mode-line-format)))
   :init
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   :config
