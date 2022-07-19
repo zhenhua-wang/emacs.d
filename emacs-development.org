@@ -167,6 +167,12 @@
 (use-package neotree
   :commands (neotree neotree-project-dir)
   :hook
+  (neo-after-create . (lambda (_)
+			(with-current-buffer (get-buffer neo-buffer-name)
+			  (setq truncate-lines t)
+			  (setq word-wrap nil)
+			  (make-local-variable 'auto-hscroll-mode)
+			  (setq auto-hscroll-mode nil))))
   (neotree-mode . (lambda ()
 		    (setq zw/neotree-mode-line-format
 			  '("%e" (:eval (doom-modeline-segment--bar))
@@ -184,9 +190,9 @@
       (if project-dir
           (if (neo-global--window-exists-p)
               (progn
-                (neotree-dir project-dir)
-                (neotree-find file-name)))
-        (message "Could not find git project root.")))))
+		(neotree-dir project-dir)
+		(neotree-find file-name)))
+	(message "Could not find git project root.")))))
 #+end_src
 
 ** Version control
