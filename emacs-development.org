@@ -51,11 +51,6 @@
 ;; microsoft pyright
 (use-package lsp-pyright
   :after lsp-mode)
-
-(use-package lsp-treemacs
-  :after lsp-mode
-  :hook (lsp-mode . lsp-treemacs-sync-mode)
-  :commands lsp-treemacs-errors-list)
   #+end_src
 
 *** eglot
@@ -151,11 +146,55 @@
 			      (flycheck-mode))))
 #+end_src
 
+** Projectile
++ Supported Project Types
+  - Directories that contain the special .projectile file
+
+  - Directories under version control (e.g. a Git repo)
+
+  - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
+#+begin_src emacs-lisp
+(use-package projectile
+  :hook (after-init . projectile-mode)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (setq projectile-sort-order 'recentf
+	projectile-file-exists-remote-cache-expire nil))
+#+end_src
+
 ** Neotrees
 #+begin_src emacs-lisp
 (use-package neotree
+  :commands (neotree neotree-project-dir)
   :init
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :config
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root.")))))
+#+end_src
+
+** Version control
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure with-editor
+  :bind ("C-M-;" . magit-status)
+  :commands (magit-status magit-get-current-branch)
+  :config
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package magit-todos
+  :hook (magit-mode . magit-todos-mode))
 #+end_src
 
 * Programming Language
@@ -262,35 +301,4 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   (csv-mode . csv-align-mode)
   :config
   (setq csv-separators '("," ";" "|" " ")))
-#+end_src
-
-* Version control
-#+begin_src emacs-lisp
-(use-package magit
-  :ensure with-editor
-  :bind ("C-M-;" . magit-status)
-  :commands (magit-status magit-get-current-branch)
-  :config
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package magit-todos
-  :hook (magit-mode . magit-todos-mode))
-#+end_src
-
-* Project management
-** Projectile
-+ Supported Project Types
-  - Directories that contain the special .projectile file
-
-  - Directories under version control (e.g. a Git repo)
-
-  - Directories that contain some project description file (e.g. a Gemfile for Ruby projects or pom.xml for Java maven-based projects)
-#+begin_src emacs-lisp
-(use-package projectile
-  :hook (after-init . projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (setq projectile-sort-order 'recentf
-	projectile-file-exists-remote-cache-expire nil))
 #+end_src

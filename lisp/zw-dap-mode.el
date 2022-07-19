@@ -14,6 +14,11 @@
   :config
   (treemacs-load-theme "all-the-icons"))
 
+(use-package lsp-treemacs
+  :after lsp-mode
+  :hook (lsp-mode . lsp-treemacs-sync-mode)
+  :commands lsp-treemacs-errors-list)
+
 (use-package dap-mode
   :hook
   (after-init . dap-auto-configure-mode)
