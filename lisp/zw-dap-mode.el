@@ -2,6 +2,18 @@
 
 ;;; code
 
+(use-package treemacs
+  :commands (treemacs treemacs-current)
+  :config
+  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t))
+
+(use-package treemacs-all-the-icons
+  :after treemacs
+  :config
+  (treemacs-load-theme "all-the-icons"))
+
 (use-package dap-mode
   :hook
   (after-init . dap-auto-configure-mode)

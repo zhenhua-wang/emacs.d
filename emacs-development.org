@@ -94,43 +94,6 @@
 			       (lsp-deferred))))
 #+end_src
 
-** Flycheck
-#+begin_src emacs-lisp
-;; check code syntax
-(use-package flycheck
-  :commands (flycheck)
-  :init (setq flycheck-emacs-lisp-load-path 'inherit
-              ;; Only check while saving and opening files
-              flycheck-check-syntax-automatically '(save mode-enabled)))
-
-(use-package flycheck-popup-tip
-  :hook (flycheck-mode . flycheck-popup-tip-mode))
-
-(add-hook 'prog-mode-hook (lambda ()
-			    (when (not (file-remote-p default-directory))
-			      (flycheck-mode))))
-#+end_src
-
-** Treemacs
-#+begin_src emacs-lisp
-(use-package treemacs
-  :commands (treemacs treemacs-current)
-  :config
-  (defalias 'treemacs-current 'treemacs-display-current-project-exclusively)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t))
-
-(use-package treemacs-all-the-icons
-  :after treemacs
-  :config
-  (treemacs-load-theme "all-the-icons"))
-
-(use-package treemacs-projectile
-  :after projectile
-  :bind (:map projectile-command-map
-              ("h" . treemacs-projectile)))
-#+end_src
-
 ** Debug
   #+begin_src emacs-lisp
 (defun zw/load-dap-mode ()
@@ -169,6 +132,30 @@
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+#+end_src
+
+** Flycheck
+#+begin_src emacs-lisp
+;; check code syntax
+(use-package flycheck
+  :commands (flycheck)
+  :init (setq flycheck-emacs-lisp-load-path 'inherit
+              ;; Only check while saving and opening files
+              flycheck-check-syntax-automatically '(save mode-enabled)))
+
+(use-package flycheck-popup-tip
+  :hook (flycheck-mode . flycheck-popup-tip-mode))
+
+(add-hook 'prog-mode-hook (lambda ()
+			    (when (not (file-remote-p default-directory))
+			      (flycheck-mode))))
+#+end_src
+
+** Neotrees
+#+begin_src emacs-lisp
+(use-package neotree
+  :init
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 #+end_src
 
 * Programming Language
@@ -303,5 +290,7 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
   :hook (after-init . projectile-mode)
   :bind-keymap
   ("C-c p" . projectile-command-map)
-  :init (setq projectile-sort-order 'recentf))
+  :init
+  (setq projectile-sort-order 'recentf
+	projectile-file-exists-remote-cache-expire nil))
 #+end_src
