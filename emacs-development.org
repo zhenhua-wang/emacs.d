@@ -116,7 +116,12 @@
   ("M-/" . xref-find-references)
   :init
   (when (executable-find "rg")
-    (setq xref-search-program 'ripgrep)))
+    (setq xref-search-program 'ripgrep))
+  :config
+  (setq xref-prompt-for-identifier '(not xref-find-definitions
+                                         xref-find-definitions-other-window
+                                         xref-find-definitions-other-frame
+					 xref-find-references)))
 #+end_src
 
 ** Highlight indent
@@ -313,13 +318,6 @@ In order for =pyvenv= to find the envirment in anaconda, you need to first prope
 ;; CSS
 (setq css-indent-level 2)
 (setq css-indent-offset 2)
-#+end_src
-
-** C/C++
-#+begin_src emacs-lisp
-(use-package ccls
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls))))
 #+end_src
 
 * Data
