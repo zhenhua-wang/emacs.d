@@ -20,7 +20,7 @@
   ;; (python-mode . lsp-deferred)
   ;; (c++-mode . lsp-deferred)
   ;; (ess-r-mode . lsp-deferred)
-  ((latex-mode LaTeX-mode) . lsp-deferred)
+  ;; ((latex-mode LaTeX-mode) . lsp-deferred)
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
   (setq lsp-auto-guess-root t
@@ -76,21 +76,19 @@
 
 *** hooks
 #+begin_src emacs-lisp
-(add-hook 'python-mode-hook (lambda ()
-			      (if (file-remote-p default-directory)
-				  (eglot-ensure)
-				(lsp-deferred))))
-(add-hook 'c++-mode-hook (lambda ()
-			   (if (file-remote-p default-directory)
-			       (eglot-ensure)
-			     (lsp-deferred))))
-(add-hook 'c-mode-hook (lambda ()
-			 (if (file-remote-p default-directory)
-			     (eglot-ensure)
-			   (lsp-deferred))))
-(add-hook 'ess-r-mode-hook (lambda ()
-			     (when (not (file-remote-p default-directory))
-			       (lsp-deferred))))
+;; use lsp-mode in local and eglot in remote
+(dolist (mode '(python-mode-hook
+		c++-mode-hook c-mode-hook
+		latex-mode-hook LaTeX-mode-hook))
+  (add-hook mode (lambda ()
+		   (if (file-remote-p default-directory)
+		       (eglot-ensure)
+		     (lsp-deferred)))))
+;; disable lsp in the following modes
+(dolist (mode '(ess-r-mode-hook))
+  (add-hook mode (lambda ()
+		   (when (not (file-remote-p default-directory))
+		     (lsp-deferred)))))
 #+end_src
 
 ** Debug
