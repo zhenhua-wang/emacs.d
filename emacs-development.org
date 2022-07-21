@@ -61,17 +61,14 @@
               ([remap xref-find-references] . lsp-ui-peek-find-references))
   :hook (lsp-mode . lsp-ui-mode)
   :init
-  (setq lsp-ui-sideline-show-diagnostics nil
+  (setq lsp-ui-peek-always-show t
+	lsp-ui-sideline-show-diagnostics nil
         lsp-ui-sideline-ignore-duplicate t
 	lsp-ui-sideline-show-code-actions t
 	lsp-ui-doc-show-with-cursor nil
 	lsp-ui-doc-show-with-mouse t
 	lsp-ui-doc-position 'top
-        lsp-ui-doc-delay 0.1
-        lsp-ui-imenu-colors `(,(face-foreground 'font-lock-keyword-face)
-                              ,(face-foreground 'font-lock-string-face)
-                              ,(face-foreground 'font-lock-constant-face)
-                              ,(face-foreground 'font-lock-variable-name-face)))
+        lsp-ui-doc-delay 0.1)
   ;; Set correct color to borders
   (defun my-lsp-ui-doc-set-border ()
     "Set the border color of lsp doc."
@@ -186,7 +183,10 @@
               flycheck-check-syntax-automatically '(save mode-enabled)))
 
 (use-package flycheck-popup-tip
-  :hook (flycheck-mode . flycheck-popup-tip-mode))
+  :hook (flycheck-mode . flycheck-popup-tip-mode)
+  :config
+  (custom-set-variables
+   '(flycheck-popup-tip-error-prefix "- ")))
 
 (add-hook 'prog-mode-hook (lambda ()
 			    (when (not (file-remote-p default-directory))
