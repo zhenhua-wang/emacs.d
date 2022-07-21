@@ -1283,6 +1283,10 @@ Auto-Saving Changed Files
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root)))
 
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
   ;; Preview while using consult-theme
   (consult-customize consult-theme :preview-key '(:debounce 0.5 any))
   ;; Preview immediately on M-., on up/down after 0.5s, on any other key after 1s
@@ -1299,9 +1303,10 @@ Auto-Saving Changed Files
   (use-package consult-dir :after consult
     :init (setq consult-dir-project-list-function #'consult-dir-projectile-dirs))
   (use-package consult-flycheck
-		:after (consult flycheck))
+    :after (consult flycheck))
   (use-package consult-projectile
-    :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+    :straight (consult-projectile :type git :host gitlab
+				  :repo "OlMon/consult-projectile" :branch "master"))
   (use-package consult-tramp
     :straight
     (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
