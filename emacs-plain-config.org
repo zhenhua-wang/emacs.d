@@ -418,3 +418,23 @@ My key binding strategy:
   :mode
   ("\\.[rR]md\\'" . poly-gfm+r-mode))
 #+end_src
+
+** Flycheck
+#+begin_src emacs-lisp
+;; check code syntax
+(use-package flycheck
+  :commands (flycheck)
+  :init (setq flycheck-emacs-lisp-load-path 'inherit
+              ;; Only check while saving and opening files
+              flycheck-check-syntax-automatically '(save mode-enabled)))
+
+(use-package flycheck-popup-tip
+  :hook (flycheck-mode . flycheck-popup-tip-mode)
+  :config
+  (custom-set-variables
+   '(flycheck-popup-tip-error-prefix "- ")))
+
+(add-hook 'prog-mode-hook (lambda ()
+			    (when (not (file-remote-p default-directory))
+			      (flycheck-mode))))
+#+end_src
