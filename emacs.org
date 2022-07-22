@@ -1255,6 +1255,7 @@ Auto-Saving Changed Files
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
          ("<help> a" . consult-apropos)            ;; orig. apropos-command
 	 ("s-f" . consult-line)                ;; orig. yank-pop
+	 ("s-F" . zw/consult-line-multi)
          ;; M-g bindings (goto-map)
          ("M-g g" . consult-goto-line)             ;; orig. goto-line
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
@@ -1320,7 +1321,12 @@ Auto-Saving Changed Files
     :straight
     (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
     :init
-    (setq consult-tramp-method "ssh")))
+    (setq consult-tramp-method "ssh"))
+
+  ;; custom functions
+  (defun zw/consult-line-multi ()
+    (interactive)
+    (consult-line-multi t)))
 
 ;; use this for now untill consult have its web-search
 (use-package google-this :bind ("C-c l" . google-this-search))
