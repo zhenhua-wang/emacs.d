@@ -51,7 +51,10 @@
 ;; microsoft pyright
 (use-package lsp-pyright
   :after lsp-mode)
+  #+end_src
 
+*** lsp-ui
+#+begin_src emacs-lisp
 (use-package lsp-ui
   :custom-face
   (lsp-ui-sideline-code-action ((t (:inherit warning))))
@@ -91,7 +94,12 @@
       (posframe-show lsp-ui-peek--buffer
                      :string (mapconcat 'identity string "")
                      :min-width (frame-width)
-                     :poshandler #'posframe-poshandler-frame-center)))
+                     :poshandler #'posframe-poshandler-frame-center
+		     :override-parameters '((tab-bar-mode . 0)
+					    (tab-bar-format . nil)
+					    (tab-line-format . nil)
+					    (tab-bar-lines . 0)
+					    (tab-bar-lines-keep-state . 0)))))
 
   (defun lsp-ui-peek--peek-destroy ()
     (when (bufferp lsp-ui-peek--buffer)
@@ -127,7 +135,7 @@
             (propertize " " 'display '(space :height (1)))
             (and (not (equal after ?\n)) (propertize " \n" 'face '(:height 0.5)))))))))
   (advice-add #'lsp-ui-doc--handle-hr-lines :override #'my-lsp-ui-doc--handle-hr-lines))
-  #+end_src
+#+end_src
 
 *** eglot
 #+begin_src emacs-lisp
