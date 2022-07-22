@@ -511,7 +511,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		      :box (face-background 'mode-line)
                       :font zw/default-font)
   (set-face-attribute 'tab-bar nil
+		      :foreground (face-foreground 'default)
 		      :background (face-background 'mode-line)
+		      :box (face-background 'mode-line)
 		      :font zw/default-font))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
@@ -536,7 +538,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; show menu
 (defun tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ⦿" 'face 'tab-bar)
+  `((menu-bar menu-item (propertize " λ" 'face 'tab-bar)
               tab-bar-menu-bar :help "Menu Bar")))
 
 (tab-bar-mode 1)
