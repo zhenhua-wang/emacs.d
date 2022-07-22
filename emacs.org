@@ -511,7 +511,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		      :box (face-background 'mode-line)
                       :font zw/default-font)
   (set-face-attribute 'tab-bar nil
-		      :background (face-background 'mode-line)))
+		      :background (face-background 'mode-line)
+		      :font zw/default-font))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
 ;; display battery to the right
@@ -522,7 +523,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 		       tab-bar-format-align-right
 		       tab-bar-format-global))
 ;; set string for tab-bar-separator
-(setq tab-bar-separator "  ")
+(setq tab-bar-separator " ")
 
 ;; show battery
 (require 'battery)
