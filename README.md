@@ -13,8 +13,9 @@
 -   emacs-plus: this version has support for svg in OS X
 -   ubuntu mono: https://fonts.google.com/specimen/Ubuntu+Mono
 -   ubuntu: https://fonts.google.com/specimen/Ubuntu
--   hack: https://github.com/source-foundry/Hack
--   etbembo: https://github.com/edwardtufte/et-book/tree/gh-pages/et-book
+-   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+-   etbembo: https://github.com/edwardtufte/et-book/raw/gh-pages/et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf
+-   etbembo-italic: https://github.com/edwardtufte/et-book/raw/gh-pages/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.ttf
 
 <a id="orgf33587f"></a>
 
