@@ -108,43 +108,15 @@
 (global-unset-key (kbd "C-<mouse-5>"))          ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-down>"))       ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-up>"))         ; disable scroll zoom
-;; editing
-(global-set-key (kbd "s-z") 'undo)
-(global-set-key (kbd "s-x") 'kill-region)
-(global-set-key (kbd "s-c") 'kill-ring-save)
-(global-set-key (kbd "s-v") 'yank)
-(global-set-key (kbd "s-a") 'mark-whole-buffer)
-(global-set-key (kbd "s-s") 'save-buffer)
-(global-set-key (kbd "s-l") 'goto-line)
-(define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "M-f") 'isearch-repeat-forward)
 ;; vterm
-(global-set-key (kbd "s-e") 'vterm)
+(global-set-key (kbd "M-e") 'eshell)
 ;; buffer operations
-(global-set-key (kbd "s-q") 'kill-current-buffer)
+(global-set-key (kbd "M-q") 'kill-current-buffer)
 ;; window operations
-(global-set-key (kbd "s-w") 'delete-window)
-(global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
+(global-set-key (kbd "M-w") 'delete-window)
+(global-set-key (kbd "M-t") 'split-window-sensibly-prefer-horizontal)
 (windmove-default-keybindings 'meta)
-;; tab operations
-(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
-(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
-(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
-(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
-(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
-(global-set-key (kbd "s-n") 'tab-new)
-;; toggle transparency
-(global-set-key (kbd "s-T") 'zw/toggle-transparency)
-;; get passwed
-;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
-;; toggle input
-(global-set-key (kbd "s-\\") 'toggle-input-method)
-;; macos keys
-(pcase system-type
-  ('darwin
-   (progn
-     (setq mac-right-command-modifier 'hyper)
-     (setq mac-command-modifier 'super)
-     (setq mac-option-modifier 'meta))))
 #+end_src
 
 * Elegant emacs
