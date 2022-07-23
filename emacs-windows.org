@@ -95,33 +95,6 @@
       nil)))
   #+end_src
 
-* Recentf
-#+begin_src emacs-lisp
-(use-package recentf
-  :straight (:type built-in)
-  :hook (after-init . recentf-mode)
-  :init (setq recentf-max-saved-items 300
-              recentf-exclude
-              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
-		no-littering-var-directory no-littering-etc-directory
-                (lambda (file) (file-in-directory-p file package-user-dir))))
-  :config
-  (push (expand-file-name recentf-save-file) recentf-exclude)
-  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
-#+end_src
-
-* Savehist
-#+begin_src emacs-lisp
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :hook (after-init . savehist-mode)
-  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-		history-length 1000))
-#+end_src
-
 * Keybinding
 #+begin_src emacs-lisp
 ;; ------------------- key bind ---------------------
@@ -142,6 +115,34 @@
 ;; window operations
 (global-set-key (kbd "M-w") 'delete-window)
 (windmove-default-keybindings 'meta)
+#+end_src
+
+* Integration
+** Recentf
+#+begin_src emacs-lisp
+(use-package recentf
+  :straight (:type built-in)
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+		no-littering-var-directory no-littering-etc-directory
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+#+end_src
+
+** Savehist
+#+begin_src emacs-lisp
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :hook (after-init . savehist-mode)
+  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+		history-length 1000))
 #+end_src
 
 * Completion
@@ -320,20 +321,10 @@
         ([return] . corfu-insert)
 	("SPC" . corfu-insert-separator))
   :init
-  ;; fast prefix filtering
-  (defun orderless-fast-dispatch (word index total)
-    (and (= index 0) (= total 1) (length< word 4)
-	 `(orderless-regexp . ,(concat "^" (regexp-quote word)))))
-
-  (orderless-define-completion-style orderless-fast
-    (orderless-dispatch '(orderless-fast-dispatch))
-    (orderless-matching-styles '(orderless-literal orderless-regexp)))
-
   (setq corfu-cycle t
 	corfu-auto t
 	corfu-auto-delay 0
-	corfu-auto-prefix 2
-	completion-styles '(orderless-fast)
+	corfu-auto-prefix 1
 	corfu-preselect-first t
 	corfu-quit-no-match t
 	corfu-on-exact-match 'insert
