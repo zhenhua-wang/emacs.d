@@ -227,10 +227,6 @@
         consult-async-input-throttle 0.2
         consult-async-input-debounce 0.1)
 
-  ;; use projectile in consult
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
-
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
@@ -245,8 +241,7 @@
                            :debounce 1 'any))
 
   ;; custom consult packages
-  (use-package consult-dir :after consult
-    :init (setq consult-dir-project-list-function #'consult-dir-projectile-dirs))
+  (use-package consult-dir :after consult)
 
   ;; custom functions
   (defun zw/consult-line-multi ()
