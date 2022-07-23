@@ -1016,7 +1016,6 @@ LSP-mode with TexLab works perfect for Latex docs
   (latex-mode . turn-on-cdlatex))
 
 (use-package reftex
-  :disabled
   :hook
   (LaTeX-mode . turn-on-reftex)
   (latex-mode . turn-on-reftex)
