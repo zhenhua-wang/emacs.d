@@ -59,5 +59,7 @@
 (setq use-package-verbose t)
 
 ;; load init
-(org-babel-load-file "~/.emacs.d/emacs.org")
+(if (eq system-type 'windows-nt)
+    (org-babel-load-file "~/.emacs.d/emacs-windows.org")
+  (org-babel-load-file "~/.emacs.d/emacs.org"))
 ;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
