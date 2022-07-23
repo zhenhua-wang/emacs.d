@@ -124,10 +124,7 @@
 ;; window operations
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
-(global-set-key [M-left] 'windmove-left)          ; move to left window
-(global-set-key [M-right] 'windmove-right)        ; move to right window
-(global-set-key [M-up] 'windmove-up)              ; move to upper window
-(global-set-key [M-down] 'windmove-down)          ; move to lower window
+(windmove-default-keybindings 'meta)
 ;; tab operations
 (global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
 (global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
