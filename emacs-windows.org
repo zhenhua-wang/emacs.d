@@ -972,7 +972,6 @@ function is a convenience wrapper used by `describe-package-1'."
 (save-place-mode 1)
 #+end_src
 
-
 * Academic
 ** Latex
 
