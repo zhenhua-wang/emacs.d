@@ -63,7 +63,7 @@
   (after-init . fringe-mode)
   :config
   ;; setq default folder
-  (setq default-directory (concat (getenv "HOME") "/"))
+  (setq default-directory (concat (getenv "HOME") "/../.."))
   ;; default coding
   (set-default-coding-systems 'utf-8)
   ;; cursor
