@@ -66,8 +66,6 @@
   (setq default-directory (concat (getenv "HOME") "/"))
   ;; default coding
   (set-default-coding-systems 'utf-8)
-  ;; start server mode
-  (server-start)
   ;; cursor
   (setq-default cursor-type 'bar)
   ;; save clipboard before kill ring
@@ -717,7 +715,6 @@ function is a convenience wrapper used by `describe-package-1'."
                (file-name-as-directory (file-name-directory load-file-name))))
 ;;; -------------------------------------------------------------------
 #+end_src
-
 
 ** sanity.el
 #+begin_src emacs-lisp
