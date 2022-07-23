@@ -63,7 +63,7 @@
   (after-init . fringe-mode)
   :config
   ;; setq default folder
-  (setq default-directory (concat (getenv "HOME") "/../.."))
+  (setq default-directory (concat (getenv "HOME") "/../../"))
   ;; default coding
   (set-default-coding-systems 'utf-8)
   ;; cursor
@@ -124,10 +124,10 @@
 ;; window operations
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
-(global-set-key [s-left] 'windmove-left)          ; move to left window
-(global-set-key [s-right] 'windmove-right)        ; move to right window
-(global-set-key [s-up] 'windmove-up)              ; move to upper window
-(global-set-key [s-down] 'windmove-down)          ; move to lower window
+(global-set-key [M-left] 'windmove-left)          ; move to left window
+(global-set-key [M-right] 'windmove-right)        ; move to right window
+(global-set-key [M-up] 'windmove-up)              ; move to upper window
+(global-set-key [M-down] 'windmove-down)          ; move to lower window
 ;; tab operations
 (global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
 (global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
