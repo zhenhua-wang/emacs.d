@@ -117,6 +117,244 @@
 (windmove-default-keybindings 'meta)
 #+end_src
 
+* Completion
+** Orderless
+#+begin_src emacs-lisp
+;; orderless
+(use-package orderless
+  :config
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+** Minibuffer Completion
+*** vertigo
+#+begin_src emacs-lisp
+(use-package vertico
+  :straight (:files (:defaults "extensions/*")
+		    :includes (vertico-buffer
+			       vertico-directory
+			       vertico-flat
+			       vertico-indexed
+			       vertico-mouse
+			       vertico-quick
+			       vertico-repeat
+			       vertico-reverse))
+  :hook
+  (after-init . vertico-mode)
+  ;; Tidy shadowed file names
+  (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  :init
+  (setq vertico-resize nil
+	vertico-scroll-margin 0
+	vertico-count 12
+	vertico-cycle t)
+  :config
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+#+end_src
+
+*** marginalia
+#+begin_src emacs-lisp
+(use-package marginalia
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :hook (vertico-mode . marginalia-mode))
+
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook
+  (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  (marginalia-mode . all-the-icons-completion-mode)
+  :init
+  (setq marginalia-max-relative-age 0
+	marginalia-align 'center))
+#+end_src
+
+*** consult
+#+begin_src emacs-lisp
+(use-package consult
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+	 ("C-x C-b" . consult-buffer)
+	 ("C-x C-d" . consult-dir)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+	 ("s-f" . consult-line)                ;; orig. yank-pop
+	 ("s-F" . zw/consult-line-multi)
+         ;; M-g bindings (goto-map)
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g i" . consult-imenu)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s g" . consult-grep)
+	 ("M-s m" . consult-minor-mode-menu)
+	 :map isearch-mode-map
+         ("M-s" . consult-isearch-history)
+	 :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir))
+  :init
+  (setq consult-preview-key (kbd "M-."))
+  :config
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-recent-file
+   consult--source-project-recent-file
+   :preview-key (kbd "M-."))
+
+  ;; Optionally configure the narrowing key.
+  (setq consult-narrow-key "<" ;; (kbd "C-+")
+	consult-line-numbers-widen t
+        consult-async-min-input 2
+        consult-async-refresh-delay  0.15
+        consult-async-input-throttle 0.2
+        consult-async-input-debounce 0.1)
+
+  ;; use projectile in consult
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-function (lambda (_) (projectile-project-root)))
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Preview while using consult-theme
+  (consult-customize consult-theme :preview-key '(:debounce 0.5 any))
+  ;; Preview immediately on M-., on up/down after 0.5s, on any other key after 1s
+  (consult-customize consult-theme
+                     :preview-key
+                     (list (kbd "M-.")
+                           :debounce 0.5 (kbd "<up>") (kbd "<down>")
+                           :debounce 1 'any))
+
+  ;; custom consult packages
+  (use-package consult-dir :after consult
+    :init (setq consult-dir-project-list-function #'consult-dir-projectile-dirs))
+
+  ;; custom functions
+  (defun zw/consult-line-multi ()
+    (interactive)
+    (consult-line-multi t)))
+
+;; use this for now untill consult have its web-search
+(use-package google-this :bind ("C-c l" . google-this-search))
+#+end_src
+
+*** embark
+#+begin_src emacs-lisp
+(use-package embark
+  :bind
+  (("M-," . embark-act)         ;; pick some comfortable binding
+   ("M-." . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+#+end_src
+
+** Corfu
+*** dabbrev
+#+begin_src emacs-lisp
+(use-package dabbrev
+  :custom
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace t))
+#+end_src
+
+*** corfu
+#+begin_src emacs-lisp
+(use-package corfu
+  :hook
+  (after-init . global-corfu-mode)
+  :bind
+  (:map corfu-map
+	("TAB" . corfu-insert)
+        ([tab] . corfu-insert)
+        ([escape] . corfu-quit)
+        ([return] . corfu-insert)
+	("SPC" . corfu-insert-separator))
+  :init
+  ;; fast prefix filtering
+  (defun orderless-fast-dispatch (word index total)
+    (and (= index 0) (= total 1) (length< word 4)
+	 `(orderless-regexp . ,(concat "^" (regexp-quote word)))))
+
+  (orderless-define-completion-style orderless-fast
+    (orderless-dispatch '(orderless-fast-dispatch))
+    (orderless-matching-styles '(orderless-literal orderless-regexp)))
+
+  (setq corfu-cycle t
+	corfu-auto t
+	corfu-auto-delay 0
+	corfu-auto-prefix 2
+	completion-styles '(orderless-fast)
+	corfu-preselect-first t
+	corfu-quit-no-match t
+	corfu-on-exact-match 'insert
+	corfu-preview-current nil
+	corfu-echo-documentation nil
+	corfu-scroll-margin 5
+	corfu-count 10
+	corfu-min-width 20
+	corfu-max-width 80)
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; disable corfu auto in following modes
+  (dolist (hook '(eshell-mode-hook shell-mode-hook))
+    (add-hook hook (lambda () (setq-local corfu-auto nil)))))
+
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  (kind-icon-use-icons nil)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+#+end_src
+
+*** cape
+#+begin_src emacs-lisp
+(use-package cape
+  :after corfu
+  :bind
+  ("C-c f" . cape-file)
+  ("C-c d" . cape-dabbrev)
+  :hook
+  (after-change-major-mode . add-cape-completion)
+  :init
+  (defun add-cape-completion ()
+    ;; Add `completion-at-point-functions', used by `completion-at-point'.
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev t)))
+#+end_src
+
 * Elegant emacs
 https://github.com/rougier/elegant-emacs
 
