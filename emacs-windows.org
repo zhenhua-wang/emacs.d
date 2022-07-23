@@ -1019,9 +1019,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (LaTeX-mode . turn-on-reftex)
   (latex-mode . turn-on-reftex)
   :custom
-  (reftex-plug-into-AUCTeX t)
-  (reftex-toc-split-windows-horizontally t)
-  (reftex-toc-split-windows-fraction 0.2))
+  (reftex-plug-into-AUCTeX t))
 #+end_src
 
 
