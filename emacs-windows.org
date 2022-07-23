@@ -323,7 +323,7 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
   ;; disable corfu auto in following modes
   (dolist (hook '(eshell-mode-hook shell-mode-hook))
-    (add-hook hook (lambda () (setq-local corfu-auto nil)))))
+    (add-hook hook (lambda () (corfu-mode -1)))))
 
 (use-package kind-icon
   :after corfu
