@@ -108,14 +108,12 @@
 (global-unset-key (kbd "C-<mouse-5>"))          ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-down>"))       ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-up>"))         ; disable scroll zoom
-(define-key isearch-mode-map (kbd "M-f") 'isearch-repeat-forward)
 ;; vterm
 (global-set-key (kbd "M-e") 'eshell)
 ;; buffer operations
 (global-set-key (kbd "M-q") 'kill-current-buffer)
 ;; window operations
 (global-set-key (kbd "M-w") 'delete-window)
-(global-set-key (kbd "M-t") 'split-window-sensibly-prefer-horizontal)
 (windmove-default-keybindings 'meta)
 #+end_src
 
