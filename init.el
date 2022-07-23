@@ -29,6 +29,35 @@
 ;; hide initial message
 (setq initial-scratch-message nil)
 
+;; Load path for manually installed packages
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; Load path for customied themes
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
+;; straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Install use-package
+(straight-use-package 'use-package)
+;; Configure use-package to use straight.el by default
+(setq straight-use-package-by-default t)
+;; disable checking at start-up
+(setq straight-check-for-modifications '(watch-files find-when-checking))
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
+
 ;; load init
 (org-babel-load-file "~/.emacs.d/emacs.org")
 ;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")

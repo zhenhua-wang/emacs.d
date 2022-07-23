@@ -12,4 +12,5 @@ emacs-development.el
 emacs-plain-config.el
 emacs-academic.el
 emacs-system.el
+emacs-windows.el
 emacs.el
