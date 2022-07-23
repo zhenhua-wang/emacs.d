@@ -376,7 +376,6 @@ https://github.com/rougier/elegant-emacs
 ;; Only necessary for the splash screen mockup
 ;; -------------------------------------------------------------------
 (with-eval-after-load 'org
-  (setq org-ellipsis " ▾")
   (setq org-startup-folded  t)
   (setq org-display-inline-images t)
   (setq org-redisplay-inline-images t)
