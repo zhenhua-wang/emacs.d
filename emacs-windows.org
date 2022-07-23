@@ -155,6 +155,7 @@
 * Elegant emacs
 https://github.com/rougier/elegant-emacs
 
+** elegance.el
 #+begin_src emacs-lisp
 ;;; Font and frame size
 ;;; -------------------------------------------------------------------
@@ -715,5 +716,23 @@ function is a convenience wrapper used by `describe-package-1'."
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 ;;; -------------------------------------------------------------------
+#+end_src
+
+
+** sanity.el
+#+begin_src emacs-lisp
+(setq gc-cons-threshold (* 100 1024 1024))
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq initial-major-mode 'org-mode)
+(setq-default indent-tabs-mode nil)
+(setq pop-up-windows nil)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+(save-place-mode 1)
 #+end_src
 
