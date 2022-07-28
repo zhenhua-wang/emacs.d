@@ -998,12 +998,16 @@ LSP-mode with TexLab works perfect for Latex docs
               ("`" . nil)
               ("{" . nil)
               ("[" . nil)
+	      ("^" . nil)
+	      ("_" . nil)
 	      :map org-cdlatex-mode-map
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
               ("{" . nil)
-              ("[" . nil))
+              ("[" . nil)
+	      ("^" . nil)
+              ("_" . nil))
   :hook
   (LaTeX-mode . turn-on-cdlatex)
   (latex-mode . turn-on-cdlatex))
