@@ -287,13 +287,13 @@ LSP-mode with TexLab works perfect for Latex docs
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package cdlatex
-  :disabled
   :bind (:map cdlatex-mode-map
               ;; ("TAB" . indent-for-tab-command)
               ;; ("<C-tab>" . cdlatex-tab)
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
+	      ("'" . nil)
               ("{" . nil)
               ("[" . nil)
 	      ("^" . nil)
@@ -304,6 +304,7 @@ LSP-mode with TexLab works perfect for Latex docs
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
+	      ("'" . nil)
               ("{" . nil)
               ("[" . nil)
 	      ("^" . nil)
@@ -312,16 +313,6 @@ LSP-mode with TexLab works perfect for Latex docs
   (org-mode . turn-on-org-cdlatex)
   (LaTeX-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
-
-(use-package reftex
-  :disabled
-  :hook
-  (LaTeX-mode . turn-on-reftex)
-  (markdown-mode . turn-on-reftex)
-  :custom
-  (reftex-plug-into-AUCTeX t)
-  (reftex-toc-split-windows-horizontally t)
-  (reftex-toc-split-windows-fraction 0.2))
 
 ;; auto async preview latex
 (use-package xenops

@@ -983,39 +983,48 @@ LSP-mode with TexLab works perfect for Latex docs
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq
-   Tex-PDF-mode t
    TeX-parse-self t
    TeX-auto-save t
+   ;; Use hidden directories for AUCTeX files.
+   TeX-auto-local ".auctex-auto"
+   TeX-style-local ".auctex-style"
    Tex-command-show "LaTex"
+   TeX-view-program-selection '((output-pdf "PDF Tools"))
+   TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
    TeX-save-query nil)
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package cdlatex
   :bind (:map cdlatex-mode-map
+              ;; ("TAB" . indent-for-tab-command)
+              ;; ("<C-tab>" . cdlatex-tab)
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
+	      ("'" . nil)
               ("{" . nil)
               ("[" . nil)
 	      ("^" . nil)
-	      ("_" . nil)
+              ("_" . nil)
 	      :map org-cdlatex-mode-map
+              ;; ("TAB" . indent-for-tab-command)
+              ;; ("<C-tab>" . cdlatex-tab)
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
+	      ("'" . nil)
               ("{" . nil)
               ("[" . nil)
 	      ("^" . nil)
               ("_" . nil))
   :hook
-  (LaTeX-mode . turn-on-cdlatex)
-  (latex-mode . turn-on-cdlatex))
+  (org-mode . turn-on-org-cdlatex)
+  (LaTeX-mode . turn-on-cdlatex))
 
 (use-package reftex
   :hook
   (LaTeX-mode . turn-on-reftex)
-  (latex-mode . turn-on-reftex)
   :custom
   (reftex-plug-into-AUCTeX t))
 #+end_src
