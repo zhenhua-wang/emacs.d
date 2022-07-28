@@ -264,7 +264,6 @@
 #+end_src
 
 * Latex
-** Auctex
 LSP-mode with TexLab works perfect for Latex docs
 
   - =brew install texlab=
@@ -275,9 +274,11 @@ LSP-mode with TexLab works perfect for Latex docs
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :config
   (setq
-   Tex-PDF-mode t
    TeX-parse-self t
    TeX-auto-save t
+   ;; Use hidden directories for AUCTeX files.
+   TeX-auto-local ".auctex-auto"
+   TeX-style-local ".auctex-style"
    Tex-command-show "LaTex"
    TeX-view-program-selection '((output-pdf "PDF Tools"))
    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
@@ -310,14 +311,12 @@ LSP-mode with TexLab works perfect for Latex docs
   :hook
   (org-mode . turn-on-org-cdlatex)
   (LaTeX-mode . turn-on-cdlatex)
-  (latex-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 
 (use-package reftex
   :disabled
   :hook
   (LaTeX-mode . turn-on-reftex)
-  (latex-mode . turn-on-reftex)
   (markdown-mode . turn-on-reftex)
   :custom
   (reftex-plug-into-AUCTeX t)
