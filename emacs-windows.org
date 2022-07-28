@@ -971,7 +971,7 @@ function is a convenience wrapper used by `describe-package-1'."
 #+end_src
 
 * Academic
-** Latex
+** Auctex
 
 LSP-mode with TexLab works perfect for Latex docs
 
@@ -993,16 +993,12 @@ LSP-mode with TexLab works perfect for Latex docs
 
 (use-package cdlatex
   :bind (:map cdlatex-mode-map
-              ;; ("TAB" . indent-for-tab-command)
-              ;; ("<C-tab>" . cdlatex-tab)
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
               ("{" . nil)
               ("[" . nil)
 	      :map org-cdlatex-mode-map
-              ;; ("TAB" . indent-for-tab-command)
-              ;; ("<C-tab>" . cdlatex-tab)
               ;; turn off auto pairing
               ("$" . nil)
               ("`" . nil)
@@ -1020,4 +1016,92 @@ LSP-mode with TexLab works perfect for Latex docs
   (reftex-plug-into-AUCTeX t))
 #+end_src
 
+** Fontification
+#+begin_src emacs-lisp
+;; Fontification taken from https://tex.stackexchange.com/a/86119/81279.
+(setq font-latex-match-reference-keywords
+      '(;; BibLaTeX.
+        ("printbibliography" "[{")
+        ("addbibresource" "[{")
+        ;; Standard commands.
+        ("cite" "[{")
+        ("citep" "[{")
+        ("citet" "[{")
+        ("Cite" "[{")
+        ("parencite" "[{")
+        ("Parencite" "[{")
+        ("footcite" "[{")
+        ("footcitetext" "[{")
+        ;; Style-specific commands.
+        ("textcite" "[{")
+        ("Textcite" "[{")
+        ("smartcite" "[{")
+        ("Smartcite" "[{")
+        ("cite*" "[{")
+        ("parencite*" "[{")
+        ("supercite" "[{")
+        ;; Qualified citation lists.
+        ("cites" "[{")
+        ("Cites" "[{")
+        ("parencites" "[{")
+        ("Parencites" "[{")
+        ("footcites" "[{")
+        ("footcitetexts" "[{")
+        ("smartcites" "[{")
+        ("Smartcites" "[{")
+        ("textcites" "[{")
+        ("Textcites" "[{")
+        ("supercites" "[{")
+        ;; Style-independent commands.
+        ("autocite" "[{")
+        ("Autocite" "[{")
+        ("autocite*" "[{")
+        ("Autocite*" "[{")
+        ("autocites" "[{")
+        ("Autocites" "[{")
+        ;; Text commands.
+        ("citeauthor" "[{")
+        ("Citeauthor" "[{")
+        ("citetitle" "[{")
+        ("citetitle*" "[{")
+        ("citeyear" "[{")
+        ("citedate" "[{")
+        ("citeurl" "[{")
+        ;; Special commands.
+        ("fullcite" "[{")
+        ;; Cleveref.
+        ("cref" "{")
+        ("Cref" "{")
+        ("cpageref" "{")
+        ("Cpageref" "{")
+        ("cpagerefrange" "{")
+        ("Cpagerefrange" "{")
+        ("crefrange" "{")
+        ("Crefrange" "{")
+        ("labelcref" "{")))
 
+(setq font-latex-match-textual-keywords
+      '(;; BibLaTeX brackets.
+        ("parentext" "{")
+        ("brackettext" "{")
+        ("hybridblockquote" "[{")
+        ;; Auxiliary commands.
+        ("textelp" "{")
+        ("textelp*" "{")
+        ("textins" "{")
+        ("textins*" "{")
+        ;; Subcaption.
+        ("subcaption" "[{")))
+
+(setq font-latex-match-variable-keywords
+      '(;; Amsmath.
+        ("numberwithin" "{")
+        ;; Enumitem.
+        ("setlist" "[{")
+        ("setlist*" "[{")
+        ("newlist" "{")
+        ("renewlist" "{")
+        ("setlistdepth" "{")
+        ("restartlist" "{")
+        ("crefname" "{")))
+#+end_src
