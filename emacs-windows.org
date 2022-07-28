@@ -112,8 +112,6 @@
 (global-set-key (kbd "M-e") 'eshell)
 ;; buffer operations
 (global-set-key (kbd "M-q") 'kill-current-buffer)
-;; window operations
-(global-set-key (kbd "M-w") 'delete-window)
 (windmove-default-keybindings 'meta)
 #+end_src
 
