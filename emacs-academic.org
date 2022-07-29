@@ -272,7 +272,7 @@ LSP-mode with TexLab works perfect for Latex docs
 ;; latex
 (use-package auctex
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
-  :config
+  :init
   (setq
    TeX-parse-self t
    TeX-auto-save t
@@ -283,6 +283,7 @@ LSP-mode with TexLab works perfect for Latex docs
    TeX-view-program-selection '((output-pdf "PDF Tools"))
    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
    TeX-save-query nil)
+  :config
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
@@ -310,7 +311,7 @@ LSP-mode with TexLab works perfect for Latex docs
 	      ("^" . nil)
               ("_" . nil))
   :hook
-  (org-mode . turn-on-org-cdlatex)
+  (org-mode . org-cdlatex-mode)
   (LaTeX-mode . turn-on-cdlatex)
   (markdown-mode . turn-on-cdlatex))
 

@@ -1019,7 +1019,7 @@ LSP-mode with TexLab works perfect for Latex docs
 	      ("^" . nil)
               ("_" . nil))
   :hook
-  (org-mode . turn-on-org-cdlatex)
+  (org-mode . org-cdlatex-mode)
   (LaTeX-mode . turn-on-cdlatex))
 
 (use-package reftex
