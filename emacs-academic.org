@@ -296,7 +296,6 @@ LSP-mode with TexLab works perfect for Latex docs
   :hook
   (org-mode . org-cdlatex-mode)
   (LaTeX-mode . turn-on-cdlatex)
-  (LaTeX-mode . LaTeX-math-mode)
   (markdown-mode . turn-on-cdlatex)
   :config
   (dolist (m (list cdlatex-mode-map org-cdlatex-mode-map))
