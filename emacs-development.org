@@ -179,13 +179,20 @@
 #+begin_src emacs-lisp
 (use-package citre
   :diminish
-  :bind (("C-x ." . citre-jump+)
+  :bind (:map citre-mode-map
+	 ("C-x ." . citre-jump+)
          ("C-x ," . citre-jump-back)
 	 ("C-x /" . citre-jump-to-reference)
-         ("C-x c u" . citre-update-this-tags-file))
+         ("C-x c u" . citre-update-this-tags-file)
+	 ("C-x c U" . citre-global-update-database))
   :init
   (require 'citre-config)
-  (setq citre-auto-enable-citre-mode-modes '(prog-mode))
+  (setq citre-auto-enable-citre-mode-modes '(prog-mode)
+	citre-default-create-tags-file-location 'global-cache
+	citre-use-project-root-when-creating-tags t
+	citre-prompt-language-for-ctags-command t
+	;; reference using citre-global
+	citre-gtags-args '("--compact"))
   (defun citre-jump+ ()
     "Jump to the definition of the symbol at point.
 Fallback to `xref-find-definitions'."
