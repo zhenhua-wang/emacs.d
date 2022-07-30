@@ -175,6 +175,31 @@
 		     (lsp-deferred)))))
 #+end_src
 
+** Citre
+#+begin_src emacs-lisp
+(use-package citre
+  :diminish
+  :bind (("C-x ." . citre-jump+)
+         ("C-x ," . citre-jump-back)
+	 ("C-x /" . citre-jump-to-reference)
+         ("C-x c u" . citre-update-this-tags-file))
+  :init
+  (require 'citre-config)
+  (setq citre-auto-enable-citre-mode-modes '(prog-mode))
+
+  (defun citre-jump+ ()
+    "Jump to the definition of the symbol at point.
+Fallback to `xref-find-definitions'."
+    (interactive)
+    (condition-case _
+        (citre-jump)
+      (error (call-interactively #'xref-find-definitions))))
+  :config
+  (with-no-warnings
+    (with-eval-after-load 'projectile
+      (setq citre-project-root-function #'projectile-project-root))))
+#+end_src
+
 ** Debug
   #+begin_src emacs-lisp
 (defun zw/load-dap-mode ()
