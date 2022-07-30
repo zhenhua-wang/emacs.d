@@ -1024,22 +1024,27 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 	'(;; top side window
           ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
            (display-buffer-in-side-window)
-           (window-height . 0.1)
+           (window-height . 0.2)
            (side . top)
            (slot . 0))
           ("\\*Messages.*"
            (display-buffer-in-side-window)
-           (window-height . 0.1)
+           (window-height . 0.2)
            (side . top)
            (slot . 1))
           ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
            (display-buffer-in-side-window)
-           (window-height . 0.1)
+           (window-height . 0.2)
            (side . top)
            (slot . 2))
           ("\\*polymode export.*"
            (display-buffer-in-side-window)
-           (window-height . 0.1)
+           (window-height . 0.2)
+           (side . top)
+           (slot . 1))
+	  ("\\*compilation.*"
+           (display-buffer-in-side-window)
+           (window-height . 0.2)
            (side . top)
            (slot . 1))
           ;; right side window
