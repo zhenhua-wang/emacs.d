@@ -273,20 +273,18 @@ LSP-mode with TexLab works perfect for Latex docs
 (use-package auctex
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :init
-  (setq TeX-parse-self t
+  (setq TeX-PDF-mode t
+	TeX-parse-self t
 	TeX-auto-save t
 	TeX-insert-braces nil
-	
-	TeX-PDF-mode t
+
 	TeX-source-correlate-mode t
-	
-	;; Use hidden directories for AUCTeX files.
-	TeX-auto-local ".auctex-auto"
-	TeX-style-local ".auctex-style"
-	
+	TeX-source-correlate-method 'synctex
+	;; Don't start the Emacs server when correlating sources.
+	TeX-source-correlate-start-server nil
+
 	Tex-command-show "LaTex"
 	TeX-view-program-selection '((output-pdf "PDF Tools"))
-	TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
 	TeX-save-query nil)
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished

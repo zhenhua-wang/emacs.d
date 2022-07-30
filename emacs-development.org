@@ -314,6 +314,47 @@
 #+end_src
 
 * Language
+** C/C++
+#+begin_src emacs-lisp
+(use-package cc-mode
+  :bind (:map c-mode-base-map
+              ("C-c C-c" . compile))
+  :hook (c-mode-common . (lambda () (c-set-style "stroustrup")))
+  :init (setq-default c-basic-offset 4)
+  :config
+  (defvar compile-guess-command-table
+    '((c-mode       . "gcc -Wall -g %s -o %s -lm")
+      (c++-mode     . "g++ -Wall %s -o %s -std=c++14")))
+  (defun compile-guess-command ()
+    (let ((command-for-mode (cdr (assq major-mode
+                                       compile-guess-command-table))))
+      (if (and command-for-mode
+               (stringp buffer-file-name))
+          (let* ((file-name (file-name-nondirectory buffer-file-name))
+		 (file-name-sans-suffix (if (and (string-match "\\.[^.]*\\'"
+                                                               file-name)
+						 (> (match-beginning 0) 0))
+                                            (substring file-name
+                                                       0 (match-beginning 0))
+                                          nil)))
+            (if file-name-sans-suffix
+		(progn
+                  (make-local-variable 'compile-command)
+                  (setq compile-command
+			(if (stringp command-for-mode)
+                            ;; Optimize the common case.
+                            (format command-for-mode
+                                    file-name file-name-sans-suffix)
+                          (funcall command-for-mode
+                                   file-name file-name-sans-suffix)))
+                  compile-command)
+              nil))
+	nil)))
+  ;; Add the appropriate mode hooks.
+  (add-hook 'c-mode-hook       (function compile-guess-command))
+  (add-hook 'c++-mode-hook     (function compile-guess-command)))
+#+end_src
+
 ** R
 #+begin_src emacs-lisp
 (use-package ess
