@@ -186,7 +186,6 @@
   :init
   (require 'citre-config)
   (setq citre-auto-enable-citre-mode-modes '(prog-mode))
-
   (defun citre-jump+ ()
     "Jump to the definition of the symbol at point.
 Fallback to `xref-find-definitions'."
