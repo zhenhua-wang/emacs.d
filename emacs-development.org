@@ -179,8 +179,7 @@
 #+begin_src emacs-lisp
 (use-package citre
   :diminish
-  :bind (:map citre-mode-map
-	 ("C-x ." . citre-jump+)
+  :bind (("C-x ." . citre-jump+)
          ("C-x ," . citre-jump-back)
 	 ("C-x /" . citre-jump-to-reference)
          ("C-x c u" . citre-update-this-tags-file)
