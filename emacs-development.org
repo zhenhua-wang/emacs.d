@@ -2,7 +2,7 @@
 #+Author: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
-
+-----
 * Header
 #+begin_src emacs-lisp
 ;; -*- lexical-binding: t -*-
@@ -179,7 +179,7 @@
 #+begin_src emacs-lisp
 (use-package citre
   :diminish
-  :bind (("C-x ." . citre-jump+)
+  :bind (("C-x ." . citre-jump)
          ("C-x ," . citre-jump-back)
 	 ("C-x /" . citre-jump-to-reference)
          ("C-x c u" . citre-update-this-tags-file)
@@ -192,13 +192,6 @@
 	citre-prompt-language-for-ctags-command t
 	;; reference using citre-global
 	citre-gtags-args '("--compact"))
-  (defun citre-jump+ ()
-    "Jump to the definition of the symbol at point.
-Fallback to `xref-find-definitions'."
-    (interactive)
-    (condition-case _
-        (citre-jump)
-      (error (call-interactively #'xref-find-definitions))))
   :config
   (with-no-warnings
     (with-eval-after-load 'projectile

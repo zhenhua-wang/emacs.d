@@ -2,7 +2,7 @@
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
-
+-----
 * External screens
 https://askubuntu.com/questions/393400/is-it-possible-to-have-different-dpi-configurations-for-two-different-screens
 #+begin_src emacs-lisp :tangle "no"

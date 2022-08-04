@@ -2,7 +2,6 @@
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
-
 --------------
 * Startup
 ** Keep .emacs.d Clean

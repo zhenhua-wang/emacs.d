@@ -2,7 +2,6 @@
 #+author: Zhenhua Wang
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
-
 -----
 * Header
 #+begin_src emacs-lisp
