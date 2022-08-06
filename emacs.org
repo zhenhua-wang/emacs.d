@@ -394,6 +394,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Theme
 #+begin_src emacs-lisp
 (use-package modus-themes
+  :disabled
+  :bind ("<f12>" . zw/modus-themes-toggle)
   :init
   ;; Configure the Modus Themes' appearance
   (setq modus-themes-mode-line '(moody accented borderless (height . 0.9))
@@ -418,35 +420,46 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi)
-  :bind ("<f12>" . zw/modus-themes-toggle))
+
+  (defun zw/modus-themes-toggle ()
+    (interactive)
+    (modus-themes-toggle)
+    (zw/update-theme))
+
+  (defun zw/update-theme ()
+    (interactive)
+    (zw/modeline-theme)
+    (zw/tab-bar-theme)
+    (zw/set-org-headline)
+    (zw/set-md-headline)
+    (when (featurep 'vterm)
+      (zw/set-vterm-color))
+    ;; change pdf-view-mode color when using dark color theme
+    (if (string= (frame-parameter nil 'background-mode) "dark")
+        (progn
+	  (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+	  (when (derived-mode-p 'pdf-view-mode)
+	    (pdf-view-midnight-minor-mode 1)))
+      (progn
+        (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+        (when (derived-mode-p 'pdf-view-mode)
+	  (pdf-view-midnight-minor-mode 0))))))
+
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (require 'zw-org-theme)
 (require 'zw-md-theme)
 (require 'zw-vterm-theme)
-
-(defun zw/update-theme ()
-  (interactive)
-  (zw/modeline-theme)
-  (zw/tab-bar-theme)
-  (zw/set-org-headline)
-  (zw/set-md-headline)
-  (when (featurep 'vterm)
-    (zw/set-vterm-color))
-  ;; change pdf-view-mode color when using dark color theme
-  (if (string= (frame-parameter nil 'background-mode) "dark")
-      (progn
-	(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-	(when (derived-mode-p 'pdf-view-mode)
-	  (pdf-view-midnight-minor-mode 1)))
-    (progn
-      (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-      (when (derived-mode-p 'pdf-view-mode)
-	(pdf-view-midnight-minor-mode 0)))))
-
-(defun zw/modus-themes-toggle ()
-  (interactive)
-  (modus-themes-toggle)
-  (zw/update-theme))
 #+end_src
 
 ** Tab bar
