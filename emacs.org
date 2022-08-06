@@ -56,7 +56,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; Revert Dired and other buffers
   (setq global-auto-revert-non-file-buffers t)
   ;; Use spaces instead of tabs for indentation
-  (setq indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
   ;; confirm emacs quit
   (setq confirm-kill-emacs 'yes-or-no-p)
   ;; simplify yes no
