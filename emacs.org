@@ -1446,24 +1446,3 @@ This part is largely copied from daviwil's course.
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-system.org"))
 #+end_src
-
-** WSL
-
-To install emacs on wsl: https://emacsredux.com/blog/2021/12/19/using-emacs-on-windows-11-with-wsl2/
-   
-In old windows 10, you may not able to start emacs-gtk. Solution is:  https://github.com/microsoft/WSL/issues/4106#issuecomment-876470388
-   
-#+begin_src emacs-lisp :tangle "no"
-(when (getenv "WSL_DISTRO_NAME")
-  (progn
-    (cua-mode 1)
-    (global-set-key (kbd "C-{") 'windmove-left)          ; move to left window
-    (global-set-key (kbd "C-|") 'windmove-right)        ; move to right window
-    (global-set-key (kbd "C-}") 'windmove-up)              ; move to upper window
-    (global-set-key (kbd "C-\"") 'windmove-down)          ; move to lower window
-    (global-set-key (kbd "M-#") 'winner-undo)
-    (global-set-key (kbd "M-*") 'counsel-projectile-switch-project)
-    (global-set-key (kbd "C-(") 'delete-window)
-    (global-set-key (kbd "C-t") 'split-window-sensibly-prefer-horizontal)
-    (global-set-key (kbd "C-!") 'kill-current-buffer)))
-#+end_src
