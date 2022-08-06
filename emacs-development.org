@@ -370,14 +370,6 @@
   :hook (magit-mode . magit-todos-mode))
 #+end_src
 
-** Topsy
-#+begin_src emacs-lisp
-;; sticky header at the top of the window
-(use-package topsy
-  :straight (topsy :host github :repo "alphapapa/topsy.el")
-  :hook (prog-mode . topsy-mode))
-#+end_src
-
 * Language
 ** C/C++
 #+begin_src emacs-lisp
