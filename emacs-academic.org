@@ -110,11 +110,6 @@
   :hook
   (org-mode . org-fragtog-mode))
 
-;; sticky header at the top of the window
-(use-package org-sticky-header
-  :straight (org-sticky-header :type git :host github :repo "alphapapa/org-sticky-header")
-  :hook (org-mode . org-sticky-header-mode))
-
 (with-eval-after-load 'org
   (zw/set-org-headline))
 #+end_src
