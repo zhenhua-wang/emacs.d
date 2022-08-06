@@ -11,46 +11,6 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+end_src
 
 * Startup
-** Garbage collection
-#+begin_src emacs-lisp
-(use-package gcmh
-  :diminish
-  :hook
-  (after-init . gcmh-mode)
-  :init
-  (setq gcmh-idle-delay 'auto
-        gcmh-auto-idle-delay-factor 10
-        gcmh-high-cons-threshold #x1000000))
-#+end_src
-
-** Keep .emacs.d Clean
-#+begin_src emacs-lisp
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
-
-;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering)
-
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
-(setq custom-file
-      (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
-          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
-(load custom-file t)
-#+end_src
-
-** Benchmark
-#+begin_src emacs-lisp
-(use-package benchmark-init
-  :init
-  (benchmark-init/activate)
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-#+end_src
-
-* General Setting
 ** Global variable
 #+begin_src emacs-lisp
 (setq zw/font-size 170)
@@ -64,7 +24,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (setq zw/font-dashboard "Ubuntu")
 #+end_src
 
-** Common setting
+** Global setting
   #+begin_src emacs-lisp
 (use-package emacs
   :straight (:type built-in)
@@ -112,7 +72,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
       nil)))
   #+end_src
 
-** Keybinding
+** Global keybinding
 #+begin_src emacs-lisp
 ;; ------------------- key bind ---------------------
 ;; general keybindings
@@ -165,6 +125,45 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
      (setq mac-right-command-modifier 'hyper)
      (setq mac-command-modifier 'super)
      (setq mac-option-modifier 'meta))))
+#+end_src
+
+** Garbage collection
+#+begin_src emacs-lisp
+(use-package gcmh
+  :diminish
+  :hook
+  (after-init . gcmh-mode)
+  :init
+  (setq gcmh-idle-delay 'auto
+        gcmh-auto-idle-delay-factor 10
+        gcmh-high-cons-threshold #x1000000))
+#+end_src
+
+** Keep .emacs.d Clean
+#+begin_src emacs-lisp
+;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
+
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering)
+
+;; Keep customization settings in a temporary file (thanks Ambrevar!)
+(setq custom-file
+      (if (boundp 'server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
+(load custom-file t)
+#+end_src
+
+** Benchmark
+#+begin_src emacs-lisp
+(use-package benchmark-init
+  :init
+  (benchmark-init/activate)
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
 * Integration
