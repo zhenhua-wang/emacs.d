@@ -11,7 +11,7 @@
 # Prerequisite
 
 -   emacs-plus: this version has support for svg in OS X
--   ubuntu mono: https://fonts.google.com/specimen/Ubuntu+Mono
+-   Roboto mono: https://fonts.google.com/specimen/Roboto+Mono
 -   ubuntu: https://fonts.google.com/specimen/Ubuntu
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 -   etbembo: https://github.com/edwardtufte/et-book/raw/gh-pages/et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf
