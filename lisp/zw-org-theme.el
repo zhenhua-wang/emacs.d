@@ -23,8 +23,8 @@
   ;; setup fixed pitch fonts
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-meta-line nil :inherit '(bold fixed-pitch))
-  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch) :foreground "#242F9B" :background "#E8F9FD")
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch) :foreground "#B25068" :background "#FFEDDB")
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch) :foreground "#0078AA" :background (face-background 'org-block))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch) :foreground "#B25068" :background (face-background 'org-block))
   (set-face-attribute 'org-table nil :inherit 'fixed-pitch :foreground "#83a598")
   (set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-latex-and-related nil :inherit '(shadow fixed-pitch))
