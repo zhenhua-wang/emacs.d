@@ -424,26 +424,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (defun zw/modus-themes-toggle ()
     (interactive)
     (modus-themes-toggle)
-    (zw/update-theme))
-
-  (defun zw/update-theme ()
-    (interactive)
-    (zw/modeline-theme)
-    (zw/tab-bar-theme)
-    (zw/set-org-headline)
-    (zw/set-md-headline)
-    (when (featurep 'vterm)
-      (zw/set-vterm-color))
-    ;; change pdf-view-mode color when using dark color theme
-    (if (string= (frame-parameter nil 'background-mode) "dark")
-        (progn
-	  (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-	  (when (derived-mode-p 'pdf-view-mode)
-	    (pdf-view-midnight-minor-mode 1)))
-      (progn
-        (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-        (when (derived-mode-p 'pdf-view-mode)
-	  (pdf-view-midnight-minor-mode 0))))))
+    (zw/update-theme)))
 
 (use-package doom-themes
   :config
@@ -460,6 +441,25 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (require 'zw-org-theme)
 (require 'zw-md-theme)
 (require 'zw-vterm-theme)
+
+(defun zw/update-theme ()
+  (interactive)
+  (zw/modeline-theme)
+  (zw/tab-bar-theme)
+  (zw/set-org-headline)
+  (zw/set-md-headline)
+  (when (featurep 'vterm)
+    (zw/set-vterm-color))
+  ;; change pdf-view-mode color when using dark color theme
+  (if (string= (frame-parameter nil 'background-mode) "dark")
+      (progn
+	(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+	(when (derived-mode-p 'pdf-view-mode)
+	  (pdf-view-midnight-minor-mode 1)))
+    (progn
+      (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+      (when (derived-mode-p 'pdf-view-mode)
+	(pdf-view-midnight-minor-mode 0)))))
 #+end_src
 
 ** Tab bar
