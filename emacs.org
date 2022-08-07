@@ -1381,7 +1381,7 @@ Auto-Saving Changed Files
   (setq corfu-cycle t
 	corfu-auto t
 	corfu-auto-delay 0
-	corfu-auto-prefix 2
+	corfu-auto-prefix 1
 	completion-styles '(orderless-fast)
 	corfu-preselect-first t
 	corfu-quit-no-match t
