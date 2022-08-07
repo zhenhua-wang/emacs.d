@@ -460,6 +460,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
       (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
       (when (derived-mode-p 'pdf-view-mode)
 	(pdf-view-midnight-minor-mode 0)))))
+;; apply zw/update-theme after consult-theme
+(advice-add 'consult-theme :after
+            (lambda (&rest args) (zw/update-theme)))
 #+end_src
 
 ** Tab bar
