@@ -297,46 +297,63 @@
               flycheck-check-syntax-automatically '(save mode-enabled)))
 
 (use-package flycheck-posframe
-        :custom-face
-        (flycheck-posframe-face ((t (:foreground ,(face-foreground 'success)))))
-        (flycheck-posframe-info-face ((t (:foreground ,(face-foreground 'success)))))
-        (flycheck-posframe-background-face ((t (:inherit tooltip))))
-        (flycheck-posframe-border-face ((t (:inherit posframe-border))))
-        :hook (flycheck-mode . flycheck-posframe-mode)
-        :init
-        (setq flycheck-posframe-border-width 1)
-        (add-hook 'flycheck-posframe-inhibit-functions
-                  (lambda (&rest _) (bound-and-true-p company-backend)))
-        :config
-        (with-no-warnings
-          ;; FIXME: Add paddings to the child frame.
-          ;; @see https://github.com/alexmurray/flycheck-posframe/issues/28
-          (defun my-flycheck-posframe-show-posframe (errors)
-            "Display ERRORS, using posframe.el library."
-            (posframe-hide flycheck-posframe-buffer)
-            (when (and errors
-                       (not (run-hook-with-args-until-success 'flycheck-posframe-inhibit-functions)))
-              (let ((poshandler (intern (format "posframe-poshandler-%s" flycheck-posframe-position)))
-                    (str (flycheck-posframe-format-errors errors)))
-                (unless (functionp poshandler)
-                  (setq poshandler nil))
-                (flycheck-posframe-check-position)
-                (posframe-show
-                 flycheck-posframe-buffer
-                 :string (concat (propertize "\n" 'face '(:height 0.3))
-                                 str
-                                 (propertize "\n\n" 'face '(:height 0.3)))
-                 :background-color (face-background 'flycheck-posframe-background-face nil t)
-                 :position (point)
-                 :left-fringe 8
-                 :right-fringe 8
-                 :max-width (round (* (frame-width) 0.62))
-                 :max-height (round (* (frame-height) 0.62))
-                 :internal-border-width flycheck-posframe-border-width
-                 :internal-border-color (face-background 'flycheck-posframe-border-face nil t)
-                 :poshandler poshandler
-                 :hidehandler #'flycheck-posframe-hidehandler))))
-          (advice-add #'flycheck-posframe-show-posframe :override #'my-flycheck-posframe-show-posframe)))
+  :custom-face
+  (flycheck-posframe-face ((t (:foreground ,(face-foreground 'success)))))
+  (flycheck-posframe-info-face ((t (:foreground ,(face-foreground 'success)))))
+  (flycheck-posframe-background-face ((t (:inherit tooltip))))
+  (flycheck-posframe-border-face ((t (:inherit posframe-border))))
+  :hook (flycheck-mode . flycheck-posframe-mode)
+  :init
+  (setq flycheck-posframe-border-width 1)
+  (add-hook 'flycheck-posframe-inhibit-functions
+            (lambda (&rest _) (bound-and-true-p company-backend)))
+  :config
+  (with-no-warnings
+    ;; FIXME: Add paddings to the child frame.
+    ;; @see https://github.com/alexmurray/flycheck-posframe/issues/28
+    (defun my-flycheck-posframe-show-posframe (errors)
+      "Display ERRORS, using posframe.el library."
+      (posframe-hide flycheck-posframe-buffer)
+      (when (and errors
+                 (not (run-hook-with-args-until-success 'flycheck-posframe-inhibit-functions)))
+        (let ((poshandler (intern (format "posframe-poshandler-%s" flycheck-posframe-position)))
+              (str (flycheck-posframe-format-errors errors)))
+          (unless (functionp poshandler)
+            (setq poshandler nil))
+          (flycheck-posframe-check-position)
+          (posframe-show
+           flycheck-posframe-buffer
+           :string (concat (propertize "\n" 'face '(:height 0.3))
+                           str
+                           (propertize "\n\n" 'face '(:height 0.3)))
+           :background-color (face-background 'flycheck-posframe-background-face nil t)
+           :position (point)
+           :left-fringe 8
+           :right-fringe 8
+           :max-width (round (* (frame-width) 0.62))
+           :max-height (round (* (frame-height) 0.62))
+           :internal-border-width flycheck-posframe-border-width
+           :internal-border-color (face-background 'flycheck-posframe-border-face nil t)
+           :poshandler poshandler
+           :hidehandler #'flycheck-posframe-hidehandler
+           :override-parameters '((tab-bar-mode . 0)
+				  (tab-bar-format . nil)
+				  (tab-line-format . nil)
+				  (tab-bar-lines . 0)
+				  (tab-bar-lines-keep-state . 0))))))
+    (advice-add #'flycheck-posframe-show-posframe :override #'my-flycheck-posframe-show-posframe))
+
+  ;; fix-flycheck-posframe-not-hide-immediately
+  (defun flycheck-posframe-monitor-post-command ()
+    (when (not (flycheck-posframe-check-position))
+      (posframe-hide flycheck-posframe-buffer)))
+
+  (defun fix-flycheck-posframe-not-hide-immediately ()
+    (cond (flycheck-posframe-mode
+           (add-hook 'post-command-hook 'flycheck-posframe-monitor-post-command nil t))
+          ((not flycheck-posframe-mode)
+           (remove-hook 'post-command-hook 'flycheck-posframe-monitor-post-command t))))
+  (add-hook 'flycheck-posframe-mode-hook #'fix-flycheck-posframe-not-hide-immediately))
 
 (add-hook 'prog-mode-hook (lambda ()
 			    (when (not (file-remote-p default-directory))
