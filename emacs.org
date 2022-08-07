@@ -680,7 +680,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :hook (after-init . keycast-tab-bar-mode)
   :init (setq keycast-tab-bar-location 'tab-bar-format-align-right
 	      keycast-tab-bar-format "%k%c%R "
-	      keycast-tab-bar-minimal-width 0))
+	      keycast-tab-bar-minimal-width 0)
+  :config
+  (set-face-attribute 'keycast-key nil
+		      :font zw/default-font)
+  (set-face-attribute 'keycast-command nil
+		      :font zw/default-font))
 #+end_src
 
 ** Keybinding Hints
