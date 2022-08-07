@@ -67,7 +67,7 @@
   (setq lsp-ui-peek-always-show t
 	lsp-ui-sideline-show-diagnostics nil
         lsp-ui-sideline-ignore-duplicate t
-	lsp-ui-sideline-show-code-actions t
+	lsp-ui-sideline-show-code-actions nil
 	lsp-ui-doc-show-with-cursor nil
 	lsp-ui-doc-show-with-mouse t
 	lsp-ui-doc-position 'top

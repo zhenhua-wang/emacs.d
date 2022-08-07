@@ -1423,7 +1423,7 @@ Auto-Saving Changed Files
         ("M-n" . corfu-doc-scroll-up)
 	("M-d" . corfu-doc-toggle))
   :config
-  (setq corfu-doc-auto t))
+  (setq corfu-doc-auto nil))
 #+end_src
 
 *** cape
