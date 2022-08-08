@@ -111,6 +111,17 @@ My key binding strategy:
 
 #+RESULTS:
 
+* Exec-path-from-shell
+#+begin_src emacs-lisp
+(use-package exec-path-from-shell
+  :if (or (eq system-type 'darwin)
+	  (eq system-type 'gnu/linux)
+	  (daemonp))
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
+#+end_src
+
 * Org-mode
 ** Main
 #+begin_src emacs-lisp
@@ -280,12 +291,10 @@ My key binding strategy:
   :commands (lsp lsp-org)
   :hook
   (python-mode . lsp-deferred)
-  (c++-mode . lsp-deferred)
   (ess-r-mode . lsp-deferred)
-  ((latex-mode LaTeX-mode) . lsp-deferred)
-  (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
-  (setq lsp-keep-workspace-alive nil
+  (setq lsp-auto-guess-root t
+	lsp-keep-workspace-alive nil
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
@@ -297,44 +306,27 @@ My key binding strategy:
         lsp-enable-text-document-color nil
 
         lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil))
+        lsp-enable-on-type-formatting nil)
+  :config
+  (defun lsp-update-server ()
+    "Update LSP server."
+    (interactive)
+    ;; Equals to `C-u M-x lsp-install-server'
+    (lsp-install-server t))
+  ;; disable imenu for ess-r-mode
+  (defun disable-lsp-imenu-in-ess-r ()
+    (if (featurep 'ess-r-mode)
+        (setq-local lsp-enable-imenu nil))))
   #+end_src
 
 ** R
 #+begin_src emacs-lisp
 (use-package ess
-  :defer t
   :commands R
   :bind (:map ess-r-mode-map
 	      ("M-<tab>" . ess-complete-object-name))
   :config
-  (require 'ess-site)
-  ;; fix freezing in macos by creating your process using pipe
-  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
-  ;; (setq process-connection-type nil)
-  (setq ess-ask-for-ess-directory nil
-	ess-style 'RStudio
-	ess-local-process-name "R"
-	ansi-color-for-comint-mode 'filter
-	comint-scroll-to-bottom-on-input t
-	comint-scroll-to-bottom-on-output t
-	ess-use-company nil
-	ess-use-flymake nil
-	comint-move-point-for-output t
-	ess-eval-visibly-p 'nowait
-	ess-R-font-lock-keywords
-	'((ess-R-fl-keyword:keywords   . t)
-	  (ess-R-fl-keyword:constants  . t)
-	  (ess-R-fl-keyword:modifiers  . t)
-	  (ess-R-fl-keyword:fun-defs   . t)
-	  (ess-R-fl-keyword:assign-ops . t)
-	  (ess-R-fl-keyword:%op%       . t)
-	  (ess-fl-keyword:fun-calls    . t)
-	  (ess-fl-keyword:delimiters . t)
-	  (ess-fl-keyword:operators . t)
-	  (ess-fl-keyword:numbers . t)
-	  (ess-R-fl-keyword:F&T . t)
-	  (ess-fl-keyword:= . t))))
+  (require 'ess-site))
 #+end_src
 
 ** Polymode

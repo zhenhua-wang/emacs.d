@@ -23,7 +23,7 @@
   (setq corfu-cycle t
 	corfu-auto t
 	corfu-auto-delay 0
-	corfu-auto-prefix 1
+	corfu-auto-prefix 2
 	corfu-preselect-first t
 	corfu-quit-no-match t
 	corfu-on-exact-match 'insert
