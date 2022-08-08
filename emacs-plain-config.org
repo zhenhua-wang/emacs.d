@@ -291,42 +291,25 @@ My key binding strategy:
   :commands (lsp lsp-org)
   :hook
   (python-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
-  :init
-  (setq lsp-auto-guess-root t
-	lsp-keep-workspace-alive nil
-        lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable nil
-        lsp-modeline-workspace-status-enable nil
-        lsp-headerline-breadcrumb-enable nil
-        lsp-signature-render-documentation nil
-
-        lsp-enable-file-watchers nil
-        lsp-enable-folding nil
-        lsp-enable-text-document-color nil
-
-        lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil)
-  :config
-  (defun lsp-update-server ()
-    "Update LSP server."
-    (interactive)
-    ;; Equals to `C-u M-x lsp-install-server'
-    (lsp-install-server t))
-  ;; disable imenu for ess-r-mode
-  (defun disable-lsp-imenu-in-ess-r ()
-    (if (featurep 'ess-r-mode)
-        (setq-local lsp-enable-imenu nil))))
+  (ess-r-mode . lsp-deferred))
   #+end_src
 
 ** R
 #+begin_src emacs-lisp
 (use-package ess
+  :defer t
   :commands R
+  ;; :hook
+  ;; (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind (:map ess-r-mode-map
 	      ("M-<tab>" . ess-complete-object-name))
   :config
-  (require 'ess-site))
+  (require 'ess-site)
+  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
+    ;; See https://github.com/emacs-ess/ESS/issues/300"
+  (defun my/ess-fix-read-only-inferior-ess-mode ()
+    (setq-local comint-use-prompt-regexp nil)
+    (setq-local inhibit-field-text-motion nil)))
 #+end_src
 
 ** Polymode
