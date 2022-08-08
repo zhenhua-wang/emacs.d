@@ -150,7 +150,11 @@
         markdown-fontify-code-blocks-natively t
 	markdown-regex-header-setext nil
 	markdown-header-scaling t
-	markdown-asymmetric-header t))
+	markdown-asymmetric-header t)
+  (defun zw/markdown-toggle-markup-hiding ()
+    (interactive)
+    (markdown-toggle-markup-hiding)
+    (remove-from-invisibility-spec 'markdown-markup)))
 
 (with-eval-after-load 'markdown-mode
   (zw/set-md-headline))
