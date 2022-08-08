@@ -17,7 +17,7 @@
      `(markdown-header-face-2 ((t (,@headline ,@variable-tuple :height 1.5 :foreground "#446A46"))))
      `(markdown-header-face-1 ((t (,@headline ,@variable-tuple :height 1.75 :foreground "#5E81AC"))))
      `(markdown-metadata-value-face ((t (,@variable-tuple :inherit markdown-metadata-value-face :height 1.7 :underline t :weight bold :foreground ,base-font-color))))
-     `(markdown-metadata-key-face ((t (:inherit (thin markdown-metadata-key-face) :height 0.8))))))
+     `(markdown-metadata-key-face ((t (:inherit (thin markdown-metadata-key-face) :height 0.8 :foreground "dark orange"))))))
 
   (set-face-attribute 'markdown-header-delimiter-face nil :inherit '(font-lock-comment-face fixed-pitch) :height 0.8))
 
