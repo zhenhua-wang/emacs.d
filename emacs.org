@@ -1311,15 +1311,6 @@ Auto-Saving Changed Files
 #+end_src
 
 ** Code Completion
-*** dabbrev
-#+begin_src emacs-lisp
-(use-package dabbrev
-  :custom
-  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
-  (dabbrev-case-fold-search nil)
-  (dabbrev-case-replace t))
-#+end_src
-
 *** corfu
 #+begin_src emacs-lisp
 (use-package corfu
@@ -1405,6 +1396,9 @@ Auto-Saving Changed Files
   :hook
   (after-change-major-mode . add-cape-completion)
   :init
+  ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
+  (setq dabbrev-case-fold-search nil)
+  (setq dabbrev-case-replace t)
   (defun add-cape-completion ()
     ;; Add `completion-at-point-functions', used by `completion-at-point'.
     (add-to-list 'completion-at-point-functions #'cape-file)
