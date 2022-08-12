@@ -255,8 +255,6 @@
 #+begin_src emacs-lisp
 (use-package xref
   :straight (:type built-in)
-  :bind
-  ("M-/" . xref-find-references)
   :init
   (when (executable-find "rg")
     (setq xref-search-program 'ripgrep))
@@ -286,7 +284,7 @@
 ** Fast comment
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
-  :bind ("M-'" . evilnc-comment-or-uncomment-lines))
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 #+end_src
 
 ** Flycheck
