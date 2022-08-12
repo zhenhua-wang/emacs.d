@@ -8,8 +8,34 @@
 ;; -*- lexical-binding: t -*-
 #+end_src
 
-* Org-mode
-** Main
+* Writing
+** Visual-fill-column
+#+begin_src emacs-lisp
+(use-package visual-fill-column
+  :hook
+  (org-mode . visual-fill-column-mode)
+  (markdown-mode . visual-fill-column-mode)
+  :init
+  (setq-default visual-fill-column-center-text t
+		visual-fill-column-width 80))
+#+end_src
+
+** Writeroom-mode
+#+begin_src emacs-lisp
+(use-package writeroom-mode
+  :commands (writeroom-mode)
+  :hook
+  (pdf-view-mode . (lambda () (setq-local writeroom-width 0)))
+  (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
+  (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
+  (kill-buffer . (lambda () (tab-bar-mode 1)))
+  :bind ("<f11>" . writeroom-mode)
+  :config
+  (setq writeroom-fullscreen-effect 'maximized))
+#+end_src
+
+** Org-mode
+*** Main
 #+begin_src emacs-lisp
 (use-package org
   :straight (:type built-in)
@@ -51,7 +77,7 @@
           ("DONE" . (:inherit fixed-pitch :foreground "green" :weight bold)))))
 #+end_src
 
-** Org-export
+*** Org-export
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
   (setq org-latex-listings 't)
@@ -68,7 +94,7 @@
 		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
-** Org-theme
+*** Org-theme
 #+begin_src emacs-lisp
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
@@ -114,14 +140,14 @@
   (zw/set-org-headline))
 #+end_src
 
-** Org-auto-tangle
+*** Org-auto-tangle
    #+begin_src emacs-lisp
 ;; auto tangle
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode))
    #+end_src
 
-** Custom functions
+*** Custom functions
 #+begin_src emacs-lisp
 (defun zw/org-fold-all-but-current ()
   (interactive)
@@ -134,7 +160,7 @@
   (pixel-scroll-mode))
 #+end_src
 
-* Markdown
+** Markdown
 #+begin_src emacs-lisp
 (use-package adaptive-wrap)
 (use-package markdown-mode
@@ -158,6 +184,62 @@
 
 (with-eval-after-load 'markdown-mode
   (zw/set-md-headline))
+#+end_src
+
+** Latex
+LSP-mode with TexLab works perfect for Latex docs
+
+  - =brew install texlab=
+  
+#+begin_src emacs-lisp
+;; latex
+(use-package auctex
+  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
+  :init
+  (setq TeX-PDF-mode t
+	TeX-parse-self t
+	TeX-auto-save t
+	TeX-insert-braces nil
+
+	TeX-source-correlate-mode t
+	TeX-source-correlate-method 'synctex
+	;; Don't start the Emacs server when correlating sources.
+	TeX-source-correlate-start-server nil
+
+	Tex-command-show "LaTex"
+	TeX-view-program-selection '((output-pdf "PDF Tools"))
+	TeX-save-query nil)
+  :config
+  ;; revert the PDF-buffer after the TeX compilation has finished
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
+
+(use-package cdlatex
+  :hook
+  (org-mode . org-cdlatex-mode)
+  (LaTeX-mode . turn-on-cdlatex)
+  (markdown-mode . turn-on-cdlatex)
+  :config
+  (dolist (m (list cdlatex-mode-map org-cdlatex-mode-map))
+    (bind-keys :map m
+               ("$" . nil)
+               ("(" . nil)
+               ("{" . nil)
+               ("[" . nil)
+               ("|" . nil)
+               ("<" . nil)
+	       ("^" . nil)
+	       ("_" . nil)
+	       ("`" . nil)
+               ("'" . nil))))
+
+;; auto async preview latex
+(use-package xenops
+  ;; :hook
+  ;; (latex-mode . xenops-mode)
+  ;; (LaTeX-mode . xenops-mode)
+  :commands (xenops-mode)
+  :config
+  (setq xenops-reveal-on-entry nil))
 #+end_src
 
 * Literate Programming
@@ -265,62 +347,6 @@
   :commands (poly-markdown+r-mode)
   :mode
   ("\\.[rR]md\\'" . poly-gfm+r-mode))
-#+end_src
-
-* Latex
-LSP-mode with TexLab works perfect for Latex docs
-
-  - =brew install texlab=
-  
-#+begin_src emacs-lisp
-;; latex
-(use-package auctex
-  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
-  :init
-  (setq TeX-PDF-mode t
-	TeX-parse-self t
-	TeX-auto-save t
-	TeX-insert-braces nil
-
-	TeX-source-correlate-mode t
-	TeX-source-correlate-method 'synctex
-	;; Don't start the Emacs server when correlating sources.
-	TeX-source-correlate-start-server nil
-
-	Tex-command-show "LaTex"
-	TeX-view-program-selection '((output-pdf "PDF Tools"))
-	TeX-save-query nil)
-  :config
-  ;; revert the PDF-buffer after the TeX compilation has finished
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
-
-(use-package cdlatex
-  :hook
-  (org-mode . org-cdlatex-mode)
-  (LaTeX-mode . turn-on-cdlatex)
-  (markdown-mode . turn-on-cdlatex)
-  :config
-  (dolist (m (list cdlatex-mode-map org-cdlatex-mode-map))
-    (bind-keys :map m
-               ("$" . nil)
-               ("(" . nil)
-               ("{" . nil)
-               ("[" . nil)
-               ("|" . nil)
-               ("<" . nil)
-	       ("^" . nil)
-	       ("_" . nil)
-	       ("`" . nil)
-               ("'" . nil))))
-
-;; auto async preview latex
-(use-package xenops
-  ;; :hook
-  ;; (latex-mode . xenops-mode)
-  ;; (LaTeX-mode . xenops-mode)
-  :commands (xenops-mode)
-  :config
-  (setq xenops-reveal-on-entry nil))
 #+end_src
 
 * References

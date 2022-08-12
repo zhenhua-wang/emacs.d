@@ -919,31 +919,6 @@ FACE defaults to inheriting from default and highlight."
       (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))))
 #+end_src
 
-*** visual-fill-column
-#+begin_src emacs-lisp
-(use-package visual-fill-column
-  :hook
-  (org-mode . visual-fill-column-mode)
-  (markdown-mode . visual-fill-column-mode)
-  :init
-  (setq-default visual-fill-column-center-text t
-		visual-fill-column-width 80))
-#+end_src
-
-*** Writeroom-mode
-#+begin_src emacs-lisp
-(use-package writeroom-mode
-  :commands (writeroom-mode)
-  :hook
-  (pdf-view-mode . (lambda () (setq-local writeroom-width 0)))
-  (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
-  (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
-  (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind ("<f11>" . writeroom-mode)
-  :config
-  (setq writeroom-fullscreen-effect 'maximized))
-#+end_src
-
 * Window
 ** Popper
 #+begin_src emacs-lisp
