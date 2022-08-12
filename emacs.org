@@ -274,8 +274,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"
-	  dired-use-ls-dired t)
-    (setq dired-listing-switches "-al --group-directories-first"))
+	  dired-use-ls-dired t
+          dired-listing-switches "-al --group-directories-first"
+          dired-kill-when-opening-new-dired-buffer t))
   ;; Quick sort dired buffers via hydra
   (use-package dired-quick-sort
     :bind (:map dired-mode-map
@@ -283,12 +284,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
-
-(use-package dired+
-  :init
-  (setq diredp-hide-details-initially-flag nil)
-  :config
-  (diredp-toggle-find-file-reuse-dir 1))
 
 (use-package all-the-icons-dired
   :if (display-graphic-p)
