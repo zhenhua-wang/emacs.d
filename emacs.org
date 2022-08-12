@@ -567,7 +567,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq dashboard-startup-banner 1
 	dashboard-center-content t
 	dashboard-items '((recents  . 10))
-	dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name
 	dashboard-set-footer nil
 	dashboard-set-init-info nil
 	dashboard-set-heading-icons nil
