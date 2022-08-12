@@ -444,8 +444,8 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 #+begin_src emacs-lisp
 (use-package wordnut
   :bind
-  (("C-c w" . wordnut-search)
-   ("C-c W" . wordnut-lookup-current-word)))
+  (("C-c s w" . wordnut-search)
+   ("C-c s W" . wordnut-lookup-current-word)))
 #+end_src
 
 ** Flyspell
@@ -456,7 +456,6 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
   :diminish
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
-  :bind (:map flyspell-mode-map ("C-," . nil))
   :init (setq flyspell-issue-message-flag nil
 	      flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
               ispell-program-name "aspell"

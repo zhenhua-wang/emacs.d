@@ -1111,17 +1111,10 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 ** Undo tree
 
    #+begin_src emacs-lisp
-(use-package undo-tree
-  :diminish undo-tree-mode
-  :hook (after-init . global-undo-tree-mode)
+(use-package undo-fu
   :bind
-  ("s-z" . undo-tree-undo)
-  ("s-Z" . undo-tree-redo)
-  :init
-  (setq undo-tree-visualizer-diff t
-	undo-tree-visualizer-timestamps t
-        undo-tree-enable-undo-in-region nil
-        undo-tree-auto-save-history nil))
+  ("s-z" . undo-fu-only-undo)
+  ("s-Z" . undo-fu-only-redo))
    #+end_src
    
 ** Auto save
@@ -1315,7 +1308,7 @@ Auto-Saving Changed Files
     (consult-line-multi t)))
 
 ;; use this for now untill consult have its web-search
-(use-package google-this :bind ("C-c l" . google-this-search))
+(use-package google-this :bind ("C-c s g" . google-this-search))
 #+end_src
 
 *** embark
@@ -1426,8 +1419,8 @@ Auto-Saving Changed Files
 (use-package cape
   :after corfu
   :bind
-  ("C-c f" . cape-file)
-  ("C-c d" . cape-dabbrev)
+  ("C-c c f" . cape-file)
+  ("C-c c d" . cape-dabbrev)
   :hook
   (after-change-major-mode . add-cape-completion)
   :init

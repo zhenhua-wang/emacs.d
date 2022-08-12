@@ -58,10 +58,12 @@
 (use-package lsp-ui
   :custom-face
   (lsp-ui-sideline-code-action ((t (:inherit warning))))
-  :bind (:map lsp-ui-mode-map
-              ("s-<return>" . lsp-ui-sideline-apply-code-actions)
-              ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-              ([remap xref-find-references] . lsp-ui-peek-find-references))
+  :bind ((:map lsp-ui-mode-map
+               ("s-<return>" . lsp-ui-sideline-apply-code-actions)
+               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+               ([remap xref-find-references] . lsp-ui-peek-find-references))
+         (:map lsp-ui-doc-mode
+               ("C-c d g" . lsp-ui-doc-glance)))
   :hook (lsp-mode . lsp-ui-mode)
   :init
   (setq lsp-ui-peek-always-show t
