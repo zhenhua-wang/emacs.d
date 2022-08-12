@@ -1325,8 +1325,6 @@ Auto-Saving Changed Files
         ([tab] . corfu-insert)
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
-        ("M-d" . corfu-show-documentation)
-        ("M-l" . corfu-show-location)
 	("SPC" . corfu-insert-separator))
   :init
   ;; fast prefix filtering
@@ -1383,7 +1381,8 @@ Auto-Saving Changed Files
         ("M-n" . corfu-doc-scroll-up)
 	("M-d" . corfu-doc-toggle))
   :config
-  (setq corfu-doc-auto nil))
+  (setq corfu-doc-auto nil
+        corfu-doc-display-within-parent-frame t))
 #+end_src
 
 *** cape
