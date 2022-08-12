@@ -1108,8 +1108,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 #+end_src
 
 * Editing
-** Undo tree
-
+** Undo
    #+begin_src emacs-lisp
 (use-package undo-fu
   :bind
@@ -1309,24 +1308,6 @@ Auto-Saving Changed Files
 
 ;; use this for now untill consult have its web-search
 (use-package google-this :bind ("C-c s g" . google-this-search))
-#+end_src
-
-*** embark
-#+begin_src emacs-lisp
-(use-package embark
-  :bind
-  (("M-," . embark-act)         ;; pick some comfortable binding
-   ("M-." . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
 #+end_src
 
 ** Code Completion
