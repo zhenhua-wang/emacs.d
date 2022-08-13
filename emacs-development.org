@@ -211,10 +211,12 @@
 ** Highlight indent
    #+begin_src emacs-lisp
 (use-package highlight-indent-guides
-  :disabled
   :hook ((prog-mode . highlight-indent-guides-mode))
-  :custom
-  (highlight-indent-guides-method 'character))
+  :init
+  (setq highlight-indent-guides-method 'character
+        highlight-indent-guides-responsive t
+        highlight-indent-guides-auto-character-face-perc 50
+        highlight-indent-guides-auto-top-character-face-perc 100))
    #+end_src
    
 ** Clean whitespace

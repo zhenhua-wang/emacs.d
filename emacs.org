@@ -1096,7 +1096,9 @@ Auto-Saving Changed Files
 ** Visual regexp
 #+begin_src emacs-lisp
 (use-package visual-regexp
-  :defer 2)
+  :bind
+  ("C-c r" . vr/replace)
+  ("C-c q" . vr/query-replace))
 #+end_src
 
 * Completion
