@@ -693,6 +693,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
    #+end_src
 
+*** Overlay
+#+begin_src emacs-lisp
+(use-package ov)
+#+end_src
+
 *** Rain-bow-delimiters
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
@@ -709,20 +714,20 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (prog-mode . rainbow-mode)
   (text-mode . rainbow-mode)
   :config
-  (defun zw/rainbow-colorize-match (color &optional match)
-    "Return a matched string propertized with a face whose
-background is COLOR. The foreground is computed using
-`rainbow-color-luminance', and is either white or black."
+  ;; Use overlay to show color. This solves the conflict with hl-line
+  (defun zw/rainbow-colorize-match-overlay (color &optional match)
     (let ((match (or match 0)))
-      (put-text-property
+      (ov
        (match-beginning match) (match-end match)
        'face `((:family ,zw/font-fixed-pitch)
                (:height ,zw/font-size-fixed-pitch)
                (:slant normal)
                (:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
                                  "white" "black"))
-               (:background ,color)))))
-  (advice-add #'rainbow-colorize-match :override #'zw/rainbow-colorize-match))
+               (:background ,color))
+       'priority 5000)))
+  (advice-add #'rainbow-colorize-match :override
+              #'zw/rainbow-colorize-match-overlay))
    #+end_src
 
 *** Pulsar
