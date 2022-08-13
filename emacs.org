@@ -1327,7 +1327,7 @@ Auto-Saving Changed Files
 	corfu-count 10
 	corfu-min-width 20
 	corfu-max-width 80
-        corfu-bar-width 0)
+        corfu-bar-width 1)
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
@@ -1352,7 +1352,9 @@ Auto-Saving Changed Files
 		      :underline (face-foreground 'default))
   (with-eval-after-load 'doom-modeline
     (set-face-attribute 'corfu-border nil
-                        :background (face-background 'doom-modeline-bar))))
+                        :background (face-background 'doom-modeline-bar)))
+  (set-face-attribute 'corfu-bar nil
+                      :background (face-foreground font-lock-comment-face)))
 #+end_src
 
 *** corfu doc
