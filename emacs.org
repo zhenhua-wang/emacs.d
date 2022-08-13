@@ -462,10 +462,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (interactive)
   (zw/modeline-theme)
   (zw/tab-bar-theme)
-  (zw/set-org-headline)
-  (zw/set-md-headline)
+  (when (featurep 'org)
+    (zw/set-org-headline))
+  (when (featurep 'markdown)
+    (zw/set-md-headline))
   (when (featurep 'vterm)
     (zw/set-vterm-color))
+  (when (featurep 'corfu)
+    (zw/corfu-theme))
   ;; change pdf-view-mode color when using dark color theme
   (if (string= (frame-parameter nil 'background-mode) "dark")
       (progn
@@ -1346,19 +1350,21 @@ Auto-Saving Changed Files
   (require 'kind-all-the-icons)
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
-  (set-face-attribute 'corfu-current nil
-                      :foreground (face-foreground 'warning)
-                      :background (face-background 'tooltip)
-		      :bold t
-		      :underline (face-foreground 'tooltip))
-  (with-eval-after-load 'doom-modeline
-    (set-face-attribute 'corfu-border nil
-                        :background (face-background 'doom-modeline-bar)))
-  (set-face-attribute 'corfu-bar nil
-                      :background (face-foreground font-lock-comment-face))
-  ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
-  (set-face-attribute 'corfu-default nil
-                      :inherit 'fixed-pitch))
+  (defun zw/corfu-theme ()
+    (set-face-attribute 'corfu-current nil
+                        :foreground (face-foreground 'warning)
+                        :background (face-background 'tooltip)
+		        :bold t
+		        :underline (face-foreground 'tooltip))
+    (with-eval-after-load 'doom-modeline
+      (set-face-attribute 'corfu-border nil
+                          :background (face-background 'doom-modeline-bar)))
+    (set-face-attribute 'corfu-bar nil
+                        :background (face-foreground font-lock-comment-face))
+    ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
+    (set-face-attribute 'tooltip nil
+                        :inherit 'fixed-pitch))
+  (zw/corfu-theme))
 #+end_src
 
 *** corfu doc
