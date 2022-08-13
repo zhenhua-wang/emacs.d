@@ -1355,7 +1355,10 @@ Auto-Saving Changed Files
     (set-face-attribute 'corfu-border nil
                         :background (face-background 'doom-modeline-bar)))
   (set-face-attribute 'corfu-bar nil
-                      :background (face-foreground font-lock-comment-face)))
+                      :background (face-foreground font-lock-comment-face))
+  ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
+  (set-face-attribute 'corfu-default nil
+                      :inherit 'fixed-pitch))
 #+end_src
 
 *** corfu doc
