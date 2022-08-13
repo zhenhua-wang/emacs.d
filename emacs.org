@@ -1351,19 +1351,22 @@ Auto-Saving Changed Files
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
   (defun zw/corfu-theme ()
+    ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
+    (set-face-attribute 'corfu-default nil
+                        :family zw/font-fixed-pitch
+                        :height zw/font-size-fixed-pitch
+                        :foreground (face-foreground 'tooltip)
+                        :background (face-background 'tooltip))
     (set-face-attribute 'corfu-current nil
                         :foreground (face-foreground 'warning)
-                        :background (face-background 'tooltip)
+                        :background (face-background 'corfu-default)
 		        :bold t
-		        :underline (face-foreground 'tooltip))
+		        :underline (face-foreground 'corfu-default))
     (with-eval-after-load 'doom-modeline
       (set-face-attribute 'corfu-border nil
                           :background (face-background 'doom-modeline-bar)))
     (set-face-attribute 'corfu-bar nil
-                        :background (face-foreground font-lock-comment-face))
-    ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
-    (set-face-attribute 'tooltip nil
-                        :inherit 'fixed-pitch))
+                        :background (face-foreground font-lock-comment-face)))
   (zw/corfu-theme))
 #+end_src
 
