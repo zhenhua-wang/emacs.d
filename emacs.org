@@ -697,7 +697,21 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :diminish
   :hook
   (prog-mode . rainbow-mode)
-  (text-mode . rainbow-mode))
+  (text-mode . rainbow-mode)
+  :config
+  (defun zw/rainbow-colorize-match (color &optional match)
+    "Return a matched string propertized with a face whose
+background is COLOR. The foreground is computed using
+`rainbow-color-luminance', and is either white or black."
+    (let ((match (or match 0)))
+      (put-text-property
+       (match-beginning match) (match-end match)
+       'face `((:family ,zw/font-fixed-pitch)
+               (:height ,zw/font-size-fixed-pitch)
+               (:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
+                                 "white" "black"))
+               (:background ,color)))))
+  (advice-add #'rainbow-colorize-match :override #'zw/rainbow-colorize-match))
    #+end_src
 
 *** Pulsar
@@ -1365,7 +1379,6 @@ This part is largely copied from daviwil's course.
 #+end_src
 
 ** Archlinux
-
 #+begin_src emacs-lisp :tangle "no"
 (when (eq system-type 'gnu/linux)
   (org-babel-load-file "~/.emacs.d/emacs-system.org"))
