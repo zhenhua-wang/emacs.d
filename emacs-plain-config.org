@@ -280,6 +280,12 @@ My key binding strategy:
   (pixel-scroll-mode))
 #+end_src
 
+* Fast comment
+#+begin_src emacs-lisp
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+#+end_src
+
 * Completion
 #+begin_src emacs-lisp
 (require 'zw-corfu)
