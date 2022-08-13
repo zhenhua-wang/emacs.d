@@ -254,6 +254,10 @@ My key binding strategy:
 ;; Auto-show Markup Symbols
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
+
+(require 'zw-org-theme)
+(setq zw/font-title "ETBembo")
+(zw/set-org-headline)
 #+end_src
 
 ** Org-auto-tangle
