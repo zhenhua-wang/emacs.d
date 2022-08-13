@@ -254,7 +254,7 @@
             (lambda (&rest _) (bound-and-true-p company-backend)))
   :config
   (with-no-warnings
-    ;; FIXME: Add paddings to the child frame.
+    ;; HACK: Add paddings to the child frame.
     ;; @see https://github.com/alexmurray/flycheck-posframe/issues/28
     (defun my-flycheck-posframe-show-posframe (errors)
       "Display ERRORS, using posframe.el library."

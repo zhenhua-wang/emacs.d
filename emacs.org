@@ -350,6 +350,15 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq which-key-idle-delay 0.3))
    #+end_src
 
+** Go to address
+#+begin_src emacs-lisp
+(use-package goto-addr
+  :straight (:type built-in)
+  :hook
+  (text-mode . goto-address-mode)
+  (prog-mode . goto-address-prog-mode))
+#+end_src
+
 * Interface
 ** Font face
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
