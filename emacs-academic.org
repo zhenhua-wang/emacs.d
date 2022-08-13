@@ -470,8 +470,8 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 #+begin_src emacs-lisp
 (use-package wordnut
   :bind
-  (("C-c s w" . wordnut-search)
-   ("C-c s W" . wordnut-lookup-current-word)))
+  (("C-c w" . wordnut-search)
+   ("C-c W" . wordnut-lookup-current-word)))
 #+end_src
 
 ** Flyspell
