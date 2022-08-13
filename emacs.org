@@ -263,12 +263,13 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :straight (:type built-in)
   :hook
   (dired-mode . dired-async-mode)
-  :config
+  :init
+  (setq dired-kill-when-opening-new-dired-buffer t)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"
 	  dired-use-ls-dired t
-          dired-listing-switches "-al --group-directories-first"
-          dired-kill-when-opening-new-dired-buffer t))
+          dired-listing-switches "-al --group-directories-first"))
+  :config
   ;; Quick sort dired buffers via hydra
   (use-package dired-quick-sort
     :bind (:map dired-mode-map
