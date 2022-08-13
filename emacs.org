@@ -1347,9 +1347,10 @@ Auto-Saving Changed Files
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
   (set-face-attribute 'corfu-current nil
-                      :background nil
+                      :foreground (face-foreground 'warning)
+                      :background (face-background 'tooltip)
 		      :bold t
-		      :underline (face-foreground 'default))
+		      :underline (face-foreground 'tooltip))
   (with-eval-after-load 'doom-modeline
     (set-face-attribute 'corfu-border nil
                         :background (face-background 'doom-modeline-bar)))
