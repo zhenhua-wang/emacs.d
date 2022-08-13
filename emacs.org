@@ -708,6 +708,7 @@ background is COLOR. The foreground is computed using
        (match-beginning match) (match-end match)
        'face `((:family ,zw/font-fixed-pitch)
                (:height ,zw/font-size-fixed-pitch)
+               (:slant normal)
                (:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
                                  "white" "black"))
                (:background ,color)))))
