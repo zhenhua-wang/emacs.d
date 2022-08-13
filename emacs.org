@@ -166,7 +166,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
-* Integration
+* Tools
 ** Exec-path-from-shell
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
@@ -306,12 +306,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                '(file)))))
 #+end_src
 
-** Request
-#+begin_src emacs-lisp
-(use-package request
-  :defer 1)
-#+end_src
-
 ** Recentf
 #+begin_src emacs-lisp
 (use-package recentf
@@ -338,6 +332,31 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
 		history-length 1000))
 #+end_src
+
+** Helpful
+#+begin_src emacs-lisp
+(use-package helpful
+  :bind
+  ("C-h f" . helpful-callable)
+  ("C-h v" . helpful-variable)
+  ("C-h k" . helpful-key))
+#+end_src
+
+** Keybinding Hints
+*** Hydra
+   #+begin_src emacs-lisp
+(use-package hydra
+  :hook (emacs-lisp-mode . hydra-add-imenu))
+   #+end_src
+
+*** Which key
+   #+begin_src emacs-lisp
+(use-package which-key
+  :diminish
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+   #+end_src
 
 * Interface
 ** Font face
@@ -600,15 +619,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (advice-add #'imenu-list--set-mode-line :override #'zw/imenu-list--set-mode-line))
 #+end_src
 
-** Helpful
-#+begin_src emacs-lisp
-(use-package helpful
-  :bind
-  ("C-h f" . helpful-callable)
-  ("C-h v" . helpful-variable)
-  ("C-h k" . helpful-key))
-#+end_src
-
 ** Scroll
 #+begin_src emacs-lisp
 ;; Mouse & Smooth Scroll
@@ -681,22 +691,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (set-face-attribute 'keycast-command nil
 		      :font zw/default-font))
 #+end_src
-
-** Keybinding Hints
-*** Hydra
-   #+begin_src emacs-lisp
-(use-package hydra
-  :hook (emacs-lisp-mode . hydra-add-imenu))
-   #+end_src
-
-*** Which key
-   #+begin_src emacs-lisp
-(use-package which-key
-  :diminish
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
-   #+end_src
 
 ** Visualize
 *** All-the-icons
@@ -949,7 +943,7 @@ FACE defaults to inheriting from default and highlight."
           compilation-mode)))
 #+end_src
 
-** Window history with winner-mode
+** Winner-mode
 #+begin_src emacs-lisp
 (use-package winner
   :hook (after-init . winner-mode)
@@ -1118,12 +1112,6 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package visual-regexp
   :defer 2)
-#+end_src
-
-** Color editing
-#+begin_src emacs-lisp
-(use-package ct
-  :defer 3)
 #+end_src
 
 * Completion
