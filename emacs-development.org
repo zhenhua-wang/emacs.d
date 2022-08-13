@@ -43,7 +43,7 @@
     (interactive)
     ;; Equals to `C-u M-x lsp-install-server'
     (lsp-install-server t))
-  ;; disable imenu for ess-r-mode
+  ;; BUG: disable imenu for ess-r-mode https://github.com/REditorSupport/languageserver/issues/558
   (defun disable-lsp-imenu-in-ess-r ()
     (if (featurep 'ess-r-mode)
         (setq-local lsp-enable-imenu nil))))
