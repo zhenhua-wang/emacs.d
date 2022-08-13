@@ -1346,9 +1346,9 @@ Auto-Saving Changed Files
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
   (set-face-attribute 'corfu-current nil
+                      :background nil
 		      :bold t
-		      :underline t
-		      :extend t))
+		      :underline t))
 #+end_src
 
 *** corfu doc
