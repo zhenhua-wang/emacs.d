@@ -481,62 +481,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
             (lambda (&rest args) (zw/update-theme)))
 #+end_src
 
-** Tab bar
-#+begin_src emacs-lisp
-(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-(setq tab-bar-new-tab-choice "*scratch*")
-(setq tab-bar-new-button-show nil)
-(setq tab-bar-close-button-show nil)
-;; this should be placed after theme, since theme would overwrite these attributes
-(defun zw/tab-bar-theme ()
-  (interactive)
-  (set-face-attribute 'tab-bar-tab nil
-                      ;; :background (face-background 'mode-line)
-		      :foreground (face-foreground 'default)
-                      :background (face-background 'mode-line)
-                      :underline "#950b96"
-		      :box (face-background 'mode-line)
-                      :font zw/default-font)
-  (set-face-attribute 'tab-bar-tab-inactive nil
-		      :foreground (face-foreground 'default)
-                      :background (face-background 'mode-line)
-                      :underline nil
-		      :box (face-background 'mode-line)
-                      :font zw/default-font)
-  (set-face-attribute 'tab-bar nil
-		      :foreground (face-foreground 'default)
-		      :background (face-background 'mode-line)
-		      :box (face-background 'mode-line)
-		      :font zw/default-font))
-;; set tab-bar theme
-(zw/tab-bar-theme)
-;; display battery to the right
-(setq tab-bar-format '(tab-bar-format-menu-bar
-		       tab-bar-format-history
-		       tab-bar-format-tabs
-		       tab-bar-separator
-		       tab-bar-format-align-right
-		       tab-bar-format-global))
-;; set string for tab-bar-separator
-(setq tab-bar-separator " ")
-
-;; show battery
-(require 'battery)
-(setq have-battery-status-p
-      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-    (and perc-charged
-         (not (zerop (string-to-number (cdr perc-charged)))))))
-(if have-battery-status-p
-    (display-battery-mode 1))
-;; show menu
-(defun tab-bar-format-menu-bar ()
-  "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ☰" 'face 'tab-bar)
-              tab-bar-menu-bar :help "Menu Bar")))
-
-(tab-bar-mode 1)
-#+end_src
-
 ** Modeline
 #+begin_src emacs-lisp
 (defun zw/modeline-theme ()
@@ -575,6 +519,63 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; hide battery on modeline and show it on tab-bar
   (remove-hook 'display-battery-mode-hook #'doom-modeline-override-battery-modeline)
   (remove-hook 'doom-modeline-mode-hook #'doom-modeline-override-battery-modeline))
+#+end_src
+
+** Tab bar
+#+begin_src emacs-lisp
+(setq tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+;; this should be placed after theme, since theme would overwrite these attributes
+(defun zw/tab-bar-theme ()
+  (interactive)
+  (set-face-attribute 'tab-bar-tab nil
+                      ;; :background (face-background 'mode-line)
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'mode-line)
+                      :underline (face-background 'doom-modeline-bar) ;"#950b96"
+                      :box (face-background 'mode-line)
+                      :font zw/default-font)
+  (set-face-attribute 'tab-bar-tab-inactive nil
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'mode-line)
+                      :underline nil
+                      :box (face-background 'mode-line)
+                      :font zw/default-font)
+  (set-face-attribute 'tab-bar nil
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'mode-line)
+                      :box (face-background 'mode-line)
+                      :font zw/default-font))
+(with-eval-after-load 'doom-modeline
+  ;; set tab-bar theme
+  (zw/tab-bar-theme))
+;; display battery to the right
+(setq tab-bar-format '(tab-bar-format-menu-bar
+                       tab-bar-format-history
+                       tab-bar-format-tabs
+                       tab-bar-separator
+                       tab-bar-format-align-right
+                       tab-bar-format-global))
+;; set string for tab-bar-separator
+(setq tab-bar-separator " ")
+
+;; show battery
+(require 'battery)
+(setq have-battery-status-p
+      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+        (and perc-charged
+             (not (zerop (string-to-number (cdr perc-charged)))))))
+(if have-battery-status-p
+    (display-battery-mode 1))
+;; show menu
+(defun tab-bar-format-menu-bar ()
+  "Produce the Menu button for the tab bar that shows the menu bar."
+  `((menu-bar menu-item (propertize " ☰" 'face 'tab-bar)
+              tab-bar-menu-bar :help "Menu Bar")))
+
+(tab-bar-mode 1)
 #+end_src
 
 ** iMenu
@@ -1348,7 +1349,10 @@ Auto-Saving Changed Files
   (set-face-attribute 'corfu-current nil
                       :background nil
 		      :bold t
-		      :underline t))
+		      :underline (face-foreground 'default))
+  (with-eval-after-load 'doom-modeline
+    (set-face-attribute 'corfu-border nil
+                        :background (face-background 'doom-modeline-bar))))
 #+end_src
 
 *** corfu doc
