@@ -790,16 +790,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
          '(85 . 85) '(100 . 100)))))
 #+end_src
 
-*** Highlight line
-#+begin_src emacs-lisp
-;; Highlight the current line
-(use-package hl-line
-  :straight (:type built-in)
-  :hook ((after-init . global-hl-line-mode)
-         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
-          (lambda () (setq-local global-hl-line-mode nil)))))
-#+end_src
-
 *** Paren
 #+begin_src emacs-lisp
 ;; Highlight matching parens
@@ -852,6 +842,16 @@ FACE defaults to inheriting from default and highlight."
                               (window-start) msg ))))))
           (blink-matching-open))))
     (advice-add #'show-paren-function :after #'show-paren-off-screen)))
+#+end_src
+
+*** Highlight line
+#+begin_src emacs-lisp
+;; Highlight the current line
+(use-package hl-line
+  :straight (:type built-in)
+  :hook ((after-init . global-hl-line-mode)
+         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
+          (lambda () (setq-local global-hl-line-mode nil)))))
 #+end_src
 
 *** Highlight TODO
