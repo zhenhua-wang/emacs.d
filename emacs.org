@@ -42,6 +42,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; start server mode
   (server-start)
   ;; cursor
+  (blink-cursor-mode 0)
   (setq-default cursor-type 'bar)
   ;; save clipboard before kill ring
   (setq save-interprogram-paste-before-kill t)
@@ -84,12 +85,15 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (global-set-key (kbd "s-v") 'yank)
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-s") 'save-buffer)
+(global-set-key (kbd "s-S") 'write-file)
 (global-set-key (kbd "s-l") 'goto-line)
 (define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
 ;; vterm
 (global-set-key (kbd "s-e") 'vterm)
 ;; buffer operations
 (global-set-key (kbd "s-q") 'kill-current-buffer)
+(global-set-key (kbd "s-=") 'text-scale-increase)
+(global-set-key (kbd "s--") 'text-scale-decrease)
 ;; window operations
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
@@ -958,6 +962,7 @@ FACE defaults to inheriting from default and highlight."
 (use-package winner
   :hook (after-init . winner-mode)
   :bind
+  ("s-T" . winner-undo)
   ("s-u" . winner-undo)
   ("s-U" . winner-redo))
 #+end_src
