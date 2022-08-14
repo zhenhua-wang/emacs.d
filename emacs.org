@@ -485,9 +485,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (interactive)
   (setq x-underline-at-descent-line t)
   (setq x-use-underline-position-properties nil)
-  (set-face-attribute 'mode-line          nil :box nil :font zw/default-font)
-  (set-face-attribute 'mode-line-active   nil :box nil :font zw/default-font)
-  (set-face-attribute 'mode-line-inactive nil :box nil :font zw/default-font)
+  ;; set modeline face font
+  (dolist (face '(mode-line mode-line-active mode-line-inactive))
+    (set-face-attribute face nil :box nil :font zw/default-font))
+  ;; set doom-modeline face weight
   (dolist (face '(doom-modeline-buffer-path
                   doom-modeline-buffer-file
                   doom-modeline-buffer-modified
@@ -497,8 +498,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                   doom-modeline-debug
                   doom-modeline-info
                   doom-modeline-time))
-    (set-face-attribute face nil
-                        :weight 'normal)))
+    (set-face-attribute face nil :weight 'normal)))
 
 (use-package minions
   :hook (doom-modeline . minions-mode))
