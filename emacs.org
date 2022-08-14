@@ -96,7 +96,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (global-set-key (kbd "s--") 'text-scale-decrease)
 ;; window operations
 (global-set-key (kbd "s-w") 'delete-window)
-(global-set-key (kbd "s-t") 'split-window-sensibly-prefer-horizontal)
+(global-set-key (kbd "s-t") 'zw/split-window-sensibly-prefer-horizontal)
 (global-set-key [s-left] 'windmove-left)          ; move to left window
 (global-set-key [s-right] 'windmove-right)        ; move to right window
 (global-set-key [s-up] 'windmove-up)              ; move to upper window
@@ -970,7 +970,7 @@ FACE defaults to inheriting from default and highlight."
 ** Window split preference
 #+begin_src emacs-lisp
 ;; set preference to horizontal split
-(defun split-window-sensibly-prefer-horizontal (&optional window)
+(defun zw/split-window-sensibly-prefer-horizontal (&optional window)
   "Based on split-window-sensibly, but designed to prefer a horizontal split,
 i.e. windows tiled side-by-side."
   (interactive)
@@ -998,7 +998,10 @@ i.e. windows tiled side-by-side."
          (let ((split-width-threshold 0))
            (when (window-splittable-p window t)
              (with-selected-window window
-               (split-window-right))))))))
+               (split-window-right)))))))
+  ;; switch to scratch buffer after creating new window
+  (other-window 1 nil)
+  (switch-to-buffer "*scratch*"))
 
 (setq split-width-threshold  80
       split-height-threshold 80
