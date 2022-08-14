@@ -553,7 +553,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :box (face-background 'mode-line)
                       :font zw/default-font)
   (set-face-attribute 'tab-bar-tab-inactive nil
-                      :foreground (face-foreground 'default)
+                      :foreground (face-foreground 'font-lock-comment-face)
                       :background (face-background 'mode-line)
                       :underline nil
                       :box (face-background 'mode-line)
