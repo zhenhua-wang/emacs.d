@@ -99,7 +99,7 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-table nil
+  (setq org-modern-table t
 	org-modern-todo t)
   (setq org-modern-star '("◉" "●")
 	org-modern-todo-faces
