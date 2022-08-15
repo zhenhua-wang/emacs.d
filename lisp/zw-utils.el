@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-;; TODO: helper functions to get face background/foreground recursively
+;; helper functions to get face background/foreground recursively
 (defun zw/get-face-attr-recur (face attr)
   (let ((face-attr (face-attribute face attr)))
     (if (and face-attr
