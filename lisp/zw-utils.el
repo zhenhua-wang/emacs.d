@@ -3,18 +3,22 @@
 ;;; Code:
 
 ;; TODO: helper functions to get face background/foreground recursively
+(defun zw/get-face-attr-recur (face attr)
+  (let ((face-attr (face-attribute face attr)))
+    (if (and face-attr
+             (not (eq face-attr 'unspecified)))
+        face-attr
+      (let ((parent-face (face-attribute face :inherit)))
+        (if (and parent-face
+                 (not (eq parent-face 'unspecified)))
+            (zw/get-face-attr-recur parent-face attr)
+          t)))))
+
 (defun zw/get-face-bg-recur (face)
-  (let ((bg (face-background face)))
-    (if bg
-        bg
-      (zw/get-face-bg-recur (face-attribute face :inherit)))))
+  (zw/get-face-attr-recur face :background))
 
 (defun zw/get-face-fg-recur (face)
-  (let ((fg (face-foreground face)))
-    (if fg
-        fg
-      (zw/get-face-fg-recur (face-attribute face :inherit)))))
-
+  (zw/get-face-attr-recur face :foreground))
 
 (provide 'zw-utils)
 ;;; zw-utils.el ends here
