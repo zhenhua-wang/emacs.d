@@ -35,6 +35,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; fringe (nil is default)
   (after-init . fringe-mode)
   :config
+  (require 'zw-utils)
   ;; setq default folder
   (setq default-directory (concat (getenv "HOME") "/"))
   ;; default coding
@@ -549,7 +550,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       ;; :background (face-background 'mode-line)
                       :foreground (face-foreground 'default)
                       :background (face-background 'mode-line)
-                      :underline (face-background 'doom-modeline-bar) ;"#950b96"
+                      :underline (zw/get-face-bg-recur 'doom-modeline-bar) ;"#950b96"
                       :box (face-background 'mode-line)
                       :font zw/default-font)
   (set-face-attribute 'tab-bar-tab-inactive nil
@@ -1378,7 +1379,7 @@ Auto-Saving Changed Files
 		        :underline (face-foreground 'corfu-default))
     (with-eval-after-load 'doom-modeline
       (set-face-attribute 'corfu-border nil
-                          :background (face-background 'doom-modeline-bar)))
+                          :background (zw/get-face-bg-recur 'doom-modeline-bar)))
     (set-face-attribute 'corfu-bar nil
                         :background (face-foreground font-lock-comment-face)))
   (zw/corfu-theme))

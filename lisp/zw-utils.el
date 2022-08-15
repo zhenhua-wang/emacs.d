@@ -12,7 +12,7 @@
         (if (and parent-face
                  (not (eq parent-face 'unspecified)))
             (zw/get-face-attr-recur parent-face attr)
-          t)))))
+          nil)))))
 
 (defun zw/get-face-bg-recur (face)
   (zw/get-face-attr-recur face :background))
