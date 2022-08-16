@@ -17,7 +17,7 @@
   (markdown-mode . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t
-		visual-fill-column-width 80))
+                visual-fill-column-width 80))
 #+end_src
 
 ** Writeroom-mode
@@ -84,15 +84,15 @@
   (setq org-latex-listings 't)
   (add-to-list 'org-latex-classes
                '("org-plain-latex"
-		 "\\documentclass{article}
+                 "\\documentclass{article}
            [NO-DEFAULT-PACKAGES]
            [PACKAGES]
            [EXTRA]"
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
 *** Org-theme
@@ -104,8 +104,8 @@
         org-modern-table t
         org-modern-table-vertical 1
         org-modern-table-horizontal 1
-	org-modern-todo t
-	org-modern-todo-faces
+        org-modern-todo t
+        org-modern-todo-faces
         '(("TODO" . (:inherit fixed-pitch :foreground "white" :background "#B25068" :weight bold))
           ("DONE" . (:inherit fixed-pitch :foreground "black" :background "#6CC4A1" :weight bold))))
   :config
