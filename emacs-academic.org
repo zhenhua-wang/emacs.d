@@ -44,6 +44,7 @@
               ("C-c =" . nil)
               ("C-," . nil))
   :hook
+  (org-mode . org-indent-mode)
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
   (org-mode . org-num-mode)
@@ -110,12 +111,6 @@
           ("DONE" . (:inherit fixed-pitch :foreground "black" :background "#6CC4A1" :weight bold))))
   :config
   (defun org-modern--block-fringe () nil))
-
-(use-package org-modern-indent
-  :disabled
-  :straight `(org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
-  :hook
-  (org-indent-mode . org-modern-indent-mode))
 
 (use-package org-bars
   :straight `(org-bars :host github :repo "tonyaldon/org-bars")
