@@ -24,7 +24,7 @@
   (lsp-mode . disable-lsp-imenu-in-ess-r)
   :init
   (setq lsp-auto-guess-root t
-	lsp-keep-workspace-alive nil
+        lsp-keep-workspace-alive nil
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
@@ -67,12 +67,12 @@
   :hook (lsp-mode . lsp-ui-mode)
   :init
   (setq lsp-ui-peek-always-show t
-	lsp-ui-sideline-show-diagnostics nil
+        lsp-ui-sideline-show-diagnostics nil
         lsp-ui-sideline-ignore-duplicate t
-	lsp-ui-sideline-show-code-actions nil
-	lsp-ui-doc-show-with-cursor nil
-	lsp-ui-doc-show-with-mouse t
-	lsp-ui-doc-position 'top
+        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-doc-show-with-cursor nil
+        lsp-ui-doc-show-with-mouse t
+        lsp-ui-doc-position 'top
         lsp-ui-doc-delay 0.1)
   ;; Set correct color to borders
   (defun my-lsp-ui-doc-set-border ()
@@ -97,11 +97,11 @@
                      :string (mapconcat 'identity string "")
                      :min-width (frame-width)
                      :poshandler #'posframe-poshandler-frame-center
-		     :override-parameters '((tab-bar-mode . 0)
-					    (tab-bar-format . nil)
-					    (tab-line-format . nil)
-					    (tab-bar-lines . 0)
-					    (tab-bar-lines-keep-state . 0)))))
+                     :override-parameters '((tab-bar-mode . 0)
+                                            (tab-bar-format . nil)
+                                            (tab-line-format . nil)
+                                            (tab-bar-lines . 0)
+                                            (tab-bar-lines-keep-state . 0)))))
 
   (defun lsp-ui-peek--peek-destroy ()
     (when (bufferp lsp-ui-peek--buffer)
@@ -146,11 +146,11 @@
   :commands (eglot)
   :config
   (setq eglot-stay-out-of '(flymake imenu)
-	eglot-autoshutdown t)
+        eglot-autoshutdown t)
   (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
-					("texlab")))
+                                        ("texlab")))
   (setq-default eglot-workspace-configuration
-		'((:pyright . ((useLibraryCodeForTypes . t)))))
+                '((:pyright . ((useLibraryCodeForTypes . t)))))
   ;; Bridge projectile and project together so packages that depend on project
   ;; like eglot work
   (defun my-projectile-project-find-function (dir)
@@ -164,17 +164,17 @@
 #+begin_src emacs-lisp
 ;; use lsp-mode in local and eglot in remote
 (dolist (mode '(python-mode-hook
-		c++-mode-hook c-mode-hook
-		latex-mode-hook LaTeX-mode-hook))
+                c++-mode-hook c-mode-hook
+                latex-mode-hook LaTeX-mode-hook))
   (add-hook mode (lambda ()
-		   (if (file-remote-p default-directory)
-		       (eglot-ensure)
-		     (lsp-deferred)))))
+                   (if (file-remote-p default-directory)
+                       (eglot-ensure)
+                     (lsp-deferred)))))
 ;; disable lsp in the following modes
 (dolist (mode '(ess-r-mode-hook))
   (add-hook mode (lambda ()
-		   (when (not (file-remote-p default-directory))
-		     (lsp-deferred)))))
+                   (when (not (file-remote-p default-directory))
+                     (lsp-deferred)))))
 #+end_src
 
 ** Debug
@@ -205,7 +205,7 @@
   (setq xref-prompt-for-identifier '(not xref-find-definitions
                                          xref-find-definitions-other-window
                                          xref-find-definitions-other-frame
-					 xref-find-references)))
+                                         xref-find-references)))
 #+end_src
 
 ** Highlight indent
@@ -282,10 +282,10 @@
            :poshandler poshandler
            :hidehandler #'flycheck-posframe-hidehandler
            :override-parameters '((tab-bar-mode . 0)
-				  (tab-bar-format . nil)
-				  (tab-line-format . nil)
-				  (tab-bar-lines . 0)
-				  (tab-bar-lines-keep-state . 0))))))
+                                  (tab-bar-format . nil)
+                                  (tab-line-format . nil)
+                                  (tab-bar-lines . 0)
+                                  (tab-bar-lines-keep-state . 0))))))
     (advice-add #'flycheck-posframe-show-posframe :override #'my-flycheck-posframe-show-posframe))
 
   ;; fix-flycheck-posframe-not-hide-immediately
@@ -301,8 +301,8 @@
   (add-hook 'flycheck-posframe-mode-hook #'fix-flycheck-posframe-not-hide-immediately))
 
 (add-hook 'prog-mode-hook (lambda ()
-			    (when (not (file-remote-p default-directory))
-			      (flycheck-mode))))
+                            (when (not (file-remote-p default-directory))
+                              (flycheck-mode))))
 #+end_src
 
 ** Projectile
@@ -319,7 +319,7 @@
   ("C-c p" . projectile-command-map)
   :init
   (setq projectile-sort-order 'recentf
-	projectile-file-exists-remote-cache-expire nil))
+        projectile-file-exists-remote-cache-expire nil))
 #+end_src
 
 ** Neotrees
@@ -328,16 +328,16 @@
   :commands (neotree neotree-project-dir)
   :hook
   (neo-after-create . (lambda (_)
-			(with-current-buffer (get-buffer neo-buffer-name)
-			  (setq truncate-lines t)
-			  (setq word-wrap nil)
-			  (make-local-variable 'auto-hscroll-mode)
-			  (setq auto-hscroll-mode nil))))
+                        (with-current-buffer (get-buffer neo-buffer-name)
+                          (setq truncate-lines t)
+                          (setq word-wrap nil)
+                          (make-local-variable 'auto-hscroll-mode)
+                          (setq auto-hscroll-mode nil))))
   (neotree-mode . (lambda ()
-		    (setq zw/neotree-mode-line-format
-			  '("%e" (:eval (doom-modeline-segment--bar))
-			    "  Neotree"))
-		    (setq-local mode-line-format zw/neotree-mode-line-format)))
+                    (setq zw/neotree-mode-line-format
+                          '("%e" (:eval (doom-modeline-segment--bar))
+                            "  Neotree"))
+                    (setq-local mode-line-format zw/neotree-mode-line-format)))
   :init
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   :config
@@ -350,9 +350,9 @@
       (if project-dir
           (if (neo-global--window-exists-p)
               (progn
-		(neotree-dir project-dir)
-		(neotree-find file-name)))
-	(message "Could not find git project root.")))))
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root.")))))
 #+end_src
 
 ** Version control
@@ -386,17 +386,17 @@
       (if (and command-for-mode
                (stringp buffer-file-name))
           (let* ((file-name (file-name-nondirectory buffer-file-name))
-		 (file-name-sans-suffix (if (and (string-match "\\.[^.]*\\'"
+                 (file-name-sans-suffix (if (and (string-match "\\.[^.]*\\'"
                                                                file-name)
-						 (> (match-beginning 0) 0))
+                                                 (> (match-beginning 0) 0))
                                             (substring file-name
                                                        0 (match-beginning 0))
                                           nil)))
             (if file-name-sans-suffix
-		(progn
+                (progn
                   (make-local-variable 'compile-command)
                   (setq compile-command
-			(if (stringp command-for-mode)
+                        (if (stringp command-for-mode)
                             ;; Optimize the common case.
                             (format command-for-mode
                                     file-name file-name-sans-suffix)
@@ -404,7 +404,7 @@
                                    file-name file-name-sans-suffix)))
                   compile-command)
               nil))
-	nil)))
+        nil)))
   ;; Add the appropriate mode hooks.
   (add-hook 'c-mode-hook       (function compile-guess-command))
   (add-hook 'c++-mode-hook     (function compile-guess-command)))
@@ -418,7 +418,7 @@
   :hook
   (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind (:map ess-r-mode-map
-	      ("M-<tab>" . ess-complete-object-name))
+              ("M-<tab>" . ess-complete-object-name))
   :config
   (require 'ess-site)
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
@@ -430,25 +430,25 @@
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
   (setq ess-ask-for-ess-directory nil
-	ess-nuke-trailing-whitespace-p t
-	ess-style 'DEFAULT
-	ess-local-process-name "R"
-	ess-use-company nil
-	ess-use-flymake nil
-	ess-eval-visibly-p 'nowait
-	ess-R-font-lock-keywords
-	'((ess-R-fl-keyword:keywords   . t)
-	  (ess-R-fl-keyword:constants  . t)
-	  (ess-R-fl-keyword:modifiers  . t)
-	  (ess-R-fl-keyword:fun-defs   . t)
-	  (ess-R-fl-keyword:assign-ops . t)
-	  (ess-R-fl-keyword:%op%       . t)
-	  (ess-fl-keyword:fun-calls    . t)
-	  (ess-fl-keyword:delimiters . t)
-	  (ess-fl-keyword:operators . t)
-	  (ess-fl-keyword:numbers . t)
-	  (ess-R-fl-keyword:F&T . t)
-	  (ess-fl-keyword:= . t))))
+        ess-nuke-trailing-whitespace-p t
+        ess-style 'DEFAULT
+        ess-local-process-name "R"
+        ess-use-company nil
+        ess-use-flymake nil
+        ess-eval-visibly-p 'nowait
+        ess-R-font-lock-keywords
+        '((ess-R-fl-keyword:keywords   . t)
+          (ess-R-fl-keyword:constants  . t)
+          (ess-R-fl-keyword:modifiers  . t)
+          (ess-R-fl-keyword:fun-defs   . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-R-fl-keyword:%op%       . t)
+          (ess-fl-keyword:fun-calls    . t)
+          (ess-fl-keyword:delimiters . t)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:numbers . t)
+          (ess-R-fl-keyword:F&T . t)
+          (ess-fl-keyword:= . t))))
 
 (use-package ess-smart-equals
   :after (:any ess-r-mode inferior-ess-r-mode ess-r-transcript-mode)
