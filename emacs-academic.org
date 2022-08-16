@@ -100,7 +100,7 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-star '("◉" "●")
+  (setq org-modern-star nil             ;'("◉" "●")
         org-modern-table t
         org-modern-table-vertical 1
         org-modern-table-horizontal 1
@@ -115,11 +115,11 @@
   :disabled
   :straight `(org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
   :hook
-  (org-mode . org-indent-mode)
-  (org-indent-mode . org-modern-indent-mode)
-  :init
-  ;; use org-indent but don't indent, just to show src lines
-  (setq org-indent-indentation-per-level 0))
+  (org-indent-mode . org-modern-indent-mode))
+
+(use-package org-bars
+  :straight `(org-bars :host github :repo "tonyaldon/org-bars")
+  :hook (org-mode . org-bars-mode))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
