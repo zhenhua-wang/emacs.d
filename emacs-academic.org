@@ -118,6 +118,10 @@
   ;; use org-indent but don't indent, just to show src lines
   (setq org-indent-indentation-per-level 0))
 
+(use-package org-bars
+  :straight `(org-bars. :host github :repo "tonyaldon/org-bars")
+  :hook (org-mode . org-bars-mode))
+
 ;; Auto-show Markup Symbols
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
