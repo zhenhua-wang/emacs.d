@@ -60,7 +60,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
   (defun zw/dont-kill-scratch ()
     (if (not (equal (buffer-name) "*scratch*"))
-	t
+        t
       ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
       (bury-buffer)
       nil)))
@@ -168,8 +168,8 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
   :if (or (eq system-type 'darwin)
-	  (eq system-type 'gnu/linux)
-	  (daemonp))
+          (eq system-type 'gnu/linux)
+          (daemonp))
   :init
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
@@ -199,9 +199,9 @@ For host with two factor auth, you need to
               tramp-file-name-regexp))
 (with-eval-after-load 'tramp
   (customize-set-variable 'tramp-ssh-controlmaster-options
-			  (concat
-			   "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
-			   "-o ControlMaster=auto -o ControlPersist=yes"))
+                          (concat
+                           "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
+                           "-o ControlMaster=auto -o ControlPersist=yes"))
   ;; respect the PATH variable on the remote machine
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 #+end_src
@@ -229,10 +229,10 @@ sudo systemctl start ssh
   :config
   ;; Make processes’ outputs read-only. The prompt is easy.
   (setq comint-prompt-read-only t
-	ansi-color-for-comint-mode 'filter
-	comint-scroll-to-bottom-on-input t
-	comint-scroll-to-bottom-on-output nil
-	comint-move-point-for-output nil))
+        ansi-color-for-comint-mode 'filter
+        comint-scroll-to-bottom-on-input t
+        comint-scroll-to-bottom-on-output nil
+        comint-move-point-for-output nil))
 #+end_src
 
 ** Vterm
@@ -241,9 +241,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package vterm
   :straight `(:pre-build (("rm" "-fr" "build")
-			  ("mkdir" "build")
-			  ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
-			   ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
+                          ("mkdir" "build")
+                          ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
+                           ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
   :bind
   ((:map vterm-copy-mode-map
          ("<return>" . vterm-copy-mode))
@@ -253,11 +253,11 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq vterm-kill-buffer-on-exit t)
   ;; close window when vterm exit
   (add-hook 'vterm-exit-functions
-	    (lambda (_ _)
-	      (let* ((buffer (current-buffer))
-		     (window (get-buffer-window buffer)))
-		(when (not (one-window-p))
-		  (delete-window window)))))
+            (lambda (_ _)
+              (let* ((buffer (current-buffer))
+                     (window (get-buffer-window buffer)))
+                (when (not (one-window-p))
+                  (delete-window window)))))
   :config
   (zw/set-vterm-color))
 #+end_src
@@ -272,13 +272,13 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq dired-kill-when-opening-new-dired-buffer t)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"
-	  dired-use-ls-dired t
+          dired-use-ls-dired t
           dired-listing-switches "-al --group-directories-first"))
   :config
   ;; Quick sort dired buffers via hydra
   (use-package dired-quick-sort
     :bind (:map dired-mode-map
-		("S" . hydra-dired-quick-sort/body))))
+                ("S" . hydra-dired-quick-sort/body))))
 
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
@@ -297,9 +297,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config
   (setq openwith-associations
         (list
-	 (list (openwith-make-extension-regexp
+         (list (openwith-make-extension-regexp
                 '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
-		  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
+                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
                "open"
                '(file)))))
 #+end_src
@@ -315,7 +315,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                 "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
                 "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
                 "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
-		no-littering-var-directory no-littering-etc-directory
+                no-littering-var-directory no-littering-etc-directory
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude)
@@ -328,7 +328,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package savehist
   :hook (after-init . savehist-mode)
   :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-		history-length 1000))
+                history-length 1000))
 #+end_src
 
 ** Helpful
@@ -393,7 +393,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   "Set font to a variable width (proportional) fonts in current buffer"
   (interactive)
   (setq buffer-face-mode-face
-	(list ':family zw/font-variable-pitch ':height zw/font-size-variable-pitch))
+        (list ':family zw/font-variable-pitch ':height zw/font-size-variable-pitch))
   (buffer-face-mode))
 
 ;; Use monospaced font faces in current buffer
@@ -401,7 +401,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   "Sets a fixed width (monospace) font in current buffer"
   (interactive)
   (setq buffer-face-mode-face
-	(list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
+        (list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
   (buffer-face-mode))
 
 ;; Set default font faces for Info and ERC modes
@@ -419,22 +419,22 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :init
   ;; Configure the Modus Themes' appearance
   (setq modus-themes-mode-line '(moody accented borderless)
-	modus-themes-bold-constructs t
-	modus-themes-italic-constructs t
-	modus-themes-fringes 'subtle
-	modus-themes-tabs-accented t
-	modus-themes-paren-match '(bold intense)
-	modus-themes-prompts '(bold intense)
-	modus-themes-region '(accented)
-	modus-themes-completions '((matches . (extrabold))
+        modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-fringes 'subtle
+        modus-themes-tabs-accented t
+        modus-themes-paren-match '(bold intense)
+        modus-themes-prompts '(bold intense)
+        modus-themes-region '(accented)
+        modus-themes-completions '((matches . (extrabold))
                                    (selection . (semibold accented))
                                    (popup . (accented intense)))
-	modus-themes-org-blocks 'gray-background
-	modus-themes-scale-headings t
-	modus-themes-headings '((1 . (rainbow overline background 1.4))
-				(2 . (rainbow background 1.3))
-				(3 . (rainbow bold 1.2))
-				(t . (semilight 1.1))))
+        modus-themes-org-blocks 'gray-background
+        modus-themes-scale-headings t
+        modus-themes-headings '((1 . (rainbow overline background 1.4))
+                                (2 . (rainbow background 1.3))
+                                (3 . (rainbow bold 1.2))
+                                (t . (semilight 1.1))))
   :config
   (defun zw/modus-themes-toggle ()
     (interactive)
@@ -472,13 +472,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; change pdf-view-mode color when using dark color theme
   (if (string= (frame-parameter nil 'background-mode) "dark")
       (progn
-	(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-	(when (derived-mode-p 'pdf-view-mode)
-	  (pdf-view-midnight-minor-mode 1)))
+        (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+        (when (derived-mode-p 'pdf-view-mode)
+          (pdf-view-midnight-minor-mode 1)))
     (progn
       (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
       (when (derived-mode-p 'pdf-view-mode)
-	(pdf-view-midnight-minor-mode 0)))))
+        (pdf-view-midnight-minor-mode 0)))))
 ;; apply zw/update-theme after consult-theme
 (advice-add 'consult-theme :after
             (lambda (&rest args) (zw/update-theme)))
@@ -525,7 +525,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (zw/modeline-theme)
   ;; show that the R is running in inferior ess R mode
   (add-hook 'inferior-ess-mode-hook
-	    (lambda ()
+            (lambda ()
               (add-to-list 'mode-line-process '(:eval (nth ess--busy-count ess-busy-strings)))))
   ;; show keycast in misc-info
   ;; (add-to-list 'mode-line-misc-info '("" keycast-mode-line))
@@ -608,8 +608,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; set modeline
   (defun zw/imenu-list--set-mode-line ()
     (setq zw/imenu-list-mode-line-format
-	  '("%e" (:eval (doom-modeline-segment--bar))
-	    " TOC: " (:eval (buffer-name imenu-list--displayed-buffer))))
+          '("%e" (:eval (doom-modeline-segment--bar))
+            " TOC: " (:eval (buffer-name imenu-list--displayed-buffer))))
     (setq-local mode-line-format zw/imenu-list-mode-line-format))
   (advice-add #'imenu-list--set-mode-line :override #'zw/imenu-list--set-mode-line))
 #+end_src
@@ -678,13 +678,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package keycast
   :hook (after-init . keycast-tab-bar-mode)
   :init (setq keycast-tab-bar-location 'tab-bar-format-align-right
-	      keycast-tab-bar-format "%k%c%R "
-	      keycast-tab-bar-minimal-width 0)
+              keycast-tab-bar-format "%k%c%R "
+              keycast-tab-bar-minimal-width 0)
   :config
   (set-face-attribute 'keycast-key nil
-		      :font zw/default-font)
+                      :font zw/default-font)
   (set-face-attribute 'keycast-command nil
-		      :font zw/default-font))
+                      :font zw/default-font))
 #+end_src
 
 ** Visualize
@@ -695,7 +695,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :init (setq all-the-icons-scale-factor 1)
   :config
   (add-to-list 'all-the-icons-extension-icon-alist
-	       '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue)))
+               '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue)))
    #+end_src
 
 *** Line number mode
@@ -752,22 +752,22 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package pulsar
   :init
   (setq pulsar-pulse-functions
-	'(recenter-top-bottom
-	  move-to-window-line-top-bottom
-	  reposition-window
-	  forward-page
-	  backward-page
-	  scroll-up-command
-	  scroll-down-command
-	  org-next-visible-heading
-	  org-previous-visible-heading
-	  org-forward-heading-same-level
-	  org-backward-heading-same-level
-	  outline-backward-same-level
-	  outline-forward-same-level
-	  outline-next-visible-heading
-	  outline-previous-visible-heading
-	  outline-up-heading))
+        '(recenter-top-bottom
+          move-to-window-line-top-bottom
+          reposition-window
+          forward-page
+          backward-page
+          scroll-up-command
+          scroll-down-command
+          org-next-visible-heading
+          org-previous-visible-heading
+          org-forward-heading-same-level
+          org-backward-heading-same-level
+          outline-backward-same-level
+          outline-forward-same-level
+          outline-next-visible-heading
+          outline-previous-visible-heading
+          outline-up-heading))
   (setq pulsar-pulse-on-window-change t)
   (setq pulsar-pulse t)
   (setq pulsar-delay 0.055)
@@ -891,7 +891,7 @@ FACE defaults to inheriting from default and highlight."
          (dired-mode . diff-hl-dired-mode)
          ((after-load-theme server-after-make-frame) . my-set-diff-hl-faces))
   :init (setq diff-hl-draw-borders nil
-	      diff-hl-side 'right)
+              diff-hl-side 'right)
   :config
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
@@ -955,7 +955,7 @@ FACE defaults to inheriting from default and highlight."
           "^\\*polymode export\\*"
           help-mode
           eshell-mode
-	  vterm-mode
+          vterm-mode
           message-mode
           compilation-mode)))
 #+end_src
@@ -1017,7 +1017,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 ;; hook to popper-mode in case popper overwrite this behavior
 (add-hook 'popper-mode-hook (lambda ()
   (setq display-buffer-base-action
-	'(display-buffer-reuse-mode-window
+        '(display-buffer-reuse-mode-window
           display-buffer-reuse-window
           display-buffer-same-window))
 
@@ -1025,7 +1025,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
   (setq even-window-sizes nil)
 
   (setq display-buffer-alist
-	'(;; top side window
+        '(;; top side window
           ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
            (display-buffer-in-side-window)
            (window-height . 0.2)
@@ -1046,7 +1046,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (window-height . 0.2)
            (side . top)
            (slot . 1))
-	  ("\\*compilation.*"
+          ("\\*compilation.*"
            (display-buffer-in-side-window)
            (window-height . 0.2)
            (side . top)
@@ -1057,7 +1057,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (window-width . 0.5)
            (side . right)
            (slot . -1))
-	  ("\\*Man.*"
+          ("\\*Man.*"
            (display-buffer-in-side-window)
            (window-width . 0.5)
            (side . right)
@@ -1073,11 +1073,11 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (slot . -1)
            (window-width . 0.3))
           ;; left side window
-	  ("^\\*Ilist\\*$"
-	   (display-buffer-in-side-window)
-	   (window-width . 0.2)
-	   (side . left)
-	   (slot . -1))
+          ("^\\*Ilist\\*$"
+           (display-buffer-in-side-window)
+           (window-width . 0.2)
+           (side . left)
+           (slot . -1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
            (display-buffer-at-bottom)
@@ -1153,14 +1153,14 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package vertico
   :straight (:files (:defaults "extensions/*")
-		    :includes (vertico-buffer
-			       vertico-directory
-			       vertico-flat
-			       vertico-indexed
-			       vertico-mouse
-			       vertico-quick
-			       vertico-repeat
-			       vertico-reverse))
+                    :includes (vertico-buffer
+                               vertico-directory
+                               vertico-flat
+                               vertico-indexed
+                               vertico-mouse
+                               vertico-quick
+                               vertico-repeat
+                               vertico-reverse))
   :hook
   (after-init . vertico-mode)
   ;; Tidy shadowed file names
@@ -1172,9 +1172,9 @@ Auto-Saving Changed Files
               ("M-DEL" . vertico-directory-delete-word))
   :init
   (setq vertico-resize nil
-	vertico-scroll-margin 0
-	vertico-count 12
-	vertico-cycle t)
+        vertico-scroll-margin 0
+        vertico-count 12
+        vertico-cycle t)
   :config
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
@@ -1197,7 +1197,7 @@ Auto-Saving Changed Files
   (marginalia-mode . all-the-icons-completion-mode)
   :init
   (setq marginalia-max-relative-age 0
-	marginalia-align 'center))
+        marginalia-align 'center))
 #+end_src
 
 *** consult
@@ -1209,15 +1209,15 @@ Auto-Saving Changed Files
          ("C-c k" . consult-kmacro)
          ;; C-x bindings (ctl-x-map)
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-	 ("C-x C-b" . consult-buffer)
-	 ("C-x C-d" . consult-dir)
-	 ("C-x C-p" . consult-projectile-switch-project)
-	 ("C-x C-t" . consult-tramp)
+         ("C-x C-b" . consult-buffer)
+         ("C-x C-d" . consult-dir)
+         ("C-x C-p" . consult-projectile-switch-project)
+         ("C-x C-t" . consult-tramp)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
          ("<help> a" . consult-apropos)            ;; orig. apropos-command
-	 ("s-f" . consult-line)                ;; orig. yank-pop
-	 ("s-F" . zw/consult-line-multi)
+         ("s-f" . consult-line)                ;; orig. yank-pop
+         ("s-F" . zw/consult-line-multi)
          ;; M-g bindings (goto-map)
          ("M-g g" . consult-goto-line)             ;; orig. goto-line
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
@@ -1225,13 +1225,13 @@ Auto-Saving Changed Files
          ;; M-s bindings (search-map)
          ("M-s d" . consult-find)
          ("M-s g" . consult-grep)
-	 ("M-s b" . consult-bibtex-open-pdf)
-	 ("M-s y" . consult-yasnippet)
-	 ("M-s c" . consult-flycheck)
-	 ("M-s m" . consult-minor-mode-menu)
-	 :map isearch-mode-map
+         ("M-s b" . consult-bibtex-open-pdf)
+         ("M-s y" . consult-yasnippet)
+         ("M-s c" . consult-flycheck)
+         ("M-s m" . consult-minor-mode-menu)
+         :map isearch-mode-map
          ("M-s" . consult-isearch-history)
-	 :map minibuffer-local-completion-map
+         :map minibuffer-local-completion-map
          ("C-x C-d" . consult-dir))
   :init
   (setq consult-preview-key (kbd "M-."))
@@ -1246,7 +1246,7 @@ Auto-Saving Changed Files
 
   ;; Optionally configure the narrowing key.
   (setq consult-narrow-key "<" ;; (kbd "C-+")
-	consult-line-numbers-widen t
+        consult-line-numbers-widen t
         consult-async-min-input 2
         consult-async-refresh-delay  0.15
         consult-async-input-throttle 0.2
@@ -1279,7 +1279,7 @@ Auto-Saving Changed Files
     :after (consult flycheck))
   (use-package consult-projectile
     :straight (consult-projectile :type git :host gitlab
-				  :repo "OlMon/consult-projectile" :branch "master"))
+                                  :repo "OlMon/consult-projectile" :branch "master"))
   (use-package consult-tramp
     :straight
     (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
@@ -1318,11 +1318,11 @@ Auto-Saving Changed Files
   (ess-r-mode . corfu-mode)
   :bind
   (:map corfu-map
-	("TAB" . corfu-insert)
+        ("TAB" . corfu-insert)
         ([tab] . corfu-insert)
         ([escape] . corfu-quit)
         ([return] . corfu-insert)
-	("SPC" . corfu-insert-separator))
+        ("SPC" . corfu-insert-separator))
   :init
   ;; fast prefix filtering
   (defun orderless-fast-dispatch (word index total)
@@ -1334,19 +1334,19 @@ Auto-Saving Changed Files
     (orderless-matching-styles '(orderless-literal orderless-regexp)))
 
   (setq corfu-cycle t
-	corfu-auto t
-	corfu-auto-delay 0
-	corfu-auto-prefix 1
-	completion-styles '(orderless-fast)
-	corfu-preselect-first t
-	corfu-quit-no-match t
-	corfu-on-exact-match 'insert
-	corfu-preview-current nil
-	corfu-echo-documentation nil
-	corfu-scroll-margin 5
-	corfu-count 10
-	corfu-min-width 20
-	corfu-max-width 80
+        corfu-auto t
+        corfu-auto-delay 0
+        corfu-auto-prefix 1
+        completion-styles '(orderless-fast)
+        corfu-preselect-first t
+        corfu-quit-no-match t
+        corfu-on-exact-match 'insert
+        corfu-preview-current nil
+        corfu-echo-documentation nil
+        corfu-scroll-margin 5
+        corfu-count 10
+        corfu-min-width 20
+        corfu-max-width 80
         corfu-bar-width 1)
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
@@ -1375,8 +1375,8 @@ Auto-Saving Changed Files
     (set-face-attribute 'corfu-current nil
                         :foreground (face-foreground 'warning)
                         :background (face-background 'corfu-default)
-		        :bold t
-		        :underline (face-foreground 'corfu-default))
+                        :bold t
+                        :underline (face-foreground 'corfu-default))
     (with-eval-after-load 'doom-modeline
       (set-face-attribute 'corfu-border nil
                           :background (zw/get-face-bg-recur 'doom-modeline-bar)))
@@ -1394,7 +1394,7 @@ Auto-Saving Changed Files
   (:map corfu-map
         ("M-p" . corfu-doc-scroll-down)
         ("M-n" . corfu-doc-scroll-up)
-	("M-d" . corfu-doc-toggle))
+        ("M-d" . corfu-doc-toggle))
   :config
   (setq corfu-doc-auto nil
         corfu-doc-display-within-parent-frame t))
