@@ -114,9 +114,30 @@
   (defun org-modern--block-fringe () nil))
 
 (use-package org-bars
+  :disabled
   :straight `(org-bars :host github :repo "tonyaldon/org-bars")
   :hook (org-mode . org-bars-mode)
   :config (setq org-bars-extra-pixels-height 6))
+
+(use-package org-visual-indent
+  :straight `(org-visual-indent
+              :host github
+              :repo "legalnonsense/org-visual-outline")
+  :hook (org-mode . org-visual-indent-mode)
+  :config
+  ;; match org-headings color
+  (setq org-visual-indent-color-indent
+        (cl-loop for x from 1 to 8
+                 with color = nil
+                 do (setq color (or (face-foreground
+                                     (intern
+                                      (concat "org-level-"
+                                              (number-to-string x))))
+                                    (face-foreground 'org-level-1)))
+                 collect `(,x ,(list
+                                :background color
+                                :foreground color
+                                :height .1)))))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
