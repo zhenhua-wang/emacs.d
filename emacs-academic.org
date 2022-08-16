@@ -100,9 +100,11 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-table t
-	org-modern-todo t)
   (setq org-modern-star '("◉" "●")
+        org-modern-table t
+        org-modern-table-vertical 1
+        org-modern-table-horizontal 1
+	org-modern-todo t
 	org-modern-todo-faces
         '(("TODO" . (:inherit fixed-pitch :foreground "white" :background "#B25068" :weight bold))
           ("DONE" . (:inherit fixed-pitch :foreground "black" :background "#6CC4A1" :weight bold))))
