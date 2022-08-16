@@ -41,8 +41,8 @@
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
   :bind (:map org-mode-map
-	      ("C-c =" . nil)
-	      ("C-," . nil))
+              ("C-c =" . nil)
+              ("C-," . nil))
   :hook
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
@@ -172,14 +172,14 @@
   (markdown-mode-hook . adaptive-wrap-prefix-mode)
   :init
   (setq markdown-enable-math t
-	markdown-enable-wiki-links t
+        markdown-enable-wiki-links t
         markdown-italic-underscore t
         markdown-make-gfm-checkboxes-buttons t
         markdown-gfm-uppercase-checkbox t
         markdown-fontify-code-blocks-natively t
-	markdown-regex-header-setext nil
-	markdown-header-scaling t
-	markdown-asymmetric-header t)
+        markdown-regex-header-setext nil
+        markdown-header-scaling t
+        markdown-asymmetric-header t)
   (defun zw/markdown-toggle-markup-hiding ()
     (interactive)
     (markdown-toggle-markup-hiding)
@@ -200,18 +200,18 @@ LSP-mode with TexLab works perfect for Latex docs
   :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
   :init
   (setq TeX-PDF-mode t
-	TeX-parse-self t
-	TeX-auto-save t
-	TeX-insert-braces nil
+        TeX-parse-self t
+        TeX-auto-save t
+        TeX-insert-braces nil
 
-	TeX-source-correlate-mode t
-	TeX-source-correlate-method 'synctex
-	;; Don't start the Emacs server when correlating sources.
-	TeX-source-correlate-start-server nil
+        TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        ;; Don't start the Emacs server when correlating sources.
+        TeX-source-correlate-start-server nil
 
-	Tex-command-show "LaTex"
-	TeX-view-program-selection '((output-pdf "PDF Tools"))
-	TeX-save-query nil)
+        Tex-command-show "LaTex"
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-save-query nil)
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
@@ -230,9 +230,9 @@ LSP-mode with TexLab works perfect for Latex docs
                ("[" . nil)
                ("|" . nil)
                ("<" . nil)
-	       ("^" . nil)
-	       ("_" . nil)
-	       ("`" . nil)
+               ("^" . nil)
+               ("_" . nil)
+               ("`" . nil)
                ("'" . nil))))
 
 ;; auto async preview latex
@@ -252,9 +252,9 @@ LSP-mode with TexLab works perfect for Latex docs
 (with-eval-after-load 'org
   ;; init org-babel
   (setq org-src-window-setup 'split-window-below
-	org-src-preserve-indentation t      ; helps to indent python code in org mode
-	org-confirm-babel-evaluate nil
-	org-src-tab-acts-natively t)
+        org-src-preserve-indentation t      ; helps to indent python code in org mode
+        org-confirm-babel-evaluate nil
+        org-src-tab-acts-natively t)
   
   ;; defer load org babel languages
   (require 'ob-teximg)
@@ -303,16 +303,16 @@ LSP-mode with TexLab works perfect for Latex docs
     (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
            (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
       `(progn
-	 (defun ,intern-pre (info)
+         (defun ,intern-pre (info)
            (let ((file-name (->> info caddr (alist-get :file))))
              (unless file-name
                (setq file-name (make-temp-file "babel-lsp-")))
              (setq buffer-file-name file-name)
              (lsp-deferred)))
-	 (put ',intern-pre 'function-documentation
+         (put ',intern-pre 'function-documentation
               (format "Enable lsp-mode in the buffer of org source block (%s)."
                       (upcase ,lang)))
-	 (if (fboundp ',edit-pre)
+         (if (fboundp ',edit-pre)
              (advice-add ',edit-pre :after ',intern-pre)
            (progn
              (defun ,edit-pre (info)
@@ -360,17 +360,17 @@ LSP-mode with TexLab works perfect for Latex docs
   :defer t
   :init
   (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
-	bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
-	bibtex-completion-additional-search-fields '(keywords)
-	bibtex-completion-display-formats
-	'((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
-	  (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-	  (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	  (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	  (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
-	bibtex-completion-pdf-open-function
-	(lambda (fpath)
-	  (call-process "open" nil 0 nil fpath))))
+        bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
+        bibtex-completion-additional-search-fields '(keywords)
+        bibtex-completion-display-formats
+        '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+        bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (call-process "open" nil 0 nil fpath))))
 #+end_src
 
 ** Org-ref
@@ -384,13 +384,13 @@ LSP-mode with TexLab works perfect for Latex docs
   ;; require this to export citations in org-mode
   (require 'org-ref-citation-links)
   (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
-	bibtex-autokey-year-length 4
-	bibtex-autokey-name-year-separator "-"
-	bibtex-autokey-year-title-separator "-"
-	bibtex-autokey-titleword-separator "-"
-	bibtex-autokey-titlewords 2
-	bibtex-autokey-titlewords-stretch 1
-	bibtex-autokey-titleword-length 5)
+        bibtex-autokey-year-length 4
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 2
+        bibtex-autokey-titlewords-stretch 1
+        bibtex-autokey-titleword-length 5)
   ;; export org-ref labels
   (setq org-latex-prefer-user-labels t)
   :config
@@ -408,7 +408,7 @@ LSP-mode with TexLab works perfect for Latex docs
            (interactive)
            (org-ref-set-bibtex-keywords
             (read-string "Keywords: "
-			 (bibtex-autokey-get-field "keywords"))
+                         (bibtex-autokey-get-field "keywords"))
             t))
      "Keywords" :column "Edit")
     ("a" org-ref-replace-nonascii "Replace nonascii" :column "Edit")
@@ -425,16 +425,16 @@ LSP-mode with TexLab works perfect for Latex docs
 
     ;; Copy
     ("o" (lambda ()
-	   (interactive)
-	   (bibtex-copy-entry-as-kill)
-	   (message "Use %s to paste the entry"
-		    (substitute-command-keys (format "\\[bibtex-yank]"))))
+           (interactive)
+           (bibtex-copy-entry-as-kill)
+           (message "Use %s to paste the entry"
+                    (substitute-command-keys (format "\\[bibtex-yank]"))))
      "Copy entry" :column "Copy")
 
     ("y" (save-excursion
-	   (bibtex-beginning-of-entry)
-	   (when (looking-at bibtex-entry-maybe-empty-head)
-	     (kill-new (bibtex-key-in-head))))
+           (bibtex-beginning-of-entry)
+           (when (looking-at bibtex-entry-maybe-empty-head)
+             (kill-new (bibtex-key-in-head))))
      "Copy key" :column "Copy")
 
 
@@ -456,15 +456,15 @@ LSP-mode with TexLab works perfect for Latex docs
   :magic ("%PDF" . pdf-view-mode)
   :bind (:map pdf-view-mode-map
               ("C-s" . isearch-forward)
-	      ("s-f" . isearch-forward)
-	      ("q" . nil))
+              ("s-f" . isearch-forward)
+              ("q" . nil))
   :config
   (setq-default pdf-view-display-size 'fit-page)
   (pdf-tools-install :no-query)
   (setq pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-use-imagemagick nil
         pdf-view-continuous nil
-	pdf-annot-activate-created-annotations t))
+        pdf-annot-activate-created-annotations t))
 #+end_src
 
 * Dictionary
@@ -486,7 +486,7 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :init (setq flyspell-issue-message-flag nil
-	      flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
+              flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
               ispell-program-name "aspell"
               ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
 
