@@ -102,7 +102,7 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-star nil             ;'("◉" "●")
+  (setq org-modern-star '("◉" "●")
         org-modern-table t
         org-modern-table-vertical 1
         org-modern-table-horizontal 1
@@ -113,6 +113,7 @@
   :config
   (defun org-modern--block-fringe () nil))
 
+;; FIXME: org-visual-indent is better
 (use-package org-bars
   :disabled
   :straight `(org-bars :host github :repo "tonyaldon/org-bars")
@@ -138,6 +139,21 @@
                                 :background color
                                 :foreground color
                                 :height .1)))))
+
+;; FIXME: this package does not work
+(use-package org-dynamic-bullets
+  :disabled
+  :straight `(org-dynamic-bullets
+              :host github
+              :repo "legalnonsense/org-visual-outline")
+  :hook (org-mode . org-dynamic-bullets-mode)
+  :config
+  (setq org-dynamic-bullets-folded-body-text-bullet "▶"
+        org-dynamic-bullets-folded-no-body-text-bullet "▶"
+        org-dynamic-bullets-unfolded-body-text-bullet "▼"
+        org-dynamic-bullets-unfolded-no-body-text-bullet "▼"
+        org-dynamic-bullets-leaf-body-text-bullet "▶"
+        org-dynamic-bullets-leaf-no-body-text-bullet "▶"))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
