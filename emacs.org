@@ -802,6 +802,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :init (setq show-paren-when-point-inside-paren t
               show-paren-when-point-in-periphery t)
   :config
+  (set-face-attribute 'show-paren-match nil
+                      :background (face-background 'highlight)
+                      :foreground (face-foreground 'highlight))
   (with-no-warnings
     ;; Display matching line for off-screen paren.
     (defun display-line-overlay (pos str &optional face)
