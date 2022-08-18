@@ -1374,9 +1374,9 @@ Auto-Saving Changed Files
     (set-face-attribute 'corfu-default nil
                         :inherit 'fixed-pitch)
     (set-face-attribute 'corfu-current nil
-                        :foreground (face-foreground 'warning)
-                        :underline (face-foreground 'warning)
-                        :background (face-background 'warning)
+                        :foreground (face-foreground 'highlight)
+                        ;; :underline (face-foreground 'warning)
+                        :background (face-background 'highlight)
                         :weight 'bold)
     (with-eval-after-load 'doom-modeline
       (set-face-attribute 'corfu-border nil
