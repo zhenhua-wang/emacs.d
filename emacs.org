@@ -268,12 +268,9 @@ sudo systemctl start ssh
               (define-key eshell-mode-map (kbd "s-e") #'delete-window)
               (define-key eshell-hist-mode-map (kbd "M-s") nil))))
 
-(use-package eshell-prompt-extras
-  :after esh-opt
-  :defines eshell-highlight-prompt
-  :commands (epe-theme-lambda epe-theme-dakrone epe-theme-pipeline)
-  :init (setq eshell-highlight-prompt t
-              eshell-prompt-function #'epe-theme-lambda))
+(use-package eshell-git-prompt
+  :config
+  (eshell-git-prompt-use-theme 'robbyrussell))
 
 (use-package eshell-syntax-highlighting
   :hook (eshell-mode . eshell-syntax-highlighting-mode))
