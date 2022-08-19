@@ -63,7 +63,13 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
         t
       ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
       (bury-buffer)
-      nil)))
+      nil))
+  ;; close window when close shell buffer including REPLs
+  (defun zw/close-shell ()
+    (interactive)
+    (if (one-window-p)
+        (kill-buffer)
+      (kill-buffer-and-window))))
   #+end_src
 
 ** Global keybinding
@@ -256,14 +262,9 @@ sudo systemctl start ssh
         eshell-glob-case-insensitive t
         eshell-error-if-no-glob t)
   :config
-  (defun zw/close-eshell ()
-    (interactive)
-    (if (one-window-p)
-        (kill-buffer)
-      (kill-buffer-and-window)))
   (add-hook 'eshell-mode-hook
             (lambda ()
-              (define-key eshell-mode-map (kbd "s-q") #'zw/close-eshell)
+              (define-key eshell-mode-map (kbd "s-q") #'zw/close-shell)
               (define-key eshell-mode-map (kbd "s-e") #'delete-window))))
 
 (use-package eshell-prompt-extras

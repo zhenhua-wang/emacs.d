@@ -417,8 +417,10 @@
   :commands R
   :hook
   (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
-  :bind (:map ess-r-mode-map
+  :bind ((:map ess-r-mode-map
               ("M-<tab>" . ess-complete-object-name))
+         (:map inferior-ess-r-mode-map
+              ("s-q" . zw/close-shell)))
   :config
   (require 'ess-site)
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
@@ -463,6 +465,10 @@
 
 ** Python
 #+begin_src emacs-lisp
+(use-package python-mode
+  :bind (:map inferior-python-mode-map
+              ("s-q" . zw/close-shell)))
+
 (use-package conda
   :after python
   :config
