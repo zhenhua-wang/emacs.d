@@ -239,6 +239,22 @@ sudo systemctl start ssh
 #+begin_src emacs-lisp
 (use-package eshell
   :straight (:type built-in)
+  :init
+  (setq eshell-banner-message
+        '(format "%s %s\n"
+                 (propertize (format " %s " (string-trim (buffer-name)))
+                             'face 'mode-line-highlight)
+                 (propertize (current-time-string)
+                             'face 'font-lock-keyword-face))
+        eshell-scroll-to-bottom-on-input 'all
+        eshell-scroll-to-bottom-on-output nil
+        eshell-kill-processes-on-exit t
+        eshell-hist-ignoredups t
+        ;; don't record command in history if prefixed with whitespace
+        eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
+        ;; em-glob
+        eshell-glob-case-insensitive t
+        eshell-error-if-no-glob t)
   :config
   (defun zw/close-eshell ()
     (interactive)
@@ -256,6 +272,9 @@ sudo systemctl start ssh
   :commands (epe-theme-lambda epe-theme-dakrone epe-theme-pipeline)
   :init (setq eshell-highlight-prompt t
               eshell-prompt-function #'epe-theme-lambda))
+
+(use-package eshell-syntax-highlighting
+  :hook (eshell-mode . eshell-syntax-highlighting-mode))
 #+end_src
 
 ** Vterm
