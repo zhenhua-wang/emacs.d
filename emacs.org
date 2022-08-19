@@ -249,6 +249,13 @@ sudo systemctl start ssh
             (lambda ()
               (define-key eshell-mode-map (kbd "s-q") #'zw/close-eshell)
               (define-key eshell-mode-map (kbd "s-e") #'delete-window))))
+
+(use-package eshell-prompt-extras
+  :after esh-opt
+  :defines eshell-highlight-prompt
+  :commands (epe-theme-lambda epe-theme-dakrone epe-theme-pipeline)
+  :init (setq eshell-highlight-prompt t
+              eshell-prompt-function #'epe-theme-lambda))
 #+end_src
 
 ** Vterm
