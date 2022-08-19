@@ -96,7 +96,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
 (global-set-key (kbd "s-l") 'goto-line)
 (define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
 ;; term/shell
-(global-set-key (kbd "s-e") 'eshell)
+(global-set-key (kbd "s-e") 'vterm)
 ;; buffer operations
 (global-set-key (kbd "s-q") 'kill-current-buffer)
 (global-set-key (kbd "s-=") 'text-scale-increase)
