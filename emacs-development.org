@@ -465,9 +465,9 @@
 
 ** Python
 #+begin_src emacs-lisp
-(use-package python-mode
-  :bind (:map inferior-python-mode-map
-              ("s-q" . zw/close-shell)))
+(add-hook 'inferior-python-mode-hook
+          (lambda ()
+            (define-key inferior-python-mode-map (kbd "s-q") #'zw/close-shell)))
 
 (use-package conda
   :after python
