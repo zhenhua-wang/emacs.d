@@ -645,7 +645,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (defun zw/imenu-list--set-mode-line ()
     (setq zw/imenu-list-mode-line-format
           '("%e" (:eval (doom-modeline-segment--bar))
-            " TOC: " (:eval (buffer-name imenu-list--displayed-buffer))))
+            " IMenu: " (:eval (buffer-name imenu-list--displayed-buffer))))
     (setq-local mode-line-format zw/imenu-list-mode-line-format))
   (advice-add #'imenu-list--set-mode-line :override #'zw/imenu-list--set-mode-line))
 #+end_src

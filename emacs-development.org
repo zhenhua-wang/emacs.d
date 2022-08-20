@@ -21,7 +21,7 @@
   ;; (c++-mode . lsp-deferred)
   ;; (ess-r-mode . lsp-deferred)
   ;; ((latex-mode LaTeX-mode) . lsp-deferred)
-  (lsp-mode . disable-lsp-imenu-in-ess-r)
+  ((ess-r-mode latex-mode LaTeX-mode) . disable-lsp-imenu)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -44,8 +44,8 @@
     ;; Equals to `C-u M-x lsp-install-server'
     (lsp-install-server t))
   ;; BUG: disable imenu for ess-r-mode https://github.com/REditorSupport/languageserver/issues/558
-  (defun disable-lsp-imenu-in-ess-r ()
-    (if (featurep 'ess-r-mode)
+  (defun disable-lsp-imenu ()
+    (if (featurep 'lsp-mode)
         (setq-local lsp-enable-imenu nil))))
 
 ;; microsoft pyright
