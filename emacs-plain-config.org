@@ -297,11 +297,10 @@ My key binding strategy:
   #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-(use-package lsp-mode
-  :commands (lsp lsp-org)
-  :hook
-  (python-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred))
+(use-package eglot
+  :config
+  (setq eglot-stay-out-of '(flymake imenu)
+        eglot-autoshutdown t))
   #+end_src
 
 ** R
