@@ -470,6 +470,7 @@ LSP-mode with TexLab works perfect for Latex docs
               ("C-s" . isearch-forward)
               ("s-f" . isearch-forward)
               ("s-=" . pdf-view-enlarge)
+              ("s-+" . pdf-view-enlarge)
               ("s--" . pdf-view-shrink)
               ("q" . nil))
   :config
