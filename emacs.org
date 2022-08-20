@@ -457,7 +457,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Theme
 #+begin_src emacs-lisp
 (use-package modus-themes
-  :bind ("<f12>" . zw/modus-themes-toggle)
   :init
   ;; Configure the Modus Themes' appearance
   (setq modus-themes-mode-line '(moody accented borderless)
@@ -476,12 +475,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
         modus-themes-headings '((1 . (rainbow overline background 1.4))
                                 (2 . (rainbow background 1.3))
                                 (3 . (rainbow bold 1.2))
-                                (t . (semilight 1.1))))
-  :config
-  (defun zw/modus-themes-toggle ()
-    (interactive)
-    (modus-themes-toggle)
-    (zw/update-theme)))
+                                (t . (semilight 1.1)))))
 
 (use-package doom-themes
   :config
