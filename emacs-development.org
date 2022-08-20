@@ -497,7 +497,7 @@
   ;; add to modeline
   (add-to-list 'mode-line-misc-info
                '(conda-env-current-name
-                 ("[conda:" conda-env-current-name "]"))
+                 ("[CONDA:" conda-env-current-name "]"))
                'append))
 #+end_src
 
