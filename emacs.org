@@ -1178,7 +1178,7 @@ Auto-Saving Changed Files
 ** Go to last change
 #+begin_src emacs-lisp
 (use-package goto-last-change
-  :bind ("M-p" . goto-last-change))
+  :bind ("M-g l" . goto-last-change))
 #+end_src
 
 * Completion
