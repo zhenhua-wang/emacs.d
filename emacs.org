@@ -3,8 +3,10 @@
 #+auto_tangle: t
 #+PROPERTY: header-args+ :tangle "yes"
 
-This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ to directly load it into init.el. Since this function will only tangle the file only if the current file is new, I am using ~if-else/when/pcase~ to detect OS. 
---------------
+- TDOD list:
+  - manage faces in a single section
+  - manage key-bindings in a single section
+    --------------
 * Header
 #+begin_src emacs-lisp
 ;; -*- lexical-binding: t -*-
