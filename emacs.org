@@ -20,7 +20,7 @@
 (setq zw/font-size-variable-pitch 200)
 (setq zw/default-font "Roboto Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
-(setq zw/font-variable-pitch "ETBembo Italic")
+(setq zw/font-variable-pitch "ETBembo")
 (setq zw/font-title "ETBembo")
 #+end_src
 
