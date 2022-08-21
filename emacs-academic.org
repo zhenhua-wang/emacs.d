@@ -147,9 +147,7 @@
 
 ;; toggle inline latex
 (use-package org-fragtog
-  :disabled
-  :hook
-  (org-mode . org-fragtog-mode))
+  :commands (org-fragtog-mode))
 
 (with-eval-after-load 'org
   (zw/set-org-headline))
