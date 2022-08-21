@@ -326,6 +326,7 @@
 #+begin_src emacs-lisp
 (use-package neotree
   :commands (neotree neotree-project-dir)
+  :bind ("C-c -" . neotree-project-dir)
   :hook
   (neo-after-create . (lambda (_)
                         (with-current-buffer (get-buffer neo-buffer-name)

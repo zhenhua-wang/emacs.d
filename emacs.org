@@ -43,7 +43,7 @@ This is my personal configuration for emacs. I am using ~(org-babel-load-file)~ 
   ;; start server mode
   (server-start)
   ;; cursor
-  (blink-cursor-mode 0)
+  (blink-cursor-mode 1)
   (setq-default cursor-type 'bar)
   ;; save clipboard before kill ring
   (setq save-interprogram-paste-before-kill t)
