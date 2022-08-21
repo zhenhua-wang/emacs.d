@@ -1175,6 +1175,12 @@ Auto-Saving Changed Files
   ("C-c q" . vr/query-replace))
 #+end_src
 
+** Go to last change
+#+begin_src emacs-lisp
+(use-package goto-last-change
+  :bind ("M-p" . goto-last-change))
+#+end_src
+
 * Completion
 ** Orderless
 #+begin_src emacs-lisp
