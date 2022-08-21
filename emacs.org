@@ -660,11 +660,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq mouse-wheel-scroll-amount '(1 ((shift) . hscroll))
         mouse-wheel-scroll-amount-horizontal 1
         mouse-wheel-progressive-speed nil))
-(setq scroll-step 1
-      scroll-margin 0
-      scroll-conservatively 100000
-      auto-window-vscroll nil
-      scroll-preserve-screen-position t)
 
 ;; Good pixel line scrolling
 (if (fboundp 'pixel-scroll-precision-mode)
