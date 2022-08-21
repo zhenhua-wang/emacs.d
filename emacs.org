@@ -1115,7 +1115,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (display-buffer-in-side-window)
            (window-width . 0.2)
            (side . left)
-           (slot . -1))
+           (slot . 1))
           ;; bottom buffer (NOT side window)
           ("\\*.*\\(e?shell\\|v?term\\).*"
            (display-buffer-at-bottom)
