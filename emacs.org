@@ -87,6 +87,10 @@
 (global-unset-key (kbd "C-<mouse-5>"))          ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-down>"))       ; disable scroll zoom
 (global-unset-key (kbd "C-<wheel-up>"))         ; disable scroll zoom
+(global-unset-key (kbd "<prior>"))
+(global-unset-key (kbd "<next>"))
+(global-unset-key (kbd "<home>"))
+(global-unset-key (kbd "<end>"))
 ;; editing
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "s-x") 'kill-region)
@@ -668,6 +672,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; Good pixel line scrolling
 (if (fboundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode t))
+
+(bind-keys :map pixel-scroll-precision-mode-map
+               ("<prior>" . nil)
+               ("<next>" . nil))
 
 (use-package iscroll
   :diminish
