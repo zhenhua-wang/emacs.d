@@ -76,65 +76,70 @@
 
 ** Global keybinding
 #+begin_src emacs-lisp
-;; ------------------- key bind ---------------------
-;; general keybindings
-;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "<escape>") (kbd "C-g"))
-(global-set-key (kbd "<C-tab>") 'completion-at-point)
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-x C-b"))
-(global-unset-key (kbd "C-<mouse-4>"))          ; disable scroll zoom
-(global-unset-key (kbd "C-<mouse-5>"))          ; disable scroll zoom
-(global-unset-key (kbd "C-<wheel-down>"))       ; disable scroll zoom
-(global-unset-key (kbd "C-<wheel-up>"))         ; disable scroll zoom
-(global-unset-key (kbd "<prior>"))
-(global-unset-key (kbd "<next>"))
-(global-unset-key (kbd "<home>"))
-(global-unset-key (kbd "<end>"))
-;; editing
-(global-set-key (kbd "s-z") 'undo)
-(global-set-key (kbd "s-x") 'kill-region)
-(global-set-key (kbd "s-c") 'kill-ring-save)
-(global-set-key (kbd "s-v") 'yank)
-(global-set-key (kbd "s-a") 'mark-whole-buffer)
-(global-set-key (kbd "s-s") 'save-buffer)
-(global-set-key (kbd "s-S") 'write-file)
-(global-set-key (kbd "s-l") 'goto-line)
-(define-key isearch-mode-map (kbd "s-f") 'isearch-repeat-forward)
-;; term/shell
-(global-set-key (kbd "s-e") 'eshell)
-(global-set-key (kbd "s-E") 'vterm)
-;; buffer operations
-(global-set-key (kbd "s-q") 'kill-current-buffer)
-(global-set-key (kbd "s-=") 'text-scale-increase)
-(global-set-key (kbd "s--") 'text-scale-decrease)
-;; window operations
-(global-set-key (kbd "s-w") 'delete-window)
-(global-set-key (kbd "s-t") 'zw/split-window-sensibly-prefer-horizontal)
-(global-set-key [s-left] 'windmove-left)          ; move to left window
-(global-set-key [s-right] 'windmove-right)        ; move to right window
-(global-set-key [s-up] 'windmove-up)              ; move to upper window
-(global-set-key [s-down] 'windmove-down)          ; move to lower window
-;; tab operations
-(global-set-key (kbd "s-1") (lambda () (interactive) (tab-select 1)))
-(global-set-key (kbd "s-2") (lambda () (interactive) (tab-select 2)))
-(global-set-key (kbd "s-3") (lambda () (interactive) (tab-select 3)))
-(global-set-key (kbd "s-4") (lambda () (interactive) (tab-select 4)))
-(global-set-key (kbd "s-5") (lambda () (interactive) (tab-select 5)))
-(global-set-key (kbd "s-n") 'tab-new)
-;; toggle transparency
-(global-set-key (kbd "s-T") 'zw/toggle-transparency)
-;; get passwed
-;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
-;; toggle input
-(global-set-key (kbd "s-\\") 'toggle-input-method)
-;; macos keys
+;; modifiers
 (pcase system-type
   ('darwin
    (progn
      (setq mac-right-command-modifier 'hyper)
      (setq mac-command-modifier 'super)
      (setq mac-option-modifier 'meta))))
+
+;; keys
+(bind-keys :map global-map
+           ("<escape>" . keyboard-quit) ;keyboard-escape-quit
+           ;; disable some weird k
+           ("C-z" . nil)
+           ("C-x C-b" . nil)
+           ("<prior>" . nil)
+           ("<next>" . nil)
+           ("<home>" . nil)
+           ("<end>" . nil)
+           ;; disable scroll zoom
+           ("C-<mouse-4>" . nil)
+           ("C-<mouse-5>" . nil)
+           ("C-<wheel-down>" . nil)
+           ("C-<wheel-up>" . nil)
+           ;; completion
+           ("<C-tab>" . completion-at-point)
+           ;; editing
+           ("s-z" . undo)
+           ("s-x" . kill-region)
+           ("s-c" . kill-ring-save)
+           ("s-v" . yank)
+           ("s-a" . mark-whole-buffer)
+           ("s-s" . save-buffer)
+           ("s-S" . write-file)
+           ("s-l" . goto-line)
+           ;; term/shell
+           ("s-e" . eshell)
+           ("s-E" . vterm)
+           ;; buffer operations
+           ("s-q" . kill-current-buffer)
+           ("s-=" . text-scale-increase)
+           ("s--" . text-scale-decrease)
+           ;; window operations
+           ("s-w" . delete-window)
+           ("s-t" . zw/split-window-sensibly-prefer-horizontal)
+           ("s-<left>" . windmove-left)
+           ("s-<right>" . windmove-right)
+           ("s-<up>" . windmove-up)
+           ("s-<down>" . windmove-down)
+           ;; tab operations
+           ("s-1" . (lambda () (interactive) (tab-select 1)))
+           ("s-2" . (lambda () (interactive) (tab-select 2)))
+           ("s-3" . (lambda () (interactive) (tab-select 3)))
+           ("s-4" . (lambda () (interactive) (tab-select 4)))
+           ("s-5" . (lambda () (interactive) (tab-select 5)))
+           ("s-n" . tab-new)
+           ;; misc commands
+           ("s-T" .zw/toggle-transparency)
+           ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
+           ("s-\\" . toggle-input-method)
+           ;; minibuffer
+           :map minibuffer-mode-map
+           ("<escape>" . minibuffer-keyboard-quit)
+           :map isearch-mode-map
+           ("s-f" . isearch-repeat-forward))
 #+end_src
 
 ** Garbage collection
@@ -674,8 +679,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
     (pixel-scroll-precision-mode t))
 
 (bind-keys :map pixel-scroll-precision-mode-map
-               ("<prior>" . nil)
-               ("<next>" . nil))
+           ("<prior>" . nil)
+           ("<next>" . nil))
 
 (use-package iscroll
   :diminish
