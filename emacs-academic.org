@@ -29,7 +29,7 @@
   (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
   (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind ("<f11>" . writeroom-mode)
+  :bind (("<f11>" . writeroom-mode))
   :config
   (setq writeroom-fullscreen-effect 'maximized))
 #+end_src
@@ -40,9 +40,9 @@
 (use-package org
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
-  :bind (:map org-mode-map
+  :bind ((:map org-mode-map
               ("C-c =" . nil)
-              ("C-," . nil))
+              ("C-," . nil)))
   :hook
   ;; careful! Don't use tabs in org-indent-mode, use spaces instead
   (org-mode . org-indent-mode)
@@ -207,7 +207,7 @@ LSP-mode with TexLab works perfect for Latex docs
 #+begin_src emacs-lisp
 ;; latex
 (use-package auctex
-  :bind (:map TeX-mode-map ("M-n e" . TeX-command-master))
+  :bind ((:map TeX-mode-map ("M-n e" . TeX-command-master)))
   :init
   (setq TeX-PDF-mode t
         TeX-parse-self t
@@ -388,8 +388,8 @@ LSP-mode with TexLab works perfect for Latex docs
 (use-package org-ref
   :commands (org-ref-find-bibliography)
   :bind
-  ("H-b" . zw/org-ref-bibtex-hydra/body)
-  ("H-r" . org-ref-insert-link-hydra/body)
+  (("H-b" . zw/org-ref-bibtex-hydra/body)
+   ("H-r" . org-ref-insert-link-hydra/body))
   :init
   ;; require this to export citations in org-mode
   (require 'org-ref-citation-links)
@@ -464,13 +464,13 @@ LSP-mode with TexLab works perfect for Latex docs
 (use-package pdf-tools
   :pin manual ;; don't reinstall when package updates
   :magic ("%PDF" . pdf-view-mode)
-  :bind (:map pdf-view-mode-map
-              ("C-s" . isearch-forward)
-              ("s-f" . isearch-forward)
-              ("s-=" . pdf-view-enlarge)
-              ("s-+" . pdf-view-enlarge)
-              ("s--" . pdf-view-shrink)
-              ("q" . nil))
+  :bind ((:map pdf-view-mode-map
+               ("C-s" . isearch-forward)
+               ("s-f" . isearch-forward)
+               ("s-=" . pdf-view-enlarge)
+               ("s-+" . pdf-view-enlarge)
+               ("s--" . pdf-view-shrink)
+               ("q" . nil)))
   :config
   (setq-default pdf-view-display-size 'fit-page)
   (pdf-tools-install :no-query)
@@ -505,5 +505,5 @@ you need to install the local dictionary =wordnet= (=wordnet-common= in arch). U
 
 (use-package flyspell-correct
   :after flyspell
-  :bind (:map flyspell-mode-map ("M-$" . flyspell-correct-wrapper)))
+  :bind ((:map flyspell-mode-map ("M-$" . flyspell-correct-wrapper))))
 #+end_src

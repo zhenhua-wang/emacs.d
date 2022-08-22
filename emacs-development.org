@@ -229,7 +229,7 @@
 ** Fast comment
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  :bind (("M-/" . evilnc-comment-or-uncomment-lines)))
 #+end_src
 
 ** Flycheck
@@ -326,7 +326,7 @@
 #+begin_src emacs-lisp
 (use-package neotree
   :commands (neotree neotree-project-dir)
-  :bind ("C-c -" . neotree-project-dir)
+  :bind (("C-c -" . neotree-project-dir))
   :hook
   (neo-after-create . (lambda (_)
                         (with-current-buffer (get-buffer neo-buffer-name)
@@ -360,7 +360,7 @@
 #+begin_src emacs-lisp
 (use-package magit
   :ensure with-editor
-  :bind ("C-M-;" . magit-status)
+  :bind (("C-M-;" . magit-status))
   :commands (magit-status magit-get-current-branch)
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
@@ -373,8 +373,8 @@
 ** C/C++
 #+begin_src emacs-lisp
 (use-package cc-mode
-  :bind (:map c-mode-base-map
-              ("C-c C-c" . compile))
+  :bind ((:map c-mode-base-map
+               ("C-c C-c" . compile)))
   :hook (c-mode-common . (lambda () (c-set-style "stroustrup")))
   :init (setq-default c-basic-offset 4)
   :config
