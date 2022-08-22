@@ -257,6 +257,13 @@ sudo systemctl start ssh
 #+begin_src emacs-lisp
 (use-package eshell
   :straight (:type built-in)
+  :bind ((:map eshell-mode-map
+              :package esh-mode
+              ("s-q" . zw/close-shell)
+              ("s-e" . delete-window))
+         (:map eshell-hist-mode-map
+               :package em-hist
+               ("M-s" . nil)))
   :init
   (setq eshell-banner-message
         '(format "%s %s\n"
@@ -272,13 +279,7 @@ sudo systemctl start ssh
         eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
         ;; em-glob
         eshell-glob-case-insensitive t
-        eshell-error-if-no-glob t)
-  :config
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (define-key eshell-mode-map (kbd "s-q") #'zw/close-shell)
-              (define-key eshell-mode-map (kbd "s-e") #'delete-window)
-              (define-key eshell-hist-mode-map (kbd "M-s") nil))))
+        eshell-error-if-no-glob t))
 
 (use-package eshell-git-prompt
   :config
@@ -326,12 +327,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"
           dired-use-ls-dired t
-          dired-listing-switches "-al --group-directories-first"))
-  :config
-  ;; Quick sort dired buffers via hydra
-  (use-package dired-quick-sort
-    :bind (:map dired-mode-map
-                ("S" . hydra-dired-quick-sort/body))))
+          dired-listing-switches "-al --group-directories-first")))
+
+;; Quick sort dired buffers via hydra
+(use-package dired-quick-sort
+  :bind (:map dired-mode-map
+              ("S" . hydra-dired-quick-sort/body)))
 
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
@@ -388,9 +389,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package helpful
   :bind
-  ("C-h f" . helpful-callable)
-  ("C-h v" . helpful-variable)
-  ("C-h k" . helpful-key))
+  (("C-h f" . helpful-callable)
+   ("C-h v" . helpful-variable)
+   ("C-h k" . helpful-key)))
 #+end_src
 
 ** Keybinding Hints
@@ -676,11 +677,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ;; Good pixel line scrolling
 (if (fboundp 'pixel-scroll-precision-mode)
-    (pixel-scroll-precision-mode t))
-
-(bind-keys :map pixel-scroll-precision-mode-map
-           ("<prior>" . nil)
-           ("<next>" . nil))
+    (progn
+      (pixel-scroll-precision-mode t)
+      (bind-keys :map pixel-scroll-precision-mode-map
+                 ("<prior>" . nil)
+                 ("<next>" . nil))))
 
 (use-package iscroll
   :diminish
@@ -1018,9 +1019,9 @@ FACE defaults to inheriting from default and highlight."
 (use-package winner
   :hook (after-init . winner-mode)
   :bind
-  ("s-T" . winner-undo)
-  ("s-u" . winner-undo)
-  ("s-U" . winner-redo))
+  (("s-T" . winner-undo)
+   ("s-u" . winner-undo)
+   ("s-U" . winner-redo)))
 #+end_src
 
 ** Window split preference
@@ -1154,8 +1155,8 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
    #+begin_src emacs-lisp
 (use-package undo-fu
   :bind
-  ("s-z" . undo-fu-only-undo)
-  ("s-Z" . undo-fu-only-redo))
+  (("s-z" . undo-fu-only-undo)
+   ("s-Z" . undo-fu-only-redo)))
    #+end_src
    
 ** Auto save
@@ -1186,15 +1187,15 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package visual-regexp
   :bind
-  ("C-c r" . vr/replace)
-  ("C-c q" . vr/query-replace))
+  (("C-c r" . vr/replace)
+   ("C-c q" . vr/query-replace)))
 #+end_src
 
 ** Go to last change
 #+begin_src emacs-lisp
 (use-package goto-last-change
   :bind
-  ("M-g l" . goto-last-change))
+  (("M-g l" . goto-last-change)))
 #+end_src
 
 * Completion
@@ -1465,8 +1466,8 @@ Auto-Saving Changed Files
 (use-package cape
   :after corfu
   :bind
-  ("C-c c f" . cape-file)
-  ("C-c c d" . cape-dabbrev)
+  (("C-c c f" . cape-file)
+   ("C-c c d" . cape-dabbrev))
   :hook
   (after-change-major-mode . add-cape-completion)
   :init
