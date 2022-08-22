@@ -258,9 +258,9 @@ sudo systemctl start ssh
 (use-package eshell
   :straight (:type built-in)
   :bind ((:map eshell-mode-map
-              :package esh-mode
-              ("s-q" . zw/close-shell)
-              ("s-e" . delete-window))
+               :package esh-mode
+               ("s-q" . zw/close-shell)
+               ("s-e" . delete-window))
          (:map eshell-hist-mode-map
                :package em-hist
                ("M-s" . nil)))
@@ -331,8 +331,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 ;; Quick sort dired buffers via hydra
 (use-package dired-quick-sort
-  :bind (:map dired-mode-map
-              ("S" . hydra-dired-quick-sort/body)))
+  :bind ((:map dired-mode-map
+               ("S" . hydra-dired-quick-sort/body))))
 
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
@@ -649,7 +649,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; don't lazy load this, otherwise its face won't break
   :demand
   :bind
-  ("C-c =" . imenu-list-smart-toggle)
+  (("C-c =" . imenu-list-smart-toggle))
   :init
   (setq imenu-list-focus-after-activation t
         imenu-list-idle-update-delay 0.1)
@@ -917,12 +917,12 @@ FACE defaults to inheriting from default and highlight."
 (use-package hl-todo
   :custom-face
   (hl-todo ((t (:inherit fixed-pitch :height 0.9 :width condensed :weight bold :underline nil :inverse-video t))))
-  :bind (:map hl-todo-mode-map
-              ([C-f3] . hl-todo-occur)
-              ("C-c t p" . hl-todo-previous)
-              ("C-c t n" . hl-todo-next)
-              ("C-c t o" . hl-todo-occur)
-              ("C-c t i" . hl-todo-insert))
+  :bind ((:map hl-todo-mode-map
+               ([C-f3] . hl-todo-occur)
+               ("C-c t p" . hl-todo-previous)
+               ("C-c t n" . hl-todo-next)
+               ("C-c t o" . hl-todo-occur)
+               ("C-c t i" . hl-todo-insert)))
   :hook (after-init . global-hl-todo-mode)
   ;; :init (setq hl-todo-require-punctuation t
   ;; hl-todo-highlight-punctuation ":")
@@ -939,8 +939,8 @@ FACE defaults to inheriting from default and highlight."
 #+begin_src emacs-lisp
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
-  :bind (:map diff-hl-command-map
-         ("SPC" . diff-hl-mark-hunk))
+  :bind ((:map diff-hl-command-map
+               ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
          (dired-mode . diff-hl-dired-mode)
          ((after-load-theme server-after-make-frame) . my-set-diff-hl-faces))
@@ -1227,10 +1227,10 @@ Auto-Saving Changed Files
   ;; Tidy shadowed file names
   (rfn-eshadow-update-overlay . vertico-directory-tidy)
   ;; More convenient directory navigation commands
-  :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word))
+  :bind ((:map vertico-map
+               ("RET" . vertico-directory-enter)
+               ("DEL" . vertico-directory-delete-char)
+               ("M-DEL" . vertico-directory-delete-word)))
   :init
   (setq vertico-resize nil
         vertico-scroll-margin 0
@@ -1290,10 +1290,10 @@ Auto-Saving Changed Files
          ("M-s y" . consult-yasnippet)
          ("M-s c" . consult-flycheck)
          ("M-s m" . consult-minor-mode-menu)
-         :map isearch-mode-map
-         ("M-s" . consult-isearch-history)
-         :map minibuffer-local-completion-map
-         ("C-x C-d" . consult-dir))
+         (:map isearch-mode-map
+               ("M-s" . consult-isearch-history))
+         (:map minibuffer-local-completion-map
+               ("C-x C-d" . consult-dir)))
   :init
   (setq consult-preview-key (kbd "M-."))
   :config
@@ -1353,7 +1353,8 @@ Auto-Saving Changed Files
     (consult-line-multi t)))
 
 ;; use this for now untill consult have its web-search
-(use-package google-this :bind ("C-c l" . google-this-search))
+(use-package google-this
+  :bind (("C-c l" . google-this-search)))
 #+end_src
 
 ** Code Completion
@@ -1378,12 +1379,12 @@ Auto-Saving Changed Files
   ;; force corfu start in ess-r-mode
   (ess-r-mode . corfu-mode)
   :bind
-  (:map corfu-map
-        ("TAB" . corfu-insert)
-        ([tab] . corfu-insert)
-        ([escape] . corfu-quit)
-        ([return] . corfu-insert)
-        ("SPC" . corfu-insert-separator))
+  ((:map corfu-map
+         ("TAB" . corfu-insert)
+         ([tab] . corfu-insert)
+         ([escape] . corfu-quit)
+         ([return] . corfu-insert)
+         ("SPC" . corfu-insert-separator)))
   :init
   ;; fast prefix filtering
   (defun orderless-fast-dispatch (word index total)
@@ -1452,10 +1453,10 @@ Auto-Saving Changed Files
   :hook
   (corfu-mode . corfu-doc-mode)
   :bind
-  (:map corfu-map
-        ("M-p" . corfu-doc-scroll-down)
-        ("M-n" . corfu-doc-scroll-up)
-        ("M-d" . corfu-doc-toggle))
+  ((:map corfu-map
+         ("M-p" . corfu-doc-scroll-down)
+         ("M-n" . corfu-doc-scroll-up)
+         ("M-d" . corfu-doc-toggle)))
   :config
   (setq corfu-doc-auto nil
         corfu-doc-display-within-parent-frame t))
