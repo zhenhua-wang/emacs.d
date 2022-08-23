@@ -111,7 +111,13 @@
     (interactive)
     (if (one-window-p)
         (kill-buffer)
-      (kill-buffer-and-window))))
+      (kill-buffer-and-window)))
+  ;; delete or bury
+  (defun zw/delte-window-or-bury-buffer ()
+    (interactive)
+    (if (one-window-p)
+        (bury-buffer)
+      (delete-window))))
   #+end_src
 
 ** Global keybinding
@@ -260,7 +266,7 @@ sudo systemctl start ssh
   :bind ((:map eshell-mode-map
                :package esh-mode
                ("s-q" . zw/close-shell)
-               ("s-e" . delete-window))
+               ("s-e" . zw/delte-window-or-bury-buffer))
          (:map eshell-hist-mode-map
                :package em-hist
                ("M-s" . nil)))
@@ -301,7 +307,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
-               ("s-e" . delete-window)))
+               ("s-e" . zw/delte-window-or-bury-buffer)))
   :init
   (setq vterm-kill-buffer-on-exit t)
   ;; close window when vterm exit
