@@ -419,7 +419,7 @@
   :hook
   (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
-              ("M-<tab>" . ess-complete-object-name))
+              ("C-c c e" . ess-complete-object-name))
          (:map inferior-ess-r-mode-map
               ("s-q" . zw/close-shell)))
   :config

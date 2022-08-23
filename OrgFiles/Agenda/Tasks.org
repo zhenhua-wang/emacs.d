@@ -1,3 +1,5 @@
 * Active
 ** TODO Reading dwork's survey on attack
 SCHEDULED: <2022-08-23 Tue>
+** TODO finish sampling for Jimena
+SCHEDULED: <2022-08-22 Mon>
