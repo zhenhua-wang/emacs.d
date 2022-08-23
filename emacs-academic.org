@@ -42,6 +42,7 @@
   :mode (("\\.org$" . org-mode))
   :bind (("<f12>" . org-agenda-list)
          (:map org-agenda-mode-map
+               :package org-agenda
                ("<f12>" . delete-window))
          (:map org-mode-map
                ("C-c =" . nil)
