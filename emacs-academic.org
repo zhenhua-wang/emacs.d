@@ -159,15 +159,16 @@
 *** Org-agenda
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
+  (add-hook 'org-agenda-mode-hook
+            (lambda ()
+              (bind-keys :map org-agenda-mode-map
+                         ("s-q" . zw/close-shell))))
+  ;; agenda settings
   (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Tasks.org"))
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t
-        org-agenda-window-setup 'other-window)
-  (add-hook 'org-agenda-mode-hook
-            (lambda ()
-              (bind-keys :map org-agenda-mode-map
-                         ("s-q" . zw/close-shell)))))
+        org-agenda-window-setup 'other-window))
 #+end_src
 
 *** Custom functions
