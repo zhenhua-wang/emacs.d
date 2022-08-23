@@ -103,7 +103,9 @@
 *** Org-theme
 #+begin_src emacs-lisp
 (use-package org-modern
-  :hook (org-mode . org-modern-mode)
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda)
   :init
   (setq org-modern-star '("◉" "●")      ;'("")
         org-modern-table t
@@ -168,7 +170,9 @@
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t
-        org-agenda-window-setup 'other-window))
+        org-agenda-window-setup 'other-window
+        org-agenda-current-time-string
+        "⭠ now ────────────────────────"))
 #+end_src
 
 *** Custom functions
