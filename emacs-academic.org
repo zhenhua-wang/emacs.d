@@ -166,13 +166,15 @@
               (bind-keys :map org-agenda-mode-map
                          ("s-q" . zw/close-shell))))
   ;; agenda settings
-  (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Tasks.org"))
-  (setq org-agenda-start-with-log-mode t
-        org-log-done 'time
-        org-log-into-drawer t
-        org-agenda-window-setup 'other-window
+  (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Work.org"))
+  (setq org-log-done 'time
+        org-agenda-overriding-header "🗓️ Agenda"
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          "" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
         org-agenda-current-time-string
-        "⭠ now ────────────────────────"))
+        "ᐊ┈┈┈┈┈┈┈ Now"))
 #+end_src
 
 *** Custom functions
