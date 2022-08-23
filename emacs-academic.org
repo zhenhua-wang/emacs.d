@@ -61,6 +61,16 @@
    org-fontify-quote-and-verse-blocks t
    org-edit-src-content-indentation 2)
   
+  ;; org-todo settings
+  (setq org-log-done 'time)
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:inherit fixed-pitch :foreground "orange red" :weight bold))
+          ("DONE" . (:inherit fixed-pitch :foreground "green" :weight bold)))))
+#+end_src
+
+*** Org-latex
+#+begin_src emacs-lisp
+(with-eval-after-load 'ox-latex
   ;; org latex
   ;; make LaTeX-mode formula larger
   (pcase system-type
@@ -72,17 +82,8 @@
        (setq org-latex-create-formula-image-program 'dvisvgm))))
   ;; latex '(latex script entities)
   (setq org-highlight-latex-and-related '(latex entities))
-  
-  ;; org-todo settings
-  (setq org-log-done 'time)
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:inherit fixed-pitch :foreground "orange red" :weight bold))
-          ("DONE" . (:inherit fixed-pitch :foreground "green" :weight bold)))))
-#+end_src
 
-*** Org-export
-#+begin_src emacs-lisp
-(with-eval-after-load 'ox-latex
+  ;; org-export
   (setq org-latex-listings 't)
   (add-to-list 'org-latex-classes
                '("org-plain-latex"
