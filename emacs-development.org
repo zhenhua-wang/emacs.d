@@ -468,8 +468,8 @@
 #+begin_src emacs-lisp
 (add-hook 'inferior-python-mode-hook
           (lambda ()
-            (bind-key :map inferior-python-mode-map
-                      ("s-q" . zw/close-shell))))
+            (bind-keys :map inferior-python-mode-map
+                       ("s-q" . zw/close-shell))))
 
 (use-package conda
   :after python

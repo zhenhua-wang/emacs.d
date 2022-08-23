@@ -166,8 +166,8 @@
         org-agenda-window-setup 'other-window)
   (add-hook 'org-agenda-mode-hook
             (lambda ()
-              (bind-key :map org-agenda-mode-map
-                        ("s-q" . zw/close-shell)))))
+              (bind-keys :map org-agenda-mode-map
+                         ("s-q" . zw/close-shell)))))
 #+end_src
 
 *** Custom functions
