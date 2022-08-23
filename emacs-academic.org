@@ -59,13 +59,13 @@
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
-   org-edit-src-content-indentation 2)
-  
-  ;; org-todo settings
-  (setq org-log-done 'time)
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:inherit fixed-pitch :foreground "orange red" :weight bold))
-          ("DONE" . (:inherit fixed-pitch :foreground "green" :weight bold)))))
+   org-edit-src-content-indentation 2
+   ;; org-todo settings
+   org-log-done 'time))
+
+;; auto tangle
+(use-package org-auto-tangle
+  :hook (org-mode . org-auto-tangle-mode))
 #+end_src
 
 *** Org-latex
@@ -153,13 +153,6 @@
 (with-eval-after-load 'org
   (zw/set-org-headline))
 #+end_src
-
-*** Org-auto-tangle
-   #+begin_src emacs-lisp
-;; auto tangle
-(use-package org-auto-tangle
-  :hook (org-mode . org-auto-tangle-mode))
-   #+end_src
 
 *** Custom functions
 #+begin_src emacs-lisp
