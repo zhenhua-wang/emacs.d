@@ -1244,7 +1244,12 @@ Auto-Saving Changed Files
   (rfn-eshadow-update-overlay . vertico-directory-tidy)
   ;; More convenient directory navigation commands
   :bind ((:map vertico-map
-               ("M-<tab>" . vertico-next)
+               ("C-x b" . nil)
+               ("C-x C-f" . nil)
+               ("C-x C-b" . nil)
+               ("C-x C-d" . nil)
+               ("C-x C-p" . nil)
+               ("C-x C-t" . nil)
                ("RET" . vertico-directory-enter)
                ("DEL" . vertico-directory-delete-char)
                ("M-DEL" . vertico-directory-delete-word)))
@@ -1286,7 +1291,6 @@ Auto-Saving Changed Files
          ("C-c m" . consult-mode-command)
          ("C-c k" . consult-kmacro)
          ;; C-x bindings (ctl-x-map)
-         ("M-<tab>" . consult-buffer)
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x C-b" . consult-buffer)
          ("C-x C-d" . consult-dir)
