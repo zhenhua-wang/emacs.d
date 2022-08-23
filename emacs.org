@@ -642,6 +642,24 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (tab-bar-mode 1)
 #+end_src
 
+** Dashboard
+#+begin_src emacs-lisp
+(use-package dashboard
+  :disabled
+  :bind
+  (:map dashboard-mode-map ("<tab>" . dashboard-return))
+  :init
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startup-banner 1
+        dashboard-center-content t
+        dashboard-items '((agenda . 5)
+                          (recents  . 5))
+        dashboard-set-footer nil
+        dashboard-set-init-info nil
+        dashboard-set-heading-icons nil
+        dashboard-set-file-icons nil))
+#+end_src
+
 ** iMenu
 #+begin_src emacs-lisp
 (use-package imenu-list
