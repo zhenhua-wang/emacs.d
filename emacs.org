@@ -1136,7 +1136,7 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (side . right)
            (slot . -1))
           ("\\*Org Agenda.*"
-           (display-buffer-in-side-window)
+           (display-buffer-reuse-mode-window)
            (window-width . 0.3)
            (side . right)
            (slot . 1))
