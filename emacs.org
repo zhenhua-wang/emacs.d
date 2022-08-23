@@ -298,11 +298,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                           ("mkdir" "build")
                           ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
                            ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
-  :bind
-  ((:map vterm-copy-mode-map
-         ("<return>" . vterm-copy-mode))
-   (:map vterm-mode-map
-         ("s-e" . delete-window)))
+  :bind ((:map vterm-copy-mode-map
+               ("<return>" . vterm-copy-mode))
+         (:map vterm-mode-map
+               ("s-e" . delete-window)))
   :init
   (setq vterm-kill-buffer-on-exit t)
   ;; close window when vterm exit
@@ -388,10 +387,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ** Helpful
 #+begin_src emacs-lisp
 (use-package helpful
-  :bind
-  (("C-h f" . helpful-callable)
-   ("C-h v" . helpful-variable)
-   ("C-h k" . helpful-key)))
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)))
 #+end_src
 
 ** Keybinding Hints
@@ -648,8 +646,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package imenu-list
   ;; don't lazy load this, otherwise its face won't break
   :demand
-  :bind
-  (("C-c =" . imenu-list-smart-toggle))
+  :bind (("C-c =" . imenu-list-smart-toggle))
   :init
   (setq imenu-list-focus-after-activation t
         imenu-list-idle-update-delay 0.1)
@@ -1018,10 +1015,9 @@ FACE defaults to inheriting from default and highlight."
 #+begin_src emacs-lisp
 (use-package winner
   :hook (after-init . winner-mode)
-  :bind
-  (("s-T" . winner-undo)
-   ("s-u" . winner-undo)
-   ("s-U" . winner-redo)))
+  :bind (("s-T" . winner-undo)
+         ("s-u" . winner-undo)
+         ("s-U" . winner-redo)))
 #+end_src
 
 ** Window split preference
@@ -1154,9 +1150,8 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 ** Undo
    #+begin_src emacs-lisp
 (use-package undo-fu
-  :bind
-  (("s-z" . undo-fu-only-undo)
-   ("s-Z" . undo-fu-only-redo)))
+  :bind (("s-z" . undo-fu-only-undo)
+         ("s-Z" . undo-fu-only-redo)))
    #+end_src
    
 ** Auto save
@@ -1186,16 +1181,14 @@ Auto-Saving Changed Files
 ** Visual regexp
 #+begin_src emacs-lisp
 (use-package visual-regexp
-  :bind
-  (("C-c r" . vr/replace)
-   ("C-c q" . vr/query-replace)))
+  :bind (("C-c r" . vr/replace)
+         ("C-c q" . vr/query-replace)))
 #+end_src
 
 ** Go to last change
 #+begin_src emacs-lisp
 (use-package goto-last-change
-  :bind
-  (("M-g l" . goto-last-change)))
+  :bind (("M-g l" . goto-last-change)))
 #+end_src
 
 * Completion
@@ -1378,13 +1371,12 @@ Auto-Saving Changed Files
   (corfu-mode . yas-minor-mode)
   ;; force corfu start in ess-r-mode
   (ess-r-mode . corfu-mode)
-  :bind
-  ((:map corfu-map
-         ("TAB" . corfu-insert)
-         ([tab] . corfu-insert)
-         ([escape] . corfu-quit)
-         ([return] . corfu-insert)
-         ("SPC" . corfu-insert-separator)))
+  :bind ((:map corfu-map
+               ("TAB" . corfu-insert)
+               ([tab] . corfu-insert)
+               ([escape] . corfu-quit)
+               ([return] . corfu-insert)
+               ("SPC" . corfu-insert-separator)))
   :init
   ;; fast prefix filtering
   (defun orderless-fast-dispatch (word index total)
@@ -1452,11 +1444,10 @@ Auto-Saving Changed Files
 (use-package corfu-doc
   :hook
   (corfu-mode . corfu-doc-mode)
-  :bind
-  ((:map corfu-map
-         ("M-p" . corfu-doc-scroll-down)
-         ("M-n" . corfu-doc-scroll-up)
-         ("M-d" . corfu-doc-toggle)))
+  :bind ((:map corfu-map
+               ("M-p" . corfu-doc-scroll-down)
+               ("M-n" . corfu-doc-scroll-up)
+               ("M-d" . corfu-doc-toggle)))
   :config
   (setq corfu-doc-auto nil
         corfu-doc-display-within-parent-frame t))
@@ -1466,9 +1457,8 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package cape
   :after corfu
-  :bind
-  (("C-c c f" . cape-file)
-   ("C-c c d" . cape-dabbrev))
+  :bind (("C-c c f" . cape-file)
+         ("C-c c d" . cape-dabbrev))
   :hook
   (after-change-major-mode . add-cape-completion)
   :init

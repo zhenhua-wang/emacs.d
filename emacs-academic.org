@@ -387,9 +387,8 @@ LSP-mode with TexLab works perfect for Latex docs
 #+begin_src emacs-lisp
 (use-package org-ref
   :commands (org-ref-find-bibliography)
-  :bind
-  (("H-b" . zw/org-ref-bibtex-hydra/body)
-   ("H-r" . org-ref-insert-link-hydra/body))
+  :bind (("H-b" . zw/org-ref-bibtex-hydra/body)
+         ("H-r" . org-ref-insert-link-hydra/body))
   :init
   ;; require this to export citations in org-mode
   (require 'org-ref-citation-links)
@@ -485,9 +484,8 @@ LSP-mode with TexLab works perfect for Latex docs
 you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
 #+begin_src emacs-lisp
 (use-package wordnut
-  :bind
-  (("C-c w" . wordnut-search)
-   ("C-c W" . wordnut-lookup-current-word)))
+  :bind (("C-c w" . wordnut-search)
+         ("C-c W" . wordnut-lookup-current-word)))
 #+end_src
 
 ** Flyspell
