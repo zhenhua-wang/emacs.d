@@ -52,7 +52,7 @@
   (org-mode . org-indent-mode)
   (org-mode . variable-pitch-mode)
   (org-mode . visual-line-mode)
-  (org-mode . org-num-mode)
+  ;; (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
@@ -105,7 +105,7 @@
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
   :init
-  (setq org-modern-star '("")             ;'("◉" "●")
+  (setq org-modern-star '("◉" "●")      ;'("")
         org-modern-table t
         org-modern-table-vertical 1
         org-modern-table-horizontal 1
