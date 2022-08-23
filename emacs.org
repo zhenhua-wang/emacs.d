@@ -1136,6 +1136,11 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
            (window-width . 0.5)
            (side . right)
            (slot . -1))
+          ("\\*Org Agenda.*"
+           (display-buffer-in-side-window)
+           (window-width . 0.3)
+           (side . right)
+           (slot . 1))
           ("\\*\\(R\\|Python\\).*"
            (display-buffer-reuse-mode-window)
            (side . right)

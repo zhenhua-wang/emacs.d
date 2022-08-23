@@ -40,7 +40,8 @@
 (use-package org
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
-  :bind ((:map org-mode-map
+  :bind (("<f12>" . org-agenda-list)
+         (:map org-mode-map
               ("C-c =" . nil)
               ("C-," . nil)))
   :hook
@@ -59,9 +60,7 @@
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
-   org-edit-src-content-indentation 2
-   ;; org-todo settings
-   org-log-done 'time))
+   org-edit-src-content-indentation 2))
 
 ;; auto tangle
 (use-package org-auto-tangle
@@ -157,7 +156,10 @@
 *** Org-agenda
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
-  (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Tasks.org")))
+  (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Tasks.org"))
+  (setq org-agenda-start-with-log-mode t
+        org-log-done 'time
+        org-log-into-drawer t))
 #+end_src
 
 *** Custom functions
