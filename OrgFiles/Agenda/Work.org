@@ -3,5 +3,5 @@
 SCHEDULED: <2022-08-23 Tue 21:00>
 ** DONE finish sampling for Jimena
 CLOSED: [2022-08-23 Tue 12:22] SCHEDULED: <2022-08-22 Mon>
-** TODO find a topic and several citations
-DEADLINE: <2022-08-23 Tue 17:00>
+** DONE find a topic and several citations
+CLOSED: [2022-08-23 Tue 21:37] DEADLINE: <2022-08-23 Tue 17:00>

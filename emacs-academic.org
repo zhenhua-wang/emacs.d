@@ -161,6 +161,7 @@
                        (org-agenda arg "d"))))
 
 (with-eval-after-load 'org
+  (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (bind-keys :map org-agenda-mode-map
