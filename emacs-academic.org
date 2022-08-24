@@ -165,8 +165,8 @@
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (bind-keys :map org-agenda-mode-map
-                         ("<f12>" . org-agenda-quit)
-                         ("s-q" . org-agenda-quit))))
+                         ("<f12>" . org-agenda-exit)
+                         ("s-q" . org-agenda-exit))))
   ;; agenda settings
   (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Work.org"))
   ;; default agenda
