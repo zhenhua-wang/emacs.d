@@ -40,11 +40,7 @@
 (use-package org
   :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
-  :bind (("<f12>" . org-agenda-list)
-         (:map org-agenda-mode-map
-               :package org-agenda
-               ("<f12>" . zw/delte-window-or-bury-buffer))
-         (:map org-mode-map
+  :bind ((:map org-mode-map
                ("C-c =" . nil)
                ("C-," . nil)))
   :hook
@@ -160,21 +156,37 @@
 
 *** Org-agenda
 #+begin_src emacs-lisp
+(bind-keys ("<f12>" . (lambda (&optional arg)
+                       (interactive "P")
+                       (org-agenda arg "d"))))
+
 (with-eval-after-load 'org
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (bind-keys :map org-agenda-mode-map
-                         ("s-q" . zw/close-shell))))
+                         ("<f12>" . org-agenda-quit)
+                         ("s-q" . org-agenda-quit))))
   ;; agenda settings
   (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Work.org"))
+  ;; default agenda
   (setq org-log-done 'time
+        org-agenda-window-setup 'only-window
+        org-agenda-restore-windows-after-quit t
         org-agenda-overriding-header "🗓️ Agenda"
+        org-agenda-block-separator ?─
         org-agenda-time-grid
         '((daily today require-timed)
           (800 1000 1200 1400 1600 1800 2000)
           "" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
         org-agenda-current-time-string
-        "ᐊ┈┈┈┈┈┈┈ Now"))
+        "ᐊ┈┈┈┈┈┈┈ Now")
+  ;; custom agenda
+  (setq org-agenda-custom-commands
+        '(("d" "Dashboard"
+           ((agenda "")
+            (alltodo "" ((org-agenda-overriding-header "\n⚡ To Do")
+                         (org-agenda-sorting-strategy '(priority-down))
+                         (org-agenda-todo-keyword-format ""))))))))
 #+end_src
 
 *** Custom functions
