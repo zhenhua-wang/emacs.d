@@ -1388,8 +1388,12 @@ Auto-Saving Changed Files
 (setq completions-detailed t)
 (setq completion-ignore-case t)
 ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
-(setq dabbrev-case-fold-search nil)
-(setq dabbrev-case-replace t)
+(use-package dabbrev
+  :config
+  (setq dabbrev-case-fold-search nil
+        dabbrev-case-replace t
+        dabbrev-ignored-buffer-regexps
+        '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
 #+end_src
 
 *** corfu
