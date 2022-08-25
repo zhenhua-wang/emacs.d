@@ -13,3 +13,6 @@ SCHEDULED: <2022-08-26 Fri>
 - [X] Hansen FSC
 - [ ] Mapbiomas FSC
 - [ ] Norway FSC
+
+** TODO Reference on data integration
+SCHEDULED: <2022-08-24 Wed 19:00>
