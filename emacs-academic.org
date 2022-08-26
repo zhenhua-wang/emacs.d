@@ -160,11 +160,13 @@
   (interactive)
   (shell-command "cd ~/Documents/Agenda && git add *")
   (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
-  (shell-command "cd ~/Documents/Agenda && git push"))
+  (shell-command "cd ~/Documents/Agenda && git push")
+  (message "Agenda pushed!"))
 
 (defun zw/git-pull-agenda ()
   (interactive)
-  (shell-command "cd ~/Documents/Agenda && git pull"))
+  (shell-command "cd ~/Documents/Agenda && git pull")
+  (message "Agenda pulled!"))
 
 (bind-keys ("<f10>" . zw/git-pull-agenda)
            ("<f11>" . zw/git-add-commit-push-agenda)
