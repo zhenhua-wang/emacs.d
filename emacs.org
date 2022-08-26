@@ -123,6 +123,7 @@
 ** Global keybinding
 #+begin_src emacs-lisp
 ;; modifiers
+;; In macos, I also remap caps lock to ctrl using Karabiner-Elements
 (pcase system-type
   ('darwin
    (progn
