@@ -168,7 +168,7 @@
                          ("<f12>" . org-agenda-exit)
                          ("s-q" . org-agenda-exit))))
   ;; agenda settings
-  (setq org-agenda-files '("~/.emacs.d/OrgFiles/Agenda/Work.org"))
+  (setq org-agenda-files '("~/Documents/Agenda/Work.org"))
   ;; default agenda
   (setq org-log-done 'time
         org-agenda-window-setup 'only-window
