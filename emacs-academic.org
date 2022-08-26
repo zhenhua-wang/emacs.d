@@ -156,9 +156,21 @@
 
 *** Org-agenda
 #+begin_src emacs-lisp
-(bind-keys ("<f12>" . (lambda (&optional arg)
-                       (interactive "P")
-                       (org-agenda arg "d"))))
+(defun zw/git-add-commit-push-agenda ()
+  (interactive)
+  (shell-command "cd ~/Documents/Agenda && git add *")
+  (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
+  (shell-command "cd ~/Documents/Agenda && git push"))
+
+(defun zw/git-pull-agenda ()
+  (interactive)
+  (shell-command "cd ~/Documents/Agenda && git pull"))
+
+(bind-keys ("M-<f12>" . zw/git-pull-agenda)
+           ("C-<f12>" . zw/git-add-commit-push-agenda)
+           ("<f12>" . (lambda (&optional arg)
+                        (interactive "P")
+                        (org-agenda arg "d"))))
 
 (with-eval-after-load 'org
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
