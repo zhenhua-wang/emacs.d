@@ -367,6 +367,19 @@
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
+
+(defun zw/git-add-commit-push-all ()
+  (interactive)
+  (shell-command "git add *")
+  (shell-command "git commit -m 'Updated all files.'")
+  (shell-command "git push"))
+
+(defun zw/git-pull-all ()
+  (interactive)
+  (shell-command "git pull"))
+
+(bind-keys ("C-c g p" . zw/git-pull-all)
+           ("C-c g a" . zw/git-add-commit-push-all))
 #+end_src
 
 * Language
