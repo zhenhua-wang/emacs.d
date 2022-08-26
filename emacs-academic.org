@@ -29,7 +29,7 @@
   (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
   (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind (("<f9>" . writeroom-mode))
+  :bind (("<f11>" . writeroom-mode))
   :config
   (setq writeroom-fullscreen-effect 'maximized))
 #+end_src
@@ -171,18 +171,17 @@
 ;; agenda keys
 (bind-keys :prefix-map zw-org-agenda-map
            :prefix "<f12>"
-           ("p" . zw/git-pull-agenda)
-           ("a" . zw/git-add-commit-push-agenda)
-           ("o" . (lambda (&optional arg)
-                    (interactive "P")
-                    (org-agenda arg "d"))))
+           ("<down>" . zw/git-pull-agenda)
+           ("<up>" . zw/git-add-commit-push-agenda)
+           ("<f12>" . (lambda (&optional arg)
+                        (interactive "P")
+                        (org-agenda arg "d"))))
 
 (with-eval-after-load 'org
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (bind-keys :map org-agenda-mode-map
-                         ("<f12>" . org-agenda-exit)
                          ("s-q" . org-agenda-exit))))
   ;; agenda settings
   (setq org-agenda-files '("~/Documents/Agenda/Work.org"))
