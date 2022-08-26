@@ -1,0 +1,3 @@
+[submodule "OrgFiles/Agenda"]
+	path = OrgFiles/Agenda
+	url = https://github.com/zhenhua-wang/Agenda.git
