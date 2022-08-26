@@ -168,11 +168,14 @@
   (shell-command "cd ~/Documents/Agenda && git pull")
   (message "Agenda pulled!"))
 
-(bind-keys ("<f10>" . zw/git-pull-agenda)
-           ("<f11>" . zw/git-add-commit-push-agenda)
-           ("<f12>" . (lambda (&optional arg)
-                        (interactive "P")
-                        (org-agenda arg "d"))))
+;; agenda keys
+(bind-keys :prefix-map zw-org-agenda-map
+           :prefix "<f12>"
+           ("p" . zw/git-pull-agenda)
+           ("a" . zw/git-add-commit-push-agenda)
+           ("o" . (lambda (&optional arg)
+                    (interactive "P")
+                    (org-agenda arg "d"))))
 
 (with-eval-after-load 'org
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
