@@ -29,7 +29,7 @@
   (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
   (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind (("<f11>" . writeroom-mode))
+  :bind (("<f9>" . writeroom-mode))
   :config
   (setq writeroom-fullscreen-effect 'maximized))
 #+end_src
@@ -166,8 +166,8 @@
   (interactive)
   (shell-command "cd ~/Documents/Agenda && git pull"))
 
-(bind-keys ("M-<f12>" . zw/git-pull-agenda)
-           ("C-<f12>" . zw/git-add-commit-push-agenda)
+(bind-keys ("<f10>" . zw/git-pull-agenda)
+           ("<f11>" . zw/git-add-commit-push-agenda)
            ("<f12>" . (lambda (&optional arg)
                         (interactive "P")
                         (org-agenda arg "d"))))
