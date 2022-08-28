@@ -155,8 +155,6 @@
            ("C-<mouse-5>" . nil)
            ("C-<wheel-down>" . nil)
            ("C-<wheel-up>" . nil)
-           ;; completion
-           ("<C-tab>" . completion-at-point)
            ;; editing
            ("s-z" . undo)
            ("s-x" . kill-region)
