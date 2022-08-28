@@ -21,7 +21,7 @@
   ;; (c++-mode . lsp-deferred)
   ;; (ess-r-mode . lsp-deferred)
   ;; ((latex-mode LaTeX-mode) . lsp-deferred)
-  ((ess-r-mode latex-mode LaTeX-mode bibtex-mode) . disable-lsp-imenu)
+  ((ess-r-mode latex-mode LaTeX-mode) . disable-lsp-imenu)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
