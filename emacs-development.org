@@ -443,7 +443,7 @@
 #+end_src
 
 * Data
-*** CSV mode
+** CSV mode
 #+begin_src emacs-lisp
 (use-package csv-mode
   :mode
