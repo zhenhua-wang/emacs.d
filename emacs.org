@@ -1410,11 +1410,6 @@ Auto-Saving Changed Files
   ;; disable corfu auto in following modes
   (dolist (hook '(inferior-ess-r-mode-hook eshell-mode-hook shell-mode-hook))
     (add-hook hook (lambda () (setq-local corfu-auto nil))))
-  ;; setup corfu in lsp mode
-  (with-eval-after-load 'lsp-mode
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))
-    (setq lsp-completion-provider :none))
   :config
   ;; set icon for corfu
   (require 'kind-all-the-icons)

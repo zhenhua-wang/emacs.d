@@ -22,6 +22,7 @@
   ;; (ess-r-mode . lsp-deferred)
   ;; ((latex-mode LaTeX-mode) . lsp-deferred)
   ((ess-r-mode latex-mode LaTeX-mode) . disable-lsp-imenu)
+  (lsp-completion-mode . my/lsp-mode-setup-completion)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -38,7 +39,11 @@
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
 
+        lsp-completion-provider :none
         lsp-tex-server 'digestif)
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless)))
   :config
   (defun lsp-update-server ()
     "Update LSP server."
