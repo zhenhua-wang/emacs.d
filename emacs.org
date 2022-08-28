@@ -424,7 +424,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (prog-mode . goto-address-prog-mode))
 #+end_src
 
-* Visual
+* Appearance
 ** Font face
 Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
 
