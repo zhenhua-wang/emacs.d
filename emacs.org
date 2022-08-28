@@ -52,6 +52,17 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
+** Exec-path-from-shell
+#+begin_src emacs-lisp
+(use-package exec-path-from-shell
+  :if (or (eq system-type 'darwin)
+          (eq system-type 'gnu/linux)
+          (daemonp))
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
+#+end_src
+
 * Setting
 ** Global variable
 #+begin_src emacs-lisp
@@ -186,242 +197,6 @@
            ("<escape>" . minibuffer-keyboard-quit)
            :map isearch-mode-map
            ("s-f" . isearch-repeat-forward))
-#+end_src
-
-* Tool
-** Exec-path-from-shell
-#+begin_src emacs-lisp
-(use-package exec-path-from-shell
-  :if (or (eq system-type 'darwin)
-          (eq system-type 'gnu/linux)
-          (daemonp))
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
-#+end_src
-
-** Tramp
-For host with two factor auth, you need to
-1. enter password
-2. enter the second-step code
-
- Usage:
-- ~(find-file "/ssh:zhenhua@127.0.0.1#3022:~/")~
-
-#+begin_src emacs-lisp
-;; Set default connection mode to SSH
-(setq tramp-default-method "ssh")
-(setq tramp-auto-save-directory
-      (expand-file-name "tramp-auto-save" user-emacs-directory))
-(setq tramp-persistency-file-name
-      (expand-file-name "tramp-connection-history" user-emacs-directory))
-(setq password-cache-expiry nil)
-(setq remote-file-name-inhibit-cache nil)
-(setq tramp-use-ssh-controlmaster-options nil)
-(setq vc-ignore-dir-regexp
-      (format "\\(%s\\)\\|\\(%s\\)"
-              vc-ignore-dir-regexp
-              tramp-file-name-regexp))
-(with-eval-after-load 'tramp
-  (customize-set-variable 'tramp-ssh-controlmaster-options
-                          (concat
-                           "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
-                           "-o ControlMaster=auto -o ControlPersist=yes"))
-  ;; respect the PATH variable on the remote machine
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
-#+end_src
-
-Tips:
-- use ssh config file
-#+begin_example :tangle "no"
-Host vm-server
-    HostName 127.0.0.1
-    User zhenhua
-    Port 3022
-#+end_example
-
-- enable ssh on server
-#+begin_example :tangle "no"
-sudo apt-get install openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-#+end_example
-
-** Comint
-#+begin_src emacs-lisp
-(use-package comint
-  :straight (:type built-in)
-  :config
-  ;; Make processes’ outputs read-only. The prompt is easy.
-  (setq comint-prompt-read-only t
-        ansi-color-for-comint-mode 'filter
-        comint-scroll-to-bottom-on-input t
-        comint-scroll-to-bottom-on-output nil
-        comint-move-point-for-output nil))
-#+end_src
-
-** Eshell
-#+begin_src emacs-lisp
-(use-package eshell
-  :straight (:type built-in)
-  :bind ((:map eshell-mode-map
-               :package esh-mode
-               ("s-q" . zw/close-shell)
-               ("s-e" . zw/delte-window-or-bury-buffer))
-         (:map eshell-hist-mode-map
-               :package em-hist
-               ("M-s" . nil)))
-  :init
-  (setq eshell-banner-message
-        '(format "%s %s\n"
-                 (propertize (format " %s " (string-trim (buffer-name)))
-                             'face 'mode-line-highlight)
-                 (propertize (current-time-string)
-                             'face 'font-lock-keyword-face))
-        eshell-scroll-to-bottom-on-input 'all
-        eshell-scroll-to-bottom-on-output nil
-        eshell-kill-processes-on-exit t
-        eshell-hist-ignoredups t
-        ;; don't record command in history if prefixed with whitespace
-        eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
-        ;; em-glob
-        eshell-glob-case-insensitive t
-        eshell-error-if-no-glob t))
-
-(use-package eshell-git-prompt
-  :config
-  (eshell-git-prompt-use-theme 'robbyrussell))
-
-(use-package eshell-syntax-highlighting
-  :hook (eshell-mode . eshell-syntax-highlighting-mode))
-#+end_src
-
-** Vterm
-For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
-
-#+begin_src emacs-lisp
-(use-package vterm
-  :straight `(:pre-build (("rm" "-fr" "build")
-                          ("mkdir" "build")
-                          ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
-                           ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
-  :bind ((:map vterm-copy-mode-map
-               ("<return>" . vterm-copy-mode))
-         (:map vterm-mode-map
-               ("s-e" . zw/delte-window-or-bury-buffer)))
-  :init
-  (setq vterm-kill-buffer-on-exit t)
-  ;; close window when vterm exit
-  (add-hook 'vterm-exit-functions
-            (lambda (_ _)
-              (let* ((buffer (current-buffer))
-                     (window (get-buffer-window buffer)))
-                (when (not (one-window-p))
-                  (delete-window window)))))
-  :config
-  (zw/set-vterm-color))
-#+end_src
-
-** Dired
-#+begin_src emacs-lisp
-(use-package dired
-  :straight (:type built-in)
-  :hook
-  (dired-mode . dired-async-mode)
-  :init
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  (when (eq system-type 'darwin)
-    (setq insert-directory-program "gls"
-          dired-use-ls-dired t
-          dired-listing-switches "-al --group-directories-first")))
-
-;; Quick sort dired buffers via hydra
-(use-package dired-quick-sort
-  :bind ((:map dired-mode-map
-               ("S" . hydra-dired-quick-sort/body))))
-
-(use-package diredfl
-  :hook (dired-mode . diredfl-mode))
-
-(use-package all-the-icons-dired
-  :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode)
-  :init (setq all-the-icons-dired-monochrome nil))
-#+end_src
-
-** Openwith
-#+begin_src emacs-lisp
-(use-package openwith
-  :hook
-  (after-init . openwith-mode)
-  :config
-  (setq openwith-associations
-        (list
-         (list (openwith-make-extension-regexp
-                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
-                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
-               "open"
-               '(file)))))
-#+end_src
-
-** Recentf
-#+begin_src emacs-lisp
-(use-package recentf
-  :straight (:type built-in)
-  :hook (after-init . recentf-mode)
-  :init (setq recentf-max-saved-items 300
-              recentf-exclude
-              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
-                no-littering-var-directory no-littering-etc-directory
-                (lambda (file) (file-in-directory-p file package-user-dir))))
-  :config
-  (push (expand-file-name recentf-save-file) recentf-exclude)
-  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
-#+end_src
-
-** Savehist
-#+begin_src emacs-lisp
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :hook (after-init . savehist-mode)
-  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-                history-length 1000))
-#+end_src
-
-** Helpful
-#+begin_src emacs-lisp
-(use-package helpful
-  :bind (("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)))
-#+end_src
-
-** Keybinding Hints
-*** Hydra
-   #+begin_src emacs-lisp
-(use-package hydra
-  :hook (emacs-lisp-mode . hydra-add-imenu))
-   #+end_src
-
-*** Which key
-   #+begin_src emacs-lisp
-(use-package which-key
-  :diminish
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
-   #+end_src
-
-** Go to address
-#+begin_src emacs-lisp
-(use-package goto-addr
-  :straight (:type built-in)
-  :hook
-  (text-mode . goto-address-mode)
-  (prog-mode . goto-address-prog-mode))
 #+end_src
 
 * Appearance
@@ -1145,6 +920,231 @@ I combine this with =popper.el= now! This is a great feature, as popper turn the
 
   ;; If a popup does happen, don't resize windows to be equal-sized
   (setq even-window-sizes nil)))
+#+end_src
+
+* Tool
+** Tramp
+For host with two factor auth, you need to
+1. enter password
+2. enter the second-step code
+
+ Usage:
+- ~(find-file "/ssh:zhenhua@127.0.0.1#3022:~/")~
+
+#+begin_src emacs-lisp
+;; Set default connection mode to SSH
+(setq tramp-default-method "ssh")
+(setq tramp-auto-save-directory
+      (expand-file-name "tramp-auto-save" user-emacs-directory))
+(setq tramp-persistency-file-name
+      (expand-file-name "tramp-connection-history" user-emacs-directory))
+(setq password-cache-expiry nil)
+(setq remote-file-name-inhibit-cache nil)
+(setq tramp-use-ssh-controlmaster-options nil)
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
+(with-eval-after-load 'tramp
+  (customize-set-variable 'tramp-ssh-controlmaster-options
+                          (concat
+                           "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
+                           "-o ControlMaster=auto -o ControlPersist=yes"))
+  ;; respect the PATH variable on the remote machine
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+#+end_src
+
+Tips:
+- use ssh config file
+#+begin_example :tangle "no"
+Host vm-server
+    HostName 127.0.0.1
+    User zhenhua
+    Port 3022
+#+end_example
+
+- enable ssh on server
+#+begin_example :tangle "no"
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+#+end_example
+
+** Comint
+#+begin_src emacs-lisp
+(use-package comint
+  :straight (:type built-in)
+  :config
+  ;; Make processes’ outputs read-only. The prompt is easy.
+  (setq comint-prompt-read-only t
+        ansi-color-for-comint-mode 'filter
+        comint-scroll-to-bottom-on-input t
+        comint-scroll-to-bottom-on-output nil
+        comint-move-point-for-output nil))
+#+end_src
+
+** Eshell
+#+begin_src emacs-lisp
+(use-package eshell
+  :straight (:type built-in)
+  :bind ((:map eshell-mode-map
+               :package esh-mode
+               ("s-q" . zw/close-shell)
+               ("s-e" . zw/delte-window-or-bury-buffer))
+         (:map eshell-hist-mode-map
+               :package em-hist
+               ("M-s" . nil)))
+  :init
+  (setq eshell-banner-message
+        '(format "%s %s\n"
+                 (propertize (format " %s " (string-trim (buffer-name)))
+                             'face 'mode-line-highlight)
+                 (propertize (current-time-string)
+                             'face 'font-lock-keyword-face))
+        eshell-scroll-to-bottom-on-input 'all
+        eshell-scroll-to-bottom-on-output nil
+        eshell-kill-processes-on-exit t
+        eshell-hist-ignoredups t
+        ;; don't record command in history if prefixed with whitespace
+        eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
+        ;; em-glob
+        eshell-glob-case-insensitive t
+        eshell-error-if-no-glob t))
+
+(use-package eshell-git-prompt
+  :config
+  (eshell-git-prompt-use-theme 'robbyrussell))
+
+(use-package eshell-syntax-highlighting
+  :hook (eshell-mode . eshell-syntax-highlighting-mode))
+#+end_src
+
+** Vterm
+For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :straight `(:pre-build (("rm" "-fr" "build")
+                          ("mkdir" "build")
+                          ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
+                           ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
+  :bind ((:map vterm-copy-mode-map
+               ("<return>" . vterm-copy-mode))
+         (:map vterm-mode-map
+               ("s-e" . zw/delte-window-or-bury-buffer)))
+  :init
+  (setq vterm-kill-buffer-on-exit t)
+  ;; close window when vterm exit
+  (add-hook 'vterm-exit-functions
+            (lambda (_ _)
+              (let* ((buffer (current-buffer))
+                     (window (get-buffer-window buffer)))
+                (when (not (one-window-p))
+                  (delete-window window)))))
+  :config
+  (zw/set-vterm-color))
+#+end_src
+
+** Dired
+#+begin_src emacs-lisp
+(use-package dired
+  :straight (:type built-in)
+  :hook
+  (dired-mode . dired-async-mode)
+  :init
+  (setq dired-kill-when-opening-new-dired-buffer t)
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program "gls"
+          dired-use-ls-dired t
+          dired-listing-switches "-al --group-directories-first")))
+
+;; Quick sort dired buffers via hydra
+(use-package dired-quick-sort
+  :bind ((:map dired-mode-map
+               ("S" . hydra-dired-quick-sort/body))))
+
+(use-package diredfl
+  :hook (dired-mode . diredfl-mode))
+
+(use-package all-the-icons-dired
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode)
+  :init (setq all-the-icons-dired-monochrome nil))
+#+end_src
+
+** Openwith
+#+begin_src emacs-lisp
+(use-package openwith
+  :hook
+  (after-init . openwith-mode)
+  :config
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
+                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv"))
+               "open"
+               '(file)))))
+#+end_src
+
+** Recentf
+#+begin_src emacs-lisp
+(use-package recentf
+  :straight (:type built-in)
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+                no-littering-var-directory no-littering-etc-directory
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+#+end_src
+
+** Savehist
+#+begin_src emacs-lisp
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :hook (after-init . savehist-mode)
+  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+                history-length 1000))
+#+end_src
+
+** Helpful
+#+begin_src emacs-lisp
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)))
+#+end_src
+
+** Keybinding Hints
+*** Hydra
+   #+begin_src emacs-lisp
+(use-package hydra
+  :hook (emacs-lisp-mode . hydra-add-imenu))
+   #+end_src
+
+*** Which key
+   #+begin_src emacs-lisp
+(use-package which-key
+  :diminish
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+   #+end_src
+
+** Go to address
+#+begin_src emacs-lisp
+(use-package goto-addr
+  :straight (:type built-in)
+  :hook
+  (text-mode . goto-address-mode)
+  (prog-mode . goto-address-prog-mode))
 #+end_src
 
 * Editing
