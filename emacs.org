@@ -200,7 +200,7 @@
   (exec-path-from-shell-initialize))
 #+end_src
 
-** TRAMP
+** Tramp
 For host with two factor auth, you need to
 1. enter password
 2. enter the second-step code
