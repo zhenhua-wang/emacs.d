@@ -522,7 +522,7 @@ LSP-mode with TexLab works perfect for Latex docs
         pdf-annot-activate-created-annotations t))
 #+end_src
 
-* SpellChecking
+* Spelling
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell
