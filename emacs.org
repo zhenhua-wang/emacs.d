@@ -340,16 +340,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package doom-modeline
   :hook
   (after-init . doom-modeline-mode)
+  :custom
+  (doom-modeline-bar-width 8)
+  (doom-modeline-lsp t)
+  (doom-modeline-enable-word-count t)
+  (doom-modeline-icon nil)
+  (doom-modeline-major-mode-icon t)
+  (doom-modeline-minor-modes nil)
+  (doom-modeline-buffer-state-icon t)
+  (doom-modeline-checker-simple-format nil)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
   :config
-  (setq doom-modeline-bar-width 0
-        doom-modeline-lsp t
-        doom-modeline-enable-word-count t
-        doom-modeline-icon t
-        doom-modeline-major-mode-icon t
-        doom-modeline-minor-modes nil
-        doom-modeline-buffer-state-icon t
-        doom-modeline-checker-simple-format nil
-        doom-modeline-buffer-file-name-style 'truncate-except-project)
   ;; load theme
   (zw/modeline-theme)
   ;; show that the R is running in inferior ess R mode
