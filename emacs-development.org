@@ -36,7 +36,9 @@
         lsp-enable-text-document-color nil
 
         lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil)
+        lsp-enable-on-type-formatting nil
+
+        lsp-tex-server 'digestif)
   :config
   (defun lsp-update-server ()
     "Update LSP server."
@@ -121,8 +123,6 @@
   :config
   (setq eglot-stay-out-of '(flymake imenu)
         eglot-autoshutdown t)
-  (add-to-list 'eglot-server-programs '((tex-mode context-mode texinfo-mode bibtex-mode) .
-                                        ("texlab")))
   (setq-default eglot-workspace-configuration
                 '((:pyright . ((useLibraryCodeForTypes . t))))))
 #+end_src
