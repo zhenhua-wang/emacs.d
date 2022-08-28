@@ -285,25 +285,6 @@ LSP-mode with TexLab works perfect for Latex docs
   ;; Add LatexMk as a TeX target.
   (auctex-latexmk-setup))
 
-(use-package cdlatex
-  :hook
-  (org-mode . org-cdlatex-mode)
-  (LaTeX-mode . turn-on-cdlatex)
-  (markdown-mode . turn-on-cdlatex)
-  :config
-  (dolist (m (list cdlatex-mode-map org-cdlatex-mode-map))
-    (bind-keys :map m
-               ("$" . nil)
-               ("(" . nil)
-               ("{" . nil)
-               ("[" . nil)
-               ("|" . nil)
-               ("<" . nil)
-               ("^" . nil)
-               ("_" . nil)
-               ("`" . nil)
-               ("'" . nil))))
-
 ;; auto async preview latex
 (use-package xenops
   ;; :hook
