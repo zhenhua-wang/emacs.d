@@ -5,7 +5,6 @@
 
 - TDOD list:
   - manage faces in a single section
-  - manage key-bindings in a single section
     --------------
 * Header
 #+begin_src emacs-lisp
