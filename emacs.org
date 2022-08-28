@@ -1295,7 +1295,6 @@ Auto-Saving Changed Files
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x C-b" . consult-buffer)
          ("C-x C-d" . consult-dir)
-         ("C-x C-p" . consult-projectile-switch-project)
          ("C-x C-t" . consult-tramp)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
@@ -1336,10 +1335,6 @@ Auto-Saving Changed Files
         consult-async-input-throttle 0.2
         consult-async-input-debounce 0.1)
 
-  ;; use projectile in consult
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
-
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
@@ -1357,13 +1352,9 @@ Auto-Saving Changed Files
   (use-package consult-yasnippet :after consult :commands (consult-yasnippet))
   (use-package consult-bibtex :after consult
     :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
-  (use-package consult-dir :after consult
-    :init (setq consult-dir-project-list-function #'consult-dir-projectile-dirs))
+  (use-package consult-dir :after consult)
   (use-package consult-flycheck
     :after (consult flycheck))
-  (use-package consult-projectile
-    :straight (consult-projectile :type git :host gitlab
-                                  :repo "OlMon/consult-projectile" :branch "master"))
   (use-package consult-tramp
     :straight
     (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
