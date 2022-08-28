@@ -302,7 +302,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq xenops-reveal-on-entry nil))
 #+end_src
 
-* Literate Programming
+* LiterateProgramming
 ** Org-babel
 *** init
 #+begin_src emacs-lisp
@@ -502,10 +502,6 @@ LSP-mode with TexLab works perfect for Latex docs
 
 * Readers
 #+begin_src emacs-lisp
-;; epub
-(use-package nov
-  :mode (("\\.epub$" . org-mode)))
-
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
   :pin manual ;; don't reinstall when package updates
@@ -526,16 +522,7 @@ LSP-mode with TexLab works perfect for Latex docs
         pdf-annot-activate-created-annotations t))
 #+end_src
 
-* Dictionary
-** Wordnut
-you need to install the local dictionary =wordnet= (=wordnet-common= in arch). Unfortunately, this package's completing system conflicts with =ivy=..
-#+begin_src emacs-lisp
-(use-package wordnut
-  :bind (("C-c w" . wordnut-search)
-         ("C-c W" . wordnut-lookup-current-word)))
-#+end_src
-
-** Flyspell
+* SpellChecking
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell
