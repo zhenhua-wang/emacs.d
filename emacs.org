@@ -607,21 +607,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (imenu-after-jump . pulsar-reveal-entry))
 #+end_src
 
-** Toggle transparency
-#+begin_src emacs-lisp
-(defun zw/toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(85 . 85) '(100 . 100)))))
-#+end_src
-
 ** Paren
 #+begin_src emacs-lisp
 ;; Highlight matching parens
