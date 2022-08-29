@@ -446,7 +446,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Dashboard
 #+begin_src emacs-lisp
 (use-package dashboard
-  :disabled
   :bind
   (:map dashboard-mode-map ("<tab>" . dashboard-return))
   :init
@@ -454,11 +453,13 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq dashboard-startup-banner 1
         dashboard-center-content t
         dashboard-items '((agenda . 5)
+                          (projects . 5)
                           (recents  . 5))
         dashboard-set-footer nil
         dashboard-set-init-info nil
         dashboard-set-heading-icons nil
-        dashboard-set-file-icons nil))
+        dashboard-set-file-icons nil
+        dashboard-projects-backend 'project-el))
 #+end_src
 
 ** iMenu
