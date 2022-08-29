@@ -51,6 +51,14 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
+** Keyfreq
+#+begin_src emacs-lisp
+(use-package keyfreq
+  :hook
+  (after-init . keyfreq-mode)
+  (after-init . keyfreq-autosave-mode))
+#+end_src
+
 ** Exec-path-from-shell
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
