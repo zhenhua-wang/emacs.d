@@ -191,6 +191,7 @@
 (use-package topsy
   :straight (topsy :host github :repo "alphapapa/topsy.el")
   :commands (topsy-mode)
+  :bind (("C-c d t" . topsy-mode))
   :config
   (defun zw/topsy--beginning-of-defun-at-cursor ()
     "Return the line moved to by `beginning-of-defun'."
