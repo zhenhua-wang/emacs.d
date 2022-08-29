@@ -119,7 +119,8 @@
   ;; make scratch and dashboard unkillable
   (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
   (defun zw/dont-kill-scratch ()
-    (if (not (equal (buffer-name) "*scratch*"))
+    (if (not (or (equal (buffer-name) "*scratch*")
+                 (equal (buffer-name) "*dashboard*")))
         t
       ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
       (bury-buffer)
