@@ -186,6 +186,24 @@
   :bind (("M-/" . evilnc-comment-or-uncomment-lines)))
 #+end_src
 
+** Topsy
+#+begin_src emacs-lisp
+(use-package topsy
+  :straight (topsy :host github :repo "alphapapa/topsy.el")
+  :commands (topsy-mode)
+  :config
+  (defun zw/topsy--beginning-of-defun-at-cursor ()
+    "Return the line moved to by `beginning-of-defun'."
+    (when (> (point) 1)
+      (save-excursion
+        (goto-char (point))
+        (beginning-of-defun)
+        (font-lock-ensure (point) (point-at-eol))
+        (buffer-substring (point) (point-at-eol)))))
+  (advice-add #'topsy--beginning-of-defun :override
+              #'zw/topsy--beginning-of-defun-at-cursor))
+#+end_src
+
 ** Flycheck
 #+begin_src emacs-lisp
 ;; check code syntax
