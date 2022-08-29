@@ -195,9 +195,9 @@
   (defun zw/topsy--beginning-of-defun-at-cursor ()
     "Return the line moved to by `beginning-of-defun'."
     (save-excursion
-      (beginning-of-defun)
-      (font-lock-ensure (point) (point-at-eol))
-      (buffer-substring (point) (point-at-eol))))
+      (when (beginning-of-defun)
+        (font-lock-ensure (point) (point-at-eol))
+        (buffer-substring (point) (point-at-eol)))))
   (advice-add #'topsy--beginning-of-defun :override
               #'zw/topsy--beginning-of-defun-at-cursor))
 #+end_src
