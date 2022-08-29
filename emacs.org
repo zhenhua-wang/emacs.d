@@ -127,7 +127,12 @@
     (interactive)
     (if (one-window-p)
         (bury-buffer)
-      (delete-window))))
+      (delete-window)))
+  ;; update zw/emacs
+  (defun zw/update-emacs ()
+    (interactive)
+    (shell-command "cd ~/.emacs.d && git pull")
+    (message "Emacs updated!")))
   #+end_src
 
 ** Global keybinding
@@ -144,6 +149,7 @@
 ;; keys
 (bind-keys :map global-map
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
+           ("<f5>" . zw/update-emacs)
            ;; disable some weird k
            ("C-z" . nil)
            ("<prior>" . nil)
