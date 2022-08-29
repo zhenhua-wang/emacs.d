@@ -591,31 +591,20 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (use-package pulsar
   :init
-  (setq pulsar-pulse-functions
-        '(recenter-top-bottom
-          move-to-window-line-top-bottom
-          reposition-window
-          forward-page
-          backward-page
-          scroll-up-command
-          scroll-down-command
-          org-next-visible-heading
-          org-previous-visible-heading
-          org-forward-heading-same-level
-          org-backward-heading-same-level
-          outline-backward-same-level
-          outline-forward-same-level
-          outline-next-visible-heading
-          outline-previous-visible-heading
-          outline-up-heading))
-  (setq pulsar-pulse-on-window-change t)
-  (setq pulsar-pulse t)
-  (setq pulsar-delay 0.055)
-  (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-generic)
-  (setq pulsar-highlight-face 'pulsar-yellow)
+  (setq pulsar-pulse t
+        pulsar-delay 0.055
+        pulsar-iterations 10
+        pulsar-face 'pulsar-generic
+        pulsar-highlight-face 'pulsar-yellow)
   :hook
-  (after-init . pulsar-global-mode))
+  (after-init . pulsar-global-mode)
+  ;; integration with the `consult' package:
+  (consult-after-jump . pulsar-recenter-top)
+  (consult-after-jump . pulsar-reveal-entry)
+
+  ;; integration with the built-in `imenu':
+  (imenu-after-jump . pulsar-recenter-top)
+  (imenu-after-jump . pulsar-reveal-entry))
 #+end_src
 
 ** Toggle transparency
