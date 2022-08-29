@@ -193,7 +193,7 @@
            ("s-n" . tab-new)
            ;; misc commands
            ("s-T" . zw/toggle-transparency)
-           ("C-c 0" . xah-open-in-external-app)
+           ("C-c o" . xah-open-in-external-app)
            ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
