@@ -161,6 +161,8 @@
            ("C-<mouse-5>" . nil)
            ("C-<wheel-down>" . nil)
            ("C-<wheel-up>" . nil)
+           ;; completion
+           ("<C-tab>" . completion-at-point)
            ;; editing
            ("s-z" . undo)
            ("s-x" . kill-region)
@@ -1371,7 +1373,7 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 ;; completion
 (setq completion-cycle-threshold nil)
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 (setq completions-detailed t)
 (setq completion-ignore-case t)
 ;; since cape-dabbrev cannot replace case, I will set it to nil for now.
