@@ -217,7 +217,36 @@
 (use-package flycheck-posframe
   :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
-  :config (flycheck-posframe-configure-pretty-defaults))
+  :config
+  (flycheck-posframe-configure-pretty-defaults)
+  ;; turn off tab bar
+  (defun zw/flycheck-posframe-show-posframe (errors)
+    "Display ERRORS, using posframe.el library."
+    (posframe-hide flycheck-posframe-buffer)
+    (when (and errors
+               (not (run-hook-with-args-until-success 'flycheck-posframe-inhibit-functions)))
+      (let ((poshandler (intern (format "posframe-poshandler-%s" flycheck-posframe-position))))
+        (unless (functionp poshandler)
+          (setq poshandler nil))
+        (flycheck-posframe-check-position)
+        (posframe-show
+         flycheck-posframe-buffer
+         :string (flycheck-posframe-format-errors errors)
+         :background-color (face-background 'flycheck-posframe-background-face nil t)
+         :position (point)
+         :internal-border-width flycheck-posframe-border-width
+         :internal-border-color (face-foreground (if flycheck-posframe-border-use-error-face
+						     (flycheck-posframe-highest-error-level-face errors)
+						   'flycheck-posframe-border-face) nil t)
+         :poshandler poshandler
+         :hidehandler #'flycheck-posframe-hidehandler
+         :override-parameters '((tab-bar-mode . 0)
+                                (tab-bar-format . nil)
+                                (tab-line-format . nil)
+                                (tab-bar-lines . 0)
+                                (tab-bar-lines-keep-state . 0))))))
+  (advice-add #'flycheck-posframe-show-posframe
+              :override #'zw/flycheck-posframe-show-posframe))
 
 (add-hook 'prog-mode (lambda ()
                        (when (not (file-remote-p default-directory))
