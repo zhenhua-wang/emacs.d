@@ -215,68 +215,13 @@
               flycheck-check-syntax-automatically '(save mode-enabled)))
 
 (use-package flycheck-posframe
-  :custom-face
-  (flycheck-posframe-face ((t (:foreground ,(face-foreground 'success)))))
-  (flycheck-posframe-info-face ((t (:foreground ,(face-foreground 'success)))))
-  (flycheck-posframe-background-face ((t (:inherit tooltip))))
-  (flycheck-posframe-border-face ((t (:inherit posframe-border))))
+  :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
-  :init
-  (setq flycheck-posframe-border-width 1)
-  (add-hook 'flycheck-posframe-inhibit-functions
-            (lambda (&rest _) (bound-and-true-p company-backend)))
-  :config
-  (with-no-warnings
-    ;; HACK: Add paddings to the child frame.
-    ;; @see https://github.com/alexmurray/flycheck-posframe/issues/28
-    (defun my-flycheck-posframe-show-posframe (errors)
-      "Display ERRORS, using posframe.el library."
-      (posframe-hide flycheck-posframe-buffer)
-      (when (and errors
-                 (not (run-hook-with-args-until-success 'flycheck-posframe-inhibit-functions)))
-        (let ((poshandler (intern (format "posframe-poshandler-%s" flycheck-posframe-position)))
-              (str (flycheck-posframe-format-errors errors)))
-          (unless (functionp poshandler)
-            (setq poshandler nil))
-          (flycheck-posframe-check-position)
-          (posframe-show
-           flycheck-posframe-buffer
-           :string (concat (propertize "\n" 'face '(:height 0.3))
-                           str
-                           (propertize "\n\n" 'face '(:height 0.3)))
-           :background-color (face-background 'flycheck-posframe-background-face nil t)
-           :position (point)
-           :left-fringe 8
-           :right-fringe 8
-           :max-width (round (* (frame-width) 0.62))
-           :max-height (round (* (frame-height) 0.62))
-           :internal-border-width flycheck-posframe-border-width
-           :internal-border-color (face-background 'flycheck-posframe-border-face nil t)
-           :poshandler poshandler
-           :hidehandler #'flycheck-posframe-hidehandler
-           :override-parameters '((tab-bar-mode . 0)
-                                  (tab-bar-format . nil)
-                                  (tab-line-format . nil)
-                                  (tab-bar-lines . 0)
-                                  (tab-bar-lines-keep-state . 0))))))
-    (advice-add #'flycheck-posframe-show-posframe :override #'my-flycheck-posframe-show-posframe))
+  :config (flycheck-posframe-configure-pretty-defaults))
 
-  ;; fix-flycheck-posframe-not-hide-immediately
-  (defun flycheck-posframe-monitor-post-command ()
-    (when (not (flycheck-posframe-check-position))
-      (posframe-hide flycheck-posframe-buffer)))
-
-  (defun fix-flycheck-posframe-not-hide-immediately ()
-    (cond (flycheck-posframe-mode
-           (add-hook 'post-command-hook 'flycheck-posframe-monitor-post-command nil t))
-          ((not flycheck-posframe-mode)
-           (remove-hook 'post-command-hook 'flycheck-posframe-monitor-post-command t))))
-  (add-hook 'flycheck-posframe-mode-hook #'fix-flycheck-posframe-not-hide-immediately))
-
-(dolist (mode '(python-mode-hook c++-mode-hook))
-  (add-hook mode (lambda ()
-                   (when (not (file-remote-p default-directory))
-                     (flycheck-mode)))))
+(add-hook 'prog-mode (lambda ()
+                       (when (not (file-remote-p default-directory))
+                         (flycheck-mode))))
 #+end_src
 
 ** Version control
@@ -293,47 +238,6 @@
 #+end_src
 
 * Language
-** C/C++
-#+begin_src emacs-lisp
-(use-package cc-mode
-  :bind ((:map c-mode-base-map
-               ("C-c C-c" . compile)))
-  :hook (c-mode-common . (lambda () (c-set-style "stroustrup")))
-  :init (setq-default c-basic-offset 4)
-  :config
-  (defvar compile-guess-command-table
-    '((c-mode       . "gcc -Wall -g %s -o %s -lm")
-      (c++-mode     . "g++ -Wall %s -o %s -std=c++14")))
-  (defun compile-guess-command ()
-    (let ((command-for-mode (cdr (assq major-mode
-                                       compile-guess-command-table))))
-      (if (and command-for-mode
-               (stringp buffer-file-name))
-          (let* ((file-name (file-name-nondirectory buffer-file-name))
-                 (file-name-sans-suffix (if (and (string-match "\\.[^.]*\\'"
-                                                               file-name)
-                                                 (> (match-beginning 0) 0))
-                                            (substring file-name
-                                                       0 (match-beginning 0))
-                                          nil)))
-            (if file-name-sans-suffix
-                (progn
-                  (make-local-variable 'compile-command)
-                  (setq compile-command
-                        (if (stringp command-for-mode)
-                            ;; Optimize the common case.
-                            (format command-for-mode
-                                    file-name file-name-sans-suffix)
-                          (funcall command-for-mode
-                                   file-name file-name-sans-suffix)))
-                  compile-command)
-              nil))
-        nil)))
-  ;; Add the appropriate mode hooks.
-  (add-hook 'c-mode-hook       (function compile-guess-command))
-  (add-hook 'c++-mode-hook     (function compile-guess-command)))
-#+end_src
-
 ** R
 #+begin_src emacs-lisp
 (use-package ess
