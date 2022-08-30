@@ -1375,6 +1375,8 @@ Auto-Saving Changed Files
                ("<backtab>" . company-yasnippet)))
   :init (setq company-tooltip-limit 12
               company-tooltip-align-annotations t
+              company-tooltip-minimum-width 30
+              company-tooltip-maximum-width 80
               company-selection-wrap-around t
               company-idle-delay 0
               company-minimum-prefix-length 1
@@ -1453,7 +1455,7 @@ Auto-Saving Changed Files
 
 *** company minibuffer
 copy from: https://gist.github.com/Bad-ptr/7787596
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle "no"
 (defvar-local company-col-offset 0 "Horisontal tooltip offset.")
 (defvar-local company-row-offset 0 "Vertical tooltip offset.")
 
