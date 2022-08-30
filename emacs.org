@@ -1273,18 +1273,18 @@ Auto-Saving Changed Files
          ("C-c m" . consult-mode-command)
          ("C-c k" . consult-kmacro)
          ;; C-x bindings (ctl-x-map)
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
          ("C-x C-d" . consult-dir)
          ("C-x C-t" . consult-tramp)
          ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ("<help> a" . consult-apropos)            ;; orig. apropos-command
-         ("s-f" . consult-line)                ;; orig. yank-pop
+         ("M-y" . consult-yank-pop)
+         ("<help> a" . consult-apropos)
+         ("s-f" . consult-line)
          ("s-F" . zw/consult-line-multi)
          ;; M-g bindings (goto-map)
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g g" . consult-goto-line)
+         ("M-g o" . consult-outline)
          ("M-g i" . consult-imenu)
          ;; M-s bindings (search-map)
          ("M-s d" . consult-find)
