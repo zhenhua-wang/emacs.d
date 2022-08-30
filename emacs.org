@@ -1156,6 +1156,13 @@ With a prefix ARG always prompt for command to use."
   (prog-mode . goto-address-prog-mode))
 #+end_src
 
+** Google this
+#+begin_src emacs-lisp
+;; use this for now untill consult have its web-search
+(use-package google-this
+  :bind (("C-c l" . google-this-search)))
+#+end_src
+
 * Editing
 ** Undo
    #+begin_src emacs-lisp
@@ -1346,10 +1353,6 @@ Auto-Saving Changed Files
   (defun zw/consult-line-multi ()
     (interactive)
     (consult-line-multi t)))
-
-;; use this for now untill consult have its web-search
-(use-package google-this
-  :bind (("C-c l" . google-this-search)))
 #+end_src
 
 ** Code Completion
