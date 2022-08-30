@@ -273,9 +273,10 @@
            (remove-hook 'post-command-hook 'flycheck-posframe-monitor-post-command t))))
   (add-hook 'flycheck-posframe-mode-hook #'fix-flycheck-posframe-not-hide-immediately))
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (when (not (file-remote-p default-directory))
-                              (flycheck-mode))))
+(dolist (mode '(python-mode-hook c++-mode-hook))
+  (add-hook mode (lambda ()
+                   (when (not (file-remote-p default-directory))
+                     (flycheck-mode)))))
 #+end_src
 
 ** Version control
