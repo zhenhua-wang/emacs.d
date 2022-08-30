@@ -1374,17 +1374,13 @@ Auto-Saving Changed Files
                ("<tab>" . company-complete-selection)
                ("<backtab>" . company-yasnippet)))
   :init (setq company-tooltip-limit 12
-              company-tooltip-margin 0
-              company-tooltip-idle-delay 0.4
-              company-tooltip-minimum-width 20
-              company-tooltip-maximum-width 80
               company-tooltip-align-annotations t
               company-selection-wrap-around t
               company-idle-delay 0
               company-minimum-prefix-length 1
               company-require-match nil
-              company-dabbrev-ignore-case nil
-              company-dabbrev-downcase nil
+              company-dabbrev-ignore-case 'keep-prefix
+              company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers t
               company-global-modes '(not message-mode help-mode
                                          vterm-mode))
@@ -1400,6 +1396,9 @@ Auto-Saving Changed Files
                                     :background (face-background 'warning)
                                     :weight 'bold))
               (zw/completion-theme))
+
+(use-package company-prescient
+  :hook (company-mode . company-prescient-mode))
 #+end_src
 *** company frontend
 #+begin_src emacs-lisp
@@ -1451,3 +1450,58 @@ Auto-Saving Changed Files
                         '(company-capf-with-R-objects))))
 #+end_src
 
+*** company minibuffer
+copy from: https://gist.github.com/Bad-ptr/7787596
+#+begin_src emacs-lisp
+(defvar-local company-col-offset 0 "Horisontal tooltip offset.")
+(defvar-local company-row-offset 0 "Vertical tooltip offset.")
+
+(defun company--posn-col-row (posn)
+  (let ((col (car (posn-col-row posn)))
+        ;; `posn-col-row' doesn't work well with lines of different height.
+        ;; `posn-actual-col-row' doesn't handle multiple-width characters.
+        (row (cdr (posn-actual-col-row posn))))
+    (when (and header-line-format (version< emacs-version "24.3.93.3"))
+      ;; http://debbugs.gnu.org/18384
+      (cl-decf row))
+    (cons (+ col (window-hscroll) company-col-offset) (+ row company-row-offset))))
+
+(defun company-elisp-minibuffer (command &optional arg &rest ignored)
+  "`company-mode' completion back-end for Emacs Lisp in the minibuffer."
+  (interactive (list 'interactive))
+  (case command
+        ('prefix (and (minibufferp)
+                      (case company-minibuffer-mode
+                            ('execute-extended-command (company-grab-symbol))
+                            (t (company-capf `prefix)))))
+        ('candidates
+         (case company-minibuffer-mode
+               ('execute-extended-command (all-completions arg obarray 'commandp))
+               (t nil)))))
+
+(defun minibuffer-company ()
+  (unless company-mode
+    (when (and global-company-mode (or (eq this-command #'execute-extended-command)
+                                       (eq this-command #'eval-expression)))
+
+      (setq-local company-minibuffer-mode this-command)
+
+      (setq-local completion-at-point-functions
+                  (list (if (fboundp 'elisp-completion-at-point)
+                            #'elisp-completion-at-point
+                          #'lisp-completion-at-point) t))
+
+      (setq-local company-show-numbers nil)
+      (setq-local company-backends '((company-elisp-minibuffer company-capf)))
+      (setq-local company-tooltip-limit 8)
+      (setq-local company-col-offset 1)
+      (setq-local company-row-offset 1)
+      (setq-local company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
+                                      company-preview-if-just-one-frontend))
+
+      (company-mode 1)
+      (when (eq this-command #'execute-extended-command)
+        (company-complete)))))
+
+(add-hook 'minibuffer-setup-hook #'minibuffer-company)
+#+end_src
