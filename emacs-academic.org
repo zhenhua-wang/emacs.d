@@ -266,7 +266,6 @@ LSP-mode with TexLab works perfect for Latex docs
         ;; Don't start the Emacs server when correlating sources.
         TeX-source-correlate-start-server nil
 
-        Tex-command-show "LaTex"
         TeX-view-program-selection '((output-pdf "PDF Tools"))
         TeX-save-query nil)
   :config
