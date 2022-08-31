@@ -1418,18 +1418,13 @@ Auto-Saving Changed Files
 #+end_src
 *** company frontend
 #+begin_src emacs-lisp
-(use-package company-box
-  :disabled
-  :hook (company-mode . company-box-mode)
-  :config
-  (defun zw/set-company-box-frame (string on-update)
-    (set-frame-parameter (frame-local-getq company-box-frame)
-                         'tab-bar-lines 0))
-  (advice-add #'company-box--display :after #'zw/set-company-box-frame))
-
 (use-package company-posframe
   :hook
   (company-mode . company-posframe-mode)
+  :bind ((:map company-posframe-active-map
+               ("M-d" . company-posframe-quickhelp-toggle)
+               ("M-n" . company-posframe-quickhelp-scroll-up)
+               ("M-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-show-params
         (list :override-parameters
