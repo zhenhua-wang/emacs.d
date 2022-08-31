@@ -1427,6 +1427,7 @@ Auto-Saving Changed Files
                ("M-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-quickhelp-delay nil
+        company-posframe-font zw/font-fixed-pitch
         company-posframe-show-params
         (list :override-parameters
               '((tab-bar-mode . 0)
