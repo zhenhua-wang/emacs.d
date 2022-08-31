@@ -1388,22 +1388,26 @@ Auto-Saving Changed Files
               company-dabbrev-code-other-buffers t
               company-global-modes '(not message-mode help-mode
                                          vterm-mode)
-              company-backends '(company-files
+              company-backends '((company-files :with company-yasnippet)
                                  (company-capf :with company-yasnippet)
-                                 (company-dabbrev-code company-keywords)
-                                 company-dabbrev))
-              :config
-              (defun zw/completion-theme ()
-                (set-face-attribute 'company-tooltip nil
-                                    :foreground (face-foreground 'tooltip)
-                                    :background (face-background 'tooltip)
-                                    :inherit 'fixed-pitch)
-                (set-face-attribute 'company-tooltip-selection nil
-                                    :foreground (face-foreground 'warning)
-                                    :underline (face-foreground 'warning)
-                                    :background (face-background 'warning)
-                                    :weight 'bold))
-              (zw/completion-theme))
+                                 (company-dabbrev-code
+                                  :with company-yasnippet)
+                                 (company-keywords
+                                  :with company-yasnippet)
+                                 (company-dabbrev
+                                  :with company-yasnippet)))
+  :config
+  (defun zw/completion-theme ()
+    (set-face-attribute 'company-tooltip nil
+                        :foreground (face-foreground 'tooltip)
+                        :background (face-background 'tooltip)
+                        :inherit 'fixed-pitch)
+    (set-face-attribute 'company-tooltip-selection nil
+                        :foreground (face-foreground 'warning)
+                        :underline (face-foreground 'warning)
+                        :background (face-background 'warning)
+                        :weight 'bold))
+  (zw/completion-theme))
 
 (use-package company-prescient
   :hook
