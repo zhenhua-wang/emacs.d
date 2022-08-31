@@ -1426,7 +1426,8 @@ Auto-Saving Changed Files
                ("M-n" . company-posframe-quickhelp-scroll-up)
                ("M-p" . company-posframe-quickhelp-scroll-down)))
   :config
-  (setq company-posframe-show-params
+  (setq company-posframe-quickhelp-delay nil
+        company-posframe-show-params
         (list :override-parameters
               '((tab-bar-mode . 0)
                 (tab-bar-format . nil)
