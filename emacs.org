@@ -1438,19 +1438,23 @@ Auto-Saving Changed Files
       (with-current-buffer (process-buffer proc)
         (all-completions arg (ess--get-cached-completions arg))))))
 
+(defun company-capf-with-R-objects--check-prefix (prefix)
+  (or (cl-search "$" prefix)
+      (cl-search ":" prefix)))
+
 (defun company-capf-with-R-objects (command &optional arg &rest ignored)
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-R-objects))
     (prefix (company-R-objects--prefix))
-    (candidates (if (string= (substring (company-R-objects--prefix) -1)
-                             "$")
+    (candidates (if (company-capf-with-R-objects--check-prefix
+                     (company-R-objects--prefix))
                     (company-R-objects--candidates arg)
-                  (company-capf--candidates arg)))
-    (annotation (if (string= (substring (company-R-objects--prefix) -1)
-                             "$")
+                  (company-capf command arg)))
+    (annotation (if (company-capf-with-R-objects--check-prefix
+                     (company-R-objects--prefix))
                     "R-object"
-                  (company-capf--annotation arg)))
+                  (company-capf command arg)))
     (doc-buffer (company-capf command arg))))
 
 (add-hook 'ess-r-mode-hook
