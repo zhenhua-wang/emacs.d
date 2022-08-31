@@ -1431,6 +1431,13 @@ Auto-Saving Changed Files
   :hook
   (company-mode . company-posframe-mode)
   :config
+  (setq company-posframe-show-params
+        (list :override-parameters
+              '((tab-bar-mode . 0)
+                (tab-bar-format . nil)
+                (tab-line-format . nil)
+                (tab-bar-lines . 0)
+                (tab-bar-lines-keep-state . 0))))
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
