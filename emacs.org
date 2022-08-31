@@ -1402,7 +1402,9 @@ Auto-Saving Changed Files
               (zw/completion-theme))
 
 (use-package company-prescient
-  :hook (company-mode . company-prescient-mode))
+  :hook
+  (company-mode . company-prescient-mode)
+  (company-mode . prescient-persist-mode))
 #+end_src
 *** company frontend
 #+begin_src emacs-lisp
