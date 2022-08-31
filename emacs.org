@@ -1386,6 +1386,7 @@ Auto-Saving Changed Files
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
+              company-transformers '(company-sort-by-backend-importance)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode)
               company-backends '((company-files
