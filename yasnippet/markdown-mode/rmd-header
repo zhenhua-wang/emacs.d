@@ -3,8 +3,8 @@
 # key: <header
 # --
 ---
-title: "${1:title}"
-author: "Zhenhua Wang"
+title: ${1:title}
+author: Zhenhua Wang
 output: pdf_document
 ---
 
