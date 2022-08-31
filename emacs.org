@@ -1420,7 +1420,10 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package company-box
   :hook (company-mode . company-box-mode)
+  :bind ((:map company-active-map
+               ("M-d" . company-box-doc-manually)))
   :config
+  (setq company-box-doc-enable nil)
   ;; set company box frame
   (defun zw/set-company-box-frame (string on-update)
     (set-frame-parameter (company-box--get-frame)
