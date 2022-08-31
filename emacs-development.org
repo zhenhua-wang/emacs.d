@@ -218,7 +218,6 @@
   :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
   :config
-  (flycheck-posframe-configure-pretty-defaults)
   ;; turn off tab bar
   (defun zw/flycheck-posframe-show-posframe (errors)
     "Display ERRORS, using posframe.el library."
