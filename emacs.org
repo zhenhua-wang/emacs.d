@@ -1387,7 +1387,11 @@ Auto-Saving Changed Files
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
               company-global-modes '(not message-mode help-mode
-                                         vterm-mode))
+                                         vterm-mode)
+              company-backends '(company-files
+                                 (company-capf :with company-yasnippet)
+                                 (company-dabbrev-code company-keywords)
+                                 company-dabbrev))
               :config
               (defun zw/completion-theme ()
                 (set-face-attribute 'company-tooltip nil
@@ -1467,5 +1471,5 @@ Auto-Saving Changed Files
 (add-hook 'ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
-                        '(company-capf-with-R-objects))))
+                        '(company-capf-with-R-objects company-files))))
 #+end_src
