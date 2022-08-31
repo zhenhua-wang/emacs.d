@@ -1456,6 +1456,10 @@ Auto-Saving Changed Files
                      (company-R-objects--prefix))
                     "R-object"
                   (company-capf command arg)))
+    (kind (if (company-capf-with-R-objects--check-prefix
+               (company-R-objects--prefix))
+              'field
+            (company-capf command arg)))
     (doc-buffer (company-capf command arg))))
 
 (add-hook 'ess-r-mode-hook
