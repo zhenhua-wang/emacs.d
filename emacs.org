@@ -1066,8 +1066,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package all-the-icons-dired
   :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode)
-  :init (setq all-the-icons-dired-monochrome nil))
+  :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 
 ** Openwith
