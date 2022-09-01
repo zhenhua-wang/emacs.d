@@ -276,11 +276,13 @@ LSP-mode with TexLab works perfect for Latex docs
   :init
   ;; FIXME: https://github.com/tom-tan/auctex-latexmk/issues/44
   (provide 'tex-buf)
+  :hook ((latex-mode LaTeX-mode) .
+         (lambda ()
+           ;; Set LatexMk as the default.
+           (setq TeX-command-default "LatexMk")))
+  :config
   ;; Pass the -pdf flag when TeX-PDF-mode is active.
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-  ;; Set LatexMk as the default.
-  (setq TeX-command-default "LatexMk")
-  :config
   ;; Add LatexMk as a TeX target.
   (auctex-latexmk-setup))
 
