@@ -1389,15 +1389,10 @@ Auto-Saving Changed Files
               company-transformers '(company-sort-by-backend-importance)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode)
-              company-backends '((company-files :with
-                                                company-yasnippet)
-                                 (company-capf :with
-                                               company-dabbrev
-                                               company-dabbrev-code
-                                               company-keywords
-                                               company-yasnippet)
-                                 (company-dabbrev :with
-                                                  company-yasnippet)))
+              company-backends '((company-files
+                                  company-capf
+                                  company-dabbrev
+                                  company-yasnippet)))
   :config
   (defun zw/completion-theme ()
     (set-face-attribute 'company-tooltip nil
