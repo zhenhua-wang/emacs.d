@@ -1237,10 +1237,12 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package vertico
   :straight (:files (:defaults "extensions/*")
-                    :includes (vertico-directory))
+                    :includes (vertico-directory
+                               vertico-indexed))
   :hook
   (after-init . vertico-mode)
   (vertico-mode . vertico-multiform-mode)
+  (vertico-mode . vertico-indexed-mode)
   ;; Tidy shadowed file names
   (rfn-eshadow-update-overlay . vertico-directory-tidy)
   ;; More convenient directory navigation commands
@@ -1252,7 +1254,8 @@ Auto-Saving Changed Files
   (setq vertico-resize nil
         vertico-scroll-margin 0
         vertico-count 12
-        vertico-cycle t)
+        vertico-cycle t
+        vertico-indexed-start 1)
   :config
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
