@@ -1359,7 +1359,7 @@ Auto-Saving Changed Files
 (use-package consult-flycheck
   :commands consult-flycheck)
 (use-package consult-bibtex
-  :commands consult-bibtex
+  :commands (consult-bibtex consult-bibtex--read-entry)
   :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
 (use-package consult-tramp
   :commands consult-tramp
