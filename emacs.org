@@ -1260,7 +1260,7 @@ Auto-Saving Changed Files
                      #'consult-completion-in-region
                    #'completion--in-region)
                  args)))
-  ;; Sort directories before files
+  ;; Sort directories before files (vertico-multiform-mode)
   (setq vertico-multiform-categories
         '((file (vertico-sort-function . sort-directories-first))))
   (defun sort-directories-first (files)
