@@ -1066,7 +1066,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package all-the-icons-dired
   :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode))
+  :hook (dired-mode . all-the-icons-dired-mode)
+  ;; use colorful icons
+  :init (setq all-the-icons-dired-monochrome nil))
 #+end_src
 
 ** Openwith
@@ -1225,14 +1227,7 @@ Auto-Saving Changed Files
 #+begin_src emacs-lisp
 (use-package vertico
   :straight (:files (:defaults "extensions/*")
-                    :includes (vertico-buffer
-                               vertico-directory
-                               vertico-flat
-                               vertico-indexed
-                               vertico-mouse
-                               vertico-quick
-                               vertico-repeat
-                               vertico-reverse))
+                    :includes (vertico-directory))
   :hook
   (after-init . vertico-mode)
   (vertico-mode . vertico-multiform-mode)
