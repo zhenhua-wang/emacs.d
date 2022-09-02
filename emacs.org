@@ -1477,4 +1477,9 @@ Auto-Saving Changed Files
           (lambda ()
             (setq-local company-backends
                         '(company-capf-with-R-objects company-files))))
+
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (setq-local company-backends
+                        '(company-capf company-files))))
 #+end_src
