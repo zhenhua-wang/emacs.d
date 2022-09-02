@@ -1272,6 +1272,7 @@ Auto-Saving Changed Files
          ("M-A" . marginalia-cycle))
   :hook (vertico-mode . marginalia-mode)
   :config
+  ;; show mode on/off
   (defun marginalia-annotate-command (cand)
     "Annotate command CAND with its documentation string.
 Similar to `marginalia-annotate-symbol', but does not show symbol class."
