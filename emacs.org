@@ -1235,6 +1235,7 @@ Auto-Saving Changed Files
                                vertico-reverse))
   :hook
   (after-init . vertico-mode)
+  (vertico-mode . vertico-multiform-mode)
   ;; Tidy shadowed file names
   (rfn-eshadow-update-overlay . vertico-directory-tidy)
   ;; More convenient directory navigation commands
@@ -1258,7 +1259,14 @@ Auto-Saving Changed Files
           (apply (if vertico-mode
                      #'consult-completion-in-region
                    #'completion--in-region)
-                 args))))
+                 args)))
+  ;; Sort directories before files
+  (setq vertico-multiform-categories
+        '((file (vertico-sort-function . sort-directories-first))))
+  (defun sort-directories-first (files)
+    (setq files (vertico-sort-history-length-alpha files))
+    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
+           (seq-remove (lambda (x) (string-suffix-p "/" x)) files))))
 #+end_src
 
 *** marginalia
