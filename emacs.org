@@ -1302,6 +1302,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** consult
 #+begin_src emacs-lisp
 (use-package consult
+  :demand
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
          ("C-c m" . consult-mode-command)
