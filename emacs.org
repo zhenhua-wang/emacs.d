@@ -1455,9 +1455,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (company-mode . company-posframe-mode)
   :bind ((:map company-posframe-active-map
-               ("M-d" . company-posframe-quickhelp-toggle)
-               ("M-n" . company-posframe-quickhelp-scroll-up)
-               ("M-p" . company-posframe-quickhelp-scroll-down)))
+               ("s-d" . company-posframe-quickhelp-toggle)
+               ("s-n" . company-posframe-quickhelp-scroll-up)
+               ("s-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-font zw/font-fixed-pitch
