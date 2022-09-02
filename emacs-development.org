@@ -69,7 +69,7 @@
                ("s-<return>" . lsp-ui-sideline-apply-code-actions)
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
-         (:map lsp-ui-doc-mode
+         (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-glance)))
   :hook (lsp-mode . lsp-ui-mode)
   :init
