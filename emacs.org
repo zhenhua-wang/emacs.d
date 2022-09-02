@@ -1270,7 +1270,22 @@ Auto-Saving Changed Files
   :bind (("M-A" . marginalia-cycle)
          :map minibuffer-local-map
          ("M-A" . marginalia-cycle))
-  :hook (vertico-mode . marginalia-mode))
+  :hook (vertico-mode . marginalia-mode)
+  :config
+  (defun marginalia-annotate-command (cand)
+    "Annotate command CAND with its documentation string.
+Similar to `marginalia-annotate-symbol', but does not show symbol class."
+    (when-let* ((sym (intern-soft cand)))
+      (concat
+       (let ((mode (if (boundp sym)
+                       sym
+                     (lookup-minor-mode-from-indicator cand))))
+         (when (boundp sym)
+           (if (and (boundp mode) (symbol-value mode))
+               (propertize " On" 'face 'marginalia-on)
+             (propertize " Off" 'face 'marginalia-off))))
+       (marginalia-annotate-binding cand)
+       (marginalia--documentation (marginalia--function-doc sym))))))
 
 (use-package all-the-icons-completion
   :if (display-graphic-p)
