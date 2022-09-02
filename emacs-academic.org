@@ -273,6 +273,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package auctex-latexmk
+  :after auctex
   :init
   ;; FIXME: https://github.com/tom-tan/auctex-latexmk/issues/44
   (provide 'tex-buf)
