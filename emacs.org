@@ -1282,8 +1282,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                      (lookup-minor-mode-from-indicator cand))))
          (when (boundp sym)
            (if (and (boundp mode) (symbol-value mode))
-               (propertize " On" 'face 'marginalia-on)
-             (propertize " Off" 'face 'marginalia-off))))
+               (propertize " [On]" 'face 'marginalia-on)
+             (propertize " [Off]" 'face 'marginalia-off))))
        (marginalia-annotate-binding cand)
        (marginalia--documentation (marginalia--function-doc sym))))))
 
