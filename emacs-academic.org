@@ -15,6 +15,7 @@
   :hook
   (org-mode . visual-fill-column-mode)
   (markdown-mode . visual-fill-column-mode)
+  (dired-mode . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t
                 visual-fill-column-width 80))
