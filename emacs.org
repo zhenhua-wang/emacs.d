@@ -345,7 +345,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq x-underline-at-descent-line t)
   (setq x-use-underline-position-properties nil)
   ;; set modeline face font
-  (dolist (face '(mode-line mode-line-inactive))
+  (dolist (face '(mode-line mode-line-active mode-line-inactive))
     (set-face-attribute face nil :box nil :font zw/default-font))
   ;; set doom-modeline face weight
   (dolist (face '(doom-modeline-buffer-path
