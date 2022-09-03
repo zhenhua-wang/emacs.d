@@ -1513,13 +1513,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             (company-capf command arg)))
     (doc-buffer (company-capf command arg))))
 
+;; backends for ess-r-mode
 (add-hook 'ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
                         '(company-capf-with-R-objects company-files))))
-
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (setq-local company-backends
-                        '(company-capf company-files))))
+;; backends for shell
+(use-package company-shell
+  :commands (company-shell)
+  :hook (sh-mode . (lambda ()
+                     (interactive)
+                     (setq-local company-backends '(company-shell)))))
 #+end_src
