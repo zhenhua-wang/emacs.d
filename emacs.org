@@ -313,7 +313,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (defun zw/update-theme ()
   (interactive)
-  (zw/modeline-theme)
   (zw/tab-bar-theme)
   (when (featurep 'org)
     (zw/set-org-headline))
@@ -321,6 +320,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
     (zw/set-md-headline))
   (when (featurep 'vterm)
     (zw/set-vterm-color))
+  (when (featurep 'keycast)
+    (zw/keycast-theme))
   (when (featurep 'company)
     (zw/completion-theme))
   ;; change pdf-view-mode color when using dark color theme
@@ -340,61 +341,96 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Modeline
 #+begin_src emacs-lisp
-(defun zw/modeline-theme ()
-  (interactive)
-  (setq x-underline-at-descent-line t)
-  (setq x-use-underline-position-properties nil)
-  ;; set modeline face font
-  (dolist (face '(mode-line mode-line-active mode-line-inactive))
-    (set-face-attribute face nil :box nil :font zw/default-font))
-  ;; set doom-modeline face weight
-  (dolist (face '(doom-modeline-buffer-path
-                  doom-modeline-buffer-file
-                  doom-modeline-buffer-modified
-                  doom-modeline-buffer-major-mode
-                  doom-modeline-project-parent-dir
-                  doom-modeline-project-root-dir
-                  doom-modeline-debug
-                  doom-modeline-info
-                  doom-modeline-time))
-    (set-face-attribute face nil :weight 'normal)))
+(defun zw/modeline-conda ()
+  (concat (propertize "CONDA:"
+                        'face 'font-lock-comment-face)
+          (if (and (featurep 'conda)
+                   conda-env-current-name)
+              conda-env-current-name
+            "default")))
 
-(use-package minions
-  :hook (doom-modeline . minions-mode))
+(defun zw/modeline-vc ()
+  (if vc-mode
+      (let ((backend (vc-backend buffer-file-name)))
+        (concat  (propertize "; VC:"
+                             'face 'font-lock-comment-face)
+                 (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))))
 
-(use-package doom-modeline
-  :hook
-  (after-init . doom-modeline-mode)
-  :custom
-  (doom-modeline-bar-width 8)
-  (doom-modeline-lsp t)
-  (doom-modeline-enable-word-count t)
-  (doom-modeline-minor-modes nil)
-  (doom-modeline-icon nil)
-  (doom-modeline-major-mode-icon t)
-  (doom-modeline-buffer-state-icon t)
-  (doom-modeline-checker-simple-format nil)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  :config
-  ;; load theme
-  (zw/modeline-theme)
-  ;; show that the R is running in inferior ess R mode
-  (add-hook 'inferior-ess-mode-hook
-            (lambda ()
-              (add-to-list 'mode-line-process
-                           '(:eval (nth
-                                    ess--busy-count
-                                    ess-busy-strings)))))
-  ;; show keycast in misc-info
-  ;; (add-to-list 'mode-line-misc-info '("" keycast-mode-line))
-  ;; (add-hook 'pre-command-hook 'keycast--update t)
-  ;; hide battery on modeline and show it on tab-bar
-  (remove-hook 'display-battery-mode-hook
-               #'doom-modeline-override-battery-modeline)
-  (remove-hook 'doom-modeline-mode-hook
-               #'doom-modeline-override-battery-modeline)
-  ;; set doom-modeline active when emacs is unfocused
-  (setq doom-modeline--remap-faces nil))
+(defun zw/modeline-misc-info ()
+  ;; conda env
+  (concat " ["
+           (zw/modeline-conda)
+           ;; version control
+           (zw/modeline-vc)
+           "] "))
+
+(defun zw/string-width (str)
+  (if str (string-width str) 0))
+
+(setq-default
+ mode-line-format
+ (list
+  "%e" mode-line-front-space
+  ;; current tab index
+  "<"
+  '(:eval
+    (propertize
+     (number-to-string (+ (tab-bar--current-tab-index) 1))
+     'face 'font-lock-keyword-face
+     'help-echo (concat "Current Tab: "
+                        (number-to-string (tab-bar--current-tab-index)))))
+  "> "
+  ;; is this buffer read-only or modified since the last save?
+  '(:eval (if buffer-read-only
+              (propertize " RO "
+                        'face 'font-lock-constant-face
+                        'help-echo "Buffer is read-only")
+            (if (buffer-modified-p)
+                (propertize "** "
+                            'face 'font-lock-warning-face
+                            'help-echo "Buffer has been modified")
+              "-- ")))
+
+  ;; the buffer name; the file name as a tool tip
+  '(:eval (propertize "%b "
+                      'help-echo (buffer-file-name)))
+
+  ;; line and column
+  "(" ;; '%02' to set to 2 chars at least; prevents flickering
+  (propertize "%l" 'face 'font-lock-type-face) ","
+  (propertize "%c" 'face 'font-lock-type-face)
+  ") "
+
+  ;; relative position, size of file
+  "["
+  (propertize "%p" 'face 'font-lock-constant-face)
+  "/"
+  (propertize "%I" 'face 'font-lock-constant-face)
+  "] "
+
+  ;; is remote file?
+  '(:eval (if (file-remote-p default-directory)
+              (propertize "Remote" 'face 'highlight)))
+
+  ;; add space between left and right
+  '(:eval
+    (propertize
+     " " 'display
+     `((space :align-to
+              (- (+ right right-fringe right-margin)
+                 ,(+ 3 (apply '+ (list (zw/string-width mode-name)
+                                       (zw/string-width (zw/modeline-misc-info))))))))))
+
+  ;; misc info
+  '(:eval (zw/modeline-misc-info))
+
+  ;; the current major mode for the buffer.
+  "["
+
+  '(:eval (propertize "%m" 'face 'font-lock-keyword-face
+                      'help-echo buffer-file-coding-system))
+  "] "
+  ))
 #+end_src
 
 ** Tab bar
@@ -410,7 +446,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       ;; :background (face-background 'mode-line)
                       :foreground (face-foreground 'default)
                       :background (face-background 'mode-line)
-                      :underline (zw/get-face-bg-recur 'doom-modeline-bar) ;"#950b96"
+                      :underline (face-foreground font-lock-keyword-face)
                       :box (face-background 'mode-line)
                       :font zw/default-font)
   (set-face-attribute 'tab-bar-tab-inactive nil
@@ -424,9 +460,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :background (face-background 'mode-line)
                       :box (face-background 'mode-line)
                       :font zw/default-font))
-(with-eval-after-load 'doom-modeline
-  ;; set tab-bar theme
-  (zw/tab-bar-theme))
+;; set tab-bar theme
+(zw/tab-bar-theme)
 ;; display battery to the right
 (setq tab-bar-format '(tab-bar-format-menu-bar
                        tab-bar-format-history
@@ -482,16 +517,12 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :bind (("C-c =" . imenu-list-smart-toggle))
   :init
   (setq imenu-list-focus-after-activation t
-        imenu-list-idle-update-delay 0.1)
-  :config
-  ;; set window placement
-  ;; set modeline
-  (defun zw/imenu-list--set-mode-line ()
-    (setq zw/imenu-list-mode-line-format
-          '("%e" (:eval (doom-modeline-segment--bar))
-            " IMenu: " (:eval (buffer-name imenu-list--displayed-buffer))))
-    (setq-local mode-line-format zw/imenu-list-mode-line-format))
-  (advice-add #'imenu-list--set-mode-line :override #'zw/imenu-list--set-mode-line))
+        imenu-list-idle-update-delay 0.1
+        imenu-list-mode-line-format
+        '("%e" mode-line-front-space
+          "iMenu: "
+          (:eval (buffer-name imenu-list--displayed-buffer)) " "
+          mode-line-end-spaces)))
 #+end_src
 
 ** Scroll
@@ -534,10 +565,16 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
               keycast-tab-bar-format "%k%c%R "
               keycast-tab-bar-minimal-width 0)
   :config
-  (set-face-attribute 'keycast-key nil
-                      :font zw/default-font)
-  (set-face-attribute 'keycast-command nil
-                      :font zw/default-font))
+  (defun zw/keycast-theme ()
+    (set-face-attribute 'keycast-key nil
+                        :font zw/default-font
+                        :background (face-foreground
+                                     'font-lock-keyword-face))
+    (set-face-attribute 'keycast-command nil
+                        :font zw/default-font
+                        :foreground (face-foreground
+                                     'font-lock-keyword-face)))
+  (zw/keycast-theme))
 #+end_src
 
 ** All-the-icons
