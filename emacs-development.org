@@ -57,7 +57,8 @@
 
 ;; microsoft pyright
 (use-package lsp-pyright
-  :after lsp-mode)
+  :after lsp-mode
+  :config (setq lsp-pyright-auto-import-completions nil))
   #+end_src
 
 *** lsp-ui
