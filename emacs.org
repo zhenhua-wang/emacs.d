@@ -432,7 +432,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
   '(:eval (propertize "%m" 'face 'font-lock-keyword-face
                       'help-echo buffer-file-coding-system))
-  "] "
+  "]"
   ))
 #+end_src
 
