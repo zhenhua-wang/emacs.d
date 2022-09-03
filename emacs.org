@@ -341,9 +341,19 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Modeline
 #+begin_src emacs-lisp
+(defun zw/modeline-encoding ()
+  (let* ((sys (coding-system-plist buffer-file-coding-system))
+         (cat (plist-get sys :category))
+         (sym (if (memq cat
+                        '(coding-category-undecided coding-category-utf-8))
+                  'utf-8
+                (plist-get sys :name))))
+    (propertize
+     (upcase (symbol-name sym)))))
+
 (defun zw/modeline-conda ()
   (concat (propertize "CONDA:"
-                        'face 'font-lock-comment-face)
+                      'face 'font-lock-comment-face)
           (if (and (featurep 'conda)
                    conda-env-current-name)
               conda-env-current-name
@@ -352,17 +362,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (defun zw/modeline-vc ()
   (if vc-mode
       (let ((backend (vc-backend buffer-file-name)))
-        (concat  (propertize "; VC:"
+        (concat  " "
+                 (propertize "VC:"
                              'face 'font-lock-comment-face)
                  (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))))
 
 (defun zw/modeline-misc-info ()
-  ;; conda env
-  (concat " ["
-           (zw/modeline-conda)
-           ;; version control
-           (zw/modeline-vc)
-           "] "))
+  (concat
+   ;; conda env
+   (zw/modeline-conda)
+   ;; version control
+   (zw/modeline-vc)))
 
 (defun zw/string-width (str)
   (if str (string-width str) 0))
@@ -370,7 +380,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (setq-default
  mode-line-format
  (list
-  "%e" mode-line-front-space
+  "%e" " "
   ;; current tab index
   "<"
   '(:eval
@@ -383,8 +393,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; is this buffer read-only or modified since the last save?
   '(:eval (if buffer-read-only
               (propertize " RO "
-                        'face 'font-lock-constant-face
-                        'help-echo "Buffer is read-only")
+                          'face 'font-lock-constant-face
+                          'help-echo "Buffer is read-only")
             (if (buffer-modified-p)
                 (propertize "** "
                             'face 'font-lock-warning-face
@@ -398,7 +408,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; line and column
   (propertize "%l" 'face 'font-lock-type-face) ":"
   (propertize "%c" 'face 'font-lock-type-face) " "
-  (propertize "%P" 'face 'font-lock-type-face)
+  (propertize "%P" 'face 'font-lock-type-face) " "
+  (propertize (zw/modeline-encoding) 'face 'font-lock-constant-face)
 
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
@@ -410,14 +421,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
      " " 'display
      `((space :align-to
               (- (+ right right-fringe right-margin)
-                 ,(+ 3 (apply '+ (list (zw/string-width mode-name)
+                 ,(+ 4 (apply '+ (list (zw/string-width mode-name)
                                        (zw/string-width (zw/modeline-misc-info))))))))))
 
   ;; misc info
   '(:eval (zw/modeline-misc-info))
 
   ;; the current major mode for the buffer.
-  "["
+  " ["
 
   '(:eval (propertize "%m" 'face 'font-lock-keyword-face
                       'help-echo buffer-file-coding-system))
