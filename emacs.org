@@ -396,17 +396,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       'help-echo (buffer-file-name)))
 
   ;; line and column
-  "(" ;; '%02' to set to 2 chars at least; prevents flickering
-  (propertize "%l" 'face 'font-lock-type-face) ","
-  (propertize "%c" 'face 'font-lock-type-face)
-  ") "
-
-  ;; relative position, size of file
-  "["
-  (propertize "%p" 'face 'font-lock-constant-face)
-  "/"
-  (propertize "%I" 'face 'font-lock-constant-face)
-  "] "
+  (propertize "%l" 'face 'font-lock-type-face) ":"
+  (propertize "%c" 'face 'font-lock-type-face) " "
+  (propertize "%P" 'face 'font-lock-type-face)
 
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
