@@ -31,7 +31,7 @@
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-read-only-active
-  '((t (:inherit font-lock-constant-face)))
+  '((t (:foreground "#E94560")))
   "Read only buffer face for active modeline"
   :group 'zw-modeline-active)
 
@@ -41,7 +41,7 @@
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-read-write-active
-  '((t (:inherit font-lock-constant-face)))
+  '((t (:foreground "#76BA99")))
   "Read write buffer face for active modeline"
   :group 'zw-modeline-active)
 
@@ -51,7 +51,7 @@
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-modified-active
-  '((t (:inherit font-lock-constant-face)))
+  '((t (:foreground "#F7A76C")))
   "Modified buffer face for active modeline"
   :group 'zw-modeline-active)
 
