@@ -100,6 +100,7 @@
   "Major mode face for inactive modeline"
   :group 'zw-modeline-inactive)
 
+;; keep track of selected window
 (defvar zw/modeline--selected-window nil)
 (defun zw/modeline--update-selected-window ()
   "Update selected window (before mode-line is active)"
