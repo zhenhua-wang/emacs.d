@@ -717,7 +717,8 @@ FACE defaults to inheriting from default and highlight."
   (after-init . popper-mode)
   (popper-mode . popper-echo-mode)
   :init
-  (setq popper-reference-buffers
+  (setq popper-mode-line ""
+        popper-reference-buffers
         '("[Oo]utput\\*$"
           "^\\*Warnings\\*"
           "^\\*Compile-Log\\*"
