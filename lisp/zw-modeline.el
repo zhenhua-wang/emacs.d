@@ -100,6 +100,16 @@
   "Remote file face for inactive modeline"
   :group 'zw-modeline-inactive)
 
+(defface zw-modeline-lsp-active
+  '((t (:inherit success)))
+  "LSP mode face for active modeline"
+  :group 'zw-modeline-active)
+
+(defface zw-modeline-lsp-inactive
+  '((t (:inherit font-lock-comment-face)))
+  "LSP mode face for inactive modeline"
+  :group 'zw-modeline-inactive)
+
 (defface zw-modeline-major-mode-active
   '((t (:inherit font-lock-keyword-face :bold t)))
   "Major mode face for active modeline"
@@ -168,12 +178,38 @@
              " "
            "!")))))
 
+(defun zw/modeline-lsp ()
+  (if (and (featurep 'lsp-mode) lsp-mode)
+      (let ((workspaces (lsp-workspaces)))
+        (concat
+         (propertize "LSP"
+                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)
+                     'help-echo
+                     (if workspaces
+                         (concat "LSP Connected "
+                                 (string-join
+                                  (mapcar (lambda (w)
+                                            (format "[%s]\n" (lsp--workspace-print w)))
+                                          workspaces)))))
+         " "))))
+
+(defun zw/modeline-eglot ()
+  (if (and (featurep 'eglot) (eglot-managed-p))
+      (let ((server (eglot-current-server)))
+        (concat
+         (propertize "EGLOT"
+                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)
+                     'help-echo
+                     (if server
+                         (concat "EGLOT Connected "
+                                 (format "[%s/%s]"
+                                         (eglot--major-mode server)
+                                         (eglot--project-nickname server)))))
+         " "))))
+
 (defun zw/modeline-major-mode ()
-  (concat
-   " ["
-   (propertize (format-mode-line mode-name)
-               'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive))
-   "]"))
+  (propertize (format-mode-line mode-name)
+              'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)))
 
 (defun zw/modeline-rhs ()
   (concat
@@ -184,7 +220,11 @@
    ;; encoding
    (zw/modeline-encoding)
    ;; major mode
-   (zw/modeline-major-mode)))
+   " ["
+   (zw/modeline-lsp)
+   (zw/modeline-eglot)
+   (zw/modeline-major-mode)
+   "]"))
 
 (defun zw/string-width (str)
   (if str (string-width str) 0))
