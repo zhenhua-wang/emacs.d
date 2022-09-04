@@ -156,7 +156,7 @@
   (interactive)
   (require 'zw-dap-mode))
 
-(bind-keys ("<f9>" . zw/load-dap-mode))
+(bind-keys ("<f9> <f9>" . zw/load-dap-mode))
 #+end_src
 
 ** Tree sitter
