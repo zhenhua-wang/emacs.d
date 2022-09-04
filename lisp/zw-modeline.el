@@ -216,9 +216,11 @@
   " "
   ;; the buffer name; the file name as a tool tip
   '(:eval (concat
-           (propertize (abbreviate-file-name default-directory)
-                       'face (zw/modeline-set-face 'zw-modeline-file-directory-active 'zw-modeline-file-directory-inactive)
-                       'help-echo (buffer-file-name))
+           (if buffer-file-name
+               (propertize (abbreviate-file-name default-directory)
+                           'face (zw/modeline-set-face 'zw-modeline-file-directory-active 'zw-modeline-file-directory-inactive)
+                           'help-echo (buffer-file-name))
+             "")
            (propertize "%b"
                        'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
                        'help-echo (buffer-file-name))))
