@@ -564,7 +564,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (use-package paren
   :straight (:type built-in)
   :hook (after-init . show-paren-mode)
-  :init (setq show-paren-when-point-inside-paren nil
+  :init (setq show-paren-when-point-inside-paren t
               show-paren-when-point-in-periphery nil)
   :config
   (set-face-attribute 'show-paren-match nil
