@@ -150,6 +150,15 @@
                      (lsp)))))
 #+end_src
 
+** DAP mode
+#+begin_src emacs-lisp
+(defun zw/load-dap-mode ()
+  (interactive)
+  (require 'zw-dap-mode))
+
+(bind-keys ("<f9>" . zw/load-dap-mode))
+#+end_src
+
 ** Tree sitter
 #+begin_src emacs-lisp
 (use-package tree-sitter
