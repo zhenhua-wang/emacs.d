@@ -18,7 +18,7 @@
   (dired-mode . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t
-                visual-fill-column-width 80))
+                visual-fill-column-width 90))
 #+end_src
 
 ** Writeroom-mode
@@ -32,7 +32,8 @@
   (kill-buffer . (lambda () (tab-bar-mode 1)))
   :bind (("<f11>" . writeroom-mode))
   :config
-  (setq writeroom-fullscreen-effect 'maximized))
+  (setq writeroom-fullscreen-effect 'maximized
+        writeroom-width 90))
 #+end_src
 
 ** Org-mode

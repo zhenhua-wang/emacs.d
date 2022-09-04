@@ -341,6 +341,19 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Modeline
 #+begin_src emacs-lisp
+(defvar zw/modeline--selected-window nil)
+(defun zw/modeline--update-selected-window ()
+  "Update selected window (before mode-line is active)"
+  (setq zw/modeline--selected-window (selected-window)))
+
+;; This hooks is necessary to register selected window because when
+;;  a modeline is evaluated, the corresponding window is always selected.
+(add-hook 'post-command-hook #'zw/modeline--update-selected-window)
+
+(defun zw/modeline-selected-window-active-p ()
+  (let* ((window (get-buffer-window (current-buffer))))
+    (eq window zw/modeline--selected-window)))
+
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
          (cat (plist-get sys :category))
@@ -381,6 +394,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (defun zw/string-width (str)
   (if str (string-width str) 0))
 
+(defun zw/modeline-active-inactive-face (face)
+  (if (zw/modeline-selected-window-active-p)
+      face
+    'font-lock-comment-face))
+
 (setq-default
  mode-line-format
  (list
@@ -390,34 +408,53 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   '(:eval
     (propertize
      (number-to-string (+ (tab-bar--current-tab-index) 1))
-     'face 'font-lock-keyword-face
+     'face (zw/modeline-active-inactive-face
+            'font-lock-keyword-face)
      'help-echo (concat "Current Tab: "
                         (number-to-string (tab-bar--current-tab-index)))))
   "> "
   ;; is this buffer read-only or modified since the last save?
-  '(:eval (if buffer-read-only
-              (propertize " RO "
-                          'face 'font-lock-constant-face
-                          'help-echo "Buffer is read-only")
-            (if (buffer-modified-p)
-                (propertize "** "
-                            'face 'font-lock-warning-face
-                            'help-echo "Buffer has been modified")
-              "-- ")))
+  '(:eval
+    (if buffer-read-only
+        (propertize " RO "
+                    'face (zw/modeline-active-inactive-face
+                           'font-lock-constant-face)
+                    'help-echo "Buffer is read-only")
+      (if (buffer-modified-p)
+          (propertize "** "
+                      'face (zw/modeline-active-inactive-face
+                             'font-lock-warning-face)
+                      'help-echo "Buffer has been modified")
+        "-- ")))
 
   ;; the buffer name; the file name as a tool tip
   '(:eval (propertize "%b "
                       'help-echo (buffer-file-name)))
 
   ;; line and column
-  (propertize "%l" 'face 'font-lock-type-face) ":"
-  (propertize "%c" 'face 'font-lock-type-face) " "
-  (propertize "%P" 'face 'font-lock-type-face) " "
-  (propertize (zw/modeline-encoding) 'face 'font-lock-constant-face)
+  '(:eval
+    (list
+     (propertize "%l"
+                 'face (zw/modeline-active-inactive-face
+                        'font-lock-type-face))
+     ":"
+     (propertize "%c"
+                 'face (zw/modeline-active-inactive-face
+                        'font-lock-type-face))
+     " "
+     (propertize "%P"
+                 'face (zw/modeline-active-inactive-face
+                        'font-lock-type-face))
+     " "
+     (propertize (zw/modeline-encoding)
+                 'face (zw/modeline-active-inactive-face
+                        'font-lock-constant-face))
+     " "))
 
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
-              (propertize "Remote" 'face 'highlight)))
+              (propertize "Remote" 'face
+                          (zw/modeline-active-inactive-face 'highlight))))
 
   ;; add space between left and right
   '(:eval
@@ -426,7 +463,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
      `((space :align-to
               (- (+ right right-fringe right-margin)
                  ,(+ 4 (apply '+ (list (zw/string-width mode-name)
-                                       (zw/string-width (zw/modeline-misc-info))))))))))
+                                       (zw/string-width (zw/modeline-misc-info))
+                                       ))))))))
 
   ;; misc info
   '(:eval (zw/modeline-misc-info))
@@ -434,10 +472,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; the current major mode for the buffer.
   " ["
 
-  '(:eval (propertize "%m" 'face 'font-lock-keyword-face
+  '(:eval (propertize "%m" 'face (zw/modeline-active-inactive-face
+                                  'font-lock-keyword-face)
                       'help-echo buffer-file-coding-system))
-  "]"
-  ))
+  "]"))
 #+end_src
 
 ** Tab bar
