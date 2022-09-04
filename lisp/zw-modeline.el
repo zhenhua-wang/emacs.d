@@ -144,9 +144,12 @@
            "!")))))
 
 (defun zw/modeline-major-mode ()
-  (propertize (format-mode-line mode-name)
-              'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)
-              'help-echo buffer-file-coding-system))
+  (concat
+   " ["
+   (propertize (format-mode-line mode-name)
+               'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)
+               'help-echo buffer-file-coding-system)
+   "]"))
 
 (defun zw/modeline-rhs ()
   (concat
@@ -154,10 +157,8 @@
    (zw/modeline-conda)
    ;; version control
    (zw/modeline-vc)
-   " ["
    ;; major mode
-   (zw/modeline-major-mode)
-   "]"))
+   (zw/modeline-major-mode)))
 
 (defun zw/string-width (str)
   (if str (string-width str) 0))
