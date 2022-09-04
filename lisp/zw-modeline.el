@@ -91,12 +91,12 @@
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-major-mode-active
-  '((t (:inherit font-lock-keyword-face)))
+  '((t (:inherit font-lock-keyword-face :bold t)))
   "Major mode face for active modeline"
   :group 'zw-modeline-active)
 
 (defface zw-modeline-major-mode-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit font-lock-comment-face :bold t)))
   "Major mode face for inactive modeline"
   :group 'zw-modeline-inactive)
 
