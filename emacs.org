@@ -1342,6 +1342,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (after-init . global-company-mode)
   (company-mode . yas-minor-mode)
   (ess-r-mode . company-mode)
+  (company-mode . zw/completion-theme)
   :bind (("M-/" . company-complete)
          ("C-<tab>" . company-complete)
          (:map company-mode-map
@@ -1371,7 +1372,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                   company-capf
                                   company-dabbrev
                                   company-yasnippet)))
-  :config
   (defun zw/completion-theme ()
     (set-face-attribute 'company-tooltip nil
                         :foreground (face-foreground 'tooltip)
@@ -1381,8 +1381,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                         :foreground (face-foreground 'warning)
                         :underline (face-foreground 'warning)
                         :background (face-background 'warning)
-                        :weight 'bold))
-  (zw/completion-theme))
+                        :weight 'bold)))
 
 (use-package company-prescient
   :hook
