@@ -568,8 +568,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
               show-paren-when-point-in-periphery nil)
   :config
   (set-face-attribute 'show-paren-match nil
-                      :background (face-background 'highlight)
-                      :foreground (face-foreground 'highlight))
+                      :background (face-foreground 'warning)
+                      :foreground "black")
   (with-no-warnings
     ;; Display matching line for off-screen paren.
     (defun display-line-overlay (pos str &optional face)
