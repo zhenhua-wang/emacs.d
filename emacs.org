@@ -1073,7 +1073,7 @@ With a prefix ARG always prompt for command to use."
 (use-package savehist
   :hook (after-init . savehist-mode)
   :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-                history-length 1000))
+                history-length 25))
 #+end_src
 
 ** Helpful
