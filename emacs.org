@@ -1400,9 +1400,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("s-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-quickhelp-delay nil
-        company-posframe-show-metadata t
-        ;; FIXME: flicker in macos, disable it for now
-        company-posframe-show-indicator t
+        company-posframe-show-metadata nil
+        ;; FIXME: flicker in macos and pgtk, disable it for now
+        company-posframe-show-indicator nil
         company-posframe-font zw/font-fixed-pitch
         company-posframe-show-params
         (list :override-parameters
@@ -1410,7 +1410,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                 (tab-bar-format . nil)
                 (tab-line-format . nil)
                 (tab-bar-lines . 0)
-                (tab-bar-lines-keep-state . 0))))
+                (tab-bar-lines-keep-state . 0))
+              :internal-border-width 3
+              :internal-border-color (face-foreground 'font-lock-keyword-face)))
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
