@@ -1392,6 +1392,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** company frontend
 #+begin_src emacs-lisp
 (use-package company-posframe
+  :straight '(company-posframe :host github :repo "zhenhua-wang/company-posframe")
   :hook
   (company-mode . company-posframe-mode)
   :bind ((:map company-posframe-active-map
@@ -1400,9 +1401,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("s-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-quickhelp-delay nil
-        company-posframe-show-metadata nil
+        company-posframe-show-metadata t
         ;; FIXME: flicker in macos and pgtk, disable it for now
-        company-posframe-show-indicator nil
+        company-posframe-show-indicator t
         company-posframe-font zw/font-fixed-pitch
         company-posframe-show-params
         (list :override-parameters
