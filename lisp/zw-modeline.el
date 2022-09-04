@@ -113,6 +113,19 @@
   (let* ((window (get-buffer-window (current-buffer))))
     (eq window zw/modeline--selected-window)))
 
+;; modeline segments
+(defun zw/modeline-tab-index ()
+  '(:eval
+    (concat
+     " <"
+     ;; current tab index
+     (propertize
+      (number-to-string (+ (tab-bar--current-tab-index) 1))
+      'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-tab-index-inactive)
+      'help-echo (concat "Current Tab: "
+                         (number-to-string (tab-bar--current-tab-index))))
+     ">")))
+
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
          (cat (plist-get sys :category))
@@ -175,15 +188,7 @@
  mode-line-format
  (list
   "%e"
-  " <"
-  ;; current tab index
-  '(:eval
-    (propertize
-     (number-to-string (+ (tab-bar--current-tab-index) 1))
-     'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-tab-index-inactive)
-     'help-echo (concat "Current Tab: "
-                        (number-to-string (tab-bar--current-tab-index)))))
-  "> "
+  " "
   ;; is this buffer read-only or modified since the last save?
   '(:eval
     (if buffer-read-only
