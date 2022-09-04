@@ -9,6 +9,8 @@
   (python-mode . (lambda () (require 'dap-python)))
   ((c-mode c++-mode objc-mode swift-mode) . (lambda ()
 					      (require 'dap-cpptools)
-					      (dap-cpptools-setup))))
+					      (dap-cpptools-setup)))
+  :config
+  (setq dap-python-debugger 'debugpy))
 
 (provide 'zw-dap-mode)

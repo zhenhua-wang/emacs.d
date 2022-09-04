@@ -25,7 +25,7 @@
   "File directory face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline--file-directory-inactive
+(defface zw-modeline-file-directory-inactive
   '((t (:inherit font-lock-comment-face :bold t)))
   "File directory face for inactive modeline"
   :group 'zw-modeline-inactive)
