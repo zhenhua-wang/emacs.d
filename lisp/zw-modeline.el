@@ -20,6 +20,16 @@
   "Default face for inactive modeline"
   :group 'zw-modeline-inactive)
 
+(defface zw-modeline-file-directory-active
+  '((t (:inherit font-lock-keyword-face :bold t)))
+  "File directory face for active modeline"
+  :group 'zw-modeline-active)
+
+(defface zw-modeline--file-directory-inactive
+  '((t (:inherit font-lock-comment-face :bold t)))
+  "File directory face for inactive modeline"
+  :group 'zw-modeline-inactive)
+
 (defface zw-modeline-tab-index-active
   '((t (:inherit font-lock-keyword-face)))
   "Tab index face for active modeline"
@@ -205,9 +215,13 @@
                       'help-echo (buffer-file-name)))))
   " "
   ;; the buffer name; the file name as a tool tip
-  '(:eval (propertize "%b"
-                      'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
-                      'help-echo (buffer-file-name)))
+  '(:eval (concat
+           (propertize (abbreviate-file-name default-directory)
+                       'face (zw/modeline-set-face 'zw-modeline-file-directory-active 'zw-modeline-file-directory-inactive)
+                       'help-echo (buffer-file-name))
+           (propertize "%b"
+                       'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
+                       'help-echo (buffer-file-name))))
   " "
   ;; line and column
   '(:eval
