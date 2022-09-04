@@ -442,10 +442,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                  'face (zw/modeline-active-inactive-face
                         'font-lock-type-face))
      " "
-     (propertize "%P"
-                 'face (zw/modeline-active-inactive-face
-                        'font-lock-type-face))
-     " "
      (propertize (zw/modeline-encoding)
                  'face (zw/modeline-active-inactive-face
                         'font-lock-constant-face))
@@ -462,7 +458,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
      " " 'display
      `((space :align-to
               (- (+ right right-fringe right-margin)
-                 ,(+ 4 (apply '+ (list (zw/string-width mode-name)
+                 ,(+ 4 (apply '+ (list (zw/string-width (format-mode-line mode-name))
                                        (zw/string-width (zw/modeline-misc-info))
                                        ))))))))
 
@@ -472,8 +468,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; the current major mode for the buffer.
   " ["
 
-  '(:eval (propertize "%m" 'face (zw/modeline-active-inactive-face
-                                  'font-lock-keyword-face)
+  '(:eval (propertize (format-mode-line mode-name) 'face
+                      (zw/modeline-active-inactive-face
+                       'font-lock-keyword-face)
                       'help-echo buffer-file-coding-system))
   "]"))
 #+end_src
