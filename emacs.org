@@ -423,8 +423,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
         imenu-list-idle-update-delay 0.1
         imenu-list-mode-line-format
         '("%e" mode-line-front-space
-          "iMenu: "
-          (:eval (buffer-name imenu-list--displayed-buffer)) " "
+          "iMenu"
           mode-line-end-spaces)))
 #+end_src
 
