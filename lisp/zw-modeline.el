@@ -61,7 +61,7 @@
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-line-column-active
-  '((t (:inherit font-lock-type-face)))
+  '((t (:inherit font-lock-constant-face)))
   "Line-column face for active modeline"
   :group 'zw-modeline-active)
 
