@@ -212,7 +212,7 @@
                       'help-echo "Buffer has been modified")
         (propertize "--"
                       'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
-                      'help-echo (buffer-file-name)))))
+                      'help-echo "Buffer is read/write"))))
   " "
   ;; the buffer name; the file name as a tool tip
   '(:eval (concat
