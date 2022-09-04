@@ -120,16 +120,17 @@
                         '(coding-category-undecided coding-category-utf-8))
                   'utf-8
                 (plist-get sys :name))))
-    (propertize
-     (upcase (symbol-name sym)))))
+    (concat
+     " "
+     (propertize
+      (upcase (symbol-name sym))
+      'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive)))))
 
 (defun zw/modeline-conda ()
-  (concat (propertize "CONDA:"
-                      'face 'font-lock-comment-face)
-          (if (and (featurep 'conda)
-                   conda-env-current-name)
-              conda-env-current-name
-            "default")))
+  (when (and (featurep 'conda) conda-env-current-name)
+      (concat (propertize "CONDA:"
+                          'face 'font-lock-comment-face)
+              conda-env-current-name)))
 
 (defun zw/modeline-vc ()
   (if vc-mode
@@ -147,8 +148,7 @@
   (concat
    " ["
    (propertize (format-mode-line mode-name)
-               'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)
-               'help-echo buffer-file-coding-system)
+               'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive))
    "]"))
 
 (defun zw/modeline-rhs ()
@@ -157,6 +157,8 @@
    (zw/modeline-conda)
    ;; version control
    (zw/modeline-vc)
+   ;; encoding
+   (zw/modeline-encoding)
    ;; major mode
    (zw/modeline-major-mode)))
 
@@ -208,10 +210,7 @@
                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
      ":"
      (propertize "%c"
-                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-     " "
-     (propertize (zw/modeline-encoding)
-                 'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive))))
+                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))))
   " "
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
