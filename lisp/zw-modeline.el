@@ -224,7 +224,7 @@
      " " 'display
      `((space :align-to
               (- (+ right right-fringe right-margin)
-                 ,(+ 4 (apply '+ (list (zw/string-width (zw/modeline-rhs))))))))))
+                 ,(+ 2 (apply '+ (list (zw/string-width (zw/modeline-rhs))))))))))
 
   ;; right hand side of the modeline
   " "
