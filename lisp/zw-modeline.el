@@ -26,7 +26,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-file-directory-inactive
-  '((t (:inherit font-lock-comment-face :bold t)))
+  '((t (:inherit zw-modeline-default-inactive :bold t)))
   "File directory face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -36,7 +36,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-tab-index-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Tab index face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -46,7 +46,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-read-only-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Read only buffer face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -56,7 +56,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-read-write-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Read write buffer face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -66,7 +66,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-modified-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Modified buffer face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -76,17 +76,17 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-line-column-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Line-column face for inactive modeline"
   :group 'zw-modeline-inactive)
 
 (defface zw-modeline-vc-modified-active
-  '((t (:foreground "#F7A76C")))
+  '((t (:inherit zw-modeline-modified-active)))
   "Line-column face for active modeline"
   :group 'zw-modeline-active)
 
 (defface zw-modeline-vc-modified-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-modified-inactive)))
   "Line-column face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -96,7 +96,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-encoding-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Encoding face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -106,7 +106,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-remote-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "Remote file face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -116,7 +116,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-lsp-inactive
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit zw-modeline-default-inactive)))
   "LSP mode face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -126,7 +126,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-major-mode-inactive
-  '((t (:inherit font-lock-comment-face :bold t)))
+  '((t (:inherit zw-modeline-default-inactive :bold t)))
   "Major mode face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -173,7 +173,7 @@
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
       (concat (propertize "CONDA:"
-                          'face 'font-lock-comment-face)
+                          'face 'zw-modeline-default-inactive)
               conda-env-current-name)))
 
 (defun zw/modeline-vc ()
@@ -183,7 +183,7 @@
         (concat
          " "
          (propertize "VC:"
-                     'face 'font-lock-comment-face)
+                     'face 'zw-modeline-default-inactive)
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
              (concat vc-info "")
            (propertize (concat vc-info "*")
