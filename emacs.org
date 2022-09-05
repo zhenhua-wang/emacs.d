@@ -1344,8 +1344,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)
                ("<backtab>" . company-yasnippet)))
-  :init (setq company-icon-size '(auto-scale . 25)
-              company-icon-margin 2
+  :init (setq company-icon-size '(auto-scale . 28)
+              company-icon-margin 3
               company-tooltip-limit 12
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 30
