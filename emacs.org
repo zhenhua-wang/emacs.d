@@ -1119,8 +1119,6 @@ With a prefix ARG always prompt for command to use."
    #+end_src
    
 ** Auto save
-Auto-Saving Changed Files
-
  #+begin_src emacs-lisp
 (use-package super-save
   :diminish
