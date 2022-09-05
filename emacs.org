@@ -1006,7 +1006,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (dired-mode . dired-async-mode)
   (dired-mode . dired-hide-details-mode)
   :init
-  (setq dired-kill-when-opening-new-dired-buffer t)
+  (setq dired-kill-when-opening-new-dired-buffer t
+        dired-create-destination-dirs t
+        dired-create-destination-dirs-on-trailing-dirsep t)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"))
   (setq dired-use-ls-dired t
