@@ -130,6 +130,16 @@
   "Major mode face for inactive modeline"
   :group 'zw-modeline-inactive)
 
+(defface zw-modeline-process-active
+  '((t (:inherit font-lock-function-name-face :bold t)))
+  "Process face for active modeline"
+  :group 'zw-modeline-active)
+
+(defface zw-modeline-process-inactive
+  '((t (:inherit zw-modeline-process-active)))
+  "Process face for inactive modeline"
+  :group 'zw-modeline-inactive)
+
 ;; keep track of selected window
 (defvar zw/modeline--selected-window nil)
 (defun zw/modeline--update-selected-window ()
@@ -245,6 +255,12 @@
       active-face
     inactive-face))
 
+(defun zw/modeline-propertize-process-info (process)
+  (propertize
+   process
+   'face (zw/modeline-set-face 'zw-modeline-process-active 'zw-modeline-process-inactive)
+   'help-echo (concat (buffer-name) " is running...")))
+
 ;;; set modeline
 (setq-default
  mode-line-format
@@ -289,6 +305,9 @@
   '(:eval (if (file-remote-p default-directory)
               (propertize "Remote"
                           'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
+
+  ;; add modeline process
+  '(:eval mode-line-process)
 
   ;; add space between left and right
   '(:eval
