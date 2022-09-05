@@ -1471,6 +1471,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             (company-capf command arg)))
     (doc-buffer (company-capf command arg))))
 
+;; disable auto complete for the following
+(dolist (mode '(inferior-ess-r-mode-hook))
+  (add-hook mode
+            (lambda ()
+              (setq-local company-idle-delay nil))))
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
                 minibuffer-setup-hook
