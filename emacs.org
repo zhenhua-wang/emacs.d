@@ -108,6 +108,12 @@
   (setq confirm-kill-emacs 'yes-or-no-p)
   ;; simplify yes no
   ;; (defalias 'yes-or-no-p 'y-or-n-p)
+  ;; disable saving for buffers not visiting a file
+  (defadvice save-buffer (around interactive-no-visited-file-name activate)
+    "When called interactively, disable for buffers not visiting a file."
+    (when (or (not (called-interactively-p 'any))
+              buffer-file-name)
+      ad-do-it))
   ;; make scratch and dashboard unkillable
   (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
   (defun zw/dont-kill-scratch ()
