@@ -1464,7 +1464,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (doc-buffer (company-capf command arg))))
 
 ;; backends for prog-mode
-(dolist (mode '(prog-mode-hook minibuffer-setup-hook))
+(dolist (mode '(prog-mode-hook
+                minibuffer-setup-hook
+                inferior-ess-r-mode-hook
+                inferior-python-mode-hook))
   (add-hook mode
             (lambda ()
               (setq-local company-backends
