@@ -80,6 +80,16 @@
   "Line-column face for inactive modeline"
   :group 'zw-modeline-inactive)
 
+(defface zw-modeline-vc-modified-active
+  '((t (:foreground "#F7A76C")))
+  "Line-column face for active modeline"
+  :group 'zw-modeline-active)
+
+(defface zw-modeline-vc-modified-inactive
+  '((t (:inherit font-lock-comment-face)))
+  "Line-column face for inactive modeline"
+  :group 'zw-modeline-inactive)
+
 (defface zw-modeline-encoding-active
   '((t (:inherit font-lock-constant-face)))
   "Encoding face for active modeline"
@@ -168,15 +178,16 @@
 
 (defun zw/modeline-vc ()
   (if vc-mode
-      (let ((backend (vc-backend buffer-file-name)))
+      (let* ((backend (vc-backend buffer-file-name))
+             (vc-info (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
          " "
          (propertize "VC:"
                      'face 'font-lock-comment-face)
-         (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             " "
-           "!")))))
+             (concat vc-info "")
+           (propertize (concat vc-info "*")
+                       'face (zw/modeline-set-face 'zw-modeline-vc-modified-active 'zw-modeline-vc-modified-inactive)))))))
 
 (defun zw/modeline-lsp ()
   (if (and (featurep 'lsp-mode) lsp-mode)
