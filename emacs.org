@@ -1425,22 +1425,21 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (defun company-capf-with-R-objects (command &optional arg &rest ignored)
   (interactive (list 'interactive))
-  (cl-case command
-    (interactive (company-begin-backend 'company-R-objects))
-    (prefix (company-R-objects--prefix))
-    (candidates (if (company-capf-with-R-objects--check-prefix
-                     (company-R-objects--prefix))
-                    (company-R-objects--candidates arg)
-                  (company-capf command arg)))
-    (annotation (if (company-capf-with-R-objects--check-prefix
-                     (company-R-objects--prefix))
-                    "R-object"
-                  (company-capf command arg)))
-    (kind (if (company-capf-with-R-objects--check-prefix
-               (company-R-objects--prefix))
-              'field
-            (company-capf command arg)))
-    (doc-buffer (company-capf command arg))))
+  (let* ((ess-prefix (company-R-objects--prefix))
+         (ess-r-object-p (company-capf-with-R-objects--check-prefix ess-prefix)))
+    (cl-case command
+      (interactive (company-begin-backend 'company-R-objects))
+      (prefix ess-prefix)
+      (candidates (if ess-r-object-p
+                      (company-R-objects--candidates arg)
+                    (company-capf command arg)))
+      (annotation (if ess-r-object-p
+                      "R-object"
+                    (company-capf command arg)))
+      (kind (if ess-r-object-p
+                'field
+              (company-capf command arg)))
+      (doc-buffer (company-capf command arg)))))
 
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
