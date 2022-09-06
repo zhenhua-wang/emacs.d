@@ -1377,7 +1377,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** company frontend
 #+begin_src emacs-lisp
 (use-package company-posframe
-  :straight '(company-posframe :host github :repo "zhenhua-wang/company-posframe")
   :hook
   (company-mode . company-posframe-mode)
   :bind ((:map company-posframe-active-map
