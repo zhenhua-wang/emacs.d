@@ -143,11 +143,6 @@
                    (if (file-remote-p default-directory)
                        (eglot-ensure)
                      (lsp)))))
-;; disable lsp in the following modes
-(dolist (mode '(ess-r-mode-hook))
-  (add-hook mode (lambda ()
-                   (when (not (file-remote-p default-directory))
-                     (lsp)))))
 #+end_src
 
 ** DAP mode
