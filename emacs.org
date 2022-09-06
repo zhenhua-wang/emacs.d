@@ -1349,7 +1349,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
-              company-transformers '(company-sort-by-backend-importance)
+              company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode eshell-mode)
               company-backends '((company-files
@@ -1372,7 +1372,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package company-prescient
   :hook
   (company-mode . company-prescient-mode)
-  (company-mode . prescient-persist-mode))
+  (company-prescient-mode . prescient-persist-mode))
 #+end_src
 *** company frontend
 #+begin_src emacs-lisp
