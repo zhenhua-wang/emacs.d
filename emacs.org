@@ -68,7 +68,7 @@
 (setq zw/font-size 150)
 (setq zw/font-size-fixed-pitch 150)
 (setq zw/font-size-variable-pitch 200)
-(setq zw/default-font "Roboto Mono")
+(setq zw/font-default "Roboto Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
 (setq zw/font-variable-pitch "ETBembo")
 (setq zw/font-title "ETBembo")
@@ -218,7 +218,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-                       :font zw/default-font
+                       :font zw/font-default
                        ;; make fonts less tranparent
                        ;; :weight 'medium
                        :height zw/font-size)
@@ -235,14 +235,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                     :weight 'light
                     :height zw/font-size-variable-pitch)
 
-;; Use variable width font faces in current buffer
-(defun zw/buffer-face-mode-variable ()
-  "Set font to a variable width (proportional) fonts in current buffer"
-  (interactive)
-  (setq buffer-face-mode-face
-        (list ':family zw/font-variable-pitch ':height zw/font-size-variable-pitch))
-  (buffer-face-mode))
-
 ;; Use monospaced font faces in current buffer
 (defun zw/buffer-face-mode-fixed ()
   "Sets a fixed width (monospace) font in current buffer"
@@ -251,8 +243,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
         (list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
   (buffer-face-mode))
 
-;; Set default font faces for Info and ERC modes
-(add-hook 'text-mode-hook 'zw/buffer-face-mode-variable)
+;; Set default font faces for prog
 (dolist (mode '(prog-mode-hook
                 imenu-list-major-mode-hook
                 markdown-mode-hook
@@ -264,8 +255,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
           (lambda ()
             (interactive)
             (setq buffer-face-mode-face
-                  (list ':family zw/font-variable-pitch
-                        ':height (+ zw/font-size-variable-pitch 30)))
+                  (list ':family zw/default-font
+                        ':height (+ zw/font-size 30)))
             (buffer-face-mode)
             (setq-local visual-fill-column-width 100)))
 #+end_src
@@ -363,18 +354,18 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :background (face-background 'mode-line)
                       :underline (face-foreground font-lock-keyword-face)
                       :box (face-background 'mode-line)
-                      :font zw/default-font)
+                      :font zw/font-default)
   (set-face-attribute 'tab-bar-tab-inactive nil
                       :foreground (face-foreground 'font-lock-comment-face)
                       :background (face-background 'mode-line)
                       :underline nil
                       :box (face-background 'mode-line)
-                      :font zw/default-font)
+                      :font zw/font-default)
   (set-face-attribute 'tab-bar nil
                       :foreground (face-foreground 'default)
                       :background (face-background 'mode-line)
                       :box (face-background 'mode-line)
-                      :font zw/default-font))
+                      :font zw/font-default))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
 ;; display battery to the right
@@ -481,11 +472,11 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   (defun zw/keycast-theme ()
     (set-face-attribute 'keycast-key nil
-                        :font zw/default-font
+                        :font zw/font-default
                         :background (face-foreground
                                      'font-lock-keyword-face))
     (set-face-attribute 'keycast-command nil
-                        :font zw/default-font
+                        :font zw/font-default
                         :foreground (face-foreground
                                      'font-lock-keyword-face)))
   (zw/keycast-theme))
