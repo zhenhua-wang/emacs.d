@@ -255,8 +255,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
           (lambda ()
             (interactive)
             (setq buffer-face-mode-face
-                  (list ':family zw/default-font
-                        ':height (+ zw/font-size 30)))
+                  (list ':family zw/font-default
+                        ':height (+ zw/font-size 50)))
             (buffer-face-mode)
             (setq-local visual-fill-column-width 100)))
 #+end_src
