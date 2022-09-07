@@ -1348,6 +1348,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
+              company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode eshell-mode)
