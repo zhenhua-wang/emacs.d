@@ -327,6 +327,9 @@
   :config
   (setq ess-smart-equals-padding-left 'one-space)
   (setq ess-smart-equals-padding-right 'no-space))
+
+(use-package ess-view-data
+  :commands (ess-view-data-print))
 #+end_src
 
 ** Python
