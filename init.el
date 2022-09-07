@@ -65,7 +65,3 @@
             (org-babel-load-file "~/.emacs.d/emacs-development.org")
             (org-babel-load-file "~/.emacs.d/emacs-academic.org"))))
 ;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
-
-;; load eaf
-(when (eq system-type 'gnu/linux)
-  (require 'zw-eaf))
