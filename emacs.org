@@ -201,7 +201,6 @@
            ("s-5" . (lambda () (interactive) (tab-select 5)))
            ("s-n" . tab-new)
            ;; misc commands
-           ("s-T" . zw/toggle-transparency)
            ("C-c o" . er-open-with)
            ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
            ("s-\\" . toggle-input-method)
