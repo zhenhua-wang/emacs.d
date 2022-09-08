@@ -255,8 +255,8 @@ LSP-mode with TexLab works perfect for Latex docs
   
 #+begin_src emacs-lisp
 ;; latex
-(use-package auctex
-  :bind ((:map TeX-mode-map ("M-n e" . TeX-command-master)))
+(use-package tex
+  :straight auctex
   :init
   (setq TeX-PDF-mode t
         TeX-parse-self t
@@ -275,7 +275,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package auctex-latexmk
-  :after auctex
+  :after tex
   :init
   ;; FIXME: https://github.com/tom-tan/auctex-latexmk/issues/44
   (provide 'tex-buf)
