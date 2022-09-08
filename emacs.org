@@ -201,7 +201,6 @@
            ("s-5" . (lambda () (interactive) (tab-select 5)))
            ("s-n" . tab-new)
            ;; misc commands
-           ("s-T" . zw/toggle-transparency)
            ("C-c o" . er-open-with)
            ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
            ("s-\\" . toggle-input-method)
@@ -1349,6 +1348,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
+              company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode eshell-mode)
