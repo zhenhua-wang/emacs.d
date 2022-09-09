@@ -1354,7 +1354,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '((company-files
                                   company-capf
-                                  company-dabbrev
                                   company-yasnippet)))
   (defun zw/completion-theme ()
     (set-face-attribute 'company-tooltip nil
