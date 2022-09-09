@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: insert r code chunk and export output only
+# key: <ro
+# --
+
+\`\`\`{r, echo=FALSE, message=FALSE, warning=FALSE}
+$0
+\`\`\`

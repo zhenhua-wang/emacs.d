@@ -1344,6 +1344,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-idle-delay 0
               company-minimum-prefix-length 1
               company-require-match nil
+              company-abort-on-unique-match nil
               company-dabbrev-ignore-case 'keep-prefix
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
