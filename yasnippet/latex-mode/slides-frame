@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: frame for beamer slides
+# key: <frame
+# --
+\begin{frame}
+  \frametitle{${1:slides-title}}
+  $0
+\end{frame}

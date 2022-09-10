@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: plot
+# key: <i
+# --
+\begin{center}
+  \includegraphics[width=\textwidth,keepaspectratio]{${1:image-path}}
+\end{center}
