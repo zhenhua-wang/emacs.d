@@ -34,8 +34,13 @@
   "Default face for inactive tab-bar"
   :group 'zw-tab-bar-nonselected)
 
-(defface zw-tab-bar-path-selected
-  '((t (:inherit zw-tab-bar-default-selected :bold t)))
+(defface zw-tab-bar-tab-selected
+  `((t (:inherit zw-tab-bar-default-selected :underline ,(face-foreground 'font-lock-keyword-face))))
+  "Default face for active tab-bar"
+  :group 'zw-tab-bar-selected)
+
+(defface zw-tab-bar-tab-path-selected
+  `((t (:inherit zw-tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face) :underline ,(face-foreground 'font-lock-keyword-face))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
@@ -46,19 +51,23 @@
 ;; show menu
 (defun zw-tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ☰"
+  `((menu-bar menu-item (propertize " ☰ "
                                     'face 'zw-tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
 
 (defun zw-tab-bar-tab-name ()
   (let ((tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
-                              'face 'zw-tab-bar-default-selected))
+                              'face 'zw-tab-bar-tab-selected))
         (dir-name (if buffer-file-name
                       (propertize (abbreviate-file-name default-directory)
-                                  'face 'zw-tab-bar-path-selected)
+                                  'face 'zw-tab-bar-tab-path-selected)
                     "")))
     (concat dir-name tab-name)))
+
+(defun zw-tab-bar-format-current-tab ()
+  `((current-tab menu-item (zw-tab-bar-tab-name)
+                 :help "Current tab")))
 
 ;; format tab-bar-mode
 (setq tab-bar-tab-name-function 'zw-tab-bar-tab-name
@@ -67,7 +76,7 @@
       tab-bar-close-button-show nil
       tab-bar-separator " "
       tab-bar-format '(zw-tab-bar-format-menu-bar
-                       tab-bar-format-tabs
+                       zw-tab-bar-format-current-tab
                        tab-bar-separator
                        tab-bar-format-align-right
                        zw-tab-bar-format-battery))

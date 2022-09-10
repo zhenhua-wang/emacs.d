@@ -190,12 +190,6 @@
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
            ("s-<down>" . windmove-down)
-           ;; tab operations
-           ("s-1" . (lambda () (interactive) (tab-select 1)))
-           ("s-2" . (lambda () (interactive) (tab-select 2)))
-           ("s-3" . (lambda () (interactive) (tab-select 3)))
-           ("s-4" . (lambda () (interactive) (tab-select 4)))
-           ("s-5" . (lambda () (interactive) (tab-select 5)))
            ;; misc commands
            ("C-c o" . er-open-with)
            ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
