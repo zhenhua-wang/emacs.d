@@ -291,7 +291,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 (defun zw/update-theme ()
   (interactive)
-  (zw/tab-bar-theme)
   (when (featurep 'org)
     (zw/set-org-headline))
   (when (featurep 'markdown)
@@ -330,18 +329,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Tab bar
 #+begin_src emacs-lisp
 (require 'zw-tab-bar)
-;; this should be placed after theme, since theme would overwrite these attributes
-(defun zw/tab-bar-theme ()
-  (interactive)
-  (set-face-attribute 'tab-bar-tab nil
-                      ;; :background (face-background 'mode-line)
-                      :foreground (face-foreground 'default)
-                      :background (face-background 'tab-bar)
-                      :underline (face-foreground font-lock-keyword-face)
-                      :box (face-background 'tab-bar)
-                      :font zw/font-default))
-;; set tab-bar theme
-(zw/tab-bar-theme)
 #+end_src
 
 ** Battery
