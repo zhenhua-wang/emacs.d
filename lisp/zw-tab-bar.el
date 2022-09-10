@@ -46,7 +46,7 @@
 ;; show menu
 (defun zw-tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ☰ "
+  `((menu-bar menu-item (propertize " ☰"
                                     'face 'zw-tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
@@ -65,7 +65,7 @@
       tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
-      tab-bar-separator ""
+      tab-bar-separator " "
       tab-bar-format '(zw-tab-bar-format-menu-bar
                        tab-bar-format-tabs
                        tab-bar-separator
