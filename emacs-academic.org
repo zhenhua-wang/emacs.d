@@ -534,5 +534,5 @@ LSP-mode with TexLab works perfect for Latex docs
 
 (use-package flyspell-correct
   :after flyspell
-  :bind ((:map flyspell-mode-map ("M-$" . flyspell-correct-wrapper))))
+  :bind ((:map flyspell-mode-map ("C-<tab>" . flyspell-correct-at-point))))
 #+end_src
