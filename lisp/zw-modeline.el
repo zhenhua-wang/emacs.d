@@ -1,4 +1,4 @@
-(defgroup nano-modeline nil
+(defgroup zw-modeline nil
   "zw-modeline"
   :group 'convenience)
 
@@ -16,7 +16,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-default-inactive
-  '((t (:inherit font-lock-comment-face)))
+  `((t (:foreground ,(face-foreground 'font-lock-comment-face))))
   "Default face for inactive modeline"
   :group 'zw-modeline-inactive)
 
@@ -282,15 +282,10 @@
                       'help-echo "Buffer is read/write"))))
   " "
   ;; the buffer name; the file name as a tool tip
-  '(:eval (concat
-           (if buffer-file-name
-               (propertize (abbreviate-file-name default-directory)
-                           'face (zw/modeline-set-face 'zw-modeline-file-directory-active 'zw-modeline-file-directory-inactive)
-                           'help-echo (buffer-file-name))
-             "")
-           (propertize "%b"
-                       'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
-                       'help-echo (buffer-file-name))))
+  '(:eval
+    (propertize "%b"
+                'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
+                'help-echo (buffer-file-name)))
   " "
   ;; line and column
   '(:eval
