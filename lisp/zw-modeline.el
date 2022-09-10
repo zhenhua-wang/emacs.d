@@ -173,12 +173,15 @@
          (sym (if (memq cat
                         '(coding-category-undecided coding-category-utf-8))
                   'utf-8
-                (plist-get sys :name))))
-    (concat
-     " "
-     (propertize
-      (upcase (symbol-name sym))
-      'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive)))))
+                (plist-get sys :name)))
+         (encoding (upcase (symbol-name sym))))
+    (if (string= encoding "NO-CONVERSION")
+        ""
+      (concat
+       " "
+       (propertize
+        encoding
+        'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive))))))
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
