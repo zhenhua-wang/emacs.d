@@ -1191,8 +1191,9 @@ With a prefix ARG always prompt for command to use."
 Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (when-let* ((sym (intern-soft cand)))
       (concat
-       (let* ((ind (lookup-minor-mode-from-indicator cand))
-              (mode (or ind (intern cand))))
+       (let ((mode (if (and sym (boundp sym))
+                       sym
+                     (lookup-minor-mode-from-indicator cand))))
          (when (boundp sym)
            (if (and (boundp mode) (symbol-value mode))
                (propertize " [On]" 'face 'marginalia-on)
