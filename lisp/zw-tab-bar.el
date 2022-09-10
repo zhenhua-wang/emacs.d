@@ -1,3 +1,18 @@
+(set-face-attribute 'tab-bar-tab nil
+                    :foreground (face-foreground 'default)
+                    :background (face-background 'mode-line)
+                    :underline (face-foreground font-lock-keyword-face)
+                    :box (face-background 'mode-line))
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :foreground (face-foreground 'font-lock-comment-face)
+                    :background (face-background 'mode-line)
+                    :underline nil
+                    :box (face-background 'mode-line))
+(set-face-attribute 'tab-bar nil
+                    :foreground (face-foreground 'default)
+                    :background (face-background 'mode-line)
+                    :box (face-background 'mode-line))
+
 (defgroup zw-tab-bar nil
   "zw-tab-bar"
   :group 'convenience)
