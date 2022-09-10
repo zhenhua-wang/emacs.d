@@ -1193,7 +1193,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (concat
        (let ((mode (if (and sym (boundp sym))
                        sym
-                     (lookup-minor-mode-from-indicator cand))))
+                     nil)))
          (when (boundp sym)
            (if (and (boundp mode) (symbol-value mode))
                (propertize " [On]" 'face 'marginalia-on)
