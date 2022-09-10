@@ -1,18 +1,3 @@
-(set-face-attribute 'tab-bar-tab nil
-                    :foreground (face-foreground 'default)
-                    :background (face-background 'mode-line)
-                    :underline (face-foreground font-lock-keyword-face)
-                    :box (face-background 'mode-line))
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :foreground (face-foreground 'font-lock-comment-face)
-                    :background (face-background 'mode-line)
-                    :underline nil
-                    :box (face-background 'mode-line))
-(set-face-attribute 'tab-bar nil
-                    :foreground (face-foreground 'default)
-                    :background (face-background 'mode-line)
-                    :box (face-background 'mode-line))
-
 (defgroup zw-tab-bar nil
   "zw-tab-bar"
   :group 'convenience)
@@ -26,7 +11,7 @@
   :group 'zw-tab-bar)
 
 (defface zw-tab-bar-menu-bar
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'mode-line))))
+  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar)
 
@@ -36,7 +21,7 @@
   :group 'zw-tab-bar)
 
 (defface zw-tab-bar-default-selected
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'mode-line))))
+  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
@@ -44,7 +29,7 @@
   `((t (:foreground
         ,(face-foreground 'font-lock-comment-face)
         :background
-        ,(face-background 'mode-line)
+        ,(face-background 'tab-bar)
         :underline t)))
   "Default face for inactive tab-bar"
   :group 'zw-tab-bar-nonselected)
