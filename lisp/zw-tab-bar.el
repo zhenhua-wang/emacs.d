@@ -35,12 +35,12 @@
   :group 'zw-tab-bar-nonselected)
 
 (defface zw-tab-bar-tab-selected
-  `((t (:inherit zw-tab-bar-default-selected :underline ,(face-foreground 'font-lock-keyword-face))))
+  `((t (:inherit zw-tab-bar-default-selected)))
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
 (defface zw-tab-bar-tab-path-selected
-  `((t (:inherit zw-tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face) :underline ,(face-foreground 'font-lock-keyword-face))))
+  `((t (:inherit zw-tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
