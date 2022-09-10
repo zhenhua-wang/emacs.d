@@ -1,4 +1,4 @@
-(defgroup zw-modeline nil
+(defgroup zw-tab-bar nil
   "zw-tab-bar"
   :group 'convenience)
 
@@ -13,17 +13,17 @@
 (defface zw-tab-bar-menu-bar
   `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-active)
+  :group 'zw-tab-bar)
 
 (defface zw-tab-bar-battery
   `((t (:inherit zw-tab-bar-menu-bar)))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-active)
+  :group 'zw-tab-bar)
 
 (defface zw-tab-bar-default-selected
   `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-active)
+  :group 'zw-tab-bar-selected)
 
 (defface zw-tab-bar-default-nonselected
   `((t (:foreground
@@ -32,7 +32,12 @@
         ,(face-background 'tab-bar)
         :underline t)))
   "Default face for inactive tab-bar"
-  :group 'zw-tab-bar-inactive)
+  :group 'zw-tab-bar-nonselected)
+
+(defface zw-tab-bar-path-selected
+  '((t (:inherit zw-tab-bar-default-selected :bold t)))
+  "Default face for active tab-bar"
+  :group 'zw-tab-bar-selected)
 
 (defun zw-tab-bar-format-battery ()
   `((global menu-item ,(propertize battery-mode-line-string
@@ -51,8 +56,7 @@
                               'face 'zw-tab-bar-default-selected))
         (dir-name (if buffer-file-name
                       (propertize (abbreviate-file-name default-directory)
-                                  'face (zw/modeline-set-face 'zw-modeline-file-directory-active
-                                                              'zw-modeline-file-directory-inactive))
+                                  'face 'zw-tab-bar-path-selected)
                     "")))
     (concat dir-name tab-name)))
 
