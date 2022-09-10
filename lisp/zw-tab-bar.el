@@ -11,7 +11,7 @@
   :group 'zw-tab-bar)
 
 (defface zw-tab-bar-menu-bar
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
+  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'mode-line))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar)
 
@@ -21,7 +21,7 @@
   :group 'zw-tab-bar)
 
 (defface zw-tab-bar-default-selected
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
+  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'mode-line))))
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
@@ -29,7 +29,7 @@
   `((t (:foreground
         ,(face-foreground 'font-lock-comment-face)
         :background
-        ,(face-background 'tab-bar)
+        ,(face-background 'mode-line)
         :underline t)))
   "Default face for inactive tab-bar"
   :group 'zw-tab-bar-nonselected)
