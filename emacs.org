@@ -320,7 +320,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Modeline
 #+begin_src emacs-lisp
 (require 'zw-modeline)
-
 (add-hook 'inferior-ess-mode-hook
       (lambda ()
         (setq-local mode-line-process
@@ -330,6 +329,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Tab bar
 #+begin_src emacs-lisp
+(require 'zw-tab-bar)
 ;; this should be placed after theme, since theme would overwrite these attributes
 (defun zw/tab-bar-theme ()
   (interactive)
@@ -353,7 +353,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                       :font zw/font-default))
 ;; set tab-bar theme
 (zw/tab-bar-theme)
-(require 'zw-tab-bar)
 #+end_src
 
 ** Battery
