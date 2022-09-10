@@ -632,9 +632,6 @@ FACE defaults to inheriting from default and highlight."
 ** Popper
 #+begin_src emacs-lisp
 (use-package popper
-  :bind (("C-`"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("C-M-`" . popper-toggle-type))
   :hook
   (after-init . popper-mode)
   (popper-mode . popper-echo-mode)
@@ -1276,13 +1273,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (ess-r-mode . company-mode)
   :bind (("M-<tab>" . company-complete)
          (:map company-mode-map
-               ("<backtab>" . company-yasnippet))
+               ("C-<tab>" . company-yasnippet))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)
-               ("<backtab>" . company-yasnippet)))
+               ("C-<tab>" . company-yasnippet)))
   :init (setq company-icon-size '(auto-scale . 20)
               company-icon-margin 2
               company-tooltip-limit 12
