@@ -71,7 +71,7 @@
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
          (:map lsp-ui-doc-mode-map
-               ("s-d" . lsp-ui-doc-glance)))
+               ("s-d" . lsp-ui-doc-show)))
   :hook (lsp-mode . lsp-ui-mode)
   :init
   (setq lsp-ui-peek-always-show t
