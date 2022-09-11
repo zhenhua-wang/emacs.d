@@ -243,6 +243,17 @@
   (propertize (format-mode-line mode-name)
               'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)))
 
+(defun zw/modeline-count-region ()
+  (if (region-active-p)
+      (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
+        (propertize
+         (concat
+          num-words
+          "W ")
+         'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive)
+         'help-echo (concat "word counts: " num-words)))
+    ""))
+
 (defun zw/modeline-rhs ()
   (concat
    ;; conda env
@@ -309,7 +320,9 @@
                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
      " "
      (propertize "%P"
-                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))))
+                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+     " "
+     (zw/modeline-count-region)))
   " "
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
