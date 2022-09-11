@@ -251,7 +251,7 @@
           num-words
           "W ")
          'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive)
-         'help-echo (concat "word counts: " num-words)))
+         'help-echo (concat "Word counts: " num-words)))
     ""))
 
 (defun zw/modeline-rhs ()
