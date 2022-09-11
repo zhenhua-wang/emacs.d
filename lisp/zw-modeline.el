@@ -202,6 +202,14 @@
            (propertize (concat vc-info "*")
                        'face (zw/modeline-set-face 'zw-modeline-vc-modified-active 'zw-modeline-vc-modified-inactive)))))))
 
+(defun zw/modeline-lsp-bridge ()
+  (if (and (featurep 'lsp-bridge) lsp-bridge-mode)
+      (when lsp-bridge-server
+        (propertize "BRIDGE "
+                    'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
+                    'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)))
+    ""))
+
 (defun zw/modeline-lsp ()
   (if (and (featurep 'lsp-mode) lsp-mode)
       (let ((workspaces (lsp-workspaces)))
@@ -245,6 +253,7 @@
    (zw/modeline-encoding)
    ;; major mode
    " ["
+   (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
    (zw/modeline-major-mode)

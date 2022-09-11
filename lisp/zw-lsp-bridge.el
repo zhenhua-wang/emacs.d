@@ -1,22 +1,26 @@
 (use-package lsp-bridge
   :straight (lsp-bridge :host github :repo "manateelazycat/lsp-bridge"
                         :files ("*"))
+  :demand
   :hook
   (python-mode . lsp-bridge-mode)
-  (ess-r-mode . lsp-bridge-mode)
+  ;; (ess-r-mode . lsp-bridge-mode)
+  (lsp-bridge-mode . (lambda ()
+                       (company-mode -1)))
+  :bind ((:map lsp-bridge-mode-map
+               ("s-r" . lsp-bridge-restart-process)
+               ("M-<tab>" . (lambda () (interactive) (acm-update))))
+         (:map acm-mode-map
+               ("s-d" . acm-doc-toggle)
+               ("M->" . acm-select-last)
+               ("M-<" . acm-select-first)))
   :config
-  (setq corfu-excluded-modes '(python-mode ess-r-mode))
   (setq acm-enable-doc nil
         acm-candidate-match-function 'orderless-prefixes)
-  ;; acm keys
-  (define-key acm-mode-map (kbd "M->") 'acm-select-last)
-  (define-key acm-mode-map (kbd "M-<") 'acm-select-first)
   ;; acm font
   (set-face-attribute 'acm-select-face nil
 		      :bold t
-		      :foreground (face-foreground
-				   'default)
-		      :background (face-background
-				   'modus-themes-completion-selected-popup)))
+                      :foreground (face-foreground 'warning)
+                      :underline t))
 
 (provide 'zw-lsp-bridge)
