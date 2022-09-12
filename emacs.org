@@ -1270,7 +1270,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (after-init . global-company-mode)
   (company-mode . yas-minor-mode)
-  (ess-r-mode . company-mode)
+  ;; (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-complete)
                ("C-<tab>" . company-yasnippet))

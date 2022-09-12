@@ -301,7 +301,6 @@ LSP-mode with TexLab works perfect for Latex docs
 
 * LiterateProgramming
 ** Org-babel
-*** init
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
   ;; init org-babel
@@ -346,40 +345,6 @@ LSP-mode with TexLab works perfect for Latex docs
   )
 #+end_src
 
-*** enable lsp
-#+begin_src emacs-lisp
-(with-eval-after-load 'org
-  ;; enable lsp-org inside src block
-  (cl-defmacro lsp-org-babel-enable (lang)
-    "Support LANG in org source code block."
-    (setq centaur-lsp 'lsp-mode)
-    (cl-check-type lang stringp)
-    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
-      `(progn
-         (defun ,intern-pre (info)
-           (let ((file-name (->> info caddr (alist-get :file))))
-             (unless file-name
-               (setq file-name (make-temp-file "babel-lsp-")))
-             (setq buffer-file-name file-name)
-             (lsp-deferred)))
-         (put ',intern-pre 'function-documentation
-              (format "Enable lsp-mode in the buffer of org source block (%s)."
-                      (upcase ,lang)))
-         (if (fboundp ',edit-pre)
-             (advice-add ',edit-pre :after ',intern-pre)
-           (progn
-             (defun ,edit-pre (info)
-               (,intern-pre info))
-             (put ',edit-pre 'function-documentation
-                  (format "Prepare local buffer environment for org source block (%s)."
-                          (upcase ,lang))))))))
-  (defvar org-babel-lang-list
-    '("ess-r" "R" "python" "latex"))
-  (dolist (lang org-babel-lang-list)
-    (eval `(lsp-org-babel-enable ,lang))))
-#+end_src
-
 ** Polymode
 #+begin_src emacs-lisp
 (use-package polymode
@@ -389,11 +354,22 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq polymode-lsp-integration nil)
   :config
   ;; disable flycheck in polymode
-  (add-hook 'polymode-init-inner-hook (lambda () (setq-local lsp-diagnostics-provider :none)))
+  (add-hook 'polymode-init-inner-hook
+            (lambda ()
+              (setq-local lsp-diagnostics-provider :none)
+              (setq-local lsp-bridge-enable-diagnostics nil)))
   ;; add workspace variables for R
   (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
   ;; don't know its functionality yet
-  (pm-around-advice 'lsp--text-document-content-change-event #'polymode-lsp-change-event))
+  (pm-around-advice 'lsp--text-document-content-change-event
+                    #'polymode-lsp-change-event)
+  ;; send polymode content to lsp-bridge
+  (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
+    (if (and polymode-mode pm/polymode)
+        (pm--lsp-text)
+      (funcall orig-fun arguments)))
+  (advice-add #'lsp-bridge--get-buffer-content-func
+              :around #'zw-polymode-lsp-buffer-content))
 
 (use-package poly-markdown
   :commands (poly-markdown-mode poly-gfm-mode)
