@@ -1848,6 +1848,7 @@ LSP-mode with TexLab works perfect for Latex docs
 ;; latex
 (use-package tex
   :straight auctex
+  :commands (latex-mode LaTeX-mode)
   :init
   (setq TeX-PDF-mode t
         TeX-parse-self t
