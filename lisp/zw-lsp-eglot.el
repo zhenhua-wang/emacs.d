@@ -9,6 +9,7 @@
   ;; ((latex-mode LaTeX-mode) . lsp-deferred)
   ((ess-r-mode latex-mode LaTeX-mode) . disable-lsp-imenu)
   (lsp-completion-mode . my/lsp-mode-setup-completion)
+  :bind (("<f9> <f9>" . zw/load-dap-mode))
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -40,7 +41,10 @@
   ;; BUG: disable imenu for ess-r-mode https://github.com/REditorSupport/languageserver/issues/558
   (defun disable-lsp-imenu ()
     (if (featurep 'lsp-mode)
-        (setq-local lsp-enable-imenu nil))))
+        (setq-local lsp-enable-imenu nil)))
+  (defun zw/load-dap-mode ()
+    (interactive)
+    (require 'zw-dap-mode)))
 
 ;; microsoft pyright
 (use-package lsp-pyright
