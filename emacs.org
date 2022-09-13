@@ -343,41 +343,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
     (display-battery-mode 1))
 #+end_src
 
-** Dashboard
-#+begin_src emacs-lisp
-(use-package dashboard
-  :disabled
-  :bind
-  (:map dashboard-mode-map ("<tab>" . dashboard-return))
-  :init
-  (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 1
-        dashboard-center-content t
-        dashboard-items '((agenda . 5)
-                          (projects . 5)
-                          (recents  . 5))
-        dashboard-set-footer nil
-        dashboard-set-init-info nil
-        dashboard-set-heading-icons nil
-        dashboard-set-file-icons nil
-        dashboard-projects-backend 'project-el))
-#+end_src
-
-** iMenu
-#+begin_src emacs-lisp
-(use-package imenu-list
-  ;; don't lazy load this, otherwise its face won't break
-  :demand
-  :bind (("C-c =" . imenu-list-smart-toggle))
-  :init
-  (setq imenu-list-focus-after-activation t
-        imenu-list-idle-update-delay 0.1
-        imenu-list-mode-line-format
-        '("%e" mode-line-front-space
-          "iMenu"
-          mode-line-end-spaces)))
-#+end_src
-
 ** Scroll
 #+begin_src emacs-lisp
 ;; Mouse & Smooth Scroll
@@ -1880,6 +1845,13 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
   ;; Add LatexMk as a TeX target.
   (auctex-latexmk-setup))
+
+(use-package reftex
+  :hook (LaTeX-mode . reftex-mode)
+  :config
+  (setq reftex-plug-into-AUCTeX t
+        reftex-toc-split-windows-fraction 0.3
+        reftex-toc-split-windows-horizontally t))
 
 ;; auto async preview latex
 (use-package xenops
