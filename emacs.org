@@ -72,7 +72,7 @@
 #+end_src
 
 ** Global setting
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package emacs
   :straight (:type built-in)
   :hook
@@ -137,7 +137,7 @@
     (interactive)
     (shell-command "cd ~/.emacs.d && git pull")
     (message "Emacs updated!")))
-  #+end_src
+#+end_src
 
 ** Global keybinding
 #+begin_src emacs-lisp
@@ -396,17 +396,17 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+end_src
 
 ** All-the-icons
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package all-the-icons
   :if (display-graphic-p)
   :init (setq all-the-icons-scale-factor 1)
   :config
   (add-to-list 'all-the-icons-extension-icon-alist
                '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue)))
-   #+end_src
+#+end_src
 
 ** Line number mode
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 ;; line number mode
 (setq column-number-mode t)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -415,7 +415,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ;; Override some modes which derive from the above
 (dolist (mode '(org-mode-hook markdown-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-   #+end_src
+#+end_src
 
 ** Rain-bow-delimiters
 #+begin_src emacs-lisp
@@ -425,7 +425,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+end_src
 
 ** Rainbow mode
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 ;; Sets the background of HTML color strings in buffers to be the color mentioned.
 (use-package rainbow-mode
   :diminish
@@ -951,20 +951,16 @@ With a prefix ARG always prompt for command to use."
 #+end_src
 
 ** Keybinding Hints
-*** Hydra
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))
-   #+end_src
 
-*** Which key
-   #+begin_src emacs-lisp
 (use-package which-key
   :diminish
   :hook (after-init . which-key-mode)
   :config
   (setq which-key-idle-delay 0.3))
-   #+end_src
+#+end_src
 
 ** Go to address
 #+begin_src emacs-lisp
@@ -984,26 +980,26 @@ With a prefix ARG always prompt for command to use."
 
 * Editing
 ** Undo
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package undo-fu
   :bind (("s-z" . undo-fu-only-undo)
          ("s-Z" . undo-fu-only-redo)))
-   #+end_src
+#+end_src
    
 ** Auto save
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package super-save
   :diminish
   :hook (after-init . super-save-mode)
   :init
   (setq super-save-auto-save-when-idle t))
- #+end_src
+#+end_src
 
 ** Sudo edit
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package sudo-edit
   :commands (sudo-edit))
-   #+end_src
+#+end_src
 
 ** Snippets
 #+begin_src emacs-lisp
@@ -1374,11 +1370,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 *** Clean whitespace
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package ws-butler
   :hook
   (prog-mode . ws-butler-mode))
-   #+end_src
+#+end_src
 
 *** Fast comment
 #+begin_src emacs-lisp
