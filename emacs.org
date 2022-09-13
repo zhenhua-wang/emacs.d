@@ -1332,7 +1332,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata t
-        ;; FIXME: flicker in macos and pgtk, disable it for now
         company-posframe-show-indicator t
         company-posframe-font zw/font-fixed-pitch
         company-posframe-show-params
