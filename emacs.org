@@ -1627,7 +1627,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq csv-separators '("," ";" "|" " ")))
 #+end_src
 
-* Academic
+* Document
 ** Writing
 *** Visual-fill-column
 #+begin_src emacs-lisp
