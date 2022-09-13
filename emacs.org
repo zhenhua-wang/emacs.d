@@ -1388,6 +1388,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :straight (topsy :host github :repo "alphapapa/topsy.el")
   :commands (topsy-mode)
   :bind (("C-c d t" . topsy-mode))
+  :hook ((prog-mode . topsy-mode))
   :config
   (set-face-attribute 'header-line nil
                       :box (face-background 'font-lock-doc-face))
