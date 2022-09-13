@@ -61,7 +61,5 @@
 ;; load init
 (pcase system-type
   ('windows-nt (org-babel-load-file "~/.emacs.d/emacs-windows.org"))
-  (_ (progn (org-babel-load-file "~/.emacs.d/emacs.org")
-            (org-babel-load-file "~/.emacs.d/emacs-development.org")
-            (org-babel-load-file "~/.emacs.d/emacs-academic.org"))))
+  (_ (org-babel-load-file "~/.emacs.d/emacs.org")))
 ;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
