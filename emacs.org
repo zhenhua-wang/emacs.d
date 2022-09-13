@@ -1395,7 +1395,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook ((prog-mode . topsy-mode))
   :config
   (set-face-attribute 'header-line nil
-                      :box (face-background 'font-lock-comment-face))
+                      :box (face-background 'font-lock-doc-face))
   (defun zw/topsy--beginning-of-defun-at-cursor ()
     "Return the line moved to by `beginning-of-defun'."
     (save-excursion
