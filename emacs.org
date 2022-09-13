@@ -1850,7 +1850,7 @@ LSP-mode with TexLab works perfect for Latex docs
   :hook (LaTeX-mode . reftex-mode)
   :config
   (setq reftex-plug-into-AUCTeX t
-        reftex-toc-split-windows-fraction 0.3
+        reftex-toc-split-windows-fraction 0.2
         reftex-toc-split-windows-horizontally t))
 
 ;; auto async preview latex
