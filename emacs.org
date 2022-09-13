@@ -465,7 +465,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :config
   (set-face-attribute 'show-paren-match nil
                       :background (face-foreground 'warning)
-                      :foreground "black")
+                      :foreground "black"
+                      :weight 'extra-bold)
   (with-no-warnings
     ;; Display matching line for off-screen paren.
     (defun display-line-overlay (pos str &optional face)
