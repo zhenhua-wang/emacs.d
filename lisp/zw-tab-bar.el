@@ -81,8 +81,17 @@
                                            'face 'zw-tab-bar-tab-path-selected)))
     (concat dir-name-abbrev-prop tab-name)))
 
+(defun zw-tab-bar-beginning-of-defun ()
+  "Return the line moved to by `beginning-of-defun'."
+  (save-excursion
+    (when (beginning-of-defun)
+      (font-lock-ensure (point) (point-at-eol))
+      (buffer-substring (point) (point-at-eol)))))
+
 (defun zw-tab-bar-format-current-tab ()
-  `((current-tab menu-item (zw-tab-bar-tab-name)
+  `((current-tab menu-item (if (zw-tab-bar-beginning-of-defun)
+                               (zw-tab-bar-beginning-of-defun)
+                             (zw-tab-bar-tab-name))
                  :help "Current tab")))
 
 ;; format tab-bar-mode

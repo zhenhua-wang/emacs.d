@@ -1384,25 +1384,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind (("M-/" . evilnc-comment-or-uncomment-lines)))
 #+end_src
 
-*** Topsy
-#+begin_src emacs-lisp
-(use-package topsy
-  :straight (topsy :host github :repo "alphapapa/topsy.el")
-  :commands (topsy-mode)
-  :bind (("C-c d t" . topsy-mode))
-  :config
-  (set-face-attribute 'header-line nil
-                      :box (face-background 'font-lock-doc-face))
-  (defun zw/topsy--beginning-of-defun-at-cursor ()
-    "Return the line moved to by `beginning-of-defun'."
-    (save-excursion
-      (when (beginning-of-defun)
-        (font-lock-ensure (point) (point-at-eol))
-        (buffer-substring (point) (point-at-eol)))))
-  (advice-add #'topsy--beginning-of-defun :override
-              #'zw/topsy--beginning-of-defun-at-cursor))
-#+end_src
-
 *** Flymake
 #+begin_src emacs-lisp
 (use-package flymake-posframe
