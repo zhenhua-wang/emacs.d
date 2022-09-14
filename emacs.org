@@ -67,8 +67,8 @@
 (setq zw/font-size-variable-pitch 200)
 (setq zw/font-default "Roboto Mono")
 (setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
-(setq zw/font-variable-pitch "ETBembo")
-(setq zw/font-title "ETBembo")
+(setq zw/font-variable-pitch "EB Garamond")
+(setq zw/font-title "EB Garamond")
 #+end_src
 
 ** Global setting
