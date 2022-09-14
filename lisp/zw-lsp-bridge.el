@@ -9,7 +9,10 @@
                        (company-mode -1)))
   :bind ((:map lsp-bridge-mode-map
                ("s-r" . lsp-bridge-restart-process)
-               ("M-<tab>" . (lambda () (interactive) (acm-update))))
+               ("M-<tab>" . (lambda () (interactive) (acm-update)))
+               ("s-d" . lsp-bridge-lookup-documentation)
+               ("s-n" . lsp-bridge-popup-documentation-scroll-up)
+               ("s-p" . lsp-bridge-popup-documentation-scroll-down))
          (:map acm-mode-map
                ("s-d" . acm-doc-toggle)
                ("M->" . acm-select-last)
