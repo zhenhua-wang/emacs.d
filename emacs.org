@@ -1138,6 +1138,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("M-s b" . consult-bibtex-open-pdf)
          ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
+         ("M-s f" . consult-flymake)
          (:map isearch-mode-map
                ("M-s" . consult-isearch-history))
          (:map minibuffer-local-completion-map
