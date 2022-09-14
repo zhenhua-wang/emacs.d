@@ -44,7 +44,7 @@
   "Default face for active tab-bar"
   :group 'zw-tab-bar-selected)
 
-(defvar zw-tab-bar-path-max 25
+(defvar zw-tab-bar-path-max 30
   "Maximum length of current tab path")
 
 (defvar zw-tab-bar-path-ellipsis "..."
@@ -72,8 +72,11 @@
          (dir-name-length (length dir-name))
          (dir-name-abbrev (if (< dir-name-length zw-tab-bar-path-max)
                               dir-name
-                            (concat "..." (truncate-string-to-width
-                                           dir-name dir-name-length (- dir-name-length zw-tab-bar-path-max)))))
+                            (concat ".../"
+                                    (string-join (cdr (split-string (truncate-string-to-width
+                                                                     dir-name dir-name-length (- dir-name-length zw-tab-bar-path-max))
+                                                                    "\\/"))
+                                                 "/"))))
          (dir-name-abbrev-prop (propertize dir-name-abbrev
                                            'face 'zw-tab-bar-tab-path-selected)))
     (concat dir-name-abbrev-prop tab-name)))
