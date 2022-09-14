@@ -92,7 +92,7 @@
 
 (defun zw-tab-bar-format-current-tab ()
   `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
-                               (zw-tab-bar-beginning-of-defun)
+                               (string-trim (zw-tab-bar-beginning-of-defun))
                              (zw-tab-bar-tab-name))
                  :help "Current tab")))
 

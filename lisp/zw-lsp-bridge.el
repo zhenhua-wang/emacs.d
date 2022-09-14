@@ -14,7 +14,6 @@
                ("s-n" . lsp-bridge-popup-documentation-scroll-up)
                ("s-p" . lsp-bridge-popup-documentation-scroll-down))
          (:map acm-mode-map
-               ("s-d" . acm-doc-toggle)
                ("M->" . acm-select-last)
                ("M-<" . acm-select-first)))
   :config
