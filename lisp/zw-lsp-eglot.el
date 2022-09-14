@@ -26,7 +26,7 @@
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
 
-        lsp-idle-delay 0.1
+        lsp-idle-delay 0.5
         lsp-completion-provider :none
         lsp-tex-server 'digestif)
   (defun my/lsp-mode-setup-completion ()
