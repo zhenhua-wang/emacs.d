@@ -167,6 +167,32 @@
                          (number-to-string (tab-bar--current-tab-index))))
      ">")))
 
+(defvar zw-modeline-path-max 10
+  "Max length of current file's path on modeline")
+(defun zw/modeline-file ()
+  (let* ((file-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
+                                'face (zw/modeline-set-face
+                                       'zw-modeline-default-active
+                                       'zw-modeline-default-inactive)))
+         (dir-name (if buffer-file-name
+                       (abbreviate-file-name default-directory)
+                     ""))
+         (dir-name-length (length dir-name))
+         (dir-name-abbrev (if (< dir-name-length zw-modeline-path-max)
+                              dir-name
+                            (concat ".../"
+                                    (string-join (cdr (split-string (truncate-string-to-width
+                                                                     dir-name
+                                                                     dir-name-length
+                                                                     (- dir-name-length zw-modeline-path-max))
+                                                                    "\\/"))
+                                                 "/"))))
+         (dir-name-abbrev-prop (propertize dir-name-abbrev
+                                           'face (zw/modeline-set-face
+                                                  'zw-modeline-file-directory-active
+                                                  'zw-modeline-file-directory-inactive))))
+    (concat dir-name-abbrev-prop file-name)))
+
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
          (cat (plist-get sys :category))

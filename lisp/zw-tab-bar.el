@@ -74,7 +74,9 @@
                               dir-name
                             (concat ".../"
                                     (string-join (cdr (split-string (truncate-string-to-width
-                                                                     dir-name dir-name-length (- dir-name-length zw-tab-bar-path-max))
+                                                                     dir-name
+                                                                     dir-name-length
+                                                                     (- dir-name-length zw-tab-bar-path-max))
                                                                     "\\/"))
                                                  "/"))))
          (dir-name-abbrev-prop (propertize dir-name-abbrev
@@ -89,14 +91,13 @@
       (buffer-substring (point) (point-at-eol)))))
 
 (defun zw-tab-bar-format-current-tab ()
-  `((current-tab menu-item (if (zw-tab-bar-beginning-of-defun)
+  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
                                (zw-tab-bar-beginning-of-defun)
                              (zw-tab-bar-tab-name))
                  :help "Current tab")))
 
 ;; format tab-bar-mode
-(setq tab-bar-tab-name-function 'zw-tab-bar-tab-name
-      tab-bar-new-tab-choice "*scratch*"
+(setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
       tab-bar-separator " "
