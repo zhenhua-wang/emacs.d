@@ -21,6 +21,7 @@
      `(org-document-title ((t (,@headline ,@variable-tuple :height 1.625 :underline t))))))
 
   ;; setup fixed pitch fonts
+  (set-face-attribute 'org-ellipsis nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-meta-line nil :inherit '(bold fixed-pitch))
   (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch) :foreground "#0078AA" :background (face-background 'org-block) :box (face-foreground 'default))
