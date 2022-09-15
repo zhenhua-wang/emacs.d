@@ -96,6 +96,9 @@
                              (zw-tab-bar-tab-name))
                  :help "Current tab")))
 
+;; set default foreground
+(set-face-foreground 'tab-bar (face-foreground 'default))
+
 ;; format tab-bar-mode
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
