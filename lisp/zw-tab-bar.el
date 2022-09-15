@@ -57,7 +57,7 @@
 ;; show menu
 (defun zw-tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ☰ "
+  `((menu-bar menu-item (propertize " ☰"
                                     'face 'zw-tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
@@ -90,11 +90,21 @@
       (font-lock-ensure (point) (point-at-eol))
       (buffer-substring (point) (point-at-eol)))))
 
-(defun zw-tab-bar-format-current-tab ()
+(defun zw-tab-bar-format-tab-file-path ()
   `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
-                               (string-trim (zw-tab-bar-beginning-of-defun))
+                               (concat
+                                (propertize " Def "
+                                            'face 'keycast-key)
+                                (string-trim (zw-tab-bar-beginning-of-defun)))
                              (zw-tab-bar-tab-name))
-                 :help "Current tab")))
+                 :help "File path or function definition")))
+
+(defun zw-tab-bar-format-tab-func-def ()
+  `((current-tab menu-item (concat
+                            (propertize " Def "
+                                        'face 'keycast-key)
+                            (string-trim (zw-tab-bar-beginning-of-defun)))
+                 :help "Function definition")))
 
 ;; set default foreground
 (set-face-foreground 'tab-bar (face-foreground 'default))
@@ -105,7 +115,8 @@
       tab-bar-close-button-show nil
       tab-bar-separator " "
       tab-bar-format '(zw-tab-bar-format-menu-bar
-                       zw-tab-bar-format-current-tab
+                       tab-bar-separator
+                       zw-tab-bar-format-tab-file-path
                        tab-bar-separator
                        tab-bar-format-align-right
                        zw-tab-bar-format-battery))
