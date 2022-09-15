@@ -95,6 +95,7 @@
                                (concat
                                 (propertize " Def "
                                             'face 'keycast-key)
+                                " "
                                 (string-trim (zw-tab-bar-beginning-of-defun)))
                              (zw-tab-bar-tab-name))
                  :help "File path or function definition")))
