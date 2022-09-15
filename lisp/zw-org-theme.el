@@ -14,7 +14,7 @@
      `(org-level-7 ((t (,@headline ,@variable-tuple :weight SemiBold))))
      `(org-level-6 ((t (,@headline ,@variable-tuple :weight SemiBold))))
      `(org-level-5 ((t (,@headline ,@variable-tuple :weight SemiBold))))
-     `(org-level-4 ((t (,@headline ,@variable-tuple :weight SemiBold :height 1.25 :foreground "#E94560"))))
+     `(org-level-4 ((t (,@headline ,@variable-tuple :weight SemiBold :height 1.25 :foreground "#FF7777"))))
      `(org-level-3 ((t (,@headline ,@variable-tuple :weight SemiBold :height 1.25 :foreground "#d08770"))))
      `(org-level-2 ((t (,@headline ,@variable-tuple :weight SemiBold :height 1.25 :foreground "#446A46"))))
      `(org-level-1 ((t (,@headline ,@variable-tuple :weight SemiBold :height 1.5 :foreground "#5e81ac"))))

@@ -1590,7 +1590,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :config
   (setq
    ;; init appearance
-   org-ellipsis " ⇲"
+   org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
    org-startup-folded  t               ;'content
    org-image-actual-width nil          ; use user defined image size
    org-hide-emphasis-markers t
