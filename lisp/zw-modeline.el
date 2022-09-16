@@ -167,6 +167,32 @@
                          (number-to-string (tab-bar--current-tab-index))))
      ">")))
 
+(defun zw/modeline-line-column ()
+  (pcase major-mode
+    ('pdf-view-mode (propertize (concat
+                                 (number-to-string
+                                  (pdf-view-current-page))
+                                 "/"
+                                 (or
+                                  (ignore-errors
+                                    (number-to-string
+                                     (pdf-cache-number-of-pages)))
+                                  "???")
+                                 (pdf-misc-size-indication))
+                                'face (zw/modeline-set-face 'zw-modeline-line-column-active
+                                                            'zw-modeline-line-column-inactive)))
+    (_ (list
+        (propertize "%l"
+                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+        ":"
+        (propertize "%c"
+                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+        " "
+        (propertize "%P"
+                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+        " "
+        (zw/modeline-count-region)))))
+
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
          (cat (plist-get sys :category))
@@ -185,9 +211,9 @@
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
-      (concat (propertize "CONDA:"
-                          'face 'zw-modeline-default-inactive)
-              conda-env-current-name)))
+    (concat (propertize "CONDA:"
+                        'face 'zw-modeline-default-inactive)
+            conda-env-current-name)))
 
 (defun zw/modeline-vc ()
   (if vc-mode
@@ -301,8 +327,8 @@
                       'face (zw/modeline-set-face 'zw-modeline-modified-active 'zw-modeline-modified-inactive)
                       'help-echo "Buffer has been modified")
         (propertize "--"
-                      'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
-                      'help-echo "Buffer is read/write"))))
+                    'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
+                    'help-echo "Buffer is read/write"))))
   " "
   ;; the buffer name; the file name as a tool tip
   '(:eval
@@ -311,18 +337,7 @@
                 'help-echo (buffer-file-name)))
   " "
   ;; line and column
-  '(:eval
-    (list
-     (propertize "%l"
-                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-     ":"
-     (propertize "%c"
-                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-     " "
-     (propertize "%P"
-                 'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-     " "
-     (zw/modeline-count-region)))
+  '(:eval (zw/modeline-line-column))
   " "
   ;; is remote file?
   '(:eval (if (file-remote-p default-directory)
@@ -344,5 +359,13 @@
   " "
   '(:eval (zw/modeline-rhs))
   " "))
+
+;;; special mode config
+;; ess-r
+(add-hook 'inferior-ess-mode-hook
+          (lambda ()
+            (setq-local mode-line-process
+                        '(:eval (zw/modeline-propertize-process-info
+                                 (nth ess--busy-count ess-busy-strings))))))
 
 (provide 'zw-modeline)
