@@ -191,7 +191,7 @@
            ("s-<up>" . windmove-up)
            ("s-<down>" . windmove-down)
            ;; tab operations
-           ("s-1" . tab-switch)
+           ("s-1" . tab-switcher)
            ("s-2" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
