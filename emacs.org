@@ -154,7 +154,7 @@
 (bind-keys :map global-map
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f5>" . zw/update-emacs)
-           ;; disable some weird k
+           ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
            ("<next>" . nil)
@@ -192,7 +192,6 @@
            ("s-<down>" . windmove-down)
            ;; misc commands
            ("C-c o" . er-open-with)
-           ;; (global-set-key (kbd "C-c p") 'zw/get-passwd)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
            :map minibuffer-mode-map
