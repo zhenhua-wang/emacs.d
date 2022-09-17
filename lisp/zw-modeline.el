@@ -156,16 +156,15 @@
 
 ;; modeline segments
 (defun zw/modeline-tab-index ()
-  '(:eval
-    (concat
-     " <"
-     ;; current tab index
-     (propertize
-      (number-to-string (+ (tab-bar--current-tab-index) 1))
-      'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-tab-index-inactive)
-      'help-echo (concat "Current Tab: "
-                         (number-to-string (tab-bar--current-tab-index))))
-     ">")))
+  (concat
+   "<"
+   ;; current tab index
+   (propertize
+    (number-to-string (+ (tab-bar--current-tab-index) 1))
+    'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-tab-index-inactive)
+    'help-echo (concat "Current Tab: "
+                       (number-to-string (tab-bar--current-tab-index))))
+   ">"))
 
 (defun zw/modeline-line-column ()
   (pcase major-mode
@@ -315,6 +314,8 @@
  mode-line-format
  (list
   "%e"
+  " "
+  '(:eval (zw/modeline-tab-index))
   " "
   ;; is this buffer read-only or modified since the last save?
   '(:eval
