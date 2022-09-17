@@ -191,9 +191,9 @@
            ("s-<up>" . windmove-up)
            ("s-<down>" . windmove-down)
            ;; tab operations
-           (global-set-key (kbd "s-1") (tab-switch))
-           (global-set-key (kbd "s-2") (tab-new))
-           (global-set-key (kbd "s-0") (tab-close))
+           ("s-1" . (tab-switch))
+           ("s-2" . (tab-new))
+           ("s-0" . (tab-close))
            ;; misc commands
            ("C-c o" . er-open-with)
            ("s-\\" . toggle-input-method)
