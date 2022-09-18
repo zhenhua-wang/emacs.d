@@ -970,11 +970,17 @@ With a prefix ARG always prompt for command to use."
   (prog-mode . goto-address-prog-mode))
 #+end_src
 
-** Google this
+** Request
 #+begin_src emacs-lisp
-;; use this for now untill consult have its web-search
-(use-package google-this
-  :bind (("C-c l" . google-this-search)))
+(use-package request
+  :commands (request))
+#+end_src
+
+** Websearch
+#+begin_src emacs-lisp
+(use-package emacs-websearch
+  :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
+  :bind (("C-c l" . emacs-websearch)))
 #+end_src
 
 * Editing
