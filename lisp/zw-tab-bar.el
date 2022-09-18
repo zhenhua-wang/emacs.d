@@ -125,7 +125,7 @@
 ;; enable tab-bar
 (tab-bar-mode 1)
 
-;; misc
+;;; misc config
 ;; switch to tab
 (defun zw/tab-switch (index-name)
   (interactive

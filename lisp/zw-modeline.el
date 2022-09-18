@@ -361,7 +361,7 @@
   '(:eval (zw/modeline-rhs))
   " "))
 
-;;; special mode config
+;;; misc config
 ;; ess-r
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
