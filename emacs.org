@@ -327,16 +327,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Tab bar
 #+begin_src emacs-lisp
 (require 'zw-tab-bar)
-(defun zw/tab-switch (index-name)
-  (interactive
-   (let* ((other-tabs (mapcar (lambda (tab)
-                                (concat
-                                 (number-to-string (1+ (tab-bar--tab-index tab)))
-                                 " "
-                                 (alist-get 'name tab)))
-                              (tab-bar--tabs-recent))))
-     (list (completing-read "Switch to tab: " other-tabs))))
-  (tab-bar-select-tab (or (string-to-number (car (split-string index-name))) 1)))
 #+end_src
 
 ** Battery
