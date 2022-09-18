@@ -190,6 +190,9 @@
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
            ("s-<down>" . windmove-down)
+           ("s-{" . shrink-window-horizontally)
+           ("s-}" . enlarge-window-horizontally)
+           ("s-^" . enlarge-window)
            ;; tab operations
            ("s-1" . zw/tab-switch)
            ("s-2" . tab-new)
