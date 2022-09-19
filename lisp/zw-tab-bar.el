@@ -47,8 +47,11 @@
 (defvar zw-tab-bar-path-max 30
   "Maximum length of current tab path")
 
-(defvar zw-tab-bar-path-ellipsis "..."
-  "Replacing string for long path name")
+(defvar zw-tab-bar-name-max 30
+  "Maximum length of current tab name")
+
+(defvar zw-tab-bar-ellipsis "..."
+  "Replacing string for long path name or file name")
 
 (defun zw-tab-bar-format-battery ()
   `((global menu-item ,(propertize battery-mode-line-string
@@ -65,6 +68,12 @@
 (defun zw-tab-bar-tab-name ()
   (let* ((tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
                                'face 'zw-tab-bar-tab-selected))
+         (tab-name-length (length tab-name))
+         (tab-name-abbrev (if (< tab-name-length zw-tab-bar-name-max)
+                              tab-name
+                            (truncate-string-to-width
+                             tab-name zw-tab-bar-name-max nil nil
+                             zw-tab-bar-ellipsis)))
          (dir-name (if buffer-file-name
                        (propertize (abbreviate-file-name default-directory)
                                    'face 'zw-tab-bar-tab-path-selected)
@@ -72,7 +81,8 @@
          (dir-name-length (length dir-name))
          (dir-name-abbrev (if (< dir-name-length zw-tab-bar-path-max)
                               dir-name
-                            (concat ".../"
+                            (concat zw-tab-bar-ellipsis
+                                    "/"
                                     (string-join (cdr (split-string (truncate-string-to-width
                                                                      dir-name
                                                                      dir-name-length
@@ -81,7 +91,7 @@
                                                  "/"))))
          (dir-name-abbrev-prop (propertize dir-name-abbrev
                                            'face 'zw-tab-bar-tab-path-selected)))
-    (concat dir-name-abbrev-prop tab-name)))
+    (concat dir-name-abbrev-prop tab-name-abbrev)))
 
 (defun zw-tab-bar-beginning-of-defun ()
   "Return the line moved to by `beginning-of-defun'."
