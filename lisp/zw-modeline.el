@@ -166,6 +166,21 @@
                        (number-to-string (tab-bar--current-tab-index))))
    ">"))
 
+(defvar zw-modeline-buffer-name-max 30
+  "Maximum length of buffer name")
+(defvar zw-modeline-buffer-name-ellipse "..."
+  "Ellipse for long buffer name")
+(defun zw/modeline-buffer-name ()
+  (let* ((file-name (buffer-name))
+         (file-name-abbrev (if (length< file-name zw-modeline-buffer-name-max)
+                               file-name
+                             (truncate-string-to-width
+                              file-name zw-modeline-buffer-name-max nil nil
+                              zw-modeline-buffer-name-ellipse))))
+    (propertize file-name-abbrev
+                'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
+                'help-echo (buffer-file-name))))
+
 (defun zw/modeline-line-column ()
   (pcase major-mode
     ('pdf-view-mode (propertize (concat
@@ -332,10 +347,7 @@
                     'help-echo "Buffer is read/write"))))
   " "
   ;; the buffer name; the file name as a tool tip
-  '(:eval
-    (propertize "%b"
-                'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
-                'help-echo (buffer-file-name)))
+  '(:eval (zw/modeline-buffer-name))
   " "
   ;; line and column
   '(:eval (zw/modeline-line-column))
