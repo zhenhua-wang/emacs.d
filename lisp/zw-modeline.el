@@ -181,6 +181,20 @@
                 'face (zw/modeline-set-face 'zw-modeline-default-active 'zw-modeline-default-inactive)
                 'help-echo (buffer-file-name))))
 
+(defun zw/modeline-buffer-status ()
+  "modeline is read-only or modified"
+  (if buffer-read-only
+      (propertize "RO"
+                  'face (zw/modeline-set-face 'zw-modeline-read-only-active 'zw-modeline-read-only-inactive)
+                  'help-echo "Buffer is read-only")
+    (if (buffer-modified-p)
+        (propertize "**"
+                    'face (zw/modeline-set-face 'zw-modeline-modified-active 'zw-modeline-modified-inactive)
+                    'help-echo "Buffer has been modified")
+      (propertize "--"
+                  'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
+                  'help-echo "Buffer is read/write"))))
+
 (defun zw/modeline-line-column ()
   (pcase major-mode
     ('pdf-view-mode (propertize (concat
@@ -222,6 +236,11 @@
        (propertize
         encoding
         'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive))))))
+
+(defun zw/modeline-remote ()
+  (if (file-remote-p default-directory)
+      (propertize "Remote"
+                  'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -310,6 +329,13 @@
    (zw/modeline-major-mode)
    "]"))
 
+(defun zw/modeline-middle-space ()
+  (propertize
+   " " 'display
+   `((space :align-to
+            (- (+ right right-fringe right-margin)
+               ,(+ 2 (apply '+ (list (zw/string-width (zw/modeline-rhs))))))))))
+
 (defun zw/string-width (str)
   (if str (string-width str) 0))
 
@@ -333,18 +359,7 @@
   '(:eval (zw/modeline-tab-index))
   " "
   ;; is this buffer read-only or modified since the last save?
-  '(:eval
-    (if buffer-read-only
-        (propertize "RO"
-                    'face (zw/modeline-set-face 'zw-modeline-read-only-active 'zw-modeline-read-only-inactive)
-                    'help-echo "Buffer is read-only")
-      (if (buffer-modified-p)
-          (propertize "**"
-                      'face (zw/modeline-set-face 'zw-modeline-modified-active 'zw-modeline-modified-inactive)
-                      'help-echo "Buffer has been modified")
-        (propertize "--"
-                    'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
-                    'help-echo "Buffer is read/write"))))
+  '(:eval (zw/modeline-buffer-status))
   " "
   ;; the buffer name; the file name as a tool tip
   '(:eval (zw/modeline-buffer-name))
@@ -353,20 +368,13 @@
   '(:eval (zw/modeline-line-column))
   " "
   ;; is remote file?
-  '(:eval (if (file-remote-p default-directory)
-              (propertize "Remote"
-                          'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
+  '(:eval (zw/modeline-remote))
 
   ;; add modeline process
   '(:eval mode-line-process)
 
   ;; add space between left and right
-  '(:eval
-    (propertize
-     " " 'display
-     `((space :align-to
-              (- (+ right right-fringe right-margin)
-                 ,(+ 2 (apply '+ (list (zw/string-width (zw/modeline-rhs))))))))))
+  '(:eval (zw/modeline-middle-space))
 
   ;; right hand side of the modeline
   " "
