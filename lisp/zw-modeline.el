@@ -197,29 +197,33 @@
 
 (defun zw/modeline-line-column ()
   (pcase major-mode
-    ('pdf-view-mode (propertize (concat
-                                 (number-to-string
-                                  (pdf-view-current-page))
-                                 "/"
-                                 (or
-                                  (ignore-errors
-                                    (number-to-string
-                                     (pdf-cache-number-of-pages)))
-                                  "???")
-                                 (pdf-misc-size-indication))
-                                'face (zw/modeline-set-face 'zw-modeline-line-column-active
-                                                            'zw-modeline-line-column-inactive)))
-    (_ (list
-        (propertize "%l"
-                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-        ":"
-        (propertize "%c"
-                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-        " "
-        (propertize "%P"
-                    'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-        " "
-        (zw/modeline-count-region)))))
+    ((pred (lambda (mode) (member mode '(image-mode))))
+     "")
+    ('pdf-view-mode
+     (propertize (concat
+                  (number-to-string
+                   (pdf-view-current-page))
+                  "/"
+                  (or
+                   (ignore-errors
+                     (number-to-string
+                      (pdf-cache-number-of-pages)))
+                   "???")
+                  (pdf-misc-size-indication))
+                 'face (zw/modeline-set-face 'zw-modeline-line-column-active
+                                             'zw-modeline-line-column-inactive)))
+    (_
+     (list
+      (propertize "%l"
+                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+      ":"
+      (propertize "%c"
+                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+      " "
+      (propertize "%P"
+                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+      " "
+      (zw/modeline-count-region)))))
 
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
