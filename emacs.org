@@ -2039,7 +2039,7 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq-default pdf-view-display-size 'fit-page)
   (pdf-tools-install :no-query)
   (setq pdf-view-use-imagemagick nil
-        pdf-view-use-scaling nil ;; set to t if you need high quality pdf
+        pdf-view-use-scaling t ;; set to t if you need high quality pdf
         pdf-view-continuous nil
         pdf-annot-activate-created-annotations t))
 #+end_src
