@@ -382,6 +382,30 @@
   " "))
 
 ;;; misc config
+;; repl
+(dolist (mode '(inferior-ess-mode-hook
+                inferior-python-mode-hook))
+  (add-hook mode
+            (lambda ()
+              (setq-local mode-line-format
+                          (list
+                           "%e"
+                           " "
+                           '(:eval (zw/modeline-tab-index))
+                           " "
+                           '(:eval (zw/modeline-buffer-name))
+                           " "
+                           ;; line and column
+                           '(:eval (zw/modeline-line-column))
+                           " "
+                           ;; is remote file?
+                           '(:eval (zw/modeline-remote))
+
+                           ;; add modeline process
+                           '(:eval mode-line-process)
+                           ;; conda env
+                           '(:eval (zw/modeline-conda)))))))
+
 ;; ess-r
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
