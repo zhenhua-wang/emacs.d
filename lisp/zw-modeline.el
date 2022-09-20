@@ -197,7 +197,8 @@
 
 (defun zw/modeline-line-column ()
   (pcase major-mode
-    ((pred (lambda (mode) (member mode '(image-mode))))
+    ((pred (lambda (mode) (member mode '(image-mode
+                                         org-agenda-mode))))
      "")
     ('pdf-view-mode
      (propertize (concat
