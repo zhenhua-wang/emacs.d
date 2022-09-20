@@ -50,6 +50,9 @@
 (defvar zw-tab-bar-name-max 30
   "Maximum length of current tab name")
 
+(defvar zw-tab-bar-func-def-max 50
+  "Maximum length of current function definition")
+
 (defvar zw-tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
@@ -68,12 +71,9 @@
 (defun zw-tab-bar-tab-name ()
   (let* ((tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
                                'face 'zw-tab-bar-tab-selected))
-         (tab-name-length (length tab-name))
-         (tab-name-abbrev (if (< tab-name-length zw-tab-bar-name-max)
-                              tab-name
-                            (truncate-string-to-width
-                             tab-name zw-tab-bar-name-max nil nil
-                             zw-tab-bar-ellipsis)))
+         (tab-name-abbrev (truncate-string-to-width
+                           tab-name zw-tab-bar-name-max nil nil
+                           zw-tab-bar-ellipsis))
          (dir-name (if buffer-file-name
                        (propertize (abbreviate-file-name default-directory)
                                    'face 'zw-tab-bar-tab-path-selected)
@@ -100,22 +100,18 @@
       (font-lock-ensure (point) (point-at-eol))
       (buffer-substring (point) (point-at-eol)))))
 
-(defun zw-tab-bar-format-tab-file-path ()
-  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
-                               (concat
-                                (propertize " Def "
-                                            'face 'keycast-key)
-                                " "
-                                (string-trim (zw-tab-bar-beginning-of-defun)))
-                             (zw-tab-bar-tab-name))
-                 :help "File path or function definition")))
-
-(defun zw-tab-bar-format-tab-func-def ()
-  `((current-tab menu-item (concat
-                            (propertize " Def "
-                                        'face 'keycast-key)
-                            (string-trim (zw-tab-bar-beginning-of-defun)))
-                 :help "Function definition")))
+(defun zw-tab-bar-format-file-path-function-def ()
+  `((current-tab menu-item (let ((func-def (zw-tab-bar-beginning-of-defun)))
+                             (if (and (derived-mode-p 'prog-mode) func-def)
+                                 (concat
+                                  (propertize " Def "
+                                              'face 'keycast-key)
+                                  " "
+                                  (truncate-string-to-width
+                                   (string-trim func-def) zw-tab-bar-func-def-max nil nil
+                                   zw-tab-bar-ellipsis))
+                               (zw-tab-bar-tab-name)))
+                             :help "File path or function definition")))
 
 ;; set default foreground
 (set-face-foreground 'tab-bar (face-foreground 'default))
@@ -127,7 +123,7 @@
       tab-bar-separator " "
       tab-bar-format '(zw-tab-bar-format-menu-bar
                        tab-bar-separator
-                       zw-tab-bar-format-tab-file-path
+                       zw-tab-bar-format-file-path-function-def
                        tab-bar-separator
                        tab-bar-format-align-right
                        zw-tab-bar-format-battery))
