@@ -896,7 +896,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config
   (setq dired-sidebar-width 30
         dired-sidebar-use-one-instance t
-        dired-sidebar-theme 'vscode
+        dired-sidebar-subtree-line-prefix "--"
         dired-sidebar-use-term-integration t))
 #+end_src
 
