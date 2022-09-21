@@ -245,7 +245,7 @@
 
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
-      (propertize "Remote"
+      (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
                   'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
 
 (defun zw/modeline-conda ()
