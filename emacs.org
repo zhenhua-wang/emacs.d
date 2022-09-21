@@ -242,7 +242,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (dolist (mode '(prog-mode-hook
                 imenu-list-major-mode-hook
                 markdown-mode-hook
-                latex-mode-hook LaTeX-mode-hook))
+                latex-mode-hook LaTeX-mode-hook
+                dired-sidebar-mode-hook))
   (add-hook mode 'zw/buffer-face-mode-fixed))
 
 ;; set face in dired-mode
@@ -895,7 +896,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                                 (interactive)
                                 (visual-line-mode 0)))
   :config
-  (setq dired-sidebar-width 30
+  (setq dired-sidebar-width 25
         dired-sidebar-use-one-instance t
         dired-sidebar-subtree-line-prefix "--"
         dired-sidebar-no-delete-other-windows t
@@ -908,7 +909,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package ibuffer-sidebar
   :commands (ibuffer-sidebar-toggle-sidebar)
   :config
-  (setq ibuffer-sidebar-special-refresh-commands
+  (setq ibuffer-sidebar-width 25
+        ibuffer-sidebar-special-refresh-commands
         '((kill-buffer . 0.1)
           (find-file . 0.1)
           (delete-file . 0.1))))
