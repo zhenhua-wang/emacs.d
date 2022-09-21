@@ -887,6 +887,17 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook (dired-mode . all-the-icons-dired-mode)
   ;; use colorful icons
   :init (setq all-the-icons-dired-monochrome nil))
+
+(use-package dired-sidebar
+  :commands (dired-sidebar-toggle-sidebar)
+  :hook (dired-sidebar-mode . (lambda ()
+                                (interactive)
+                                (visual-line-mode 0)))
+  :config
+  (setq dired-sidebar-width 30
+        dired-sidebar-use-one-instance t
+        dired-sidebar-theme 'vscode
+        dired-sidebar-use-term-integration t))
 #+end_src
 
 ** Openwith
