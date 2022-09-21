@@ -899,7 +899,11 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         dired-sidebar-use-one-instance t
         dired-sidebar-subtree-line-prefix "--"
         dired-sidebar-no-delete-other-windows t
-        dired-sidebar-use-term-integration t))
+        dired-sidebar-use-term-integration t)
+  ;; hide sidebar buffer
+  (defun zw/hide-buffer (orig-fun &rest args)
+    (concat " " (apply orig-fun args)))
+  (advice-add 'dired-sidebar-buffer-name :around #'zw/hide-buffer))
 
 (use-package ibuffer-sidebar
   :commands (ibuffer-sidebar-toggle-sidebar)
