@@ -909,6 +909,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package ibuffer-sidebar
   :commands (ibuffer-sidebar-toggle-sidebar)
   :config
+  (add-hook 'ibuffer-mode-hook
+            (lambda () (setq-local
+                        display-buffer-base-action
+                        '(display-buffer-use-some-window))))
   (setq ibuffer-sidebar-width 25
         ibuffer-sidebar-special-refresh-commands
         '((kill-buffer . 0.1)
@@ -918,8 +922,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (defun +sidebar-toggle ()
   "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
   (interactive)
-  (ibuffer-sidebar-toggle-sidebar)
-  (dired-sidebar-toggle-sidebar))
+  (dired-sidebar-toggle-sidebar)
+  (ibuffer-sidebar-toggle-sidebar))
 #+end_src
 
 ** Openwith
