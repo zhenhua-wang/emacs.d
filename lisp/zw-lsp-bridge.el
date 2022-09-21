@@ -19,7 +19,7 @@
   :config
   (setq acm-enable-doc nil
         acm-candidate-match-function 'orderless-prefixes
-        lsp-bridge-tex-lsp-server 'digestif)
+        lsp-bridge-tex-lsp-server "digestif")
   ;; acm font
   (set-face-attribute 'acm-select-face nil
 		      :bold t
