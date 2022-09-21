@@ -890,6 +890,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package dired-sidebar
   :commands (dired-sidebar-toggle-sidebar)
+  :bind (("s-b" . dired-sidebar-toggle-sidebar))
   :hook (dired-sidebar-mode . (lambda ()
                                 (interactive)
                                 (visual-line-mode 0)))
