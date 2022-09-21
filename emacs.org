@@ -909,11 +909,11 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package ibuffer-sidebar
   :commands (ibuffer-sidebar-toggle-sidebar)
   :hook (ibuffer-sidebar-mode . (lambda ()
-                                (interactive)
-                                (visual-line-mode 0)
-                                (setq-local
-                                 display-buffer-base-action
-                                 '(display-buffer-use-some-window))))
+                                  (interactive)
+                                  (visual-line-mode 0)
+                                  (setq-local
+                                   display-buffer-base-action
+                                   '(display-buffer-use-some-window))))
   :config
   (setq ibuffer-sidebar-width 25
         ibuffer-sidebar-special-refresh-commands
