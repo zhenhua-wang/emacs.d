@@ -890,7 +890,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :init (setq all-the-icons-dired-monochrome nil))
 
 (use-package dired-sidebar
-  :commands (dired-sidebar-toggle-sidebar)
+  :commands (dired-sidebar-showing-sidebar-p
+             dired-sidebar-hide-sidebar
+             dired-sidebar-show-sidebar)
   :bind (("s-b" . zw/sidebar-toggle))
   :hook (dired-sidebar-mode . (lambda ()
                                 (interactive)
@@ -907,7 +909,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (advice-add 'dired-sidebar-buffer-name :around #'zw/hide-buffer))
 
 (use-package ibuffer-sidebar
-  :commands (ibuffer-sidebar-toggle-sidebar)
+  :commands (dired-sidebar-showing-sidebar-p
+             dired-sidebar-hide-sidebar
+             dired-sidebar-show-sidebar)
   :hook (ibuffer-sidebar-mode . (lambda ()
                                   (interactive)
                                   (visual-line-mode 0)
