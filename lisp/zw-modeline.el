@@ -210,8 +210,7 @@
                    (ignore-errors
                      (number-to-string
                       (pdf-cache-number-of-pages)))
-                   "???")
-                  (pdf-misc-size-indication))
+                   "???"))
                  'face (zw/modeline-set-face 'zw-modeline-line-column-active
                                              'zw-modeline-line-column-inactive)))
     (_
@@ -220,9 +219,6 @@
                   'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
       ":"
       (propertize "%c"
-                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
-      " "
-      (propertize "%P"
                   'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
       " "
       (zw/modeline-count-region)))))
