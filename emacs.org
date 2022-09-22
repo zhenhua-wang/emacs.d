@@ -566,7 +566,7 @@ FACE defaults to inheriting from default and highlight."
      '(diff-hl-change ((t (:background "#FF9F29"))))
      '(diff-hl-insert ((t (:background "#3CCF4E"))))
      '(diff-hl-delete ((t (:background "#E94560"))))
-     '(diff-hl-dired-unknown ((t (:background "#25316D"))))
+     '(diff-hl-dired-unknown ((t (:background "#277BC0"))))
      '(diff-hl-dired-ignored ((t (:background "#EEEEEE"))))))
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
