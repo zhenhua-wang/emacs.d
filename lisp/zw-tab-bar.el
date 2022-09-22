@@ -101,17 +101,16 @@
       (buffer-substring (point) (point-at-eol)))))
 
 (defun zw-tab-bar-format-file-path-function-def ()
-  `((current-tab menu-item (let ((func-def (zw-tab-bar-beginning-of-defun)))
-                             (if (and (derived-mode-p 'prog-mode) func-def)
-                                 (concat
-                                  (propertize " Def "
-                                              'face 'keycast-key)
-                                  " "
-                                  (truncate-string-to-width
-                                   (string-trim func-def) zw-tab-bar-func-def-max nil nil
-                                   zw-tab-bar-ellipsis))
-                               (zw-tab-bar-tab-name)))
-                             :help "File path or function definition")))
+  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
+                               (concat
+                                (propertize " Def "
+                                            'face 'keycast-key)
+                                " "
+                                (truncate-string-to-width
+                                 (string-trim (zw-tab-bar-beginning-of-defun)) zw-tab-bar-func-def-max nil nil
+                                 zw-tab-bar-ellipsis))
+                             (zw-tab-bar-tab-name))
+                 :help "File path or function definition")))
 
 ;; set default foreground
 (set-face-foreground 'tab-bar (face-foreground 'default))
