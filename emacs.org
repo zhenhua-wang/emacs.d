@@ -563,10 +563,10 @@ FACE defaults to inheriting from default and highlight."
   :config
   (defun zw/set-diff-face ()
     (custom-set-faces
-     '(diff-hl-change ((t (:background "#674747"))))
-     '(diff-hl-insert ((t (:background "#829460"))))
-     '(diff-hl-delete ((t (:background "#F96666"))))
-     '(diff-hl-dired-unknown ((t (:background "#87A2FB"))))
+     '(diff-hl-change ((t (:background "#FF9F29"))))
+     '(diff-hl-insert ((t (:background "#3CCF4E"))))
+     '(diff-hl-delete ((t (:background "#E94560"))))
+     '(diff-hl-dired-unknown ((t (:background "#25316D"))))
      '(diff-hl-dired-ignored ((t (:background "#EEEEEE"))))))
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
