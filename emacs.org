@@ -83,6 +83,7 @@
   (after-init . delete-selection-mode)
   ;; fringe (nil is default)
   (after-init . fringe-mode)
+  (after-init . window-divider-mode)
   :config
   (require 'zw-utils)
   ;; setq default folder
