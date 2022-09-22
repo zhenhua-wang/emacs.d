@@ -402,7 +402,6 @@
                            " "
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
-
                            ;; add modeline process
                            '(:eval mode-line-process)
                            ;; conda env
