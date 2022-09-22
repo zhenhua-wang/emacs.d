@@ -875,11 +875,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq dired-use-ls-dired t
         dired-listing-switches "-al --group-directories-first"))
 
-;; Quick sort dired buffers via hydra
-(use-package dired-quick-sort
-  :bind ((:map dired-mode-map
-               ("S" . hydra-dired-quick-sort/body))))
-
 (use-package diredfl
   :hook (dired-mode . diredfl-mode))
 
