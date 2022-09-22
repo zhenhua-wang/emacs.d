@@ -393,9 +393,6 @@
                            " "
                            '(:eval (zw/modeline-buffer-name))
                            " "
-                           ;; line and column
-                           '(:eval (zw/modeline-line-column))
-                           " "
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
                            ;; add modeline process
