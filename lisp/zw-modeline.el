@@ -317,8 +317,6 @@
 
 (defun zw/modeline-rhs ()
   (concat
-   ;; add modeline process
-   mode-line-process
    ;; conda env
    (zw/modeline-conda)
    ;; version control
@@ -370,6 +368,9 @@
   " "
   ;; is remote file?
   '(:eval (zw/modeline-remote))
+
+  ;; add modeline process
+  '(:eval mode-line-process)
 
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
