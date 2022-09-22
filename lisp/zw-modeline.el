@@ -317,6 +317,8 @@
 
 (defun zw/modeline-rhs ()
   (concat
+   ;; add modeline process
+   mode-line-process
    ;; conda env
    (zw/modeline-conda)
    ;; version control
@@ -336,10 +338,7 @@
    " " 'display
    `((space :align-to
             (- (+ right right-fringe right-margin)
-               ,(+ 2 (apply '+ (list (zw/string-width (zw/modeline-rhs))))))))))
-
-(defun zw/string-width (str)
-  (if str (string-width str) 0))
+               ,(+ 2 (apply '+ (list (length (zw/modeline-rhs))))))))))
 
 (defun zw/modeline-set-face (active-face inactive-face)
   (if (zw/modeline-selected-window-active-p)
@@ -371,9 +370,6 @@
   " "
   ;; is remote file?
   '(:eval (zw/modeline-remote))
-
-  ;; add modeline process
-  '(:eval mode-line-process)
 
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
