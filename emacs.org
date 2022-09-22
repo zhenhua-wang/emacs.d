@@ -891,7 +891,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package dired-sidebar
   :commands (dired-sidebar-toggle-sidebar)
-  :bind (("s-b" . +sidebar-toggle))
+  :bind (("s-b" . zw/sidebar-toggle))
   :hook (dired-sidebar-mode . (lambda ()
                                 (interactive)
                                 (visual-line-mode 0)))
@@ -921,11 +921,17 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
           (find-file . 0.1)
           (delete-file . 0.1))))
 
-(defun +sidebar-toggle ()
+(defun zw/sidebar-toggle ()
   "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
   (interactive)
-  (dired-sidebar-toggle-sidebar)
-  (ibuffer-sidebar-toggle-sidebar))
+  (if (and (dired-sidebar-showing-sidebar-p)
+           (ibuffer-sidebar-showing-sidebar-p))
+      (progn
+        (dired-sidebar-hide-sidebar)
+        (ibuffer-sidebar-hide-sidebar))
+    (progn
+      (dired-sidebar-show-sidebar)
+      (ibuffer-sidebar-show-sidebar))))
 #+end_src
 
 ** Openwith
