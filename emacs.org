@@ -557,13 +557,17 @@ FACE defaults to inheriting from default and highlight."
                ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
          (dired-mode . diff-hl-dired-mode)
-         (diff-hl-dired-mode . zw/set-diff-face))
+         ((diff-hl-mode diff-hl-dired-mode) . zw/set-diff-face))
   :init (setq diff-hl-draw-borders nil
               diff-hl-side 'left)
   :config
   (defun zw/set-diff-face ()
-    (set-face-foreground 'diff-hl-dired-ignored (face-foreground 'error))
-    (set-face-foreground 'diff-hl-dired-unknown (face-foreground 'error)))
+    (custom-set-faces
+     '(diff-hl-change ((t (:background "#674747"))))
+     '(diff-hl-insert ((t (:background "#829460"))))
+     '(diff-hl-delete ((t (:background "#F96666"))))
+     '(diff-hl-dired-unknown ((t (:background "#87A2FB"))))
+     '(diff-hl-dired-ignored ((t (:background "#EEEEEE"))))))
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
   ;; Integration with magit
