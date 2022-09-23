@@ -32,6 +32,8 @@ alias open="xdg-open"
 - Vitals
 
 ** KDE
+- install =plasma-meta=
+- use =terminator=
 *** chinese input
 1. install =noto-fonts-cjk=
 2. add =input method panel= to KDE's panel
@@ -39,6 +41,9 @@ alias open="xdg-open"
 #+begin_src sh
 ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 #+end_src
+
+*** zoom
+Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
 
 ** Applications
 *** Emacs
