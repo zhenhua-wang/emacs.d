@@ -39,7 +39,7 @@ alias open="xdg-open"
 2. add =input method panel= to KDE's panel
 3. add the following scripts to ~~/.config/plasma-workspace/env/~
 #+begin_src sh
-export LC_CTYPE=zh_CN.UTF-8
+export LC_CTYPE=zh_CN.UTF-8     # this is need to enable ibus in emacs
 export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus

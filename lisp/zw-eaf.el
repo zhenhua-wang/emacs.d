@@ -6,6 +6,7 @@
 (eaf-setq eaf-pdf-default-zoom  2)
 (eaf-setq eaf-pdf-dark-mode "ignore")
 (eaf-setq eaf-webengine-default-zoom  "2")
+(eaf-setq eaf-browser-enable-adblocker  t)
 (setq browse-url-browser-function 'eaf-open-browser)
 
 (provide 'zw-eaf)
