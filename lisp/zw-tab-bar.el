@@ -100,8 +100,20 @@
       (font-lock-ensure (point) (point-at-eol))
       (buffer-substring (point) (point-at-eol)))))
 
+(defun zw-in-defun-p ()
+  "check if current cursor is in a function definition"
+  (save-excursion
+    ;; HACK: if `end-of-defun' moves the cursor, cursor if in a definition
+    (let ((current-point (point)))
+      (end-of-defun)
+      (if (not (= (point) current-point))
+          t
+        nil))))
+
 (defun zw-tab-bar-format-file-path-function-def ()
-  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode) (zw-tab-bar-beginning-of-defun))
+  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode)
+                                    (zw-tab-bar-beginning-of-defun)
+                                    (zw-in-defun-p))
                                (concat
                                 (propertize " Def "
                                             'face 'keycast-key)
