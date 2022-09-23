@@ -31,6 +31,15 @@ alias open="xdg-open"
 - Unite
 - Vitals
 
+** KDE
+*** chinese input
+1. install =noto-fonts-cjk=
+2. add =input method panel= to KDE's panel
+3. add the following scripts to ~~/.config/plasma-workspace/env/~
+#+begin_src sh
+ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
+#+end_src
+
 ** Applications
 *** Emacs
 #+begin_src shell
