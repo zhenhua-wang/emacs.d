@@ -34,6 +34,13 @@ alias open="xdg-open"
 ** KDE
 - install =plasma-meta=
 - use =terminator=
+*** hide titlebar when maximized
+Add the following scripts in =~/.config/kwinrc=
+#+begin_src sh
+[Windows]
+BorderlessMaximizedWindows=true
+#+end_src
+
 *** chinese input
 1. install =noto-fonts-cjk=
 2. add =input method panel= to KDE's panel
