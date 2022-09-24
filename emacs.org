@@ -925,6 +925,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                                    '(display-buffer-use-some-window))))
   :config
   (setq ibuffer-sidebar-width 25
+        ibuffer-sidebar-name " :Buffers:"
         ibuffer-sidebar-special-refresh-commands
         '((kill-buffer . 0.1)
           (find-file . 0.1)
