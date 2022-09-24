@@ -913,6 +913,24 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
     (concat " " (apply orig-fun args)))
   (advice-add 'dired-sidebar-buffer-name :around #'zw/hide-buffer))
 
+(defun zw/sidebar-toggle ()
+  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
+  (interactive)
+  (if (and (dired-sidebar-showing-sidebar-p)
+           (ibuffer-sidebar-showing-sidebar-p))
+      (progn
+        (dired-sidebar-hide-sidebar)
+        (ibuffer-sidebar-hide-sidebar))
+    (progn
+      (dired-sidebar-show-sidebar)
+      (ibuffer-sidebar-show-sidebar))))
+#+end_src
+
+** Ibuffer
+#+begin_src emacs-lisp
+(require 'ibuf-ext)
+(add-to-list 'ibuffer-never-show-predicates "^\\*")
+
 (use-package ibuffer-sidebar
   :commands (dired-sidebar-showing-sidebar-p
              dired-sidebar-hide-sidebar
@@ -930,18 +948,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         '((kill-buffer . 0.1)
           (find-file . 0.1)
           (delete-file . 0.1))))
-
-(defun zw/sidebar-toggle ()
-  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
-  (interactive)
-  (if (and (dired-sidebar-showing-sidebar-p)
-           (ibuffer-sidebar-showing-sidebar-p))
-      (progn
-        (dired-sidebar-hide-sidebar)
-        (ibuffer-sidebar-hide-sidebar))
-    (progn
-      (dired-sidebar-show-sidebar)
-      (ibuffer-sidebar-show-sidebar))))
 #+end_src
 
 ** Openwith
