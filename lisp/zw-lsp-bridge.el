@@ -1,7 +1,7 @@
 (use-package lsp-bridge
   :straight (lsp-bridge :host github :repo "manateelazycat/lsp-bridge"
                         :files ("*"))
-  :demand
+  :commands (lsp-bridge-mode)
   :hook
   (python-mode . lsp-bridge-mode)
   ;; (ess-r-mode . lsp-bridge-mode)
