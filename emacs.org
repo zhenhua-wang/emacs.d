@@ -1213,6 +1213,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
          ("M-s f" . consult-flymake)
+         ("M-s s" . consult-flyspell)
          (:map isearch-mode-map
                ("M-s" . consult-isearch-history))
          (:map minibuffer-local-completion-map
@@ -1266,6 +1267,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :straight
   (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
   :init (setq consult-tramp-method "ssh"))
+(use-package consult-flyspell
+  :commands consult-flyspell)
 #+end_src
 
 ** Code Completion

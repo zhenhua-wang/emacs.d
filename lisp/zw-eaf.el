@@ -9,5 +9,6 @@
 (eaf-setq eaf-browser-enable-adblocker t)
 (eaf-setq eaf-browser-dark-mode nil)
 (setq browse-url-browser-function 'eaf-open-browser)
+(bind-keys ("s-o" . eaf-open-this-buffer))
 
 (provide 'zw-eaf)
