@@ -577,34 +577,6 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 * Window
-** Popper
-#+begin_src emacs-lisp
-(use-package popper
-  :hook
-  (after-init . popper-mode)
-  (popper-mode . popper-echo-mode)
-  :init
-  (setq popper-mode-line ""
-        popper-reference-buffers
-        '("[Oo]utput\\*$"
-          "^\\*Warnings\\*"
-          "^\\*Compile-Log\\*"
-          "^\\*Messages\\*"
-          "^\\*Backtrace\\*"
-          "^\\*ielm\\*"
-          "^\\*Tex Help\\*"
-          "^\\*Shell Command Output\\*"
-          "^\\*Async Shell Command\\*"
-          "^\\*WordNut\\*"
-          "^\\*help[R].*"
-          "^\\*polymode export\\*"
-          help-mode
-          eshell-mode
-          vterm-mode
-          message-mode
-          compilation-mode)))
-#+end_src
-
 ** Winner-mode
 #+begin_src emacs-lisp
 (use-package winner
