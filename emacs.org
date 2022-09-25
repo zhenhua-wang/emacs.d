@@ -628,12 +628,12 @@ i.e. windows tiled side-by-side."
 #+end_src
 
 ** Control Buffer Placement
-I combine this with =popper.el= now! This is a great feature, as popper turn these buffers to =pop= buffer, so that I could toggle with ~C-`~. Besides =pop= buffer would change my current window placement.
 #+begin_src emacs-lisp
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) t)))
     (window--display-buffer buffer largest-window 'reuse alist)))
 
+;; default buffer action
 (setq display-buffer-base-action
       '(display-buffer-reuse-mode-window
         display-buffer-reuse-window
