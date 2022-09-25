@@ -2,6 +2,8 @@
 (use-package eaf
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
+  :demand
+  :bind (("s-o" . eaf-open-this-buffer))
   :config
   ;; browser
   (require 'eaf-browser)
@@ -12,7 +14,6 @@
   ;; pdf
   (require 'eaf-pdf-viewer)
   (eaf-setq eaf-pdf-default-zoom  2)
-  (eaf-setq eaf-pdf-dark-mode "ignore")
-  (bind-keys ("s-o" . eaf-open-this-buffer)))
+  (eaf-setq eaf-pdf-dark-mode "ignore"))
 
 (provide 'zw-eaf)
