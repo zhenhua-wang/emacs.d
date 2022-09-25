@@ -646,6 +646,8 @@ i.e. windows tiled side-by-side."
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
          (zw/display-buffer-in-largest-window))
+        ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
+         (zw/display-buffer-in-largest-window))
         ;; top side window
         ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
          (display-buffer-in-side-window)
@@ -673,26 +675,6 @@ i.e. windows tiled side-by-side."
          (side . top)
          (slot . 1))
         ;; right side window
-        ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . -1))
-        ("\\*Man.*"
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . -1))
-        ("\\*eglot doc.*"
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . -1))
-        ("\\*Org Agenda.*"
-         (display-buffer-reuse-mode-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . 1))
         ("\\*\\(R\\|Python\\).*"
          (display-buffer-reuse-mode-window)
          (side . right)
