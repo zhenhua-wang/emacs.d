@@ -3,7 +3,7 @@
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
   :demand
-  :bind (("s-o" . eaf-open-this-buffer))
+  :bind (("s-o" . zw/eaf-open-this-buffer))
   :config
   (setq zw/enable-eaf-browser-p nil
         zw/enable-eaf-pdf-p t)
@@ -30,5 +30,14 @@
     (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
     (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding)
     (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)))
+
+(defun zw/eaf-open-this-buffer ()
+  "Try to open the current buffer using EAF and close old buffer"
+  (interactive)
+  (if (eaf--buffer-file-p)
+      (let ((current-buffer-file-name buffer-file-name))
+        (kill-buffer (current-buffer))
+        (eaf-open current-buffer-file-name))
+    (user-error "[EAF] Current buffer is not supported by EAF!")))
 
 (provide 'zw-eaf)
