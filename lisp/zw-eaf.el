@@ -14,6 +14,8 @@
   ;; pdf
   (require 'eaf-pdf-viewer)
   (eaf-setq eaf-pdf-default-zoom  2)
-  (eaf-setq eaf-pdf-dark-mode "ignore"))
+  (eaf-setq eaf-pdf-dark-mode "ignore")
+  (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding))
 
 (provide 'zw-eaf)
