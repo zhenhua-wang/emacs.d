@@ -16,6 +16,8 @@
   (eaf-bind-key kill_text "s-x" eaf-browser-keybinding)
   (eaf-bind-key copy_text "s-c" eaf-browser-keybinding)
   (eaf-bind-key yank_text "s-v" eaf-browser-keybinding)
+  (eaf-bind-key undo_action "s-z" eaf-browser-keybinding)
+  (eaf-bind-key redo_action "s-Z" eaf-browser-keybinding)
   (eaf-bind-key select_all_or_input_text "s-a" eaf-browser-keybinding)
   ;; pdf
   (require 'eaf-pdf-viewer)
