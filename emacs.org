@@ -630,91 +630,90 @@ i.e. windows tiled side-by-side."
 ** Control Buffer Placement
 I combine this with =popper.el= now! This is a great feature, as popper turn these buffers to =pop= buffer, so that I could toggle with ~C-`~. Besides =pop= buffer would change my current window placement.
 #+begin_src emacs-lisp
-;; hook to popper-mode in case popper overwrite this behavior
-(add-hook 'popper-mode-hook (lambda ()
-  (setq display-buffer-base-action
-        '(display-buffer-reuse-mode-window
-          display-buffer-reuse-window
-          display-buffer-same-window))
+(defun zw/display-buffer-in-largest-window (buffer alist)
+  (let ((largest-window (get-largest-window (selected-frame) t)))
+    (window--display-buffer buffer largest-window 'reuse alist)))
 
-  ;; If a popup does happen, don't resize windows to be equal-sized
-  (setq even-window-sizes nil)
+(setq display-buffer-base-action
+      '(display-buffer-reuse-mode-window
+        display-buffer-reuse-window
+        display-buffer-same-window))
 
-  (setq display-buffer-alist
-        '(;; top side window
-          ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
-           (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . top)
-           (slot . 0))
-          ("\\*Messages.*"
-           (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . top)
-           (slot . 1))
-          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
-           (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . top)
-           (slot . 2))
-          ("\\*polymode export.*"
-           (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . top)
-           (slot . 1))
-          ("\\*compilation.*"
-           (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . top)
-           (slot . 1))
-          ;; right side window
-          ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
-           (display-buffer-in-side-window)
-           (window-width . 0.5)
-           (side . right)
-           (slot . -1))
-          ("\\*Man.*"
-           (display-buffer-in-side-window)
-           (window-width . 0.5)
-           (side . right)
-           (slot . -1))
-          ("\\*eglot doc.*"
-           (display-buffer-in-side-window)
-           (window-width . 0.5)
-           (side . right)
-           (slot . -1))
-          ("\\*Org Agenda.*"
-           (display-buffer-reuse-mode-window)
-           (window-width . 0.5)
-           (side . right)
-           (slot . 1))
-          ("\\*\\(R\\|Python\\).*"
-           (display-buffer-reuse-mode-window)
-           (side . right)
-           (slot . -1)
-           (window-width . 0.3))
-          ;; left side window
-          ("^\\*Ilist\\*$"
-           (display-buffer-in-side-window)
-           (window-width . 0.2)
-           (side . left)
-           (slot . 1))
-          ;; bottom buffer (NOT side window)
-          ("\\*.*\\(e?shell\\|v?term\\).*"
-           (display-buffer-at-bottom)
-           ;; (display-buffer-in-side-window)
-           (window-height . 0.2)
-           (side . bottom))
-          ;; ("\\*R.*"
-          ;;  (display-buffer-reuse-mode-window display-buffer-at-bottom)
-          ;;  (window-height . 0.3))
-          ;; below current window
-          ("\\*Calendar.*"
-           (display-buffer-reuse-mode-window display-buffer-below-selected)
-           (window-height . shrink-window-if-larger-than-buffer))))
+;; If a popup does happen, don't resize windows to be equal-sized
+(setq even-window-sizes nil)
 
-  ;; If a popup does happen, don't resize windows to be equal-sized
-  (setq even-window-sizes nil)))
+(setq display-buffer-alist
+      '(;; largest window
+        ("\\.\\(?:pdf\\)\\'"
+         (zw/display-buffer-in-largest-window))
+        ;; top side window
+        ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 0))
+        ("\\*Messages.*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 1))
+        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 2))
+        ("\\*polymode export.*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 1))
+        ("\\*compilation.*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 1))
+        ;; right side window
+        ("\\*[Hh]elp.*"            ; See the hooks for `visual-line-mode'
+         (display-buffer-in-side-window)
+         (window-width . 0.5)
+         (side . right)
+         (slot . -1))
+        ("\\*Man.*"
+         (display-buffer-in-side-window)
+         (window-width . 0.5)
+         (side . right)
+         (slot . -1))
+        ("\\*eglot doc.*"
+         (display-buffer-in-side-window)
+         (window-width . 0.5)
+         (side . right)
+         (slot . -1))
+        ("\\*Org Agenda.*"
+         (display-buffer-reuse-mode-window)
+         (window-width . 0.5)
+         (side . right)
+         (slot . 1))
+        ("\\*\\(R\\|Python\\).*"
+         (display-buffer-reuse-mode-window)
+         (side . right)
+         (slot . -1)
+         (window-width . 0.3))
+        ;; left side window
+        ("^\\*Ilist\\*$"
+         (display-buffer-in-side-window)
+         (window-width . 0.2)
+         (side . left)
+         (slot . 1))
+        ;; bottom buffer (NOT side window)
+        ("\\*.*\\(e?shell\\|v?term\\).*"
+         (display-buffer-at-bottom)
+         ;; (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . bottom))
+        ;; below current window
+        ("\\*Calendar.*"
+         (display-buffer-reuse-mode-window display-buffer-below-selected)
+         (window-height . shrink-window-if-larger-than-buffer))))
 #+end_src
 
 * Tool
@@ -912,7 +911,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                                   (visual-line-mode 0)
                                   (setq-local
                                    display-buffer-base-action
-                                   '(display-buffer-use-some-window))))
+                                   '(zw/display-buffer-in-largest-window))))
   :config
   (setq ibuffer-sidebar-width 25
         ibuffer-sidebar-name " :Buffers:"
