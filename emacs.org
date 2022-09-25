@@ -644,7 +644,8 @@ i.e. windows tiled side-by-side."
 (setq display-buffer-alist
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
-         (zw/display-buffer-in-largest-window))
+         (display-buffer-reuse-window
+          zw/display-buffer-in-largest-window))
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
          (zw/display-buffer-in-largest-window))
         ;; top side window
