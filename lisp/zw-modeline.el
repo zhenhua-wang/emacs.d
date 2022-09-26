@@ -60,6 +60,11 @@
   "Remote file face for active modeline"
   :group 'zw-modeline-active)
 
+(defface zw-modeline-kmacro-active
+  '((t (:inherit highlight)))
+  "Defining kmacro face for active modeline"
+  :group 'zw-modeline-active)
+
 (defface zw-modeline-lsp-active
   '((t (:inherit success)))
   "LSP mode face for active modeline"
@@ -183,7 +188,7 @@
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
     (propertize " kmacro "
-                'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-default-inactive))))
+                'face (zw/modeline-set-face 'zw-modeline-kmacro-active 'zw-modeline-default-inactive))))
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
