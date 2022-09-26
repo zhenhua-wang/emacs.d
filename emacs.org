@@ -1591,14 +1591,18 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package writeroom-mode
   :commands (writeroom-mode)
   :hook
-  (pdf-view-mode . (lambda () (setq-local writeroom-width 1)))
   (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
   (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind (("<f11>" . writeroom-mode))
+  :bind (("<f11>" . zw/writeroom-mode))
   :config
   (setq writeroom-fullscreen-effect 'maximized
-        writeroom-width 90))
+        writeroom-width 90)
+  (defun zw/writeroom-mode ()
+    (interactive)
+    (when (eq major-mode 'pdf-view-mode)
+      (setq-local writeroom-width 1))
+    (writeroom-mode)))
 #+end_src
 
 *** Org-mode
