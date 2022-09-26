@@ -20,125 +20,60 @@
   "Default face for inactive modeline"
   :group 'zw-modeline-inactive)
 
-(defface zw-modeline-file-directory-active
-  '((t (:inherit font-lock-keyword-face :bold t)))
-  "File directory face for active modeline"
-  :group 'zw-modeline-active)
-
-(defface zw-modeline-file-directory-inactive
-  '((t (:inherit zw-modeline-default-inactive :bold t)))
-  "File directory face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-tab-index-active
   '((t (:inherit font-lock-keyword-face)))
   "Tab index face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-tab-index-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Tab index face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 (defface zw-modeline-read-only-active
   '((t (:foreground "#E94560")))
   "Read only buffer face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline-read-only-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Read only buffer face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-read-write-active
   '((t (:foreground "#76BA99")))
   "Read write buffer face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-read-write-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Read write buffer face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 (defface zw-modeline-modified-active
   '((t (:foreground "#F7A76C")))
   "Modified buffer face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline-modified-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Modified buffer face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-line-column-active
   '((t (:inherit font-lock-constant-face)))
   "Line-column face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-line-column-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Line-column face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 (defface zw-modeline-vc-modified-active
   '((t (:inherit zw-modeline-modified-active)))
   "Line-column face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline-vc-modified-inactive
-  '((t (:inherit zw-modeline-modified-inactive)))
-  "Line-column face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-encoding-active
   '((t (:inherit font-lock-constant-face)))
   "Encoding face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-encoding-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Encoding face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 (defface zw-modeline-remote-active
   '((t (:inherit highlight)))
   "Remote file face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline-remote-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "Remote file face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-lsp-active
   '((t (:inherit success)))
   "LSP mode face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-lsp-inactive
-  '((t (:inherit zw-modeline-default-inactive)))
-  "LSP mode face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 (defface zw-modeline-major-mode-active
   '((t (:inherit font-lock-keyword-face :bold t)))
   "Major mode face for active modeline"
   :group 'zw-modeline-active)
 
-(defface zw-modeline-major-mode-inactive
-  '((t (:inherit zw-modeline-default-inactive :bold t)))
-  "Major mode face for inactive modeline"
-  :group 'zw-modeline-inactive)
-
 (defface zw-modeline-process-active
   '((t (:inherit font-lock-function-name-face :bold t)))
   "Process face for active modeline"
   :group 'zw-modeline-active)
-
-(defface zw-modeline-process-inactive
-  '((t (:inherit zw-modeline-process-active)))
-  "Process face for inactive modeline"
-  :group 'zw-modeline-inactive)
 
 ;; keep track of selected window
 (defvar zw/modeline--selected-window nil)
@@ -161,7 +96,7 @@
    ;; current tab index
    (propertize
     (number-to-string (+ (tab-bar--current-tab-index) 1))
-    'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-tab-index-inactive)
+    'face (zw/modeline-set-face 'zw-modeline-tab-index-active 'zw-modeline-default-inactive)
     'help-echo (concat "Current Tab: "
                        (number-to-string (tab-bar--current-tab-index))))
    ">"))
@@ -185,14 +120,14 @@
   "modeline is read-only or modified"
   (if buffer-read-only
       (propertize "RO"
-                  'face (zw/modeline-set-face 'zw-modeline-read-only-active 'zw-modeline-read-only-inactive)
+                  'face (zw/modeline-set-face 'zw-modeline-read-only-active 'zw-modeline-default-inactive)
                   'help-echo "Buffer is read-only")
     (if (buffer-modified-p)
         (propertize "**"
-                    'face (zw/modeline-set-face 'zw-modeline-modified-active 'zw-modeline-modified-inactive)
+                    'face (zw/modeline-set-face 'zw-modeline-modified-active 'zw-modeline-default-inactive)
                     'help-echo "Buffer has been modified")
       (propertize "--"
-                  'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-read-write-inactive)
+                  'face (zw/modeline-set-face 'zw-modeline-read-write-active 'zw-modeline-default-inactive)
                   'help-echo "Buffer is read/write"))))
 
 (defun zw/modeline-line-column ()
@@ -212,14 +147,14 @@
                       (pdf-cache-number-of-pages)))
                    "???"))
                  'face (zw/modeline-set-face 'zw-modeline-line-column-active
-                                             'zw-modeline-line-column-inactive)))
+                                             'zw-modeline-default-inactive)))
     (_
      (list
       (propertize "%l"
-                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-default-inactive))
       ":"
       (propertize "%c"
-                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive))
+                  'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-default-inactive))
       " "
       (zw/modeline-count-region)))))
 
@@ -237,18 +172,18 @@
        " "
        (propertize
         encoding
-        'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-encoding-inactive))))))
+        'face (zw/modeline-set-face 'zw-modeline-encoding-active 'zw-modeline-default-inactive))))))
 
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
       (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
-                  'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
+                  'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-default-inactive))))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
     (propertize " kmacro "
-                'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
+                'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-default-inactive))))
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -267,14 +202,14 @@
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
              (concat vc-info "")
            (propertize (concat vc-info "*")
-                       'face (zw/modeline-set-face 'zw-modeline-vc-modified-active 'zw-modeline-vc-modified-inactive)))))))
+                       'face (zw/modeline-set-face 'zw-modeline-vc-modified-active 'zw-modeline-default-inactive)))))))
 
 (defun zw/modeline-lsp-bridge ()
   (if (and (featurep 'lsp-bridge) lsp-bridge-mode)
       (when lsp-bridge-server
         (propertize "BRIDGE "
                     'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
-                    'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)))
+                    'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-default-inactive)))
     ""))
 
 (defun zw/modeline-lsp ()
@@ -282,7 +217,7 @@
       (let ((workspaces (lsp-workspaces)))
         (concat
          (propertize "LSP"
-                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)
+                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-default-inactive)
                      'help-echo
                      (if workspaces
                          (concat "LSP Connected "
@@ -297,7 +232,7 @@
       (let ((server (eglot-current-server)))
         (concat
          (propertize "EGLOT"
-                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-lsp-inactive)
+                     'face (zw/modeline-set-face 'zw-modeline-lsp-active 'zw-modeline-default-inactive)
                      'help-echo
                      (if server
                          (concat "EGLOT Connected "
@@ -308,7 +243,7 @@
 
 (defun zw/modeline-major-mode ()
   (propertize (format-mode-line mode-name)
-              'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-major-mode-inactive)))
+              'face (zw/modeline-set-face 'zw-modeline-major-mode-active 'zw-modeline-default-inactive)))
 
 (defun zw/modeline-count-region ()
   (if (region-active-p)
@@ -317,7 +252,7 @@
          (concat
           num-words
           "W ")
-         'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-line-column-inactive)
+         'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-default-inactive)
          'help-echo (concat "Word counts: " num-words)))
     ""))
 
@@ -352,7 +287,7 @@
 (defun zw/modeline-propertize-process-info (process)
   (propertize
    process
-   'face (zw/modeline-set-face 'zw-modeline-process-active 'zw-modeline-process-inactive)
+   'face (zw/modeline-set-face 'zw-modeline-process-active 'zw-modeline-default-inactive)
    'help-echo (concat (buffer-name) " is running...")))
 
 ;;; set modeline
