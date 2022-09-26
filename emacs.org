@@ -660,6 +660,7 @@ i.e. windows tiled side-by-side."
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
          (display-buffer-reuse-window
+          display-buffer-in-previous-window
           zw/display-buffer-in-largest-window))
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
          (zw/display-buffer-in-largest-window))
