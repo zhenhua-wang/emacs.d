@@ -576,6 +576,21 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 * Window
+** Popper
+#+begin_src emacs-lisp
+(use-package popper
+  :bind (("s-`"   . popper-cycle))
+  :hook
+  (after-init . popper-mode)
+  (popper-mode . popper-echo-mode)
+  :config
+  (setq popper-mode-line ""
+        popper-display-control nil
+        popper-reference-buffers
+        '(inferior-ess-r-mode
+          inferior-python-mode)))
+#+end_src
+
 ** Winner-mode
 #+begin_src emacs-lisp
 (use-package winner
