@@ -244,6 +244,12 @@
       (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
                   'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
 
+(defun zw/modeline-kmacro-recording ()
+  "Display current Emacs kmacro being recorded."
+  (when (or defining-kbd-macro executing-kbd-macro)
+    (propertize " kmacro "
+                'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-remote-inactive))))
+
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat (propertize "CONDA:"
@@ -368,6 +374,9 @@
   " "
   ;; is remote file?
   '(:eval (zw/modeline-remote))
+  " "
+  ;; record kmacro
+  '(:eval (zw/modeline-kmacro-recording))
 
   ;; add modeline process
   '(:eval mode-line-process)
@@ -396,6 +405,9 @@
                            " "
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
+                           " "
+                           ;; record kmacro
+                           '(:eval (zw/modeline-kmacro-recording))
                            ;; add modeline process
                            '(:eval mode-line-process)
                            ;; conda env
