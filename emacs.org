@@ -1602,7 +1602,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (interactive)
     (when (eq major-mode 'pdf-view-mode)
       (setq-local writeroom-width 1))
-    (writeroom-mode)))
+    (call-interactively 'writeroom-mode)))
 #+end_src
 
 *** Org-mode
