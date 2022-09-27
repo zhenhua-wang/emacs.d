@@ -181,14 +181,16 @@
 
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
-      (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
-                  'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-default-inactive))))
+      (concat " "
+              (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
+                          'face (zw/modeline-set-face 'zw-modeline-remote-active 'zw-modeline-default-inactive)))))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
-    (propertize " kmacro "
-                'face (zw/modeline-set-face 'zw-modeline-kmacro-active 'zw-modeline-default-inactive))))
+    (concat " "
+            (propertize " kmacro "
+                        'face (zw/modeline-set-face 'zw-modeline-kmacro-active 'zw-modeline-default-inactive)))))
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -311,10 +313,10 @@
   " "
   ;; line and column
   '(:eval (zw/modeline-line-column))
-  " "
+
   ;; is remote file?
   '(:eval (zw/modeline-remote))
-  " "
+
   ;; record kmacro
   '(:eval (zw/modeline-kmacro-recording))
 
