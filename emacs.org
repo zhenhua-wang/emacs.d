@@ -257,6 +257,16 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
             (setq-local visual-fill-column-width 100)))
 #+end_src
 
+** All-the-icons
+#+begin_src emacs-lisp
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :init (setq all-the-icons-scale-factor 1)
+  :config
+  (add-to-list 'all-the-icons-extension-icon-alist
+               '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue)))
+#+end_src
+
 ** Theme
 #+begin_src emacs-lisp
 (use-package modus-themes
@@ -395,16 +405,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                         :foreground (face-foreground
                                      'font-lock-keyword-face)))
   (zw/keycast-theme))
-#+end_src
-
-** All-the-icons
-#+begin_src emacs-lisp
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :init (setq all-the-icons-scale-factor 1)
-  :config
-  (add-to-list 'all-the-icons-extension-icon-alist
-               '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue)))
 #+end_src
 
 ** Line number mode
