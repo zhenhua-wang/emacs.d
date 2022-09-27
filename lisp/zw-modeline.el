@@ -294,7 +294,7 @@
 (defun zw/modeline-propertize-process-info (process)
   (propertize
    process
-   'face (zw/modeline-set-face 'zw-modeline-process-active 'zw-modeline-default-inactive)
+   'face (zw/modeline-set-face 'zw-modeline-process-active 'zw-modeline-process-active)
    'help-echo (concat (buffer-name) " is running...")))
 
 ;;; set modeline
