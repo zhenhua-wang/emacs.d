@@ -160,7 +160,6 @@
       ":"
       (propertize "%c"
                   'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-default-inactive))
-      " "
       (zw/modeline-count-region)))))
 
 (defun zw/modeline-encoding ()
@@ -257,8 +256,9 @@
       (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
         (propertize
          (concat
+          " "
           num-words
-          "W ")
+          "W")
          'face (zw/modeline-set-face 'zw-modeline-line-column-active 'zw-modeline-default-inactive)
          'help-echo (concat "Word counts: " num-words)))
     ""))
