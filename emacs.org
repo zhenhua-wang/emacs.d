@@ -579,6 +579,9 @@ FACE defaults to inheriting from default and highlight."
 ** Popper
 #+begin_src emacs-lisp
 (use-package popper
+  :straight '(popper :host github
+                     :repo "karthink/popper"
+                     :branch "local-mode-line-format")
   :bind (("s-`"   . popper-cycle))
   :hook
   (after-init . popper-mode)
