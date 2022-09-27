@@ -31,7 +31,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-read-write-active
-  '((t (:foreground "#76BA99")))
+  '((t (:foreground "#1C6758")))
   "Read write buffer face for active modeline"
   :group 'zw-modeline-active)
 
@@ -51,7 +51,7 @@
   :group 'zw-modeline-active)
 
 (defface zw-modeline-encoding-active
-  '((t (:inherit font-lock-constant-face)))
+  '((t (:inherit zw-modeline-default-active)))
   "Encoding face for active modeline"
   :group 'zw-modeline-active)
 
@@ -192,7 +192,7 @@
 
 (defun zw/modeline-conda ()
   (when (and (featurep 'conda) conda-env-current-name)
-    (concat (propertize "CONDA:"
+    (concat (propertize "Conda:"
                         'face 'zw-modeline-default-inactive)
             conda-env-current-name)))
 
@@ -202,7 +202,7 @@
              (vc-info (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
          " "
-         (propertize "VC:"
+         (propertize "Git:"
                      'face 'zw-modeline-default-inactive)
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
              (concat vc-info "")
