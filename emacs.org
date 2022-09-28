@@ -93,7 +93,7 @@
 (server-start)
 ;; cursor
 (blink-cursor-mode 1)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type '(bar . 5))
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
 (setq-default select-enable-clipboard t)
