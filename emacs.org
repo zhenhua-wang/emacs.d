@@ -1481,7 +1481,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; (setq process-connection-type nil)
   (setq ess-ask-for-ess-directory nil
         ess-nuke-trailing-whitespace-p t
-        ess-style 'DEFAULT
+        ess-style 'RStudio-
         ess-local-process-name "R"
         ess-use-company nil
         ess-use-flymake nil
