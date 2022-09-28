@@ -308,7 +308,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq auto-dim-other-buffers-dim-on-focus-out nil
         auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
   :config
-  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base2))
+  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base1))
   (nconc auto-dim-other-buffers-affected-faces
          '((markdown-markup-face . auto-dim-other-buffers-face)
            (markdown-code-face . auto-dim-other-buffers-face))))
