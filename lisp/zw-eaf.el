@@ -10,10 +10,10 @@
   ;; browser
   (when zw/enable-eaf-browser-p
     (require 'eaf-browser)
+    (setq browse-url-browser-function 'eaf-open-browser)
     (eaf-setq eaf-webengine-default-zoom "2")
     (eaf-setq eaf-browser-enable-adblocker t)
     (eaf-setq eaf-browser-dark-mode nil)
-    (setq browse-url-browser-function 'eaf-open-browser)
     (eaf-bind-key scroll_to_begin "M-<" eaf-browser-keybinding)
     (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding)
     (eaf-bind-key insert_or_scroll_up_page "n" eaf-browser-keybinding)
@@ -28,6 +28,7 @@
   ;; pdf
   (when zw/enable-eaf-pdf-p
     (require 'eaf-pdf-viewer)
+    (add-to-list 'eaf-find-file-ext-blacklist "pdf")
     (eaf-setq eaf-pdf-default-zoom  2)
     (eaf-setq eaf-pdf-dark-mode "ignore")
     (eaf-bind-key scroll_to_begin "M-<" eaf-pdf-viewer-keybinding)
