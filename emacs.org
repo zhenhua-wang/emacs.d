@@ -313,7 +313,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
          '((markdown-markup-face . auto-dim-other-buffers-face)
            (markdown-code-face . auto-dim-other-buffers-face))))
 
-(load-theme 'doom-nord t)
+(load-theme 'doom-one t)
 
 (require 'zw-org-theme)
 (require 'zw-md-theme)
