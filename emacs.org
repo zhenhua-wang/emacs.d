@@ -1846,6 +1846,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         markdown-make-gfm-checkboxes-buttons t
         markdown-gfm-uppercase-checkbox t
         markdown-fontify-code-blocks-natively t
+        markdown-code-block-braces t
         markdown-regex-header-setext nil
         markdown-header-scaling t
         markdown-asymmetric-header t)
