@@ -308,7 +308,10 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq auto-dim-other-buffers-dim-on-focus-out nil
         auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
   :config
-  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base2)))
+  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base2))
+  (nconc auto-dim-other-buffers-affected-faces
+         '((markdown-markup-face . auto-dim-other-buffers-face)
+           (markdown-code-face . auto-dim-other-buffers-face))))
 
 (load-theme 'doom-one t)
 
@@ -1984,7 +1987,14 @@ LSP-mode with TexLab works perfect for Latex docs
         (pm--lsp-text)
       (funcall orig-fun arguments)))
   (advice-add #'lsp-bridge--get-buffer-content-func
-              :around #'zw-polymode-lsp-buffer-content))
+              :around #'zw-polymode-lsp-buffer-content)
+  ;; match inner mode face with markdown-code-face
+  (defun zw-poly-lock-adjust-span-face (span)
+    (interactive "r")
+    (font-lock-append-text-property
+     (nth 1 span) (nth 2 span) 'face 'markdown-code-face))
+  (advice-add #'poly-lock-adjust-span-face
+              :override #'zw-poly-lock-adjust-span-face))
 
 (use-package poly-markdown
   :commands (poly-markdown-mode poly-gfm-mode)
