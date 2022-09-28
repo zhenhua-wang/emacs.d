@@ -1329,7 +1329,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer))
+  (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer)
+  (set-face-attribute 'company-posframe-active-backend-name nil
+                      :inherit 'company-tooltip
+                      :foreground (face-foreground 'font-lock-keyword-face))
+  (set-face-attribute 'company-posframe-inactive-backend-name nil
+                      :inherit 'company-tooltip))
 #+end_src
 
 *** company backend
