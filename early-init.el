@@ -10,7 +10,8 @@
 
 ;; speed up start-up
 (setq gc-cons-threshold most-positive-fixnum
-      load-prefer-newer noninteractive)
+      load-prefer-newer noninteractive
+      frame-inhibit-implied-resize t)
 
 ;; set UI
 (push '(menu-bar-lines . 0)   default-frame-alist)
