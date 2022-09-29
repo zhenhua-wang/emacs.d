@@ -234,25 +234,38 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 (defun zw/buffer-face-mode-fixed ()
   "Sets a fixed width (monospace) font in current buffer"
   (interactive)
-  (setq buffer-face-mode-face
-        (list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
+  (setq-local buffer-face-mode-face
+              (list ':family zw/font-fixed-pitch ':height zw/font-size-fixed-pitch))
   (buffer-face-mode))
 
 ;; Set default font faces for prog
 (dolist (mode '(prog-mode-hook
                 imenu-list-major-mode-hook
                 markdown-mode-hook
-                latex-mode-hook LaTeX-mode-hook
-                dired-sidebar-mode-hook))
+                latex-mode-hook LaTeX-mode-hook))
   (add-hook mode 'zw/buffer-face-mode-fixed))
+
+;; set dim face
+(dolist (mode '(dired-sidebar-mode-hook
+                ibuffer-sidebar-mode-hook
+                inferior-ess-r-mode-hook
+                inferior-python-mode-hook
+                eshell-mode-hook
+                vterm-mode-hook))
+  (add-hook mode
+            (lambda ()
+              (interactive)
+              (setq-local buffer-face-mode-face
+                          (list ':background (doom-color 'base2)))
+              (buffer-face-mode))))
 
 ;; set face in dired-mode
 (add-hook 'dired-mode-hook
           (lambda ()
             (interactive)
-            (setq buffer-face-mode-face
-                  (list ':family zw/font-default
-                        ':height (+ zw/font-size 50)))
+            (setq-local buffer-face-mode-face
+                        (list ':family zw/font-default
+                              ':height (+ zw/font-size 50)))
             (buffer-face-mode)
             (setq-local visual-fill-column-width 100)))
 #+end_src
@@ -303,6 +316,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (doom-themes-org-config))
 
 (use-package auto-dim-other-buffers
+  :disabled
   :hook (after-init . auto-dim-other-buffers-mode)
   :init
   (setq auto-dim-other-buffers-dim-on-focus-out nil
