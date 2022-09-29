@@ -9,6 +9,37 @@
 #+end_src
 
 * Startup
+** Package manager
+#+begin_src emacs-lisp
+;; Load path for manually installed packages
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; Load path for customied themes
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
+;; straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Install use-package
+(straight-use-package 'use-package)
+(setq package-enable-at-startup nil     ;;; Disable package.el in favor of straight.el
+      straight-use-package-by-default t
+      ;; disable checking at start-up
+      straight-check-for-modifications '(watch-files find-when-checking)
+      use-package-always-ensure t
+      use-package-verbose t)
+#+end_src
+
 ** Garbage collection
 #+begin_src emacs-lisp
 (use-package gcmh
@@ -90,6 +121,8 @@
 (set-default-coding-systems 'utf-8)
 ;; start server mode
 (server-start)
+;; Set up the visible bell
+(setq visible-bell t)
 ;; cursor
 (blink-cursor-mode 1)
 (setq-default cursor-type '(bar . 2))
