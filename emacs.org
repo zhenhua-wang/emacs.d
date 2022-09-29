@@ -34,7 +34,6 @@
       straight-use-package-by-default t
       ;; disable checking at start-up
       straight-check-for-modifications '(watch-files find-when-checking)
-      use-package-always-ensure t
       use-package-verbose t)
 #+end_src
 
@@ -1461,7 +1460,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Version control
 #+begin_src emacs-lisp
 (use-package magit
-  :ensure with-editor
   :bind (("C-M-;" . magit-status))
   :commands (magit-status magit-get-current-branch)
   :config
