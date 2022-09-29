@@ -1,4 +1,4 @@
-;;; init.el --- ZW Configuration.	-*- lexical-binding: t no-byte-compile: t -*-
+;;; init.el --- ZW Configuration.	-*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;
