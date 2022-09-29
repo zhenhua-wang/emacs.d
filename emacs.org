@@ -12,7 +12,7 @@
 ** Package manager
 #+begin_src emacs-lisp
 ;; Load path for manually installed packages
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(push "~/.emacs.d/lisp" load-path)
 
 ;; straight
 (defvar bootstrap-version)
