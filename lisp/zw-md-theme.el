@@ -21,7 +21,7 @@
 
   (set-face-attribute 'markdown-header-delimiter-face nil :inherit '(font-lock-comment-face fixed-pitch) :height 0.8)
   (set-face-attribute 'markdown-language-info-face nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch))
+  (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch :extend t))
 
 (provide 'zw-md-theme)
 ;;; zw-md-theme.el ends here
