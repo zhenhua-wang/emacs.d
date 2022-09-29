@@ -177,8 +177,7 @@
            ("s-S" . write-file)
            ("s-l" . goto-line)
            ;; term/shell
-           ("s-e" . eshell)
-           ("s-E" . vterm)
+           ("s-e" . vterm)
            ;; buffer operations
            ("s-q" . kill-current-buffer)
            ("s-=" . text-scale-increase)
@@ -804,42 +803,6 @@ sudo systemctl start ssh
         comint-scroll-to-bottom-on-input t
         comint-scroll-to-bottom-on-output nil
         comint-move-point-for-output nil))
-#+end_src
-
-** Eshell
-#+begin_src emacs-lisp
-(use-package eshell
-  :straight (:type built-in)
-  :bind ((:map eshell-mode-map
-               :package esh-mode
-               ("s-q" . zw/close-shell)
-               ("s-e" . zw/delte-window-or-bury-buffer))
-         (:map eshell-hist-mode-map
-               :package em-hist
-               ("M-s" . nil)))
-  :init
-  (setq eshell-banner-message
-        '(format "%s %s\n"
-                 (propertize (format " %s " (string-trim (buffer-name)))
-                             'face 'mode-line-highlight)
-                 (propertize (current-time-string)
-                             'face 'font-lock-keyword-face))
-        eshell-scroll-to-bottom-on-input 'all
-        eshell-scroll-to-bottom-on-output nil
-        eshell-kill-processes-on-exit t
-        eshell-hist-ignoredups t
-        ;; don't record command in history if prefixed with whitespace
-        eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
-        ;; em-glob
-        eshell-glob-case-insensitive t
-        eshell-error-if-no-glob t))
-
-(use-package eshell-git-prompt
-  :config
-  (eshell-git-prompt-use-theme 'robbyrussell))
-
-(use-package eshell-syntax-highlighting
-  :hook (eshell-mode . eshell-syntax-highlighting-mode))
 #+end_src
 
 ** Vterm
@@ -1572,10 +1535,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                return (setq conda-anaconda-home (expand-file-name dir)
                             conda-env-home-directory (expand-file-name dir)))
       (message "Cannot find Anaconda installation"))
-
-  ;; integration with term/eshell
-  (conda-env-initialize-interactive-shells)
-  (conda-env-initialize-eshell)
   ;; add to modeline
   (add-to-list 'mode-line-misc-info
                '(conda-env-current-name
