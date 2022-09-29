@@ -124,6 +124,10 @@
                              (zw-tab-bar-tab-name))
                  :help "File path or function definition")))
 
+(defun zw-tab-bar-format-file-path ()
+  `((current-tab menu-item  (zw-tab-bar-tab-name)
+                 :help "File path or function definition")))
+
 ;; set default foreground
 (set-face-foreground 'tab-bar (face-foreground 'default))
 
@@ -134,7 +138,7 @@
       tab-bar-separator " "
       tab-bar-format '(zw-tab-bar-format-menu-bar
                        tab-bar-separator
-                       zw-tab-bar-format-file-path-function-def
+                       zw-tab-bar-format-file-path
                        tab-bar-separator
                        tab-bar-format-align-right
                        zw-tab-bar-format-battery))

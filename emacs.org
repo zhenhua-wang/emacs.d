@@ -408,7 +408,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Keycast
 #+begin_src emacs-lisp
 (use-package keycast
-  :hook (after-init . keycast-tab-bar-mode)
+  :commands (keycast-tab-bar-mode)
   :init (setq keycast-tab-bar-location 'tab-bar-format-align-right
               keycast-tab-bar-format "%k%c%R "
               keycast-tab-bar-minimal-width 0)
