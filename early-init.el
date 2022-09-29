@@ -9,16 +9,11 @@
 ;;; Code:
 
 ;; set UI
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(menu-bar-mode -1)          ; Disable the menu bar
-
-;; Set frame
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; no title bar on macos
-(add-to-list 'default-frame-alist '(undecorated . t))
+(push '(menu-bar-lines . 0)   default-frame-alist)
+(push '(tool-bar-lines . 0)   default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(fullscreen . maximized) default-frame-alist) ; maximized
+(push '(undecorated . t) default-frame-alist)        ; remove title
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -30,8 +25,7 @@
     (setq native-comp-async-report-warnings-errors nil)
     (setq comp-deferred-compilation t)
     (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
-    (setq package-native-compile t)
-    ))
+    (setq package-native-compile t)))
 
 ;; Disable package.el in favor of straight.el
 (setq package-enable-at-startup nil)
@@ -53,15 +47,3 @@
             (setq-default inhibit-redisplay nil
                           inhibit-message nil)
             (redisplay)))
-
-;; Site files tend to use `load-file', which emits "Loading X..." messages in
-;; the echo area, which in turn triggers a redisplay. Redisplays can have a
-;; substantial effect on startup times and in this case happens so early that
-;; Emacs may flash white while starting up.
-(define-advice load-file (:override (file) silence)
-  (load file nil 'nomessage))
-
-;; Undo our `load-file' advice above, to limit the scope of any edge cases it
-;; may introduce down the road.
-(define-advice startup--load-user-init-file (:before (&rest _) init-doom)
-  (advice-remove #'load-file #'load-file@silence))
