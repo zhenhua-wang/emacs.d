@@ -93,7 +93,7 @@
 (server-start)
 ;; cursor
 (blink-cursor-mode 1)
-(setq-default cursor-type '(bar . 5))
+(setq-default cursor-type '(bar . 2))
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
 (setq-default select-enable-clipboard t)
@@ -1930,8 +1930,10 @@ LSP-mode with TexLab works perfect for Latex docs
 (use-package polymode
   :commands polymode-mode
   :init
-  ;; disable this for now because of reverse-typing issue in poly-R
-  (setq polymode-lsp-integration nil)
+  (setq poly-lock-allow-fontification nil
+        poly-lock-allow-background-adjustment t
+        ;; disable this for now because of reverse-typing issue in poly-R
+        polymode-lsp-integration nil)
   :config
   ;; disable flycheck in polymode
   (add-hook 'polymode-init-inner-hook
