@@ -8,6 +8,10 @@
 
 ;;; Code:
 
+;; speed up start-up
+(setq gc-cons-threshold most-positive-fixnum
+      load-prefer-newer noninteractive)
+
 ;; set UI
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)

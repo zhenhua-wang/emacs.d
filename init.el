@@ -7,33 +7,26 @@
 
 ;;; Code:
 
-;; Defer garbage collection further back in the startup process
-(setq gc-cons-threshold most-positive-fixnum
-      load-prefer-newer noninteractive
+(setq auto-mode-case-fold nil
       frame-inhibit-implied-resize t
-      initial-scratch-message nil)
+      initial-scratch-message nil
+      highlight-nonselected-windows nil
+      idle-update-delay 1.0
+      inhibit-compacting-font-caches t
+      redisplay-skip-fontification-on-input t)
 
 (setq-default inhibit-startup-screen t
 	      cursor-in-non-selected-windows nil
               inhibit-redisplay t
               inhibit-message t)
+
 (add-hook 'window-setup-hook
           (lambda ()
             (setq-default inhibit-redisplay nil
                           inhibit-message nil)
             (redisplay)))
 
-;; native-comp settings
-(when (and (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (progn
-    (setq native-comp-async-report-warnings-errors nil)
-    (setq comp-deferred-compilation t)
-    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
-    (setq package-native-compile t)))
-
-;; Speed up startup
-(setq auto-mode-case-fold nil)
+;; Unset file-name-handler-alist temporarily and restore it later
 (unless (or (daemonp) noninteractive init-file-debug)
   (let ((old-file-name-handler-alist file-name-handler-alist))
     (setq file-name-handler-alist nil)
@@ -43,6 +36,15 @@
                 (setq file-name-handler-alist
                       (delete-dups (append file-name-handler-alist
                                            old-file-name-handler-alist)))))))
+
+;; native-comp settings
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (progn
+    (setq native-comp-async-report-warnings-errors nil)
+    (setq comp-deferred-compilation t)
+    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
+    (setq package-native-compile t)))
 
 ;; load init
 (pcase system-type

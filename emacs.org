@@ -13,8 +13,6 @@
 #+begin_src emacs-lisp
 ;; Load path for manually installed packages
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;; Load path for customied themes
-(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 
 ;; straight
 (defvar bootstrap-version)
