@@ -74,7 +74,7 @@
          (tab-name-abbrev (truncate-string-to-width
                            tab-name zw-tab-bar-name-max nil nil
                            zw-tab-bar-ellipsis))
-         (dir-name (if buffer-file-name
+         (dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
                        (propertize (abbreviate-file-name default-directory)
                                    'face 'zw-tab-bar-tab-path-selected)
                      ""))
