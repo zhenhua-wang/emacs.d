@@ -858,7 +858,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config
   (setq dired-sidebar-width 25
         dired-sidebar-use-one-instance t
-        dired-sidebar-subtree-line-prefix "--"
+        dired-sidebar-subtree-line-prefix "➤"
         dired-sidebar-no-delete-other-windows t
         dired-sidebar-use-term-integration t)
   ;; hide sidebar buffer
