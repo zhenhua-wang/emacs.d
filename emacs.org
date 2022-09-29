@@ -1814,7 +1814,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (defun zw/markdown-toggle-markup-hiding ()
     (interactive)
     (markdown-toggle-markup-hiding)
-    (remove-from-invisibility-spec 'markdown-markup)))
+    (remove-from-invisibility-spec 'markdown-markup))
+  :config
+  (add-to-list 'markdown-code-lang-modes '("r" . ess-r-mode)))
 
 (with-eval-after-load 'markdown-mode
   (zw/set-md-headline))
