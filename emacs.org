@@ -108,7 +108,8 @@
                 delete-selection-mode
                 ;; fringe (nil is default)
                 fringe-mode
-                window-divider-mode))
+                window-divider-mode
+                blink-cursor-mode))
   (add-hook 'after-init-hook mode))
 
 (require 'zw-utils)
@@ -121,7 +122,6 @@
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
-(blink-cursor-mode 1)
 (setq-default cursor-type '(bar . 2))
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
@@ -360,17 +360,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (when (featurep 'keycast)
     (zw/keycast-theme))
   (when (featurep 'company)
-    (zw/completion-theme))
-  ;; change pdf-view-mode color when using dark color theme
-  (if (string= (frame-parameter nil 'background-mode) "dark")
-      (progn
-        (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-        (when (derived-mode-p 'pdf-view-mode)
-          (pdf-view-midnight-minor-mode 1)))
-    (progn
-      (remove-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-      (when (derived-mode-p 'pdf-view-mode)
-        (pdf-view-midnight-minor-mode 0)))))
+    (zw/completion-theme)))
 ;; apply zw/update-theme after consult-theme
 (advice-add 'consult-theme :after
             (lambda (&rest args) (zw/update-theme)))
