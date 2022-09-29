@@ -246,9 +246,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ;; set dim face
 (dolist (mode '(dired-sidebar-mode-hook
-                ibuffer-sidebar-mode-hook
-                inferior-ess-r-mode-hook
-                inferior-python-mode-hook))
+                ibuffer-sidebar-mode-hook))
   (add-hook mode
             (lambda ()
               (interactive)
