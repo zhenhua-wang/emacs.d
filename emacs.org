@@ -354,6 +354,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Tab bar
 #+begin_src emacs-lisp
+(setq tab-bar-show nil)
 (require 'zw-tab-bar)
 #+end_src
 
