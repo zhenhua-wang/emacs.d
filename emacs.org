@@ -355,6 +355,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 ** Tab bar
 #+begin_src emacs-lisp
 (require 'zw-tab-bar)
+;; enable tab-bar
+(tab-bar-mode 1)
 #+end_src
 
 ** Battery

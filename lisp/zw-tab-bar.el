@@ -143,9 +143,6 @@
                        tab-bar-format-align-right
                        zw-tab-bar-format-battery))
 
-;; enable tab-bar
-(tab-bar-mode 1)
-
 ;;; misc config
 ;; switch to tab
 (defun zw/tab-switch (index-name)
