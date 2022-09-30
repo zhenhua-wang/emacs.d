@@ -243,7 +243,7 @@
                      (if server
                          (concat "EGLOT Connected "
                                  (format "[%s/%s]"
-                                         (eglot--major-mode server)
+                                         (eglot--major-modes server)
                                          (eglot--project-nickname server)))))
          " "))))
 

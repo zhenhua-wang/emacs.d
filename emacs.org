@@ -1401,8 +1401,19 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ** IDE
 *** LSP
 #+begin_src emacs-lisp
-(require 'zw-lsp-bridge)
+;; (require 'zw-lsp-bridge)
 ;; (require 'zw-lsp-eglot)
+(use-package eglot
+  :commands (eglot)
+  :hook
+  (python-mode . eglot-ensure)
+  (ess-r-mode . eglot-ensure)
+  ((c++-mode c-mode) . eglot-ensure)
+  :config
+  (setq eglot-stay-out-of '(flymake imenu)
+        eglot-autoshutdown t)
+  (setq-default eglot-workspace-configuration
+                '((:pyright . ((useLibraryCodeForTypes . t))))))
 #+end_src
 
 *** Tree sitter
@@ -1974,6 +1985,8 @@ LSP-mode with TexLab works perfect for Latex docs
         (pm--lsp-text)
       (funcall orig-fun arguments)))
   (advice-add #'lsp-bridge--get-buffer-content-func
+              :around #'zw-polymode-lsp-buffer-content)
+  (advice-add #'substring-no-properties
               :around #'zw-polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
   (defun zw-poly-lock-adjust-span-face (span)
