@@ -1404,6 +1404,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ;; (require 'zw-lsp-bridge)
 ;; (require 'zw-lsp-eglot)
 (use-package eglot
+  :straight '(eglot :host github :repo "zhenhua-wang/eglot")
   :commands (eglot)
   :hook
   (python-mode . eglot-ensure)
@@ -1986,7 +1987,7 @@ LSP-mode with TexLab works perfect for Latex docs
       (funcall orig-fun arguments)))
   (advice-add #'lsp-bridge--get-buffer-content-func
               :around #'zw-polymode-lsp-buffer-content)
-  (advice-add #'substring-no-properties
+  (advice-add #'eglot--region-content
               :around #'zw-polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
   (defun zw-poly-lock-adjust-span-face (span)
