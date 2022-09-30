@@ -2089,7 +2089,6 @@ LSP-mode with TexLab works perfect for Latex docs
 #+begin_src emacs-lisp
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
-  :magic ("%PDF" . pdf-view-mode)
   :bind ((:map pdf-view-mode-map
                ("C-s" . isearch-forward)
                ("s-f" . isearch-forward)
@@ -2097,14 +2096,14 @@ LSP-mode with TexLab works perfect for Latex docs
                ("s-+" . pdf-view-enlarge)
                ("s--" . pdf-view-shrink)
                ("q" . nil)))
-  :config
-  (setq-default pdf-view-display-size 'fit-page)
-  (pdf-tools-install :no-query)
-  (setq pdf-view-use-imagemagick nil
+  :init
+  (setq pdf-view-display-size 'fit-page
+        pdf-view-use-imagemagick nil
         pdf-view-continuous nil
         pdf-annot-activate-created-annotations t)
   (when (equal system-type 'darwin)
-    (setq pdf-view-use-scaling t)))
+    (setq pdf-view-use-scaling t))
+  (pdf-loader-install))
 #+end_src
 
 ** Spelling
