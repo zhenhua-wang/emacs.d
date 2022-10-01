@@ -110,6 +110,7 @@
 
 ;; note enable eglot would override "M-." key to xref
 (use-package eglot
+  :straight '(eglot :host github :repo "zhenhua-wang/eglot")
   :commands (eglot)
   :config
   (setq eglot-stay-out-of '(flymake imenu)

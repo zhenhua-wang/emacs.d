@@ -1401,20 +1401,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ** IDE
 *** LSP
 #+begin_src emacs-lisp
-;; (require 'zw-lsp-bridge)
+(require 'zw-lsp-bridge)
 ;; (require 'zw-lsp-eglot)
-(use-package eglot
-  :straight '(eglot :host github :repo "zhenhua-wang/eglot")
-  :commands (eglot)
-  :hook
-  (python-mode . eglot-ensure)
-  (ess-r-mode . eglot-ensure)
-  ((c++-mode c-mode) . eglot-ensure)
-  :config
-  (setq eglot-stay-out-of '(flymake imenu)
-        eglot-autoshutdown t)
-  (setq-default eglot-workspace-configuration
-                '((:pyright . ((useLibraryCodeForTypes . t))))))
 #+end_src
 
 *** Tree sitter
