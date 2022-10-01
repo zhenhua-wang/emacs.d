@@ -46,7 +46,9 @@
     (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
 
 ;; load init
-(pcase system-type
-  ('windows-nt (org-babel-load-file "~/.emacs.d/emacs-windows.org"))
-  (_ (org-babel-load-file "~/.emacs.d/emacs.org")))
-;; (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
+(let ((zw/test-config nil))
+  (if zw/test-config
+      (org-babel-load-file "~/.emacs.d/emacs-plain-config.org")
+    (pcase system-type
+      ('windows-nt (org-babel-load-file "~/.emacs.d/emacs-windows.org"))
+      (_ (org-babel-load-file "~/.emacs.d/emacs.org")))))
