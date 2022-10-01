@@ -331,18 +331,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(use-package auto-dim-other-buffers
-  :disabled
-  :hook (after-init . auto-dim-other-buffers-mode)
-  :init
-  (setq auto-dim-other-buffers-dim-on-focus-out nil
-        auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
-  :config
-  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base1))
-  (nconc auto-dim-other-buffers-affected-faces
-         '((markdown-markup-face . auto-dim-other-buffers-face)
-           (markdown-code-face . auto-dim-other-buffers-face))))
-
 (load-theme 'doom-one t)
 
 (require 'zw-org-theme)
@@ -612,6 +600,20 @@ FACE defaults to inheriting from default and highlight."
   (with-eval-after-load 'magit
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
+#+end_src
+
+** Auto dim other buffers
+#+begin_src emacs-lisp
+(use-package auto-dim-other-buffers
+  :commands (auto-dim-other-buffers-mode)
+  :init
+  (setq auto-dim-other-buffers-dim-on-focus-out nil
+        auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
+  :config
+  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base1))
+  (nconc auto-dim-other-buffers-affected-faces
+         '((markdown-markup-face . auto-dim-other-buffers-face)
+           (markdown-code-face . auto-dim-other-buffers-face))))
 #+end_src
 
 * Window
@@ -1402,7 +1404,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** LSP
 #+begin_src emacs-lisp
 (require 'zw-lsp-bridge)
-;; (require 'zw-lsp-eglot)
 #+end_src
 
 *** Tree sitter
@@ -1961,21 +1962,13 @@ LSP-mode with TexLab works perfect for Latex docs
   ;; disable flycheck in polymode
   (add-hook 'polymode-init-inner-hook
             (lambda ()
-              (setq-local lsp-diagnostics-provider :none)
               (setq-local lsp-bridge-enable-diagnostics nil)))
-  ;; add workspace variables for R
-  (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
-  ;; don't know its functionality yet
-  (pm-around-advice 'lsp--text-document-content-change-event
-                    #'polymode-lsp-change-event)
   ;; send polymode content to lsp-bridge
   (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
         (pm--lsp-text)
       (funcall orig-fun arguments)))
   (advice-add #'lsp-bridge--get-buffer-content-func
-              :around #'zw-polymode-lsp-buffer-content)
-  (advice-add #'eglot--region-content
               :around #'zw-polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
   (defun zw-poly-lock-adjust-span-face (span)
