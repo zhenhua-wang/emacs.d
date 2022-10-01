@@ -1941,12 +1941,7 @@ LSP-mode with TexLab works perfect for Latex docs
   ;; alias ess-r to R
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
   (defalias 'org-babel-ess-r-initiate-session
-    'org-babel-R-initiate-session)
-  
-  ;; This is needed as of Org 9.2 (use yasnippet instead)
-  (require 'org-tempo)
-  ;; (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
-  )
+    'org-babel-R-initiate-session))
 #+end_src
 
 *** Polymode
