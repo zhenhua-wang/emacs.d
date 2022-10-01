@@ -1276,7 +1276,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 30
               company-tooltip-maximum-width 80
-              company-dabbrev-minimum-length 6
+              company-dabbrev-minimum-length 4
               company-dabbrev-char-regexp "[[:word:]_:@.-]+"
               company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
@@ -1291,6 +1291,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                   company-capf
                                   company-yasnippet
                                   company-dabbrev)))
+  ;; remove completions that start with numbers
+  (push (apply-partially #'cl-remove-if
+                         (lambda (c) (string-match-p "\\`[0-9]+" c)))
+        company-transformers)
+  ;; set tooltip themes
   (defun zw/completion-theme ()
     (set-face-attribute 'company-tooltip nil
                         :foreground (face-foreground 'tooltip)
