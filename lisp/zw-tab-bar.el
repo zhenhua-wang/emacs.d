@@ -1,106 +1,106 @@
-(defgroup zw-tab-bar nil
-  "zw-tab-bar"
+(defgroup zw/tab-bar nil
+  "zw/tab-bar"
   :group 'convenience)
 
-(defgroup zw-tab-bar-selected nil
-  "zw-tab-bar-active"
-  :group 'zw-tab-bar)
+(defgroup zw/tab-bar-selected nil
+  "zw/tab-bar-active"
+  :group 'zw/tab-bar)
 
-(defgroup zw-tab-bar-nonselected nil
-  "zw-tab-bar-inactive"
-  :group 'zw-tab-bar)
+(defgroup zw/tab-bar-nonselected nil
+  "zw/tab-bar-inactive"
+  :group 'zw/tab-bar)
 
-(defface zw-tab-bar-menu-bar
+(defface zw/tab-bar-menu-bar
   `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar)
+  :group 'zw/tab-bar)
 
-(defface zw-tab-bar-battery
-  `((t (:inherit zw-tab-bar-menu-bar)))
+(defface zw/tab-bar-battery
+  `((t (:inherit zw/tab-bar-menu-bar)))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar)
+  :group 'zw/tab-bar)
 
-(defface zw-tab-bar-default-selected
+(defface zw/tab-bar-default-selected
   `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-selected)
+  :group 'zw/tab-bar-selected)
 
-(defface zw-tab-bar-default-nonselected
+(defface zw/tab-bar-default-nonselected
   `((t (:foreground
         ,(face-foreground 'font-lock-comment-face)
         :background
         ,(face-background 'tab-bar)
         :underline t)))
   "Default face for inactive tab-bar"
-  :group 'zw-tab-bar-nonselected)
+  :group 'zw/tab-bar-nonselected)
 
-(defface zw-tab-bar-tab-selected
-  `((t (:inherit zw-tab-bar-default-selected)))
+(defface zw/tab-bar-tab-selected
+  `((t (:inherit zw/tab-bar-default-selected)))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-selected)
+  :group 'zw/tab-bar-selected)
 
-(defface zw-tab-bar-tab-path-selected
-  `((t (:inherit zw-tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face))))
+(defface zw/tab-bar-tab-path-selected
+  `((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face))))
   "Default face for active tab-bar"
-  :group 'zw-tab-bar-selected)
+  :group 'zw/tab-bar-selected)
 
-(defvar zw-tab-bar-path-max 30
+(defvar zw/tab-bar-path-max 30
   "Maximum length of current tab path")
 
-(defvar zw-tab-bar-name-max 30
+(defvar zw/tab-bar-name-max 30
   "Maximum length of current tab name")
 
-(defvar zw-tab-bar-func-def-max 50
+(defvar zw/tab-bar-func-def-max 50
   "Maximum length of current function definition")
 
-(defvar zw-tab-bar-ellipsis "..."
+(defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
-(defun zw-tab-bar-format-battery ()
+(defun zw/tab-bar-format-battery ()
   `((global menu-item ,(propertize battery-mode-line-string
-                                   'face 'zw-tab-bar-battery) ignore)))
+                                   'face 'zw/tab-bar-battery) ignore)))
 
 ;; show menu
-(defun zw-tab-bar-format-menu-bar ()
+(defun zw/tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
   `((menu-bar menu-item (propertize " ☰"
-                                    'face 'zw-tab-bar-menu-bar
+                                    'face 'zw/tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
 
-(defun zw-tab-bar-tab-name ()
+(defun zw/tab-bar-tab-name ()
   (let* ((tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
-                               'face 'zw-tab-bar-tab-selected))
+                               'face 'zw/tab-bar-tab-selected))
          (tab-name-abbrev (truncate-string-to-width
-                           tab-name zw-tab-bar-name-max nil nil
-                           zw-tab-bar-ellipsis))
+                           tab-name zw/tab-bar-name-max nil nil
+                           zw/tab-bar-ellipsis))
          (dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
                        (propertize (abbreviate-file-name default-directory)
-                                   'face 'zw-tab-bar-tab-path-selected)
+                                   'face 'zw/tab-bar-tab-path-selected)
                      ""))
          (dir-name-length (length dir-name))
-         (dir-name-abbrev (if (< dir-name-length zw-tab-bar-path-max)
+         (dir-name-abbrev (if (< dir-name-length zw/tab-bar-path-max)
                               dir-name
-                            (concat zw-tab-bar-ellipsis
+                            (concat zw/tab-bar-ellipsis
                                     "/"
                                     (string-join (cdr (split-string (truncate-string-to-width
                                                                      dir-name
                                                                      dir-name-length
-                                                                     (- dir-name-length zw-tab-bar-path-max))
+                                                                     (- dir-name-length zw/tab-bar-path-max))
                                                                     "\\/"))
                                                  "/"))))
          (dir-name-abbrev-prop (propertize dir-name-abbrev
-                                           'face 'zw-tab-bar-tab-path-selected)))
+                                           'face 'zw/tab-bar-tab-path-selected)))
     (concat dir-name-abbrev-prop tab-name-abbrev)))
 
-(defun zw-tab-bar-beginning-of-defun ()
+(defun zw/tab-bar-beginning-of-defun ()
   "Return the line moved to by `beginning-of-defun'."
   (save-excursion
     (when (beginning-of-defun)
       (font-lock-ensure (point) (point-at-eol))
       (buffer-substring (point) (point-at-eol)))))
 
-(defun zw-in-defun-p ()
+(defun zw/in-defun-p ()
   "check if current cursor is in a function definition"
   (save-excursion
     ;; HACK: if `end-of-defun' moves the cursor, cursor if in a definition
@@ -110,22 +110,22 @@
           t
         nil))))
 
-(defun zw-tab-bar-format-file-path-function-def ()
+(defun zw/tab-bar-format-file-path-function-def ()
   `((current-tab menu-item (if (and (derived-mode-p 'prog-mode)
-                                    (zw-tab-bar-beginning-of-defun)
-                                    (zw-in-defun-p))
+                                    (zw/tab-bar-beginning-of-defun)
+                                    (zw/in-defun-p))
                                (concat
                                 (propertize " Def "
                                             'face 'keycast-key)
                                 " "
                                 (truncate-string-to-width
-                                 (string-trim (zw-tab-bar-beginning-of-defun)) zw-tab-bar-func-def-max nil nil
-                                 zw-tab-bar-ellipsis))
-                             (zw-tab-bar-tab-name))
+                                 (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
+                                 zw/tab-bar-ellipsis))
+                             (zw/tab-bar-tab-name))
                  :help "File path or function definition")))
 
-(defun zw-tab-bar-format-file-path ()
-  `((current-tab menu-item  (zw-tab-bar-tab-name)
+(defun zw/tab-bar-format-file-path ()
+  `((current-tab menu-item  (zw/tab-bar-tab-name)
                  :help "File path or function definition")))
 
 ;; set default foreground
@@ -136,12 +136,12 @@
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
       tab-bar-separator " "
-      tab-bar-format '(zw-tab-bar-format-menu-bar
+      tab-bar-format '(zw/tab-bar-format-menu-bar
                        tab-bar-separator
-                       zw-tab-bar-format-file-path
+                       zw/tab-bar-format-file-path
                        tab-bar-separator
                        tab-bar-format-align-right
-                       zw-tab-bar-format-battery))
+                       zw/tab-bar-format-battery))
 
 ;; enable tab-bar
 (tab-bar-mode 1)

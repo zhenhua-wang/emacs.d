@@ -1764,7 +1764,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (message "Agenda pulled!"))
 
 ;; agenda keys
-(bind-keys :prefix-map zw-org-agenda-map
+(bind-keys :prefix-map zw/org-agenda-map
            :prefix "<f12>"
            ("<down>" . zw/git-pull-agenda)
            ("<up>" . zw/git-add-commit-push-agenda)
@@ -1964,19 +1964,19 @@ LSP-mode with TexLab works perfect for Latex docs
             (lambda ()
               (setq-local lsp-bridge-enable-diagnostics nil)))
   ;; send polymode content to lsp-bridge
-  (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
+  (defun zw/polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
         (pm--lsp-text)
       (funcall orig-fun arguments)))
   (advice-add #'lsp-bridge--get-buffer-content-func
-              :around #'zw-polymode-lsp-buffer-content)
+              :around #'zw/polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
-  (defun zw-poly-lock-adjust-span-face (span)
+  (defun zw/poly-lock-adjust-span-face (span)
     (interactive "r")
     (font-lock-append-text-property
      (nth 1 span) (nth 2 span) 'face 'markdown-code-face))
   (advice-add #'poly-lock-adjust-span-face
-              :override #'zw-poly-lock-adjust-span-face))
+              :override #'zw/poly-lock-adjust-span-face))
 
 (use-package poly-markdown
   :commands (poly-markdown-mode poly-gfm-mode)
