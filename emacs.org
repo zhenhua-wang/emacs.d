@@ -1277,7 +1277,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-tooltip-minimum-width 30
               company-tooltip-maximum-width 80
               company-dabbrev-minimum-length 4
-              company-dabbrev-char-regexp "[[:word:]_:@.-]+"
+              company-dabbrev-char-regexp "[[:word:]_-]+"
               company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
               company-dabbrev-downcase 'case-replace
