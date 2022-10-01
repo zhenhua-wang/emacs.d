@@ -1287,10 +1287,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode eshell-mode)
-              company-backends '((company-files
-                                  company-capf
-                                  company-yasnippet
-                                  company-dabbrev)))
+              company-backends '(company-files
+                                 company-capf
+                                 company-dabbrev))
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
