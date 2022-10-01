@@ -1265,17 +1265,20 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)
                ("C-<tab>" . company-yasnippet)))
-  :init (setq company-icon-size '(auto-scale . 20)
+  :init (setq company-idle-delay 0
+              company-require-match nil
+              company-selection-wrap-around t
+              company-minimum-prefix-length 1
+              company-abort-on-unique-match nil
+              company-icon-size '(auto-scale . 20)
               company-icon-margin 2
               company-tooltip-limit 12
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 30
               company-tooltip-maximum-width 80
-              company-selection-wrap-around t
-              company-idle-delay 0
-              company-minimum-prefix-length 1
-              company-require-match nil
-              company-abort-on-unique-match nil
+              company-dabbrev-minimum-length 6
+              company-dabbrev-char-regexp "[[:word:]_:@.-]+"
+              company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
@@ -1286,7 +1289,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '((company-files
                                   company-capf
-                                  company-yasnippet)))
+                                  company-yasnippet
+                                  company-dabbrev)))
   (defun zw/completion-theme ()
     (set-face-attribute 'company-tooltip nil
                         :foreground (face-foreground 'tooltip)
