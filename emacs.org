@@ -382,16 +382,14 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
               keycast-tab-bar-format "%k%c%R "
               keycast-tab-bar-minimal-width 0)
   :config
-  (defun zw/keycast-theme ()
-    (set-face-attribute 'keycast-key nil
-                        :font zw/font-default
-                        :background (face-foreground
-                                     'font-lock-keyword-face))
-    (set-face-attribute 'keycast-command nil
-                        :font zw/font-default
-                        :foreground (face-foreground
-                                     'font-lock-keyword-face)))
-  (zw/keycast-theme))
+  (set-face-attribute 'keycast-key nil
+                      :font zw/font-default
+                      :background (face-foreground
+                                   'font-lock-keyword-face))
+  (set-face-attribute 'keycast-command nil
+                      :font zw/font-default
+                      :foreground (face-foreground
+                                   'font-lock-keyword-face)))
 #+end_src
 
 ** Line number mode
@@ -1253,18 +1251,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
         company-transformers)
   ;; set tooltip themes
-  (defun zw/completion-theme ()
-    (set-face-attribute 'company-tooltip nil
-                        :foreground (face-foreground 'tooltip)
-                        :background (face-background 'tooltip)
-                        :inherit 'fixed-pitch)
-    (set-face-attribute 'company-tooltip-selection nil
-                        :foreground (face-foreground 'warning)
-                        :underline (face-foreground 'warning)
-                        :background 'unspecified
-                        :weight 'bold))
-  :config
-  (zw/completion-theme))
+  (set-face-attribute 'company-tooltip nil
+                      :foreground (face-foreground 'tooltip)
+                      :background (face-background 'tooltip)
+                      :inherit 'fixed-pitch)
+  (set-face-attribute 'company-tooltip-selection nil
+                      :foreground (face-foreground 'warning)
+                      :underline (face-foreground 'warning)
+                      :background 'unspecified
+                      :weight 'bold))
 
 (use-package company-prescient
   :hook
@@ -1770,10 +1765,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-remove-occur-highlights)
   (org-overview)
   (org-reveal))
-
-(defun zw/toggle-image-scroll ()
-  (interactive)
-  (pixel-scroll-mode))
 #+end_src
 
 *** Markdown
