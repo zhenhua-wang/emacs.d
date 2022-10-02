@@ -57,6 +57,12 @@
    `(vterm-color-blue ((t (:foreground "#47B5FF" :background "#47B5FF"))))
    `(vterm-color-magenta ((t (:foreground "#FF869E" :background "#FF869E"))))
    `(vterm-color-cyan ((t (:foreground "#4CACBC" :background "#4CACBC"))))
-   `(vterm-color-white ((t (:foreground "#E5E9F0" :background "#E5E9F0"))))))
+   `(vterm-color-white ((t (:foreground "#E5E9F0" :background "#E5E9F0"))))
+
+   ;; modeline
+   `(zw/modeline-major-mode-active ((t (:foreground ,(face-foreground 'default)))))
+   `(zw/modeline-line-column-active ((t (:foreground ,(face-foreground 'default)))))
+   `(zw/modeline-vc-modified-active ((t (:foreground ,(face-foreground 'default)))))
+   `(zw/modeline-tab-index-active ((t (:foreground ,(face-foreground 'default)))))))
 
 (provide 'zw-theme)
