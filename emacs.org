@@ -1291,9 +1291,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                 (tab-bar-format . nil)
                 (tab-line-format . nil)
                 (tab-bar-lines . 0)
-                (tab-bar-lines-keep-state . 0))
-              :internal-border-width 3
-              :internal-border-color (face-foreground 'font-lock-keyword-face)))
+                (tab-bar-lines-keep-state . 0))))
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
