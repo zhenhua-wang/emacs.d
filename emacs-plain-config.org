@@ -4,6 +4,34 @@
 #+PROPERTY: header-args+ :tangle "yes"
 --------------
 * Startup
+** Package manager
+#+begin_src emacs-lisp
+;; Load path for manually installed packages
+(push "~/.emacs.d/lisp" load-path)
+
+;; straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Install use-package
+(straight-use-package 'use-package)
+(setq package-enable-at-startup nil     ;;; Disable package.el in favor of straight.el
+      straight-use-package-by-default t
+      ;; disable checking at start-up
+      straight-check-for-modifications '(watch-files find-when-checking)
+      use-package-verbose t)
+#+end_src
+
 ** Keep .emacs.d Clean
 Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Daviwil's config]].
 
@@ -255,9 +283,7 @@ My key binding strategy:
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
 
-(require 'zw-org-theme)
 (setq zw/font-title "ETBembo")
-(zw/set-org-headline)
 #+end_src
 
 ** Org-auto-tangle
@@ -293,6 +319,11 @@ My key binding strategy:
 #+end_src
 
 * Test
+** modeline
+#+begin_src emacs-lisp
+(require 'zw-modeline)
+#+end_src
+
 ** lsp-mode
   #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
