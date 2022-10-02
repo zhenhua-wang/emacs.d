@@ -1250,6 +1250,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
         company-transformers)
+  :config
   ;; set tooltip themes
   (set-face-attribute 'company-tooltip nil
                       :foreground (face-foreground 'tooltip)
