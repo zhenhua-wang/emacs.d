@@ -61,6 +61,7 @@
 
    ;; modeline
    `(zw/modeline-major-mode-active ((t (:foreground ,(face-foreground 'default) :weight bold))))
+   `(zw/modeline-read-write-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-line-column-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-vc-modified-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-tab-index-active ((t (:foreground ,(face-foreground 'default)))))))
