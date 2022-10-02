@@ -1267,6 +1267,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (company-mode . company-prescient-mode)
   (company-prescient-mode . prescient-persist-mode))
 #+end_src
+
 *** company frontend
 #+begin_src emacs-lisp
 (use-package company-posframe
