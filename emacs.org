@@ -781,10 +781,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 #+begin_src emacs-lisp
 (use-package vterm
-  :straight `(:pre-build (("rm" "-fr" "build")
-                          ("mkdir" "build")
-                          ("bash" "-c" "cd \"$1\" && cmake .. && make" "--"
-                           ,(concat (straight--repos-dir "emacs-libvterm") "build"))))
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
