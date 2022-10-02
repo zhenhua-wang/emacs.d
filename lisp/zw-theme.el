@@ -60,7 +60,7 @@
    `(vterm-color-white ((t (:foreground "#E5E9F0" :background "#E5E9F0"))))
 
    ;; modeline
-   `(zw/modeline-major-mode-active ((t (:foreground ,(face-foreground 'default)))))
+   `(zw/modeline-major-mode-active ((t (:foreground ,(face-foreground 'default) :weight bold))))
    `(zw/modeline-line-column-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-vc-modified-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-tab-index-active ((t (:foreground ,(face-foreground 'default)))))))
