@@ -20,10 +20,10 @@
    ;; setup fixed pitch fonts
    `(org-ellipsis ((t (:inherit fixed-pitch))))
    `(org-meta-line ((t (:inherit (bold fixed-pitch)))))
-   `(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   `(org-table ((t (:inherit fixed-pitch))))
    `(org-formula ((t (:inherit fixed-pitch))))
    `(org-latex-and-related ((t (:inherit (shadow fixed-pitch)))))
-   `(org-link ((t (:inherit fixed-pitch :foreground "royal blue" :underline t))))
+   `(org-link ((t (:inherit fixed-pitch :underline t))))
    `(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
    `(org-checkbox ((t (:inherit 'fixed-pitch))))
    `(org-property-value ((t (:inherit fixed-pitch))))
