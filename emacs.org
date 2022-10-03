@@ -822,6 +822,11 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook (dired-mode . all-the-icons-dired-mode)
   ;; use colorful icons
   :init (setq all-the-icons-dired-monochrome nil))
+
+(use-package dired-subtree
+  :config
+  (bind-keys :map dired-mode-map
+             ("<tab>" . dired-subtree-toggle)))
 #+end_src
 
 ** Ibuffer
