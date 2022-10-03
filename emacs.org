@@ -267,15 +267,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                                      ':height zw/font-size-fixed-pitch))
                    (buffer-face-mode))))
 
-;; set dim face for sidebar
-(dolist (mode '(dired-sidebar-mode-hook
-                ibuffer-sidebar-mode-hook))
-  (add-hook mode
-            (lambda ()
-              (setq-local buffer-face-mode-face
-                          (list ':background (doom-color 'base2)))
-              (buffer-face-mode))))
-
 ;; set face in dired-mode
 (add-hook 'dired-mode-hook
           (lambda ()
