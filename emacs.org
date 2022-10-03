@@ -822,61 +822,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook (dired-mode . all-the-icons-dired-mode)
   ;; use colorful icons
   :init (setq all-the-icons-dired-monochrome nil))
-
-(use-package dired-sidebar
-  :commands (dired-sidebar-showing-sidebar-p
-             dired-sidebar-hide-sidebar
-             dired-sidebar-show-sidebar)
-  :bind (("s-b" . zw/sidebar-toggle))
-  :hook (dired-sidebar-mode . (lambda ()
-                                (interactive)
-                                (visual-line-mode 0)))
-  :config
-  (setq dired-sidebar-width 25
-        dired-sidebar-use-one-instance t
-        dired-sidebar-subtree-line-prefix "➤"
-        dired-sidebar-no-delete-other-windows t
-        dired-sidebar-use-term-integration t)
-  ;; hide sidebar buffer
-  (defun zw/hide-buffer (orig-fun &rest args)
-    (concat " " (apply orig-fun args)))
-  (advice-add 'dired-sidebar-buffer-name :around #'zw/hide-buffer))
-
-(defun zw/sidebar-toggle ()
-  "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
-  (interactive)
-  (if (and (dired-sidebar-showing-sidebar-p)
-           (ibuffer-sidebar-showing-sidebar-p))
-      (progn
-        (dired-sidebar-hide-sidebar)
-        (ibuffer-sidebar-hide-sidebar))
-    (progn
-      (dired-sidebar-show-sidebar)
-      (ibuffer-sidebar-show-sidebar))))
 #+end_src
 
 ** Ibuffer
 #+begin_src emacs-lisp
 (require 'ibuf-ext)
 (add-to-list 'ibuffer-never-show-predicates "^\\*")
-
-(use-package ibuffer-sidebar
-  :commands (dired-sidebar-showing-sidebar-p
-             dired-sidebar-hide-sidebar
-             dired-sidebar-show-sidebar)
-  :hook (ibuffer-sidebar-mode . (lambda ()
-                                  (interactive)
-                                  (visual-line-mode 0)
-                                  (setq-local
-                                   display-buffer-base-action
-                                   '(zw/display-buffer-in-largest-window))))
-  :config
-  (setq ibuffer-sidebar-width 25
-        ibuffer-sidebar-name " :Buffers:"
-        ibuffer-sidebar-special-refresh-commands
-        '((kill-buffer . 0.1)
-          (find-file . 0.1)
-          (delete-file . 0.1))))
 #+end_src
 
 ** Openwith
