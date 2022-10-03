@@ -226,9 +226,6 @@
            ("s-2" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
-           ("s-b" . (lambda ()
-                      (interactive)
-                      (dired (expand-file-name default-directory))))
            ("C-c o" . er-open-with)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
