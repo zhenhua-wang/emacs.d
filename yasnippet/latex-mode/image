@@ -3,5 +3,5 @@
 # key: <i
 # --
 \begin{center}
-  \includegraphics[width=\textwidth,keepaspectratio]{${1:image-path}}
+  \includegraphics[width=\textwidth,keepaspectratio]{"${1:image-path}"}
 \end{center}
