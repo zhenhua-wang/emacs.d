@@ -807,14 +807,24 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
 (use-package dirvish
+  :init
+  (dirvish-override-dired-mode)
+  :custom
+  (dirvish-quick-access-entries ; It's a :custom option
+   '(("h" "~/"                          "Home")
+     ("d" "~/Downloads/"                "Downloads")))
+  :bind ((:map dirvish-mode-map
+               ("<tab>" . dirvish-subtree-toggle)
+               ("a" . dirvish-quick-access)))
   :config
-  (bind-keys :map dirvish-mode-map
-             ("<tab>" . dirvish-subtree-toggle))
   (setq dirvish-subtree-always-show-state t
         dirvish-side-width 25
+        dirvish-use-mode-line nil
+        dirvish-use-header-line t
+        dirvish-use-header-line t
+        dirvish-header-line-height 20
         dirvish-attributes
-        '(vc-state subtree-state all-the-icons git-msg))
-  (dirvish-override-dired-mode))
+        '(vc-state subtree-state all-the-icons git-msg)))
 #+end_src
 
 ** Ibuffer
