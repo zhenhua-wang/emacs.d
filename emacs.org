@@ -226,6 +226,7 @@
            ("s-2" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
+           ("s-b" . dirvish-side)
            ("C-c o" . er-open-with)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
@@ -266,15 +267,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
                                (list ':family zw/font-fixed-pitch
                                      ':height zw/font-size-fixed-pitch))
                    (buffer-face-mode))))
-
-  ;; set face in dired-mode
-  (add-hook 'dired-mode-hook
-            (lambda ()
-              (setq-local buffer-face-mode-face
-                          (list ':family zw/font-default
-                                ':height (+ zw/font-size 50)))
-              (buffer-face-mode)
-              (setq-local visual-fill-column-width 100)))
 #+end_src
 
 ** All-the-icons
@@ -795,6 +787,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (dired-mode . dired-async-mode)
   (dired-mode . dired-hide-details-mode)
   (dired-mode . dired-omit-mode)
+  (dired-mode . (lambda () (visual-line-mode 0)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t
@@ -806,18 +799,22 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         dired-listing-switches "-al --group-directories-first"))
 
 (use-package diredfl
-  :hook (dired-mode . diredfl-mode))
-
-(use-package all-the-icons-dired
-  :if (display-graphic-p)
-  :hook (dired-mode . all-the-icons-dired-mode)
-  ;; use colorful icons
-  :init (setq all-the-icons-dired-monochrome nil))
-
-(use-package dired-subtree
+  :hook
+  ((dired-mode . diredfl-mode)
+   ;; highlight parent and preview as well
+   (dirvish-directory-view-mode . diredfl-mode))
   :config
-  (bind-keys :map dired-mode-map
-             ("<tab>" . dired-subtree-toggle)))
+  (set-face-attribute 'diredfl-dir-name nil :bold t))
+
+(use-package dirvish
+  :config
+  (bind-keys :map dirvish-mode-map
+             ("<tab>" . dirvish-subtree-toggle))
+  (setq dirvish-subtree-always-show-state t
+        dirvish-side-width 25
+        dirvish-attributes
+        '(vc-state subtree-state all-the-icons git-msg))
+  (dirvish-override-dired-mode))
 #+end_src
 
 ** Ibuffer
@@ -1506,7 +1503,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package visual-fill-column
   :hook
-  (dired-mode . visual-fill-column-mode)
   ((org-mode markdown-mode) . visual-fill-column-mode)
   ((helpful-mode ess-r-help-mode) . visual-fill-column-mode)
   :init
