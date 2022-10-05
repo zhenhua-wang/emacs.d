@@ -62,10 +62,8 @@
    ;; modeline
    `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
    `(mode-linee-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-   `(zw/modeline-major-mode-active ((t (:foreground ,(face-foreground 'default) :weight bold))))
    `(zw/modeline-read-write-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-line-column-active ((t (:foreground ,(face-foreground 'default)))))
-   `(zw/modeline-vc-modified-active ((t (:foreground ,(face-foreground 'default)))))
    `(zw/modeline-tab-index-active ((t (:foreground ,(face-foreground 'default)))))))
 
 (provide 'zw-theme)
