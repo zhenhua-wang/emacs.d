@@ -807,6 +807,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
 (use-package dirvish
+  :hook (after-init . dirvish-override-dired-mode)
   :custom
   (dirvish-quick-access-entries ; It's a :custom option
    '(("h" "~/"                          "Home")
@@ -815,7 +816,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                ("<tab>" . dirvish-subtree-toggle)
                ("a" . dirvish-quick-access)))
   :config
-  (dirvish-override-dired-mode)
   (setq dirvish-subtree-always-show-state t
         dirvish-side-width 25
         dirvish-use-mode-line nil
