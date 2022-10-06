@@ -139,7 +139,8 @@
   (pcase major-mode
     ((pred (lambda (mode) (member mode '(dired-mode
                                          org-agenda-mode
-                                         image-mode))))
+                                         image-mode
+                                         eaf-mode))))
      "")
     ('pdf-view-mode
      (propertize (concat

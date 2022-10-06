@@ -5,7 +5,7 @@
   :demand
   :bind (("s-o" . zw/eaf-open-this-buffer))
   :config
-  (setq zw/enable-eaf-browser-p nil
+  (setq zw/enable-eaf-browser-p t
         zw/enable-eaf-pdf-p t)
   ;; browser
   (when zw/enable-eaf-browser-p
