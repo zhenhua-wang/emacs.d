@@ -1431,10 +1431,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Python
 #+begin_src emacs-lisp
-(add-hook 'inferior-python-mode-hook
-          (lambda ()
-            (bind-keys :map inferior-python-mode-map
-                       ("s-q" . zw/close-shell))))
+(use-package python
+  :hook (inferior-python-mode . (lambda ()
+                                  (bind-keys :map inferior-python-mode-map
+                                             ("s-q" . zw/close-shell))))
+  :bind ((:map python-mode-map
+               ("C-<return>" . python-shell-send-statement))))
 
 (use-package conda
   :after python
