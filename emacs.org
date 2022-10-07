@@ -1390,11 +1390,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package flymake
   :config
   (bind-keys ("M-n" . flymake-goto-next-error)
-             ("M-p" . flymake-goto-prev-error))
-  ;; Display error and warning messages in minibuffer.
-  (custom-set-variables
-   '(help-at-pt-timer-delay 0.5)
-   '(help-at-pt-display-when-idle '(flymake-overlay))))
+             ("M-p" . flymake-goto-prev-error)))
 #+end_src
 
 *** Version control
