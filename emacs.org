@@ -118,7 +118,8 @@
 ;; default coding
 (set-default-coding-systems 'utf-8)
 ;; start server mode
-(server-start)
+(require 'server)
+(unless (server-running-p) (server-start))
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
