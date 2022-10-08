@@ -1320,7 +1320,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (python-mode . lsp-deferred)
   ((c++-mode c-mode) . lsp-deferred)
-  ((latex-mode LaTeX-mode) . lsp-deferred)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -1338,8 +1337,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-enable-on-type-formatting nil
 
         lsp-idle-delay 0.5
-        lsp-completion-provider :none
-        lsp-tex-server 'digestif))
+        lsp-completion-provider :none))
 
 ;; microsoft pyright
 (use-package lsp-pyright
@@ -1386,10 +1384,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Flymake
 #+begin_src emacs-lisp
-(use-package flymake
-  :config
-  (bind-keys ("M-n" . flymake-goto-next-error)
-             ("M-p" . flymake-goto-prev-error)))
+(bind-keys ("M-n" . flymake-goto-next-error)
+           ("M-p" . flymake-goto-prev-error))
 #+end_src
 
 *** Version control
