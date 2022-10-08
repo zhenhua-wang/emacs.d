@@ -1891,6 +1891,7 @@ LSP-mode with TexLab works perfect for Latex docs
   ;; disable flycheck in polymode
   (add-hook 'polymode-init-inner-hook
             (lambda ()
+              (setq-local lsp-diagnostics-provider :none)
               (setq-local lsp-bridge-enable-diagnostics nil)))
   ;; send polymode content to lsp-bridge
   (defun zw/polymode-lsp-buffer-content (orig-fun &rest arguments)
