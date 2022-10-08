@@ -1381,9 +1381,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Flymake
 #+begin_src emacs-lisp
-(bind-keys ("M-n" . flymake-goto-next-error)
-           ("M-p" . flymake-goto-prev-error))
-
 (use-package flymake-posframe
   :straight '(flymake-posframe :host github :repo "zhenhua-wang/flymake-posframe")
   :hook (flymake-mode . flymake-posframe-mode))
