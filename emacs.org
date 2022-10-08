@@ -524,8 +524,7 @@ FACE defaults to inheriting from default and highlight."
   :bind ((:map diff-hl-command-map
                ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
-         (dired-mode . diff-hl-dired-mode)
-         ((diff-hl-mode diff-hl-dired-mode) . zw/set-diff-face))
+         (diff-hl-mode . zw/set-diff-face))
   :init (setq diff-hl-draw-borders nil
               diff-hl-side 'left)
   :config
@@ -533,9 +532,7 @@ FACE defaults to inheriting from default and highlight."
     (custom-set-faces
      '(diff-hl-change ((t (:background "#FF9F29"))))
      '(diff-hl-insert ((t (:background "#3CCF4E"))))
-     '(diff-hl-delete ((t (:background "#E94560"))))
-     '(diff-hl-dired-unknown ((t (:background "#277BC0"))))
-     '(diff-hl-dired-ignored ((t (:background "#EEEEEE"))))))
+     '(diff-hl-delete ((t (:background "#E94560"))))))
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
   ;; Integration with magit
