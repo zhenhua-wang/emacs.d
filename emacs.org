@@ -927,12 +927,6 @@ With a prefix ARG always prompt for command to use."
   :bind (("C-c l" . emacs-websearch)))
 #+end_src
 
-** EAF
-#+begin_src emacs-lisp
-(when (eq system-type 'gnu/linux)
-  (require 'zw-eaf))
-#+end_src
-
 * Editing
 ** Undo
 #+begin_src emacs-lisp
