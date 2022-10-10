@@ -355,7 +355,9 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 
 ** Posframe
 #+begin_src emacs-lisp
-(use-package posframe)
+(use-package posframe
+  :config
+  (setq posframe-gtk-resize-child-frames 'resize-mode))
 #+end_src
 
 ** Keycast
