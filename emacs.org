@@ -1149,7 +1149,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 ** Code Completion
 #+begin_src emacs-lisp
-(require 'zw-corfu)
+(require 'zw-company)
 #+end_src
 
 * Development
