@@ -1221,7 +1221,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("s-p" . company-posframe-quickhelp-scroll-down)))
   :config
   (setq company-posframe-quickhelp-delay nil
-        company-posframe-show-metadata t
+        company-posframe-show-metadata nil
         company-posframe-show-indicator t
         company-posframe-font zw/font-fixed-pitch
         company-posframe-show-params
