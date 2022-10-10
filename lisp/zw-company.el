@@ -14,7 +14,7 @@
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)
                ("C-<tab>" . company-yasnippet)))
-  :init (setq company-idle-delay 0
+  :init (setq company-idle-delay 0.1
               company-require-match nil
               company-selection-wrap-around t
               company-minimum-prefix-length 1
