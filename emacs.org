@@ -1173,7 +1173,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-icon-margin 2
               company-tooltip-limit 12
               company-tooltip-align-annotations t
-              company-tooltip-minimum-width 30
+              company-tooltip-minimum-width 40
               company-tooltip-maximum-width 80
               company-dabbrev-minimum-length 4
               company-dabbrev-ignore-invisible t
