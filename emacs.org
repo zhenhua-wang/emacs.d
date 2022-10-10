@@ -1180,7 +1180,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-enable-on-type-formatting nil
 
         lsp-idle-delay 0.5
-        lsp-completion-provider :none))
+        lsp-completion-provider :capf))
 
 ;; microsoft pyright
 (use-package lsp-pyright
