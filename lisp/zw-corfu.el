@@ -27,7 +27,8 @@
   (corfu-mode . yas-minor-mode)
   ;; force corfu start in ess-r-mode
   (ess-r-mode . corfu-mode)
-  :bind ((:map corfu-map
+  :bind (("M-<tab>" . completion-at-point)
+         (:map corfu-map
                ("TAB" . corfu-insert)
                ([tab] . corfu-insert)
                ([escape] . corfu-quit)
@@ -55,7 +56,7 @@
         corfu-echo-documentation nil
         corfu-scroll-margin 5
         corfu-count 10
-        corfu-min-width 20
+        corfu-min-width 40
         corfu-max-width 80
         corfu-bar-width 1)
   (defun corfu-enable-in-minibuffer ()
@@ -71,32 +72,27 @@
   (require 'kind-all-the-icons)
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
-  (defun zw/corfu-theme ()
-    ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
-    (set-face-attribute 'corfu-default nil
-                        :foreground (face-foreground 'tooltip)
-                        :background (face-background 'tooltip)
-                        :inherit 'fixed-pitch)
-    (set-face-attribute 'corfu-current nil
-                        :foreground (face-foreground 'warning)
-                        :underline (face-foreground 'warning)
-                        :background (face-background 'warning)
-                        :weight 'bold)
-    (with-eval-after-load 'doom-modeline
-      (set-face-attribute 'corfu-border nil
-                          :background (zw/get-face-bg-recur 'doom-modeline-bar)))
-    (set-face-attribute 'corfu-bar nil
-                        :background (face-foreground font-lock-comment-face)))
-  (zw/corfu-theme))
+  ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
+  (set-face-attribute 'corfu-default nil
+                      :foreground (face-foreground 'tooltip)
+                      :background (face-background 'tooltip)
+                      :inherit 'fixed-pitch)
+  (set-face-attribute 'corfu-current nil
+                      :foreground (face-foreground 'warning)
+                      :underline (face-foreground 'warning)
+                      :background (face-background 'warning)
+                      :weight 'bold)
+  (set-face-attribute 'corfu-bar nil
+                      :background (face-foreground font-lock-comment-face)))
 
 ;; corfu-doc
 (use-package corfu-doc
   :hook
   (corfu-mode . corfu-doc-mode)
   :bind ((:map corfu-map
-               ("M-p" . corfu-doc-scroll-down)
-               ("M-n" . corfu-doc-scroll-up)
-               ("M-d" . corfu-doc-toggle)))
+               ("s-p" . corfu-doc-scroll-down)
+               ("s-n" . corfu-doc-scroll-up)
+               ("s-d" . corfu-doc-toggle)))
   :config
   (setq corfu-doc-auto nil
         corfu-doc-display-within-parent-frame t))
