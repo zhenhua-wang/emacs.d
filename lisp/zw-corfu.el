@@ -35,38 +35,26 @@
                ([return] . corfu-insert)
                ("SPC" . corfu-insert-separator)))
   :init
-  ;; fast prefix filtering
-  (defun orderless-fast-dispatch (word index total)
-    (and (= index 0) (= total 1) (length< word 4)
-         `(orderless-regexp . ,(concat "^" (regexp-quote word)))))
-
-  (orderless-define-completion-style orderless-fast
-    (orderless-dispatch '(orderless-fast-dispatch))
-    (orderless-matching-styles '(orderless-literal orderless-regexp)))
-
   (setq corfu-cycle t
         corfu-auto t
         corfu-auto-delay 0
         corfu-auto-prefix 1
-        completion-styles '(orderless-fast)
         corfu-preselect-first t
         corfu-quit-no-match t
         corfu-on-exact-match 'insert
         corfu-preview-current nil
         corfu-echo-documentation nil
-        corfu-scroll-margin 5
-        corfu-count 10
+        corfu-scroll-margin 0
+        corfu-count 12
         corfu-min-width 40
         corfu-max-width 80
-        corfu-bar-width 1)
+        corfu-bar-width 1
+        corfu-excluded-modes '(eshell-mode-hook shell-mode-hook))
   (defun corfu-enable-in-minibuffer ()
     "Enable Corfu in the minibuffer if `completion-at-point' is bound."
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-  ;; disable corfu auto in following modes
-  (dolist (hook '(inferior-ess-r-mode-hook eshell-mode-hook shell-mode-hook))
-    (add-hook hook (lambda () (setq-local corfu-auto nil))))
   :config
   ;; set icon for corfu
   (require 'kind-all-the-icons)
