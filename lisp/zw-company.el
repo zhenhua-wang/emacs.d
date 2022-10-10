@@ -59,6 +59,7 @@
   (company-mode . company-prescient-mode)
   (company-prescient-mode . prescient-persist-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; frontend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package company-posframe
   :hook
   (company-mode . company-posframe-mode)
@@ -88,6 +89,7 @@
   (set-face-attribute 'company-posframe-inactive-backend-name nil
                       :inherit 'company-tooltip))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; backend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun company-R-objects--prefix ()
   (unless (ess-inside-string-or-comment-p)
     (let ((start (ess-symbol-start)))
