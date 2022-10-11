@@ -31,6 +31,7 @@
               company-dabbrev-downcase 'case-replace
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
+              company-dabbrev-char-regexp "[[:word:]_-]+"
               company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
