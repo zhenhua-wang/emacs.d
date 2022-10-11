@@ -135,8 +135,8 @@
 (add-hook 'ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
-                        ;; '(company-capf-with-R-objects company-files)
-                        '(company-R-library company-R-objects company-files))))
+                        ;; '(company-R-library company-R-objects company-files)
+                        '(company-capf-with-R-objects company-files))))
 (add-hook 'inferior-ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
