@@ -1397,8 +1397,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package writeroom-mode
   :commands (writeroom-mode)
   :hook
-  (writeroom-mode-enable . (lambda () (tab-bar-mode 0)))
-  (writeroom-mode-disable . (lambda () (tab-bar-mode 1)))
+  (writeroom-mode-enable . (lambda ()
+                             (tab-bar-mode 0) (pdf-view-fit-page-to-window)))
+  (writeroom-mode-disable . (lambda ()
+                              (tab-bar-mode 1) (pdf-view-fit-page-to-window)))
   (kill-buffer . (lambda () (tab-bar-mode 1)))
   :bind (("<f11>" . zw/writeroom-mode))
   :config
