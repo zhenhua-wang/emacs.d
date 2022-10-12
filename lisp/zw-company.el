@@ -53,7 +53,9 @@
                       :foreground (face-foreground 'warning)
                       :underline (face-foreground 'warning)
                       :background 'unspecified
-                      :weight 'bold))
+                      :weight 'bold)
+  (set-face-foreground 'company-tooltip-annotation (face-foreground font-lock-comment-face))
+  (set-face-foreground 'company-tooltip-annotation-selection (face-foreground font-lock-comment-face)))
 
 (use-package company-prescient
   :hook
