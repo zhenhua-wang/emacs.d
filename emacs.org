@@ -1735,11 +1735,13 @@ LSP-mode with TexLab works perfect for Latex docs
             (lambda ()
               (setq-local lsp-diagnostics-provider :none)
               (setq-local lsp-bridge-enable-diagnostics nil)))
-  ;; send polymode content to lsp-bridge
+  ;; send polymode content to lsp
   (defun zw/polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
         (pm--lsp-text)
       (funcall orig-fun arguments)))
+  (advice-add #'lsp--buffer-content
+              :around #'zw/polymode-lsp-buffer-content)
   (advice-add #'lsp-bridge--get-buffer-content-func
               :around #'zw/polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
