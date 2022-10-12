@@ -1163,7 +1163,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands (lsp)
   :hook
   (python-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
   ((c++-mode c-mode) . lsp-deferred)
   :init
   (setq lsp-auto-guess-root t
@@ -1730,20 +1729,6 @@ LSP-mode with TexLab works perfect for Latex docs
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  ;; disable flycheck in polymode
-  (add-hook 'polymode-init-inner-hook
-            (lambda ()
-              (setq-local lsp-diagnostics-provider :none)
-              (setq-local lsp-bridge-enable-diagnostics nil)))
-  ;; send polymode content to lsp
-  (defun zw/polymode-lsp-buffer-content (orig-fun &rest arguments)
-    (if (and polymode-mode pm/polymode)
-        (pm--lsp-text)
-      (funcall orig-fun arguments)))
-  (advice-add #'lsp--buffer-content
-              :around #'zw/polymode-lsp-buffer-content)
-  (advice-add #'lsp-bridge--get-buffer-content-func
-              :around #'zw/polymode-lsp-buffer-content)
   ;; match inner mode face with markdown-code-face
   (defun zw/poly-lock-adjust-span-face (span)
     (interactive "r")
