@@ -807,7 +807,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
 (use-package dirvish
-  :hook (after-init . dirvish-override-dired-mode)
+  :hook
+  (after-init . dirvish-override-dired-mode)
+  (dirvish-find-entry . (lambda (&rest _) (setq-local truncate-lines t)))
   :custom
   (dirvish-quick-access-entries ; It's a :custom option
    '(("h" "~/"                          "Home")
