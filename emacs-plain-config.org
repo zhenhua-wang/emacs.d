@@ -318,75 +318,7 @@ My key binding strategy:
 (require 'zw-ivy)
 #+end_src
 
-* Test
-** modeline
+* modeline
 #+begin_src emacs-lisp
 (require 'zw-modeline)
-#+end_src
-
-** lsp-mode
-  #+begin_src emacs-lisp
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-(use-package eglot
-  :config
-  (setq eglot-stay-out-of '(flymake imenu)
-        eglot-autoshutdown t))
-  #+end_src
-
-** R
-#+begin_src emacs-lisp
-(use-package ess
-  :defer t
-  :commands R
-  ;; :hook
-  ;; (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
-  :bind (:map ess-r-mode-map
-	      ("M-<tab>" . ess-complete-object-name))
-  :config
-  (require 'ess-site)
-  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
-    ;; See https://github.com/emacs-ess/ESS/issues/300"
-  (defun my/ess-fix-read-only-inferior-ess-mode ()
-    (setq-local comint-use-prompt-regexp nil)
-    (setq-local inhibit-field-text-motion nil)))
-#+end_src
-
-** Polymode
-#+begin_src emacs-lisp
-(use-package polymode
-  :commands polymode-mode
-  :init
-  ;; disable this for now because of reverse-typing issue in poly-R
-  (setq polymode-lsp-integration nil))
-
-(use-package poly-markdown
-  :commands (poly-markdown-mode poly-gfm-mode)
-  :mode
-  ("\\.md$" . poly-gfm-mode))
-
-(use-package poly-R
-  :commands (poly-markdown+r-mode)
-  :mode
-  ("\\.[rR]md\\'" . poly-gfm+r-mode))
-#+end_src
-
-** Flycheck
-#+begin_src emacs-lisp
-;; check code syntax
-(use-package flycheck
-  :commands (flycheck)
-  :init (setq flycheck-emacs-lisp-load-path 'inherit
-              ;; Only check while saving and opening files
-              flycheck-check-syntax-automatically '(save mode-enabled)))
-
-(use-package flycheck-popup-tip
-  :hook (flycheck-mode . flycheck-popup-tip-mode)
-  :config
-  (custom-set-variables
-   '(flycheck-popup-tip-error-prefix "- ")))
-
-(add-hook 'prog-mode-hook (lambda ()
-			    (when (not (file-remote-p default-directory))
-			      (flycheck-mode))))
 #+end_src
