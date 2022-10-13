@@ -849,7 +849,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
            (list (openwith-make-extension-regexp
                   '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
                     "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
-                    "ogg" "mkv" "pdf"))
+                    "ogg" "mkv"))
                  open-app
                  '(file))))))
 
@@ -1843,6 +1843,29 @@ LSP-mode with TexLab works perfect for Latex docs
     ("F" org-ref-bibtex-file/body "File hydra" :column "Misc")
     ("N" org-ref-bibtex-new-entry/body "New entry" :column "Misc")
     ("q" nil)))
+#+end_src
+
+** Readers
+#+begin_src emacs-lisp
+;; pdf-tools need to be deleted and reinstalled after after emacs update
+(use-package pdf-tools
+  :bind ((:map pdf-view-mode-map
+               ("C-s" . isearch-forward)
+               ("s-f" . isearch-forward)
+               ("s-=" . pdf-view-enlarge)
+               ("s-+" . pdf-view-enlarge)
+               ("s--" . pdf-view-shrink)
+               ("j" . pdf-view-next-line-or-next-page)
+               ("k" . pdf-view-previous-line-or-previous-page)
+               ("q" . nil)))
+  :init
+  (setq pdf-view-display-size 'fit-page
+        pdf-view-use-imagemagick nil
+        pdf-view-continuous nil
+        pdf-annot-activate-created-annotations t)
+  (when (equal system-type 'darwin)
+    (setq pdf-view-use-scaling t))
+  (pdf-loader-install))
 #+end_src
 
 ** Spelling
