@@ -228,7 +228,7 @@
            ("s-0" . tab-close)
            ;; misc commands
            ("s-b" . dirvish-side)
-           ("C-c o" . er-open-with)
+           ("s-o" . er-open-with)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
            :map minibuffer-mode-map
