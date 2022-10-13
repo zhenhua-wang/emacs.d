@@ -11,11 +11,9 @@
 # Prerequisite
 
 -   emacs-plus: this version has support for svg in OS X
--   Roboto mono: https://fonts.google.com/specimen/Roboto+Mono
--   ubuntu: https://fonts.google.com/specimen/Ubuntu
+-   Roboto mono: https://fonts.google.com/download?family=Roboto%20Mono
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
--   etbembo: https://github.com/edwardtufte/et-book/raw/gh-pages/et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf
--   etbembo-italic: https://github.com/edwardtufte/et-book/raw/gh-pages/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.ttf
+-   EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
 
 <a id="orgf33587f"></a>
 
@@ -34,6 +32,3 @@ Following is a list of ****main**** packages you just installed. Check all packa
 -   org
 -   polymode, poly-r
 -   ess
--   ein
--   neotree
--   latex-preview-pane
