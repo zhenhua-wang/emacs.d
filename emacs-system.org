@@ -91,6 +91,7 @@ set selection-clipboard clipboard
 set window-height 3000
 set window-width 3000
 unmap [normal] <Tab>
+map [normal] <F11> toggle_presentation
 map [normal] P adjust_window best-fit
 map [normal] p scroll full-up
 map [normal] n scroll full-down
@@ -98,6 +99,8 @@ map [normal] = zoom in
 map [normal] o toggle_index
 map [index] q toggle_index
 map [index] <Tab> navigate_index expand
+map [presentation] p navigate previous
+map [presentation] n navigate next
 #+end_src
 
 
