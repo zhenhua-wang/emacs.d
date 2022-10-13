@@ -90,6 +90,7 @@ yay -S texlive-latexextra
 set selection-clipboard clipboard
 set window-height 3000
 set window-width 3000
+unmap [normal] <Tab>
 map [normal] P adjust_window best-fit
 map [normal] p scroll full-up
 map [normal] n scroll full-down
