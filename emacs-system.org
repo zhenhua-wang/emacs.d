@@ -83,6 +83,15 @@ yay -S texlive-core
 yay -S texlive-latexextra
 #+end_src
 
+*** Zathura -- pdf reader
+1. in ~./zathura/zathurarc~
+2. add the following to make zathura maximized
+#+begin_src example
+set window-height 3000
+set window-width 3000
+#+end_src
+
+
 ** System Settings
 *** Hibernation
 #+begin_src shell
