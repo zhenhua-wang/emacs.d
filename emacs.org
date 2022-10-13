@@ -228,7 +228,7 @@
            ("s-0" . tab-close)
            ;; misc commands
            ("s-b" . dirvish-side)
-           ("s-o" . er-open-with)
+           ("s-o" . zw/open-in-external)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
            :map minibuffer-mode-map
@@ -837,34 +837,31 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 ** Openwith
 #+begin_src emacs-lisp
+(setq open-app (pcase system-type
+                 ('gnu/linux "xdg-open")
+                 (_ "open")))
+
 (use-package openwith
   :hook
   (after-init . openwith-mode)
   :config
-  (let ((open-app (pcase system-type
-                    ('gnu/linux "xdg-open")
-                    (_ "open"))))
-    (setq openwith-associations
-          (list
-           (list (openwith-make-extension-regexp
-                  '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
-                    "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
-                    "ogg" "mkv"))
-                 open-app
-                 '(file))))))
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
+                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
+                  "ogg" "mkv"))
+               open-app
+               '(file)))))
 
-(defun er-open-with (arg)
+(defun zw/open-in-external (arg)
   "Open visited file in default external program.
 With a prefix ARG always prompt for command to use."
   (interactive "P")
   (when buffer-file-name
-    (shell-command (concat
-                    (cond
-                     ((and (not arg) (eq system-type 'darwin)) "open")
-                     ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
-                     (t (read-shell-command "Open current file with: ")))
-                    " "
-                    (shell-quote-argument buffer-file-name)))))
+    (call-process-shell-command
+     (concat open-app " " (shell-quote-argument buffer-file-name))
+     nil 0)))
 #+end_src
 
 ** Recentf
