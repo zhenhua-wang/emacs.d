@@ -1851,6 +1851,8 @@ LSP-mode with TexLab works perfect for Latex docs
                ("s-=" . pdf-view-enlarge)
                ("s-+" . pdf-view-enlarge)
                ("s--" . pdf-view-shrink)
+               ("j" . pdf-view-next-line-or-next-page)
+               ("k" . pdf-view-previous-line-or-previous-page)
                ("q" . nil)))
   :init
   (setq pdf-view-display-size 'fit-page
