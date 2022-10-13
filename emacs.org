@@ -227,6 +227,7 @@
            ("s-2" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
+           ("s-i" . (lambda () (interactive) (message (buffer-file-name))))
            ("s-b" . dirvish-side)
            ("s-o" . zw/open-in-external)
            ("s-\\" . toggle-input-method)
