@@ -99,6 +99,7 @@ map [normal] = zoom in
 map [normal] o toggle_index
 map [index] q toggle_index
 map [index] <Tab> navigate_index expand
+map [presentation] <F11> toggle_presentation
 map [presentation] p navigate previous
 map [presentation] n navigate next
 #+end_src
