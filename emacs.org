@@ -167,6 +167,12 @@
   (interactive)
   (shell-command "cd ~/.emacs.d && git pull")
   (message "Emacs updated!"))
+;; show info
+(defun zw/show-info ()
+  (interactive)
+  (message (if buffer-file-name
+               (buffer-file-name)
+             (buffer-name))))
 #+end_src
 
 ** Global keybinding
@@ -227,7 +233,7 @@
            ("s-2" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
-           ("s-i" . (lambda () (interactive) (message (buffer-file-name))))
+           ("s-i" . zw/show-info)
            ("s-b" . dirvish-side)
            ("s-o" . zw/open-in-external)
            ("s-\\" . toggle-input-method)
