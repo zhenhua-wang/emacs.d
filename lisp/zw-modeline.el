@@ -333,8 +333,6 @@
   " "))
 
 ;;; misc config
-;; 3d effects
-(set-face-attribute 'mode-line nil :box '(:line-width 1 :style released-button))
 ;; repl
 (dolist (mode '(inferior-ess-mode-hook
                 inferior-python-mode-hook))
