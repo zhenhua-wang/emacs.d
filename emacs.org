@@ -115,15 +115,19 @@
 (require 'zw-utils)
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
-;; default coding
-(set-default-coding-systems 'utf-8)
 ;; start server mode
 (require 'server)
 (unless (server-running-p) (server-start))
+;; disable tooltips
+(setq use-dialog-box nil)
+(when (bound-and-true-p tooltip-mode)
+  (tooltip-mode -1))
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
 (setq-default cursor-type '(bar . 2))
+;; default coding
+(set-default-coding-systems 'utf-8)
 ;; save clipboard before kill ring
 (setq save-interprogram-paste-before-kill t)
 (setq-default select-enable-clipboard t)
@@ -133,8 +137,6 @@
 (setq-default indent-tabs-mode nil)
 ;; confirm emacs quit
 (setq confirm-kill-emacs 'yes-or-no-p)
-;; simplify yes no
-;; (defalias 'yes-or-no-p 'y-or-n-p)
 ;; disable saving for buffers not visiting a file
 (defadvice save-buffer (around interactive-no-visited-file-name activate)
   "When called interactively, disable for buffers not visiting a file."
