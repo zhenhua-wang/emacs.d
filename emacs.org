@@ -112,7 +112,6 @@
                 blink-cursor-mode))
   (add-hook 'after-init-hook mode))
 
-(require 'zw-utils)
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
 ;; start server mode
@@ -152,6 +151,28 @@
     ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
     (bury-buffer)
     nil))
+#+end_src
+
+** Custom function
+#+begin_src emacs-lisp
+;; helper functions to get face background/foreground recursively
+(defun zw/get-face-attr-recur (face attr)
+  (let ((face-attr (face-attribute face attr)))
+    (if (and face-attr
+             (not (eq face-attr 'unspecified)))
+        face-attr
+      (let ((parent-face (face-attribute face :inherit)))
+        (if (and parent-face
+                 (not (eq parent-face 'unspecified)))
+            (zw/get-face-attr-recur parent-face attr)
+          nil)))))
+
+(defun zw/get-face-bg-recur (face)
+  (zw/get-face-attr-recur face :background))
+
+(defun zw/get-face-fg-recur (face)
+  (zw/get-face-attr-recur face :foreground))
+
 ;; close window when close shell buffer including REPLs
 (defun zw/close-shell ()
   (interactive)
@@ -177,7 +198,7 @@
              (buffer-name))))
 #+end_src
 
-** Global keybinding
+** Custom keybinding
 #+begin_src emacs-lisp
 ;; modifiers
 ;; In macos, I also remap caps lock to ctrl using Karabiner-Elements
