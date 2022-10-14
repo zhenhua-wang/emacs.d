@@ -103,7 +103,7 @@
     (number-to-string (+ (tab-bar--current-tab-index) 1))
     'face (zw/modeline-set-face 'zw/modeline-tab-index-active 'zw/modeline-default-inactive)
     'help-echo (concat "Current Tab: "
-                       (number-to-string (tab-bar--current-tab-index))))
+                       (number-to-string (+ 1 (tab-bar--current-tab-index)))))
    ">"))
 
 (defvar zw/modeline-buffer-name-max 30
