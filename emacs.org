@@ -1889,9 +1889,8 @@ LSP-mode with TexLab works perfect for Latex docs
   (setq pdf-view-display-size 'fit-page
         pdf-view-use-imagemagick nil
         pdf-view-continuous nil
+        pdf-view-use-scaling t
         pdf-annot-activate-created-annotations t)
-  (when (equal system-type 'darwin)
-    (setq pdf-view-use-scaling t))
   (pdf-loader-install))
 #+end_src
 
