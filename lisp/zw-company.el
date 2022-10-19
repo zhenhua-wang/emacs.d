@@ -15,9 +15,9 @@
                ("<tab>" . company-complete-selection)
                ("C-<tab>" . company-yasnippet)))
   :init (setq company-idle-delay 0
-              company-require-match nil
+              company-require-match 'never
               company-selection-wrap-around t
-              company-minimum-prefix-length 1
+              company-minimum-prefix-length 2
               company-abort-on-unique-match nil
               company-format-margin-function nil
               company-tooltip-limit 12
