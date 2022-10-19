@@ -19,3 +19,11 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist) ; maximized
 (push '(undecorated . t) default-frame-alist)        ; remove title
+
+;; native-comp settings
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (progn
+    (setq native-comp-async-report-warnings-errors nil
+          inhibit-automatic-native-compilation t)
+    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))

@@ -37,14 +37,6 @@
                       (delete-dups (append file-name-handler-alist
                                            old-file-name-handler-alist)))))))
 
-;; native-comp settings
-(when (and (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (progn
-    (setq native-comp-async-report-warnings-errors nil
-          inhibit-automatic-native-compilation t)
-    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
-
 ;; load init
 (let ((zw/test-config nil))
   (if zw/test-config
