@@ -19,8 +19,7 @@
               company-selection-wrap-around t
               company-minimum-prefix-length 2
               company-abort-on-unique-match nil
-              company-format-margin-function nil
-              company-tooltip-limit 12
+              company-tooltip-limit 14
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 40
               company-tooltip-maximum-width 80
