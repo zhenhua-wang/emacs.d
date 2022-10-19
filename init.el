@@ -42,7 +42,7 @@
            (native-comp-available-p))
   (progn
     (setq native-comp-async-report-warnings-errors nil
-          comp-deferred-compilation nil)
+          inhibit-automatic-native-compilation t)
     (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
 
 ;; load init
