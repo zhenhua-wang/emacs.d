@@ -19,8 +19,7 @@
               company-selection-wrap-around t
               company-minimum-prefix-length 1
               company-abort-on-unique-match nil
-              company-icon-size '(auto-scale . 20)
-              company-icon-margin 2
+              company-format-margin-function nil
               company-tooltip-limit 12
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 40
