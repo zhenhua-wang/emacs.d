@@ -1194,6 +1194,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands (lsp)
   :hook
   (python-mode . lsp-deferred)
+  (ess-r-mode . lsp-deferred)
   ((c++-mode c-mode) . lsp-deferred)
   :init
   (setq lsp-auto-guess-root t
