@@ -117,6 +117,8 @@
 (setq use-dialog-box nil)
 (when (bound-and-true-p tooltip-mode)
   (tooltip-mode -1))
+;; disable eldoc
+(global-eldoc-mode -1)
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
