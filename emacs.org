@@ -1429,27 +1429,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                 visual-fill-column-width 90))
 #+end_src
 
-*** Writeroom-mode
-#+begin_src emacs-lisp
-(use-package writeroom-mode
-  :commands (writeroom-mode)
-  :hook
-  (writeroom-mode-enable . (lambda ()
-                             (tab-bar-mode 0) (pdf-view-fit-page-to-window)))
-  (writeroom-mode-disable . (lambda ()
-                              (tab-bar-mode 1) (pdf-view-fit-page-to-window)))
-  (kill-buffer . (lambda () (tab-bar-mode 1)))
-  :bind (("<f11>" . zw/writeroom-mode))
-  :config
-  (setq writeroom-fullscreen-effect 'maximized
-        writeroom-width 90)
-  (defun zw/writeroom-mode ()
-    (interactive)
-    (when (eq major-mode 'pdf-view-mode)
-      (setq-local writeroom-width 1))
-    (call-interactively 'writeroom-mode)))
-#+end_src
-
 *** Org-mode
 **** Main
 #+begin_src emacs-lisp
