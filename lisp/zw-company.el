@@ -14,10 +14,10 @@
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)
                ("C-<tab>" . company-yasnippet)))
-  :init (setq company-idle-delay 0
+  :init (setq company-idle-delay nil
               company-require-match 'never
               company-selection-wrap-around t
-              company-minimum-prefix-length 2
+              company-minimum-prefix-length 1
               company-abort-on-unique-match nil
               company-icon-size '(auto-scale . 20)
               company-icon-margin 2
