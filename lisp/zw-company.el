@@ -98,8 +98,7 @@
         (all-completions arg (ess--get-cached-completions arg))))))
 
 (defun company-capf-with-R-objects--check-prefix (prefix)
-  (or (cl-search "$" prefix)
-      (cl-search ":" prefix)))
+  (cl-search "$" prefix))
 
 (defun company-capf-with-R-objects (command &optional arg &rest ignored)
   (interactive (list 'interactive))
