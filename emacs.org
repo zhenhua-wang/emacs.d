@@ -854,7 +854,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         dirvish-use-header-line t
         dirvish-header-line-height 20
         dirvish-attributes
-        '(vc-state subtree-state all-the-icons git-msg file-time file-size)))
+        '(vc-state subtree-state all-the-icons git-msg file-time file-size)
+        dirvish-side-window-parameters
+        '((no-delete-other-windows . t))))
 #+end_src
 
 ** Ibuffer
