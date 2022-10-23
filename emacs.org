@@ -1112,7 +1112,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ;; M-s bindings (search-map)
          ("M-s d" . consult-find)
          ("M-s g" . consult-grep)
-         ("M-s b" . consult-bibtex-open-pdf)
          ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
          ("M-s f" . consult-flymake)
@@ -1162,9 +1161,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands consult-yasnippet)
 (use-package consult-dir
   :commands consult-dir)
-(use-package consult-bibtex
-  :commands (consult-bibtex consult-bibtex--read-entry)
-  :straight `(consult-bibtex :host github :repo "mohkale/consult-bibtex"))
 (use-package consult-tramp
   :commands consult-tramp
   :straight
@@ -1757,97 +1753,6 @@ LSP-mode with TexLab works perfect for Latex docs
   :commands (poly-markdown+r-mode)
   :mode
   ("\\.[rR]md\\'" . poly-gfm+r-mode))
-#+end_src
-
-** References
-*** Bibtex-completion
-#+begin_src emacs-lisp
-(setq research-folder "~/Workspace/OneDrive - University of Missouri/Research")
-(use-package bibtex-completion
-  :defer t
-  :init
-  (setq bibtex-completion-bibliography (expand-file-name "privacy.bib" research-folder)
-        bibtex-completion-library-path (expand-file-name "pdfs/" research-folder)
-        bibtex-completion-additional-search-fields '(keywords)
-        bibtex-completion-display-formats
-        '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
-          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-          (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
-        bibtex-completion-pdf-open-function
-        (lambda (fpath)
-          (call-process "open" nil 0 nil fpath))))
-#+end_src
-
-*** Org-ref
-#+begin_src emacs-lisp
-(use-package org-ref
-  :commands (org-ref-find-bibliography)
-  :bind (("H-b" . zw/org-ref-bibtex-hydra/body)
-         ("H-r" . org-ref-insert-link-hydra/body))
-  :init
-  ;; require this to export citations in org-mode
-  (require 'org-ref-citation-links)
-  (setq org-ref-pdf-directory (expand-file-name "pdfs/" research-folder)
-        bibtex-autokey-year-length 4
-        bibtex-autokey-name-year-separator "-"
-        bibtex-autokey-year-title-separator "-"
-        bibtex-autokey-titleword-separator "-"
-        bibtex-autokey-titlewords 2
-        bibtex-autokey-titlewords-stretch 1
-        bibtex-autokey-titleword-length 5)
-  ;; export org-ref labels
-  (setq org-latex-prefer-user-labels t)
-  :config
-  ;; define hydra
-  (defhydra zw/org-ref-bibtex-hydra (:color blue :hint nil)
-    "Bibtex actions:
-"
-    ;; Open-like actions
-    ("p" org-ref-open-bibtex-pdf "PDF" :column "Open")
-    ("n" org-ref-open-bibtex-notes "Notes" :column "Open")
-    ("b" org-ref-open-in-browser "URL" :column "Open")
-
-    ;; edit/modify
-    ("K" (lambda ()
-           (interactive)
-           (org-ref-set-bibtex-keywords
-            (read-string "Keywords: "
-                         (bibtex-autokey-get-field "keywords"))
-            t))
-     "Keywords" :column "Edit")
-    ("a" org-ref-replace-nonascii "Replace nonascii" :column "Edit")
-    ("S" org-ref-sentence-case-article "Sentence case" :column "Edit")
-    ("U" (doi-utils-update-bibtex-entry-from-doi (org-ref-bibtex-entry-doi)) "Update entry" :column "Edit")
-    ("u" doi-utils-update-field "Update field" :column "Edit" :color red)
-    ("L" org-ref-clean-bibtex-entry "Clean entry" :column "Edit")
-    ("A" org-ref-bibtex-assoc-pdf-with-entry "Add pdf" :column "Edit")
-
-    ;; www
-    ("R" org-ref-bibtex-crossref "Crossref" :column "WWW")
-    ("g" org-ref-bibtex-google-scholar "Google Scholar" :column "WWW")
-
-
-    ;; Copy
-    ("o" (lambda ()
-           (interactive)
-           (bibtex-copy-entry-as-kill)
-           (message "Use %s to paste the entry"
-                    (substitute-command-keys (format "\\[bibtex-yank]"))))
-     "Copy entry" :column "Copy")
-
-    ("y" (save-excursion
-           (bibtex-beginning-of-entry)
-           (when (looking-at bibtex-entry-maybe-empty-head)
-             (kill-new (bibtex-key-in-head))))
-     "Copy key" :column "Copy")
-
-
-    ;; Miscellaneous
-    ("F" org-ref-bibtex-file/body "File hydra" :column "Misc")
-    ("N" org-ref-bibtex-new-entry/body "New entry" :column "Misc")
-    ("q" nil)))
 #+end_src
 
 ** Readers
