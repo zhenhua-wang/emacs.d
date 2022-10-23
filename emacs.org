@@ -1255,12 +1255,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Flymake
 #+begin_src emacs-lisp
-(use-package flymake
-  :config
-  (bind-keys ("M-n" . flymake-goto-next-error)
-             ("M-p" . flymake-goto-prev-error))
-  ;; disable flymake log about proc-legacy-flymake
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+(bind-keys ("M-n" . flymake-goto-next-error)
+           ("M-p" . flymake-goto-prev-error))
+;; disable flymake log about proc-legacy-flymake
+(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
 #+end_src
 
 *** Version control
