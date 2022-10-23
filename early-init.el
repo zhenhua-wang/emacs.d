@@ -30,6 +30,6 @@
   (progn
     (setq native-comp-speed 2
           native-comp-async-query-on-exit t
-          inhibit-automatic-native-compilation t
+          inhibit-automatic-native-compilation nil
           native-comp-async-report-warnings-errors nil)
     (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
