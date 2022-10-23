@@ -251,7 +251,7 @@
            ("s-^" . enlarge-window)
            ;; tab operations
            ("s-1" . zw/tab-switch)
-           ("s-2" . tab-new)
+           ("s-9" . tab-new)
            ("s-0" . tab-close)
            ;; misc commands
            ("s-i" . zw/show-info)
