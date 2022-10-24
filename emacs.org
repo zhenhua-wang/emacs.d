@@ -1216,16 +1216,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
          (:map lsp-ui-doc-mode-map
-               ("s-d" . lsp-ui-doc-show)))
+               ("s-d" . lsp-ui-doc-toggle)))
   :hook (lsp-mode . lsp-ui-mode)
   :init (setq lsp-ui-imenu-enable nil
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
-              lsp-ui-doc-show-with-cursor nil
-              lsp-ui-doc-show-with-mouse nil
-              lsp-ui-doc-position 'top
-              lsp-ui-doc-max-height 8
-              lsp-ui-doc-max-width 72
+              lsp-ui-doc-position 'at-point
               lsp-ui-doc-delay 0.75
               lsp-ui-doc-show-with-mouse nil)
   :config
