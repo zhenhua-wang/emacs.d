@@ -1212,12 +1212,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 ;; lsp ui
 (use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
   :bind ((:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
          (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-toggle)))
-  :hook (lsp-mode . lsp-ui-mode)
   :init (setq lsp-ui-imenu-enable nil
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
