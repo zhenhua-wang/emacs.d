@@ -1194,7 +1194,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
         lsp-headerline-breadcrumb-enable nil
+        lsp-signature-auto-activate nil
         lsp-signature-render-documentation nil
+        lsp-eldoc-enable-hover nil
 
         lsp-enable-file-watchers nil
         lsp-enable-folding nil
@@ -1203,8 +1205,57 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
 
-        lsp-idle-delay 0.5
-        lsp-completion-provider :none))
+        lsp-completion-provider :none
+        
+        ;; For diagnostics
+        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
+
+;; lsp ui
+(use-package lsp-ui
+  :bind ((:map lsp-ui-mode-map
+               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+               ([remap xref-find-references] . lsp-ui-peek-find-references))
+         (:map lsp-ui-doc-mode-map
+               ("s-d" . lsp-ui-doc-show)))
+  :hook (lsp-mode . lsp-ui-mode)
+  :init (setq lsp-ui-imenu-enable nil
+              lsp-ui-sideline-enable nil
+              lsp-ui-peek-always-show t
+              lsp-ui-doc-show-with-cursor nil
+              lsp-ui-doc-show-with-mouse nil
+              lsp-ui-doc-position 'top
+              lsp-ui-doc-max-height 8
+              lsp-ui-doc-max-width 72
+              lsp-ui-doc-delay 0.75
+              lsp-ui-doc-show-with-mouse nil)
+  :config
+  ;; use posframe to show peek
+  (defun lsp-ui-peek--peek-display (src1 src2)
+    (-let* ((win-width (frame-width))
+            (lsp-ui-peek-list-width (/ (frame-width) 2))
+            (string (-some--> (-zip-fill "" src1 src2)
+                      (--map (lsp-ui-peek--adjust win-width it) it)
+                      (-map-indexed 'lsp-ui-peek--make-line it)
+                      (-concat it (lsp-ui-peek--make-footer))))
+            )
+      (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
+      (posframe-show lsp-ui-peek--buffer
+                     :string (mapconcat 'identity string "")
+                     :min-width (frame-width)
+                     :poshandler #'posframe-poshandler-frame-center
+                     :override-parameters '((tab-bar-mode . 0)
+                                            (tab-bar-format . nil)
+                                            (tab-line-format . nil)
+                                            (tab-bar-lines . 0)
+                                            (tab-bar-lines-keep-state . 0)))))
+  (defun lsp-ui-peek--peek-destroy ()
+    (when (bufferp lsp-ui-peek--buffer)
+      (posframe-delete lsp-ui-peek--buffer))
+    (setq lsp-ui-peek--buffer nil
+          lsp-ui-peek--last-xref nil)
+    (set-window-start (get-buffer-window) lsp-ui-peek--win-start))
+  (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
+  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
 
 ;; microsoft pyright
 (use-package lsp-pyright
