@@ -1114,6 +1114,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("M-s g" . consult-grep)
          ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
+         ("M-s f" . consult-flymake)
          ("M-s s" . consult-flyspell)
          (:map isearch-mode-map
                ("M-s" . consult-isearch-history))
@@ -1248,13 +1249,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind (("M-/" . evilnc-comment-or-uncomment-lines)))
 #+end_src
 
-*** Flycheck
+*** Flymake
 #+begin_src emacs-lisp
-(use-package flycheck
-  :hook (prog-mode . flycheck-mode)
-  :init (setq flycheck-emacs-lisp-load-path 'inherit
-              ;; Only check while saving and opening files
-              flycheck-check-syntax-automatically '(save mode-enabled)))
+(use-package flymake
+  :straight (:type built-in)
+  :bind (("M-n" . flymake-goto-next-error)
+         ("M-p" . flymake-goto-prev-error))
+  :config
+  ;; disable flymake log about proc-legacy-flymake
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 #+end_src
 
 *** Version control
