@@ -1221,7 +1221,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :init (setq lsp-ui-imenu-enable nil
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
-              lsp-ui-doc-position 'bottom
+              lsp-ui-doc-position 'top
               lsp-ui-doc-max-width 120
               lsp-ui-doc-show-with-mouse nil)
   :config
@@ -1238,12 +1238,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (posframe-show lsp-ui-peek--buffer
                      :string (mapconcat 'identity string "")
                      :min-width (frame-width)
-                     :poshandler #'posframe-poshandler-frame-center
-                     :override-parameters '((tab-bar-mode . 0)
-                                            (tab-bar-format . nil)
-                                            (tab-line-format . nil)
-                                            (tab-bar-lines . 0)
-                                            (tab-bar-lines-keep-state . 0)))))
+                     :poshandler #'posframe-poshandler-frame-center)))
   (defun lsp-ui-peek--peek-destroy ()
     (when (bufferp lsp-ui-peek--buffer)
       (posframe-delete lsp-ui-peek--buffer))
