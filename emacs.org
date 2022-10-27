@@ -1298,6 +1298,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error))
   :config
+  (setq flymake-no-changes-timeout nil)
   ;; disable flymake log about proc-legacy-flymake
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   ;; show flymake when cursor hovers
