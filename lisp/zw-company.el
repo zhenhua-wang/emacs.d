@@ -123,22 +123,22 @@
   (add-hook mode
             (lambda ()
               (setq-local company-backends
-                          '(company-capf company-files)))))
+                          '(company-files company-capf)))))
 ;; backends for ess-r-mode
 (add-hook 'ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
                         ;; '(company-R-library company-R-objects company-files)
-                        '(company-capf-with-R-objects company-files))))
+                        '(company-files company-capf-with-R-objects))))
 (add-hook 'inferior-ess-r-mode-hook
           (lambda ()
             (setq-local company-backends
-                        '(company-R-library company-R-objects company-files))))
+                        '(company-files company-R-library company-R-objects))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
   :hook (sh-mode . (lambda ()
                      (interactive)
-                     (setq-local company-backends '(company-shell)))))
+                     (setq-local company-backends '(company-files company-shell)))))
 
 (provide 'zw-company)
