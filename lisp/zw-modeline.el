@@ -60,6 +60,11 @@
   "Remote file face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-env-active
+  '((t (:inherit highlight)))
+  "Environment face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-kmacro-active
   '((t (:inherit highlight)))
   "Defining kmacro face for active modeline"
@@ -192,11 +197,10 @@
             (propertize " kmacro "
                         'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive)))))
 
-(defun zw/modeline-conda ()
+(defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
-    (concat (propertize "Conda:"
-                        'face 'zw/modeline-default-inactive)
-            conda-env-current-name)))
+    (propertize (concat " conda:" conda-env-current-name " ")
+                'face (zw/modeline-set-face 'zw/modeline-env-active 'zw/modeline-default-inactive))))
 
 (defun zw/modeline-vc ()
   (if vc-mode
@@ -204,11 +208,9 @@
              (vc-info (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
          " "
-         (propertize "Git:"
-                     'face 'zw/modeline-default-inactive)
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (concat vc-info "")
-           (propertize (concat vc-info "*")
+             (concat "" vc-info)
+           (propertize (concat "*" vc-info)
                        'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))))))
 
 (defun zw/modeline-lsp-bridge ()
@@ -266,8 +268,8 @@
 
 (defun zw/modeline-rhs ()
   (concat
-   ;; conda env
-   (zw/modeline-conda)
+   ;; env
+   (zw/modeline-env)
    ;; version control
    (zw/modeline-vc)
    ;; encoding
@@ -353,8 +355,8 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            ;; add modeline process
                            '(:eval mode-line-process)
-                           ;; conda env
-                           '(:eval (zw/modeline-conda)))))))
+                           ;; env
+                           '(:eval (zw/modeline-env)))))))
 
 ;; ess-r
 (add-hook 'inferior-ess-mode-hook
