@@ -192,8 +192,14 @@
 (defun zw/show-info ()
   (interactive)
   (message (if buffer-file-name
-               (buffer-file-name)
-             (buffer-name))))
+               (concat "File: "
+                       (buffer-file-name)
+                       ", Encoding:"
+                       (zw/modeline-encoding))
+             (concat "Buffer: "
+                     (buffer-name)
+                     ", Encoding:"
+                     (zw/modeline-encoding)))))
 #+end_src
 
 ** Custom keybinding
