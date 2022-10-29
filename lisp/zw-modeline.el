@@ -209,8 +209,8 @@
         (concat
          " "
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (concat "" vc-info)
-           (propertize (concat "*" vc-info)
+             (concat vc-info "-")
+           (propertize (concat vc-info "*")
                        'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))))))
 
 (defun zw/modeline-lsp-bridge ()
