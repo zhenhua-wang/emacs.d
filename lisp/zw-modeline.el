@@ -129,7 +129,7 @@
                               zw/modeline-buffer-name-ellipse))))
     (propertize file-name-abbrev
                 'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
-                'help-echo (buffer-file-name))))
+                'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))))
 
 (defun zw/modeline-buffer-status ()
   "modeline is read-only or modified"
@@ -172,6 +172,22 @@
       (propertize "%c"
                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
       (zw/modeline-count-region)))))
+
+(defun zw/modeline-encoding ()
+  (let* ((sys (coding-system-plist buffer-file-coding-system))
+         (cat (plist-get sys :category))
+         (sym (if (memq cat
+                        '(coding-category-undecided coding-category-utf-8))
+                  'utf-8
+                (plist-get sys :name)))
+         (encoding (upcase (symbol-name sym))))
+    (if (string= encoding "NO-CONVERSION")
+        ""
+      (concat
+       " "
+       (propertize
+        encoding
+        'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))))))
 
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
