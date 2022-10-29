@@ -173,22 +173,6 @@
                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
       (zw/modeline-count-region)))))
 
-(defun zw/modeline-encoding ()
-  (let* ((sys (coding-system-plist buffer-file-coding-system))
-         (cat (plist-get sys :category))
-         (sym (if (memq cat
-                        '(coding-category-undecided coding-category-utf-8))
-                  'utf-8
-                (plist-get sys :name)))
-         (encoding (upcase (symbol-name sym))))
-    (if (string= encoding "NO-CONVERSION")
-        ""
-      (concat
-       " "
-       (propertize
-        encoding
-        'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))))))
-
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
       (concat " "
@@ -278,8 +262,6 @@
    (zw/modeline-env)
    ;; version control
    (zw/modeline-vc)
-   ;; encoding
-   (zw/modeline-encoding)
    ;; major mode
    " ["
    (zw/modeline-lsp-bridge)
