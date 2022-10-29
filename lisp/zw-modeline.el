@@ -145,7 +145,8 @@
     ((pred (lambda (mode) (member mode '(dired-mode
                                          org-agenda-mode
                                          image-mode
-                                         eaf-mode))))
+                                         eaf-mode
+                                         vterm-mode))))
      "")
     ('pdf-view-mode
      (propertize (concat
