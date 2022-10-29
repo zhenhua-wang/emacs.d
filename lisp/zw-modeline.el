@@ -45,8 +45,13 @@
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-vc-active
+  `((t (:background ,(face-foreground 'zw/modeline-read-write-active) :foreground "write")))
+  "Line-column face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-vc-modified-active
-  '((t (:inherit zw/modeline-modified-active)))
+  `((t (:background ,(face-foreground 'zw/modeline-modified-active) :foreground "black")))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -209,8 +214,9 @@
         (concat
          " "
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (concat vc-info)
-           (propertize (concat vc-info)
+             (propertize (concat " " vc-info " ")
+                         'face (zw/modeline-set-face 'zw/modeline-vc-active 'zw/modeline-default-inactive))
+           (propertize (concat " " vc-info " ")
                        'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))))))
 
 (defun zw/modeline-lsp-bridge ()
