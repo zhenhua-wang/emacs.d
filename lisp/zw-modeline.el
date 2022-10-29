@@ -45,13 +45,8 @@
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
-(defface zw/modeline-vc-active
-  `((t (:background ,(face-foreground 'zw/modeline-read-write-active) :foreground "write")))
-  "Line-column face for active modeline"
-  :group 'zw/modeline-active)
-
 (defface zw/modeline-vc-modified-active
-  `((t (:background ,(face-foreground 'zw/modeline-modified-active) :foreground "black")))
+  '((t (:inherit zw/modeline-modified-active)))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -204,8 +199,7 @@
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
-    (propertize (concat " conda:" conda-env-current-name " ")
-                'face (zw/modeline-set-face 'zw/modeline-env-active 'zw/modeline-default-inactive))))
+    (concat "conda:" conda-env-current-name)))
 
 (defun zw/modeline-vc ()
   (if vc-mode
@@ -214,9 +208,8 @@
         (concat
          " "
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (propertize (concat " " vc-info " ")
-                         'face (zw/modeline-set-face 'zw/modeline-vc-active 'zw/modeline-default-inactive))
-           (propertize (concat " " vc-info " ")
+             (concat vc-info)
+           (propertize (concat vc-info)
                        'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))))))
 
 (defun zw/modeline-lsp-bridge ()
