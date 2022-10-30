@@ -1392,6 +1392,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind ((:map python-mode-map
                ("C-<return>" . python-shell-send-statement))))
 
+(use-package code-cells
+  :hook (python-mode . code-cells-mode-maybe))
+
 (use-package conda
   :after python
   :config
