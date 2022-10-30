@@ -30,8 +30,8 @@
    `(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    `(org-document-info ((t (:foreground "dark orange"))))
    `(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   `(org-block ((t (:inherit fixed-pitch))))
-   `(org-block-begin-line ((t (:foreground "#4c566a" :bold t :italic t :underline t :extend t))))
+   `(org-block ((t (:inherit fixed-pitch :background "#e7e7e7"))))
+   `(org-block-begin-line ((t (:background ,(face-background 'org-block) :bold t :italic t :underline t :extend t))))
    `(org-block-end-line ((t (:background ,(face-background 'org-block) :bold t :italic t :extend t))))
    `(org-code ((t (:inherit (shadow fixed-pitch) :background ,(face-background 'org-block) :box ,(face-foreground 'default)))))
    `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,(face-background 'org-block) :box ,(face-foreground 'default)))))
@@ -47,7 +47,7 @@
    `(markdown-metadata-key-face ((t (:inherit (thin markdown-metadata-key-face) :height 0.8 :foreground "dark orange"))))
    `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
    `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   `(markdown-code-face ((t (:inherit fixed-pitch :extend t))))
+   `(markdown-code-face ((t (:inherit fixed-pitch :background "#e7e7e7" :extend t))))
 
    ;; vterm
    `(vterm-color-black ((t (:foreground "#3B4252" :background "#3B4252"))))
