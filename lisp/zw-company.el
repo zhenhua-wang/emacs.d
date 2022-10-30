@@ -78,11 +78,14 @@
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
   (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer)
+  (set-face-background 'company-tooltip-selection (face-background 'tooltip))
   (set-face-attribute 'company-posframe-active-backend-name nil
                       :inherit 'company-tooltip
-                      :foreground (face-foreground 'font-lock-keyword-face))
+                      :foreground (face-foreground 'font-lock-keyword-face)
+                      :background (face-background 'tooltip))
   (set-face-attribute 'company-posframe-inactive-backend-name nil
-                      :inherit 'company-tooltip))
+                      :inherit 'company-tooltip
+                      :background (face-background 'tooltip)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; backend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun company-R-objects--prefix ()
