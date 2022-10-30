@@ -144,7 +144,7 @@
                        zw/tab-bar-format-battery))
 
 ;; enable tab-bar
-(tab-bar-mode 1)
+(add-hook 'after-init-hook #'tab-bar-mode)
 
 ;;; misc config
 ;; switch to tab
