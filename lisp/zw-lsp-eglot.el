@@ -137,7 +137,6 @@
   ;; enable lsp-org inside src block
   (cl-defmacro lsp-org-babel-enable (lang)
     "Support LANG in org source code block."
-    (setq centaur-lsp 'lsp-mode)
     (cl-check-type lang stringp)
     (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
            (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
