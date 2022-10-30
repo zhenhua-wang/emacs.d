@@ -2,7 +2,7 @@
 
 (let* ((base-font-color     (face-foreground 'default nil 'default))
        (headline           `(:inherit default :weight bold :foreground ,base-font-color))
-       (block-background    "#e7e7e7")
+       (block-background    "#EEEEEE")
        (variable-tuple      (list ':font zw/font-title)))
 
   (custom-theme-set-faces
