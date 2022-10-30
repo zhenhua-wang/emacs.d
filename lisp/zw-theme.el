@@ -66,6 +66,8 @@
 
    ;; modeline
    `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
-   `(mode-linee-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))))
+   `(mode-linee-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
+   `(zw/modeline-major-mode-active ((t (:foreground "#0000c0" :bold t))))
+   `(zw/modeline-tab-index-active ((t (:foreground "#0000c0"))))))
 
 (provide 'zw-theme)
