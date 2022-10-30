@@ -327,7 +327,8 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(setq modus-themes-mode-line '(accented))
+(setq modus-themes-mode-line '(accented)
+      modus-themes-hl-line '(accented intense))
 (load-theme 'modus-operandi t)
 
 (require 'zw-theme)
