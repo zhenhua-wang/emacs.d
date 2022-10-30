@@ -32,7 +32,7 @@
    `(org-document-info ((t (:foreground "dark orange"))))
    `(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
    `(org-block ((t (:inherit fixed-pitch :background ,block-background))))
-   `(org-block-begin-line ((t (:background ,block-background :bold t :italic t :underline t :extend t))))
+   `(org-block-begin-line ((t (:inherit 'fixed-pitch :background ,block-background :bold t :italic t :underline t :extend t))))
    `(org-block-end-line ((t (:background ,block-background :bold t :italic t :extend t))))
    `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-background :box ,(face-foreground 'default)))))
    `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-background :box ,(face-foreground 'default)))))
