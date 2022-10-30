@@ -26,17 +26,17 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-read-only-active
-  '((t (:foreground "#E94560")))
+  '((t (:inherit 'error)))
   "Read only buffer face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-read-write-active
-  '((t (:foreground "#1C6758")))
+  '((t (:inherit 'success)))
   "Read write buffer face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-modified-active
-  '((t (:foreground "#F7A76C")))
+  '((t (:inherit 'warning)))
   "Modified buffer face for active modeline"
   :group 'zw/modeline-active)
 
