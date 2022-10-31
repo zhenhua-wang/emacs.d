@@ -2,7 +2,7 @@
 
 (let* ((base-font-color     (face-foreground 'default nil 'default))
        (headline           `(:inherit default :weight bold :foreground ,base-font-color))
-       (block-background    "#EEEEEE")
+       (block-background    "#FAFAFA")
        (modeline-highlight  "#0000c0")
        (variable-tuple      (list ':font zw/font-title)))
 
