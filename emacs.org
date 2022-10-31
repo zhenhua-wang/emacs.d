@@ -331,7 +331,7 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   :init
   ;; Configure the Modus Themes' appearance
   (setq modus-themes-mode-line '(accented borderless)
-        modus-themes-hl-line '(accented intense)
+        modus-themes-hl-line '(intense)
         modus-themes-bold-constructs t
         modus-themes-italic-constructs t
         modus-themes-fringes 'subtle
