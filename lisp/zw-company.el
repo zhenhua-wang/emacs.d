@@ -7,7 +7,8 @@
   (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-complete)
-               ("C-<tab>" . company-dabbrev))
+               ("C-<tab>" . company-dabbrev)
+               ("C-M-/" . company-dabbrev))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
