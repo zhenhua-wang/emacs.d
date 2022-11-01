@@ -55,6 +55,16 @@
   "Encoding face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-mark-active
+  '((t (:inherit highlight)))
+  "Active mark face for active modeline"
+  :group 'zw/modeline-active)
+
+(defface zw/modeline-kmacro-active
+  '((t (:inherit highlight)))
+  "Defining kmacro face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-remote-active
   '((t (:inherit highlight)))
   "Remote file face for active modeline"
@@ -63,11 +73,6 @@
 (defface zw/modeline-env-active
   '((t (:inherit highlight)))
   "Environment face for active modeline"
-  :group 'zw/modeline-active)
-
-(defface zw/modeline-kmacro-active
-  '((t (:inherit highlight)))
-  "Defining kmacro face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-lsp-active
@@ -185,11 +190,11 @@
         encoding
         'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))))))
 
-(defun zw/modeline-remote ()
-  (if (file-remote-p default-directory)
+(defun zw/modeline-mark-active ()
+  (if mark-active
       (concat " "
-              (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
-                          'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive)))))
+              (propertize " Mark "
+                          'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive)))))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
@@ -197,6 +202,12 @@
     (concat " "
             (propertize " kmacro "
                         'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive)))))
+
+(defun zw/modeline-remote ()
+  (if (file-remote-p default-directory)
+      (concat " "
+              (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
+                          'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive)))))
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -315,11 +326,14 @@
   ;; line and column
   '(:eval (zw/modeline-line-column))
 
-  ;; is remote file?
-  '(:eval (zw/modeline-remote))
+  ;; mark active
+  '(:eval (zw/modeline-mark-active))
 
   ;; record kmacro
   '(:eval (zw/modeline-kmacro-recording))
+
+  ;; is remote file?
+  '(:eval (zw/modeline-remote))
 
   ;; add modeline process
   '(:eval mode-line-process)
@@ -345,12 +359,12 @@
                            '(:eval (zw/modeline-tab-index))
                            " "
                            '(:eval (zw/modeline-buffer-name))
-                           " "
-                           ;; is remote file?
-                           '(:eval (zw/modeline-remote))
-                           " "
+                           ;; mark active
+                           '(:eval (zw/modeline-mark-active))
                            ;; record kmacro
                            '(:eval (zw/modeline-kmacro-recording))
+                           ;; is remote file?
+                           '(:eval (zw/modeline-remote))
                            ;; add modeline process
                            '(:eval mode-line-process)
                            ;; env
