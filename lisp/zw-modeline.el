@@ -21,7 +21,7 @@
   :group 'zw/modeline-inactive)
 
 (defface zw/modeline-tab-index-active
-  '((t (:inherit font-lock-keyword-face)))
+  `((t (:foreground ,(face-background 'mode-line-highlight))))
   "Tab index face for active modeline"
   :group 'zw/modeline-active)
 
@@ -56,22 +56,22 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-mark-active
-  '((t (:inherit highlight)))
+  '((t (:inherit mode-line-highlight)))
   "Active mark face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-kmacro-active
-  '((t (:inherit highlight)))
+  '((t (:inherit mode-line-highlight)))
   "Defining kmacro face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-remote-active
-  '((t (:inherit highlight)))
+  '((t (:inherit mode-line-highlight)))
   "Remote file face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-env-active
-  '((t (:inherit highlight)))
+  '((t (:inherit mode-line-highlight)))
   "Environment face for active modeline"
   :group 'zw/modeline-active)
 
@@ -81,7 +81,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-major-mode-active
-  '((t (:inherit font-lock-keyword-face :bold t)))
+  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
   "Major mode face for active modeline"
   :group 'zw/modeline-active)
 

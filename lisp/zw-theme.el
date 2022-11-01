@@ -3,7 +3,6 @@
 (let* ((base-font-color     (face-foreground 'default nil 'default))
        (headline           `(:inherit default :weight bold :foreground ,base-font-color))
        (block-background    "#EEEEEE")
-       (modeline-highlight  "#0000c0")
        (variable-tuple      (list ':font zw/font-title)))
 
   (custom-theme-set-faces
@@ -67,8 +66,7 @@
 
    ;; modeline
    `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
-   `(mode-linee-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-   `(zw/modeline-major-mode-active ((t (:foreground ,modeline-highlight :bold t))))
-   `(zw/modeline-tab-index-active ((t (:foreground ,modeline-highlight))))))
+   `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
+   `(mode-line-highlight ((t (:foreground "white" :background "#0000c0"))))))
 
 (provide 'zw-theme)
