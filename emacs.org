@@ -371,10 +371,8 @@
 ** Line number mode
 #+begin_src emacs-lisp
 ;; line number mode
-(setq column-number-mode t)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'text-mode-hook 'display-line-numbers-mode)
-(add-hook 'conf-mode-hook 'display-line-numbers-mode)
+(dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook mode 'display-line-numbers-mode))
 ;; Override some modes which derive from the above
 (dolist (mode '(org-mode-hook markdown-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
