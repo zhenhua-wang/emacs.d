@@ -273,8 +273,6 @@
 
 * Appearance
 ** Font face
-Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to increase or decrease the buffer text size (~C-+~ or ~C--~ to repeat).
-
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
                     :font zw/font-default
@@ -355,19 +353,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
 #+begin_src emacs-lisp
 (setq tab-bar-show nil)
 (require 'zw-tab-bar)
-#+end_src
-
-** Battery
-#+begin_src emacs-lisp
-;; show battery on laptop
-(require 'battery)
-(setq have-battery-status-p
-      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-        (and perc-charged
-             (not (zerop (string-to-number (cdr perc-charged)))))))
-(if (and have-battery-status-p
-         tab-bar-show)
-    (display-battery-mode 1))
 #+end_src
 
 ** Scroll
