@@ -304,6 +304,7 @@
   :config
   (load-theme 'modus-operandi t))
 
+;; load custom faces
 (require 'zw-theme)
 #+end_src
 
