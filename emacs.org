@@ -85,13 +85,6 @@
 * Setting
 ** Global variable
 #+begin_src emacs-lisp
-(setq zw/font-size 150)
-(setq zw/font-size-fixed-pitch 150)
-(setq zw/font-size-variable-pitch 200)
-(setq zw/font-default "Roboto Mono")
-(setq zw/font-fixed-pitch "Hack") ;; "JetBrains Mono"
-(setq zw/font-variable-pitch "EB Garamond")
-(setq zw/font-title "EB Garamond")
 #+end_src
 
 ** Global setting
@@ -272,36 +265,6 @@
 #+end_src
 
 * Appearance
-** Font face
-#+begin_src emacs-lisp
-(set-face-attribute 'default nil
-                    :font zw/font-default
-                    :height zw/font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil
-                    :font zw/font-fixed-pitch
-                    :weight 'normal
-                    :height zw/font-size-fixed-pitch)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil
-                    :font zw/font-variable-pitch
-                    :weight 'light
-                    :height zw/font-size-variable-pitch)
-
-;; Set fixed-font faces for prog
-(dolist (mode '(prog-mode-hook
-                imenu-list-major-mode-hook
-                markdown-mode-hook
-                latex-mode-hook LaTeX-mode-hook))
-  (add-hook mode (lambda ()
-                   (setq-local buffer-face-mode-face
-                               (list ':family zw/font-fixed-pitch
-                                     ':height zw/font-size-fixed-pitch))
-                   (buffer-face-mode))))
-#+end_src
-
 ** All-the-icons
 #+begin_src emacs-lisp
 (use-package all-the-icons
@@ -342,6 +305,17 @@
   (load-theme 'modus-operandi t))
 
 (require 'zw-theme)
+#+end_src
+
+** Buffer face mode
+#+begin_src emacs-lisp
+;; Set fixed-font faces for prog
+(dolist (mode '(prog-mode-hook
+                markdown-mode-hook
+                latex-mode-hook LaTeX-mode-hook))
+  (add-hook mode (lambda ()
+                   (setq-local buffer-face-mode-face 'fixed-pitch)
+                   (buffer-face-mode))))
 #+end_src
 
 ** Modeline

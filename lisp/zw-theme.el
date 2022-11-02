@@ -3,10 +3,15 @@
 (let* ((base-font-color     (face-foreground 'default nil 'default))
        (headline           `(:inherit default :weight bold :foreground ,base-font-color))
        (block-background    "#EEEEEE")
-       (variable-tuple      (list ':font zw/font-title)))
+       (variable-tuple     `(:font "EB Garamond")))
 
   (custom-theme-set-faces
    'user
+   ;; default
+   `(default ((t (:font "Roboto Mono" :height 150))))
+   `(fixed-pitch ((t (:font "Hack" :weight normal :height 150))))
+   `(variable-pitch ((t (:font "EB Garamond" :weight light :height 200))))
+
    ;; org
    `(org-level-8 ((t (,@headline ,@variable-tuple :weight SemiBold))))
    `(org-level-7 ((t (,@headline ,@variable-tuple :weight SemiBold))))

@@ -75,7 +75,7 @@
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
         company-posframe-show-indicator t
-        company-posframe-font zw/font-fixed-pitch
+        company-posframe-font (face-attribute 'fixed-pitch :family)
         company-posframe-show-params
         (list :override-parameters
               '((tab-bar-mode . 0)
