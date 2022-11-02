@@ -43,20 +43,7 @@
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
-        company-transformers)
-  :config
-  ;; set tooltip themes
-  (set-face-attribute 'company-tooltip nil
-                      :foreground (face-foreground 'tooltip)
-                      :background (face-background 'tooltip)
-                      :inherit 'fixed-pitch)
-  (set-face-attribute 'company-tooltip-selection nil
-                      :foreground (face-foreground 'warning)
-                      :underline (face-foreground 'warning)
-                      :background 'unspecified
-                      :weight 'bold)
-  (set-face-foreground 'company-tooltip-annotation (face-foreground font-lock-comment-face))
-  (set-face-foreground 'company-tooltip-annotation-selection (face-foreground font-lock-comment-face)))
+        company-transformers))
 
 (use-package company-prescient
   :hook
@@ -86,15 +73,7 @@
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer)
-  (set-face-background 'company-tooltip-selection (face-background 'tooltip))
-  (set-face-attribute 'company-posframe-active-backend-name nil
-                      :inherit 'company-tooltip
-                      :foreground (face-foreground 'font-lock-keyword-face)
-                      :background (face-background 'tooltip))
-  (set-face-attribute 'company-posframe-inactive-backend-name nil
-                      :inherit 'company-tooltip
-                      :background (face-background 'tooltip)))
+  (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; backend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun company-R-objects--prefix ()

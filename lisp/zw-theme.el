@@ -86,6 +86,14 @@
    `(diff-hl-delete ((t (:foreground "white" :background "#E94560"))))
 
    ;; diredfl
-   `(diredfl-dir-name ((t (:bold t))))))
+   `(diredfl-dir-name ((t (:bold t))))
+
+   ;; company-mode
+   `(company-tooltip ((t (:foreground ,(face-foreground 'tooltip) :background ,(face-background 'tooltip) :inherit fixed-pitch))))
+   `(company-tooltip-selection ((t (:foreground ,(face-foreground 'warning) :background ,(face-background 'tooltip) :underline ,(face-foreground 'warning) :weight bold))))
+   `(company-tooltip-annotation ((t (:foreground ,(face-foreground 'font-lock-comment-face) :slant italic))))
+   `(company-tooltip-annotation-selection ((t (:foreground ,(face-foreground 'font-lock-comment-face) :slant italic))))
+   `(company-posframe-active-backend-name ((t (:inherit company-tooltip :foreground ,(face-foreground 'font-lock-keyword-face) :background ,(face-background 'tooltip)))))
+   `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background ,(face-background 'tooltip)))))))
 
 (provide 'zw-theme)
