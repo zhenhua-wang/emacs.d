@@ -408,24 +408,6 @@ Vanilla Emacs: You can use ~C-x C-+~ and ~C-x C--~ (~text-scale-adjust~) to incr
   (setq posframe-gtk-resize-child-frames 'resize-mode))
 #+end_src
 
-** Keycast
-#+begin_src emacs-lisp
-(use-package keycast
-  :commands (keycast-tab-bar-mode)
-  :init (setq keycast-tab-bar-location 'tab-bar-format-align-right
-              keycast-tab-bar-format "%k%c%R "
-              keycast-tab-bar-minimal-width 0)
-  :config
-  (set-face-attribute 'keycast-key nil
-                      :font zw/font-default
-                      :background (face-foreground
-                                   'font-lock-keyword-face))
-  (set-face-attribute 'keycast-command nil
-                      :font zw/font-default
-                      :foreground (face-foreground
-                                   'font-lock-keyword-face)))
-#+end_src
-
 ** Line number mode
 #+begin_src emacs-lisp
 ;; line number mode
