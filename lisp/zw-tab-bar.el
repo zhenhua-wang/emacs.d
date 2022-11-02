@@ -128,9 +128,6 @@
   `((current-tab menu-item  (zw/tab-bar-tab-name)
                  :help "File path or function definition")))
 
-;; set default foreground
-(set-face-foreground 'tab-bar (face-foreground 'default))
-
 ;; format tab-bar-mode
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil

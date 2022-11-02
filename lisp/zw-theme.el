@@ -72,6 +72,20 @@
    ;; modeline
    `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
    `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-   `(mode-line-highlight ((t (:foreground "white" :background "#0000c0"))))))
+   `(mode-line-highlight ((t (:foreground "white" :background "#0000c0"))))
+
+   ;; tab-bar
+   `(tab-bar ((t (:foreground ,(face-foreground 'default)))))
+
+   ;; show paren
+   `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
+
+   ;; diff-hl
+   `(diff-hl-change ((t (:foreground "black" :background "#FF9F29"))))
+   `(diff-hl-insert ((t (:foreground "black" :background "#3CCF4E"))))
+   `(diff-hl-delete ((t (:foreground "white" :background "#E94560"))))
+
+   ;; diredfl
+   `(diredfl-dir-name ((t (:bold t))))))
 
 (provide 'zw-theme)

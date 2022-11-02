@@ -425,10 +425,6 @@
   :init (setq show-paren-when-point-inside-paren nil
               show-paren-when-point-in-periphery nil)
   :config
-  (set-face-attribute 'show-paren-match nil
-                      :background (face-foreground 'warning)
-                      :foreground "black"
-                      :weight 'extra-bold)
   (with-no-warnings
     ;; Display matching line for off-screen paren.
     (defun display-line-overlay (pos str &optional face)
@@ -515,17 +511,10 @@ FACE defaults to inheriting from default and highlight."
   :bind ((:map diff-hl-command-map
                ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
-         (diff-hl-mode . zw/set-diff-face))
+         (diff-hl-mode . diff-hl-flydiff-mode))
   :init (setq diff-hl-draw-borders nil
               diff-hl-side 'left)
   :config
-  (defun zw/set-diff-face ()
-    (custom-set-faces
-     '(diff-hl-change ((t (:background "#FF9F29"))))
-     '(diff-hl-insert ((t (:background "#3CCF4E"))))
-     '(diff-hl-delete ((t (:background "#E94560"))))))
-  ;; Highlight on-the-fly
-  (diff-hl-flydiff-mode 1)
   ;; Integration with magit
   (with-eval-after-load 'magit
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
@@ -540,7 +529,6 @@ FACE defaults to inheriting from default and highlight."
   (setq auto-dim-other-buffers-dim-on-focus-out nil
         auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
   :config
-  (set-face-background 'auto-dim-other-buffers-face (doom-color 'base1))
   (nconc auto-dim-other-buffers-affected-faces
          '((markdown-markup-face . auto-dim-other-buffers-face)
            (markdown-code-face . auto-dim-other-buffers-face))))
@@ -792,7 +780,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
    ;; highlight parent and preview as well
    (dirvish-directory-view-mode . diredfl-mode))
   :config
-  (set-face-attribute 'diredfl-dir-name nil :bold t))
+)
 
 (use-package dirvish
   :hook
