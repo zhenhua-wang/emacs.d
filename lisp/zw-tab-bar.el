@@ -116,7 +116,7 @@
                                     (zw/in-defun-p))
                                (concat
                                 (propertize " Def "
-                                            'face 'keycast-key)
+                                            'face 'mode-line-highlight)
                                 " "
                                 (truncate-string-to-width
                                  (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
