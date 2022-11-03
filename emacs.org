@@ -1654,11 +1654,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (add-to-list 'markdown-code-lang-modes '("r" . ess-r-mode)))
 #+end_src
 
-*** Latex
-LSP-mode with TexLab works perfect for Latex docs
-
-  - =brew install texlab=
-  
+*** Latex  
 #+begin_src emacs-lisp
 ;; latex
 (use-package tex
