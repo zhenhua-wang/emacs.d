@@ -512,6 +512,7 @@ FACE defaults to inheriting from default and highlight."
   :hook ((after-init . global-diff-hl-mode)
          (diff-hl-mode . diff-hl-flydiff-mode))
   :init (setq diff-hl-side 'left
+              diff-hl-draw-borders nil
               diff-hl-show-staged-changes nil)
   :config
   ;; Integration with magit
