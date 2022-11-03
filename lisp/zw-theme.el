@@ -91,8 +91,8 @@
    ;; company-mode
    `(company-tooltip ((t (fixed-pitch))))
    `(company-tooltip-selection ((t (:weight bold))))
-   `(company-tooltip-annotation ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-   `(company-tooltip-annotation-selection ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
+   `(company-tooltip-annotation ((t (:foreground ,(face-foreground 'font-lock-comment-face) :slant normal))))
+   `(company-tooltip-annotation-selection ((t (:foreground ,(face-foreground 'font-lock-comment-face) :slant normal))))
    `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
    `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))))
 
