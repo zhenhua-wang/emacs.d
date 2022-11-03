@@ -511,8 +511,8 @@ FACE defaults to inheriting from default and highlight."
                ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
          (diff-hl-mode . diff-hl-flydiff-mode))
-  :init (setq diff-hl-draw-borders nil
-              diff-hl-side 'left)
+  :init (setq diff-hl-side 'left
+              diff-hl-show-staged-changes nil)
   :config
   ;; Integration with magit
   (with-eval-after-load 'magit
