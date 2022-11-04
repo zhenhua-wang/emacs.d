@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: jupyter python code block
+# key: <jupyter-python
+# --
+
+#+begin_src jupyter-python :session py :async yes :kernel python3 :exports both
+$0
+#+end_src

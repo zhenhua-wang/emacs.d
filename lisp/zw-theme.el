@@ -38,7 +38,7 @@
    `(org-block ((t (:inherit fixed-pitch :background ,block-background))))
    `(org-block-begin-line ((t (:inherit 'fixed-pitch :background ,block-background :bold t :italic t :underline t :extend t))))
    `(org-block-end-line ((t (:background ,block-background :bold t :italic t :extend t))))
-   `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-background :box ,(face-foreground 'default)))))
+   `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-background))))
    `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-background :box ,(face-foreground 'default)))))
 
    ;; markdown
