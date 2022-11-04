@@ -232,8 +232,6 @@
            ("s-s" . save-buffer)
            ("s-S" . write-file)
            ("s-l" . goto-line)
-           ("M-n" . forward-paragraph)
-           ("M-p" . backward-paragraph)
            ;; term/shell
            ("s-e" . vterm)
            ;; buffer operations
