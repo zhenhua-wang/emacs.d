@@ -314,8 +314,9 @@ My key binding strategy:
 
 * Completion
 #+begin_src emacs-lisp
-(require 'zw-corfu)
+(require 'zw-company)
 (require 'zw-ivy)
+(require 'zw-lsp-eglot)
 #+end_src
 
 * modeline
