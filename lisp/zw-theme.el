@@ -24,7 +24,7 @@
    `(org-document-title ((t (,@headline ,@variable-tuple :height 1.625 :underline t))))
    ;; setup fixed pitch fonts
    `(org-ellipsis ((t (:inherit fixed-pitch))))
-   `(org-meta-line ((t (:inherit (bold fixed-pitch)))))
+   `(org-meta-line ((t (:inherit (shadow fixed-pitch)))))
    `(org-table ((t (:inherit fixed-pitch))))
    `(org-formula ((t (:inherit fixed-pitch))))
    `(org-latex-and-related ((t (:inherit (shadow fixed-pitch)))))
