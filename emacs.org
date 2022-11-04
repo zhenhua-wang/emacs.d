@@ -1757,7 +1757,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; refresh jupyter kernel
   (defun zw/jupyter-refresh-kernelspecs ()
     (interactive)
-    (jupyter-available-kernelspecs t))
+    (if (fboundp 'jupyter-available-kernelspecs)
+        (jupyter-available-kernelspecs t)))
   (advice-add #'conda-env-activate :after #'zw/jupyter-refresh-kernelspecs)
   (advice-add #'conda-env-deactivate :after #'zw/jupyter-refresh-kernelspecs))
 
