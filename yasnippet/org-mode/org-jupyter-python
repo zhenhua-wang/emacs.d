@@ -3,6 +3,6 @@
 # key: <jupyter-python
 # --
 
-#+begin_src jupyter-python :session py :async yes :kernel python3 :exports both
+#+begin_src jupyter-python :exports both
 $0
 #+end_src
