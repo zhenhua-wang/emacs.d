@@ -1757,7 +1757,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (defun zw/jupyter-export-to (file-type)
     (interactive
      (list (completing-read "jupyter export to: "
-                            '(("pdf" . "pdf") ("html" . "html")) nil t)))
+                            '("pdf" "html") nil t)))
     (when (string= (file-name-extension buffer-file-name) "ipynb")
       (async-shell-command
        (concat "jupyter nbconvert --execute --to " file-type " "
