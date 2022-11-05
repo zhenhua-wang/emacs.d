@@ -1682,8 +1682,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package auctex-latexmk
   :after tex
   :init
-  ;; FIXME: https://github.com/tom-tan/auctex-latexmk/issues/44
-  (provide 'tex-buf)
   :hook ((latex-mode LaTeX-mode) .
          (lambda ()
            ;; Set LatexMk as the default.
