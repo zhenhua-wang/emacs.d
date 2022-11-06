@@ -1275,6 +1275,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package flymake
   :straight (:type built-in)
+  :hook (prog-mode . flymake-mode)
   :config
   (setq flymake-no-changes-timeout nil)
   ;; disable flymake log about proc-legacy-flymake
