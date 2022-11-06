@@ -1757,7 +1757,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook (python-mode . code-cells-mode-maybe)
   :bind ((:map code-cells-mode-map
                ("C-c C-c" . code-cells-eval)
-               ("M-n e" . zw/jupyter-export-to)))
+               ("C-c C-e" . zw/jupyter-export-to)
+               ("M-n" . code-cells-forward-cell)
+               ("M-p" . code-cells-backward-cell)))
   :config
   (defun zw/jupyter-export-to (file-type)
     (interactive
@@ -1769,10 +1771,46 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                (shell-quote-argument buffer-file-name))))))
 #+end_src
 
+*** Jupyter
+#+begin_src emacs-lisp
+(use-package jupyter
+  :defer t
+  :init
+  ;; refresh jupyter kernel
+  (defun zw/jupyter-refresh-kernelspecs ()
+    (interactive)
+    (if (fboundp 'jupyter-available-kernelspecs)
+        (jupyter-available-kernelspecs t)))
+  (advice-add #'conda-env-activate :after #'zw/jupyter-refresh-kernelspecs)
+  (advice-add #'conda-env-deactivate :after #'zw/jupyter-refresh-kernelspecs))
+
+(use-package ob-jupyter
+  :defer t
+  :straight (:type built-in)
+  :commands (org-babel-execute:jupyter-python)
+  :init
+  (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
+                                                       (:session . "py")
+                                                       (:kernel . "python3")))
+  (dolist (lang '(python R))
+    (cl-pushnew (cons (format "jupyter-%s" lang) lang)
+                org-src-lang-modes :key #'car))
+  ;; enable jupyter-org-interaction-mode
+  (advice-add #'org-babel-jupyter-initiate-session :after
+              (lambda (&optional SESSION PARAMS)
+                (jupyter-org-interaction-mode))))
+#+end_src
+
 *** Polymode
 #+begin_src emacs-lisp
 (use-package polymode
   :commands polymode-mode
+  :bind ((:map poly-markdown+R-mode-map
+               ("M-n" . polymode-next-chunk))
+         (:map polymode-mode-map
+               ("C-c C-e" . polymode-export)
+               ("M-n" . polymode-next-chunk)
+               ("M-p" . polymode-previous-chunk)))
   :init
   (setq poly-lock-allow-fontification nil
         poly-lock-allow-background-adjustment t
