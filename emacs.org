@@ -1839,7 +1839,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package poly-R
   :commands (poly-markdown+r-mode)
-  :bind ((:map poly-markdown+R-mode-map
+  :bind ((:map poly-markdown+r-mode-map
                ("M-p" . polymode-previous-chunk)
                ("M-n" . polymode-next-chunk)))
   :mode
