@@ -1195,7 +1195,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           lsp-ui-peek--last-xref nil)
     (set-window-start (get-buffer-window) lsp-ui-peek--win-start))
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
-  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
+  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy)
+  ;; restart workspace when conda env changed
+  (defun zw/lsp-restart-workspace ()
+    (if lsp-mode
+        (lsp-restart-workspace)))
+  (advice-add #'conda-env-activate :after #'zw/lsp-restart-workspace)
+  (advice-add #'conda-env-deactivate :after #'zw/lsp-restart-workspace))
 
 ;; microsoft pyright
 (use-package lsp-pyright
@@ -1777,7 +1783,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package jupyter
   :defer t
-  :config
+  :init
   ;; refresh jupyter kernel
   (defun zw/jupyter-refresh-kernelspecs ()
     (interactive)
@@ -1799,7 +1805,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
                                                        (:session . "py")
                                                        (:kernel . "python3")))
-  :config
   ;; enable jupyter-org-interaction-mode
   (advice-add #'org-babel-jupyter-initiate-session :after
               (lambda (&optional SESSION PARAMS)
