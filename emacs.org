@@ -1815,10 +1815,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package polymode
   :commands polymode-mode
-  :bind ((:map poly-markdown+R-mode-map
-               ("M-p" . polymode-previous-chunk)
-               ("M-n" . polymode-next-chunk))
-         (:map polymode-mode-map
+  :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("M-p" . polymode-previous-chunk)
                ("M-n" . polymode-next-chunk)))
@@ -1843,6 +1840,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package poly-R
   :commands (poly-markdown+r-mode)
+  :bind ((:map poly-markdown+R-mode-map
+               ("M-p" . polymode-previous-chunk)
+               ("M-n" . polymode-next-chunk)))
   :mode
   ("\\.[rR]md\\'" . poly-gfm+r-mode))
 #+end_src
