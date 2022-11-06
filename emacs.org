@@ -107,8 +107,7 @@
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
 ;; start server mode
-(require 'server)
-(unless (server-running-p) (server-start))
+(server-start)
 ;; confirm emacs quit
 (setq confirm-kill-emacs 'yes-or-no-p)
 ;; disable tooltips
