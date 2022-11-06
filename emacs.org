@@ -111,14 +111,6 @@
 (unless (server-running-p) (server-start))
 ;; confirm emacs quit
 (setq confirm-kill-emacs 'yes-or-no-p)
-(defun ask-before-closing ()
-  "Prompt for confirmation for emacsclient(not daemon)"
-  (interactive)
-  (if (yes-or-no-p (format "Really exit Emacs? "))
-      (save-buffers-kill-terminal)
-    (message "Canceled frame close!")))
-(when (daemonp)
-  (global-set-key (kbd "C-x C-c") 'ask-before-closing))
 ;; disable tooltips
 (setq use-dialog-box nil)
 (when (bound-and-true-p tooltip-mode)
