@@ -268,7 +268,7 @@
 ** All-the-icons
 #+begin_src emacs-lisp
 (use-package all-the-icons
-  :if (display-graphic-p)
+  :if (or (display-graphic-p) (daemonp))
   :init (setq all-the-icons-scale-factor 1)
   :config
   (add-to-list 'all-the-icons-extension-icon-alist
@@ -334,7 +334,7 @@
 #+begin_src emacs-lisp
 ;; Mouse & Smooth Scroll
 ;; Scroll one line at a time (less "jumpy" than defaults)
-(when (display-graphic-p)
+(when (or (display-graphic-p) (daemonp))
   (setq mouse-wheel-scroll-amount '(1 ((shift) . hscroll))
         mouse-wheel-scroll-amount-horizontal 1
         mouse-wheel-progressive-speed nil))
@@ -1026,7 +1026,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
        (marginalia--documentation (marginalia--function-doc sym))))))
 
 (use-package all-the-icons-completion
-  :if (display-graphic-p)
+  :if (or (display-graphic-p) (daemonp))
   :after (marginalia all-the-icons)
   :hook
   (marginalia-mode . all-the-icons-completion-marginalia-setup)
