@@ -1195,13 +1195,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           lsp-ui-peek--last-xref nil)
     (set-window-start (get-buffer-window) lsp-ui-peek--win-start))
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
-  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy)
-  ;; restart workspace when conda env changed
-  (defun zw/lsp-restart-workspace ()
-    (if lsp-mode
-        (lsp-restart-workspace)))
-  (advice-add #'conda-env-activate :after #'zw/lsp-restart-workspace)
-  (advice-add #'conda-env-deactivate :after #'zw/lsp-restart-workspace))
+  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
 
 ;; microsoft pyright
 (use-package lsp-pyright
@@ -1400,7 +1394,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (add-to-list 'mode-line-misc-info
                '(conda-env-current-name
                  ("[CONDA:" conda-env-current-name "]"))
-               'append))
+               'append)
+  ;; update conda environment
+  (defun zw/conda-env-update ()
+    (interactive)
+    (if lsp-mode
+        (lsp-restart-workspace))
+    (if (fboundp 'jupyter-available-kernelspecs)
+        (jupyter-available-kernelspecs t)))
+  (advice-add #'conda-env-activate :after #'zw/conda-env-update)
+  (advice-add #'conda-env-deactivate :after #'zw/conda-env-update))
 #+end_src
 
 *** Web
@@ -1782,15 +1785,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Jupyter
 #+begin_src emacs-lisp
 (use-package jupyter
-  :defer t
-  :init
-  ;; refresh jupyter kernel
-  (defun zw/jupyter-refresh-kernelspecs ()
-    (interactive)
-    (if (fboundp 'jupyter-available-kernelspecs)
-        (jupyter-available-kernelspecs t)))
-  (advice-add #'conda-env-activate :after #'zw/jupyter-refresh-kernelspecs)
-  (advice-add #'conda-env-deactivate :after #'zw/jupyter-refresh-kernelspecs))
+  :defer t)
 
 (use-package ob-jupyter
   :defer t
