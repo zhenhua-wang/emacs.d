@@ -1777,7 +1777,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package jupyter
   :defer t
-  :init
+  :config
   ;; refresh jupyter kernel
   (defun zw/jupyter-refresh-kernelspecs ()
     (interactive)
@@ -1791,12 +1791,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :straight (:type built-in)
   :commands (org-babel-execute:jupyter-python)
   :init
+  ;; add ob-jupyter
+  (dolist (lang '(python))
+    (cl-pushnew (cons (format "jupyter-%s" lang) lang)
+                org-src-lang-modes :key #'car))
+  ;; default headers
   (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
                                                        (:session . "py")
                                                        (:kernel . "python3")))
-  (dolist (lang '(python R))
-    (cl-pushnew (cons (format "jupyter-%s" lang) lang)
-                org-src-lang-modes :key #'car))
+  :config
   ;; enable jupyter-org-interaction-mode
   (advice-add #'org-babel-jupyter-initiate-session :after
               (lambda (&optional SESSION PARAMS)
