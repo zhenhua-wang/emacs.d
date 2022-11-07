@@ -1826,6 +1826,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
+  ;; run kill-buffer in master buffer
+  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; match inner mode face with markdown-code-face
   (defun zw/poly-lock-adjust-span-face (span)
     (interactive "r")
