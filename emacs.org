@@ -1832,13 +1832,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               :override #'zw/poly-lock-adjust-span-face))
 
 (use-package poly-markdown
-  :commands (poly-markdown-mode poly-gfm-mode)
+  :commands (poly-gfm-mode)
   :mode
   ("\\.md$" . poly-gfm-mode))
 
 (use-package poly-R
-  :commands (poly-markdown+r-mode)
-  :bind ((:map poly-markdown+r-mode-map
+  :commands (poly-gfm+r-mode)
+  :bind ((:map poly-gfm+r-mode-map
                ("M-p" . polymode-previous-chunk)
                ("M-n" . polymode-next-chunk)))
   :mode
