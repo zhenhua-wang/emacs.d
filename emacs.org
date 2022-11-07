@@ -308,6 +308,7 @@
 
 ;; load custom faces
 (require 'zw-theme)
+(add-hook 'server-after-make-frame-hook (lambda () (load "zw-theme")))
 #+end_src
 
 ** Buffer face mode
