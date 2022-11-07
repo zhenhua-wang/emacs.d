@@ -107,6 +107,9 @@
             (company-capf command arg)))
     (doc-buffer (company-capf command arg))))
 
+(use-package company-reftex
+  :commands (company-reftex-labels company-reftex-citations))
+
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
                 minibuffer-setup-hook
@@ -125,6 +128,13 @@
           (lambda ()
             (setq-local company-backends
                         '(company-files company-R-library company-R-objects))))
+;; backends for latex
+(dolist (mode '(latex-mode-hook
+                LaTeX-mode-hook))
+  (add-hook mode
+            (lambda ()
+              (setq-local company-backends
+                          '(company-reftex-labels company-reftex-citations company-capf)))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
