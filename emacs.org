@@ -1402,7 +1402,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; update conda environment
   (defun zw/conda-env-update ()
     (interactive)
-    (if lsp-mode
+    (if (and (featurep 'lsp-mode) lsp-mode)
         (lsp-restart-workspace))
     (if (fboundp 'jupyter-available-kernelspecs)
         (jupyter-available-kernelspecs t)))
