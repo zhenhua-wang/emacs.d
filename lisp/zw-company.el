@@ -110,6 +110,10 @@
 (use-package company-reftex
   :commands (company-reftex-labels company-reftex-citations))
 
+(use-package company-math
+  :commands (company-math-symbols-latex company-math-symbols-unicode))
+
+
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
                 minibuffer-setup-hook
@@ -135,6 +139,12 @@
             (lambda ()
               (setq-local company-backends
                           '(company-reftex-labels company-reftex-citations company-capf)))))
+;; backends for org
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local company-backends
+                        (append '((company-math-symbols-unicode company-latex-commands))
+                                company-backends))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
