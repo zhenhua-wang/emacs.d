@@ -111,7 +111,7 @@
   :commands (company-reftex-labels company-reftex-citations))
 
 (use-package company-math
-  :commands (company-math-symbols-latex company-math-symbols-unicode))
+  :commands (company-math-symbols-latex company-latex-commands))
 
 
 ;; backends for prog-mode
@@ -145,7 +145,7 @@
   (add-hook mode
             (lambda ()
               (setq-local company-backends
-                          (append '((company-math-symbols-unicode company-latex-commands))
+                          (append '((company-math-symbols-latex company-latex-commands))
                                   company-backends)))))
 ;; backends for shell
 (use-package company-shell
