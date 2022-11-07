@@ -95,5 +95,3 @@
    `(company-tooltip-annotation-selection ((t (:inherit completions-annotations :slant normal :weight bold))))
    `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
    `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))))
-
-(provide 'zw-theme)
