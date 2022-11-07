@@ -307,7 +307,7 @@
   (load-theme 'modus-operandi t))
 
 ;; load custom faces
-(load "zw-theme")
+(require 'zw-theme)
 #+end_src
 
 ** Buffer face mode
