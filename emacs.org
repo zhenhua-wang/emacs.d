@@ -1812,8 +1812,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Polymode
 #+begin_src emacs-lisp
-;; BUG: runs kill buffer in inner buffer causes font lock issue
-;; a temporary fix is to run revert-buffer outside of inner buffer
 (use-package polymode
   :commands polymode-mode
   :bind ((:map polymode-mode-map
@@ -1826,7 +1824,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  ;; run kill-buffer in master buffer
+  ;; run kill-buffer in master buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; match inner mode face with markdown-code-face
   (defun zw/poly-lock-adjust-span-face (span)
