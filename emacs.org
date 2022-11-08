@@ -1303,6 +1303,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 ** Language
 *** R
+**** ess
 #+begin_src emacs-lisp
 (use-package ess
   :defer t
@@ -1356,7 +1357,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package ess-view-data
   :commands (ess-view-data-print))
+#+end_src
 
+**** stan
+#+begin_src emacs-lisp
 ;;; stan-mode.el
 (use-package stan-mode
   :mode ("\\.stan\\'" . stan-mode)
