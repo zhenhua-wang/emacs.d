@@ -1356,6 +1356,19 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package ess-view-data
   :commands (ess-view-data-print))
+
+;;; stan-mode.el
+(use-package stan-mode
+  :mode ("\\.stan\\'" . stan-mode)
+  :hook (stan-mode . stan-mode-setup)
+  :config
+  (setq stan-indentation-offset 2))
+
+;; company-stan
+(use-package company-stan
+  :hook (stan-mode . company-stan-setup)
+  :config
+  (setq company-stan-fuzzy nil))
 #+end_src
 
 *** Python
