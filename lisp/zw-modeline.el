@@ -172,6 +172,9 @@
       ":"
       (propertize "%c"
                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+      " "
+      (propertize "%p"
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
       (zw/modeline-count-region)))))
 
 (defun zw/modeline-encoding ()
