@@ -1310,13 +1310,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
-              ("C-c c e" . ess-complete-object-name))
+               ("C-c c e" . ess-complete-object-name))
          (:map inferior-ess-r-mode-map
-              ("s-q" . zw/close-shell)))
+               ("s-q" . zw/close-shell)))
   :config
   (require 'ess-site)
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
-    ;; See https://github.com/emacs-ess/ESS/issues/300"
+  ;; See https://github.com/emacs-ess/ESS/issues/300"
   (defun my/ess-fix-read-only-inferior-ess-mode ()
     (setq-local comint-use-prompt-regexp nil)
     (setq-local inhibit-field-text-motion nil))
