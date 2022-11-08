@@ -1359,6 +1359,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 ;;; stan-mode.el
 (use-package stan-mode
+  :defer t
   :mode ("\\.stan\\'" . stan-mode)
   :hook (stan-mode . stan-mode-setup)
   :config
