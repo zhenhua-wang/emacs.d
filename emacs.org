@@ -1710,7 +1710,14 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package reftex
   :hook (LaTeX-mode . reftex-mode)
+  :bind ((:map reftex-mode-map
+               ("s-s" . zw/latex-rescan-on-save)
+               ("C-x C-s" . zw/latex-rescan-on-save)))
   :config
+  (defun zw/latex-rescan-on-save ()
+    (interactive)
+    (reftex-reset-mode)
+    (save-buffer))
   (setq reftex-plug-into-AUCTeX t
         reftex-toc-split-windows-fraction 0.2
         reftex-toc-split-windows-horizontally t))
