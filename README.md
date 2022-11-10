@@ -1,4 +1,6 @@
-A well-tailored emacs config for statistician and data scientist.
+An emacs config tailored for statistician and data scientist.
+
+![example](./example.png)
 
 # Table of Contents
 
