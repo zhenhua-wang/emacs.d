@@ -1,9 +1,10 @@
+A well-tailored emacs config for statistician and data scientist.
 
 # Table of Contents
 
 1.  [Prerequisite](#orgfb4b193)
 2.  [install](#orgf33587f)
-3.  [Packages](#org64c0f2f)
+3.  [Main Packages](#org64c0f2f)
 
 
 <a id="orgfb4b193"></a>
@@ -25,10 +26,11 @@
 
 <a id="org64c0f2f"></a>
 
-# Packages
+# Main Packages
 
-Following is a list of ****main**** packages you just installed. Check all packages in init.el
+- vertico + marginalia + consult
+- company-mode + company-posframe
+- lsp-mode + lsp-ui
+- ess + polymode
+- python-mode + conda + emacs-jupyter
 
--   org
--   polymode, poly-r
--   ess
