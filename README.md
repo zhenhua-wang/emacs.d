@@ -31,6 +31,6 @@ A well-tailored emacs config for statistician and data scientist.
 - vertico + marginalia + consult
 - company-mode + company-posframe
 - lsp-mode + lsp-ui
-- ess + polymode
+- ess + polymode + stan-mode
 - python-mode + conda + emacs-jupyter
 
