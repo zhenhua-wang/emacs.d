@@ -1395,7 +1395,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               (python-shell-send-region (region-beginning) (region-end))
           (goto-char (region-end)))
           (progn
-            (let* ((beg (save-excursion (backward-paragraph) (point)))
+            (let* ((current-line-empty-p
+                    (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
+                   (beg (if current-line-empty-p
+                            (point)
+                          (save-excursion (backward-paragraph) (point))))
                    (end (save-excursion (forward-paragraph) (point))))
               (save-excursion (set-mark beg) (goto-char end) (activate-mark))
               (python-shell-send-string (buffer-substring beg end)))
