@@ -1379,7 +1379,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                   (bind-keys :map inferior-python-mode-map
                                              ("s-q" . zw/close-shell))))
   :bind ((:map python-mode-map
-               ("C-<return>" . python-shell-send-statement)
+               ("C-<return>" . zw/python-shell-send-line)
                ("C-c C-c" . zw/python-shell-send-region-or-block)))
   :config
   (when (executable-find "ipython")
@@ -1387,6 +1387,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
     (add-to-list 'python-shell-completion-native-disabled-interpreters
                  "ipython"))
+  (defun zw/python-shell-send-line ()
+    (interactive)
+    (python-shell-send-statement)
+    (python-nav-forward-statement))
   (defun zw/python-shell-send-region-or-block ()
     (interactive)
     (if (python-shell-get-process)
