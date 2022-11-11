@@ -1200,11 +1200,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
   (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
 
-;; microsoft pyright
-(use-package lsp-pyright
-  :after lsp-mode
-  :config (setq lsp-pyright-auto-import-completions nil))
-
 ;; enable lsp in org babel
 (with-eval-after-load 'org
   ;; enable lsp-org inside src block
