@@ -135,7 +135,7 @@
   (add-hook mode
             (lambda ()
               (setq-local company-backends
-                          '(company-reftex-labels company-reftex-citations company-capf)))))
+                          '(company-files company-reftex-labels company-reftex-citations company-capf)))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
