@@ -378,7 +378,9 @@
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
             (setq-local mode-line-process
-                        '(:eval (zw/modeline-propertize-process-info
-                                 (nth ess--busy-count ess-busy-strings))))))
+                        '(:eval (concat
+                                 ":run"
+                                 (zw/modeline-propertize-process-info
+                                  (nth ess--busy-count ess-busy-strings)))))))
 
 (provide 'zw-modeline)
