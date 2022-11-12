@@ -114,8 +114,6 @@
 (setq use-dialog-box nil)
 (when (bound-and-true-p tooltip-mode)
   (tooltip-mode -1))
-;; disable eldoc
-(global-eldoc-mode -1)
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
@@ -258,6 +256,7 @@
            ("s-i" . zw/show-info)
            ("s-b" . dirvish-side)
            ("s-o" . zw/open-in-external)
+           ("s-h" . display-local-help)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
            :map minibuffer-mode-map
@@ -1146,9 +1145,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
         lsp-headerline-breadcrumb-enable nil
-        lsp-signature-auto-activate nil
+        lsp-signature-auto-activate t
         lsp-signature-render-documentation nil
-        lsp-eldoc-enable-hover nil
 
         lsp-enable-file-watchers nil
         lsp-enable-folding nil
@@ -1173,9 +1171,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :init (setq lsp-ui-imenu-enable nil
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
-              lsp-ui-doc-position 'top
+              lsp-ui-doc-position 'at-point
               lsp-ui-doc-max-width 120
-              lsp-ui-doc-show-with-mouse nil)
+              lsp-ui-doc-show-with-mouse t)
   :config
   ;; use posframe to show peek
   (defun lsp-ui-peek--peek-display (src1 src2)
