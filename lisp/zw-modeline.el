@@ -361,6 +361,7 @@
                            "%e"
                            " "
                            '(:eval (zw/modeline-tab-index))
+                           ;; the buffer name
                            '(:eval (zw/modeline-buffer-name))
                            ;; mark active
                            '(:eval (zw/modeline-mark-active))
