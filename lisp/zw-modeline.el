@@ -114,7 +114,8 @@
     'face (zw/modeline-set-face 'zw/modeline-tab-index-active 'zw/modeline-default-inactive)
     'help-echo (concat "Current Tab: "
                        (number-to-string (+ 1 (tab-bar--current-tab-index)))))
-   ">"))
+   ">"
+   " "))
 
 (defvar zw/modeline-buffer-name-max 30
   "Maximum length of buffer name")
@@ -127,55 +128,73 @@
                              (truncate-string-to-width
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
-    (propertize file-name-abbrev
-                'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
-                'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))))
+    (concat
+     (propertize file-name-abbrev
+                 'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
+                 'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
+     " ")))
 
 (defun zw/modeline-buffer-status ()
   "modeline is read-only or modified"
-  (if buffer-read-only
-      (propertize "RO"
-                  'face (zw/modeline-set-face 'zw/modeline-read-only-active 'zw/modeline-default-inactive)
-                  'help-echo "Buffer is read-only")
-    (if (buffer-modified-p)
-        (propertize "**"
-                    'face (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
-                    'help-echo "Buffer has been modified")
-      (propertize "--"
-                  'face (zw/modeline-set-face 'zw/modeline-read-write-active 'zw/modeline-default-inactive)
-                  'help-echo "Buffer is read/write"))))
+  (concat
+   (if buffer-read-only
+       (propertize "RO"
+                   'face (zw/modeline-set-face 'zw/modeline-read-only-active 'zw/modeline-default-inactive)
+                   'help-echo "Buffer is read-only")
+     (if (buffer-modified-p)
+         (propertize "**"
+                     'face (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
+                     'help-echo "Buffer has been modified")
+       (propertize "--"
+                   'face (zw/modeline-set-face 'zw/modeline-read-write-active 'zw/modeline-default-inactive)
+                   'help-echo "Buffer is read/write")))
+   " "))
+
+(defun zw/modeline-count-region ()
+  (if (region-active-p)
+      (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
+        (propertize
+         (concat
+          num-words
+          "W")
+         'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
+         'help-echo (concat "Word counts: " num-words)))
+    ""))
 
 (defun zw/modeline-line-column ()
-  (pcase major-mode
-    ((pred (lambda (mode) (member mode '(dired-mode
-                                         org-agenda-mode
-                                         image-mode
-                                         eaf-mode
-                                         vterm-mode))))
-     "")
-    ('pdf-view-mode
-     (propertize (concat
-                  (number-to-string
-                   (pdf-view-current-page))
-                  "/"
-                  (or
-                   (ignore-errors
-                     (number-to-string
-                      (pdf-cache-number-of-pages)))
-                   "???"))
-                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                             'zw/modeline-default-inactive)))
-    (_
-     (list
-      (propertize "%l"
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-      ":"
-      (propertize "%c"
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-      " "
-      (propertize "%p"
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-      (zw/modeline-count-region)))))
+  (concat
+   (pcase major-mode
+     ((pred (lambda (mode) (member mode '(dired-mode
+                                          org-agenda-mode
+                                          image-mode
+                                          eaf-mode
+                                          vterm-mode))))
+      "")
+     ('pdf-view-mode
+      (propertize (concat
+                   (number-to-string
+                    (pdf-view-current-page))
+                   "/"
+                   (or
+                    (ignore-errors
+                      (number-to-string
+                       (pdf-cache-number-of-pages)))
+                    "???"))
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                              'zw/modeline-default-inactive)))
+     (_
+      (concat
+       (propertize "%l"
+                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+       ":"
+       (propertize "%c"
+                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+       " "
+       (propertize "%p"
+                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+       " "
+       (zw/modeline-count-region))))
+   " "))
 
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
@@ -188,44 +207,47 @@
     (if (string= encoding "NO-CONVERSION")
         ""
       (concat
-       " "
        (propertize
         encoding
-        'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))))))
+        'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))
+       " "))))
 
 (defun zw/modeline-mark-active ()
   (if mark-active
-      (concat " "
-              (propertize " Mark "
-                          'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive)))))
+      (concat
+       (propertize " Mark "
+                   'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
+       " ")))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
-    (concat " "
-            (propertize " kmacro "
-                        'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive)))))
+    (concat
+     (propertize " kmacro "
+                 'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive))
+     " ")))
 
 (defun zw/modeline-remote ()
   (if (file-remote-p default-directory)
-      (concat " "
-              (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
-                          'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive)))))
+      (concat
+       (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
+                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
+       " ")))
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
-    (concat "conda:" conda-env-current-name)))
+    (concat "conda:" conda-env-current-name " ")))
 
 (defun zw/modeline-vc ()
   (if vc-mode
       (let* ((backend (vc-backend buffer-file-name))
              (vc-info (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
-         " "
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
              (concat vc-info)
            (propertize (concat vc-info)
-                       'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))))))
+                       'face (zw/modeline-set-face 'zw/modeline-vc-modified-active 'zw/modeline-default-inactive)))
+         " "))))
 
 (defun zw/modeline-lsp-bridge ()
   (if (and (featurep 'lsp-bridge) lsp-bridge-mode)
@@ -268,18 +290,6 @@
   (propertize (format-mode-line mode-name)
               'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive)))
 
-(defun zw/modeline-count-region ()
-  (if (region-active-p)
-      (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
-        (propertize
-         (concat
-          " "
-          num-words
-          "W")
-         'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
-         'help-echo (concat "Word counts: " num-words)))
-    ""))
-
 (defun zw/modeline-rhs ()
   (concat
    ;; env
@@ -287,7 +297,7 @@
    ;; version control
    (zw/modeline-vc)
    ;; major mode
-   " ["
+   "["
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
@@ -319,31 +329,22 @@
   "%e"
   " "
   '(:eval (zw/modeline-tab-index))
-  " "
   ;; is this buffer read-only or modified since the last save?
   '(:eval (zw/modeline-buffer-status))
-  " "
   ;; the buffer name; the file name as a tool tip
   '(:eval (zw/modeline-buffer-name))
-  " "
   ;; line and column
   '(:eval (zw/modeline-line-column))
-
   ;; mark active
   '(:eval (zw/modeline-mark-active))
-
   ;; record kmacro
   '(:eval (zw/modeline-kmacro-recording))
-
   ;; is remote file?
   '(:eval (zw/modeline-remote))
-
   ;; add modeline process
   '(:eval mode-line-process)
-
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
-
   ;; right hand side of the modeline
   " "
   '(:eval (zw/modeline-rhs))
@@ -360,7 +361,6 @@
                            "%e"
                            " "
                            '(:eval (zw/modeline-tab-index))
-                           " "
                            '(:eval (zw/modeline-buffer-name))
                            ;; mark active
                            '(:eval (zw/modeline-mark-active))
