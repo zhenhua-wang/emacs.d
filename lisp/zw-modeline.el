@@ -309,7 +309,7 @@
    " " 'display
    `((space :align-to
             (- (+ right right-fringe right-margin)
-               ,(+ 2 (apply '+ (list (length (zw/modeline-rhs))))))))))
+               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))))))))))
 
 (defun zw/modeline-set-face (active-face inactive-face)
   (if (zw/modeline-selected-window-active-p)
@@ -346,7 +346,6 @@
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
   ;; right hand side of the modeline
-  " "
   '(:eval (zw/modeline-rhs))
   " "))
 
@@ -372,7 +371,8 @@
                            ;; add modeline process
                            '(:eval mode-line-process)
                            ;; env
-                           '(:eval (zw/modeline-env)))))))
+                           '(:eval (zw/modeline-env))
+                           " ")))))
 
 ;; ess-r
 (add-hook 'inferior-ess-mode-hook
