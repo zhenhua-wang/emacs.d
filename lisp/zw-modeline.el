@@ -370,7 +370,6 @@
                            '(:eval (zw/modeline-remote))
                            ;; add modeline process
                            '(:eval mode-line-process)
-                           " "
                            ;; env
                            '(:eval (zw/modeline-env)))))))
 
