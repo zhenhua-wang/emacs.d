@@ -110,6 +110,8 @@
 (use-package company-reftex
   :commands (company-reftex-labels company-reftex-citations))
 
+(use-package company-math
+  :commands (company-latex-commands))
 
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
@@ -135,7 +137,9 @@
   (add-hook mode
             (lambda ()
               (setq-local company-backends
-                          '(company-files company-reftex-labels company-reftex-citations company-capf company-yasnippet)))))
+                          '(company-files
+                            company-reftex-labels company-reftex-citations
+                            company-latex-commands company-capf company-yasnippet)))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
