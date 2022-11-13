@@ -156,45 +156,45 @@
         (propertize
          (concat
           num-words
-          "W")
+          "W"
+          " ")
          'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
          'help-echo (concat "Word counts: " num-words)))
     ""))
 
 (defun zw/modeline-line-column ()
-  (concat
-   (pcase major-mode
-     ((pred (lambda (mode) (member mode '(dired-mode
-                                          org-agenda-mode
-                                          image-mode
-                                          eaf-mode
-                                          vterm-mode))))
-      "")
-     ('pdf-view-mode
-      (propertize (concat
-                   (number-to-string
-                    (pdf-view-current-page))
-                   "/"
-                   (or
-                    (ignore-errors
-                      (number-to-string
-                       (pdf-cache-number-of-pages)))
-                    "???"))
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                              'zw/modeline-default-inactive)))
-     (_
-      (concat
-       (propertize "%l"
-                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-       ":"
-       (propertize "%c"
-                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-       " "
-       (propertize "%p"
-                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-       " "
-       (zw/modeline-count-region))))
-   " "))
+  (pcase major-mode
+    ((pred (lambda (mode) (member mode '(dired-mode
+                                         org-agenda-mode
+                                         image-mode
+                                         eaf-mode
+                                         vterm-mode))))
+     "")
+    ('pdf-view-mode
+     (propertize (concat
+                  (number-to-string
+                   (pdf-view-current-page))
+                  "/"
+                  (or
+                   (ignore-errors
+                     (number-to-string
+                      (pdf-cache-number-of-pages)))
+                   "???")
+                  " ")
+                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                             'zw/modeline-default-inactive)))
+    (_
+     (concat
+      (propertize "%l"
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+      ":"
+      (propertize "%c"
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+      " "
+      (propertize "%p"
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
+      " "
+      (zw/modeline-count-region)))))
 
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
