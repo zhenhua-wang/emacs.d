@@ -871,7 +871,7 @@ With a prefix ARG always prompt for command to use."
              zw/delte-window-or-bury-buffer
              zw/update-emacs
              zw/show-info
-             ar/quick-kill-process))
+             zw/quick-kill-process))
 #+end_src
 
 * Editing
