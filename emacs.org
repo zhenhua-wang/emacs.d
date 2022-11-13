@@ -254,9 +254,10 @@
         modus-themes-paren-match '(bold intense)
         modus-themes-prompts '(bold intense)
         modus-themes-region '(accented))
-  (modus-themes-load-themes)
-  :config
-  (load-theme 'modus-operandi t))
+  (modus-themes-load-themes))
+
+;; load theme
+(load-theme 'modus-operandi t)
 
 ;; load custom faces
 (require 'zw-theme)
