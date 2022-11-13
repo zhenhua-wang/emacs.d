@@ -153,13 +153,12 @@
 (defun zw/modeline-count-region ()
   (if (region-active-p)
       (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
-        (propertize
-         (concat
-          num-words
-          "W"
-          " ")
-         'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
-         'help-echo (concat "Word counts: " num-words)))
+        (concat
+         (propertize
+          (concat num-words "W")
+          'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
+          'help-echo (concat "Word counts: " num-words))
+         " "))
     ""))
 
 (defun zw/modeline-line-column ()
