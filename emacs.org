@@ -1177,7 +1177,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               lsp-ui-peek-always-show t
               lsp-ui-doc-position 'at-point
               lsp-ui-doc-max-width 120
-              lsp-ui-doc-show-with-mouse t)
+              lsp-ui-doc-show-with-mouse nil)
   :config
   ;; use posframe to show peek
   (defun lsp-ui-peek--peek-display (src1 src2)
