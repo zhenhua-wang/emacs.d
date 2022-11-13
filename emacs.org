@@ -104,6 +104,12 @@
                 blink-cursor-mode))
   (add-hook 'after-init-hook mode))
 
+;; modes disable after init
+(add-hook 'after-init-hook
+          (lambda ()
+            (global-eldoc-mode -1)
+            (tooltip-mode -1)))
+
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
 ;; start server mode
@@ -112,8 +118,6 @@
 (setq confirm-kill-emacs 'yes-or-no-p)
 ;; disable tooltips
 (setq use-dialog-box nil)
-(when (bound-and-true-p tooltip-mode)
-  (tooltip-mode -1))
 ;; Set up the visible bell
 (setq visible-bell t)
 ;; cursor
@@ -1145,7 +1149,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
         lsp-headerline-breadcrumb-enable nil
-        lsp-signature-auto-activate t
+        lsp-eldoc-enable-hover nil
         lsp-signature-render-documentation nil
 
         lsp-enable-file-watchers nil
