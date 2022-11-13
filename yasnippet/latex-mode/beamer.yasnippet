@@ -4,34 +4,37 @@
 # group: skeleton
 # name: \documentclass{beamer} ...
 # --
-\documentclass[xcolor=dvipsnames]{beamer}
+\documentclass{beamer}
 
-\usepackage{graphicx,subfigure,url}
+\usepackage{lipsum}
+\usepackage{graphicx,xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{caption}
 
-% example themes
-\usetheme{Frankfurt}
-\usecolortheme{seahorse}
-\usecolortheme{rose}
-
-% put page numbers
-% \setbeamertemplate{footline}[frame number]{}
-% remove navigation symbols
-% \setbeamertemplate{navigation symbols}{}
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+}
 
 \title{${1:Presentation Title}}
 \author{${2:Author Name}}
 
 \begin{document}
-	
+
 \frame[plain]{\titlepage}
-	
+
 \begin{frame}[plain]{Outline}
-	\tableofcontents
+  \tableofcontents
 \end{frame}
-	
+
 \section{${3:Example Section}}
 \begin{frame}{${4:Frame Title}}
-
+$0
 \end{frame}
 
 \end{document}
