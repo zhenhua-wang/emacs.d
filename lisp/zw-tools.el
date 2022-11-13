@@ -54,7 +54,8 @@
                      (zw/modeline-encoding)))))
 
 ;; quick-kill-process
-(defun ar/quick-kill-process ()
+;; https://xenodium.com/emacs-quick-kill-process/
+(defun zw/quick-kill-process ()
   (interactive)
   (let* ((pid-width 5)
          (comm-width 25)
