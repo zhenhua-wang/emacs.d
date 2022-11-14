@@ -104,7 +104,6 @@ map [presentation] p navigate previous
 map [presentation] n navigate next
 #+end_src
 
-
 ** System Settings
 *** Hibernation
 #+begin_src shell
