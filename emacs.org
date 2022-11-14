@@ -1841,8 +1841,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; match inner mode face with markdown-code-face
   (defun zw/poly-lock-adjust-span-face (span)
     (interactive "r")
-    (font-lock-append-text-property
-     (nth 1 span) (nth 2 span) 'face 'markdown-code-face))
+    (let* ((face-old (pm-get-adjust-face (nth 3 span) (car span)))
+           (face (if (numberp face-old)
+                     (unless (= face-old 0)
+                       (list (append (list :background
+                                           (face-background 'markdown-code-face))
+                                     poly-lock--extra-span-props)))
+                   face-old)))
+      (when face
+        (font-lock-append-text-property
+         (nth 1 span) (nth 2 span) 'face face))))
   (advice-add #'poly-lock-adjust-span-face
               :override #'zw/poly-lock-adjust-span-face))
 
