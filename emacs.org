@@ -1497,6 +1497,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ;; auto tangle
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode))
+
+;; Table of contents
+(use-package toc-org
+  :hook (org-mode . toc-org-mode))
 #+end_src
 
 **** Org-latex
