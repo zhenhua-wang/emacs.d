@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: markdown table of contents
+# key: <toc
+# --
+
+# Table of Contents                                    <-- :TOC: -->

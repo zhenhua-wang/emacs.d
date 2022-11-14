@@ -1500,7 +1500,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 ;; Table of contents
 (use-package toc-org
-  :hook (org-mode . toc-org-mode))
+  :hook ((org-mode . toc-org-mode)
+         (markdown-mode . toc-org-mode)))
 #+end_src
 
 **** Org-latex
