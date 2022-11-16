@@ -1825,6 +1825,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Polymode
 #+begin_src emacs-lisp
 (use-package polymode
+  :straight '(polymode :host github :repo "zhenhua-wang/polymode")
   :commands polymode-mode
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
@@ -1841,7 +1842,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; match inner mode face with markdown-code-face
   (eieio-oset-default pm-inner-chunkmode :adjust-face 'markdown-code-face)
   (eieio-oset-default pm-inner-chunkmode :head-adjust-face 'markdown-code-face)
-  (eieio-oset-default pm-inner-chunkmode :tail-adjust-face 'markdown-code-face))
+  (eieio-oset-default pm-inner-chunkmode :tail-adjust-face 'markdown-code-face)
+  ;; lsp integration
+  (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
+  (pm-around-advice 'lsp--text-document-content-change-event
+                    #'polymode-lsp-change-event))
 
 (use-package poly-markdown
   :commands (poly-gfm-mode)
