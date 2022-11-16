@@ -848,20 +848,6 @@ With a prefix ARG always prompt for command to use."
   (prog-mode . goto-address-prog-mode))
 #+end_src
 
-** Eww
-#+begin_src emacs-lisp
-(use-package shr
-  :bind ((:map eww-mode-map
-               ("M-<left>" . eww-back-url)
-               ("M-<right>" . eww-forward-url)))
-  :config
-  (setq browse-url-browser-function 'eww-browse-url
-        shr-use-colors nil
-        shr-use-fonts nil
-        shr-max-image-proportion 0.6
-        shr-cookie-policy nil))
-#+end_src
-
 ** Request
 #+begin_src emacs-lisp
 (use-package request
