@@ -68,7 +68,6 @@
    '(vc-edited-state ((t (:foreground "#FF9F29"))))
    '(vc-locally-added-state ((t (:foreground "#3CCF4E"))))
    '(vc-removed-state ((t (:foreground "#E94560"))))
-   '(vc-up-to-date-state ((t (:inherit default))))
 
    ;; modeline
    `(mode-line ((t (:foreground ,(face-foreground 'default))))) ; :box (:line-width 1 :style released-button)
