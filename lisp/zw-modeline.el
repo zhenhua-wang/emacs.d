@@ -21,7 +21,7 @@
   :group 'zw/modeline-inactive)
 
 (defface zw/modeline-tab-index-active
-  `((t (:foreground ,(face-background 'mode-line-highlight))))
+  `((t (:inherit zw/modeline-default-active)))
   "Tab index face for active modeline"
   :group 'zw/modeline-active)
 
@@ -41,7 +41,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-line-column-active
-  `((t (:foreground ,(face-background 'mode-line-highlight))))
+  `((t (:inherit zw/modeline-default-active)))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -81,12 +81,12 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-major-mode-active
-  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
+  `((t (:inherit zw/modeline-default-active :bold t)))
   "Major mode face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-process-active
-  '((t (:inherit font-lock-function-name-face :bold t)))
+  '((t (:inherit zw/modeline-default-active :bold t)))
   "Process face for active modeline"
   :group 'zw/modeline-active)
 
