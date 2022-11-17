@@ -1862,6 +1862,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ("\\.md$" . poly-gfm-mode))
 
 (use-package poly-R
+  :straight '(poly-R :host github :repo "zhenhua-wang/poly-R")
   :commands (poly-gfm+r-mode)
   :bind ((:map poly-gfm+r-mode-map
                ("M-p" . polymode-previous-chunk)
