@@ -52,45 +52,10 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 (load custom-file t)
 #+end_src
 
-* General Emacs Settings
-  
-key bindings in minibuffer will over the ones in major buffer. For example, in EXWM I defined ~s-<tab>~ to be ~switch-to-buffer~. Then, in the ivy's minibuffer, I overwrite ~s-<tab>~ to be navigate through the items in ivy.
-
-My key binding strategy:
-+ super key is used for exwm/frame/window/buffer level commands
-+ super key is also used for some MacOS keys
-+ ctrl key is used for tab level commands
-+ ctrl+x prefix is used for emacs' default commands
-+ ctrl+c prefix is used for custom commands
-
+* Keybindings
 #+begin_src emacs-lisp
 (use-package emacs
-  :custom
-  ;; completion
-  (completion-cycle-threshold nil)
-  (tab-always-indent 'complete)
-  (completions-detailed t)
-  (completion-ignore-case t)
-  ;; Revert Dired and other buffers
-  (global-auto-revert-non-file-buffers t)
-  ;; Use spaces instead of tabs for indentation
-  (indent-tabs-mode nil)
-  ;; echo area show only 1 line of doc
-  (eldoc-echo-area-use-multiline-p nil)
-  ;; fix minibuffer size
-  (resize-mini-windows nil)
   :init
-  ;; ------------------- simplify yes no ---------------
-  (defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
-    (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
-      (apply orig-fun r)))
-  (advice-add 'kill-buffer :around #'yes-or-no-p->-y-or-n-p)
-  ;; ------------------- modes    ---------------------
-  (global-visual-line-mode 1)
-  ;; Revert buffers when the underlying file has changed
-  (global-auto-revert-mode 1)
-  ;; hightlight current row
-  (global-hl-line-mode 1)
   ;; ------------------- key bind ---------------------
   ;; Keybonds
   (global-set-key (kbd "s-z") 'undo)
@@ -150,162 +115,6 @@ My key binding strategy:
   (exec-path-from-shell-initialize))
 #+end_src
 
-* Org-mode
-** Main
-#+begin_src emacs-lisp
-(use-package org
-  :straight (:type built-in)
-  :mode (("\\.org$" . org-mode))
-  :bind (:map org-mode-map
-	      ("C-c =" . nil)
-	      ("C-," . nil))
-  :hook
-  (org-mode . variable-pitch-mode)
-  (org-mode . visual-line-mode)
-  ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
-  :config
-  (setq
-   org-ellipsis " ▾"
-   org-pretty-entities nil
-   org-hide-emphasis-markers t
-   org-src-fontify-natively t
-   org-fontify-quote-and-verse-blocks t
-   org-edit-src-content-indentation 2
-   ;; preview latex, etc at startup
-   org-startup-folded  t;;'content
-   org-confirm-babel-evaluate nil
-   org-src-preserve-indentation t    ; helps to indent python code in org mode
-   org-src-tab-acts-natively t
-   org-src-strip-leading-and-trailing-blank-lines t
-   ;; show edit buffer below the current window, keeping all
-   org-src-window-setup 'split-window-below
-   ;; use user defined image size
-   org-image-actual-width nil)
-  ;; make LaTeX-mode formula larger
-  (pcase system-type
-    ((or 'gnu/linux 'windows-nt 'cygwin)
-     (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
-    ('darwin
-     (progn
-       (setq org-format-latex-options (plist-put org-format-latex-options :scale 2))
-       (setq org-latex-create-formula-image-program 'dvisvgm))))
-
-  (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "orange red" :weight bold))
-          ("DONE" . (:foreground "green" :weight bold))))
-
-  ;; latex '(latex script entities)
-  (setq org-highlight-latex-and-related '(latex entities)))
-#+end_src
-
-** Org-babel
-#+begin_src emacs-lisp
-;; set org babel languages
-(with-eval-after-load 'org
-  ;; defer load org babel languages
-  (require 'ob-teximg)
-  (use-package ob-lisp
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:lisp))
-  (use-package ob-latex
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:latex))
-  (use-package ob-R
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:R))
-  (use-package ob-python
-    :defer t
-    :straight (:type built-in)
-    :commands (org-babel-execute:python))
-  (use-package ob-shell
-    :defer t
-    :straight (:type built-in)
-    :commands
-    (org-babel-execute:sh
-     org-babel-expand-body:sh))
-
-  ;; alias ess-r to R
-  (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
-  (defalias 'org-babel-ess-r-initiate-session
-    'org-babel-R-initiate-session)
-  
-  ;; This is needed as of Org 9.2 (use yasnippet instead)
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("la" . "src latex"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python :session :file lsp-src.py"))
-  (add-to-list 'org-structure-template-alist '("pyo" . "src python :session :results output :file lsp-src.py"))
-  (add-to-list 'org-structure-template-alist '("pyp" . "src python :session :results file"))
-  
-  ;; enable lsp-org inside src block
-  (cl-defmacro lsp-org-babel-enable (lang)
-    "Support LANG in org source code block."
-    (setq centaur-lsp 'lsp-mode)
-    (cl-check-type lang stringp)
-    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
-      `(progn
-	 (defun ,intern-pre (info)
-           (let ((file-name (->> info caddr (alist-get :file))))
-             (unless file-name
-               (setq file-name (make-temp-file "babel-lsp-")))
-             (setq buffer-file-name file-name)
-             (lsp-deferred)))
-	 (put ',intern-pre 'function-documentation
-              (format "Enable lsp-mode in the buffer of org source block (%s)."
-                      (upcase ,lang)))
-	 (if (fboundp ',edit-pre)
-             (advice-add ',edit-pre :after ',intern-pre)
-           (progn
-             (defun ,edit-pre (info)
-               (,intern-pre info))
-             (put ',edit-pre 'function-documentation
-                  (format "Prepare local buffer environment for org source block (%s)."
-                          (upcase ,lang))))))))
-  (defvar org-babel-lang-list
-    '("ess-r" "R" "python"))
-  (dolist (lang org-babel-lang-list)
-    (eval `(lsp-org-babel-enable ,lang))))
-#+end_src
-
-** Org-theme
-#+begin_src emacs-lisp
-(use-package org-modern
-  :hook (org-mode . org-modern-mode)
-  :config
-  (defun org-modern--block-fringe () nil))
-
-;; Auto-show Markup Symbols
-(use-package org-appear
-  :hook (org-mode . org-appear-mode))
-
-(setq zw/font-title "ETBembo")
-#+end_src
-
-** Org-auto-tangle
-   #+begin_src emacs-lisp
-;; auto tangle
-(use-package org-auto-tangle
-  :hook (org-mode . org-auto-tangle-mode))
-   #+end_src
-   
-** Custom functions
-#+begin_src emacs-lisp
-(defun zw/org-fold-all-but-current ()
-  (interactive)
-  (org-remove-occur-highlights)
-  (org-overview)
-  (org-reveal))
-
-(defun zw/toggle-image-scroll ()
-  (interactive)
-  (pixel-scroll-mode))
-#+end_src
-
 * Fast comment
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
@@ -316,7 +125,6 @@ My key binding strategy:
 #+begin_src emacs-lisp
 (require 'zw-company)
 (require 'zw-ivy)
-(require 'zw-lsp-eglot)
 #+end_src
 
 * modeline
