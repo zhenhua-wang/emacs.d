@@ -81,7 +81,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-major-mode-active
-  `((t (:inherit zw/modeline-default-active :bold t)))
+  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
   "Major mode face for active modeline"
   :group 'zw/modeline-active)
 
