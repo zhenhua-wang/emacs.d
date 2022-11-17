@@ -70,9 +70,9 @@
    '(vc-removed-state ((t (:foreground "#E94560"))))
 
    ;; modeline
-   `(mode-line ((t (:foreground "white" :background "#007acc")))) ; :box (:line-width 1 :style released-button)
+   `(mode-line ((t (:foreground ,(face-foreground 'default))))) ; :box (:line-width 1 :style released-button)
    `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-   `(mode-line-highlight ((t (:foreground "white" :background "#264f78"))))
+   `(mode-line-highlight ((t (:foreground "white" :background "#0000c0"))))
 
    ;; tab-bar
    `(tab-bar ((t (:foreground ,(face-foreground 'default)))))

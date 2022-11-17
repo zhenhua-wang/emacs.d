@@ -240,7 +240,7 @@
 (defun zw/modeline-vc ()
   (if vc-mode
       (let* ((backend (vc-backend buffer-file-name))
-             (vc-info (substring vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
+             (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
              (concat vc-info)
