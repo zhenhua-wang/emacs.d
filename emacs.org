@@ -979,6 +979,7 @@ With a prefix ARG always prompt for command to use."
          ("M-A" . marginalia-cycle))
   :hook (vertico-mode . marginalia-mode)
   :config
+  (setq marginalia-align 'center)
   ;; show mode on/off
   (defun marginalia-annotate-command (cand)
     "Annotate command CAND with its documentation string.
@@ -1000,10 +1001,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :after (marginalia all-the-icons)
   :hook
   (marginalia-mode . all-the-icons-completion-marginalia-setup)
-  (marginalia-mode . all-the-icons-completion-mode)
-  :init
-  (setq marginalia-max-relative-age 0
-        marginalia-align 'center))
+  (marginalia-mode . all-the-icons-completion-mode))
 #+end_src
 
 *** consult
