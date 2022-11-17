@@ -41,7 +41,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-line-column-active
-  `((t (:inherit zw/modeline-default-active)))
+  `((t (:foreground ,(face-background 'mode-line-highlight))))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
