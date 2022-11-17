@@ -21,7 +21,7 @@
   :group 'zw/modeline-inactive)
 
 (defface zw/modeline-tab-index-active
-  `((t (:inherit zw/modeline-default-active)))
+  `((t (:foreground ,(face-background 'mode-line-highlight))))
   "Tab index face for active modeline"
   :group 'zw/modeline-active)
 
