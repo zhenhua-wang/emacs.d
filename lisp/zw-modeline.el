@@ -11,7 +11,7 @@
   :group 'zw/modeline)
 
 (defface zw/modeline-default-active
-  `((t (:foreground ,(face-foreground 'default))))
+  `((t (:foreground ,(face-foreground 'mode-line))))
   "Default face for active modeline"
   :group 'zw/modeline-active)
 
@@ -26,22 +26,22 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-read-only-active
-  '((t (:inherit 'error)))
+  '((t (:inherit error)))
   "Read only buffer face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-read-write-active
-  '((t (:inherit 'success)))
+  '((t (:inherit zw/modeline-default-active)))
   "Read write buffer face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-modified-active
-  '((t (:inherit 'warning)))
+  '((t (:inherit warning)))
   "Modified buffer face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-line-column-active
-  '((t (:inherit font-lock-constant-face)))
+  `((t (:foreground ,(face-background 'mode-line-highlight))))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -76,7 +76,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-lsp-active
-  '((t (:inherit success)))
+  '((t (:inherit zw/modeline-default-active)))
   "LSP mode face for active modeline"
   :group 'zw/modeline-active)
 
