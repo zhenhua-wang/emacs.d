@@ -7,10 +7,5 @@ transient/
 
 network-security.data
 projectile-bookmarks.eld
-emacs-desktop.el
-emacs-development.el
-emacs-plain-config.el
-emacs-academic.el
-emacs-system.el
-emacs-windows.el
+emacs-minimal-config.el
 emacs.el
