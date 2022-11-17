@@ -852,8 +852,7 @@ With a prefix ARG always prompt for command to use."
 
 ** Eww
 #+begin_src emacs-lisp
-(setq browse-url-browser-function 'eww-browse-url
-      shr-use-colors nil
+(setq shr-use-colors nil
       shr-use-fonts nil
       shr-max-image-proportion 0.6
       shr-cookie-policy nil)
