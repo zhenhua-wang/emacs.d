@@ -852,10 +852,27 @@ With a prefix ARG always prompt for command to use."
 
 ** Eww
 #+begin_src emacs-lisp
-(setq shr-use-colors nil
-      shr-use-fonts nil
-      shr-max-image-proportion 0.6
-      shr-cookie-policy nil)
+(use-package eww
+  :bind (("C-x C-w" . zw/eww-bookmark)
+         (:map eww-mode-map
+               ("s-o" . zw/open-eww-in-browser)))
+  :config
+  (setq shr-use-colors nil
+        shr-use-fonts nil
+        shr-max-image-proportion 0.6
+        shr-image-animate nil
+        shr-cookie-policy nil)
+  (defun zw/eww-bookmark (bm)
+    (interactive
+     (list
+      (completing-read
+       "eww: "
+       (list (propertize "emacs-china.org" 'display "emacs-china")
+             (propertize "www.reddit.com/r/emacs" 'display "reddit emacs")))))
+    (eww bm))
+  (defun zw/open-eww-in-browser ()
+    (interactive)
+    (browse-url-default-browser (eww-current-url))))
 #+end_src
 
 ** Request
