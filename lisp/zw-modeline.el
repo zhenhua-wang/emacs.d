@@ -86,7 +86,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-process-active
-  '((t (:inherit zw/modeline-default-active :bold t)))
+  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
   "Process face for active modeline"
   :group 'zw/modeline-active)
 
