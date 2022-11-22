@@ -1810,7 +1810,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package code-cells
   :hook (python-mode . code-cells-mode-maybe)
   :bind ((:map code-cells-mode-map
-               ("C-c C-c" . code-cells-eval)
                ("C-c C-e" . zw/jupyter-export-to)
                ("M-p" . code-cells-backward-cell)
                ("M-n" . code-cells-forward-cell)))
