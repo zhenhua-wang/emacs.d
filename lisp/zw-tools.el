@@ -37,7 +37,7 @@
     (delete-window)))
 
 (defun zw/update-emacs-tangle-dotfiles ()
-  "update zw/emacs"
+  "update zw/emacs and tangle dotfiles"
   (interactive)
   (shell-command "cd ~/.emacs.d && git pull")
   (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
