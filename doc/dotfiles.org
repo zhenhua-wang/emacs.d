@@ -1,10 +1,7 @@
 #+title: Dotfiles
 #+author: Zhenhua Wang
-#+SETUPFILE: ~/.emacs.d/OrgFiles/htmlTemplates/white_clean.theme
-#+OPTIONS: num:nil toc:nil
-
+#+auto_tangle: t
 -----
-
 * .Rprofile
 #+begin_src ess-r :tangle (when (eq system-type 'gnu/linux) "~/.Rprofile")
 options(menu.graphics=FALSE)
