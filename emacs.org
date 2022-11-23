@@ -161,6 +161,7 @@
 (bind-keys :map global-map
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f5>" . zw/update-emacs)
+           ("<f6>" . zw/tangle-dotfiles)
            ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
