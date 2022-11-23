@@ -1360,7 +1360,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq company-stan-fuzzy nil))
 #+end_src
 
-#+begin_src ess-r :tangle ~/.Rprofile
+#+begin_src ess-r :tangle (when (eq system-type 'gnu/linux) "~/.Rprofile")
 options(menu.graphics=FALSE)
 #+end_src
 
