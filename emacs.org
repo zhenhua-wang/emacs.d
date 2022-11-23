@@ -663,22 +663,6 @@ For host with two factor auth, you need to
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 #+end_src
 
-Tips:
-- use ssh config file
-#+begin_example :tangle "no"
-Host vm-server
-    HostName 127.0.0.1
-    User zhenhua
-    Port 3022
-#+end_example
-
-- enable ssh on server
-#+begin_example :tangle "no"
-sudo apt-get install openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-#+end_example
-
 ** Comint
 #+begin_src emacs-lisp
 (use-package comint
@@ -1358,10 +1342,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook (stan-mode . company-stan-setup)
   :config
   (setq company-stan-fuzzy nil))
-#+end_src
-
-#+begin_src ess-r :tangle (when (eq system-type 'gnu/linux) "~/.Rprofile")
-options(menu.graphics=FALSE)
 #+end_src
 
 *** Python

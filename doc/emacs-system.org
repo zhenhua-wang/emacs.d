@@ -10,6 +10,22 @@ brew install emacs-plus@29 --with-imagemagick --with-modern-sjrmanning-icon
 #+end_src
 
 * Arch Linux
+** SSH
+use ssh config file
+#+begin_example
+Host vm-server
+    HostName 127.0.0.1
+    User zhenhua
+    Port 3022
+#+end_example
+
+- enable ssh on server
+#+begin_example
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+#+end_example
+
 ** Zsh
 #+begin_src sh
 # add these to ".zshrc" to set workon_home
