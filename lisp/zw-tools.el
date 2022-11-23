@@ -36,11 +36,12 @@
       (bury-buffer)
     (delete-window)))
 
-(defun zw/update-emacs ()
+(defun zw/update-emacs-tangle-dotfiles ()
   "update zw/emacs"
   (interactive)
   (shell-command "cd ~/.emacs.d && git pull")
-  (message "Emacs updated!"))
+  (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
+  (message "Emacs updated & dotfiles tangled!"))
 
 (defun zw/show-info ()
   "show buffer info"
@@ -54,11 +55,6 @@
                      (buffer-name)
                      ", Encoding:"
                      (zw/modeline-encoding)))))
-
-(defun zw/tangle-dotfiles ()
-  "tangle dotfiles"
-  (interactive)
-  (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org"))
 
 ;; https://xenodium.com/emacs-quick-kill-process/
 (defun zw/quick-kill-process ()
