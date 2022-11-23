@@ -1,8 +1,10 @@
 #+title: Dotfiles
 #+author: Zhenhua Wang
 #+auto_tangle: t
+#+PROPERTY: header-args :mkdirp yes
 -----
 * .Rprofile
 #+begin_src ess-r :tangle (when (eq system-type 'gnu/linux) "~/.Rprofile")
+## don't show gui menu 
 options(menu.graphics=FALSE)
 #+end_src
