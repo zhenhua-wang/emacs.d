@@ -1360,6 +1360,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq company-stan-fuzzy nil))
 #+end_src
 
+#+begin_src ess-r :tangle ~/.Rprofile
+options(menu.graphics=FALSE)
+#+end_src
+
 *** Python
 #+begin_src emacs-lisp
 (use-package python
