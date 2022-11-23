@@ -2,8 +2,8 @@
 (require 'proced)
 (require 'seq)
 
-;; helper functions to get face background/foreground recursively
 (defun zw/get-face-attr-recur (face attr)
+  "helper functions to get face background/foreground recursively"
   (let ((face-attr (face-attribute face attr)))
     (if (and face-attr
              (not (eq face-attr 'unspecified)))
@@ -15,33 +15,35 @@
           nil)))))
 
 (defun zw/get-face-bg-recur (face)
+  "get face background recursively"
   (zw/get-face-attr-recur face :background))
 
 (defun zw/get-face-fg-recur (face)
+  "get face foreground recursively"
   (zw/get-face-attr-recur face :foreground))
 
-;; close window when close shell buffer including REPLs
 (defun zw/close-shell ()
+  "close window when close shell buffer including REPLs"
   (interactive)
   (if (one-window-p)
       (kill-buffer)
     (kill-buffer-and-window)))
 
-;; delete or bury
 (defun zw/delte-window-or-bury-buffer ()
+  "delete or bury"
   (interactive)
   (if (one-window-p)
       (bury-buffer)
     (delete-window)))
 
-;; update zw/emacs
 (defun zw/update-emacs ()
+  "update zw/emacs"
   (interactive)
   (shell-command "cd ~/.emacs.d && git pull")
   (message "Emacs updated!"))
 
-;; show info
 (defun zw/show-info ()
+  "show buffer info"
   (interactive)
   (message (if buffer-file-name
                (concat "File: "
@@ -53,9 +55,14 @@
                      ", Encoding:"
                      (zw/modeline-encoding)))))
 
-;; quick-kill-process
+(defun zw/tangle-dotfiles ()
+  "tangle dotfiles"
+  (interactive)
+  (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org"))
+
 ;; https://xenodium.com/emacs-quick-kill-process/
 (defun zw/quick-kill-process ()
+  "quick-kill-process"
   (interactive)
   (let* ((pid-width 5)
          (comm-width 25)

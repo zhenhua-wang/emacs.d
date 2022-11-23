@@ -112,8 +112,6 @@
 
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
-;; start server mode
-(server-start)
 ;; confirm emacs quit
 (setq confirm-kill-emacs 'yes-or-no-p)
 ;; disable tooltips
@@ -876,16 +874,7 @@ With a prefix ARG always prompt for command to use."
 
 ** Custom tools
 #+begin_src emacs-lisp
-(use-package zw-tools
-  :straight (:type built-in)
-  :commands (zw/get-face-attr-recur
-             zw/get-face-bg-recur
-             zw/get-face-fg-recur
-             zw/close-shell
-             zw/delte-window-or-bury-buffer
-             zw/update-emacs
-             zw/show-info
-             zw/quick-kill-process))
+(require 'zw-tools)
 #+end_src
 
 * Editing
