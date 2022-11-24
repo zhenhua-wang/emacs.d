@@ -813,16 +813,10 @@ With a prefix ARG always prompt for command to use."
          ("C-h k" . helpful-key)))
 #+end_src
 
-** Keybinding Hints
+** Hydra
 #+begin_src emacs-lisp
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))
-
-(use-package which-key
-  :diminish
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
 #+end_src
 
 ** Go to address
@@ -1087,6 +1081,24 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :init (setq consult-tramp-method "ssh"))
 (use-package consult-flyspell
   :commands consult-flyspell)
+#+end_src
+
+*** embark
+#+begin_src emacs-lisp
+(use-package embark
+  :bind (("C-h b" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 #+end_src
 
 ** Code Completion
