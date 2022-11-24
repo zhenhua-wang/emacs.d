@@ -1086,7 +1086,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** embark
 #+begin_src emacs-lisp
 (use-package embark
-  :bind (("C-h b" . embark-bindings))
+  :bind (("C-." . embark-act)
+         ("M-." . embark-dwim)
+         ("C-h b" . embark-bindings))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :config
