@@ -813,7 +813,7 @@ With a prefix ARG always prompt for command to use."
          ("C-h k" . helpful-key)))
 #+end_src
 
-** Hydra
+** Key hints
 #+begin_src emacs-lisp
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu))
