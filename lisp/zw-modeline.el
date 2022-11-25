@@ -45,9 +45,14 @@
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-vc-active
+  '((t (:inherit zw/modeline-default-active :bold t)))
+  "VC face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-vc-modified-active
   '((t (:inherit zw/modeline-modified-active :bold t)))
-  "Line-column face for active modeline"
+  "VC modified face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-encoding-active
@@ -238,7 +243,9 @@
              (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
         (concat
          (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (concat vc-info)
+             (propertize (concat vc-info)
+                         'face (zw/modeline-set-face 'zw/modeline-vc-active
+                                                     'zw/modeline-default-inactive))
            (propertize (concat vc-info)
                        'face (zw/modeline-set-face 'zw/modeline-vc-modified-active
                                                    'zw/modeline-default-inactive)))
