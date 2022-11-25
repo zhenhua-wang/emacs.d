@@ -25,16 +25,6 @@
   "Tab index face for active modeline"
   :group 'zw/modeline-active)
 
-(defface zw/modeline-read-only-active
-  '((t (:inherit error)))
-  "Read only buffer face for active modeline"
-  :group 'zw/modeline-active)
-
-(defface zw/modeline-read-write-active
-  '((t (:inherit zw/modeline-default-active)))
-  "Read write buffer face for active modeline"
-  :group 'zw/modeline-active)
-
 (defface zw/modeline-modified-active
   '((t (:inherit warning)))
   "Modified buffer face for active modeline"
@@ -135,25 +125,11 @@
                               zw/modeline-buffer-name-ellipse))))
     (concat
      (propertize file-name-abbrev
-                 'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
+                 'face (if (and (buffer-file-name) (buffer-modified-p))
+                           (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
+                         (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
      " ")))
-
-(defun zw/modeline-buffer-status ()
-  "modeline is read-only or modified"
-  (concat
-   (if buffer-read-only
-       (propertize "RO"
-                   'face (zw/modeline-set-face 'zw/modeline-read-only-active 'zw/modeline-default-inactive)
-                   'help-echo "Buffer is read-only")
-     (if (buffer-modified-p)
-         (propertize "**"
-                     'face (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
-                     'help-echo "Buffer has been modified")
-       (propertize "--"
-                   'face (zw/modeline-set-face 'zw/modeline-read-write-active 'zw/modeline-default-inactive)
-                   'help-echo "Buffer is read/write")))
-   " "))
 
 (defun zw/modeline-count-region ()
   (if (region-active-p)
@@ -339,8 +315,6 @@
   "%e"
   " "
   '(:eval (zw/modeline-tab-index))
-  ;; is this buffer read-only or modified since the last save?
-  '(:eval (zw/modeline-buffer-status))
   ;; the buffer name; the file name as a tool tip
   '(:eval (zw/modeline-buffer-name))
   ;; line and column
