@@ -241,7 +241,7 @@
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat
-     (propertize conda-env-current-name
+     (propertize (upcase conda-env-current-name)
                  'face (zw/modeline-set-face 'zw/modeline-env-active
                                              'zw/modeline-default-inactive))
      " ")))
