@@ -76,7 +76,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-lsp-active
-  '((t (:inherit zw/modeline-default-active)))
+  '((t (:inherit zw/modeline-default-active :bold t)))
   "LSP mode face for active modeline"
   :group 'zw/modeline-active)
 
@@ -306,7 +306,9 @@
    " " 'display
    `((space :align-to
             (- (+ right right-fringe right-margin)
-               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))))))))))
+               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))
+                                     (length (format-mode-line mode-line-process))
+                                     1))))))))
 
 (defun zw/modeline-rhs ()
   (concat
@@ -339,10 +341,10 @@
   '(:eval (zw/modeline-kmacro-recording))
   ;; is remote file?
   '(:eval (zw/modeline-remote))
-  ;; add modeline process
-  '(:eval mode-line-process)
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
+  ;; add modeline process
+  '(:eval mode-line-process) " "
   ;; right hand side of the modeline
   '(:eval (zw/modeline-rhs))
   " "))
@@ -367,7 +369,7 @@
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
                            ;; add modeline process
-                           '(:eval mode-line-process)
+                           '(:eval mode-line-process) " "
                            ;; env
                            '(:eval (zw/modeline-env))
                            " ")))))
