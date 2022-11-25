@@ -129,6 +129,8 @@
 (setq global-auto-revert-non-file-buffers t)
 ;; Use spaces instead of tabs for indentation
 (setq-default indent-tabs-mode nil)
+;; use short answer for revert buffer
+(setq revert-buffer-quick-short-answers t)
 ;; disable saving for buffers not visiting a file
 (defadvice save-buffer (around interactive-no-visited-file-name activate)
   "When called interactively, disable for buffers not visiting a file."
@@ -186,6 +188,7 @@
            ;; term/shell
            ("s-e" . vterm)
            ;; buffer operations
+           ("s-r" . revert-buffer-quick)
            ("s-q" . kill-current-buffer)
            ("s-=" . text-scale-increase)
            ("s--" . text-scale-decrease)
