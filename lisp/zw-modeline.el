@@ -20,18 +20,28 @@
   "Default face for inactive modeline"
   :group 'zw/modeline-inactive)
 
-(defface zw/modeline-tab-index-active
+(defface zw/modeline-highlight-foreground-active
   `((t (:foreground ,(face-background 'mode-line-highlight))))
-  "Tab index face for active modeline"
+  "Highlight foreground face for active modeline"
+  :group 'zw/modeline-active)
+
+(defface zw/modeline-highlight-background-active
+  '((t (:inherit mode-line-highlight)))
+  "Highlight background face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-modified-active
-  `((t (:foreground ,(face-foreground 'error))))
+  '((t (:inherit 'warning :bold nil)))
   "Modified buffer face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-tab-index-active
+  '((t (:inherit zw/modeline-highlight-foreground-active)))
+  "Tab index face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-line-column-active
-  `((t (:foreground ,(face-background 'mode-line-highlight))))
+  '((t (:inherit zw/modeline-highlight-foreground-active)))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -46,17 +56,17 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-mark-active
-  '((t (:inherit mode-line-highlight)))
+  '((t (:inherit zw/modeline-highlight-background-active)))
   "Active mark face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-kmacro-active
-  '((t (:inherit mode-line-highlight)))
+  '((t (:inherit zw/modeline-highlight-background-active)))
   "Defining kmacro face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-remote-active
-  '((t (:inherit mode-line-highlight)))
+  '((t (:inherit zw/modeline-highlight-background-active)))
   "Remote file face for active modeline"
   :group 'zw/modeline-active)
 
@@ -71,12 +81,12 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-major-mode-active
-  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
+  '((t (:inherit zw/modeline-highlight-foreground-active :bold t)))
   "Major mode face for active modeline"
   :group 'zw/modeline-active)
 
 (defface zw/modeline-process-active
-  `((t (:foreground ,(face-background 'mode-line-highlight) :bold t)))
+  '((t (:inherit zw/modeline-highlight-background-active :bold t)))
   "Process face for active modeline"
   :group 'zw/modeline-active)
 
