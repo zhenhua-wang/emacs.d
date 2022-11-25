@@ -238,12 +238,6 @@
                    'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
        " ")))
 
-(defun zw/modeline-propertize-process-info (process)
-  (propertize
-   process
-   'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active)
-   'help-echo (concat (buffer-name) " is running...")))
-
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat "conda:" conda-env-current-name " ")))
@@ -301,16 +295,28 @@
   (propertize (format-mode-line mode-name)
               'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive)))
 
+(defun zw/modeline-propertize-process-info (process)
+  (propertize
+   process
+   'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active)
+   'help-echo (concat (buffer-name) " is running...")))
+
+(defun zw/modeline-process ()
+  (concat
+   (string-trim (format-mode-line mode-line-process))
+   " "))
+
 (defun zw/modeline-middle-space ()
   (propertize
    " " 'display
    `((space :align-to
             (- (+ right right-fringe right-margin)
-               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))
-                                     (+ 1 (length (format-mode-line mode-line-process)))))))))))
+               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))))))))))
 
 (defun zw/modeline-rhs ()
   (concat
+   ;; process
+   (zw/modeline-process)
    ;; env
    (zw/modeline-env)
    ;; version control
@@ -322,7 +328,7 @@
    ;; major mode
    (zw/modeline-major-mode)))
 
-;;; set modeline
+;;; main modeline
 (setq-default
  mode-line-format
  (list
@@ -343,14 +349,11 @@
   '(:eval (zw/modeline-remote))
   ;; add space between left and right
   '(:eval (zw/modeline-middle-space))
-  ;; add modeline process
-  '(:eval mode-line-process) " "
   ;; right hand side of the modeline
   '(:eval (zw/modeline-rhs))
   " "))
 
-;;; misc config
-;; repl
+;; repl modeline
 (dolist (mode '(inferior-ess-mode-hook
                 inferior-python-mode-hook))
   (add-hook mode
@@ -368,12 +371,13 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
+                           ;; add modeline process
+                           '(:eval (zw/modeline-process))
                            ;; env
                            '(:eval (zw/modeline-env))
-                           ;; add modeline process
-                           '(:eval mode-line-process)
                            " ")))))
 
+;;; misc config
 ;; ess-r
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
