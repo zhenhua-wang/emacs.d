@@ -892,9 +892,7 @@ With a prefix ARG always prompt for command to use."
 #+begin_src emacs-lisp
 (use-package super-save
   :diminish
-  :hook (after-init . super-save-mode)
-  :init
-  (setq super-save-auto-save-when-idle t))
+  :hook (after-init . super-save-mode))
 #+end_src
 
 ** Sudo edit
