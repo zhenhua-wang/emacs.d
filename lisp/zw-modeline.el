@@ -71,7 +71,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-env-active
-  '((t (:inherit mode-line-highlight)))
+  '((t (:inherit zw/modeline-default-active :bold t)))
   "Environment face for active modeline"
   :group 'zw/modeline-active)
 
@@ -240,7 +240,11 @@
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
-    (concat "conda:" conda-env-current-name " ")))
+    (concat
+     (propertize conda-env-current-name
+                 'face (zw/modeline-set-face 'zw/modeline-env-active
+                                             'zw/modeline-default-inactive))
+     " ")))
 
 (defun zw/modeline-vc ()
   (if vc-mode
@@ -317,10 +321,10 @@
   (concat
    ;; process
    (zw/modeline-process)
-   ;; env
-   (zw/modeline-env)
    ;; version control
    (zw/modeline-vc)
+   ;; env
+   (zw/modeline-env)
    ;; lsp
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
