@@ -315,10 +315,11 @@
    (zw/modeline-env)
    ;; version control
    (zw/modeline-vc)
-   ;; major mode
+   ;; lsp
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
+   ;; major mode
    (zw/modeline-major-mode)))
 
 ;;; set modeline
