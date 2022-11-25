@@ -26,7 +26,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-modified-active
-  '((t (:inherit warning)))
+  `((t (:foreground ,(face-foreground 'error))))
   "Modified buffer face for active modeline"
   :group 'zw/modeline-active)
 
@@ -36,7 +36,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-vc-modified-active
-  '((t (:inherit zw/modeline-modified-active)))
+  '((t (:inherit zw/modeline-modified-active :bold t)))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
