@@ -315,12 +315,10 @@
    ;; version control
    (zw/modeline-vc)
    ;; major mode
-   "["
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
-   (zw/modeline-major-mode)
-   "]"))
+   (zw/modeline-major-mode)))
 
 ;;; set modeline
 (setq-default
