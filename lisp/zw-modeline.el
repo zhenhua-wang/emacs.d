@@ -307,8 +307,7 @@
    `((space :align-to
             (- (+ right right-fringe right-margin)
                ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))
-                                     (length (format-mode-line mode-line-process))
-                                     1))))))))
+                                     (+ 1 (length (format-mode-line mode-line-process)))))))))))
 
 (defun zw/modeline-rhs ()
   (concat
@@ -368,10 +367,10 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
-                           ;; add modeline process
-                           '(:eval mode-line-process) " "
                            ;; env
                            '(:eval (zw/modeline-env))
+                           ;; add modeline process
+                           '(:eval mode-line-process)
                            " ")))))
 
 ;; ess-r
