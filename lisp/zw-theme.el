@@ -51,7 +51,7 @@
      `(markdown-header-face-3 ((t (,@headline ,@variable-tuple :height 1.25 :foreground ,(face-foreground 'default)))))
      `(markdown-header-face-2 ((t (,@headline ,@variable-tuple :height 1.5 :foreground ,(face-foreground 'default)))))
      `(markdown-header-face-1 ((t (,@headline ,@variable-tuple :height 1.75 :foreground ,(face-foreground 'default)))))
-     `(markdown-metadata-value-face ((t (,@variable-tuple :height 1.8 :underline t :weight bold :foreground ,base-font-color))))
+     `(markdown-metadata-value-face ((t (,@variable-tuple :height 2.0 :underline t :weight bold :foreground ,base-font-color))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :foreground "dark orange" :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
      `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
