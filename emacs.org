@@ -258,7 +258,7 @@
   (modus-themes-load-themes))
 
 ;; load theme
-(load-theme 'doom-one t)
+(load-theme 'modus-operandi t)
 
 ;; load custom faces
 (require 'zw-theme)
