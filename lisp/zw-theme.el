@@ -93,7 +93,7 @@
      `(company-tooltip ((t (fixed-pitch))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
-     `(company-tooltip-annotation-selection ((t (:inherit completions-annotations :slant normal :weight bold))))
+     `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
