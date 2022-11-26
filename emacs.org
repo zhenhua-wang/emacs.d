@@ -1854,9 +1854,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (eieio-oset-default pm-inner-chunkmode :head-adjust-face 'markdown-code-face)
   (eieio-oset-default pm-inner-chunkmode :tail-adjust-face 'markdown-code-face)
   ;; lsp integration
-  (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
-  (pm-around-advice 'lsp--text-document-content-change-event
-                    #'polymode-lsp-change-event))
+  (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content))
 
 (use-package poly-markdown
   :commands (poly-gfm-mode)
