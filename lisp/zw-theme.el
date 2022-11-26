@@ -103,7 +103,7 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
 (pcase (frame-parameter nil 'background-mode)
-  ('light (zw/set-theme (doom-darken (face-background 'default) 0.07) "#0000c0"))
-  ('dark (zw/set-theme (doom-lighten (face-background 'default) 0.07) "#51afef")))
+  ('light (zw/set-theme (doom-darken (face-background 'default) 0.06) "#0000c0"))
+  ('dark (zw/set-theme (doom-lighten (face-background 'default) 0.06) "#51afef")))
 
 (provide 'zw-theme)
