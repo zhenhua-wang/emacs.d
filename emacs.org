@@ -930,18 +930,6 @@ With a prefix ARG always prompt for command to use."
   :bind (("M-g l" . goto-last-change)))
 #+end_src
 
-** Multiple cursors
-#+begin_src emacs-lisp
-(use-package multiple-cursors
-  :bind (("C-S-c C-S-c"   . mc/edit-lines)
-         ("C->"           . mc/mark-next-like-this)
-         ("C-<"           . mc/mark-previous-like-this)
-         ("C-c C->"       . mc/mark-all-like-this)
-         ("s-<mouse-1>"   . mc/toggle-cursor-on-click)
-         :map mc/keymap
-         ("<escape>" . mc/keyboard-quit)))
-#+end_src
-
 * Completion
 ** Orderless
 #+begin_src emacs-lisp
