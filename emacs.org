@@ -743,7 +743,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         dirvish-side-width 25
         dirvish-use-mode-line nil
         dirvish-use-header-line t
-        dirvish-use-header-line t
         dirvish-header-line-height 20
         dirvish-side-window-parameters nil
         dirvish-attributes
