@@ -102,6 +102,6 @@
 
 (pcase (frame-parameter nil 'background-mode)
   ('light (zw/set-theme "#EEEEEE" "#0000c0"))
-  ('dark (zw/set-theme "#2e3138" "#51afef")))
+  ('dark (zw/set-theme (doom-darken (face-background 'default) 0.05) "#51afef")))
 
 (provide 'zw-theme)
