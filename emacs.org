@@ -258,12 +258,20 @@
   (modus-themes-load-themes))
 
 ;; load theme
-(load-theme 'modus-operandi t)
+(setq zw/theme-selector "~/.emacs.d/emacs-select-theme.el")
+(when (not (file-exists-p zw/theme-selector))
+  (write-region "(load-theme 'modus-operandi t)" nil zw/theme-selector))
+(load zw/theme-selector)
 
 ;; load custom faces
 (require 'zw-theme)
 (add-hook 'server-after-make-frame-hook (lambda () (load "zw-theme")))
-(advice-add #'consult-theme :after (lambda (arg) (load "zw-theme")))
+(advice-add
+ #'consult-theme
+ :after (lambda (arg)
+          (load "zw-theme")
+          (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
+                        nil zw/theme-selector)))
 #+end_src
 
 ** Buffer face mode
