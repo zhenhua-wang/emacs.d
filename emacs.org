@@ -1070,6 +1070,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                      (list (kbd "M-.")
                            :debounce 0.5 (kbd "<up>") (kbd "<down>")
                            :debounce 1 'any))
+  (advice-add #'consult-theme :after (lambda (arg) (load "zw-theme")))
   ;; custom functions
   (defun zw/consult-line-multi ()
     (interactive)
