@@ -40,6 +40,8 @@
      `(org-block-end-line ((t (:background ,block-background :bold t :italic t :extend t))))
      `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-background))))
      `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-background :box ,(face-foreground 'default)))))
+     `(org-visual-indent-pipe-face ((t (:foreground ,(face-foreground 'default) :background ,(face-foreground 'default) :height .1))))
+     `(org-visual-indent-blank-pipe-face ((t (:foreground ,(face-background 'default) :background ,(face-background 'default) :height .1))))
 
      ;; markdown
      `(markdown-header-face-6 ((t (,@headline ,@variable-tuple))))
