@@ -936,10 +936,9 @@ With a prefix ARG always prompt for command to use."
   :bind (("C-S-c C-S-c"   . mc/edit-lines)
          ("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
-         ("C-c C-<"       . mc/mark-all-like-this)
-         ("s-<mouse-1>"   . mc/toggle-cursor-on-click)
-         :map mc/keymap
-         ("<escape>" . mc/keyboard-quit)))
+         ("s-<mouse-1>"   . mc/toggle-cursor-on-click))
+  :config
+  (setq mc/always-run-for-all t))
 #+end_src
 
 * Completion
