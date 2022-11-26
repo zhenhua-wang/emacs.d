@@ -1352,6 +1352,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                              ("s-q" . zw/close-shell))))
   :bind ((:map python-mode-map
                ("C-<return>" . zw/python-shell-send-line)
+               ("C-c C-b" . python-shell-send-buffer)
                ("C-c C-c" . zw/python-shell-send-region-or-block)))
   :config
   (when (executable-find "ipython")
