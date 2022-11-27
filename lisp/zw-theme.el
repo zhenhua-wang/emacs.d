@@ -3,14 +3,15 @@
 (defun zw/set-theme (block-background modeline-hightlight modeline-text-on-hightlight)
   (let* ((base-font-color     (face-foreground 'default nil 'default))
          (headline           `(:inherit default :weight bold :foreground ,base-font-color))
+         (fixed-tuple     `(:font "Hack"))
          (variable-tuple     `(:font "EB Garamond")))
 
     (custom-theme-set-faces
      'user
      ;; default
      `(default ((t (:font "Roboto Mono" :height 150))))
-     `(fixed-pitch ((t (:font "Hack" :weight normal :height 150))))
-     `(variable-pitch ((t (:font "EB Garamond" :weight light :height 200))))
+     `(fixed-pitch ((t (,@fixed-tuple :weight normal :height 150))))
+     `(variable-pitch ((t (,@variable-tuple :weight light :height 200))))
 
      ;; org
      `(org-level-8 ((t (,@headline ,@variable-tuple :weight SemiBold))))
@@ -96,7 +97,7 @@
      `(diredfl-dir-name ((t (:bold t))))
 
      ;; company-mode
-     `(company-tooltip ((t (fixed-pitch))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-tuple))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
