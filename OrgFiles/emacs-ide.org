@@ -6,4 +6,5 @@
 * C/C++
 ** Project setup for LSP
 1. Use bear (e.g. =bear -- make -j$(nproc)=) to produce ~compile_commands.json~
-2. Place it under the ~project root~
+2. Clangd searches ~compile_commands.json~ in this order: for example, if editing ~$SRC/gui/window.cpp~, we search in ~$SRC/gui/~, ~$SRC/gui/build/~, ~$SRC/~, ~$SRC/build/~
+3. Make sure none of these folders contain wrong ~compile_commands.json~
