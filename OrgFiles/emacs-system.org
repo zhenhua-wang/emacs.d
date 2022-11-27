@@ -1637,7 +1637,3 @@ Load kernel module: ~sudo modprobe facetimehd~
 ** Fonts
 *** noto-fonts-emoji -- emoji
 this package is useful for displaying emoji in x windows
-* Provide System Conf
-#+begin_src emacs-lisp :tangle "yes"
-(provide 'emacs-system)
-#+end_src
