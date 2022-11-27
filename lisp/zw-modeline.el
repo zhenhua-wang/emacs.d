@@ -116,16 +116,17 @@
 
 ;; modeline segments
 (defun zw/modeline-tab-index ()
-  (concat
-   "<"
-   ;; current tab index
-   (propertize
-    (number-to-string (+ (tab-bar--current-tab-index) 1))
-    'face (zw/modeline-set-face 'zw/modeline-tab-index-active 'zw/modeline-default-inactive)
-    'help-echo (concat "Current Tab: "
-                       (number-to-string (+ 1 (tab-bar--current-tab-index)))))
-   ">"
-   " "))
+  (when (length> (tab-bar-tabs) 1)
+    (concat
+     "<"
+     ;; current tab index
+     (propertize
+      (number-to-string (+ (tab-bar--current-tab-index) 1))
+      'face (zw/modeline-set-face 'zw/modeline-tab-index-active 'zw/modeline-default-inactive)
+      'help-echo (concat "Current Tab: "
+                         (number-to-string (+ 1 (tab-bar--current-tab-index)))))
+     ">"
+     " ")))
 
 (defvar zw/modeline-buffer-name-max 30
   "Maximum length of buffer name")
