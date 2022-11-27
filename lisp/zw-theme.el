@@ -76,9 +76,10 @@
      `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
      `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
      `(mode-line-highlight ((t (:foreground ,modeline-text-on-hightlight :background ,modeline-hightlight))))
-     `(zw/modeline-default-active ((t (:foreground ,(face-foreground 'mode-line)))))
+     `(zw/modeline-default-active ((t (:foreground ,(face-foreground 'mode-line) :bold t))))
      `(zw/modeline-default-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-     `(zw/modeline-highlight-foreground-active ((t (:foreground ,modeline-hightlight))))
+     `(zw/modeline-highlight-foreground-active ((t (:foreground ,modeline-hightlight :bold t))))
+     `(zw/modeline-modified-active ((t (:inherit warning :bold t))))
 
      ;; tab-bar
      `(tab-bar ((t (:foreground ,(face-foreground 'default)))))
