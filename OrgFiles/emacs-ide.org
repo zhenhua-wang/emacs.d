@@ -1,0 +1,9 @@
+#+title: Emacs as an IDE
+#+author: Zhenhua Wang
+#+SETUPFILE: ~/.emacs.d/OrgFiles/htmlTemplates/white_clean.theme
+#+OPTIONS: num:nil toc:nil
+-----
+* C/C++
+** Project setup for LSP
+1. Use bear (e.g. =bear -- make -j$(nproc)=) to produce ~compile_commands.json~
+2. Place it under the ~project root~
