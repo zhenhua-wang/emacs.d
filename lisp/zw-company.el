@@ -65,11 +65,12 @@
         company-posframe-font (face-attribute 'fixed-pitch :family)
         company-posframe-show-params
         (list :override-parameters
-              '((tab-bar-mode . 0)
+              `((tab-bar-mode . 0)
                 (tab-bar-format . nil)
                 (tab-line-format . nil)
                 (tab-bar-lines . 0)
-                (tab-bar-lines-keep-state . 0))))
+                (tab-bar-lines-keep-state . 0)
+                (background-color . ,(zw/get-face-bg-recur 'company-tooltip)))))
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (company-mode 1)))

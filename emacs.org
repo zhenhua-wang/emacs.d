@@ -1099,60 +1099,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ** Code Completion
 #+begin_src emacs-lisp
 (require 'zw-company)
-(defun zw/company-posframe-show ()
-  (let* ((height (min company-tooltip-limit company-candidates-length))
-         (meta (when company-posframe-show-metadata
-                 (company-fetch-metadata)))
-         (company-lines (company--create-lines company-selection height))
-         (margin
-          (if (numberp (car company-lines))
-              (car company-lines)
-            company-tooltip-margin))
-         (lines
-          ;; Please see: company--create-lines return value changed #52
-          ;; https://github.com/tumashu/company-posframe/issues/52
-          (if (numberp (car company-lines))
-              (cdr company-lines)
-            company-lines))
-         (backend-names (when company-posframe-show-indicator
-                          (funcall company-posframe-backend-format-function
-                                   company-backends
-                                   company-posframe-backend-separator)))
-         (width (max (min (length (car lines))
-                          company-tooltip-maximum-width)
-                     company-tooltip-minimum-width))
-         (contents (concat (mapconcat #'identity lines "\n")
-                           (if meta
-                               (concat "\n" (propertize (if (> (length meta) width)
-                                                            (substring meta 0 width)
-                                                          meta)
-                                                        'face 'company-posframe-metadata))
-                             "")
-                           (if company-posframe-show-indicator
-                               (concat "\n" (substring backend-names 0
-                                                       (min width (length backend-names))))
-                             "")))
-         (buffer (get-buffer-create company-posframe-buffer)))
-    ;; FIXME: Do not support mouse at the moment, so remove mouse-face
-    (setq contents (copy-sequence contents))
-    (remove-text-properties 0 (length contents) '(mouse-face nil) contents)
-    (apply #'posframe-show buffer
-           :string contents
-           :min-height (+ (+ height (if meta 1 0))
-                          (if company-posframe-show-indicator 1 0))
-           :min-width (+ company-tooltip-minimum-width
-                         (* 2 company-tooltip-margin))
-           :max-width (+ company-tooltip-maximum-width
-                         (* 2 company-tooltip-margin))
-           :font company-posframe-font
-           :background-color (zw/get-face-bg-recur 'company-tooltip)
-           :lines-truncate t
-           :poshandler company-posframe-poshandler
-           :poshandler-extra-info
-           (list :company-margin margin
-                 :company-prefix-length (length company-prefix))
-           company-posframe-show-params)))
-(advice-add #'company-posframe-show :override #'zw/company-posframe-show)
 #+end_src
 
 * Development
