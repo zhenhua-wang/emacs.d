@@ -241,6 +241,7 @@
   (doom-themes-org-config))
 
 (use-package modus-themes
+  :defer t
   :init
   (setq modus-themes-mode-line '(accented borderless)
         modus-themes-hl-line '(intense)

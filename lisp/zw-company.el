@@ -25,7 +25,6 @@
               company-tooltip-limit 14
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 40
-              company-tooltip-maximum-width 80
               company-dabbrev-minimum-length 4
               company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
