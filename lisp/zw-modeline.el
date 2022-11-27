@@ -147,6 +147,19 @@
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
      " ")))
 
+(defun zw/modeline-text-scale ()
+  (concat
+   (propertize
+    (and (boundp 'text-scale-mode-amount)
+         (/= text-scale-mode-amount 0)
+         (format
+          (if (> text-scale-mode-amount 0)
+              "(%+d)"
+            "(%-d)")
+          text-scale-mode-amount))
+    'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
+   " "))
+
 (defun zw/modeline-count-region ()
   (if (region-active-p)
       (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
@@ -328,6 +341,8 @@
   '(:eval (zw/modeline-tab-index))
   ;; the buffer name; the file name as a tool tip
   '(:eval (zw/modeline-buffer-name))
+  ;; text scale amount
+  '(:eval (zw/modeline-text-scale))
   ;; line and column
   '(:eval (zw/modeline-line-column))
   ;; mark active
@@ -354,6 +369,8 @@
                            '(:eval (zw/modeline-tab-index))
                            ;; the buffer name
                            '(:eval (zw/modeline-buffer-name))
+                           ;; text scale amount
+                           '(:eval (zw/modeline-text-scale))
                            ;; mark active
                            '(:eval (zw/modeline-mark-active))
                            ;; record kmacro
