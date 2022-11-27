@@ -97,7 +97,7 @@
      `(diredfl-dir-name ((t (:bold t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-tuple :background ,(doom-darken (face-background 'default) 0.1)))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-tuple))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
