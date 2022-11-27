@@ -1274,74 +1274,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 ** Language
-*** R
+*** C/C++
 #+begin_src emacs-lisp
-(use-package ess
-  :defer t
-  :commands R
-  :hook
-  (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
-  :bind ((:map ess-r-mode-map
-               ("C-c c e" . ess-complete-object-name))
-         (:map inferior-ess-r-mode-map
-               ("s-q" . zw/close-shell)))
-  :config
-  (require 'ess-site)
-  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
-  ;; See https://github.com/emacs-ess/ESS/issues/300"
-  (defun my/ess-fix-read-only-inferior-ess-mode ()
-    (setq-local comint-use-prompt-regexp nil)
-    (setq-local inhibit-field-text-motion nil))
-  ;; fix freezing in macos by creating your process using pipe
-  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
-  ;; (setq process-connection-type nil)
-  (setq ess-ask-for-ess-directory nil
-        ess-nuke-trailing-whitespace-p t
-        ess-style 'RStudio-
-        ess-local-process-name "R"
-        ess-use-company nil
-        ess-use-flymake nil
-        ess-eval-visibly-p 'nowait
-        ess-R-font-lock-keywords
-        '((ess-R-fl-keyword:keywords   . t)
-          (ess-R-fl-keyword:constants  . t)
-          (ess-R-fl-keyword:modifiers  . t)
-          (ess-R-fl-keyword:fun-defs   . t)
-          (ess-R-fl-keyword:assign-ops . t)
-          (ess-R-fl-keyword:%op%       . t)
-          (ess-fl-keyword:fun-calls    . t)
-          (ess-fl-keyword:delimiters . t)
-          (ess-fl-keyword:operators . t)
-          (ess-fl-keyword:numbers . t)
-          (ess-R-fl-keyword:F&T . t)
-          (ess-fl-keyword:= . t))))
-
-(use-package ess-smart-equals
-  :after (:any ess-r-mode inferior-ess-r-mode ess-r-transcript-mode)
-  :hook ((ess-r-mode . ess-smart-equals-mode)
-         (inferior-ess-r-mode . ess-smart-equals-mode)
-         (ess-r-transcript-mode . ess-smart-equals-mode)
-         (ess-roxy-mode . ess-smart-equals-mode))
-  :config
-  (setq ess-smart-equals-padding-left 'one-space)
-  (setq ess-smart-equals-padding-right 'no-space))
-
-(use-package ess-view-data
-  :commands (ess-view-data-print))
-
-;;; stan-mode.el
-(use-package stan-mode
-  :defer t
-  :mode ("\\.stan\\'" . stan-mode)
-  :hook (stan-mode . stan-mode-setup)
-  :config
-  (setq stan-indentation-offset 2))
-
-;; company-stan
-(use-package company-stan
-  :hook (stan-mode . company-stan-setup)
-  :config
-  (setq company-stan-fuzzy nil))
+(use-package cc-mode
+  :bind (:map c-mode-base-map
+              ("C-c C-c" . compile))
+  :hook (c-mode-common . (lambda () (c-set-style "stroustrup")))
+  :init (setq-default c-basic-offset 4))
 #+end_src
 
 *** Python
@@ -1420,6 +1359,76 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         (jupyter-available-kernelspecs t)))
   (advice-add #'conda-env-activate :after #'zw/conda-env-update)
   (advice-add #'conda-env-deactivate :after #'zw/conda-env-update))
+#+end_src
+
+*** R
+#+begin_src emacs-lisp
+(use-package ess
+  :defer t
+  :commands R
+  :hook
+  (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
+  :bind ((:map ess-r-mode-map
+               ("C-c c e" . ess-complete-object-name))
+         (:map inferior-ess-r-mode-map
+               ("s-q" . zw/close-shell)))
+  :config
+  (require 'ess-site)
+  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
+  ;; See https://github.com/emacs-ess/ESS/issues/300"
+  (defun my/ess-fix-read-only-inferior-ess-mode ()
+    (setq-local comint-use-prompt-regexp nil)
+    (setq-local inhibit-field-text-motion nil))
+  ;; fix freezing in macos by creating your process using pipe
+  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
+  ;; (setq process-connection-type nil)
+  (setq ess-ask-for-ess-directory nil
+        ess-nuke-trailing-whitespace-p t
+        ess-style 'RStudio-
+        ess-local-process-name "R"
+        ess-use-company nil
+        ess-use-flymake nil
+        ess-eval-visibly-p 'nowait
+        ess-R-font-lock-keywords
+        '((ess-R-fl-keyword:keywords   . t)
+          (ess-R-fl-keyword:constants  . t)
+          (ess-R-fl-keyword:modifiers  . t)
+          (ess-R-fl-keyword:fun-defs   . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-R-fl-keyword:%op%       . t)
+          (ess-fl-keyword:fun-calls    . t)
+          (ess-fl-keyword:delimiters . t)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:numbers . t)
+          (ess-R-fl-keyword:F&T . t)
+          (ess-fl-keyword:= . t))))
+
+(use-package ess-smart-equals
+  :after (:any ess-r-mode inferior-ess-r-mode ess-r-transcript-mode)
+  :hook ((ess-r-mode . ess-smart-equals-mode)
+         (inferior-ess-r-mode . ess-smart-equals-mode)
+         (ess-r-transcript-mode . ess-smart-equals-mode)
+         (ess-roxy-mode . ess-smart-equals-mode))
+  :config
+  (setq ess-smart-equals-padding-left 'one-space)
+  (setq ess-smart-equals-padding-right 'no-space))
+
+(use-package ess-view-data
+  :commands (ess-view-data-print))
+
+;;; stan-mode.el
+(use-package stan-mode
+  :defer t
+  :mode ("\\.stan\\'" . stan-mode)
+  :hook (stan-mode . stan-mode-setup)
+  :config
+  (setq stan-indentation-offset 2))
+
+;; company-stan
+(use-package company-stan
+  :hook (stan-mode . company-stan-setup)
+  :config
+  (setq company-stan-fuzzy nil))
 #+end_src
 
 *** Web
