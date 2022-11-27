@@ -385,6 +385,9 @@
 
 ;;; misc config
 ;; ess-r
+(add-hook 'ess-mode-hook
+          (lambda ()
+            (setq-local mode-line-process nil)))
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
             (setq-local mode-line-process
