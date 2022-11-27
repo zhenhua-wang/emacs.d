@@ -154,8 +154,8 @@
          (/= text-scale-mode-amount 0)
          (format
           (if (> text-scale-mode-amount 0)
-              "(%+d)"
-            "(%-d)")
+              "%+d"
+            "%-d")
           text-scale-mode-amount))
     'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
    " "))
