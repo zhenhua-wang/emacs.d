@@ -148,17 +148,17 @@
      " ")))
 
 (defun zw/modeline-text-scale ()
-  (concat
-   (propertize
-    (and (boundp 'text-scale-mode-amount)
-         (/= text-scale-mode-amount 0)
-         (format
-          (if (> text-scale-mode-amount 0)
-              "%+d"
-            "%-d")
-          text-scale-mode-amount))
-    'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
-   " "))
+  (when (and (boundp 'text-scale-mode-amount)
+             (/= text-scale-mode-amount 0))
+    (concat
+     (propertize
+      (format
+       (if (> text-scale-mode-amount 0)
+           "%+d"
+         "%-d")
+       text-scale-mode-amount)
+      'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
+     " ")))
 
 (defun zw/modeline-count-region ()
   (if (region-active-p)
