@@ -13,7 +13,7 @@ An emacs config tailored for statistician and data scientist.
 
 # Prerequisite
 
--   emacs-plus: this version has support for svg in OS X
+-   emacs-29
 -   Roboto mono: https://fonts.google.com/download?family=Roboto%20Mono
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 -   EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
