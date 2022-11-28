@@ -1105,9 +1105,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 * Development
 ** IDE
 *** LSP
+**** lsp-mode
 #+begin_src emacs-lisp
 (setq-default read-process-output-max (* 1024 1024))
-
 (use-package lsp-mode
   :commands (lsp)
   :hook
@@ -1135,7 +1135,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         
         ;; For diagnostics
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
+#+end_src
 
+**** lsp-ui
+#+begin_src emacs-lisp
 ;; lsp ui
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
@@ -1173,7 +1176,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (set-window-start (get-buffer-window) lsp-ui-peek--win-start))
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
   (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
+#+end_src
 
+**** lsp org
+#+begin_src emacs-lisp
 ;; enable lsp in org babel
 (with-eval-after-load 'org
   ;; enable lsp-org inside src block
@@ -1204,6 +1210,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     '("ess-r" "R" "python" "latex"))
   (dolist (lang org-babel-lang-list)
     (eval `(lsp-org-babel-enable ,lang))))
+#+end_src
+
+**** eglot
+#+begin_src emacs-lisp
+(dolist (mode '(python-mode-hook
+                c++-mode-hook c-mode-hook))
+  (add-hook mode (lambda ()
+                   (when (file-remote-p default-directory)
+                     (eglot-ensure)))))
 #+end_src
 
 *** Tree sitter
