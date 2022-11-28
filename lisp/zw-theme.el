@@ -1,9 +1,9 @@
 ;; -*- lexical-binding: t -*-
 
-(defun zw/set-theme (block-background modeline-hightlight modeline-text-on-hightlight)
+(defun zw/set-theme (block-background modeline-hightlight modeline-text-on-hightlight modeline-3d)
   (let* ((base-font-color     (face-foreground 'default nil 'default))
          (headline           `(:inherit default :weight bold :foreground ,base-font-color))
-         (fixed-tuple     `(:font "Hack"))
+         (fixed-tuple        `(:font "Hack"))
          (variable-tuple     `(:font "EB Garamond")))
 
     (custom-theme-set-faces
@@ -74,7 +74,7 @@
      '(vc-removed-state ((t (:foreground "#E94560"))))
 
      ;; modeline
-     `(mode-line ((t (:foreground ,(face-foreground 'default) :box (:line-width 1 :style released-button)))))
+     `(mode-line ((t (:foreground ,(face-foreground 'default) :box ,(when modeline-3d '(:line-width 1 :style released-button))))))
      `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
      `(mode-line-highlight ((t (:foreground ,modeline-text-on-hightlight :background ,modeline-hightlight))))
      `(zw/modeline-default-active ((t (:foreground ,(face-foreground 'mode-line)))))
@@ -105,7 +105,7 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
 (pcase (frame-parameter nil 'background-mode)
-  ('light (zw/set-theme (doom-darken (face-background 'default) 0.06) "#0000c0" "white"))
-  ('dark (zw/set-theme (doom-lighten (face-background 'default) 0.06) "#51afef" "black")))
+  ('light (zw/set-theme (doom-darken (face-background 'default) 0.06) "#0000c0" "white" t))
+  ('dark (zw/set-theme (doom-lighten (face-background 'default) 0.06) "#51afef" "black" nil)))
 
 (provide 'zw-theme)
