@@ -1214,6 +1214,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** eglot
 #+begin_src emacs-lisp
+(setq eglot-stay-out-of '(flymake imenu)
+      eglot-autoshutdown t)
+(setq-default eglot-workspace-configuration
+              '((:pyright . ((useLibraryCodeForTypes . t)))))
 (dolist (mode '(python-mode-hook
                 c++-mode-hook c-mode-hook))
   (add-hook mode (lambda ()
