@@ -34,6 +34,6 @@ An emacs config tailored for statistician and data scientist.
 - company-mode + company-posframe
 - lsp-mode + lsp-ui
 - ess + polymode + stan-mode
-- python-mode + conda + emacs-jupyter
+- python-mode + conda + code-cells
 - auctex + reftex
 
