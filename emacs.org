@@ -485,19 +485,6 @@ FACE defaults to inheriting from default and highlight."
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 #+end_src
 
-** Auto dim other buffers
-#+begin_src emacs-lisp
-(use-package auto-dim-other-buffers
-  :commands (auto-dim-other-buffers-mode)
-  :init
-  (setq auto-dim-other-buffers-dim-on-focus-out nil
-        auto-dim-other-buffers-dim-on-switch-to-minibuffer nil)
-  :config
-  (nconc auto-dim-other-buffers-affected-faces
-         '((markdown-markup-face . auto-dim-other-buffers-face)
-           (markdown-code-face . auto-dim-other-buffers-face))))
-#+end_src
-
 * Window
 ** Popper
 #+begin_src emacs-lisp
