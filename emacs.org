@@ -763,8 +763,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                '(file)))))
 
 (defun zw/open-in-external (arg)
-  "Open visited file in default external program.
-With a prefix ARG always prompt for command to use."
+  "Open visited file in default external program."
   (interactive "P")
   (when buffer-file-name
     (call-process-shell-command
