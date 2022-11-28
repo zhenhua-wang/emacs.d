@@ -1217,8 +1217,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ;; HACK: use eglot for tramp
 (setq eglot-stay-out-of '(flymake imenu)
       eglot-autoshutdown t)
-(setq-default eglot-workspace-configuration
-              '((:pyright . ((useLibraryCodeForTypes . t)))))
 (dolist (mode '(python-mode-hook
                 c++-mode-hook c-mode-hook))
   (add-hook mode (lambda ()
