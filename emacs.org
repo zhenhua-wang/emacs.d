@@ -1619,10 +1619,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-appear-autoentities t)
   (org-appear-autokeywords t)
   (org-appear-inside-latex t))
-
-;; toggle inline latex
-(use-package org-fragtog
-  :commands (org-fragtog-mode))
 #+end_src
 
 **** Org-agenda
@@ -1762,15 +1758,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq reftex-plug-into-AUCTeX t
         reftex-toc-split-windows-fraction 0.2
         reftex-toc-split-windows-horizontally t))
-
-;; auto async preview latex
-(use-package xenops
-  ;; :hook
-  ;; (latex-mode . xenops-mode)
-  ;; (LaTeX-mode . xenops-mode)
-  :commands (xenops-mode)
-  :config
-  (setq xenops-reveal-on-entry nil))
 #+end_src
 
 ** LiterateProgramming
