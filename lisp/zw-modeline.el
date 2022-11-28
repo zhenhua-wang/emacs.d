@@ -128,11 +128,7 @@
      ">"
      " ")))
 
-(defvar zw/modeline-buffer-name-max 30
-  "Maximum length of buffer name")
-(defvar zw/modeline-buffer-name-ellipse "..."
-  "Ellipse for long buffer name")
-(defun zw/modeline-buffer-name ()
+(defun zw/modeline-buffer-name (zw/modeline-buffer-name-max zw/modeline-buffer-name-ellipse)
   (let* ((file-name (buffer-name))
          (file-name-abbrev (if (length< file-name zw/modeline-buffer-name-max)
                                file-name
@@ -340,7 +336,7 @@
   " "
   '(:eval (zw/modeline-tab-index))
   ;; the buffer name; the file name as a tool tip
-  '(:eval (zw/modeline-buffer-name))
+  '(:eval (zw/modeline-buffer-name 30 "..."))
   ;; text scale amount
   '(:eval (zw/modeline-text-scale))
   ;; line and column
@@ -368,7 +364,7 @@
                            " "
                            '(:eval (zw/modeline-tab-index))
                            ;; the buffer name
-                           '(:eval (zw/modeline-buffer-name))
+                           '(:eval (zw/modeline-buffer-name 10 "..."))
                            ;; text scale amount
                            '(:eval (zw/modeline-text-scale))
                            ;; mark active
