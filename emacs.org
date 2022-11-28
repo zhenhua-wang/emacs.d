@@ -1543,7 +1543,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 **** Org-latex
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
-  ;; org latex
   ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
