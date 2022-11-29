@@ -131,15 +131,18 @@ i.e. windows tiled side-by-side."
           (message "killed: %s" prompt-title)
         (message "error: could not kill %s" prompt-title)))))
 
-(defvar zw/modeline-before-presentation 'nil)
+(defvar zw/presentation-on nil)
 (defun zw/toggle-presentation ()
+  "Toggle presentation"
   (interactive)
-  (if zw/modeline-before-presentation
+  (if zw/presentation-on
       (progn
-        (setq-local mode-line-format zw/modeline-before-presentation)
-        (setq-local zw/modeline-before-presentation nil))
+        (setq-local mode-line-format (default-value 'mode-line-format))
+        (setq-local zw/presentation-on nil))
     (progn
-      (setq-local zw/modeline-before-presentation mode-line-format)
-      (setq-local mode-line-format nil))))
+      (setq-local mode-line-format nil)
+      (setq-local zw/presentation-on t)))
+  (when (eq major-mode 'pdf-view-mode)
+    (pdf-view-fit-page-to-window)))
 
 (provide 'zw-tools)
