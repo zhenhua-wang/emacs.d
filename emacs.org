@@ -489,7 +489,7 @@ FACE defaults to inheriting from default and highlight."
 #+begin_src emacs-lisp
 (setq split-width-threshold  80
       split-height-threshold 80
-      split-window-preferred-function 'zw/split-window-sensibly-prefer-horizontal)
+      split-window-preferred-function 'split-window-sensibly)
 #+end_src
 
 ** Buffer placement
