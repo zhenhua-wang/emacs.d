@@ -131,7 +131,7 @@ i.e. windows tiled side-by-side."
           (message "killed: %s" prompt-title)
         (message "error: could not kill %s" prompt-title)))))
 
-(defvar zw/presentation-on nil)
+(defvar-local zw/presentation-on nil)
 (defun zw/toggle-presentation ()
   "Toggle presentation"
   (interactive)
