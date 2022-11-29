@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: tex document template
-# key: <tex
+# name: latex document template
+# key: <template
 # --
 \documentclass[11pt]{article}
 \usepackage[letterpaper, margin=1in]{geometry}

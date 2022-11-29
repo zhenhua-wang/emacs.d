@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: org header
-# key: <header
+# name: org template
+# key: <template
 # --
 #+title: ${1:title}
 #+author: Zhenhua Wang

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Claudio Marforio <marforio@gmail.com>
-# key: <beamer
+# key: <template-beamer
 # group: skeleton
 # name: \documentclass{beamer} ...
 # --

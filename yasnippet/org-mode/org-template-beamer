@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: beamer template
-# key: <header-beamer
+# key: <template-beamer
 # --
 #+title: ${1:title}
 #+AUTHOR: Zhenhua Wang

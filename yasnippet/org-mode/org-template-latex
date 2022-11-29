@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex template
-# key: <header-latex
+# key: <template-latex
 # --
 #+TITLE: ${1:title}
 #+SUBTITLE: ${2:subtitle}
