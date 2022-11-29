@@ -1216,6 +1216,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 (use-package tree-sitter-langs
   :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+
+(use-package ts-fold
+  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
+  :hook (tree-sitter-after-on . ts-fold-indicators-mode)
+  :bind ((:map ts-fold-indicators-mode-map
+               ("<backtab>" . ts-fold-toggle))))
 #+end_src
 
 *** Code reference 
