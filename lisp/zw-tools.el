@@ -143,6 +143,8 @@ i.e. windows tiled side-by-side."
       (setq-local mode-line-format nil)
       (setq-local zw/presentation-on t)))
   (when (eq major-mode 'pdf-view-mode)
-    (pdf-view-fit-page-to-window)))
+    (pdf-view-fit-page-to-window))
+  (force-mode-line-update)
+  (redraw-display))
 
 (provide 'zw-tools)
