@@ -485,76 +485,14 @@ FACE defaults to inheriting from default and highlight."
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 #+end_src
 
-* Window
-** Popper
+** Window split
 #+begin_src emacs-lisp
-(use-package popper
-  :straight '(popper :host github
-                     :repo "karthink/popper"
-                     :branch "local-mode-line-format")
-  :bind (("s-`"   . popper-cycle))
-  :hook
-  (after-init . popper-mode)
-  (popper-mode . popper-echo-mode)
-  :config
-  (setq popper-mode-line ""
-        popper-display-control nil
-        popper-reference-buffers
-        '(inferior-ess-r-mode
-          inferior-python-mode)))
-#+end_src
-
-** Winner-mode
-#+begin_src emacs-lisp
-(use-package winner
-  :hook (after-init . winner-mode)
-  :bind (("s-T" . winner-undo)
-         ("s-u" . winner-undo)
-         ("s-U" . winner-redo)))
-#+end_src
-
-** Window split preference
-#+begin_src emacs-lisp
-;; set preference to horizontal split
-(defun zw/split-window-sensibly-prefer-horizontal (&optional window)
-  "Based on split-window-sensibly, but designed to prefer a horizontal split,
-i.e. windows tiled side-by-side."
-  (interactive)
-  (let ((window (or window (selected-window))))
-    (or (and (window-splittable-p window t)
-             ;; Split window horizontally
-             (with-selected-window window
-               (split-window-right)))
-        (and (window-splittable-p window)
-             ;; Split window vertically
-             (with-selected-window window
-               (split-window-below)))
-        (and
-         (let ((frame (window-frame window)))
-           (or
-            (eq window (frame-root-window frame))
-            (catch 'done
-              (walk-window-tree (lambda (w)
-                                  (unless (or (eq w window)
-                                              (window-dedicated-p w))
-                                    (throw 'done nil)))
-                                frame)
-              t)))
-         (not (window-minibuffer-p window))
-         (let ((split-width-threshold 0))
-           (when (window-splittable-p window t)
-             (with-selected-window window
-               (split-window-right)))))))
-  ;; switch to scratch buffer after creating new window
-  (other-window 1 nil)
-  (switch-to-buffer "*scratch*"))
-
 (setq split-width-threshold  80
       split-height-threshold 80
-      xsplit-window-preferred-function 'split-window-sensibly-prefer-horizontal)
+      split-window-preferred-function 'zw/split-window-sensibly-prefer-horizontal)
 #+end_src
 
-** Control Buffer Placement
+** Buffer placement
 #+begin_src emacs-lisp
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) t)))
@@ -865,6 +803,33 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("C-c l" . emacs-websearch)))
+#+end_src
+
+** Popper
+#+begin_src emacs-lisp
+(use-package popper
+  :straight '(popper :host github
+                     :repo "karthink/popper"
+                     :branch "local-mode-line-format")
+  :bind (("s-`"   . popper-cycle))
+  :hook
+  (after-init . popper-mode)
+  (popper-mode . popper-echo-mode)
+  :config
+  (setq popper-mode-line ""
+        popper-display-control nil
+        popper-reference-buffers
+        '(inferior-ess-r-mode
+          inferior-python-mode)))
+#+end_src
+
+** Winner-mode
+#+begin_src emacs-lisp
+(use-package winner
+  :hook (after-init . winner-mode)
+  :bind (("s-T" . winner-undo)
+         ("s-u" . winner-undo)
+         ("s-U" . winner-redo)))
 #+end_src
 
 ** Custom tools
