@@ -864,7 +864,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind (("s-z" . undo-fu-only-undo)
          ("s-Z" . undo-fu-only-redo)))
 #+end_src
-   
+
 ** Auto save
 #+begin_src emacs-lisp
 (use-package super-save
@@ -1103,7 +1103,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         lsp-enable-on-type-formatting nil
 
         lsp-completion-provider :none
-        
+
         ;; For diagnostics
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
 #+end_src
@@ -1711,7 +1711,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (add-to-list 'markdown-code-lang-modes '("r" . ess-r-mode)))
 #+end_src
 
-*** Latex  
+*** Latex
 #+begin_src emacs-lisp
 ;; latex
 (use-package tex
