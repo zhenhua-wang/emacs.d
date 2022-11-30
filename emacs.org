@@ -1508,7 +1508,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; careful! Don't use tabs in org-indent-mode, use spaces instead
   (org-mode . org-indent-mode)
   (org-mode . variable-pitch-mode)
-  (org-mode . visual-line-mode)
   ;; (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
