@@ -100,6 +100,10 @@
                 delete-selection-mode
                 ;; fringe (nil is default)
                 fringe-mode
+                ;; record last location in the file
+                save-place-mode
+                ;; long file
+                global-so-long-mode
                 window-divider-mode
                 blink-cursor-mode))
   (add-hook 'after-init-hook mode))
@@ -565,6 +569,15 @@ FACE defaults to inheriting from default and highlight."
          (window-height . shrink-window-if-larger-than-buffer))))
 #+end_src
 
+** Whitespace
+#+begin_src emacs-lisp
+(use-package whitespace
+  :straight (:type built-in)
+  :hook (after-init . global-whitespace-mode)
+  :config
+  (setq whitespace-style '(face trailing)))
+#+end_src
+
 * Tool
 ** Tramp
 For host with two factor auth, you need to
@@ -827,10 +840,22 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 ** Winner-mode
 #+begin_src emacs-lisp
 (use-package winner
+  :straight (:type built-in)
   :hook (after-init . winner-mode)
   :bind (("s-T" . winner-undo)
          ("s-u" . winner-undo)
          ("s-U" . winner-redo)))
+#+end_src
+
+** Isearch
+#+begin_src emacs-lisp
+(use-package isearch
+  :straight (:type built-in)
+  :bind (:map isearch-mode-map
+              ([remap isearch-delete-char] . isearch-del-char))
+  :config
+  (setq isearch-lazy-count t
+        lazy-count-prefix-format "%s/%s "))
 #+end_src
 
 ** Custom tools
@@ -877,13 +902,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package goto-last-change
   :bind (("M-g l" . goto-last-change)))
-#+end_src
-
-** So long
-#+begin_src emacs-lisp
-(use-package so-long
-  :straight (:type built-in)
-  :hook (after-init . global-so-long-mode))
 #+end_src
 
 * Completion
