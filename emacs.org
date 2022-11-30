@@ -132,10 +132,12 @@
 (setq-default select-enable-clipboard t)
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
-;; Use spaces instead of tabs for indentation
-(setq-default indent-tabs-mode nil)
 ;; use short answer for revert buffer
 (setq revert-buffer-quick-short-answers t)
+;; Use spaces instead of tabs for indentation
+(setq-default indent-tabs-mode nil)
+;; highlight trailing spaces
+(setq-default show-trailing-whitespace t)
 ;; disable saving for buffers not visiting a file
 (defadvice save-buffer (around interactive-no-visited-file-name activate)
   "When called interactively, disable for buffers not visiting a file."
@@ -568,15 +570,6 @@ FACE defaults to inheriting from default and highlight."
         ("\\*Calendar.*"
          (display-buffer-reuse-mode-window display-buffer-below-selected)
          (window-height . shrink-window-if-larger-than-buffer))))
-#+end_src
-
-** Whitespace
-#+begin_src emacs-lisp
-(use-package whitespace
-  :straight (:type built-in)
-  :hook (after-init . global-whitespace-mode)
-  :config
-  (setq whitespace-style '(face trailing)))
 #+end_src
 
 * Tool
