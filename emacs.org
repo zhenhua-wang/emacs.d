@@ -93,19 +93,20 @@
 ** Global setting
 #+begin_src emacs-lisp
 ;; modes run after init
-(dolist (mode '(global-visual-line-mode
+(dolist (mode '(window-divider-mode
+                blink-cursor-mode
+                ;; fringe (nil is default)
+                fringe-mode
+                ;; warp long line
+                global-visual-line-mode
                 ;; Revert buffers when the underlying file has changed
                 global-auto-revert-mode
                 ;; yank overwrite what is selected
                 delete-selection-mode
-                ;; fringe (nil is default)
-                fringe-mode
                 ;; record last location in the file
                 save-place-mode
                 ;; long file
-                global-so-long-mode
-                window-divider-mode
-                blink-cursor-mode))
+                global-so-long-mode))
   (add-hook 'after-init-hook mode))
 
 ;; modes disable after init
@@ -1209,7 +1210,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook (tree-sitter-after-on . tree-sitter-hl-mode))
 #+end_src
 
-*** Code reference 
+*** Code reference
 #+begin_src emacs-lisp
 (use-package xref
   :straight (:type built-in)
@@ -1777,7 +1778,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         org-src-preserve-indentation t      ; helps to indent python code in org mode
         org-confirm-babel-evaluate nil
         org-src-tab-acts-natively t)
-  
+
   ;; defer load org babel languages
   (require 'ob-teximg)
   (use-package ob-lisp
