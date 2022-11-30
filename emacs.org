@@ -879,6 +879,13 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind (("M-g l" . goto-last-change)))
 #+end_src
 
+** So long
+#+begin_src emacs-lisp
+(use-package so-long
+  :straight (:type built-in)
+  :hook (after-init . global-so-long-mode))
+#+end_src
+
 * Completion
 ** Orderless
 #+begin_src emacs-lisp
