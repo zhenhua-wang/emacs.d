@@ -88,9 +88,6 @@
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
 
-     ;; hl-line
-     `(hl-line ((t (:foreground ,(face-foreground 'default) :background ,(doom-darken (face-background 'default) 0.15)))))
-
      ;; diff-hl
      `(diff-hl-change ((t (:foreground "black" :background "#FF9F29"))))
      `(diff-hl-insert ((t (:foreground "black" :background "#3CCF4E"))))
