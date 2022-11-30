@@ -37,16 +37,6 @@ export CONDA_PREFIX="~/.conda/"
 alias open="xdg-open"
 #+end_src
 
-** Gnome
-*** Settings
-- theme: Orchis
-- Cursor: Oreo blue
-
-*** Shell Extension
-- Dash to dock for COSMIC
-- Unite
-- Vitals
-
 ** KDE
 - install =plasma-meta=
 - use =terminator=
@@ -71,6 +61,29 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 
 *** zoom
 Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
+
+** GPU and tensorflow
+Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
+#+begin_src sh
+# create python environment
+conda create --name tf_gpu python=3.9
+conda activate tf_gpu
+# GPU setup
+# check if driver has installed
+nvidia-smi
+# install cuda and cudnn
+conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+# configure the system paths
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+# install tensorflow
+pip install --upgrade pip
+pip install tensorflow
+# verify install
+python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+#+end_src
 
 ** Applications
 *** Emacs
