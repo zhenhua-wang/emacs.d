@@ -1202,10 +1202,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package hideshow
   :hook (prog-mode . hs-minor-mode)
-  :bind ((:map hs-minor-mode-map
-               ("<backtab>" . zw/toggle-fold)))
+  :bind ((:map hs-minor-mode-map ("<backtab>" . zw/toggle-fold)))
   :config
   (defun zw/toggle-fold ()
+    "Toggle code folding"
     (interactive)
     (save-excursion
       (end-of-line)
