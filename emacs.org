@@ -575,7 +575,8 @@ FACE defaults to inheriting from default and highlight."
 (dolist (mode '(prog-mode-hook
                 text-mode-hook))
   (add-hook mode (lambda ()
-                   (setq-local show-trailing-whitespace t))))
+                   (if buffer-file-name
+                       (setq-local show-trailing-whitespace t)))))
 #+end_src
 
 * Tool
