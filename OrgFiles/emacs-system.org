@@ -48,9 +48,13 @@ BorderlessMaximizedWindows=true
 #+end_src
 
 *** chinese input
-1. install =noto-fonts-cjk=
-2. add =input method panel= to KDE's panel
-3. add the following scripts to ~~/.config/plasma-workspace/env/~
+1. enable Chinese locale
+   - make =zh_CN.UTF-8 UTF-8= is in ~/etc/locale.gen~
+   - run ~locale-gen~ in shell
+2. install =noto-fonts-cjk=
+3. add =input method panel= to KDE's panel
+4. use =ibus= and add =ibus-libpinyin=
+   - to autostart and config ibus, add the following scripts to ~~/.config/plasma-workspace/env/~
 #+begin_src sh
 export LC_CTYPE=zh_CN.UTF-8     # this is need to enable ibus in emacs
 export XMODIFIERS=@im=ibus
