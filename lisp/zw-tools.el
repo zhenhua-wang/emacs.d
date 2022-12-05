@@ -147,4 +147,13 @@ i.e. windows tiled side-by-side."
   (force-mode-line-update)
   (redraw-display))
 
+(defun zw/run-or-compile-this-file-async ()
+  "Run or compile the current file asynchronously"
+  (interactive)
+  (pcase major-mode
+    ('python-mode (async-shell-command
+                   (concat "python3 " (shell-quote-argument buffer-file-name))))
+    ('ess-r-mode (async-shell-command
+                  (concat "R CMD BATCH " (shell-quote-argument buffer-file-name))))))
+
 (provide 'zw-tools)
