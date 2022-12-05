@@ -5,6 +5,16 @@
 -----
 * .Rprofile
 #+begin_src conf :tangle "~/.Rprofile"
-## don't show gui menu 
+## don't show gui menu
 options(menu.graphics=FALSE)
 #+end_src
+
+* Chinese input
+#+begin_src sh :tangle "~/.config/plasma-workspace/env/start-ibus.sh"
+export LC_CTYPE=zh_CN.UTF-8
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
+#+end_src
+
