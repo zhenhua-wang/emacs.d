@@ -147,8 +147,8 @@ i.e. windows tiled side-by-side."
   (force-mode-line-update)
   (redraw-display))
 
-(defun zw/run-or-compile-this-file-async ()
-  "Run or compile the current file asynchronously"
+(defun zw/run-this-script-async ()
+  "Run the current script asynchronously"
   (interactive)
   (pcase major-mode
     ('python-mode (async-shell-command
