@@ -1801,8 +1801,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     :defer t
     :straight (:type built-in)
     :commands
-    (org-babel-execute:sh
-     org-babel-expand-body:sh))
+    (org-babel-execute:sh))
 
   ;; alias ess-r to R
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
