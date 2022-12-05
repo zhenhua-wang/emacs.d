@@ -645,7 +645,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                   (delete-window window))))))
 
 (use-package multi-vterm
-  :commands (multi-vterm))
+  :commands (multi-vterm)
+  :bind (("s-E" . multi-vterm)))
 #+end_src
 
 ** Dired
