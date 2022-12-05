@@ -5,11 +5,11 @@
          (headline           `(:inherit default :weight bold :foreground ,base-font-color))
          (fixed-tuple        `(:font "Hack"))
          (variable-tuple     `(:font "EB Garamond"))
-         (block-bg (cdr (assoc 'block-bg theme-params)))
-         (modeline-highlight-bg (cdr (assoc 'modeline-highlight-bg theme-params)))
-         (modeline-highlight-fg (cdr (assoc 'modeline-highlight-fg theme-params)))
-         (modeline-3d-p (cdr (assoc 'modeline-3d-p theme-params)))
-         (region (cdr (assoc 'region theme-params))))
+         (block-bg (alist-get 'block-bg theme-params))
+         (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
+         (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
+         (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
+         (region (alist-get 'region theme-params)))
 
     (custom-theme-set-faces
      'user
