@@ -643,6 +643,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                      (window (get-buffer-window buffer)))
                 (when (not (one-window-p))
                   (delete-window window))))))
+
+(use-package multi-vterm
+  :commands (multi-vterm))
 #+end_src
 
 ** Dired
