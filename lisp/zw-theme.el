@@ -1,10 +1,15 @@
 ;; -*- lexical-binding: t -*-
 
-(defun zw/set-theme (block-background modeline-hightlight modeline-text-on-hightlight modeline-3d)
+(defun zw/set-theme (theme-params)
   (let* ((base-font-color     (face-foreground 'default nil 'default))
          (headline           `(:inherit default :weight bold :foreground ,base-font-color))
          (fixed-tuple        `(:font "Hack"))
-         (variable-tuple     `(:font "EB Garamond")))
+         (variable-tuple     `(:font "EB Garamond"))
+         (block-background (cdr (assoc 'block-background theme-params)))
+         (modeline-highlight (cdr (assoc 'modeline-highlight theme-params)))
+         (modeline-text-on-highlight (cdr (assoc 'modeline-text-on-highlight theme-params)))
+         (modeline-3d-p (cdr (assoc 'modeline-3d-p theme-params)))
+         (region (cdr (assoc 'region theme-params))))
 
     (custom-theme-set-faces
      'user
@@ -74,12 +79,12 @@
      '(vc-removed-state ((t (:foreground "#E94560"))))
 
      ;; modeline
-     `(mode-line ((t (:foreground ,(face-foreground 'default) :box ,(when modeline-3d '(:line-width 1 :style released-button))))))
+     `(mode-line ((t (:foreground ,(face-foreground 'default) :box ,(when modeline-3d-p '(:line-width 1 :style released-button))))))
      `(mode-line-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-     `(mode-line-highlight ((t (:foreground ,modeline-text-on-hightlight :background ,modeline-hightlight))))
+     `(mode-line-highlight ((t (:foreground ,modeline-text-on-highlight :background ,modeline-highlight))))
      `(zw/modeline-default-active ((t (:foreground ,(face-foreground 'mode-line)))))
      `(zw/modeline-default-inactive ((t (:foreground ,(face-foreground 'font-lock-comment-face)))))
-     `(zw/modeline-highlight-foreground-active ((t (:foreground ,modeline-hightlight))))
+     `(zw/modeline-highlight-foreground-active ((t (:foreground ,modeline-highlight))))
      `(zw/modeline-modified-active ((t (:inherit warning))))
 
      ;; tab-bar
@@ -87,6 +92,9 @@
 
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
+
+     ;; region
+     `(region ((t (:background ,region))))
 
      ;; diff-hl
      `(diff-hl-change ((t (:foreground "black" :background "#FF9F29"))))
@@ -104,8 +112,18 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
-(pcase (frame-parameter nil 'background-mode)
-  ('light (zw/set-theme (doom-darken (face-background 'default) 0.06) "#0000c0" "white" t))
-  ('dark (zw/set-theme (doom-lighten (face-background 'default) 0.06) "#51afef" "black" nil)))
+(let ((light-theme-params `((block-background . ,(doom-darken (face-background 'default) 0.06))
+                            (modeline-highlight . "#0000c0")
+                            (modeline-text-on-highlight . "white")
+                            (modeline-3d-p . t)
+                            (region . ,(doom-darken (face-background 'default) 0.3))))
+      (dark-theme-params `((block-background . ,(doom-lighten (face-background 'default) 0.06))
+                           (modeline-highlight . "#51afef")
+                           (modeline-text-on-highlight . "black")
+                           (modeline-3d-p . nil)
+                           (region . ,(doom-lighten (face-background 'default) 0.3)))))
+  (pcase (frame-parameter nil 'background-mode)
+    ('light (zw/set-theme light-theme-params))
+    ('dark (zw/set-theme dark-theme-params))))
 
 (provide 'zw-theme)
