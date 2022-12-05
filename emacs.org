@@ -634,7 +634,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          (:map vterm-mode-map
                ("s-e" . zw/delte-window-or-bury-buffer)))
   :init
-  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-kill-buffer-on-exit t
+        vterm-always-compile-module t)
   ;; close window when vterm exit
   (add-hook 'vterm-exit-functions
             (lambda (_ _)
