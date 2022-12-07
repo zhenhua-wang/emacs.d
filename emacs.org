@@ -1400,7 +1400,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
-               ("C-c c e" . ess-complete-object-name))
+               ("C-c c e" . ess-complete-object-name)
+               ("C-c C-c" . ess-eval-paragraph-and-step))
          (:map inferior-ess-r-mode-map
                ("s-q" . zw/close-shell)))
   :config
@@ -1834,7 +1835,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Polymode
 #+begin_src emacs-lisp
 (use-package polymode
-  :straight '(polymode :host github :repo "zhenhua-wang/polymode")
   :commands polymode-mode
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
