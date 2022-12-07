@@ -1846,28 +1846,14 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  ;; match inner mode face with markdown-code-face
-  (eieio-oset-default pm-inner-chunkmode :adjust-face 'markdown-code-face)
-  (eieio-oset-default pm-inner-chunkmode :head-adjust-face 'markdown-code-face)
-  (eieio-oset-default pm-inner-chunkmode :tail-adjust-face 'markdown-code-face)
   ;; run kill-buffer in master buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; lsp integration
   (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content))
 
-(use-package poly-markdown
-  :commands (poly-gfm-mode)
-  :mode
-  ("\\.md$" . poly-gfm-mode))
-
-(use-package poly-R
-  :straight '(poly-R :host github :repo "zhenhua-wang/poly-R")
-  :commands (poly-gfm+r-mode)
-  :bind ((:map poly-gfm+r-mode-map
-               ("M-p" . polymode-previous-chunk)
-               ("M-n" . polymode-next-chunk)))
-  :mode
-  ("\\.[rR]md\\'" . poly-gfm+r-mode))
+(use-package poly-rmarkdown
+  :straight '(poly-rmarkdown :host github :repo "zhenhua-wang/poly-rmarkdown")
+  :commands (poly-rmarkdown-mode))
 #+end_src
 
 ** Readers
