@@ -62,6 +62,7 @@
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
      `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
      `(markdown-code-face ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
+     `(markdown-markup-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
 
      ;; vterm
      `(vterm-color-black ((t (:foreground "#3B4252" :background "#3B4252"))))
