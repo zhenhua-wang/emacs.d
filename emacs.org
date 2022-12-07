@@ -1435,18 +1435,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           (ess-R-fl-keyword:F&T . t)
           (ess-fl-keyword:= . t))))
 
-(use-package ess-smart-equals
-  :after (:any ess-r-mode inferior-ess-r-mode ess-r-transcript-mode)
-  :hook ((ess-r-mode . ess-smart-equals-mode)
-         (inferior-ess-r-mode . ess-smart-equals-mode)
-         (ess-r-transcript-mode . ess-smart-equals-mode)
-         (ess-roxy-mode . ess-smart-equals-mode))
-  :config
-  (setq ess-smart-equals-padding-left 'one-space)
-  (setq ess-smart-equals-padding-right 'no-space))
-
-(use-package ess-view-data
-  :commands (ess-view-data-print))
+(use-package ess-smart-assign
+  :after ess
+  :straight (ess-smart-assign :host github :repo "zhenhua-wang/ess-smart-assign"))
 
 ;;; stan-mode.el
 (use-package stan-mode
