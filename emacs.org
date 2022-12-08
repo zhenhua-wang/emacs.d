@@ -1398,17 +1398,23 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :defer t
   :commands R
   :hook
-  (inferior-ess-r-mode . my/ess-fix-read-only-inferior-ess-mode)
+  (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
-               ("C-c C-c" . ess-eval-paragraph-and-step))
+               ("C-c C-c" . zw/ess-send-region-or-block))
          (:map inferior-ess-r-mode-map
                ("s-q" . zw/close-shell)))
   :config
   (require 'ess-site)
+  (defun zw/ess-send-region-or-block ()
+    (interactive)
+    (if mark-active
+        (ess-eval-region (region-beginning) (region-end) 'nowait)
+      (progn (ess-eval-paragraph)
+             (forward-paragraph))))
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
   ;; See https://github.com/emacs-ess/ESS/issues/300"
-  (defun my/ess-fix-read-only-inferior-ess-mode ()
+  (defun zw/ess-fix-read-only-inferior-ess-mode ()
     (setq-local comint-use-prompt-regexp nil)
     (setq-local inhibit-field-text-motion nil))
   ;; fix freezing in macos by creating your process using pipe
