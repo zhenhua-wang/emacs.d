@@ -10,7 +10,7 @@ options(menu.graphics=FALSE)
 #+end_src
 
 * Chinese input
-#+begin_src sh :tangle (when (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/start-ibus.sh")
+#+begin_src sh :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/start-ibus.sh" "no")
 export LC_CTYPE=zh_CN.UTF-8
 export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
@@ -19,7 +19,7 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 #+end_src
 
 * Zathura
-#+begin_src conf :tangle (when (eq system-type 'gnu/linux) "~/.config/zathura/zathurarc")
+#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.config/zathura/zathurarc" "no")
 set selection-clipboard clipboard
 set window-height 3000
 set window-width 3000
