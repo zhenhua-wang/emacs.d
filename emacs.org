@@ -1734,14 +1734,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         TeX-parse-self t
         TeX-auto-save t
         TeX-insert-braces nil
-
+        TeX-auto-untabify t
+        TeX-show-compilation t
+        TeX-save-query nil
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
-        ;; Don't start the Emacs server when correlating sources.
-        TeX-source-correlate-start-server nil
-
-        TeX-view-program-selection '((output-pdf "PDF Tools"))
-        TeX-save-query nil)
+        TeX-source-correlate-start-server t
+        TeX-view-program-selection '((output-pdf "PDF Tools")))
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
