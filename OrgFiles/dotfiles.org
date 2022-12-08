@@ -4,13 +4,15 @@
 #+PROPERTY: header-args :mkdirp yes
 -----
 * .Rprofile
-#+begin_src conf :tangle "~/.Rprofile"
+#+HEADER: :tangle "~/.Rprofile"
+#+begin_src conf
 ## don't show gui menu
 options(menu.graphics=FALSE)
 #+end_src
 
 * Chinese input
-#+begin_src sh :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/start-ibus.sh" "no")
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/start-ibus.sh" "no")
+#+begin_src sh
 export LC_CTYPE=zh_CN.UTF-8
 export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
@@ -19,7 +21,8 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 #+end_src
 
 * Zathura
-#+begin_src conf :tangle (if (eq system-type 'gnu/linux) "~/.config/zathura/zathurarc" "no")
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/zathura/zathurarc" "no")
+#+begin_src conf
 set selection-clipboard clipboard
 set window-height 3000
 set window-width 3000
