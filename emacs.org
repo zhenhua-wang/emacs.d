@@ -1339,8 +1339,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (if (python-shell-get-process)
         (if mark-active
             (progn
-              (python-shell-send-region (region-beginning) (region-end))
-          (goto-char (region-end)))
+              (python-shell-send-string
+               (buffer-substring (region-beginning) (region-end)))
+              (goto-char (region-end))
+              (deactivate-mark))
           (progn
             (let* ((current-line-empty-p
                     (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
@@ -1409,7 +1411,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (defun zw/ess-send-region-or-block ()
     (interactive)
     (if mark-active
-        (ess-eval-region (region-beginning) (region-end) 'nowait)
+        (progn (ess-eval-region (region-beginning) (region-end) 'nowait)
+               (goto-char (region-end)))
       (progn (ess-eval-paragraph)
              (forward-paragraph))))
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
