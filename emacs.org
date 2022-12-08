@@ -1413,7 +1413,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (if mark-active
         (progn (ess-eval-region (region-beginning) (region-end) 'nowait)
                (goto-char (region-end)))
-      (progn (ess-eval-paragraph)
+      (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
   ;; See https://github.com/emacs-ess/ESS/issues/300"
