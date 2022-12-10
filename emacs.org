@@ -1493,18 +1493,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (setq css-indent-offset 2)
 #+end_src
 
-** Data
-*** CSV mode
-#+begin_src emacs-lisp
-(use-package csv-mode
-  :mode
-  ("\\.[Cc][Ss][Vv]\\'". csv-mode)
-  :hook
-  (csv-mode . csv-align-mode)
-  :config
-  (setq csv-separators '("," ";" "|" " ")))
-#+end_src
-
 * Document
 ** Writing
 *** Visual-fill-column
