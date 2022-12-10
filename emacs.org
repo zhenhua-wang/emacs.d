@@ -1260,13 +1260,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq hs-set-up-overlay 'display-code-line-counts))
 #+end_src
 
-*** Clean whitespace
-#+begin_src emacs-lisp
-(use-package ws-butler
-  :hook
-  (prog-mode . ws-butler-mode))
-#+end_src
-
 *** Fast comment
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
