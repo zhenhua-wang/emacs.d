@@ -90,7 +90,7 @@
   (or (display-graphic-p) (daemonp)))
 #+end_src
 
-** Global setting
+** Global modes
 #+begin_src emacs-lisp
 ;; modes run after init
 (dolist (mode '(window-divider-mode
@@ -112,7 +112,10 @@
           (lambda ()
             (global-eldoc-mode -1)
             (tooltip-mode -1)))
+#+end_src
 
+** Global settings
+#+begin_src emacs-lisp
 ;; setq default folder
 (setq default-directory (concat (getenv "HOME") "/"))
 ;; confirm emacs quit
@@ -134,21 +137,6 @@
 (setq revert-buffer-quick-short-answers t)
 ;; Use spaces instead of tabs for indentation
 (setq-default indent-tabs-mode nil)
-;; disable saving for buffers not visiting a file
-(defadvice save-buffer (around interactive-no-visited-file-name activate)
-  "When called interactively, disable for buffers not visiting a file."
-  (when (or (not (called-interactively-p 'any))
-            buffer-file-name)
-    ad-do-it))
-;; make scratch and dashboard unkillable
-(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
-(defun zw/dont-kill-scratch ()
-  (if (not (or (equal (buffer-name) "*scratch*")
-               (equal (buffer-name) "*dashboard*")))
-      t
-    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
-    (bury-buffer)
-    nil))
 #+end_src
 
 ** Keybinding
@@ -221,6 +209,25 @@
            ("<escape>" . minibuffer-keyboard-quit)
            :map isearch-mode-map
            ("s-f" . isearch-repeat-forward))
+#+end_src
+
+** Misc
+#+begin_src emacs-lisp
+;; disable saving for buffers not visiting a file
+(defadvice save-buffer (around interactive-no-visited-file-name activate)
+  "When called interactively, disable for buffers not visiting a file."
+  (when (or (not (called-interactively-p 'any))
+            buffer-file-name)
+    ad-do-it))
+;; make scratch and dashboard unkillable
+(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
+(defun zw/dont-kill-scratch ()
+  (if (not (or (equal (buffer-name) "*scratch*")
+               (equal (buffer-name) "*dashboard*")))
+      t
+    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
+    (bury-buffer)
+    nil))
 #+end_src
 
 * Appearance
