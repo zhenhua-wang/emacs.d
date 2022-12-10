@@ -1700,6 +1700,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Markdown
 #+begin_src emacs-lisp
 (use-package markdown-mode
+  :defer t
   :commands (markdown-mode gfm-mode)
   :init
   (setq markdown-enable-math t
