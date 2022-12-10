@@ -1699,11 +1699,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Markdown
 #+begin_src emacs-lisp
-(use-package adaptive-wrap)
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
-  :hook
-  (markdown-mode-hook . adaptive-wrap-prefix-mode)
   :init
   (setq markdown-enable-math t
         markdown-enable-wiki-links t
