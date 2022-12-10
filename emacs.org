@@ -465,7 +465,7 @@ FACE defaults to inheriting from default and highlight."
     (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb"))))
 #+end_src
 
-** Highlight uncommitted changes
+** Highlight VC
 #+begin_src emacs-lisp
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
