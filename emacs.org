@@ -1468,7 +1468,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 *** Org-mode
-**** Main
+**** main
 #+begin_src emacs-lisp
 (use-package org
   :straight (:type built-in)
@@ -1505,7 +1505,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          (markdown-mode . toc-org-mode)))
 #+end_src
 
-**** Org-latex
+**** ox-latex
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
   ;; make LaTeX-mode formula larger
@@ -1534,7 +1534,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
-**** Org-theme
+**** theme
 #+begin_src emacs-lisp
 (use-package org-modern
   :hook
@@ -1584,7 +1584,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-appear-inside-latex t))
 #+end_src
 
-**** Org-agenda
+**** agenda
 #+begin_src emacs-lisp
 (defun zw/git-add-commit-push-agenda ()
   (interactive)
@@ -1637,7 +1637,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                          (org-agenda-todo-keyword-format ""))))))))
 #+end_src
 
-**** Custom functions
+**** custom functions
 #+begin_src emacs-lisp
 (defun zw/org-fold-all-but-current ()
   (interactive)
