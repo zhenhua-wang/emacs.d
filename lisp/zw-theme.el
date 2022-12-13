@@ -15,8 +15,8 @@
      'user
      ;; default
      `(default ((t (:font "Roboto Mono" :height 150))))
-     `(fixed-pitch ((t (,@fixed-tuple :weight normal :height 150))))
-     `(variable-pitch ((t (,@variable-tuple :weight light :height 200))))
+     `(fixed-pitch ((t (,@fixed-tuple :height 150))))
+     `(variable-pitch ((t (,@variable-tuple :height 200))))
 
      ;; org
      `(org-level-8 ((t (,@headline ,@variable-tuple :weight SemiBold))))
