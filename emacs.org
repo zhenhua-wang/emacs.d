@@ -248,8 +248,7 @@
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic nil)
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
+  (doom-themes-visual-bell-config))
 
 (use-package modus-themes
   :defer t
