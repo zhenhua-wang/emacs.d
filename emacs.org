@@ -1480,7 +1480,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   ;; careful! Don't use tabs in org-indent-mode, use spaces instead
   (org-mode . org-indent-mode)
-  ;; (org-mode . org-num-mode)
+  (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq
@@ -1539,7 +1539,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-mode . org-modern-mode)
   (org-agenda-finalize . org-modern-agenda)
   :init
-  (setq org-modern-star '("◉" "●")      ;'("")
+  (setq org-modern-star '("")           ;'("◉" "●")
         org-modern-block-fringe t
         org-modern-table nil
         org-modern-table-vertical 1
