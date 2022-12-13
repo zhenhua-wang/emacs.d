@@ -1542,7 +1542,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :init
   (setq org-modern-star '("")           ;'("◉" "●")
         org-modern-block-fringe t
-        org-modern-table nil
+        org-modern-table t
         org-modern-table-vertical 1
         org-modern-table-horizontal 1
         org-modern-todo t
