@@ -684,7 +684,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (dirvish-quick-access-entries
    '(("h" "~/"                          "Home")
      ("d" "~/Downloads/"                "Downloads")
-     ("w" "~/Workspace/"                "Workspace")))
+     ("w" "~/Workspace/"                "Workspace")
+     ("p" "~/Pictures/"                 "Pictures")))
   :bind ((:map dirvish-mode-map
                ("<tab>" . dirvish-subtree-toggle)
                ("a" . dirvish-quick-access)))
