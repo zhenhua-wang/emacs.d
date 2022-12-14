@@ -1682,7 +1682,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         TeX-auto-save t
         TeX-insert-braces nil
         TeX-auto-untabify t
-        TeX-show-compilation t
         TeX-save-query nil
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
