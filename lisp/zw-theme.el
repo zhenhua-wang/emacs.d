@@ -92,7 +92,7 @@
      `(tab-bar ((t (:foreground ,(face-foreground 'default)))))
      `(zw/tab-bar-default-selected ((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar)))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
-     `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,(face-background 'mode-line-highlight)))))
+     `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
 
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
