@@ -1051,7 +1051,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
-  ;; Preview while using consult-theme
+  ;; Preview consult commands
+  (consult-customize consult-goto-line :preview-key '(:debounce 0 any))
   (consult-customize consult-theme :preview-key '(:debounce 0.5 any))
   ;; Preview immediately on M-., on up/down after 0.5s, on any other key after 1s
   (consult-customize consult-theme
