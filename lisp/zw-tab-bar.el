@@ -40,7 +40,7 @@
   :group 'zw/tab-bar-selected)
 
 (defface zw/tab-bar-tab-path-selected
-  `((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,(face-foreground 'font-lock-keyword-face))))
+  `((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,(face-background 'mode-line-highlight))))
   "Default face for active tab-bar"
   :group 'zw/tab-bar-selected)
 
@@ -63,7 +63,7 @@
 ;; show menu
 (defun zw/tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize " ☰"
+  `((menu-bar menu-item (propertize "☰"
                                     'face 'zw/tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
@@ -110,35 +110,37 @@
           t
         nil))))
 
-(defun zw/tab-bar-format-file-path-function-def ()
-  `((current-tab menu-item (if (and (derived-mode-p 'prog-mode)
-                                    (zw/tab-bar-beginning-of-defun)
-                                    (zw/in-defun-p))
-                               (concat
-                                (propertize " Def "
-                                            'face 'mode-line-highlight)
-                                " "
-                                (truncate-string-to-width
-                                 (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
-                                 zw/tab-bar-ellipsis))
-                             (zw/tab-bar-tab-name))
-                 :help "File path or function definition")))
+(defun zw/tab-bar--func-def ()
+  (when (and (derived-mode-p 'prog-mode)
+             (zw/in-defun-p))
+    (concat
+     (propertize " Def "
+                 'face 'mode-line-highlight)
+     " "
+     (truncate-string-to-width
+      (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
+      zw/tab-bar-ellipsis))))
+
+(defun zw/tab-bar-format-function-def ()
+  `((global menu-item ,(zw/tab-bar--func-def)
+              :help "Function definition")))
 
 (defun zw/tab-bar-format-file-path ()
   `((current-tab menu-item  (zw/tab-bar-tab-name)
-                 :help "File path or function definition")))
+                 :help "File path")))
 
 ;; format tab-bar-mode
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
       tab-bar-separator " "
-      tab-bar-format '(zw/tab-bar-format-menu-bar
+      tab-bar-format '(tab-bar-separator
+                       zw/tab-bar-format-menu-bar
                        tab-bar-separator
                        zw/tab-bar-format-file-path
-                       tab-bar-separator
                        tab-bar-format-align-right
-                       zw/tab-bar-format-battery))
+                       zw/tab-bar-format-function-def
+                       tab-bar-separator))
 
 ;; enable tab-bar
 (add-hook 'after-init-hook #'tab-bar-mode)

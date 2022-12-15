@@ -300,7 +300,7 @@
 
 ** Tab bar
 #+begin_src emacs-lisp
-(setq tab-bar-show nil)
+(setq tab-bar-show t)
 (require 'zw-tab-bar)
 #+end_src
 
