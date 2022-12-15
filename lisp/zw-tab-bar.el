@@ -148,6 +148,7 @@
                                            (car other-tabs))
                             other-tabs))))
   (tab-bar-select-tab (or (string-to-number (car (split-string index-name))) 1)))
+
 ;; register zw/tab-switch marginalia
 (with-eval-after-load "marginalia"
   (add-to-list 'marginalia-prompt-categories '("\\<tab by index\\>" . tab-index))
