@@ -123,7 +123,7 @@
 
 (defun zw/tab-bar-format-function-def ()
   `((global menu-item ,(zw/tab-bar--func-def)
-              :help "Function definition")))
+            :help "Function definition")))
 
 (defun zw/tab-bar-format-file-path ()
   `((current-tab menu-item  (zw/tab-bar-tab-name)
