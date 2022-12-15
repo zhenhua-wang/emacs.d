@@ -106,9 +106,12 @@
     ;; HACK: if `end-of-defun' moves the cursor, cursor if in a definition
     (let ((current-point (point)))
       (end-of-defun)
+      ;; return true if cursor moved
       (not (= (point) current-point)))))
 
 (defun zw/tab-bar--func-def ()
+  "helper function to get function definition"
+  ;; if all three predicates are true, return the value of the last predicate
   (and (derived-mode-p 'prog-mode)
        (ignore-errors (zw/in-defun-p))
        (ignore-errors (concat
