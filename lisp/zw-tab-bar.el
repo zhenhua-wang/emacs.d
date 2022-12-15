@@ -106,9 +106,7 @@
     ;; HACK: if `end-of-defun' moves the cursor, cursor if in a definition
     (let ((current-point (point)))
       (end-of-defun)
-      (if (not (= (point) current-point))
-          t
-        nil))))
+      (not (= (point) current-point)))))
 
 (defun zw/tab-bar--func-def ()
   (and (derived-mode-p 'prog-mode)
