@@ -119,17 +119,17 @@
                  :help "File path")))
 
 ;; format tab-bar-mode
-(setq tab-bar-new-tab-choice "*scratch*"
-      tab-bar-new-button-show nil
-      tab-bar-close-button-show nil
-      tab-bar-separator " "
-      tab-bar-format '(tab-bar-separator
-                       zw/tab-bar-format-menu-bar
-                       tab-bar-separator
-                       zw/tab-bar-format-file-path
-                       tab-bar-format-align-right
-                       zw/tab-bar-format-function-def
-                       tab-bar-separator))
+(setq-default tab-bar-new-tab-choice "*scratch*"
+              tab-bar-new-button-show nil
+              tab-bar-close-button-show nil
+              tab-bar-separator " "
+              tab-bar-format '(tab-bar-separator
+                               zw/tab-bar-format-menu-bar
+                               tab-bar-separator
+                               zw/tab-bar-format-file-path
+                               tab-bar-format-align-right
+                               zw/tab-bar-format-function-def
+                               tab-bar-separator))
 
 ;; enable tab-bar
 (add-hook 'after-init-hook #'tab-bar-mode)
