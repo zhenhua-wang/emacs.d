@@ -10,8 +10,13 @@
   "zw/tab-bar-inactive"
   :group 'zw/tab-bar)
 
-(defface zw/tab-bar-menu-bar
+(defface zw/tab-bar-default-selected
   `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
+  "Default face for active tab-bar"
+  :group 'zw/tab-bar-selected)
+
+(defface zw/tab-bar-menu-bar
+  `((t (:inherit zw/tab-bar-default-selected)))
   "Default face for active tab-bar"
   :group 'zw/tab-bar)
 
@@ -19,11 +24,6 @@
   `((t (:inherit zw/tab-bar-menu-bar)))
   "Default face for active tab-bar"
   :group 'zw/tab-bar)
-
-(defface zw/tab-bar-default-selected
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
-  "Default face for active tab-bar"
-  :group 'zw/tab-bar-selected)
 
 (defface zw/tab-bar-tab-selected
   `((t (:inherit zw/tab-bar-default-selected)))
