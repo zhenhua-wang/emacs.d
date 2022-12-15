@@ -140,7 +140,7 @@
                        tab-bar-separator
                        zw/tab-bar-format-file-path
                        tab-bar-format-align-right
-                       zw/tab-bar-format-function-def
+                       ;; zw/tab-bar-format-function-def
                        tab-bar-separator))
 
 ;; enable tab-bar
