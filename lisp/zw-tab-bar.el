@@ -25,15 +25,6 @@
   "Default face for active tab-bar"
   :group 'zw/tab-bar-selected)
 
-(defface zw/tab-bar-default-nonselected
-  `((t (:foreground
-        ,(face-foreground 'font-lock-comment-face)
-        :background
-        ,(face-background 'tab-bar)
-        :underline t)))
-  "Default face for inactive tab-bar"
-  :group 'zw/tab-bar-nonselected)
-
 (defface zw/tab-bar-tab-selected
   `((t (:inherit zw/tab-bar-default-selected)))
   "Default face for active tab-bar"
