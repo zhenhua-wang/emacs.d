@@ -111,16 +111,15 @@
         nil))))
 
 (defun zw/tab-bar--func-def ()
-  (when (and (derived-mode-p 'prog-mode)
-             (ignore-errors (zw/in-defun-p))
-             (zw/tab-bar-beginning-of-defun))
-    (concat
-     (propertize " Def "
-                 'face 'mode-line-highlight)
-     " "
-     (truncate-string-to-width
-      (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
-      zw/tab-bar-ellipsis))))
+  (and (derived-mode-p 'prog-mode)
+       (ignore-errors (zw/in-defun-p))
+       (ignore-errors (concat
+                       (propertize " Def "
+                                   'face 'mode-line-highlight)
+                       " "
+                       (truncate-string-to-width
+                        (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
+                        zw/tab-bar-ellipsis)))))
 
 (defun zw/tab-bar-format-function-def ()
   `((global menu-item ,(zw/tab-bar--func-def)
