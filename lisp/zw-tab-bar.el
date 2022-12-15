@@ -3,11 +3,7 @@
   :group 'convenience)
 
 (defgroup zw/tab-bar-selected nil
-  "zw/tab-bar-active"
-  :group 'zw/tab-bar)
-
-(defgroup zw/tab-bar-nonselected nil
-  "zw/tab-bar-inactive"
+  "zw/tab-bar-selected"
   :group 'zw/tab-bar)
 
 (defface zw/tab-bar-default-selected
