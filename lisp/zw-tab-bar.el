@@ -7,7 +7,7 @@
   :group 'zw/tab-bar)
 
 (defface zw/tab-bar-default-selected
-  `((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar))))
+  `((t (:inherit tab-bar)))
   "Default face for active tab-bar"
   :group 'zw/tab-bar-selected)
 
@@ -27,7 +27,7 @@
   :group 'zw/tab-bar-selected)
 
 (defface zw/tab-bar-tab-path-selected
-  `((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,(face-background 'mode-line-highlight))))
+  `((t (:inherit zw/tab-bar-default-selected :bold t)))
   "Default face for active tab-bar"
   :group 'zw/tab-bar-selected)
 
