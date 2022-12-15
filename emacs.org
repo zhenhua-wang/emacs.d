@@ -139,7 +139,7 @@
 (setq-default indent-tabs-mode nil)
 #+end_src
 
-** Keybinding
+** Keymap
 #+begin_src emacs-lisp
 ;; modifiers
 ;; In macos, I also remap caps lock to ctrl using Karabiner-Elements
