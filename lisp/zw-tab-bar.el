@@ -112,7 +112,8 @@
 
 (defun zw/tab-bar--func-def ()
   (when (and (derived-mode-p 'prog-mode)
-             (zw/in-defun-p))
+             (zw/in-defun-p)
+             (zw/tab-bar-beginning-of-defun))
     (concat
      (propertize " Def "
                  'face 'mode-line-highlight)
