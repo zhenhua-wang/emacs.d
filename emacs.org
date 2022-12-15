@@ -1196,7 +1196,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** eglot
 #+begin_src emacs-lisp
-;; HACK: use eglot for tramp
 (setq eglot-autoshutdown t)
 (dolist (mode '(c++-mode-hook c-mode-hook))
   (add-hook mode (lambda ()
