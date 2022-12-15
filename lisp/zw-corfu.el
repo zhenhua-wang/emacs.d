@@ -60,7 +60,6 @@
   (require 'kind-all-the-icons)
   (add-to-list 'corfu-margin-formatters
                #'kind-all-the-icons-margin-formatter)
-  ;; FIXME: Popup size is wrong https://github.com/minad/corfu/issues/149
   (set-face-attribute 'corfu-default nil
                       :foreground (face-foreground 'tooltip)
                       :background (face-background 'tooltip)
