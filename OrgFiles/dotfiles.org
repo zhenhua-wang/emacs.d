@@ -10,9 +10,10 @@
 options(menu.graphics=FALSE)
 #+end_src
 
-* Chinese input
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/start-ibus.sh" "no")
+* AutoStart
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/launch.sh" "no")
 #+begin_src sh
+# ibus
 export LC_CTYPE=zh_CN.UTF-8
 export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
@@ -39,4 +40,3 @@ map [presentation] <F11> toggle_presentation
 map [presentation] p navigate previous
 map [presentation] n navigate next
 #+end_src
-
