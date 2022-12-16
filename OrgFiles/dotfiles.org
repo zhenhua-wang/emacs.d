@@ -1,5 +1,6 @@
 #+title: Dotfiles
 #+author: Zhenhua Wang
+#+auto_tangle: t
 #+PROPERTY: header-args :mkdirp yes
 -----
 * .Rprofile
