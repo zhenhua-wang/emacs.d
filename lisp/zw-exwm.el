@@ -7,6 +7,7 @@
 
 (defun exwm/exwm-update-title ()
   (pcase exwm-class-name
+    ("firefoxnightly" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
     ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
     ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title)))
     ("mpv" (exwm-workspace-rename-buffer (format "mpv: %s" exwm-title)))
