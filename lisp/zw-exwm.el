@@ -166,6 +166,11 @@
                          (interactive (list (read-shell-command "$ ")))
                          (start-process-shell-command command nil command)))
 
+            ;; rofi
+            ([?\s-\ ] . (lambda ()
+                          (interactive)
+                          (call-process-shell-command "rofi -show")))
+
             ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
             ,@(mapcar (lambda (i)
                         `(,(kbd (format "M-s-%d" i)) .
@@ -176,5 +181,31 @@
 
     (exwm-input-set-key (kbd "s-e") 'vterm)
     (exwm-input-set-key (kbd "s-E") 'multi-vterm)))
+
+;; desktop environment
+(use-package desktop-environment
+  :after exwm
+  :config (desktop-environment-mode)
+  :custom
+  (desktop-environment-brightness-small-increment "2%+")
+  (desktop-environment-brightness-small-decrement "2%-")
+  (desktop-environment-brightness-normal-increment "5%+")
+  (desktop-environment-brightness-normal-decrement "5%-")
+  (desktop-environment-keyboard-backlight-normal-increment 70)
+  (desktop-environment-keyboard-backlight-normal-decrement -70)
+  :config
+  (exwm-input-set-key (kbd "<XF86KbdBrightnessUp>") 'desktop-environment-keyboard-backlight-increment)
+  (exwm-input-set-key (kbd "<XF86KbdBrightnessDown>") 'desktop-environment-keyboard-backlight-decrement)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") 'desktop-environment-brightness-increment)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-brightness-decrement)
+  (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") 'desktop-environment-volume-increment)
+  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-volume-decrement)
+  (exwm-input-set-key (kbd "<XF86AudioMute>") 'desktop-environment-toggle-mute)
+  (exwm-input-set-key (kbd "C-s-5") '(lambda ()
+                                       (interactive)
+                                       (desktop-environment-screenshot)
+                                       (sleep-for 0.2)
+                                       (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
+  (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
 (provide 'zw-exwm)

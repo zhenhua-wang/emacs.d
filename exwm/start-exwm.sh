@@ -21,5 +21,5 @@ export EDITOR="$VISUAL"
 # bash ~/.config/polybar/launch.sh --material
 
 # Fire it up
-# exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el
+# exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/zw-exwm.el
 exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el
