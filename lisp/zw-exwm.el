@@ -90,15 +90,6 @@
    exwm-workspace-show-all-buffers nil
    ;; able to move to buffer in inactive space
    exwm-layout-show-all-buffers nil
-   ;; enable tab-bar
-   tab-bar-show t
-   tab-bar-format '(tab-bar-separator
-                    zw/tab-bar-format-menu-bar
-                    tab-bar-separator
-                    zw/tab-bar-format-file-path
-                    tab-bar-format-align-right
-                    zw/tab-bar-format-function-def
-                    tab-bar-separator))
 
   ;; use ibus-rime for X11 apps
   (setenv "GTK_IM_MODULE" "ibus")
@@ -237,7 +228,7 @@
 (add-to-list 'tab-bar-format 'tab-bar-separator 'append)
 (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
 (add-to-list 'tab-bar-format 'tab-bar-separator 'append)
-(setq display-time-format "%a %e %b %T"
+(setq display-time-format "%a, %b %e, %T"
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
