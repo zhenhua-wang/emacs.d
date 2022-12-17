@@ -202,8 +202,7 @@
                        tab-bar-separator
                        tab-bar-separator
                        tab-bar-separator
-                       tab-bar-format-global
-                       tab-bar-separator))
+                       tab-bar-format-global))
 (tab-bar-mode 1)
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 (setq display-time-format "%a, %b %e, %T"
