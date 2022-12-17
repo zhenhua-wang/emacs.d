@@ -215,14 +215,6 @@
                                        (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
-;; keycast
-(use-package keycast
-  :config
-  (setq keycast-tab-bar-format "%k%c%R "
-        keycast-tab-bar-minimal-width 0
-        keycast-tab-bar-location 'tab-bar-format-align-right)
-  (keycast-tab-bar-mode))
-
 ;; display time and battery in tab-bar
 (setq tab-bar-show t
       tab-bar-format '(tab-bar-separator
@@ -230,6 +222,8 @@
                        tab-bar-separator
                        zw/tab-bar-format-file-path
                        tab-bar-format-align-right
+                       tab-bar-separator
+                       tab-bar-separator
                        tab-bar-separator
                        tab-bar-format-global
                        tab-bar-separator))
@@ -240,5 +234,12 @@
       display-time-default-load-average nil)
 (display-time-mode 1)
 (display-battery-mode 1)
+
+;; keycast
+(use-package keycast
+  :config
+  (setq keycast-tab-bar-format "%k%c%R "
+        keycast-tab-bar-minimal-width 0)
+  (keycast-tab-bar-mode))
 
 (provide 'zw-exwm)
