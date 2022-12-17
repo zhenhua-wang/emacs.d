@@ -158,6 +158,9 @@
                           (interactive)
                           (call-process-shell-command "rofi -show")))
 
+            ;; side bar
+            ([?\s-b] . dirvish-side)
+
             ;; tab bar
             ([?\s-1] . zw/tab-switch)
             ([?\s-9] . tab-new)

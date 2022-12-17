@@ -20,4 +20,5 @@ yay -S ibus
 yay -S brightnessctl
 yay -S alsa-utils
 yay -S playerctl
+yay -S scrot
 #+end_src
