@@ -224,17 +224,22 @@
                                        (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
+;; keycast
+(use-package keycast
+  :config
+  (setq keycast-tab-bar-format "%k%c%R "
+        keycast-tab-bar-minimal-width 0)
+  (keycast-tab-bar-mode))
+
 ;; display time and battery in tab-bar
 (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
-(add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
-(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
-(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
-(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 (add-to-list 'tab-bar-format 'tab-bar-separator 'append)
 (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
 (add-to-list 'tab-bar-format 'tab-bar-separator 'append)
-(setq display-time-format "%a %e %b %T")
-(setq display-time-interval 1)
+(setq display-time-format "%a %e %b %T"
+      display-time-interval 1
+      display-time-default-load-average nil)
 (display-time-mode 1)
 (display-battery-mode 1)
 
