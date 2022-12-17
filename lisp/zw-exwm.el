@@ -71,10 +71,10 @@
   (exwm/run-in-background "nm-applet")
   (exwm/run-in-background "pasystray")
   (exwm/run-in-background "udiskie --no-automount -t")
-  ;; set ibus to use "system keyboard layout" in advanced setting
-  (exwm/run-in-background "ibus-daemon -drxR")
   (exwm/run-in-background "blueman-applet")
-  )
+  (exwm/run-in-background "cbatticon")
+  ;; set ibus to use "system keyboard layout" in advanced setting
+  (exwm/run-in-background "ibus-daemon -drxR"))
 
 (use-package exwm
   :config
