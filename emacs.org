@@ -300,7 +300,8 @@
 
 ** Tab bar
 #+begin_src emacs-lisp
-(setq tab-bar-show t)
+(when (not (frame-parameter (selected-frame) 'exwm-active))
+    (setq tab-bar-show nil))
 (require 'zw-tab-bar)
 #+end_src
 
