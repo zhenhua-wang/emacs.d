@@ -118,6 +118,9 @@
     ;; Ctrl+Q will enable the next key to be sent directly
     (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
+    ;; send C-c to clients
+    (define-key exwm-mode-map (kbd "C-c") nil)
+
     ;; Set up global key bindings.
     (setq exwm-input-global-keys
           `(
