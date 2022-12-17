@@ -1,6 +1,6 @@
 #!/bin/sh
 # Set the screen DPI (uncomment this if needed!)
-xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi 
+xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
 
 
@@ -22,4 +22,4 @@ export EDITOR="$VISUAL"
 
 # Fire it up
 # exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el
-exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/emacs-desktop.el
+exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el

@@ -91,8 +91,10 @@
             (lambda ()
               (exwm-layout-hide-mode-line)))
 
-  ;; (exwm-enable)
-  )
+  ;; set xmodmap
+  (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
+
+  (exwm-enable))
 
 ;; These keys should always pass through to Emacs
 (eval-after-load 'exwm
