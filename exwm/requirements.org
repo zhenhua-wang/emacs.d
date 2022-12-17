@@ -15,4 +15,5 @@ yay -S blueman
 yay -S ibus
 yay -S brightnessctl
 yay -S alsa-utils
+yay -S playerctl
 #+end_src
