@@ -61,6 +61,20 @@
   (message "Display config: %s"
            (string-trim (shell-command-to-string "autorandr --current"))))
 
+;; initialization
+(defun exwm/exwm-init-hook ()
+  ;; Make workspace 1 be the one where we land at startup
+  (exwm-workspace-switch-create 1)
+
+  ;; Launch apps that will run in the background
+  (exwm/run-in-background "dunst")
+  (exwm/run-in-background "nm-applet")
+  (exwm/run-in-background "pasystray")
+  (exwm/run-in-background "udiskie --no-automount -t")
+  (exwm/run-in-background "ibus-daemon -drxR")
+  (exwm/run-in-background "blueman-applet")
+  )
+
 (use-package exwm
   :init
   (setq
@@ -77,6 +91,9 @@
    exwm-layout-show-all-buffers nil
    )
   :config
+  ;; When EXWM starts up, do some extra confifuration
+  (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
+
   ;; When window "class" updates, use it to set the buffer name
   (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
 
@@ -93,6 +110,10 @@
 
   ;; set xmodmap
   (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
+
+  ;; Load the system tray before exwm-init
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
 
   (exwm-enable))
 
@@ -153,6 +174,7 @@
                             (exwm-workspace-switch-create ,i))))
                       (number-sequence 0 9))))
 
-    (exwm-input-set-key (kbd "s-e") 'zw/show-eshell)))
+    (exwm-input-set-key (kbd "s-e") 'vterm)
+    (exwm-input-set-key (kbd "s-E") 'multi-vterm)))
 
 (provide 'zw-exwm)
