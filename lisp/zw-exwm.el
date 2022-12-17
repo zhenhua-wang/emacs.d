@@ -113,6 +113,9 @@
             (lambda ()
               (exwm-layout-hide-mode-line)))
 
+  ;; set xmodmap
+  (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
+
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
@@ -121,10 +124,7 @@
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
 
-  (exwm-enable)
-
-  ;; set xmodmap
-  (call-process-shell-command "xmodmap ~/.emacs.d/exwm/Xmodmap" nil 0))
+  (exwm-enable))
 
 ;; These keys should always pass through to Emacs
 (eval-after-load 'exwm
