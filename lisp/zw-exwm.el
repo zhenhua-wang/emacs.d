@@ -151,7 +151,7 @@
             ([?\s-R] . exwm-reset)
 
             ;; switch buffer
-            ([s-tab] . switch-to-buffer)
+            ;; ([s-tab] . switch-to-buffer)
             ;;close current buffer
             ([?\s-q] . kill-this-buffer)
 
