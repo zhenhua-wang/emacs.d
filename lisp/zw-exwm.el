@@ -75,7 +75,8 @@
   )
 
 (use-package exwm
-  :init
+  :config
+  (require 'exwm)
   (setq
    ;; Window focus should follow the mouse pointer
    mouse-autoselect-window nil
@@ -87,10 +88,8 @@
    ;; show buffer in all workspace
    exwm-workspace-show-all-buffers nil
    ;; able to move to buffer in inactive space
-   exwm-layout-show-all-buffers nil
-   )
-  :config
-  (require 'exwm)
+   exwm-layout-show-all-buffers nil)
+
   ;; When EXWM starts up, do some extra confifuration
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
