@@ -13,9 +13,7 @@
     ("mpv" (exwm-workspace-rename-buffer (format "mpv: %s" exwm-title)))
     ("libreoffice-writer" (exwm-workspace-rename-buffer (format "Libre-Writer: %s" exwm-title)))
     ("libreoffice-impress" (exwm-workspace-rename-buffer (format "Libre-Slides: %s" exwm-title)))
-    ("okular" (exwm-workspace-rename-buffer (format "Okular: %s" exwm-title)))
-    ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))
-    ("Evince" (exwm-workspace-rename-buffer (format "Evince: %s" exwm-title)))))
+    ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))))
 
 ;; This function isn't currently used, only serves as an example how to
 ;; position a window
@@ -28,27 +26,6 @@
 (defun exwm/configure-window-by-class ()
   (interactive)
   (pcase exwm-class-name
-    ;; media
-    ("mpv"
-     (exwm-workspace-move-window 3)
-     (exwm-workspace-switch-create 3))
-    ;; social
-    ("Prospect Mail"
-     (exwm-workspace-move-window 4)
-     (exwm-workspace-switch-create 4))
-    ("discord"
-     (exwm-workspace-move-window 4)
-     (exwm-workspace-switch-create 4))
-    ("Slack"
-     (exwm-workspace-move-window 4)
-     (exwm-workspace-switch-create 4))
-    ("Qq"
-     (exwm-workspace-move-window 4)
-     (exwm-workspace-switch-create 4))
-    ;; vm
-    ("VirtualBox Manager"
-     (exwm-workspace-move-window 5)
-     (exwm-workspace-switch-create 5))
     ;; floating utils
     ("URxvt"
      (exwm-floating-toggle-floating))
