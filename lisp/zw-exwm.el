@@ -72,7 +72,6 @@
   (exwm/run-in-background "pasystray")
   (exwm/run-in-background "udiskie --no-automount -t")
   (exwm/run-in-background "blueman-applet")
-  (exwm/run-in-background "cbatticon")
   ;; set ibus to use "system keyboard layout" in advanced setting
   (exwm/run-in-background "ibus-daemon -drxR"))
 
@@ -224,5 +223,19 @@
                                        (sleep-for 0.2)
                                        (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
+
+;; display time and battery in tab-bar
+(add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
+(add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
+(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+(add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+(add-to-list 'tab-bar-format 'tab-bar-separator 'append)
+(setq display-time-format "%a %e %b %T")
+(setq display-time-interval 1)
+(display-time-mode 1)
+(display-battery-mode 1)
 
 (provide 'zw-exwm)
