@@ -107,9 +107,6 @@
             (lambda ()
               (exwm-layout-hide-mode-line)))
 
-  ;; set xmodmap
-  (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
-
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
