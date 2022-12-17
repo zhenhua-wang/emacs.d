@@ -168,6 +168,9 @@
             ([?\s-u] . winner-undo)
             ([?\s-U] . winner-redo)
 
+            ;; web search
+            ([?\s-/] . emacs-websearch)
+
             ;; Launch applications via shell command
             ([?\s-&] . (lambda (command)
                          (interactive (list (read-shell-command "$ ")))

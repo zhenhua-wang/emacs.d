@@ -821,7 +821,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
-  :bind (("C-c l" . emacs-websearch)))
+  :bind (("s-/" . emacs-websearch)))
 #+end_src
 
 ** Popper
