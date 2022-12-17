@@ -106,17 +106,14 @@
   (lambda ()
     (setq exwm-input-prefix-keys
           '(?\C-x
-            ;; ?\C-u
+            ?\C-u
             ?\C-h
             ?\M-x
             ?\s-`
             ?\M-`
             ?\M-&
             ?\M-:
-            ?\C-\\
-            ;; ?\C-\M-j  ;; Buffer list
-            ;; ?\C-\
-            ))  ;; Ctrl+Space
+            ?\C-\\))
 
     ;; Ctrl+Q will enable the next key to be sent directly
     (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
@@ -213,7 +210,16 @@
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
-(display-battery-mode 1)
+
+;; show battery on laptop
+(require 'battery)
+(setq have-battery-status-p
+      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+        (and perc-charged
+             (not (zerop (string-to-number (cdr perc-charged)))))))
+(if (and have-battery-status-p
+         tab-bar-show)
+    (display-battery-mode 1))
 
 ;; keycast
 (use-package keycast
