@@ -88,7 +88,16 @@
    ;; show buffer in all workspace
    exwm-workspace-show-all-buffers nil
    ;; able to move to buffer in inactive space
-   exwm-layout-show-all-buffers nil)
+   exwm-layout-show-all-buffers nil
+   ;; enable tab-bar
+   tab-bar-show t
+   tab-bar-format '(tab-bar-separator
+                    zw/tab-bar-format-menu-bar
+                    tab-bar-separator
+                    zw/tab-bar-format-file-path
+                    tab-bar-format-align-right
+                    zw/tab-bar-format-function-def
+                    tab-bar-separator))
 
   ;; use ibus-rime for X11 apps
   (setenv "GTK_IM_MODULE" "ibus")
