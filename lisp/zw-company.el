@@ -60,8 +60,7 @@
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
-        company-posframe-show-indicator t
-        company-posframe-font (face-attribute 'fixed-pitch :family))
+        company-posframe-show-indicator t)
   ;; enable company in minibuffer
   (defun company-enable-in-minibuffer ()
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
