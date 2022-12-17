@@ -70,7 +70,7 @@
   (exwm/run-in-background "nm-applet")
   (exwm/run-in-background "pasystray")
   (exwm/run-in-background "udiskie --no-automount -t")
-  (exwm/run-in-background "ibus-daemon -drxR")
+  ;; (exwm/run-in-background "ibus-daemon -drxR")
   (exwm/run-in-background "blueman-applet")
   )
 
