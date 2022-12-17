@@ -5,8 +5,8 @@ xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi
 
 
 # Run the screen compositor
-# picom &
-picom --config  ~/.config/picom.conf -b
+picom &
+# picom --config  ~/.config/picom.conf -b
 
 # Enable screen locking on suspend
 # xscreensaver --no-splash &

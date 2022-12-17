@@ -1,5 +1,15 @@
-clear lock
-clear control
-!keycode 66 = Control_L
-add control = Control_L
-add Lock = Control_R
+! swap ctrl caps_lock
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+! swap alt and super
+remove mod1 = Alt_L
+remove mod4 = Super_L
+keycode 133 = Alt_L
+keycode 64 = Super_L
+add mod1 = Alt_L
+add mod4 = Super_L
