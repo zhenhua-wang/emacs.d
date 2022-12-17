@@ -57,7 +57,6 @@
 ;; This function should be used only after configuring autorandr!
 (defun exwm/update-displays ()
   (exwm/run-in-background "autorandr --change --force")
-  (exwm/set-wallpaper)
   (message "Display config: %s"
            (string-trim (shell-command-to-string "autorandr --current"))))
 
@@ -91,6 +90,7 @@
    exwm-layout-show-all-buffers nil
    )
   :config
+  (require 'exwm)
   ;; When EXWM starts up, do some extra confifuration
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
@@ -110,6 +110,10 @@
 
   ;; set xmodmap
   (start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
+
+  ;; Set the screen resolution (update this to be the correct resolution for your screen!)
+  (require 'exwm-randr)
+  (exwm-randr-enable)
 
   ;; Load the system tray before exwm-init
   (require 'exwm-systemtray)
