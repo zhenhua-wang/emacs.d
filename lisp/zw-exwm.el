@@ -89,7 +89,7 @@
    ;; show buffer in all workspace
    exwm-workspace-show-all-buffers nil
    ;; able to move to buffer in inactive space
-   exwm-layout-show-all-buffers nil
+   exwm-layout-show-all-buffers nil)
 
   ;; use ibus-rime for X11 apps
   (setenv "GTK_IM_MODULE" "ibus")
