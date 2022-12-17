@@ -223,6 +223,8 @@
   (keycast-tab-bar-mode))
 
 ;; display time and battery in tab-bar
+(setq tab-bar-show t)
+(tab-bar-mode 1)
 (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 (add-to-list 'tab-bar-format 'tab-bar-separator 'append)
