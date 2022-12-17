@@ -71,8 +71,8 @@
   (exwm/run-in-background "nm-applet")
   (exwm/run-in-background "pasystray")
   (exwm/run-in-background "udiskie --no-automount -t")
-  ;; BUG: not sure why this crashes xmodmap
-  ;; (exwm/run-in-background "ibus-daemon -drxR")
+  ;; set ibus to use "system keyboard layout" in advanced setting
+  (exwm/run-in-background "ibus-daemon -drxR")
   (exwm/run-in-background "blueman-applet")
   )
 
