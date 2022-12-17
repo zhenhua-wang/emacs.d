@@ -3,6 +3,9 @@
 xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
 
+# load xmodmap
+xmodmap ~/.emacs.d/exwm/Xmodmap
+
 # Run the screen compositor
 picom &
 # picom --config  ~/.config/picom.conf -b
@@ -15,9 +18,6 @@ picom &
 # set current emacs as editor if being prompted
 export VISUAL=emacsclient
 export EDITOR="$VISUAL"
-
-# start polybar wth theme
-# bash ~/.config/polybar/launch.sh --material
 
 # Fire it up
 # exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/zw-exwm.el
