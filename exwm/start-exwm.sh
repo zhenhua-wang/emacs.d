@@ -3,9 +3,6 @@
 xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
 
-# set xmodmap
-xmodmap ~/.emacs.d/exwm/Xmodmap
-
 # Run the screen compositor
 picom &
 # picom --config  ~/.config/picom.conf -b

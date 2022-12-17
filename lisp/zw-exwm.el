@@ -90,6 +90,12 @@
    ;; able to move to buffer in inactive space
    exwm-layout-show-all-buffers nil)
 
+  ;; use ibus-rime for X11 apps
+  (setenv "GTK_IM_MODULE" "ibus")
+  (setenv "QT_IM_MODULE" "ibus")
+  (setenv "XMODIFIERS" "@im=ibus")
+  (setenv "LC_CTYPE" "zh_CN.UTF-8")
+
   ;; When EXWM starts up, do some extra confifuration
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
@@ -115,7 +121,10 @@
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
 
-  (exwm-enable))
+  (exwm-enable)
+
+  ;; set xmodmap
+  (call-process-shell-command "xmodmap ~/.emacs.d/exwm/Xmodmap" nil 0))
 
 ;; These keys should always pass through to Emacs
 (eval-after-load 'exwm
