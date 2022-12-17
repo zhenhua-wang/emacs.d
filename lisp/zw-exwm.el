@@ -158,6 +158,11 @@
                           (interactive)
                           (call-process-shell-command "rofi -show")))
 
+            ;; tab bar
+            ([?\s-1] . zw/tab-switch)
+            ([?\s-9] . tab-new)
+            ([?\s-0] . tab-close)
+
             ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
             ,@(mapcar (lambda (i)
                         `(,(kbd (format "M-s-%d" i)) .
