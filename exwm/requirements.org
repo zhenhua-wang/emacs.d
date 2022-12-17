@@ -6,6 +6,7 @@
 
 #+begin_src sh
 sudo ln -f ~/.emacs.d/exwm/EXWM.desktop /usr/share/xsessions/EXWM.desktop
+yay -S picom
 yay -S dunst
 yay -S network-manager-applet
 yay -S pasystray
