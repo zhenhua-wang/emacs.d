@@ -129,7 +129,8 @@
                                zw/tab-bar-format-file-path
                                tab-bar-format-align-right
                                ;; zw/tab-bar-format-function-def
-                               tab-bar-separator))
+                               ;; tab-bar-separator
+                               ))
 
 ;; enable tab-bar
 (add-hook 'after-init-hook #'tab-bar-mode)
