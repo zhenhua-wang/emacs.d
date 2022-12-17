@@ -1,0 +1,18 @@
+#+title: EXWM requirements
+#+author: Zhenhua Wang
+#+SETUPFILE: ~/.emacs.d/OrgFiles/htmlTemplates/white_clean.theme
+#+OPTIONS: num:nil toc:nil
+-----
+
+#+begin_src sh
+yay -S dunst
+yay -S network-manager-applet
+yay -S pasystray
+yay -S udiskie
+yay -S blueman
+# set ibus to use "system keyboard layout" in advanced setting,
+# otherwise ibus would override xmodmap
+yay -S ibus
+yay -S brightnessctl
+yay -S alsa-utils
+#+end_src
