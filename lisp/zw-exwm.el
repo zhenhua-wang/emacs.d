@@ -62,7 +62,7 @@
    ;; Automatically send the mouse cursor to the selected workspace's display
    exwm-workspace-warp-cursor t
    ;; Set the default number of workspaces
-   exwm-workspace-number 6
+   exwm-workspace-number 1
    ;; show buffer in all workspace
    exwm-workspace-show-all-buffers nil
    ;; able to move to buffer in inactive space
