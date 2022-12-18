@@ -14,7 +14,7 @@ An emacs config tailored for statistician and data scientist.
 # Prerequisite
 
 -   emacs-29
--   Inconsolata: https://fonts.google.com/download?family=Inconsolata
+-   Roboto Mono: https://fonts.google.com/download?family=Roboto%20Mono
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 -   EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
 
