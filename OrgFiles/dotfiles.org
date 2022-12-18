@@ -78,10 +78,10 @@ configuration {
   display-drun:        " ";
   display-combi:       "ROFI ";
   display-window:      " ";
-  combi-modi: "window,drun";
+  combi-modi: "window,drun,power-menu:rofi-power-menu";
   drun-display-format: "{icon} {name}";
   font: "JetBrainsMono Nerd Font 24";
-  modi: "combi,power-menu:rofi-power-menu";
+  modi: "combi";
   matching: "fuzzy";
   show-icons: true;
   sidebar-mode: true;
