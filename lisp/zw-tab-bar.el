@@ -16,11 +16,6 @@
   "Default face for active tab-bar"
   :group 'zw/tab-bar)
 
-(defface zw/tab-bar-battery
-  `((t (:inherit zw/tab-bar-menu-bar)))
-  "Default face for active tab-bar"
-  :group 'zw/tab-bar)
-
 (defface zw/tab-bar-tab-selected
   `((t (:inherit zw/tab-bar-default-selected)))
   "Default face for active tab-bar"
@@ -42,10 +37,6 @@
 
 (defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
-
-(defun zw/tab-bar-format-battery ()
-  `((global menu-item ,(propertize battery-mode-line-string
-                                   'face 'zw/tab-bar-battery) ignore)))
 
 ;; show menu
 (defun zw/tab-bar-format-menu-bar ()
