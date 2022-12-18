@@ -144,6 +144,9 @@
           ([?\s-9] . ,(kbd "M-9"))
           ;; text edit
           ([?\s-a] . ,(kbd "C-a"))
+          ([?\s-s] . ,(kbd "C-s"))
+          ([?\s-z] . ,(kbd "C-z"))
+          ([?\s-Z] . ,(kbd "C-Z"))
           ([?\s-x] . ,(kbd "C-x"))
           ([?\s-c] . ,(kbd "C-c"))
           ([?\s-v] . ,(kbd "C-v"))
