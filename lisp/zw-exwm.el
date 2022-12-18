@@ -104,6 +104,7 @@
 ;; These keys should always pass through to Emacs
 (eval-after-load 'exwm
   (lambda ()
+    ;; exwm prefix keys
     (setq exwm-input-prefix-keys
           '(?\C-x
             ?\C-u
@@ -114,6 +115,29 @@
             ?\M-&
             ?\M-:
             ?\C-\\))
+
+    ;; simulate keys in x windows
+    (setq exwm-input-simulation-keys
+          `(([?\C-b] . ,(kbd "<left>"))
+            ([?\C-B] . ,(kbd "C-<left>"))
+            ([?\C-f] . ,(kbd "<right>"))
+            ([?\C-F] . ,(kbd "C-<right>"))
+            ([?\C-p] . ,(kbd "<up>"))
+            ([?\C-n] . ,(kbd "<down>"))
+            ([?\C-a] . ,(kbd "<home>"))
+            ([?\C-e] . ,(kbd "<end>"))
+            ;; q and w are convenient if Caps Lock key is Hyper key
+            ([?\C-q] . ,(kbd "<prior>"))
+            ([?\C-w] . ,(kbd "<next>"))
+            ([?\C-d] . ,(kbd "<delete>"))
+            ([?\C-k] . ,(kbd "S-<end> <delete>"))
+            ;; text edit
+            ([?\s-a] . ,(kbd "C-a"))
+            ([?\s-x] . ,(kbd "C-x"))
+            ([?\s-c] . ,(kbd "C-c"))
+            ([?\s-v] . ,(kbd "C-v"))
+            ;; search
+            ([?\s-f] . ,(kbd "C-f"))))
 
     ;; Ctrl+Q will enable the next key to be sent directly
     (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
