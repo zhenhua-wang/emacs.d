@@ -215,5 +215,8 @@ map cmd+v       paste_from_clipboard
 #+begin_src conf
 [global]
     font = JetBrains Mono Nerd Font 12
+    mouse_left_click = close_current
+    mouse_middle_click = do_action
+    mouse_right_click = close_all
 #+end_src
 
