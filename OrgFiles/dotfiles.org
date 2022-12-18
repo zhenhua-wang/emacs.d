@@ -53,9 +53,10 @@ configuration {
   combi-modi: "window,drun";
   drun-display-format: "{icon} {name}";
   font: "JetBrainsMono Nerd Font 24";
-  modi: "combi,power-menu:rofi-power-menu,filebrowser";
+  modi: "combi,power-menu:rofi-power-menu";
   matching: "fuzzy";
   show-icons: true;
+  sidebar-mode: true;
   kb-mode-next: "super+Tab";
   kb-mode-previous: "super+shift+Tab";
 }
