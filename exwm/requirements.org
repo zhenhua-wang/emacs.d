@@ -13,6 +13,7 @@ yay -S pasystray
 yay -S udiskie
 yay -S blueman
 yay -S rofi
+yay -S feh
 # set ibus to use "system keyboard layout" in advanced setting,
 # otherwise ibus would override xmodmap
 yay -S ibus

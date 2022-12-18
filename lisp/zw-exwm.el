@@ -52,6 +52,13 @@
   ;; set ibus to use "system keyboard layout" in advanced setting
   (exwm/run-in-background "ibus-daemon -drxR"))
 
+(defun exwm/set-wallpaper ()
+  (interactive)
+  (when (not (file-exists-p "~/.cache/emacs/wallpaper.png"))
+    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
+  (start-process-shell-command
+   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
+
 (use-package exwm
   :config
   (require 'exwm)
@@ -88,6 +95,10 @@
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
+
+  ;; set wallpaper
+  (push '(alpha-background . 90) default-frame-alist)
+  (exwm/set-wallpaper)
 
   ;; Load the system tray before exwm-init
   (require 'exwm-systemtray)
