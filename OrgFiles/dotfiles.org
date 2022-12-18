@@ -78,7 +78,7 @@ configuration {
   display-drun:        " ";
   display-combi:       "ROFI ";
   display-window:      "⮼ ";
-  combi-modi: "window,drun,power-menu:rofi-power-menu";
+  combi-modi: "window,drun,run";
   drun-display-format: "{icon} {name}";
   font: "JetBrainsMono Nerd Font 24";
   modi: "combi";
