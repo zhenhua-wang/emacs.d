@@ -154,6 +154,13 @@
           ;; search
           (,(kbd "s-f") . ,(kbd "C-f"))))
 
+  ;; disable simulate keys in kitty
+  (add-hook 'exwm-manage-finish-hook
+            (lambda ()
+              (when (and exwm-class-name
+                         (string= exwm-class-name "kitty"))
+                (exwm-input-set-local-simulation-keys nil))))
+
   ;; Ctrl+Q will enable the next key to be sent directly
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
