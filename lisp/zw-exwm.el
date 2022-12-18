@@ -54,10 +54,9 @@
 
 (defun exwm/set-wallpaper ()
   (interactive)
-  (when (not (file-exists-p "~/.cache/emacs/wallpaper.png"))
-    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
-  (start-process-shell-command
-   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
+  (when (file-exists-p "~/.cache/emacs/wallpaper.png")
+    (start-process-shell-command
+     "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
 (use-package exwm
   :config
