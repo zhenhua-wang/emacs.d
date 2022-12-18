@@ -84,7 +84,7 @@ configuration {
   modi: "combi";
   matching: "fuzzy";
   show-icons: true;
-  sidebar-mode: true;
+  sidebar-mode: false;
   kb-mode-next: "super+space";
   kb-element-next: "super+Tab";
 }
