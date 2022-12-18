@@ -200,7 +200,7 @@
                        (call-process-shell-command "rofi -show window")))
 
           ;; side bar
-          ([?\s-b] . dirvish)
+          ([?\s-b] . project-dired)
 
           ;; tab bar
           ([?\s-1] . zw/tab-switch)
