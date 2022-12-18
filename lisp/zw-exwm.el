@@ -174,7 +174,12 @@
           ([?\s-R] . exwm-reset)
 
           ;;close current buffer
-          ([?\s-q] . kill-this-buffer)
+          ([?\s-q] . (lambda ()
+                       (interactive)
+                       (if exwm-class-name
+                           (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
+                             (kill-this-buffer))
+                         (kill-this-buffer))))
 
           ;; resize window
           ([?\s-}] . enlarge-window-horizontally)
