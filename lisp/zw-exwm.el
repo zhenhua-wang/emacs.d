@@ -101,7 +101,7 @@
 
   (exwm-enable))
 
-;; These keys should always pass through to Emacs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; exwm keymap ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (with-eval-after-load "exwm"
   ;; exwm prefix keys
   (setq exwm-input-prefix-keys
@@ -212,6 +212,7 @@
   (exwm-input-set-key (kbd "s-e") 'vterm)
   (exwm-input-set-key (kbd "s-E") 'multi-vterm))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; desktop environment
 (use-package desktop-environment
   :after exwm
