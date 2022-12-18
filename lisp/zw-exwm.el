@@ -195,6 +195,9 @@
           ([?\s-u] . winner-undo)
           ([?\s-U] . winner-redo)
 
+          ;; update emacs
+          ([f5] . zw/update-emacs-tangle-dotfiles)
+
           ;; web search
           ([?\s-/] . emacs-websearch)
 
