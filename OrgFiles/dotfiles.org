@@ -196,3 +196,14 @@ element-text {
     text-color: inherit;
 }
 #+end_src
+
+* Kitty
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/kitty/kitty.conf" "no")
+#+begin_src conf
+font_family      Roboto Mono
+bold_font        Roboto Mono Bold
+italic_font      Roboto Mono Italic
+bold_italic_font Roboto Mono Bold Italic
+font_size 15.0
+#+end_src
+
