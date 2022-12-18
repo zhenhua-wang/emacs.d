@@ -149,8 +149,4 @@ i.e. windows tiled side-by-side."
   (force-mode-line-update)
   (redraw-display))
 
-(defun zw/run-xmodmap ()
-  (interactive)
-  (async-shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
-
 (provide 'zw-tools)
