@@ -151,6 +151,6 @@ i.e. windows tiled side-by-side."
 
 (defun zw/run-xmodmap ()
   (interactive)
-  (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
+  (async-shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
 (provide 'zw-tools)
