@@ -287,4 +287,8 @@
         pyim-page-length 8)
   (global-set-key (kbd "C-\\") 'toggle-input-method))
 
+(use-package pyim-basedict
+  :config
+  (pyim-basedict-enable))
+
 (provide 'zw-exwm)
