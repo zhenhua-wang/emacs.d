@@ -90,7 +90,6 @@ configuration {
 }
 
  ,* {
-    font:   "Roboto 24";
     bg0:    #212121F2;
     bg1:    #2A2A2A;
     bg2:    #3D3D3D80;
@@ -200,10 +199,10 @@ element-text {
 * Kitty
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/kitty/kitty.conf" "no")
 #+begin_src conf
-font_family      Roboto Mono
-bold_font        Roboto Mono Bold
-italic_font      Roboto Mono Italic
-bold_italic_font Roboto Mono Bold Italic
+font_family      JetBrainsMono Nerd Font
+bold_font        JetBrainsMono Nerd Font Bold
+italic_font      JetBrainsMono Nerd Font Italic
+bold_italic_font JetBrainsMono Nerd Font Bold Italic
 font_size 15.0
 #+end_src
 
