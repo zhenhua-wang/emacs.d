@@ -9,7 +9,8 @@
 options(menu.graphics=FALSE)
 #+end_src
 
-* KDE AutoStart
+* KDE
+** AutoStart
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/launch.sh" "no")
 #+begin_src sh
 # ibus
@@ -18,6 +19,33 @@ export XMODIFIERS=@im=ibus
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
+#+end_src
+
+* EXWM
+** Xresources
+#+HEADER: :tangle (let ((xresources (expand-file-name "Xresources" user-emacs-directory))) (if (file-exists-p xresources) "no" xresources))
+#+begin_src conf
+Xft.dpi:   180
+#+end_src
+
+** Xmodmap
+#+HEADER: :tangle (let ((xmodmap (expand-file-name "Xmodmap" user-emacs-directory))) (if (file-exists-p xmodmap) "no" xmodmap))
+#+begin_src conf
+! swap ctrl caps_lock
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+! swap alt and super
+remove mod1 = Alt_L
+remove mod4 = Super_L
+keycode 133 = Alt_L
+keycode 64 = Super_L
+add mod1 = Alt_L
+add mod4 = Super_L
 #+end_src
 
 * Zathura
@@ -40,7 +68,7 @@ map [presentation] p navigate previous
 map [presentation] n navigate next
 #+end_src
 
-* ROFI
+* Rofi
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {

@@ -1,10 +1,10 @@
 #!/bin/sh
 # Set the screen DPI (uncomment this if needed!)
-xrdb ~/.emacs.d/exwm/Xresources   # set emacs dpi
+xrdb ~/.cache/emacs/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
 
 # load xmodmap
-xmodmap ~/.emacs.d/exwm/Xmodmap
+xmodmap ~/.cache/emacs/Xmodmap
 
 # Run the screen compositor
 picom &
