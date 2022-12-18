@@ -130,6 +130,18 @@
           ([?\C-w] . ,(kbd "<next>"))
           ([?\C-d] . ,(kbd "<delete>"))
           ([?\C-k] . ,(kbd "S-<end> <delete>"))
+          ;; window
+          ([?\s-t] . ,(kbd "C-t"))
+          ([?\s-w] . ,(kbd "C-w"))
+          ([?\s-1] . ,(kbd "M-1"))
+          ([?\s-2] . ,(kbd "M-2"))
+          ([?\s-3] . ,(kbd "M-3"))
+          ([?\s-4] . ,(kbd "M-4"))
+          ([?\s-5] . ,(kbd "M-5"))
+          ([?\s-6] . ,(kbd "M-6"))
+          ([?\s-7] . ,(kbd "M-7"))
+          ([?\s-8] . ,(kbd "M-8"))
+          ([?\s-9] . ,(kbd "M-9"))
           ;; text edit
           ([?\s-a] . ,(kbd "C-a"))
           ([?\s-x] . ,(kbd "C-x"))
