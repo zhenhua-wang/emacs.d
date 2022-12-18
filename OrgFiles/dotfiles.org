@@ -74,9 +74,9 @@ configuration {
 }
 #window {
     location            : center;
-    y-offset            : -200;
+    y-offset            : 0;
     width               : 1200;
-    border-radius       : 8;
+    border-radius       : 0;
     background-color    : @bg-color;
 }
 #mainbox {
