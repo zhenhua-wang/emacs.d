@@ -302,9 +302,16 @@
    'help-echo (concat (buffer-name) " is running...")))
 
 (defun zw/modeline-process ()
-  (concat
-   (string-trim (format-mode-line mode-line-process))
-   " "))
+  (let ((process (string-trim (format-mode-line mode-line-process))))
+    (if (length= process 0)
+        ""
+      (concat process " "))))
+
+(defun zw/modeline-input-method ()
+  (let ((method (string-trim (or current-input-method-title ""))))
+    (if (length= method 0)
+        ""
+      (concat method " "))))
 
 (defun zw/modeline-middle-space ()
   (propertize
@@ -315,6 +322,8 @@
 
 (defun zw/modeline-rhs ()
   (concat
+   ;; input method
+   (zw/modeline-input-method)
    ;; process
    (zw/modeline-process)
    ;; version control
@@ -373,6 +382,8 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
+                           ;; input method
+                           '(:eval (zw/modeline-input-method))
                            ;; add modeline process
                            '(:eval (zw/modeline-process))
                            ;; env
