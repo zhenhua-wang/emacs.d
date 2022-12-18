@@ -68,12 +68,6 @@
    ;; able to move to buffer in inactive space
    exwm-layout-show-all-buffers nil)
 
-  ;; use ibus-rime for X11 apps
-  (setenv "GTK_IM_MODULE" "ibus")
-  (setenv "QT_IM_MODULE" "ibus")
-  (setenv "XMODIFIERS" "@im=ibus")
-  (setenv "LC_CTYPE" "zh_CN.UTF-8")
-
   ;; When EXWM starts up, do some extra confifuration
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
@@ -98,6 +92,20 @@
   ;; Load the system tray before exwm-init
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
+
+  ;; input method
+  ;; use ibus-rime for X11 apps
+  (setenv "GTK_IM_MODULE" "ibus")
+  (setenv "QT_IM_MODULE" "ibus")
+  (setenv "XMODIFIERS" "@im=ibus")
+  (setenv "LC_CTYPE" "zh_CN.UTF-8")
+  ;; (require 'exwm-xim)
+  ;; (exwm-xim-enable)
+  ;; (push ?\C-\\ exwm-input-prefix-keys)
+  ;; (setenv "GTK_IM_MODULE" "xim")
+  ;; (setenv "QT_IM_MODULE" "xim")
+  ;; (setenv "XMODIFIERS" "@im=exwm-xim")
+  ;; (setenv "CLUTTER_IM_MODULE" "xim")
 
   (exwm-enable))
 
@@ -268,5 +276,13 @@
   (setq keycast-tab-bar-format "%k%c%R "
         keycast-tab-bar-minimal-width 0)
   (keycast-tab-bar-mode))
+
+;; input
+(use-package pyim
+  :config
+  (setq default-input-method "pyim")
+  (setq pyim-page-tooltip 'posframe)
+  (setq pyim-default-scheme 'quanpin)
+  (global-set-key (kbd "C-\\") 'toggle-input-method))
 
 (provide 'zw-exwm)
