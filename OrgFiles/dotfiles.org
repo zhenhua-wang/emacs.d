@@ -210,3 +210,10 @@ map cmd+c       copy_to_clipboard
 map cmd+v       paste_from_clipboard
 #+end_src
 
+* Dunst
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/dunst/dunstrc" "no")
+#+begin_src conf
+[global]
+    font = JetBrains Mono Nerd Font 12
+#+end_src
+
