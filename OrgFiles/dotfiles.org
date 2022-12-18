@@ -48,7 +48,7 @@ configuration {
   display-filebrowser: " ";
   display-ssh:         " ";
   display-drun:        " ";
-  display-combi:       " ";
+  display-combi:       "ROFI ";
   display-window:      " ";
   combi-modi: "window,drun";
   drun-display-format: "{icon} {name}";
