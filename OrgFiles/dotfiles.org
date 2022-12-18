@@ -62,103 +62,91 @@ configuration {
 }
 
  ,* {
-    bg-color: #242424E6;
-    fg-color: #DEDEDE;
-    tooltip-fg-color: #7E7E7E;
-    selected-bg-color: #0860f2E6;
-    selected-fg-color: #FFFFFF;
-    insensitive-bg-color: #7E7E7E80;
-    insensitive-fg-color: #7E7E7E;
+    font:   "Roboto 24";
+    bg0:    #212121F2;
+    bg1:    #2A2A2A;
+    bg2:    #3D3D3D80;
+    bg3:    #1A73E8F2;
+    fg0:    #E6E6E6;
+    fg1:    #FFFFFF;
+    fg2:    #969696;
+    fg3:    #3D3D3D;
+    background-color:   transparent;
+    text-color:         @fg0;
+    margin:     0px;
+    padding:    0px;
+    spacing:    0px;
+}
 
-    text-color          : @fg-color;
+window {
+    location:       center;
+    width:          1200;
+    border-radius:  8px;
+    background-color:   @bg0;
 }
-#window {
-    location            : center;
-    y-offset            : 0;
-    width               : 1200;
-    border-radius       : 0;
-    background-color    : @bg-color;
+
+mainbox {
+    padding:    12px;
 }
-#mainbox {
-    spacing             : 0;
-    background-color    : transparent;
+
+inputbar {
+    background-color:   @bg1;
+    border-color:       @bg3;
+    border:         2px;
+    border-radius:  16px;
+    padding:    8px 16px;
+    spacing:    8px;
+    children:   [ prompt, entry ];
 }
-#inputbar {
-    font                : "JetBrainsMono Nerd Font 24";
-    background-color    : transparent;
+
+prompt {
+    text-color: @fg2;
 }
-#prompt {
-    text-color          : @tooltip-fg-color;
-    font                : inherit;
-    background-color    : inherit;
-    margin              : 16 16 24 20;
+
+entry {
+    placeholder:        "Search";
+    placeholder-color:  @fg3;
 }
-#entry {
-    font                : inherit;
-    background-color    : inherit;
-    placeholder         : "Search";
-    placeholder-color   : @insensitive-fg-color;
-    margin              : 11 0;
-    text-color          : @tooltip-fg-color;
+
+message {
+    margin:             12px 0 0;
+    border-radius:      16px;
+    border-color:       @bg2;
+    background-color:   @bg2;
 }
-#case-indicator {
-    margin              : 8 8 8 24;
-    font                : inherit;
-    background-color    : inherit;
+
+textbox {
+    padding:    8px 24px;
 }
-#message {
-    padding             : 0;
-    border              : 2 0 0;
-    border-color        : @insensitive-bg-color;
-    background-color    : @insensitive-bg-color;
+
+listview {
+    background-color:   transparent;
+    margin:     12px 0 0;
+    lines:      8;
+    columns:    1;
+    fixed-height: false;
 }
-#textbox {
-    padding             : 8 24;
-    background-color    : inherit;
+
+element {
+    padding:        8px 16px;
+    spacing:        8px;
+    border-radius:  16px;
 }
-#listview {
-    lines               : 10;
-    columns             : 1;
-    fixed-height        : false;
-    spacing             : 0;
-    scrollbar           : false;
-    background-color    : transparent;
-    border              : 2 0 0;
-    border-color        : @insensitive-bg-color;
+
+element normal active {
+    text-color: @bg3;
 }
-#element {
-    padding             : 8 24;
-    background-color    : transparent;
+
+element selected normal, element selected active {
+    background-color:   @bg3;
 }
-#element normal normal {
-    background-color    : inherit;
-    text-color          : inherit;
+
+element-icon {
+    size:           1em;
+    vertical-align: 0.5;
 }
-element.alternate.normal {
-    background-color    : inherit;
-    text-color          : inherit;
-}
-#element normal urgent {
-}
-#element normal active {
-    text-color          : @selected-bg-color;
-}
-#element selected normal {
-    background-color    : @selected-bg-color;
-    text-color          : @selected-fg-color;
-}
-#element selected urgent {
-}
-#element selected active {
-    background-color    : @selected-bg-color;
-    text-color          : @selected-fg-color;
-}
-#element-icon {
-    size                : 1em;
-    margin              : 0 16 0 0;
-}
-element-text, element-icon {
-    background-color: inherit;
-    text-color:       inherit;
+
+element-text {
+    text-color: inherit;
 }
 #+end_src

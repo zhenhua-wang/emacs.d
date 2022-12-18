@@ -165,8 +165,6 @@
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-R] . exwm-reset)
 
-          ;; switch workspace
-          ([s-tab] . exwm-workspace-switch)
           ;;close current buffer
           ([?\s-q] . kill-this-buffer)
 
@@ -195,6 +193,11 @@
           ([?\s-\ ] . (lambda ()
                         (interactive)
                         (call-process-shell-command "rofi -show")))
+
+          ;; switch window
+          ([s-tab] . (lambda ()
+                       (interactive)
+                       (call-process-shell-command "rofi -show window")))
 
           ;; side bar
           ([?\s-b] . dirvish-side)
