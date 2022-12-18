@@ -56,6 +56,9 @@
   (interactive)
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
     (push '(alpha-background . 90) default-frame-alist)
+    (with-current-buffer "*scratch*"
+      (setq-local mode-line-format nil)
+      (display-line-numbers-mode 0))
     (start-process-shell-command
      "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
