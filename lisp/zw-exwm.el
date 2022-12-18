@@ -315,6 +315,6 @@
 ;; run xmodmap
 (defun zw/run-xmodmap ()
   (interactive)
-  (async-shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
+  (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
 (provide 'zw-exwm)
