@@ -41,7 +41,7 @@
 ;; initialization
 (defun exwm/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
-  (exwm-workspace-switch-create 1)
+  (exwm-workspace-switch-create 0)
 
   ;; Launch apps that will run in the background
   (exwm/run-in-background "dunst")
@@ -150,8 +150,8 @@
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-R] . exwm-reset)
 
-          ;; switch buffer
-          ;; ([s-tab] . switch-to-buffer)
+          ;; switch workspace
+          ([s-tab] . exwm-workspace-switch)
           ;;close current buffer
           ([?\s-q] . kill-this-buffer)
 
