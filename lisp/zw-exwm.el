@@ -102,104 +102,103 @@
   (exwm-enable))
 
 ;; These keys should always pass through to Emacs
-(eval-after-load 'exwm
-  (lambda ()
-    ;; exwm prefix keys
-    (setq exwm-input-prefix-keys
-          '(?\C-x
-            ?\C-u
-            ?\C-h
-            ?\M-x
-            ?\s-`
-            ?\M-`
-            ?\M-&
-            ?\M-:
-            ?\C-\\))
+(with-eval-after-load "exwm"
+  ;; exwm prefix keys
+  (setq exwm-input-prefix-keys
+        '(?\C-x
+          ?\C-u
+          ?\C-h
+          ?\M-x
+          ?\s-`
+          ?\M-`
+          ?\M-&
+          ?\M-:
+          ?\C-\\))
 
-    ;; simulate keys in x windows
-    (setq exwm-input-simulation-keys
-          `(([?\C-b] . ,(kbd "<left>"))
-            ([?\C-B] . ,(kbd "C-<left>"))
-            ([?\C-f] . ,(kbd "<right>"))
-            ([?\C-F] . ,(kbd "C-<right>"))
-            ([?\C-p] . ,(kbd "<up>"))
-            ([?\C-n] . ,(kbd "<down>"))
-            ([?\C-a] . ,(kbd "<home>"))
-            ([?\C-e] . ,(kbd "<end>"))
-            ;; q and w are convenient if Caps Lock key is Hyper key
-            ([?\C-q] . ,(kbd "<prior>"))
-            ([?\C-w] . ,(kbd "<next>"))
-            ([?\C-d] . ,(kbd "<delete>"))
-            ([?\C-k] . ,(kbd "S-<end> <delete>"))
-            ;; text edit
-            ([?\s-a] . ,(kbd "C-a"))
-            ([?\s-x] . ,(kbd "C-x"))
-            ([?\s-c] . ,(kbd "C-c"))
-            ([?\s-v] . ,(kbd "C-v"))
-            ;; search
-            ([?\s-f] . ,(kbd "C-f"))))
+  ;; simulate keys in x windows
+  (setq exwm-input-simulation-keys
+        `(([?\C-b] . ,(kbd "<left>"))
+          ([?\C-B] . ,(kbd "C-<left>"))
+          ([?\C-f] . ,(kbd "<right>"))
+          ([?\C-F] . ,(kbd "C-<right>"))
+          ([?\C-p] . ,(kbd "<up>"))
+          ([?\C-n] . ,(kbd "<down>"))
+          ([?\C-a] . ,(kbd "<home>"))
+          ([?\C-e] . ,(kbd "<end>"))
+          ;; q and w are convenient if Caps Lock key is Hyper key
+          ([?\C-q] . ,(kbd "<prior>"))
+          ([?\C-w] . ,(kbd "<next>"))
+          ([?\C-d] . ,(kbd "<delete>"))
+          ([?\C-k] . ,(kbd "S-<end> <delete>"))
+          ;; text edit
+          ([?\s-a] . ,(kbd "C-a"))
+          ([?\s-x] . ,(kbd "C-x"))
+          ([?\s-c] . ,(kbd "C-c"))
+          ([?\s-v] . ,(kbd "C-v"))
+          ;; search
+          ([?\s-f] . ,(kbd "C-f"))))
 
-    ;; Ctrl+Q will enable the next key to be sent directly
-    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+  ;; Ctrl+Q will enable the next key to be sent directly
+  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
-    ;; send C-c to clients
-    (define-key exwm-mode-map (kbd "C-c") nil)
+  ;; send C-c to clients
+  (define-key exwm-mode-map (kbd "C-c") nil)
 
-    ;; Set up global key bindings.
-    (setq exwm-input-global-keys
-          `(
-            ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-            ([?\s-R] . exwm-reset)
+  ;; Set up global key bindings.
+  (setq exwm-input-global-keys
+        `(
+          ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+          ([?\s-R] . exwm-reset)
 
-            ;; switch buffer
-            ;; ([s-tab] . switch-to-buffer)
-            ;;close current buffer
-            ([?\s-q] . kill-this-buffer)
+          ;; switch buffer
+          ;; ([s-tab] . switch-to-buffer)
+          ;;close current buffer
+          ([?\s-q] . kill-this-buffer)
 
-            ;; resize window
-            ([?\s-}] . enlarge-window-horizontally)
-            ([?\s-{] . shrink-window-horizontally)
-            ([?\s-^] . enlarge-window)
-            ;; Move between windows
-            ([s-left] . windmove-left)
-            ([s-right] . windmove-right)
-            ([s-up] . windmove-up)
-            ([s-down] . windmove-down)
-            ;; winner undo/redo
-            ([?\s-u] . winner-undo)
-            ([?\s-U] . winner-redo)
+          ;; resize window
+          ([?\s-}] . enlarge-window-horizontally)
+          ([?\s-{] . shrink-window-horizontally)
+          ([?\s-^] . enlarge-window)
+          ;; Move between windows
+          ([s-left] . windmove-left)
+          ([s-right] . windmove-right)
+          ([s-up] . windmove-up)
+          ([s-down] . windmove-down)
+          ;; winner undo/redo
+          ([?\s-u] . winner-undo)
+          ([?\s-U] . winner-redo)
 
-            ;; web search
-            ([?\s-/] . emacs-websearch)
+          ;; web search
+          ([?\s-/] . emacs-websearch)
 
-            ;; Launch applications via shell command
-            ([?\s-&] . (lambda (command)
-                         (interactive (list (read-shell-command "$ ")))
-                         (start-process-shell-command command nil command)))
+          ;; Launch applications via shell command
+          ([?\s-&] . (lambda (command)
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))
 
-            ;; rofi
-            ([?\s-\ ] . (lambda ()
+          ;; rofi
+          ([?\s-\ ] . (lambda ()
+                        (interactive)
+                        (call-process-shell-command "rofi -show")))
+
+          ;; side bar
+          ([?\s-b] . dirvish-side)
+
+          ;; tab bar
+          ([?\s-1] . zw/tab-switch)
+          ([?\s-9] . tab-new)
+          ([?\s-0] . tab-close)
+
+          ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "M-s-%d" i)) .
+                        (lambda ()
                           (interactive)
-                          (call-process-shell-command "rofi -show")))
+                          (exwm-workspace-switch-create ,i))))
+                    (number-sequence 0 9))))
 
-            ;; side bar
-            ([?\s-b] . dirvish-side)
-
-            ;; tab bar
-            ([?\s-1] . zw/tab-switch)
-            ([?\s-9] . tab-new)
-            ([?\s-0] . tab-close)
-
-            ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
-            ,@(mapcar (lambda (i)
-                        `(,(kbd (format "M-s-%d" i)) .
-                          (lambda ()
-                            (interactive)
-                            (exwm-workspace-switch-create ,i))))
-                      (number-sequence 0 9))))
-
-    (exwm-input-set-key (kbd "s-e") 'vterm)
-    (exwm-input-set-key (kbd "s-E") 'multi-vterm)))
+  (exwm-input-set-key (kbd "s-e") 'vterm)
+  (exwm-input-set-key (kbd "s-E") 'multi-vterm))
 
 ;; desktop environment
 (use-package desktop-environment
