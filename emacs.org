@@ -693,7 +693,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq dirvish-subtree-always-show-state t
         dirvish-side-width 25
         dirvish-use-mode-line nil
-        dirvish-use-header-line t
+        dirvish-use-header-line nil
         dirvish-header-line-height 20
         dirvish-side-window-parameters nil
         dirvish-attributes
