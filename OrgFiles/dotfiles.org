@@ -9,7 +9,7 @@
 options(menu.graphics=FALSE)
 #+end_src
 
-* AutoStart
+* KDE AutoStart
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/plasma-workspace/env/launch.sh" "no")
 #+begin_src sh
 # ibus
@@ -40,7 +40,7 @@ map [presentation] p navigate previous
 map [presentation] n navigate next
 #+end_src
 
-* ROFI -- app drawer
+* ROFI
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
