@@ -139,6 +139,7 @@ prompt {
 }
 
 entry {
+    text-color: @fg2;
     placeholder:        "Search";
     placeholder-color:  @fg3;
 }
