@@ -55,6 +55,7 @@
 (defun exwm/set-wallpaper ()
   (interactive)
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
+    (push '(alpha-background . 90) default-frame-alist)
     (start-process-shell-command
      "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
@@ -96,7 +97,6 @@
   (exwm-randr-enable)
 
   ;; set wallpaper
-  (push '(alpha-background . 90) default-frame-alist)
   (exwm/set-wallpaper)
 
   ;; Load the system tray before exwm-init
