@@ -133,6 +133,16 @@ element {
     border-radius:  16px;
 }
 
+#element.normal.normal {
+   background-color: @bg0;
+   text-color: @fg0;
+}
+
+#element.alternate.normal {
+   background-color: @bg0;
+   text-color: @fg0;
+}
+
 element normal active {
     text-color: @bg3;
 }
