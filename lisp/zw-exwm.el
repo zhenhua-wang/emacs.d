@@ -119,6 +119,8 @@
   (setq exwm-input-simulation-keys
         `((,(kbd "C-a") . ,(kbd "<home>"))
           (,(kbd "C-e") . ,(kbd "<end>"))
+          (,(kbd "C-S-a") . ,(kbd "S-<home>"))
+          (,(kbd "C-S-e") . ,(kbd "S-<end>"))
           ;; window
           (,(kbd "s-t") . ,(kbd "C-t"))
           (,(kbd "s-w") . ,(kbd "C-w"))
