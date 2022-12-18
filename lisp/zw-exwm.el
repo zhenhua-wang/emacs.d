@@ -117,18 +117,8 @@
 
   ;; simulate keys in x windows
   (setq exwm-input-simulation-keys
-        `((,(kbd "C-b") . ,(kbd "<left>"))
-          (,(kbd "C-B") . ,(kbd "C-<left>"))
-          (,(kbd "C-f") . ,(kbd "<right>"))
-          (,(kbd "C-F") . ,(kbd "C-<right>"))
-          (,(kbd "C-p") . ,(kbd "<up>"))
-          (,(kbd "C-n") . ,(kbd "<down>"))
-          (,(kbd "C-a") . ,(kbd "<home>"))
+        `((,(kbd "C-a") . ,(kbd "<home>"))
           (,(kbd "C-e") . ,(kbd "<end>"))
-          (,(kbd "C-q") . ,(kbd "<prior>"))
-          (,(kbd "C-w") . ,(kbd "<next>"))
-          (,(kbd "C-d") . ,(kbd "<delete>"))
-          (,(kbd "C-k") . ,(kbd "S-<end> <delete>"))
           ;; window
           (,(kbd "s-t") . ,(kbd "C-t"))
           (,(kbd "s-w") . ,(kbd "C-w"))
