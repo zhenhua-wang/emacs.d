@@ -55,7 +55,7 @@
 (defun exwm/set-wallpaper ()
   (interactive)
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (push '(alpha-background . 95) default-frame-alist)
+    (push '(alpha-background . 92) default-frame-alist)
     (with-current-buffer "*scratch*"
       ;; (setq-local cursor-type nil
       ;;             mode-line-format nil)
