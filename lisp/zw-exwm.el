@@ -280,12 +280,11 @@
 ;; input
 (use-package pyim
   :config
-  (require 'pyim-basedict) ; 拼音词库设置，五笔用户 *不需要* 此行设置
-  (pyim-basedict-enable)   ; 拼音词库，五笔用户 *不需要* 此行设置
   (setq default-input-method "pyim"
         pyim-page-tooltip 'posframe
         pyim-default-scheme 'quanpin
-        pyim-page-length 5)
+        pyim-page-style 'two-lines
+        pyim-page-length 8)
   (global-set-key (kbd "C-\\") 'toggle-input-method))
 
 (provide 'zw-exwm)
