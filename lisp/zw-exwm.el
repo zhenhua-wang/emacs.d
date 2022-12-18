@@ -172,59 +172,60 @@
   (setq exwm-input-global-keys
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-          ([?\s-R] . exwm-reset)
+          (,(kbd "s-R") . exwm-reset)
 
           ;;close current buffer
-          ([?\s-q] . (lambda ()
-                       (interactive)
-                       (if exwm-class-name
-                           (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
-                             (kill-this-buffer))
-                         (kill-this-buffer))))
+          (,(kbd "s-q") . (lambda ()
+                            (interactive)
+                            (if exwm-class-name
+                                (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
+                                  (kill-this-buffer))
+                              (kill-this-buffer))))
 
           ;; resize window
-          ([?\s-}] . enlarge-window-horizontally)
-          ([?\s-{] . shrink-window-horizontally)
-          ([?\s-^] . enlarge-window)
+          (,(kbd "s-}") . enlarge-window-horizontally)
+          (,(kbd "s-{") . shrink-window-horizontally)
+          (,(kbd "s-^") . enlarge-window)
           ;; Move between windows
-          ([s-left] . windmove-left)
-          ([s-right] . windmove-right)
-          ([s-up] . windmove-up)
-          ([s-down] . windmove-down)
+          (,(kbd "s-<left>") . windmove-left)
+          (,(kbd "s-<right>") . windmove-right)
+          (,(kbd "s-<up>") . windmove-up)
+          (,(kbd "s-<down>") . windmove-down)
           ;; winner undo/redo
-          ([?\s-u] . winner-undo)
-          ([?\s-U] . winner-redo)
+          (,(kbd "s-u") . winner-undo)
+          (,(kbd "s-U") . winner-redo)
 
           ;; update emacs
-          ([f5] . zw/update-emacs-tangle-dotfiles)
+          (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
 
           ;; web search
-          ([?\s-/] . emacs-websearch)
+          (,(kbd "s-/") . emacs-websearch)
 
           ;; Launch applications via shell command
-          ([?\s-&] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command command nil command)))
+          (,(kbd "s-&") . (lambda (command)
+                            (interactive (list (read-shell-command "$ ")))
+                            (start-process-shell-command command nil command)))
 
           ;; rofi
-          ([?\s-\ ] . (lambda ()
-                        (interactive)
-                        (call-process-shell-command "rofi -show")))
+          (,(kbd "s-SPC") . (lambda ()
+                              (interactive)
+                              (call-process-shell-command "rofi -show")))
+          ;; rofi switch window
+          (,(kbd "s-<tab>") . (lambda ()
+                                (interactive)
+                                (call-process-shell-command "rofi -show window")))
 
-          ;; switch window
-          ([s-tab] . (lambda ()
-                       (interactive)
-                       (call-process-shell-command "rofi -show window")))
+          (,(kbd "C-M-;") . magit-status)
 
           ;; side bar
-          ([?\s-b] . dired-jump)
+          (,(kbd "s-b") . dired-jump)
 
           ;; tab bar
-          ([?\s-1] . zw/tab-switch)
-          ([?\s-9] . tab-new)
-          ([?\s-0] . tab-close)
+          (,(kbd "s-1") . zw/tab-switch)
+          (,(kbd "s-9") . tab-new)
+          (,(kbd "s-0") . tab-close)
 
-          ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+          ;; Switch workspace (M-s-num)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "M-s-%d" i)) .
                         (lambda ()
