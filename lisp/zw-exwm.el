@@ -128,6 +128,7 @@
         `((,(kbd "s-r") . ,(kbd "C-r"))
           ;; window
           (,(kbd "s-t") . ,(kbd "C-t"))
+          (,(kbd "s-T") . ,(kbd "C-S-t"))
           (,(kbd "s-w") . ,(kbd "C-w"))
           (,(kbd "s-1") . ,(kbd "M-1"))
           (,(kbd "s-2") . ,(kbd "M-2"))
