@@ -382,8 +382,6 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            ;; is remote file?
                            '(:eval (zw/modeline-remote))
-                           ;; input method
-                           '(:eval (zw/modeline-input-method))
                            ;; add modeline process
                            '(:eval (zw/modeline-process))
                            ;; env
