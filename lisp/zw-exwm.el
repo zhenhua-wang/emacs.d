@@ -146,7 +146,7 @@
           ([?\s-a] . ,(kbd "C-a"))
           ([?\s-s] . ,(kbd "C-s"))
           ([?\s-z] . ,(kbd "C-z"))
-          ([?\s-Z] . ,(kbd "C-Z"))
+          ([?\s-Z] . ,(kbd "C-S-z"))
           ([?\s-x] . ,(kbd "C-x"))
           ([?\s-c] . ,(kbd "C-c"))
           ([?\s-v] . ,(kbd "C-v"))
