@@ -44,14 +44,16 @@ map [presentation] n navigate next
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
-  display-run: " ";
-  display-filebrowser: "  ";
-  display-ssh     : " ";
-  display-drun    : " ";
-  display-window  : " ";
+  display-run:         " ";
+  display-filebrowser: " ";
+  display-ssh:         " ";
+  display-drun:        " ";
+  display-combi:       " ";
+  display-window:      " ";
+  combi-modi: "window,drun";
   drun-display-format: "{icon} {name}";
   font: "JetBrainsMono Nerd Font 24";
-  modi: "drun,power-menu:rofi-power-menu,filebrowser";
+  modi: "combi,power-menu:rofi-power-menu,filebrowser";
   matching: "fuzzy";
   show-icons: true;
   kb-mode-next: "super+Tab";
