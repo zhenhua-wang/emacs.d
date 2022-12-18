@@ -125,10 +125,7 @@
 
   ;; simulate keys in x windows
   (setq exwm-input-simulation-keys
-        `((,(kbd "C-a") . ,(kbd "<home>"))
-          (,(kbd "C-e") . ,(kbd "<end>"))
-          (,(kbd "C-S-a") . ,(kbd "S-<home>"))
-          (,(kbd "C-S-e") . ,(kbd "S-<end>"))
+        `((,(kbd "s-r") . ,(kbd "C-r"))
           ;; window
           (,(kbd "s-t") . ,(kbd "C-t"))
           (,(kbd "s-w") . ,(kbd "C-w"))
@@ -150,6 +147,10 @@
           (,(kbd "s-x") . ,(kbd "C-x"))
           (,(kbd "s-c") . ,(kbd "C-c"))
           (,(kbd "s-v") . ,(kbd "C-v"))
+          (,(kbd "C-a") . ,(kbd "<home>"))
+          (,(kbd "C-e") . ,(kbd "<end>"))
+          (,(kbd "C-S-a") . ,(kbd "S-<home>"))
+          (,(kbd "C-S-e") . ,(kbd "S-<end>"))
           ;; search
           (,(kbd "s-f") . ,(kbd "C-f"))))
 
