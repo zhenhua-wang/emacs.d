@@ -77,7 +77,7 @@ configuration {
   display-ssh:         " ";
   display-drun:        " ";
   display-combi:       "ROFI ";
-  display-window:      " ";
+  display-window:      "⮼ ";
   combi-modi: "window,drun,power-menu:rofi-power-menu";
   drun-display-format: "{icon} {name}";
   font: "JetBrainsMono Nerd Font 24";
