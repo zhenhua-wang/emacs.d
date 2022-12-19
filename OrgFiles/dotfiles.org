@@ -218,3 +218,11 @@ map cmd+v       paste_from_clipboard
     mouse_left_click = do_action
 #+end_src
 
+* Picom
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/picom.conf" "no")
+#+begin_src conf
+fading = true;
+fade-in-step = 0.03;
+fade-out-step = 0.03;
+fade-exclude = ["class_g = 'Rofi'"];
+#+end_src
