@@ -312,6 +312,8 @@
   :config
   (setq keycast-tab-bar-format "%k%c%R "
         keycast-tab-bar-minimal-width 0)
+  (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
+  (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (keycast-tab-bar-mode))
 
 ;; input
