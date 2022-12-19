@@ -222,7 +222,7 @@ map cmd+v       paste_from_clipboard
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/picom.conf" "no")
 #+begin_src conf
 fading = true;
-fade-in-step = 0.03;
+fade-in-step = 1;
 fade-out-step = 0.03;
-fade-exclude = ["class_g = 'Rofi'"];
+# fade-exclude = ["class_g = 'Rofi'"];
 #+end_src
