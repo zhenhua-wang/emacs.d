@@ -921,7 +921,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+end_src
 
 ** Minibuffer Completion
-*** vertigo
+*** vertico
 #+begin_src emacs-lisp
 (use-package vertico
   :straight (:files (:defaults "extensions/*")
