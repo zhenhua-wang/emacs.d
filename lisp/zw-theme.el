@@ -89,7 +89,7 @@
      `(zw/modeline-modified-active ((t (:inherit warning))))
 
      ;; tab-bar
-     `(tab-bar ((t (:foreground ,(face-foreground 'default)))))
+     `(tab-bar ((t (:foreground ,(face-foreground 'default) :bold t))))
      `(zw/tab-bar-default-selected ((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar)))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
