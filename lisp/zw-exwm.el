@@ -164,6 +164,8 @@
           (,(kbd "s-v") . ,(kbd "C-v"))
           (,(kbd "C-a") . ,(kbd "<home>"))
           (,(kbd "C-e") . ,(kbd "<end>"))
+          (,(kbd "M-<") . ,(kbd "C-<home>"))
+          (,(kbd "M->") . ,(kbd "C-<end>"))
           (,(kbd "C-S-a") . ,(kbd "S-<home>"))
           (,(kbd "C-S-e") . ,(kbd "S-<end>"))
           ;; search
