@@ -27,8 +27,6 @@
   (interactive)
   (pcase exwm-class-name
     ;; floating utils
-    ("kitty"
-     (exwm-floating-toggle-floating))
     ("URxvt"
      (exwm-floating-toggle-floating))
     ("Emacs"
