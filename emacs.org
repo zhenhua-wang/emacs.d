@@ -348,15 +348,18 @@
   :hook (after-init . mini-frame-mode)
   :init
   (setq mini-frame-advice-functions '(read-from-minibuffer)
-        mini-frame-ignore-functions '(y-or-n-p yes-or-no-p consult-yank-pop))
+        mini-frame-ignore-functions '(y-or-n-p yes-or-no-p))
   :config
-  (setq mini-frame-resize t
-        mini-frame-show-parameters
-        `((left . 0.5)
-          (top . -100)
-          (width . 1.0)
-          (height . 1)
-          (alpha-background . 100))))
+  ;; set show parameters
+  (defun zw/mini-frame-params (&rest arg)
+    (setq mini-frame-show-parameters
+          `((left . 0.5)
+            (top . -100)
+            (width . 1.0)
+            (height . 1)
+            (alpha-background . 100)
+            (background-color . ,(face-background 'mode-line)))))
+  (advice-add #'mini-frame--display :before #'zw/mini-frame-params))
 #+end_src
 
 ** Line number mode
