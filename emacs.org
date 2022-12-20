@@ -358,7 +358,7 @@
             (width . 1.0)
             (height . 1)
             (alpha-background . 100)
-            (background-color . ,(face-background 'mode-line)))))
+            (background-color . ,(face-background 'default)))))
   (advice-add #'mini-frame--display :before #'zw/mini-frame-params))
 #+end_src
 
