@@ -338,8 +338,7 @@
 ** Posframe
 #+begin_src emacs-lisp
 (use-package posframe
-  :config
-  (setq posframe-gtk-resize-child-frames 'resize-mode))
+  :defer t)
 #+end_src
 
 ** Line number mode
