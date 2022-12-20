@@ -358,7 +358,7 @@
             (width . 1.0)
             (alpha-background . 100)
             (background-color . ,(face-background 'default))
-            (child-frame-border-width . 2)))
+            (child-frame-border-width . 3)))
     (set-face-background 'child-frame-border (face-background 'mode-line)))
   (advice-add #'mini-frame--display :before #'zw/mini-frame-params))
 #+end_src
