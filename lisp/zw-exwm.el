@@ -140,7 +140,8 @@
   ;; simulate keys in x windows
   (setq exwm-input-simulation-keys
         `((,(kbd "s-r") . ,(kbd "C-r"))
-          ;; window
+          (,(kbd "s-f") . ,(kbd "C-f"))
+          ;; tab
           (,(kbd "s-t") . ,(kbd "C-t"))
           (,(kbd "s-T") . ,(kbd "C-S-t"))
           (,(kbd "s-w") . ,(kbd "C-w"))
@@ -167,9 +168,16 @@
           (,(kbd "M-<") . ,(kbd "C-<home>"))
           (,(kbd "M->") . ,(kbd "C-<end>"))
           (,(kbd "C-S-a") . ,(kbd "S-<home>"))
-          (,(kbd "C-S-e") . ,(kbd "S-<end>"))
-          ;; search
-          (,(kbd "s-f") . ,(kbd "C-f"))))
+          (,(kbd "C-S-e") . ,(kbd "S-<end>"))))
+
+  (add-hook 'exwm-manage-finish-hook
+            (lambda ()
+              (when (and exwm-class-name
+                         (string= exwm-class-name "weixin"))
+                (exwm-input-set-local-simulation-keys
+                 (append (remove `(,(kbd "s-w") . ,(kbd "C-w")) exwm-input-simulation-keys)
+                         `((,(kbd "C-w") . ,(kbd "s-m"))
+                           (,(kbd "s-w") . ,(kbd "s-m"))))))))
 
   ;; disable simulate keys in kitty
   (add-hook 'exwm-manage-finish-hook
@@ -199,6 +207,7 @@
                               (kill-this-buffer))))
 
           ;; resize window
+          (,(kbd "s-m") . bury-buffer)
           (,(kbd "s-}") . enlarge-window-horizontally)
           (,(kbd "s-{") . shrink-window-horizontally)
           (,(kbd "s-^") . enlarge-window)
