@@ -169,6 +169,7 @@
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
+           ("s-<backspace>" . (lambda () (interactive) (kill-line 0)))
            ("s-z" . undo)
            ("s-x" . kill-region)
            ("s-c" . kill-ring-save)
