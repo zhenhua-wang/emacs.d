@@ -348,7 +348,7 @@
   :hook (after-init . mini-frame-mode)
   :init
   (setq mini-frame-advice-functions '(read-from-minibuffer read-string)
-        mini-frame-ignore-functions '(y-or-n-p consult-yank-pop))
+        mini-frame-ignore-functions '(y-or-n-p yes-or-no-p consult-yank-pop))
   :config
   (setq mini-frame-show-parameters
         `((left . 0.5)
