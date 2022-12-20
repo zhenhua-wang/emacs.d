@@ -342,6 +342,19 @@
   (setq posframe-gtk-resize-child-frames 'resize-mode))
 #+end_src
 
+** Mini-frame
+#+begin_src emacs-lisp
+(use-package mini-frame
+  :hook (after-init . mini-frame-mode)
+  :config
+  (setq mini-frame-standalone t
+        mini-frame-show-parameters
+        '((left . 0.5)
+          (top . -100)
+          (width . 1.0)
+          (height . 1))))
+#+end_src
+
 ** Line number mode
 #+begin_src emacs-lisp
 ;; line number mode
