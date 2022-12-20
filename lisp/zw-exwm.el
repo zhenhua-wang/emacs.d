@@ -292,7 +292,7 @@
                        tab-bar-format-global))
 (tab-bar-mode 1)
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
-(setq display-time-format "%b %e %a %T"
+(setq display-time-format "%b %e %a %T %p"
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
