@@ -347,9 +347,8 @@
 (use-package mini-frame
   :hook (after-init . mini-frame-mode)
   :config
-  (setq mini-frame-standalone t
-        mini-frame-show-parameters
-        '((left . 0.5)
+  (setq mini-frame-show-parameters
+        `((left . 0.5)
           (top . -100)
           (width . 1.0)
           (height . 1))))
