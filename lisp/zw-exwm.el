@@ -217,7 +217,6 @@
           (,(kbd "s-<down>") . windmove-down)
           (,(kbd "s-u") . winner-undo)
           (,(kbd "s-U") . winner-redo)
-          (,(kbd "<f11>") . zw/toggle-presentation)
 
           ;; update emacs
           (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
