@@ -119,7 +119,7 @@
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 35))
       (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 30)))
   (set-face-attribute 'default nil :font default-font)
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (dolist (charset '(kana han cjk-misc bopomofo))
     (set-fontset-font t charset cn-font)))
 
 ;; set theme
