@@ -206,19 +206,18 @@
                                   (kill-this-buffer))
                               (kill-this-buffer))))
 
-          ;; resize window
+          ;; window
           (,(kbd "s-m") . bury-buffer)
           (,(kbd "s-}") . enlarge-window-horizontally)
           (,(kbd "s-{") . shrink-window-horizontally)
           (,(kbd "s-^") . enlarge-window)
-          ;; Move between windows
           (,(kbd "s-<left>") . windmove-left)
           (,(kbd "s-<right>") . windmove-right)
           (,(kbd "s-<up>") . windmove-up)
           (,(kbd "s-<down>") . windmove-down)
-          ;; winner undo/redo
           (,(kbd "s-u") . winner-undo)
           (,(kbd "s-U") . winner-redo)
+          (,(kbd "<f11>") . zw/toggle-presentation)
 
           ;; update emacs
           (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
