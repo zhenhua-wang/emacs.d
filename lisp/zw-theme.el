@@ -14,7 +14,7 @@
     (custom-theme-set-faces
      'user
      ;; fonts
-     `(default ((t (:height 150))))
+     `(default ((t (:font "Noto Sans Mono" :height 150))))
      `(fixed-pitch ((t (,@fixed-font :height 150))))
      `(variable-pitch ((t (,@variable-font :height 200))))
 
@@ -115,13 +115,6 @@
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
-
-;; set default and Chinese fonts
-(let ((default-font (font-spec :name "Noto Sans Mono" :size 15))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 14)))
-  (set-face-attribute 'default nil :font default-font)
-  (dolist (charset '(kana han cjk-misc bopomofo))
-    (set-fontset-font t charset cn-font)))
 
 ;; set theme
 (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
