@@ -91,7 +91,6 @@
   "helper function to get function definition"
   ;; if all three predicates are true, return the value of the last predicate
   (and (derived-mode-p 'prog-mode)
-       ;; FIXME: ignore unmatched parenthesis and other errors
        (ignore-errors (zw/in-defun-p))
        (ignore-errors (concat
                        (propertize " Def "
