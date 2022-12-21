@@ -115,7 +115,7 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
-;; set fonts
+;; set default and Chinese fonts
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 35))
       (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 30)))
   (set-face-attribute 'default nil :font default-font)
