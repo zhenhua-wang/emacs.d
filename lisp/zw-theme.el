@@ -14,7 +14,7 @@
     (custom-theme-set-faces
      'user
      ;; fonts
-     `(default ((t (:font "Noto Sans Mono" :height 150))))
+     `(default ((t (:font "Roboto Mono" :height 150))))
      `(fixed-pitch ((t (,@fixed-font :height 150))))
      `(variable-pitch ((t (,@variable-font :height 200))))
 

@@ -200,10 +200,10 @@ element-text {
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/kitty/kitty.conf" "no")
 #+begin_src conf
 # default conf
-font_family      Noto Sans Mono
-bold_font        Noto Sans Mono Bold
-italic_font      Noto Sans Mono Italic
-bold_italic_font Noto Sans Mono Bold Italic
+font_family      Roboto Mono
+bold_font        Roboto Mono Bold
+italic_font      Roboto Mono Italic
+bold_italic_font Roboto Mono Bold Italic
 font_size        15.0
 # keymap
 map cmd+c       copy_to_clipboard
