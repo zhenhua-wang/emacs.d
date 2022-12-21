@@ -118,7 +118,7 @@
 
 ;; set default and Chinese fonts
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 15))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 12)))
+      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 14)))
   (set-face-attribute 'default nil :font default-font)
   (dolist (charset '(kana han cjk-misc bopomofo))
     (set-fontset-font t charset cn-font)))
