@@ -13,8 +13,7 @@
 
     (custom-theme-set-faces
      'user
-     ;; default
-     `(default ((t (:font "Noto Sans Mono" :height 150))))
+     ;; fonts
      `(fixed-pitch ((t (,@fixed-font :height 150))))
      `(variable-pitch ((t (,@variable-font :height 200))))
 
@@ -116,6 +115,14 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
+;; set fonts
+(let ((default-font (font-spec :name "Noto Sans Mono" :size 35))
+      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 30)))
+  (set-face-attribute 'default nil :font default-font)
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font t charset cn-font)))
+
+;; set theme
 (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
                             (modeline-highlight-bg . "#0000c0")
                             (modeline-highlight-fg . "white")
