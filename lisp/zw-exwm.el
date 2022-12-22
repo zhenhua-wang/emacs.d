@@ -134,8 +134,7 @@
           ?\s-`
           ?\M-`
           ?\M-&
-          ?\M-:
-          ?\C-\\))
+          ?\M-:))
 
   ;; simulate keys in x windows
   (setq exwm-input-simulation-keys
