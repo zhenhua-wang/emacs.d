@@ -116,7 +116,7 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 14.0)))
+      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0)))
   (set-face-attribute 'default nil :font default-font)
   (dolist (charset '(kana han cjk-misc bopomofo))
     (set-fontset-font t charset cn-font)))
