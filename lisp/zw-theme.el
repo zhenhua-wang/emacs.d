@@ -10,6 +10,12 @@
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
          (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
          (region (alist-get 'region theme-params)))
+    ;; default fonts
+    (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
+          (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0)))
+      (set-face-attribute 'default nil :font default-font)
+      (dolist (charset '(kana han cjk-misc bopomofo))
+        (set-fontset-font t charset cn-font)))
 
     (custom-theme-set-faces
      'user
@@ -108,18 +114,12 @@
      `(diredfl-dir-name ((t (:bold t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-font))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-font :height 150))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
-
-(let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0)))
-  (set-face-attribute 'default nil :font default-font)
-  (dolist (charset '(kana han cjk-misc bopomofo))
-    (set-fontset-font t charset cn-font)))
 
 ;; set theme
 (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))

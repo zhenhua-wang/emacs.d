@@ -233,9 +233,7 @@
                               (interactive)
                               (call-process-shell-command "rofi -show")))
           ;; rofi switch window
-          (,(kbd "s-<tab>") . (lambda ()
-                                (interactive)
-                                (call-process-shell-command "rofi -show window")))
+          (,(kbd "s-<tab>") . switch-to-buffer)
 
           (,(kbd "C-M-;") . magit-status)
 
@@ -257,6 +255,9 @@
 
   (exwm-input-set-key (kbd "s-e") 'vterm)
   (exwm-input-set-key (kbd "s-E") 'multi-vterm))
+
+(bind-keys :map vertico-map
+           ("s-<tab>" . vertico-next))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; desktop environment
