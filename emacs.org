@@ -924,8 +924,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 *** vertico
 #+begin_src emacs-lisp
 (use-package vertico
-  :straight (vertico :host github :repo "minad/vertico"
-                     :files (:defaults "extensions/*")
+  :straight (vertico :files (:defaults "extensions/*")
                      :includes (vertico-directory))
   :hook
   (after-init . vertico-mode)
@@ -967,7 +966,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 *** marginalia
 #+begin_src emacs-lisp
 (use-package marginalia
-  :straight (marginalia :host github :repo "minad/marginalia")
   :bind (("M-A" . marginalia-cycle)
          :map minibuffer-local-map
          ("M-A" . marginalia-cycle))
