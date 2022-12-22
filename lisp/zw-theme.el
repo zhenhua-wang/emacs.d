@@ -117,7 +117,7 @@
 
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
       (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0))
-      (mac-default-font (font-spec :name "SF Pro" :size 15.0)))
+      (mac-default-font (font-spec :name "SF Mono" :size 15.0)))
   (pcase system-type
     ('gnu/linux
      (set-face-attribute 'default nil :font default-font)
