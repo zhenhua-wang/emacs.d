@@ -80,7 +80,7 @@ configuration {
   display-window:      "⮼ ";
   combi-modi: "window,drun,run";
   drun-display-format: "{icon} {name}";
-  font: "JetBrainsMono Nerd Font 20";
+  font: "JetBrainsMono Nerd Font 24";
   modi: "combi";
   matching: "fuzzy";
   show-icons: true;
