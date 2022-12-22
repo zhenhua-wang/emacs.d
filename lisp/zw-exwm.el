@@ -346,7 +346,4 @@
   (interactive)
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
-;; use standalone mini-frame
-(setq mini-frame-standalone t)
-
 (provide 'zw-exwm)
