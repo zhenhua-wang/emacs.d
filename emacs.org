@@ -924,8 +924,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 *** vertico
 #+begin_src emacs-lisp
 (use-package vertico
-  :straight (:files (:defaults "extensions/*")
-                    :includes (vertico-directory))
+  :straight (vertico :host github :repo "minad/vertico"
+                     :files (:defaults "extensions/*")
+                     :includes (vertico-directory))
   :hook
   (after-init . vertico-mode)
   (vertico-mode . vertico-multiform-mode)
@@ -940,7 +941,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq vertico-resize nil
         vertico-scroll-margin 0
         vertico-count 12
-        vertico-cycle t)
+        vertico-cycle t
+        vertico-preselect 'directory)
   :config
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
@@ -965,6 +967,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 *** marginalia
 #+begin_src emacs-lisp
 (use-package marginalia
+  :straight (marginalia :host github :repo "minad/marginalia")
   :bind (("M-A" . marginalia-cycle)
          :map minibuffer-local-map
          ("M-A" . marginalia-cycle))
