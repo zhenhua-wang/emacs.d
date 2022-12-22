@@ -14,7 +14,8 @@ An emacs config tailored for statistician and data scientist.
 # Prerequisite
 
 -   emacs-29
--   Noto Fonts: `yay -S noto-fonts`
+-   Noto Sans Mono: https://fonts.google.com/download?family=Noto%20Sans%20Mono
+-   Noto Sans Mono CJK SC: https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/TTF/Mono/NotoSansMonoCJKsc-VF.ttf
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 -   EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
 
