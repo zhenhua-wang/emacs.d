@@ -300,7 +300,8 @@
                        tab-bar-separator
                        tab-bar-separator
                        tab-bar-separator
-                       tab-bar-format-global))
+                       tab-bar-format-global
+                       tab-bar-separator))
 (tab-bar-mode 1)
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 (setq display-time-format "%b %e %a %T %p"

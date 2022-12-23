@@ -108,6 +108,47 @@
   `((current-tab menu-item  (zw/tab-bar-tab-name)
                  :help "File path")))
 
+(defun zw/tab-bar-update-battery-status ()
+  "Update battery status."
+  (when (bound-and-true-p display-battery-mode)
+    (let* ((data (and battery-status-function
+                      (functionp battery-status-function)
+                      (funcall battery-status-function)))
+           (status (cdr (assoc ?L data)))
+           (charging? (or (string-equal "on-line" status)
+                          (string-equal "AC" status)))
+           (percentage (car (read-from-string (or (cdr (assq ?p data)) "ERR"))))
+           (valid-percentage? (and (numberp percentage)
+                                   (>= percentage 0)
+                                   (<= percentage battery-mode-line-limit)))
+           (face (if valid-percentage?
+                     (cond (charging? 'success)
+                           ((< percentage battery-load-critical) 'error)
+                           ((< percentage 25) 'warning)
+                           ((< percentage 95) 'default)
+                           (t 'success))
+                   'error))
+           (icon (if valid-percentage?
+                     (cond (charging? "")
+                           ((> percentage 95) "")
+                           ((> percentage 90) "")
+                           ((> percentage 80) "")
+                           ((> percentage 70) "")
+                           ((> percentage 60) "")
+                           ((> percentage 50) "")
+                           ((> percentage 40) "")
+                           ((> percentage 30) "")
+                           ((> percentage 20) "")
+                           ((> percentage battery-load-critical) "")
+                           (t ""))
+                   ""))
+           (help-echo (if (and battery-echo-area-format data valid-percentage?)
+                          (battery-format battery-echo-area-format data)
+                        "Battery status not available")))
+      (setq battery-mode-line-string
+            (propertize (concat "[" icon " " (number-to-string percentage) "]") 'face face 'help-echo help-echo)))))
+(advice-add #'battery-update :override #'zw/tab-bar-update-battery-status)
+
 ;; format tab-bar-mode
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
