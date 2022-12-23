@@ -26,6 +26,26 @@
   "Default face for active tab-bar"
   :group 'zw/tab-bar-selected)
 
+(defface zw/tab-bar-tab-battery-load-default
+  `((t (:inherit zw/tab-bar-default-selected :bold t)))
+  "Default face for battery load on active tab-bar"
+  :group 'zw/tab-bar-selected)
+
+(defface zw/tab-bar-tab-battery-load-charging
+  `((t (:inherit zw/tab-bar-default-selected :bold t)))
+  "Face for charging battery load on active tab-bar"
+  :group 'zw/tab-bar-selected)
+
+(defface zw/tab-bar-tab-battery-load-low
+  `((t (:inherit zw/tab-bar-default-selected :bold t)))
+  "Face for low battery load on active tab-bar"
+  :group 'zw/tab-bar-selected)
+
+(defface zw/tab-bar-tab-battery-load-critical
+  `((t (:inherit zw/tab-bar-default-selected :bold t)))
+  "Face for critical battery load on active tab-bar"
+  :group 'zw/tab-bar-selected)
+
 (defvar zw/tab-bar-path-max 30
   "Maximum length of current tab path")
 
@@ -122,11 +142,10 @@
                                    (>= percentage 0)
                                    (<= percentage battery-mode-line-limit)))
            (face (if valid-percentage?
-                     (cond (charging? 'success)
-                           ((< percentage battery-load-critical) 'error)
-                           ((< percentage 25) 'warning)
-                           ((< percentage 95) 'default)
-                           (t 'success))
+                     (cond (charging? 'zw/tab-bar-tab-battery-load-charging)
+                           ((< percentage battery-load-critical) 'zw/tab-bar-tab-battery-load-critical)
+                           ((< percentage 25) 'zw/tab-bar-tab-battery-load-low)
+                           (t 'zw/tab-bar-tab-battery-load-default))
                    'error))
            (icon (if valid-percentage?
                      (cond (charging? "")
