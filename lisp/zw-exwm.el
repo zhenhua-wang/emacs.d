@@ -63,6 +63,11 @@
     (start-process-shell-command
      "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
+;; run xmodmap
+(defun exwm/run-xmodmap ()
+  (interactive)
+  (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
+
 (use-package exwm
   :config
   (require 'exwm)
@@ -329,10 +334,5 @@
 (use-package pyim-basedict
   :config
   (pyim-basedict-enable))
-
-;; run xmodmap
-(defun zw/run-xmodmap ()
-  (interactive)
-  (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
 (provide 'zw-exwm)
