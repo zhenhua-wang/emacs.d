@@ -1273,10 +1273,17 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Version control
 #+begin_src emacs-lisp
 (use-package magit
-  :bind (("C-M-;" . magit-status))
+  :bind (("C-M-;" . magit-status)
+         :map magit-mode-map
+         ("C" . zw/magit-change-repo))
   :commands (magit-status magit-get-current-branch)
   :config
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (defun zw/magit-change-repo ()
+    (interactive)
+    (let ((dir (magit-read-repository)))
+      (magit-kill-this-buffer)
+      (magit-init dir))))
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
