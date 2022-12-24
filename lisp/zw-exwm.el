@@ -70,7 +70,6 @@
 
 (use-package exwm
   :config
-  (require 'exwm)
   (setq
    ;; Window focus should follow the mouse pointer
    mouse-autoselect-window nil
@@ -84,7 +83,7 @@
    ;; able to move to buffer in inactive space
    exwm-layout-show-all-buffers nil)
 
-  ;; When EXWM starts up, do some extra confifuration
+  ;; When EXWM starts up, do some extra configuration
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
   ;; When window "class" updates, use it to set the buffer name
