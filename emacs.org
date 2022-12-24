@@ -861,7 +861,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package super-save
   :diminish
-  :hook (after-init . super-save-mode))
+  :hook (after-init . super-save-mode)
+  :config (setq super-save-auto-save-when-idle t))
 #+end_src
 
 ** Sudo edit
