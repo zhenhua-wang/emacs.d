@@ -524,7 +524,7 @@ FACE defaults to inheriting from default and highlight."
          (window-height . 0.2)
          (side . top)
          (slot . 0))
-        ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
+        ("\\*\\(Warnings\\|Compile-Log\\)\\*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . top)
@@ -540,6 +540,11 @@ FACE defaults to inheriting from default and highlight."
          (side . right)
          (slot . -1)
          (window-width . 0.3))
+        ("\\*\\(Backtrace\\|Messages\\).*"
+         (display-buffer-reuse-mode-window)
+         (side . right)
+         (slot . -1)
+         (window-width . 0.5))
         ;; left side window
         ("^\\*Ilist\\*$"
          (display-buffer-in-side-window)
