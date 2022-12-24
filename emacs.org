@@ -494,22 +494,20 @@ FACE defaults to inheriting from default and highlight."
 ;; window split
 (setq split-width-threshold  80
       split-height-threshold 80
-      split-window-preferred-function 'split-window-sensibly)
+      split-window-preferred-function 'split-window-sensibly
+      ;; If a popup does happen, don't resize windows to be equal-sized
+      even-window-sizes nil)
 
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) t)))
     (window--display-buffer buffer largest-window 'reuse alist)))
 
-;; default buffer action
-(setq display-buffer-base-action
-      '(display-buffer-reuse-mode-window
-        display-buffer-reuse-window
-        display-buffer-same-window))
-
-;; If a popup does happen, don't resize windows to be equal-sized
-(setq even-window-sizes nil)
-
-(setq display-buffer-alist
+;; buffer placement rules
+(setq display-buffer-base-action '(display-buffer-reuse-mode-window
+                                   display-buffer-reuse-window
+                                   display-buffer-same-window)
+      ;; special rules
+      display-buffer-alist
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
          (display-buffer-reuse-window
