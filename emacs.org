@@ -489,15 +489,13 @@ FACE defaults to inheriting from default and highlight."
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 #+end_src
 
-** Window split
+** Window placement
 #+begin_src emacs-lisp
+;; window split
 (setq split-width-threshold  80
       split-height-threshold 80
       split-window-preferred-function 'split-window-sensibly)
-#+end_src
 
-** Buffer placement
-#+begin_src emacs-lisp
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) t)))
     (window--display-buffer buffer largest-window 'reuse alist)))
