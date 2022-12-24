@@ -524,11 +524,6 @@ FACE defaults to inheriting from default and highlight."
          (window-height . 0.2)
          (side . top)
          (slot . 0))
-        ("\\*Messages.*"
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . top)
-         (slot . 1))
         ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\)\\*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
