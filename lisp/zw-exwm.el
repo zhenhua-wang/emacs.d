@@ -185,18 +185,11 @@
                          (string= exwm-class-name "kitty"))
                 (exwm-input-set-local-simulation-keys nil))))
 
-  ;; Ctrl+Q will enable the next key to be sent directly
-  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-
-  ;; send C-c to clients
-  (define-key exwm-mode-map (kbd "C-c") nil)
-
   ;; Set up global key bindings.
   (setq exwm-input-global-keys
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           (,(kbd "s-R") . exwm-reset)
-
           ;;close current buffer
           (,(kbd "s-q") . (lambda ()
                             (interactive)
@@ -204,7 +197,6 @@
                                 (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
                                   (kill-this-buffer))
                               (kill-this-buffer))))
-
           ;; window
           (,(kbd "s-m") . bury-buffer)
           (,(kbd "s-}") . enlarge-window-horizontally)
@@ -216,18 +208,14 @@
           (,(kbd "s-<down>") . windmove-down)
           (,(kbd "s-u") . winner-undo)
           (,(kbd "s-U") . winner-redo)
-
           ;; update emacs
           (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
-
           ;; web search
           (,(kbd "s-/") . emacs-websearch)
-
           ;; Launch applications via shell command
           (,(kbd "s-&") . (lambda (command)
                             (interactive (list (read-shell-command "$ ")))
                             (start-process-shell-command command nil command)))
-
           ;; rofi
           (,(kbd "s-SPC") . (lambda ()
                               (interactive)
@@ -236,19 +224,17 @@
           ;; (,(kbd "s-<tab>") . (lambda ()
           ;;                       (interactive)
           ;;                       (call-process-shell-command "rofi -show window")))
-
           (,(kbd "s-<tab>") . switch-to-buffer)
-
           (,(kbd "C-M-;") . magit-status)
-
           ;; side bar
           (,(kbd "s-b") . dired-jump)
-
           ;; tab bar
           (,(kbd "s-1") . zw/tab-switch)
           (,(kbd "s-9") . tab-new)
           (,(kbd "s-0") . tab-close)
-
+          ;; vterm
+          (,(kbd "s-e") . vterm)
+          (,(kbd "s-E") . multi-vterm)
           ;; Switch workspace (M-s-num)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "M-s-%d" i)) .
@@ -257,11 +243,14 @@
                           (exwm-workspace-switch-create ,i))))
                     (number-sequence 0 9))))
 
-  (exwm-input-set-key (kbd "s-e") 'vterm)
-  (exwm-input-set-key (kbd "s-E") 'multi-vterm))
-
-(bind-keys :map vertico-map
-           ("s-<tab>" . vertico-next))
+  ;; mode keys
+  (bind-keys :map exwm-mode-map
+             ;; Ctrl+Q will enable the next key to be sent directly
+             ("C-q" . exwm-input-send-next-key)
+             ;; send C-c to clients
+             ("C-c" . nil)
+             :map vertico-map
+             ("s-<tab>" . vertico-next)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; desktop environment
