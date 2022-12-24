@@ -934,6 +934,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   ;; More convenient directory navigation commands
   :bind ((:map vertico-map
                ("RET" . vertico-directory-enter)
+               ("M-RET" . vertico-exit-input)
                ("DEL" . vertico-directory-delete-char)
                ("M-DEL" . vertico-directory-delete-word)))
   :init
