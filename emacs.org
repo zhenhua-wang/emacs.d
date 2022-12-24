@@ -519,16 +519,6 @@ FACE defaults to inheriting from default and highlight."
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
          (zw/display-buffer-in-largest-window))
         ;; top side window
-        ("\\*\\(Flymake\\|Package-Lint\\|vc-git :\\).*"
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . top)
-         (slot . 0))
-        ("\\*\\(Warnings\\|Compile-Log\\)\\*"
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . top)
-         (slot . 2))
         ("\\*\\(polymode export\\|compilation\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
@@ -537,14 +527,14 @@ FACE defaults to inheriting from default and highlight."
         ;; right side window
         ("\\*\\(R\\|Python\\).*"
          (display-buffer-reuse-mode-window)
+         (window-width . 0.3)
          (side . right)
-         (slot . -1)
-         (window-width . 0.3))
-        ("\\*\\(Backtrace\\|Messages\\).*"
-         (display-buffer-reuse-mode-window)
+         (slot . -1))
+        ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
+         (display-buffer-in-side-window)
+         (window-width . 0.5)
          (side . right)
-         (slot . -1)
-         (window-width . 0.5))
+         (slot . 1))
         ;; left side window
         ("^\\*Ilist\\*$"
          (display-buffer-in-side-window)
