@@ -529,12 +529,7 @@ FACE defaults to inheriting from default and highlight."
          (window-height . 0.2)
          (side . top)
          (slot . 2))
-        ("\\*polymode export.*"
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . top)
-         (slot . 1))
-        ("\\*compilation.*"
+        ("\\*\\(polymode export\\|compilation\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . top)
