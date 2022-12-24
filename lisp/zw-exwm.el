@@ -24,7 +24,6 @@
     (exwm-floating-move (- pos-x) (- pos-y))))
 
 (defun exwm/configure-window-by-class ()
-  (interactive)
   (pcase exwm-class-name
     ;; floating utils
     ("URxvt"
@@ -53,7 +52,6 @@
   (exwm/run-in-background "ibus-daemon -drxR"))
 
 (defun exwm/set-wallpaper ()
-  (interactive)
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
     (push '(alpha-background . 90) default-frame-alist)
     (with-current-buffer "*scratch*"
