@@ -168,6 +168,19 @@
             (propertize (concat icon " ") 'face face 'help-echo help-echo)))))
 (advice-add #'battery-update :override #'zw/tab-bar-update-battery-status)
 
+(defun zw/tab-bar-format-global ()
+  "Tab bar global information with help in echo area."
+  `((global menu-item ,(format-mode-line global-mode-string) nil
+            :help (let* ((echo-helps-raw (mapcar (lambda (x)
+                                                   (when (and x (not (string= x "")))
+                                                     (plist-get (text-properties-at 0 (symbol-value x))
+                                                                'help-echo)))
+                                                 global-mode-string))
+                         (echo-helps (remove nil echo-helps-raw)))
+                    (cl-reduce (lambda (x y)
+                                 (concat x ", " y))
+                               echo-helps)))))
+
 ;; format tab-bar-mode
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
