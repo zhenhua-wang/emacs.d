@@ -31,12 +31,6 @@
     ("Emacs"
      (exwm-floating-toggle-floating))))
 
-;; This function should be used only after configuring autorandr!
-(defun exwm/update-displays ()
-  (exwm/run-in-background "autorandr --change --force")
-  (message "Display config: %s"
-           (string-trim (shell-command-to-string "autorandr --current"))))
-
 ;; initialization
 (defun exwm/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
@@ -101,6 +95,7 @@
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
+  (add-hook 'exwm-randr-screen-change-hook #'exwm/set-wallpaper)
 
   ;; set wallpaper
   (exwm/set-wallpaper)
@@ -331,5 +326,9 @@
 (use-package pyim-basedict
   :config
   (pyim-basedict-enable))
+
+;; xrandr
+(use-package emacs-xrandr
+  :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 (provide 'zw-exwm)
