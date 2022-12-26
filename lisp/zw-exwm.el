@@ -253,15 +253,15 @@
 ;; desktop environment
 (use-package desktop-environment
   :after exwm
-  :config (desktop-environment-mode)
   :custom
-  (desktop-environment-brightness-small-increment "2%+")
-  (desktop-environment-brightness-small-decrement "2%-")
+  (desktop-environment-volume-normal-increment "5%+")
+  (desktop-environment-volume-normal-decrement "5%-")
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
   (desktop-environment-keyboard-backlight-normal-increment 70)
   (desktop-environment-keyboard-backlight-normal-decrement -70)
   :config
+  (desktop-environment-mode)
   (exwm-input-set-key (kbd "<XF86KbdBrightnessUp>") 'desktop-environment-keyboard-backlight-increment)
   (exwm-input-set-key (kbd "<XF86KbdBrightnessDown>") 'desktop-environment-keyboard-backlight-decrement)
   (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") 'desktop-environment-brightness-increment)
