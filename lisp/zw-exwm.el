@@ -296,13 +296,13 @@
 
 ;; show battery on laptop
 (require 'battery)
-(let ((have-battery-status-p
-       (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-         (and perc-charged
-              (not (zerop (string-to-number (cdr perc-charged))))))))
-  (when (and have-battery-status-p
-             tab-bar-show)
-    (display-battery-mode 1)))
+(setq have-battery-status-p
+      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+        (and perc-charged
+             (not (zerop (string-to-number (cdr perc-charged)))))))
+(when (and have-battery-status-p
+           tab-bar-show)
+  (display-battery-mode 1))
 
 ;; keycast
 (use-package keycast
