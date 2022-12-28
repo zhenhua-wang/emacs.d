@@ -1244,7 +1244,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :config
   (defun zw/init-outline ()
     (let ((comment-start-symbol (or (string-trim comment-start) "#")))
-      (setq outline-regexp
+      (setq outline-level 'outline-level
+            outline-regexp
             (rx-to-string `(group (+ ,comment-start-symbol) (+ space) (+ "*")))))
     (outline-minor-mode 1)
     (outline-show-only-headings))
