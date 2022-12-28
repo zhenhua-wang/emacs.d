@@ -1253,6 +1253,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (if (outline-on-heading-p)
         (outline-toggle-children)
       (indent-for-tab-command))))
+
+(use-package outline-minor-faces
+  :after outline
+  :hook (outline-minor-mode . outline-minor-faces-mode))
 #+end_src
 
 *** Fast comment
