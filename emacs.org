@@ -1240,7 +1240,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 	      ("<tab>" . zw/outline-tab))
   :hook (prog-mode . zw/init-outline)
   :config
-  (setq outline-default-state 'outline-show-only-headings)
+  (setq outline-default-state 1)
   (defun zw/init-outline ()
     (outline-minor-mode 1)
     (let ((comment-start-symbol (or (string-trim comment-start) "#")))
