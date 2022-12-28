@@ -1,3 +1,4 @@
+;; * helper functions
 (defun exwm/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
@@ -60,6 +61,7 @@
   (interactive)
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
+;; * main
 (use-package exwm
   :config
   (setq
@@ -120,7 +122,7 @@
 
   (exwm-enable))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; exwm keymap ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; * exwm keymap
 (with-eval-after-load "exwm"
   ;; exwm prefix keys
   (setq exwm-input-prefix-keys
@@ -249,7 +251,7 @@
              :map vertico-map
              ("s-<tab>" . vertico-next)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; * misc
 ;; desktop environment
 (use-package desktop-environment
   :after exwm
