@@ -1200,6 +1200,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 *** Code folding
+**** hideshow
 #+begin_src emacs-lisp
 (use-package hideshow
   :hook ((prog-mode org-mode markdown-mode) . hs-minor-mode)
@@ -1230,6 +1231,26 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 			   'face 'collapsed-face display-string)
         (overlay-put ov 'display display-string))))
   (setq hs-set-up-overlay 'display-code-line-counts))
+#+end_src
+
+**** outline
+#+begin_src emacs-lisp
+(use-package outline
+  :bind (:map outline-minor-mode-map
+	      ("<tab>" . zw/outline-tab))
+  :hook (prog-mode . zw/init-outline)
+  :config
+  (setq outline-default-state 'outline-show-only-headings)
+  (defun zw/init-outline ()
+    (outline-minor-mode 1)
+    (let ((comment-start-symbol (or (string-trim comment-start) "#")))
+      (setq outline-regexp
+            (rx-to-string `(: (+ ,comment-start-symbol) (+ space) (+ "*"))))))
+  (defun zw/outline-tab ()
+    (interactive)
+    (if (outline-on-heading-p)
+        (outline-toggle-children)
+      (indent-for-tab-command))))
 #+end_src
 
 *** Fast comment
