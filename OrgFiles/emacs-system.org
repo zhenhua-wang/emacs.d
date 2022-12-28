@@ -19,7 +19,6 @@ SuspendMode=
 SuspendState=mem
 #+end_src
 
-
 ** SSH
 use ssh config file
 #+begin_example
