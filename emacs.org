@@ -1243,15 +1243,25 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :config
   (setq outline-minor-mode-use-buttons t)
   (defun zw/outline-level ()
-    (length (match-string 1)))
+    (length (match-string 2)))
+  (defun zw/outline--unfontify (beg end &optional _loud)
+    (let ((font-lock-extra-managed-props
+           (append
+            '(display invisible)
+            font-lock-extra-managed-props)))
+      (font-lock-default-unfontify-region beg end)
+      (with-silent-modifications
+        (remove-text-properties beg end '(invisible t)))))
   (defun zw/init-outline ()
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
            (outline-header (rx-to-string
-                            `(: (0+ space) (+ ,comment-start-symbol)
-                                (+ space) (group (+ "*"))))))
+                            `(: (0+ space) (group (+ ,comment-start-symbol)
+                                                  (+ space) (group (+ "*")))
+                                space))))
       (setq outline-level 'zw/outline-level
             outline-regexp outline-header)
-      (font-lock-add-keywords nil `((,outline-header 0 '(face nil invisible t)))))
+      (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
+      (setq-local font-lock-unfontify-region-function #'zw/outline--unfontify))
     (outline-minor-mode 1)
     (outline--show-headings-up-to-level 1)))
 
