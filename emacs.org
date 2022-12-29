@@ -1248,7 +1248,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             outline-regexp
             (rx-to-string `(group (+ ,comment-start-symbol) (+ space) (+ "*")))))
     (outline-minor-mode 1)
-    (outline-show-only-headings))
+    ;; FIXME: Not sure why level 3 shows the first heading
+    (outline--show-headings-up-to-level 3))
   (defun zw/outline-tab ()
     (interactive)
     (if (outline-on-heading-p)
