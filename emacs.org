@@ -1240,7 +1240,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package outline
   :hook
   (prog-mode . zw/init-outline)
-  (polymode-init-inner . (lambda () (outline-minor-mode 0)))
   :config
   (defun zw/outline-level ()
     (length (match-string 1)))
@@ -1785,6 +1784,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+begin_src emacs-lisp
 (use-package polymode
   :commands polymode-mode
+  :hook (polymode-init-inner . (lambda ()
+                                 (display-line-numbers-mode 0)
+                                 (outline-minor-mode 0)))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("M-p" . polymode-previous-chunk)
