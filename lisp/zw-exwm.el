@@ -124,7 +124,7 @@
 
 ;; * exwm keymap
 (with-eval-after-load "exwm"
-  ;; exwm prefix keys
+  ;; ** exwm prefix keys
   (setq exwm-input-prefix-keys
         '(?\C-x
           ?\C-u
@@ -135,7 +135,7 @@
           ?\M-&
           ?\M-:))
 
-  ;; simulate keys in x windows
+  ;; ** exwm x windows simulate keys
   (setq exwm-input-simulation-keys
         `((,(kbd "s-r") . ,(kbd "C-r"))
           (,(kbd "s-f") . ,(kbd "C-f"))
@@ -184,7 +184,7 @@
                          (string= exwm-class-name "kitty"))
                 (exwm-input-set-local-simulation-keys nil))))
 
-  ;; Set up global key bindings.
+  ;; ** exwm global keys
   (setq exwm-input-global-keys
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
@@ -242,7 +242,7 @@
                           (exwm-workspace-switch-create ,i))))
                     (number-sequence 0 9))))
 
-  ;; mode keys
+  ;; ** exwm mode keys
   (bind-keys :map exwm-mode-map
              ;; Ctrl+Q will enable the next key to be sent directly
              ("C-q" . exwm-input-send-next-key)
@@ -252,7 +252,7 @@
              ("s-<tab>" . vertico-next)))
 
 ;; * misc
-;; desktop environment
+;; ** desktop environment
 (use-package desktop-environment
   :after exwm
   :custom
@@ -278,7 +278,7 @@
                                        (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
-;; display time and battery in tab-bar
+;; ** tab bar
 (setq tab-bar-show t
       tab-bar-format '(tab-bar-separator
                        zw/tab-bar-format-menu-bar
@@ -291,12 +291,14 @@
                        zw/tab-bar-format-global))
 (tab-bar-mode 1)
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
+
+;; time
 (setq display-time-format "%b %e %a %T %p"
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
 
-;; show battery on laptop
+;; battery on laptop
 (require 'battery)
 (setq have-battery-status-p
       (let ((perc-charged (assoc ?p (funcall battery-status-function))))
@@ -315,7 +317,7 @@
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (keycast-tab-bar-mode))
 
-;; input
+;; ** input
 (use-package pyim
   :config
   (setq default-input-method "pyim"
@@ -329,7 +331,7 @@
   :config
   (pyim-basedict-enable))
 
-;; xrandr
+;; ** xrandr
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 

@@ -1248,7 +1248,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (setq outline-level 'zw/outline-level
             outline-regexp
             (rx-to-string
-             `(: (+ ,comment-start-symbol) (+ space) (group (+ "*"))))))
+             `(: (0+ space) (+ ,comment-start-symbol)
+                 (+ space) (group (+ "*"))))))
     (outline-minor-mode 1)
     (outline--show-headings-up-to-level 1)))
 
