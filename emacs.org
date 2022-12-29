@@ -1242,14 +1242,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (prog-mode . zw/init-outline)
   (polymode-init-inner . (lambda () (outline-minor-mode 0)))
   :config
+  (defun zw/outline-level ()
+    (length (match-string 1)))
   (defun zw/init-outline ()
     (let ((comment-start-symbol (or (string-trim comment-start) "#")))
-      (setq outline-level 'outline-level
+      (setq outline-level 'zw/outline-level
             outline-regexp
-            (rx-to-string `(group (+ ,comment-start-symbol) (+ space) (+ "*")))))
+            (rx-to-string
+             `(: (+ ,comment-start-symbol) (+ space) (group (+ "*"))))))
     (outline-minor-mode 1)
-    ;; FIXME: Not sure why level 3 shows the first heading
-    (outline--show-headings-up-to-level 3)))
+    (outline--show-headings-up-to-level 1)))
 
 (use-package outline-minor-faces
   :after outline
