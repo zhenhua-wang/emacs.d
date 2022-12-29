@@ -209,7 +209,9 @@
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
            :map isearch-mode-map
-           ("s-f" . isearch-repeat-forward))
+           ("s-f" . isearch-repeat-forward)
+           :map prog-mode-map
+           ("<tab>" . zw/smart-tab))
 #+end_src
 
 ** Misc
@@ -1236,8 +1238,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 **** outline
 #+begin_src emacs-lisp
 (use-package outline
-  :bind (:map outline-minor-mode-map
-	      ("<tab>" . zw/outline-tab))
   :hook
   (prog-mode . zw/init-outline)
   (polymode-init-inner . (lambda () (outline-minor-mode 0)))
@@ -1249,12 +1249,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             (rx-to-string `(group (+ ,comment-start-symbol) (+ space) (+ "*")))))
     (outline-minor-mode 1)
     ;; FIXME: Not sure why level 3 shows the first heading
-    (outline--show-headings-up-to-level 3))
-  (defun zw/outline-tab ()
-    (interactive)
-    (if (outline-on-heading-p)
-        (outline-toggle-children)
-      (indent-for-tab-command))))
+    (outline--show-headings-up-to-level 3)))
 
 (use-package outline-minor-faces
   :after outline

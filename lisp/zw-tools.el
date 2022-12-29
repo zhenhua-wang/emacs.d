@@ -147,4 +147,12 @@ i.e. windows tiled side-by-side."
   (force-mode-line-update)
   (redraw-display))
 
+(defun zw/smart-tab ()
+  "Tab indent or toggle hide show or toggle outline"
+  (interactive)
+  (cond
+   ((outline-on-heading-p) (outline-toggle-children))
+   ((hs-already-hidden-p) (zw/toggle-fold))
+   (t (indent-for-tab-command))))
+
 (provide 'zw-tools)
