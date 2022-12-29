@@ -1241,6 +1241,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :hook
   (prog-mode . zw/init-outline)
   :config
+  (setq outline-minor-mode-use-buttons t)
   (defun zw/outline-level ()
     (length (match-string 1)))
   (defun zw/init-outline ()
@@ -1545,7 +1546,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-mode . org-modern-mode)
   (org-agenda-finalize . org-modern-agenda)
   :init
-  (setq org-modern-star '("")           ;'("◉" "●")
+  (setq org-modern-star '("◉" "●")
+        org-modern-hide-stars t
         org-modern-block-fringe t
         org-modern-table t
         org-modern-table-vertical 3
