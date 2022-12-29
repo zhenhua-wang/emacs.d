@@ -151,8 +151,8 @@ i.e. windows tiled side-by-side."
   "Tab indent or toggle hide show or toggle outline"
   (interactive)
   (cond
-   ((outline-on-heading-p) (outline-toggle-children))
-   ((hs-already-hidden-p) (zw/toggle-fold))
+   ((and outline-minor-mode (outline-on-heading-p)) (outline-toggle-children))
+   ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
 
 (provide 'zw-tools)
