@@ -152,7 +152,7 @@
                            (t 'zw/tab-bar-tab-battery-load-default))
                    'error))
            (icon (if valid-percentage?
-                     (cond (charging? "")
+                     (cond ((and charging? (> percentage 95)) "")
                            ((> percentage 95) "")
                            ((> percentage 90) "")
                            ((> percentage 80) "")
