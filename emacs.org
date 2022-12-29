@@ -1245,12 +1245,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (defun zw/outline-level ()
     (length (match-string 1)))
   (defun zw/init-outline ()
-    (let ((comment-start-symbol (or (string-trim comment-start) "#")))
+    (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
+           (outline-header (rx-to-string
+                            `(: (0+ space) (+ ,comment-start-symbol)
+                                (+ space) (group (+ "*"))))))
       (setq outline-level 'zw/outline-level
-            outline-regexp
-            (rx-to-string
-             `(: (0+ space) (+ ,comment-start-symbol)
-                 (+ space) (group (+ "*"))))))
+            outline-regexp outline-header)
+      (font-lock-add-keywords nil `((,outline-header 0 '(face nil invisible t)))))
     (outline-minor-mode 1)
     (outline--show-headings-up-to-level 1)))
 
