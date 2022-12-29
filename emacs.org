@@ -1246,9 +1246,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (length (match-string 2)))
   (defun zw/outline--unfontify (beg end &optional _loud)
     (let ((font-lock-extra-managed-props
-           (append
-            '(display invisible)
-            font-lock-extra-managed-props)))
+           (append '(invisible) font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)
       (with-silent-modifications
         (remove-text-properties beg end '(invisible t)))))
