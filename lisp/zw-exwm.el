@@ -335,4 +335,14 @@
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
+;; ** transparent scratch
+(defun zw/transparent-scratch ()
+  (let ((n-window (length (cl-delete-duplicates (mapcar #'window-buffer (window-list))))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*"))
+        (set-frame-parameter (selected-frame) 'alpha-background 40)
+      (set-frame-parameter (selected-frame) 'alpha-background 90))))
+(add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
+
+;; * provide zw-exwm
 (provide 'zw-exwm)
