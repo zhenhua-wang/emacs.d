@@ -340,8 +340,20 @@
   (let ((n-window (length (cl-delete-duplicates (mapcar #'window-buffer (window-list))))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*"))
-        (set-frame-parameter (selected-frame) 'alpha-background 40)
-      (set-frame-parameter (selected-frame) 'alpha-background 90))))
+        (progn
+          (set-frame-parameter (selected-frame) 'alpha-background 30)
+          (pcase (frame-parameter nil 'background-mode)
+            ('light (set-face-attribute 'tab-bar nil
+                                        :foreground "black"
+                                        :background "white"))
+            ('dark (set-face-attribute 'tab-bar nil
+                                       :foreground "white"
+                                       :background "black"))))
+      (progn
+        (set-frame-parameter (selected-frame) 'alpha-background 90)
+        (set-face-attribute 'tab-bar nil
+                            :foreground (face-foreground 'default)
+                            :background (face-background 'mode-line))))))
 (add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
 
 ;; * provide zw-exwm
