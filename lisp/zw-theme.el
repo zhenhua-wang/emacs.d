@@ -95,13 +95,13 @@
 
      ;; tab-bar
      `(tab-bar ((t (:foreground ,(face-foreground 'default) :weight SemiBold))))
-     `(zw/tab-bar-default-selected ((t (:foreground ,(face-foreground 'default) :background ,(face-background 'tab-bar)))))
+     `(zw/tab-bar-default-selected ((t (:inherit tab-bar :background ,(face-background 'tab-bar)))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
-     `(zw/tab-bar-tab-battery-load-default ((t (:foreground ,(face-foreground 'default)))))
-     `(zw/tab-bar-tab-battery-load-charging ((t (:foreground ,(face-foreground 'success)))))
-     `(zw/tab-bar-tab-battery-load-low ((t (:foreground ,(face-foreground 'warning)))))
-     `(zw/tab-bar-tab-battery-load-critical ((t (:foreground ,(face-foreground 'error)))))
+     `(zw/tab-bar-tab-battery-load-default ((t (:inherit zw/tab-bar-default-selected))))
+     `(zw/tab-bar-tab-battery-load-charging ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'success)))))
+     `(zw/tab-bar-tab-battery-load-low ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning)))))
+     `(zw/tab-bar-tab-battery-load-critical ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error)))))
 
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
