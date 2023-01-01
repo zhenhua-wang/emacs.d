@@ -354,7 +354,6 @@
       (progn
         (set-frame-parameter (selected-frame) 'alpha-background 90)
         (set-face-attribute 'tab-bar nil
-                            :height 120
                             :foreground (face-foreground 'default)
                             :background (face-background 'mode-line))))))
 (add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
