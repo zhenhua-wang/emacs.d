@@ -339,7 +339,7 @@
 
 ;; ** transparency
 (defun zw/transparent-scratch ()
-  (let ((n-window (length (cl-delete-duplicates (mapcar #'window-buffer (window-list))))))
+  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*"))
         (progn
