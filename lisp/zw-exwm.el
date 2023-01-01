@@ -346,11 +346,9 @@
           (set-frame-parameter (selected-frame) 'alpha-background 0)
           (pcase (frame-parameter nil 'background-mode)
             ('light (set-face-attribute 'tab-bar nil
-                                        :height 120
                                         :foreground "black"
                                         :background "white"))
             ('dark (set-face-attribute 'tab-bar nil
-                                       :height 120
                                        :foreground "white"
                                        :background "black"))))
       (progn
