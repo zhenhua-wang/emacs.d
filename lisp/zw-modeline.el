@@ -301,7 +301,7 @@
   (let ((process (string-trim (format-mode-line mode-line-process))))
     (when (not (length= process 0))
       (concat (propertize process
-                          'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active))
+                          'face 'zw/modeline-process-active)
               zw/modeline-separator))))
 
 (defun zw/modeline-input-method ()
