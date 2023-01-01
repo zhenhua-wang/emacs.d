@@ -346,14 +346,17 @@
           (set-frame-parameter (selected-frame) 'alpha-background 0)
           (pcase (frame-parameter nil 'background-mode)
             ('light (set-face-attribute 'tab-bar nil
+                                        :height 120
                                         :foreground "black"
                                         :background "white"))
             ('dark (set-face-attribute 'tab-bar nil
+                                       :height 120
                                        :foreground "white"
                                        :background "black"))))
       (progn
         (set-frame-parameter (selected-frame) 'alpha-background 90)
         (set-face-attribute 'tab-bar nil
+                            :height 120
                             :foreground (face-foreground 'default)
                             :background (face-background 'mode-line))))))
 (add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
