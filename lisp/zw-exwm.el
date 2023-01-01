@@ -341,9 +341,6 @@
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*"))
         (progn
-          ;; ISSUE: not yet supported
-          (setq exwm-systemtray-background-color 'transparent)
-          (exwm-systemtray--set-background-color)
           (set-frame-parameter (selected-frame) 'alpha-background 0)
           (pcase (frame-parameter nil 'background-mode)
             ('light (set-face-attribute 'tab-bar nil
@@ -353,8 +350,6 @@
                                        :foreground "white"
                                        :background "black"))))
       (progn
-        (setq exwm-systemtray-background-color 'workspace-background)
-        (exwm-systemtray--set-background-color)
         (set-frame-parameter (selected-frame) 'alpha-background 90)
         (set-face-attribute 'tab-bar nil
                             :foreground (face-foreground 'default)
