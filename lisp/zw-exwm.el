@@ -341,7 +341,7 @@
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*"))
         (progn
-          (set-frame-parameter (selected-frame) 'alpha-background 30)
+          (set-frame-parameter (selected-frame) 'alpha-background 0)
           (pcase (frame-parameter nil 'background-mode)
             ('light (set-face-attribute 'tab-bar nil
                                         :foreground "black"
