@@ -319,7 +319,7 @@
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (keycast-tab-bar-mode))
 
-;; ** input
+;; ** input method
 (use-package pyim
   :config
   (setq default-input-method "pyim"
