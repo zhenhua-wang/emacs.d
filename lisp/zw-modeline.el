@@ -157,15 +157,14 @@
      " ")))
 
 (defun zw/modeline-count-region ()
-  (if (region-active-p)
-      (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
-        (concat
-         (propertize
-          (concat num-words "W")
-          'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
-          'help-echo (concat "Word counts: " num-words))
-         " "))
-    ""))
+  (when (region-active-p)
+    (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
+      (concat
+       (propertize
+        (concat num-words "W")
+        'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
+        'help-echo (concat "Word counts: " num-words))
+       " "))))
 
 (defun zw/modeline-line-column ()
   (pcase major-mode
@@ -202,8 +201,7 @@
                   'utf-8
                 (plist-get sys :name)))
          (encoding (upcase (symbol-name sym))))
-    (if (string= encoding "NO-CONVERSION")
-        ""
+    (when (not (string= encoding "NO-CONVERSION"))
       (concat
        (propertize
         encoding
@@ -211,11 +209,11 @@
        " "))))
 
 (defun zw/modeline-mark-active ()
-  (if mark-active
-      (concat
-       (propertize " Mark "
-                   'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
-       " ")))
+  (when mark-active
+    (concat
+     (propertize " Mark "
+                 'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
+     " ")))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
@@ -226,11 +224,11 @@
      " ")))
 
 (defun zw/modeline-remote ()
-  (if (file-remote-p default-directory)
-      (concat
-       (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
-                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
-       " ")))
+  (when (file-remote-p default-directory)
+    (concat
+     (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
+                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
+     " ")))
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -241,55 +239,54 @@
      " ")))
 
 (defun zw/modeline-vc ()
-  (if vc-mode
-      (let* ((backend (vc-backend buffer-file-name))
-             (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
-        (concat
-         (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-             (propertize (concat vc-info)
-                         'face (zw/modeline-set-face 'zw/modeline-vc-active
-                                                     'zw/modeline-default-inactive))
+  (when vc-mode
+    (let* ((backend (vc-backend buffer-file-name))
+           (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
+      (concat
+       (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
            (propertize (concat vc-info)
-                       'face (zw/modeline-set-face 'zw/modeline-vc-modified-active
-                                                   'zw/modeline-default-inactive)))
-         " "))))
+                       'face (zw/modeline-set-face 'zw/modeline-vc-active
+                                                   'zw/modeline-default-inactive))
+         (propertize (concat vc-info)
+                     'face (zw/modeline-set-face 'zw/modeline-vc-modified-active
+                                                 'zw/modeline-default-inactive)))
+       " "))))
 
 (defun zw/modeline-lsp-bridge ()
-  (if (and (featurep 'lsp-bridge) lsp-bridge-mode)
-      (when lsp-bridge-server
-        (propertize "BRIDGE "
-                    'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
-                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)))
-    ""))
+  (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
+    (when lsp-bridge-server
+      (propertize "BRIDGE "
+                  'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
+                  'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)))))
 
 (defun zw/modeline-lsp ()
-  (if (and (featurep 'lsp-mode) lsp-mode)
-      (let ((workspaces (lsp-workspaces)))
-        (concat
-         (propertize "LSP"
-                     'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
-                     'help-echo
-                     (if workspaces
-                         (concat "LSP Connected "
-                                 (string-join
-                                  (mapcar (lambda (w)
-                                            (format "[%s]\n" (lsp--workspace-print w)))
-                                          workspaces)))))
-         " "))))
+  (when (and (featurep 'lsp-mode) lsp-mode)
+    (let ((workspaces (lsp-workspaces)))
+      (concat
+       (propertize "LSP"
+                   'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
+                   'help-echo
+                   (if workspaces
+                       (concat "LSP Connected "
+                               (string-join
+                                (mapcar (lambda (w)
+                                          (format "[%s]\n" (lsp--workspace-print w)))
+                                        workspaces)))))
+       " "))))
 
 (defun zw/modeline-eglot ()
-  (if (and (featurep 'eglot) (eglot-managed-p))
-      (let ((server (eglot-current-server)))
-        (concat
-         (propertize "EGLOT"
-                     'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
-                     'help-echo
-                     (if server
-                         (concat "EGLOT Connected "
-                                 (format "[%s/%s]"
-                                         (eglot--major-modes server)
-                                         (eglot--project-nickname server)))))
-         " "))))
+  (when (and (featurep 'eglot) (eglot-managed-p))
+    (let ((server (eglot-current-server)))
+      (concat
+       (propertize "EGLOT"
+                   'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
+                   'help-echo
+                   (if server
+                       (concat "EGLOT Connected "
+                               (format "[%s/%s]"
+                                       (eglot--major-modes server)
+                                       (eglot--project-nickname server)))))
+       " "))))
 
 (defun zw/modeline-major-mode ()
   (concat (propertize (format-mode-line mode-name)
