@@ -351,7 +351,7 @@
             ('dark (set-face-attribute 'tab-bar nil
                                        :foreground "white"
                                        :background "black"))))
-      (progn
+      (when (not (string= (buffer-name) company-posframe-buffer))
         (set-frame-parameter (selected-frame) 'alpha-background 90)
         (set-face-attribute 'tab-bar nil
                             :foreground (face-foreground 'default)
