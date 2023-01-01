@@ -318,7 +318,7 @@
    " " 'display
    `((space :align-to
             (- (+ right right-fringe right-margin)
-               ,(+ 1 (apply '+ (list (length (zw/modeline-rhs))))))))))
+               ,(+ 1 (length (zw/modeline-rhs))))))))
 
 (defun zw/modeline-rhs ()
   (concat
