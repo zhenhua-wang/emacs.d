@@ -115,6 +115,9 @@
     (eq window zw/modeline--selected-window)))
 
 ;; modeline segments
+(defvar zw/modeline-separator
+  (propertize " " 'face 'zw/modeline-default-active))
+
 (defun zw/modeline-tab-index ()
   (when (length> (tab-bar-tabs) 1)
     (concat
@@ -126,7 +129,7 @@
       'help-echo (concat "Current Tab: "
                          (number-to-string (+ 1 (tab-bar--current-tab-index)))))
      ">"
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-buffer-name (zw/modeline-buffer-name-max zw/modeline-buffer-name-ellipse)
   (let* ((file-name (buffer-name))
@@ -141,7 +144,7 @@
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-text-scale ()
   (when (and (boundp 'text-scale-mode-amount)
@@ -154,7 +157,7 @@
          "%-d")
        text-scale-mode-amount)
       'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-count-region ()
   (when (region-active-p)
@@ -164,7 +167,7 @@
         (concat num-words "W")
         'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
         'help-echo (concat "Word counts: " num-words))
-       " "))))
+       zw/modeline-separator))))
 
 (defun zw/modeline-line-column ()
   (pcase major-mode
@@ -206,14 +209,14 @@
        (propertize
         encoding
         'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))
-       " "))))
+       zw/modeline-separator))))
 
 (defun zw/modeline-mark-active ()
   (when mark-active
     (concat
      (propertize " Mark "
                  'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
@@ -221,14 +224,14 @@
     (concat
      (propertize " kmacro "
                  'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-remote ()
   (when (file-remote-p default-directory)
     (concat
      (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
                  'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
@@ -236,7 +239,7 @@
      (propertize (upcase conda-env-current-name)
                  'face (zw/modeline-set-face 'zw/modeline-env-active
                                              'zw/modeline-default-inactive))
-     " ")))
+     zw/modeline-separator)))
 
 (defun zw/modeline-vc ()
   (when vc-mode
@@ -249,14 +252,16 @@
                                                    'zw/modeline-default-inactive)
                            (zw/modeline-set-face 'zw/modeline-vc-modified-active
                                                  'zw/modeline-default-inactive)))
-       " "))))
+       zw/modeline-separator))))
 
 (defun zw/modeline-lsp-bridge ()
   (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
     (when lsp-bridge-server
-      (propertize "BRIDGE "
-                  'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
-                  'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)))))
+      (concat
+       (propertize "BRIDGE"
+                   'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
+                   'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive))
+       zw/modeline-separator))))
 
 (defun zw/modeline-lsp ()
   (when (and (featurep 'lsp-mode) lsp-mode)
@@ -271,7 +276,7 @@
                                 (mapcar (lambda (w)
                                           (format "[%s]\n" (lsp--workspace-print w)))
                                         workspaces)))))
-       " "))))
+       zw/modeline-separator))))
 
 (defun zw/modeline-eglot ()
   (when (and (featurep 'eglot) (eglot-managed-p))
@@ -285,34 +290,35 @@
                                (format "[%s/%s]"
                                        (eglot--major-modes server)
                                        (eglot--project-nickname server)))))
-       " "))))
+       zw/modeline-separator))))
 
 (defun zw/modeline-major-mode ()
   (concat (propertize (format-mode-line mode-name)
                       'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive))
-          " "))
+          zw/modeline-separator))
 
 (defun zw/modeline-process ()
   (let ((process (string-trim (format-mode-line mode-line-process))))
     (when (not (length= process 0))
       (concat (propertize process
                           'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active))
-              " "))))
+              zw/modeline-separator))))
 
 (defun zw/modeline-input-method ()
   (let ((method (string-trim (or current-input-method-title ""))))
     (when (not (length= method 0))
       (concat (propertize method
                           'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
-              " "))))
+              zw/modeline-separator))))
 
 (defun zw/modeline-middle-space ()
   (let* ((middle-space (string-pixel-width (zw/modeline-rhs))))
     (propertize
-     " " 'display
-     `((space :align-to
-              (- (+ right right-fringe right-margin)
-                 (,middle-space)))))))
+     " "
+     'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
+     'display `((space :align-to
+                       (- (+ right right-fringe right-margin)
+                          (,middle-space)))))))
 
 (defun zw/modeline-rhs ()
   (concat
