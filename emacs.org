@@ -264,8 +264,7 @@
         modus-themes-tabs-accented t
         modus-themes-paren-match '(bold intense)
         modus-themes-prompts '(bold intense)
-        modus-themes-region '(accented))
-  (modus-themes-load-themes))
+        modus-themes-region '(accented)))
 
 ;; load theme
 (setq zw/theme-selector
