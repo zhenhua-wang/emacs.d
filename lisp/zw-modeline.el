@@ -292,8 +292,9 @@
          " "))))
 
 (defun zw/modeline-major-mode ()
-  (propertize (format-mode-line mode-name)
-              'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive)))
+  (concat (propertize (format-mode-line mode-name)
+                      'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive))
+          " "))
 
 (defun zw/modeline-propertize-process-info (process)
   (propertize
@@ -314,11 +315,12 @@
       (concat method " "))))
 
 (defun zw/modeline-middle-space ()
-  (propertize
-   " " 'display
-   `((space :align-to
-            (- (+ right right-fringe right-margin)
-               ,(+ 1 (length (zw/modeline-rhs))))))))
+  (let* ((middle-space (string-pixel-width (zw/modeline-rhs))))
+    (propertize
+     " " 'display
+     `((space :align-to
+              (- (+ right right-fringe right-margin)
+                 (,middle-space)))))))
 
 (defun zw/modeline-rhs ()
   (concat
