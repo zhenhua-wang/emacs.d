@@ -295,7 +295,7 @@
 ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 
 ;; time
-(setq display-time-format "%b %e %a %T %p"
+(setq display-time-format "%b %-e %a %T %p"
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
