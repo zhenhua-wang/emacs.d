@@ -31,7 +31,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-modified-active
-  '((t (:inherit 'warning :bold nil)))
+  '((t (:inherit warning :bold nil)))
   "Modified buffer face for active modeline"
   :group 'zw/modeline-active)
 
@@ -296,23 +296,19 @@
                       'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive))
           " "))
 
-(defun zw/modeline-propertize-process-info (process)
-  (propertize
-   process
-   'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active)
-   'help-echo (concat (buffer-name) " is running...")))
-
 (defun zw/modeline-process ()
   (let ((process (string-trim (format-mode-line mode-line-process))))
-    (if (length= process 0)
-        ""
-      (concat process " "))))
+    (when (not (length= process 0))
+      (concat (propertize process
+                          'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-process-active))
+              " "))))
 
 (defun zw/modeline-input-method ()
   (let ((method (string-trim (or current-input-method-title ""))))
-    (if (length= method 0)
-        ""
-      (concat method " "))))
+    (when (not (length= method 0))
+      (concat (propertize method
+                          'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
+              " "))))
 
 (defun zw/modeline-middle-space ()
   (let* ((middle-space (string-pixel-width (zw/modeline-rhs))))
@@ -398,9 +394,6 @@
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
             (setq-local mode-line-process
-                        '(:eval (concat
-                                 ":run"
-                                 (zw/modeline-propertize-process-info
-                                  (nth ess--busy-count ess-busy-strings)))))))
+                        '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings))))))
 
 (provide 'zw-modeline)
