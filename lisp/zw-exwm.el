@@ -48,7 +48,6 @@
 
 (defun exwm/set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (push '(alpha-background . 90) default-frame-alist)
     (with-current-buffer "*scratch*"
       ;; (setq-local cursor-type nil
       ;;             mode-line-format nil)
@@ -338,7 +337,7 @@
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
-;; ** transparent scratch
+;; ** transparency
 (defun zw/transparent-scratch ()
   (let ((n-window (length (cl-delete-duplicates (mapcar #'window-buffer (window-list))))))
     (if (and (= n-window 1)
