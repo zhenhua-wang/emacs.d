@@ -139,6 +139,9 @@
   (setq exwm-input-simulation-keys
         `((,(kbd "s-r") . ,(kbd "C-r"))
           (,(kbd "s-f") . ,(kbd "C-f"))
+          (,(kbd "s--") . ,(kbd "C--"))
+          (,(kbd "s-=") . ,(kbd "C-="))
+          (,(kbd "s-+") . ,(kbd "C-+"))
           ;; tab
           (,(kbd "s-t") . ,(kbd "C-t"))
           (,(kbd "s-T") . ,(kbd "C-S-t"))
