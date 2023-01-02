@@ -1,8 +1,5 @@
 ;; * helper functions
-(defun exwm/run-in-background (command)
-  (let ((command-parts (split-string command "[ ]+")))
-    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
+;; ** exwm window
 (defun exwm/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
@@ -32,6 +29,12 @@
     ("Emacs"
      (exwm-floating-toggle-floating))))
 
+
+;; ** background apps
+(defun exwm/run-in-background (command)
+  (let ((command-parts (split-string command "[ ]+")))
+    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+
 ;; initialization
 (defun exwm/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
@@ -47,6 +50,7 @@
   (exwm/run-in-background "ibus-daemon -drxR")
   (when (executable-find "polybar") (exwm/run-in-background "polybar panel")))
 
+;; ** wallpaper
 (defun exwm/set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
     (with-current-buffer "*scratch*"
@@ -56,7 +60,7 @@
     (start-process-shell-command
      "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
-;; run xmodmap
+;; ** xmodmap
 (defun exwm/run-xmodmap ()
   (interactive)
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
