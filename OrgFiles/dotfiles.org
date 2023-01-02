@@ -232,6 +232,7 @@ fade-exclude = ["class_g = 'Emacs'"];
 #+begin_src conf
 [settings]
 screenchange-reload = true
+dpi = 180
 
 [global/wm]
 margin-top = 0
