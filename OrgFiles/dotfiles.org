@@ -232,7 +232,6 @@ fade-exclude = ["class_g = 'Emacs'"];
 #+begin_src conf
 [settings]
 screenchange-reload = true
-dpi = 180
 
 [global/wm]
 margin-top = 0
@@ -255,6 +254,7 @@ gray =                  #4c566a
 black =                 #2e3440
 
 [bar/panel]
+dpi = 180
 bottom = false
 width = 100%
 height = 42
@@ -274,7 +274,7 @@ padding-top = 5
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "JetBrainsMono Nerd Font:size=15"
+font-0 = "JetBrainsMono Nerd Font:size=10"
 
 modules-left = emacs-buffer-path
 modules-center = date
