@@ -367,7 +367,10 @@
     (substring-no-properties (zw/tab-bar-tab-name))))
 
 (defun exwm/polybar-keycast-key ()
-  (concat " " (key-description keycast--this-command-keys) " "))
+  (let ((key (key-description keycast--this-command-keys)))
+    (if (string= key "")
+        ""
+      (format " %s " key))))
 
 (defun exwm/polybar-keycast-desc ()
   (if keycast--this-command-desc

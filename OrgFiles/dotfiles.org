@@ -267,7 +267,6 @@ font-1 = "Noto Sans Mono:size=10;2"
 font-2 = "Noto Sans Mono CJK SC:size=10;2"
 
 module-margin-left = 1
-module-margin-right = 1
 modules-left = emacs-buffer-path
 modules-center = date
 modules-right = emacs-keycast-key emacs-keycast-desc battery
