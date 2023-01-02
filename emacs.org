@@ -254,17 +254,7 @@
   (doom-themes-visual-bell-config))
 
 (use-package modus-themes
-  :defer t
-  :init
-  (setq modus-themes-mode-line '(accented borderless)
-        modus-themes-hl-line '(intense)
-        modus-themes-bold-constructs t
-        modus-themes-italic-constructs t
-        modus-themes-fringes 'subtle
-        modus-themes-tabs-accented t
-        modus-themes-paren-match '(bold intense)
-        modus-themes-prompts '(bold intense)
-        modus-themes-region '(accented)))
+  :defer t)
 
 ;; load theme
 (setq zw/theme-selector
