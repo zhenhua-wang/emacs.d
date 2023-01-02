@@ -1,5 +1,5 @@
 ;; * exwm init
-;; ** exwm window
+;; ** window management
 (defun exwm/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
@@ -13,14 +13,6 @@
     ("libreoffice-impress" (exwm-workspace-rename-buffer (format "Libre-Slides: %s" exwm-title)))
     ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))))
 
-;; This function isn't currently used, only serves as an example how to
-;; position a window
-(defun exwm/position-window ()
-  (let* ((pos (frame-position))
-         (pos-x (car pos))
-         (pos-y (cdr pos)))
-    (exwm-floating-move (- pos-x) (- pos-y))))
-
 (defun exwm/configure-window-by-class ()
   (pcase exwm-class-name
     ;; floating utils
@@ -29,6 +21,13 @@
     ("Emacs"
      (exwm-floating-toggle-floating))))
 
+;; This function isn't currently used, only serves as an example how to
+;; position a window
+(defun exwm/position-window ()
+  (let* ((pos (frame-position))
+         (pos-x (car pos))
+         (pos-y (cdr pos)))
+    (exwm-floating-move (- pos-x) (- pos-y))))
 
 ;; ** background apps
 (defun exwm/run-in-background (command)
@@ -94,9 +93,7 @@
   (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
 
   ;; Hide the modeline on all X windows
-  (add-hook 'exwm-floating-setup-hook
-            (lambda ()
-              (exwm-layout-hide-mode-line)))
+  (add-hook 'exwm-floating-setup-hook (lambda () (exwm-layout-hide-mode-line)))
 
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
