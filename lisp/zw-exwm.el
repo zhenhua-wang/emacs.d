@@ -1,4 +1,4 @@
-;; * helper functions
+;; * exwm init
 ;; ** exwm window
 (defun exwm/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
@@ -65,7 +65,7 @@
   (interactive)
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
-;; * main
+;; * exwm main
 (use-package exwm
   :config
   (setq
@@ -259,7 +259,7 @@
              :map vertico-map
              ("s-<tab>" . vertico-next)))
 
-;; * misc
+;; * exwm app
 ;; ** desktop environment
 (use-package desktop-environment
   :after exwm
