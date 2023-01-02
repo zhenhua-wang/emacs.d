@@ -366,11 +366,13 @@
   (with-current-buffer (window-buffer (selected-window))
     (substring-no-properties (zw/tab-bar-tab-name))))
 
-(defun exwm/polybar-keycast ()
-  (let ((key (keycast--format keycast-mode-line-format)))
-    (if key
-        (string-trim (substring-no-properties key))
-      "")))
+(defun exwm/polybar-keycast-key ()
+  (concat " " (key-description keycast--this-command-keys) " "))
+
+(defun exwm/polybar-keycast-desc ()
+  (if keycast--this-command-desc
+      (format "%s" keycast--this-command-desc)
+    ""))
 
 (defun exwm/send-polybar-hook (module-name hook-index)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
@@ -380,7 +382,8 @@
   (tab-bar-mode 1)
   (add-to-list 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast" 1))))
+  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-key" 1)))
+  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-desc" 1))))
 
 ;; * provide zw-exwm
 (provide 'zw-exwm)

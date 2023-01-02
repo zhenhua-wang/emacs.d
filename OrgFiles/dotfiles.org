@@ -270,7 +270,7 @@ module-margin-left = 1
 module-margin-right = 1
 modules-left = emacs-buffer-path
 modules-center = date
-modules-right = emacs-keycast battery
+modules-right = emacs-keycast-key emacs-keycast-desc battery
 separator = " "
 
 tray-position = right
@@ -283,11 +283,18 @@ hook-0 = emacsclient -e "(exwm/polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$/
 initial = 1
 format-padding = 1
 
-[module/emacs-keycast]
+[module/emacs-keycast-key]
 type = custom/ipc
-hook-0 = emacsclient -e "(exwm/polybar-keycast)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(exwm/polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
-format-padding = 1
+format = <output>
+format-foreground = ${colors.white}
+format-background = ${colors.blue}
+
+[module/emacs-keycast-desc]
+type = custom/ipc
+hook-0 = emacsclient -e "(exwm/polybar-keycast-desc)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+initial = 1
 
 [module/date]
 type = internal/date
