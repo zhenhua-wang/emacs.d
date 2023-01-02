@@ -254,7 +254,12 @@
   (doom-themes-visual-bell-config))
 
 (use-package modus-themes
-  :defer t)
+  :defer t
+  :config
+  (setq modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-prompts '(extrabold italic)
+        modus-themes-org-blocks 'gray-background))
 
 ;; load theme
 (setq zw/theme-selector
