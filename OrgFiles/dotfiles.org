@@ -273,6 +273,7 @@ separator = " "
 
 tray-position = right
 tray-padding = 2
+tray-maxsize = 40
 
 [module/sep]
 type = custom/text
