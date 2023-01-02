@@ -226,3 +226,131 @@ fade-in-step = 1;
 fade-out-step = 0.03;
 fade-exclude = ["class_g = 'Emacs'"];
 #+end_src
+
+* Polybar
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/polybar/config.ini" "no")
+#+begin_src conf
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[colors]
+;; dark theme
+background =            #fe282b33
+background-alt =        #1f2024
+foreground =            #FFFFFF
+foreground-alt =        #FFFFFF
+red =                   #bf616a
+green =                 #a3be8c
+yellow =                #ebcb8b
+blue =                  #5e81ac
+magenta =               #b48ead
+cyan =                  #88c0d0
+white =                 #eceff4
+gray =                  #4c566a
+black =                 #2e3440
+
+[bar/panel]
+bottom = false
+width = 100%
+height = 42
+offset-x = 0
+offset-y = 0
+fixed-center = true
+enable-ipc = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+border-size = 0
+border-color = #00000000
+
+padding-top = 5
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "JetBrainsMono Nerd Font:size=20;2"
+
+modules-left = emacs-buffer-path
+modules-center = date
+modules-right = emacs-keycast battery
+
+tray-position = right
+tray-padding = 2
+tray-maxsize = 40
+
+[module/emacs-buffer-path]
+type = custom/ipc
+hook-0 = emacsclient -e "(exwm/polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+initial = 1
+format-padding = 1
+
+[module/emacs-keycast]
+type = custom/ipc
+hook-0 = emacsclient -e "(exwm/polybar-keycast)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+initial = 1
+format-padding = 1
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "%a %b %e"
+date-alt = "%A %B %d %Y"
+
+time = %l:%M %p
+time-alt = %H:%M:%S
+
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% - %time%
+format = <label>
+format-padding = 3
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 95
+time-format = %-l:%M
+
+label-charging = %percentage%%
+format-charging = <animation-charging> <label-charging>
+label-discharging = %percentage%%
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-full = <label-full>
+format-full-prefix = " "
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+ramp-capacity-10 = 
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+animation-charging-7 = 
+animation-charging-8 = 
+animation-charging-9 = 
+animation-charging-10 = 
+animation-charging-foreground = ${colors.green}
+animation-charging-framerate = 500
+#+end_src
+

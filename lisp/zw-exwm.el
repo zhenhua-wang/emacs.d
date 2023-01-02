@@ -44,7 +44,8 @@
   (exwm/run-in-background "udiskie --no-automount -t")
   (exwm/run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
-  (exwm/run-in-background "ibus-daemon -drxR"))
+  (exwm/run-in-background "ibus-daemon -drxR")
+  (start-process-shell-command "polybar" nil "polybar panel"))
 
 (defun exwm/set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
@@ -102,8 +103,8 @@
   (exwm/set-wallpaper)
 
   ;; Load the system tray before exwm-init
-  (require 'exwm-systemtray)
-  (exwm-systemtray-enable)
+  ;; (require 'exwm-systemtray)
+  ;; (exwm-systemtray-enable)
 
   ;; input method
   ;; use ibus-rime for X11 apps
@@ -281,7 +282,7 @@
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
 ;; ** tab bar
-(setq tab-bar-show t
+(setq tab-bar-show nil
       tab-bar-format '(tab-bar-separator
                        zw/tab-bar-format-menu-bar
                        tab-bar-separator
@@ -357,6 +358,24 @@
                             :foreground (face-foreground 'default)
                             :background (face-background 'mode-line))))))
 (add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
+
+;; ** polybar
+(defun exwm/polybar-buffer-path ()
+  (with-current-buffer (window-buffer (selected-window))
+    (substring-no-properties (zw/tab-bar-tab-name))))
+
+(defun exwm/polybar-keycast ()
+  (let ((key (keycast--format keycast-mode-line-format)))
+    (if key
+        (string-trim (substring-no-properties key))
+      "")))
+
+(defun exwm/send-polybar-hook (module-name hook-index)
+  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+
+(add-to-list 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+(advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+(advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast" 1)))
 
 ;; * provide zw-exwm
 (provide 'zw-exwm)
