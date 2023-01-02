@@ -383,7 +383,7 @@
     ""))
 
 (defun exwm/send-polybar-hook (module-name hook-index)
-  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+  (call-process-shell-command (format "polybar-msg hook %s %s" module-name hook-index) nil 0))
 
 (when (executable-find "polybar")
   (setq tab-bar-show nil)
