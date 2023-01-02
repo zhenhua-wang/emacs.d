@@ -45,7 +45,7 @@
   (exwm/run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
   (exwm/run-in-background "ibus-daemon -drxR")
-  (start-process-shell-command "polybar" nil "polybar panel"))
+  (exwm/run-in-background "polybar panel"))
 
 (defun exwm/set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
