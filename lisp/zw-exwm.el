@@ -45,7 +45,7 @@
   (exwm/run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
   (exwm/run-in-background "ibus-daemon -drxR")
-  (exwm/run-in-background "polybar panel"))
+  (when (executable-find "polybar") (exwm/run-in-background "polybar panel")))
 
 (defun exwm/set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
@@ -103,8 +103,9 @@
   (exwm/set-wallpaper)
 
   ;; Load the system tray before exwm-init
-  ;; (require 'exwm-systemtray)
-  ;; (exwm-systemtray-enable)
+  (when (not (executable-find "polybar"))
+    (require 'exwm-systemtray)
+    (exwm-systemtray-enable))
 
   ;; input method
   ;; use ibus-rime for X11 apps
@@ -373,9 +374,10 @@
 (defun exwm/send-polybar-hook (module-name hook-index)
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
 
-(add-to-list 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-(advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-(advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast" 1)))
+(when (executable-find "polybar")
+  (add-to-list 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+  (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast" 1))))
 
 ;; * provide zw-exwm
 (provide 'zw-exwm)
