@@ -362,6 +362,11 @@
 (add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
 
 ;; ** polybar
+(defun zw/restart-polybar ()
+  (interactive)
+  (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
+  (exwm/run-in-background "polybar panel"))
+
 (defun exwm/polybar-buffer-path ()
   (with-current-buffer (window-buffer (selected-window))
     (substring-no-properties (zw/tab-bar-tab-name))))
