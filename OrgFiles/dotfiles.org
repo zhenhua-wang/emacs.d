@@ -269,12 +269,16 @@ font-2 = "Noto Sans Mono CJK SC:size=10;2"
 module-margin-left = 1
 modules-left = emacs-buffer-path
 modules-center = date
-modules-right = emacs-keycast-key emacs-keycast-desc battery
+modules-right = emacs-keycast-key emacs-keycast-desc sep battery
 separator = " "
 
 tray-position = right
 tray-padding = 2
 tray-maxsize = 40
+
+[module/sep]
+type = custom/text
+content = "   "
 
 [module/emacs-buffer-path]
 type = custom/ipc
