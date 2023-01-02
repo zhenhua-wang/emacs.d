@@ -283,7 +283,7 @@
   (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
 
 ;; ** tab bar
-(setq tab-bar-show nil
+(setq tab-bar-show t
       tab-bar-format '(tab-bar-separator
                        zw/tab-bar-format-menu-bar
                        tab-bar-separator
@@ -375,6 +375,8 @@
   (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
 
 (when (executable-find "polybar")
+  (setq tab-bar-show nil)
+  (tab-bar-mode 1)
   (add-to-list 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast" 1))))
