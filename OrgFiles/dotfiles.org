@@ -253,7 +253,6 @@ black =                 #2e3440
 dpi = ${xrdb:Xft.dpi}
 bottom = false
 width = 100%
-height = 42
 offset-x = 0
 offset-y = 0
 fixed-center = true
