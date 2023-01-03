@@ -186,7 +186,8 @@
   (add-hook 'exwm-manage-finish-hook
             (lambda ()
               (when (and exwm-class-name
-                         (string= exwm-class-name "kitty"))
+                         (or (string= exwm-class-name "kitty")
+                             (string= exwm-class-name "Emacs")))
                 (exwm-input-set-local-simulation-keys nil))))
 
   ;; ** exwm global keys
