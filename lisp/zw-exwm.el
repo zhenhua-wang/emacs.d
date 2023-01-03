@@ -342,25 +342,38 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** transparency
-(defun zw/transparent-scratch ()
+(defun zw/set-transparency (predicate)
+  (if predicate
+      (progn
+        (set-frame-parameter (selected-frame) 'alpha-background 0)
+        (pcase (frame-parameter nil 'background-mode)
+          ('light (set-face-attribute 'tab-bar nil
+                                      :foreground "black"
+                                      :background "white"))
+          ('dark (set-face-attribute 'tab-bar nil
+                                     :foreground "white"
+                                     :background "black"))))
+    (progn
+      (set-frame-parameter (selected-frame) 'alpha-background 90)
+      (set-face-attribute 'tab-bar nil
+                          :foreground (face-foreground 'default)
+                          :background (face-background 'mode-line)))))
+
+(defun zw/transparent-scratch-window-change ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*"))
-        (progn
-          (set-frame-parameter (selected-frame) 'alpha-background 0)
-          (pcase (frame-parameter nil 'background-mode)
-            ('light (set-face-attribute 'tab-bar nil
-                                        :foreground "black"
-                                        :background "white"))
-            ('dark (set-face-attribute 'tab-bar nil
-                                       :foreground "white"
-                                       :background "black"))))
-      (when (not (string= (buffer-name) company-posframe-buffer))
-        (set-frame-parameter (selected-frame) 'alpha-background 90)
-        (set-face-attribute 'tab-bar nil
-                            :foreground (face-foreground 'default)
-                            :background (face-background 'mode-line))))))
-(add-to-list 'window-configuration-change-hook 'zw/transparent-scratch)
+             (string= (buffer-name) "*scratch*")
+             (not (string= (buffer-name) company-posframe-buffer)))
+        (zw/set-transparency t)
+      (zw/set-transparency nil))))
+(add-to-list 'window-configuration-change-hook 'zw/transparent-scratch-window-change)
+
+(defun zw/transparent-scratch-post-command ()
+  (if (= (buffer-size) 0)
+      (zw/set-transparency t)
+    (zw/set-transparency nil)))
+(with-current-buffer "*scratch*"
+  (add-hook 'post-command-hook #'zw/transparent-scratch-post-command nil t))
 
 ;; ** polybar
 (defun zw/restart-polybar ()
