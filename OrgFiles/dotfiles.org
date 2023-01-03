@@ -274,7 +274,7 @@ modules-right = emacs-keycast-key emacs-keycast-desc sep battery
 separator = " "
 
 tray-position = right
-tray-padding = 1
+tray-padding = 0
 tray-maxsize = 40
 
 [module/sep]
