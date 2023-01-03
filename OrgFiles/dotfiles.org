@@ -270,7 +270,7 @@ module-margin-left = 0
 module-margin-right = 0
 modules-left = emacs-buffer-path
 modules-center = date
-modules-right = emacs-keycast-key emacs-keycast-desc sep temperature battery
+modules-right = emacs-keycast-key emacs-keycast-desc sep cpu battery
 separator = ""
 
 tray-position = right
@@ -343,6 +343,24 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-foreground = ${colors.green}
 animation-charging-framerate = 500
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+
+format = <ramp-coreload> <label>
+label = %percentage:2%%
+format-padding = 1
+; Spacing between individual per-core ramps
+ramp-coreload-spacing = 0
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
 
 [module/temperature]
 type = internal/temperature
