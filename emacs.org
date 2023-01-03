@@ -679,9 +679,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 ** Openwith
 #+begin_src emacs-lisp
-(setq open-app (pcase system-type
-                 ('gnu/linux "xdg-open")
-                 (_ "open")))
+(defvar open-app-command (pcase system-type
+                           ('gnu/linux "xdg-open")
+                           (_ "open"))
+  "Shell command used to open in external apps.")
 
 (use-package openwith
   :hook
@@ -693,7 +694,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                 '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
                   "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
                   "ogg" "mkv"))
-               open-app
+               open-app-command
                '(file)))))
 
 (defun zw/open-in-external (arg)
@@ -701,7 +702,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (interactive "P")
   (when buffer-file-name
     (call-process-shell-command
-     (concat open-app " " (shell-quote-argument buffer-file-name))
+     (concat open-app-command " " (shell-quote-argument buffer-file-name))
      nil 0)))
 #+end_src
 
