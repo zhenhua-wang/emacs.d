@@ -266,11 +266,12 @@ font-0 = "Noto Sans Mono:style=Regular:size=10;2"
 font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;2"
 font-2 = "JetBrainsMono Nerd Font:style=Regular:size=10;2"
 
-module-margin-left = 1
+module-margin-left = 0
+module-margin-right = 0
 modules-left = emacs-buffer-path
 modules-center = date
-modules-right = emacs-keycast-key emacs-keycast-desc sep battery
-separator = " "
+modules-right = emacs-keycast-key emacs-keycast-desc sep temperature battery
+separator = ""
 
 tray-position = right
 tray-padding = 2
@@ -342,5 +343,25 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-foreground = ${colors.green}
 animation-charging-framerate = 500
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+base-temperature = 20
+warn-temperature = 60
+units = true
+
+format = <ramp> <label>
+format-padding = 1
+format-warn = <ramp> <label-warn>
+format-warn-padding = 1
+
+label = "%temperature-c%"
+label-warn = "%temperature-c%!"
+label-warn-foreground = ${colors.red}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 #+end_src
 
