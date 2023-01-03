@@ -262,9 +262,9 @@ enable-ipc = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "Noto Sans Mono:style=Regular:size=10;2"
-font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;2"
-font-2 = "JetBrainsMono Nerd Font:style=Regular:size=10;2"
+font-0 = "Noto Sans Mono:style=Regular:size=10;4"
+font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;4"
+font-2 = "JetBrainsMono Nerd Font:style=Regular:size=10;4"
 
 module-margin-left = 0
 module-margin-right = 0
@@ -274,7 +274,7 @@ modules-right = emacs-keycast-key emacs-keycast-desc sep battery
 separator = " "
 
 tray-position = right
-tray-padding = 2
+tray-padding = 1
 tray-maxsize = 40
 
 [module/sep]
@@ -322,19 +322,20 @@ battery = BAT0
 adapter = ADP1
 full-at = 100
 
-label-charging = %percentage%%
+label-charging = "%percentage%%"
+label-discharging = "%percentage%%"
+label-full = "%percentage%%"
 format-charging = <animation-charging>  <label-charging>
-label-discharging = %percentage%%
 format-discharging = <ramp-capacity>  <label-discharging>
 format-full = <ramp-capacity>  <label-full>
 
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = ${colors.red}
 ramp-capacity-1 = 
+ramp-capacity-1-foreground = ${colors.yellow}
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.foreground}
 
 animation-charging-0 = 
 animation-charging-1 = 
