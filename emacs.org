@@ -1501,7 +1501,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
    org-hide-emphasis-markers t
    org-src-fontify-natively t
    org-fontify-quote-and-verse-blocks t
-   org-edit-src-content-indentation 2))
+   org-edit-src-content-indentation 2
+   org-support-shift-select 'always))
 
 ;; auto tangle
 (use-package org-auto-tangle
