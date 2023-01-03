@@ -361,19 +361,14 @@
                           :foreground (face-foreground 'default)
                           :background (face-background 'mode-line)))))
 
-(defun zw/transparent-scratch-window-change ()
+(defun zw/transparent-scratch-post-command ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
-             (not (string= (buffer-name) company-posframe-buffer)))
+             (= (buffer-size) 0))
         (zw/set-transparency t)
       (zw/set-transparency nil))))
-(add-to-list 'window-configuration-change-hook 'zw/transparent-scratch-window-change)
-
-(defun zw/transparent-scratch-post-command ()
-  (if (= (buffer-size) 0)
-      (zw/set-transparency t)
-    (zw/set-transparency nil)))
+(add-to-list 'window-configuration-change-hook 'zw/transparent-scratch-post-command)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook #'zw/transparent-scratch-post-command nil t))
 
