@@ -380,7 +380,9 @@
 
 (defun exwm/polybar-keycast-desc ()
   (if keycast--this-command-desc
-      (format "%s" keycast--this-command-desc)
+      (truncate-string-to-width
+       (format "%s" keycast--this-command-desc) 30 nil nil
+       "...")
     ""))
 
 (defun exwm/send-polybar-hook (module-name hook-index)
