@@ -380,7 +380,7 @@
 
 (defun exwm/polybar-keycast-desc ()
   (if keycast--this-command-desc
-      (format "%s" keycast--this-command-desc)
+      (format " %s" keycast--this-command-desc)
     ""))
 
 (defun exwm/send-polybar-hook (module-name hook-index)
