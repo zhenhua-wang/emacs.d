@@ -271,7 +271,7 @@ module-margin-right = 0
 modules-left = powermenu emacs-buffer-path
 modules-center = date
 modules-right = emacs-keycast-key emacs-keycast-desc sep cpu battery
-separator = ""
+separator = " "
 
 tray-position = right
 tray-padding = 2
@@ -346,7 +346,7 @@ animation-charging-framerate = 500
 
 [module/cpu]
 type = internal/cpu
-interval = 2
+interval = 0.5
 
 format = <ramp-coreload> <label>
 label = %percentage:2%%
@@ -385,7 +385,7 @@ ramp-2 = 
 [module/powermenu]
 type = custom/menu
 format-spacing = 1
-label-open = "  "
+label-open = " "
 format-open-padding = 1
 label-close = " close"
 label-close-foreground = ${colors.red}
