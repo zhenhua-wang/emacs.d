@@ -402,6 +402,7 @@
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
   (add-hook 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+  (add-hook 'window-state-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-key" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-desc" 1))))
