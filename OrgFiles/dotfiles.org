@@ -320,9 +320,9 @@ battery = BAT0
 adapter = ADP1
 full-at = 100
 
-label-charging = "%percentage%% "
-label-discharging = "%percentage%% "
-label-full = "%percentage%% "
+label-charging = "%percentage_raw%% "
+label-discharging = "%percentage_raw%% "
+label-full = "%percentage_raw%% "
 format-charging = <animation-charging>  <label-charging>
 format-discharging = <ramp-capacity>  <label-discharging>
 format-full = <ramp-capacity>  <label-full>
