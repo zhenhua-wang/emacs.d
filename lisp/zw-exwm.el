@@ -1,17 +1,11 @@
 ;; * exwm init
 ;; ** window management
-(defun exwm/exwm-update-class ()
-  (exwm-workspace-rename-buffer exwm-class-name))
-
 (defun exwm/exwm-update-title ()
-  (pcase exwm-class-name
-    ("firefoxnightly" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
-    ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
-    ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title)))
-    ("mpv" (exwm-workspace-rename-buffer (format "mpv: %s" exwm-title)))
-    ("libreoffice-writer" (exwm-workspace-rename-buffer (format "Libre-Writer: %s" exwm-title)))
-    ("libreoffice-impress" (exwm-workspace-rename-buffer (format "Libre-Slides: %s" exwm-title)))
-    ("Zathura" (exwm-workspace-rename-buffer (format "Zathura: %s" exwm-title)))))
+  (if (and exwm-title
+           (string= (downcase exwm-title)
+                    (downcase exwm-class-name)))
+      (exwm-workspace-rename-buffer (capitalize exwm-class-name))
+    (exwm-workspace-rename-buffer (format "%s: %s" (capitalize exwm-class-name) exwm-title))))
 
 (defun exwm/configure-window-by-class ()
   (pcase exwm-class-name
@@ -84,7 +78,7 @@
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
 
   ;; When window "class" updates, use it to set the buffer name
-  (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
+  (add-hook 'exwm-update-class-hook #'exwm/exwm-update-title)
 
   ;; When window title updates, use it to set the buffer name
   (add-hook 'exwm-update-title-hook #'exwm/exwm-update-title)
