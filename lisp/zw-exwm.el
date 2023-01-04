@@ -86,7 +86,7 @@
   ;; Configure windows as they're created
   (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
 
-  ;; Hide the modeline on all X windows
+  ;; Hide the modeline on all floating X windows
   (add-hook 'exwm-floating-setup-hook (lambda () (exwm-layout-hide-mode-line)))
 
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
