@@ -271,12 +271,8 @@
   (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") 'desktop-environment-volume-increment)
   (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-volume-decrement)
   (exwm-input-set-key (kbd "<XF86AudioMute>") 'desktop-environment-toggle-mute)
-  (exwm-input-set-key (kbd "C-s-5") '(lambda ()
-                                       (interactive)
-                                       (desktop-environment-screenshot)
-                                       (sleep-for 0.2)
-                                       (start-process-shell-command "notify-send" nil "notify-send \"screenshot taken!\"")))
-  (exwm-input-set-key (kbd "s-<print>") 'desktop-environment-screenshot-part))
+  (exwm-input-set-key (kbd "s-#") 'desktop-environment-screenshot)
+  (exwm-input-set-key (kbd "s-$") 'desktop-environment-screenshot-part))
 
 ;; ** tab bar
 (setq tab-bar-show t
