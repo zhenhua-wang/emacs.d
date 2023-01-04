@@ -310,8 +310,6 @@ date-alt = "%A %B %d %Y"
 time = %l:%M %p
 time-alt = %H:%M:%S
 
-format-prefix-foreground = ${colors.foreground-alt}
-
 label = %date% - %time%
 format = <label>
 format-padding = 3
