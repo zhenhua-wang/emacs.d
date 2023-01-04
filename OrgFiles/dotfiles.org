@@ -333,9 +333,14 @@ format-low-foreground = ${colors.red}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
+ramp-capacity-1-weight = 25
 ramp-capacity-2 = 
+ramp-capacity-2-weight = 25
 ramp-capacity-3 = 
+ramp-capacity-3-weight = 40
 ramp-capacity-4 = 
+ramp-capacity-4-weight = 10
+ramp-capacity-5 = 
 
 animation-charging-0 = 
 animation-charging-1 = 
