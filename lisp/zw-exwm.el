@@ -358,8 +358,9 @@
              (= (buffer-size) 0))
         (zw/set-transparency t)
       (zw/set-transparency nil))))
+
 (add-hook 'window-configuration-change-hook 'zw/transparent-scratch-post-command)
-(add-hook 'window-state-change-hook 'zw/transparent-scratch-post-command)
+(add-hook 'exwm-update-class-hook 'zw/transparent-scratch-post-command)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook #'zw/transparent-scratch-post-command nil t))
 
@@ -393,7 +394,7 @@
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
   (add-hook 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-  (add-hook 'window-state-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+  (add-hook 'exwm-manage-finish-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-key" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-desc" 1))))
