@@ -359,6 +359,7 @@
         (zw/set-transparency t)
       (zw/set-transparency nil))))
 (add-hook 'window-configuration-change-hook 'zw/transparent-scratch-post-command)
+(add-hook 'window-state-change-hook 'zw/transparent-scratch-post-command)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook #'zw/transparent-scratch-post-command nil t))
 
