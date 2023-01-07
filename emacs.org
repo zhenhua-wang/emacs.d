@@ -485,6 +485,24 @@ FACE defaults to inheriting from default and highlight."
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 #+end_src
 
+** Popper
+#+begin_src emacs-lisp
+(use-package popper
+  :straight '(popper :host github
+                     :repo "karthink/popper"
+                     :branch "local-mode-line-format")
+  :bind (("s-`"   . popper-cycle))
+  :hook
+  (after-init . popper-mode)
+  (popper-mode . popper-echo-mode)
+  :config
+  (setq popper-mode-line ""
+        popper-display-control nil
+        popper-reference-buffers
+        '(inferior-ess-r-mode
+          inferior-python-mode)))
+#+end_src
+
 ** Window placement
 #+begin_src emacs-lisp
 ;; window split
@@ -755,7 +773,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (setq which-key-idle-delay 0.3))
 #+end_src
 
-** Go to address
+** Open address
 #+begin_src emacs-lisp
 (use-package goto-addr
   :straight (:type built-in)
@@ -800,24 +818,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-/" . emacs-websearch)))
-#+end_src
-
-** Popper
-#+begin_src emacs-lisp
-(use-package popper
-  :straight '(popper :host github
-                     :repo "karthink/popper"
-                     :branch "local-mode-line-format")
-  :bind (("s-`"   . popper-cycle))
-  :hook
-  (after-init . popper-mode)
-  (popper-mode . popper-echo-mode)
-  :config
-  (setq popper-mode-line ""
-        popper-display-control nil
-        popper-reference-buffers
-        '(inferior-ess-r-mode
-          inferior-python-mode)))
 #+end_src
 
 ** Winner-mode
@@ -882,7 +882,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
          ("C-c q" . vr/query-replace)))
 #+end_src
 
-** Go to last change
+** Last change
 #+begin_src emacs-lisp
 (use-package goto-last-change
   :bind (("M-g l" . goto-last-change)))
