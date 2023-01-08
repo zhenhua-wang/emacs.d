@@ -279,7 +279,7 @@ tray-maxsize = 40
 
 [module/sep]
 type = custom/text
-content = "   "
+content = "     "
 
 [module/emacs-buffer-path]
 type = custom/ipc
