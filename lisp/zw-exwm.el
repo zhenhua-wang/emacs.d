@@ -1,4 +1,4 @@
-;; * exwm init
+;; * exwm package
 (straight-use-package 'exwm)
 
 ;; ** exwm config
