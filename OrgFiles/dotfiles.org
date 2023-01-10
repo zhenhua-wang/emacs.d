@@ -302,21 +302,21 @@ content = "     "
 
 [module/emacs-buffer-name]
 type = custom/ipc
-hook-0 = emacsclient -e "(exwm/polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = "<output>"
 format-background = ${colors.gray}
 
 [module/emacs-buffer-path]
 type = custom/ipc
-hook-0 = emacsclient -e "(exwm/polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format-foreground = ${colors.cyan}
 format-background = ${colors.gray}
 
 [module/emacs-keycast-key]
 type = custom/ipc
-hook-0 = emacsclient -e "(exwm/polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = <output>
 format-foreground = ${colors.white}
@@ -324,7 +324,7 @@ format-background = ${colors.blue}
 
 [module/emacs-keycast-desc]
 type = custom/ipc
-hook-0 = emacsclient -e "(exwm/polybar-keycast-desc)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-desc)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 
 [module/date]

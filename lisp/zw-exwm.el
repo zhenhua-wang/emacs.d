@@ -16,31 +16,31 @@
  exwm-layout-show-all-buffers nil)
 
 ;; ** background apps
-(defun exwm/run-in-background (command)
+(defun zw/exwm-run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
 ;; initialization
-(defun exwm/exwm-init-hook ()
+(defun zw/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 0)
 
   ;; Launch apps that will run in the background
-  (exwm/run-in-background "dunst")
-  (exwm/run-in-background "nm-applet")
-  (exwm/run-in-background "pasystray")
-  (exwm/run-in-background "udiskie --no-automount -t")
-  (exwm/run-in-background "blueman-applet")
+  (zw/exwm-run-in-background "dunst")
+  (zw/exwm-run-in-background "nm-applet")
+  (zw/exwm-run-in-background "pasystray")
+  (zw/exwm-run-in-background "udiskie --no-automount -t")
+  (zw/exwm-run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
-  (exwm/run-in-background "ibus-daemon -drxR")
-  (when (executable-find "polybar") (exwm/run-in-background "polybar panel")))
+  (zw/exwm-run-in-background "ibus-daemon -drxR")
+  (when (executable-find "polybar") (zw/exwm-run-in-background "polybar panel")))
 
 ;; When EXWM starts up, do some extra configuration
-(add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
+(add-hook 'exwm-init-hook #'zw/exwm-init-hook)
 
 ;; * exwm appearance
 ;; ** window management
-(defun exwm/exwm-update-title ()
+(defun zw/exwm-update-title ()
   (if (and exwm-title
            (string= (downcase exwm-title)
                     (downcase exwm-class-name)))
@@ -48,12 +48,12 @@
     (exwm-workspace-rename-buffer (format "%s: %s" (capitalize exwm-class-name) exwm-title))))
 
 ;; When window "class" updates, use it to set the buffer name
-(add-hook 'exwm-update-class-hook #'exwm/exwm-update-title)
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
 
 ;; When window title updates, use it to set the buffer name
-(add-hook 'exwm-update-title-hook #'exwm/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
-(defun exwm/configure-window-by-class ()
+(defun zw/exwm-configure-window-by-class ()
   (pcase exwm-class-name
     ;; floating utils
     ("URxvt"
@@ -62,11 +62,11 @@
      (exwm-floating-toggle-floating))))
 
 ;; Configure windows as they're created
-(add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
+(add-hook 'exwm-manage-finish-hook #'zw/exwm-configure-window-by-class)
 
 ;; This function isn't currently used, only serves as an example how to
 ;; position a window
-(defun exwm/position-window ()
+(defun zw/exwm-position-window ()
   (let* ((pos (frame-position))
          (pos-x (car pos))
          (pos-y (cdr pos)))
@@ -76,7 +76,7 @@
 (add-hook 'exwm-floating-setup-hook (lambda () (exwm-layout-hide-mode-line)))
 
 ;; ** wallpaper
-(defun exwm/set-wallpaper ()
+(defun zw/exwm-set-wallpaper ()
   (when (file-exists-p "~/.cache/emacs/wallpaper.png")
     (with-current-buffer "*scratch*"
       ;; (setq-local cursor-type nil
@@ -86,7 +86,7 @@
      "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
 
 ;; set wallpaper
-(exwm/set-wallpaper)
+(zw/exwm-set-wallpaper)
 
 ;; ** exwm systemtray
 (when (not (executable-find "polybar"))
@@ -170,13 +170,13 @@
 (defun zw/restart-polybar ()
   (interactive)
   (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
-  (exwm/run-in-background "polybar panel"))
+  (zw/exwm-run-in-background "polybar panel"))
 
-(defun exwm/polybar-update-buffer ()
-  (exwm/send-polybar-hook "emacs-buffer-path" 1)
-  (exwm/send-polybar-hook "emacs-buffer-name" 1))
+(defun zw/exwm-polybar-update-buffer ()
+  (zw/exwm-send-polybar-hook "emacs-buffer-path" 1)
+  (zw/exwm-send-polybar-hook "emacs-buffer-name" 1))
 
-(defun exwm/polybar-buffer-name ()
+(defun zw/exwm-polybar-buffer-name ()
   (with-current-buffer (window-buffer (selected-window))
     (let* ((tab-name-max (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
                              50 80))
@@ -185,7 +185,7 @@
        tab-name tab-name-max nil nil
        zw/tab-bar-ellipsis))))
 
-(defun exwm/polybar-buffer-path ()
+(defun zw/exwm-polybar-buffer-path ()
   (with-current-buffer (window-buffer (selected-window))
     (let* ((dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
                          (abbreviate-file-name default-directory)
@@ -202,35 +202,35 @@
                                                 "\\/"))
                              "/"))))))
 
-(defun exwm/polybar-keycast-key ()
+(defun zw/exwm-polybar-keycast-key ()
   (let ((key (key-description keycast--this-command-keys)))
     (if (string= key "")
         ""
       (format " %s " key))))
 
-(defun exwm/polybar-keycast-desc ()
+(defun zw/exwm-polybar-keycast-desc ()
   (if keycast--this-command-desc
       (truncate-string-to-width
        (format "%s" keycast--this-command-desc) 30 nil nil
        "...")
     ""))
 
-(defun exwm/send-polybar-hook (module-name hook-index)
+(defun zw/exwm-send-polybar-hook (module-name hook-index)
   (call-process-shell-command (format "polybar-msg hook %s %s" module-name hook-index) nil 0))
 
 (when (executable-find "polybar")
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
-  (add-hook 'window-configuration-change-hook 'exwm/polybar-update-buffer)
-  (add-hook 'window-state-change-hook 'exwm/polybar-update-buffer)
-  (add-hook 'exwm-manage-finish-hook 'exwm/polybar-update-buffer)
-  (advice-add 'exwm/exwm-update-title :after 'exwm/polybar-update-buffer)
-  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-key" 1)))
-  (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-desc" 1))))
+  (add-hook 'window-configuration-change-hook 'zw/exwm-polybar-update-buffer)
+  (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer)
+  (add-hook 'exwm-manage-finish-hook 'zw/exwm-polybar-update-buffer)
+  (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
+  (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)))
+  (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-desc" 1))))
 
 ;; * exwm tool
 ;; ** xmodmap
-(defun exwm/run-xmodmap ()
+(defun zw/exwm-run-xmodmap ()
   (interactive)
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
@@ -265,7 +265,7 @@
 ;; Set the screen resolution (update this to be the correct resolution for your screen!)
 (require 'exwm-randr)
 (exwm-randr-enable)
-(add-hook 'exwm-randr-screen-change-hook #'exwm/set-wallpaper)
+(add-hook 'exwm-randr-screen-change-hook #'zw/exwm-set-wallpaper)
 
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
