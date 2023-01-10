@@ -150,6 +150,12 @@ map [presentation] n navigate next
 1. Messed up font rendering in Firefox PDF viewer
    - disable "Allow websites to pick their own fonts" (=browser.display.use_document_fonts= would be 0 in about:config) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
 
+*** update time zone
+#+begin_src sh
+yay -S tzupdate
+sudo tzupdate
+#+end_src
+
 ** System Settings
 *** Hibernation
 #+begin_src shell
