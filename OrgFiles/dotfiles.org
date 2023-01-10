@@ -264,7 +264,7 @@ foreground = ${colors.foreground}
 
 font-0 = "Noto Sans Mono:style=Regular:size=10;3"
 font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;3"
-font-2 = "Symbols Nerd Font:style=Regular:size=13;6"
+font-2 = "Symbols Nerd Font Mono:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
