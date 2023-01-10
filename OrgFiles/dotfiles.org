@@ -268,16 +268,30 @@ font-2 = "JetBrainsMono Nerd Font:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu emacs-buffer-path
-modules-center = date
-modules-right = emacs-keycast-key emacs-keycast-desc sep battery
-separator = " "
+modules-left = powermenu sep emacs-buffer-path
+modules-center = corner-left date corner-right
+modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery
+separator = ""
 
 tray-position = right
 tray-padding = 0
 tray-maxsize = 40
 
+[module/corner-left]
+type = custom/text
+content = ""
+content-foreground = ${colors.gray}
+
+[module/corner-right]
+type = custom/text
+content = ""
+content-foreground = ${colors.gray}
+
 [module/sep]
+type = custom/text
+content = " "
+
+[module/sep-long]
 type = custom/text
 content = "     "
 
@@ -310,9 +324,10 @@ date-alt = "%A %B %d %Y"
 time = %l:%M %p
 time-alt = %H:%M:%S
 
-label = %{F#4c566a}%{B#4c566a} %{F-}%date% - %time% %{B-}%{F#4c566a}
+label = " %date% - %time% "
+label-background = ${colors.gray}
 format = <label>
-format-padding = 3
+format-padding = 0
 
 [module/battery]
 type = internal/battery
