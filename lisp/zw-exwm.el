@@ -179,7 +179,7 @@
 (defun zw/exwm-polybar-buffer-name ()
   (with-current-buffer (window-buffer (selected-window))
     (let* ((tab-name-max (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
-                             50 80))
+                             30 50))
            (tab-name (buffer-name (window-buffer (minibuffer-selected-window)))))
       (truncate-string-to-width
        tab-name tab-name-max nil nil
