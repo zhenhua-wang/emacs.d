@@ -171,9 +171,30 @@
   (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
   (exwm/run-in-background "polybar panel"))
 
+(defun exwm/polybar-update-buffer ()
+  (exwm/send-polybar-hook "emacs-buffer-path" 1)
+  (exwm/send-polybar-hook "emacs-buffer-name" 1))
+
+(defun exwm/polybar-buffer-name ()
+  (with-current-buffer (window-buffer (selected-window))
+    (buffer-name (window-buffer (minibuffer-selected-window)))))
+
 (defun exwm/polybar-buffer-path ()
   (with-current-buffer (window-buffer (selected-window))
-    (substring-no-properties (zw/tab-bar-tab-name))))
+    (let* ((dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
+                         (abbreviate-file-name default-directory)
+                       ""))
+           (dir-name-length (length dir-name)))
+      (if (< dir-name-length zw/tab-bar-path-max)
+          dir-name
+        (concat zw/tab-bar-ellipsis
+                "/"
+                (string-join (cdr (split-string (truncate-string-to-width
+                                                 dir-name
+                                                 dir-name-length
+                                                 (- dir-name-length zw/tab-bar-path-max))
+                                                "\\/"))
+                             "/"))))))
 
 (defun exwm/polybar-keycast-key ()
   (let ((key (key-description keycast--this-command-keys)))
@@ -194,9 +215,9 @@
 (when (executable-find "polybar")
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
-  (add-hook 'window-configuration-change-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-  (add-hook 'exwm-manage-finish-hook (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
-  (advice-add 'exwm/exwm-update-title :after (lambda () (exwm/send-polybar-hook "emacs-buffer-path" 1)))
+  (add-hook 'window-configuration-change-hook 'exwm/polybar-update-buffer)
+  (add-hook 'exwm-manage-finish-hook 'exwm/polybar-update-buffer)
+  (advice-add 'exwm/exwm-update-title :after 'exwm/polybar-update-buffer)
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-key" 1)))
   (advice-add 'keycast--update :after (lambda () (exwm/send-polybar-hook "emacs-keycast-desc" 1))))
 

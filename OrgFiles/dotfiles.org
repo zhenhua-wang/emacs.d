@@ -268,7 +268,7 @@ font-2 = "JetBrainsMono Nerd Font:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep sep emacs-buffer-path corner-right
+modules-left = powermenu sep sep sep-color emacs-buffer-path emacs-buffer-name corner-right
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
@@ -291,15 +291,27 @@ content-foreground = ${colors.gray}
 type = custom/text
 content = " "
 
+[module/sep-color]
+type = custom/text
+content = " "
+content-background = ${colors.gray}
+
 [module/sep-long]
 type = custom/text
 content = "     "
+
+[module/emacs-buffer-name]
+type = custom/ipc
+hook-0 = emacsclient -e "(exwm/polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+initial = 1
+format = "<output> "
+format-background = ${colors.gray}
 
 [module/emacs-buffer-path]
 type = custom/ipc
 hook-0 = emacsclient -e "(exwm/polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
-format-padding = 1
+format-foreground = ${colors.cyan}
 format-background = ${colors.gray}
 
 [module/emacs-keycast-key]
