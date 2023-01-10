@@ -235,19 +235,17 @@ screenchange-reload = true
 
 [colors]
 ;; dark theme
-background =            #fe282b33
+background =            #2e3440
 background-alt =        #1f2024
 foreground =            #FFFFFF
-foreground-alt =        #FFFFFF
+foreground-alt =        #eceff4
 red =                   #bf616a
 green =                 #a3be8c
 yellow =                #ebcb8b
 blue =                  #5e81ac
 magenta =               #b48ead
 cyan =                  #88c0d0
-white =                 #eceff4
 gray =                  #4c566a
-black =                 #2e3440
 
 [bar/panel]
 dpi = ${xrdb:Xft.dpi}
@@ -400,7 +398,8 @@ ramp-2 = 
 
 [module/powermenu]
 type = custom/menu
-label-open = " "
+label-open = "  "
+label-open-background = ${colors.background-alt}
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
