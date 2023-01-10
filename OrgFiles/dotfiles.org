@@ -310,7 +310,7 @@ date-alt = "%A %B %d %Y"
 time = %l:%M %p
 time-alt = %H:%M:%S
 
-label = %{F#4c566a}%{B#4c566a}%{F-}%date% - %time%%{B-}%{F#4c566a}
+label = %{F#4c566a}%{B#4c566a} %{F-}%date% - %time% %{B-}%{F#4c566a}
 format = <label>
 format-padding = 3
 
