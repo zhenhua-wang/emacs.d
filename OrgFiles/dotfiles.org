@@ -80,7 +80,7 @@ configuration {
   display-window:      "⮼ ";
   combi-modi: "window,drun,run";
   drun-display-format: "{icon} {name}";
-  font: "JetBrainsMono Nerd Font 22";
+  font: "Noto Sans Mono 22";
   modi: "combi";
   matching: "fuzzy";
   show-icons: true;
@@ -214,7 +214,7 @@ map cmd+v       paste_from_clipboard
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/dunst/dunstrc" "no")
 #+begin_src conf
 [global]
-    font = JetBrains Mono Nerd Font 12
+    font = Noto Sans Mono 12
     mouse_left_click = do_action
 #+end_src
 
@@ -264,11 +264,12 @@ foreground = ${colors.foreground}
 
 font-0 = "Noto Sans Mono:style=Regular:size=10;3"
 font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;3"
-font-2 = "Symbols Nerd Font Mono:style=Regular:size=13;6"
+font-2 = "fontawesome:style=Regular:size=13;6"
+font-3 = "Powerline:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep sep-color emacs-buffer-path emacs-buffer-name corner-right
+modules-left = powermenu sep emacs-buffer-path emacs-buffer-name corner-right
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
@@ -277,24 +278,9 @@ tray-position = right
 tray-padding = 0
 tray-maxsize = 40
 
-[module/corner-left]
-type = custom/text
-content = ""
-content-foreground = ${colors.gray}
-
-[module/corner-right]
-type = custom/text
-content = ""
-content-foreground = ${colors.gray}
-
 [module/sep]
 type = custom/text
 content = " "
-
-[module/sep-color]
-type = custom/text
-content = " "
-content-background = ${colors.gray}
 
 [module/sep-long]
 type = custom/text
@@ -305,14 +291,12 @@ type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = "<output>"
-format-background = ${colors.gray}
 
 [module/emacs-buffer-path]
 type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format-foreground = ${colors.cyan}
-format-background = ${colors.gray}
 
 [module/emacs-keycast-key]
 type = custom/ipc
@@ -417,7 +401,7 @@ ramp-2 = 
 
 [module/powermenu]
 type = custom/menu
-label-open = " "
+label-open = " "
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
