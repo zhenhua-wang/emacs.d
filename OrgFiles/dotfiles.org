@@ -268,9 +268,9 @@ font-2 = "JetBrainsMono Nerd Font:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep emacs-buffer-path
-modules-center = corner-left date corner-right
-modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery
+modules-left = powermenu sep sep emacs-buffer-path corner-right
+modules-center = date
+modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
 
 tray-position = right
@@ -300,6 +300,7 @@ type = custom/ipc
 hook-0 = emacsclient -e "(exwm/polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format-padding = 1
+format-background = ${colors.gray}
 
 [module/emacs-keycast-key]
 type = custom/ipc
@@ -324,8 +325,7 @@ date-alt = "%A %B %d %Y"
 time = %l:%M %p
 time-alt = %H:%M:%S
 
-label = " %date% - %time% "
-label-background = ${colors.gray}
+label = "%date% - %time%"
 format = <label>
 format-padding = 0
 
@@ -336,10 +336,10 @@ adapter = ADP1
 full-at = 100
 low-at = 10
 
-label-charging = "%percentage_raw%% "
-label-discharging = "%percentage_raw%% "
-label-full = "%percentage_raw%% "
-label-low = "%percentage_raw%% "
+label-charging = "%percentage_raw%%"
+label-discharging = "%percentage_raw%%"
+label-full = "%percentage_raw%%"
+label-low = "%percentage_raw%%"
 format-charging = <animation-charging>  <label-charging>
 format-discharging = <ramp-capacity>  <label-discharging>
 format-full = <ramp-capacity>  <label-full>
@@ -405,13 +405,13 @@ ramp-2 = 
 
 [module/powermenu]
 type = custom/menu
-format-spacing = 1
 label-open = " "
-format-open-padding = 1
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
+format-spacing = 1
+format-open-padding = 1
 
 menu-0-0 = "reboot"
 menu-0-0-foreground = ${colors.yellow}
