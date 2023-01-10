@@ -304,7 +304,7 @@ content = "     "
 type = custom/ipc
 hook-0 = emacsclient -e "(exwm/polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
-format = "<output> "
+format = "<output>"
 format-background = ${colors.gray}
 
 [module/emacs-buffer-path]
