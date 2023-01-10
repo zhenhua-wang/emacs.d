@@ -264,7 +264,7 @@ foreground = ${colors.foreground}
 
 font-0 = "Noto Sans Mono:style=Regular:size=10;3"
 font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;3"
-font-2 = "JetBrainsMono Nerd Font:style=Regular:size=10;3"
+font-2 = "JetBrainsMono Nerd Font:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
@@ -310,7 +310,7 @@ date-alt = "%A %B %d %Y"
 time = %l:%M %p
 time-alt = %H:%M:%S
 
-label = %date% - %time%
+label = %{F#4c566a}%{B#4c566a}%{F-}%date% - %time%%{B-}%{F#4c566a}
 format = <label>
 format-padding = 3
 
