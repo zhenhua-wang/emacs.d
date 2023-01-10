@@ -264,11 +264,11 @@ foreground = ${colors.foreground}
 
 font-0 = "Noto Sans Mono:style=Regular:size=10;3"
 font-1 = "Noto Sans Mono CJK SC:style=Regular:size=10;3"
-font-2 = "JetBrainsMono Nerd Font:style=Regular:size=13;6"
+font-2 = "Symbols Nerd Font:style=Regular:size=13;6"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep sep sep-color emacs-buffer-path emacs-buffer-name corner-right
+modules-left = powermenu sep sep-color emacs-buffer-path emacs-buffer-name corner-right
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
@@ -352,10 +352,10 @@ label-charging = "%percentage_raw%%"
 label-discharging = "%percentage_raw%%"
 label-full = "%percentage_raw%%"
 label-low = "%percentage_raw%%"
-format-charging = <animation-charging>  <label-charging>
-format-discharging = <ramp-capacity>  <label-discharging>
-format-full = <ramp-capacity>  <label-full>
-format-low = <ramp-capacity>  <label-low>
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+format-low = <ramp-capacity> <label-low>
 format-low-foreground = ${colors.red}
 
 ramp-capacity-0 = 
