@@ -177,7 +177,10 @@
 
 (defun exwm/polybar-buffer-name ()
   (with-current-buffer (window-buffer (selected-window))
-    (buffer-name (window-buffer (minibuffer-selected-window)))))
+    (let* ((tab-name (buffer-name (window-buffer (minibuffer-selected-window)))))
+      (truncate-string-to-width
+       tab-name zw/tab-bar-name-max nil nil
+       zw/tab-bar-ellipsis))))
 
 (defun exwm/polybar-buffer-path ()
   (with-current-buffer (window-buffer (selected-window))
