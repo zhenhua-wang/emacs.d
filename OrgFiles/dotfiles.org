@@ -266,22 +266,22 @@ font-2 = "fontawesome:style=Regular:size=13;5"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep emacs-buffer-path emacs-buffer-name
+modules-left = powermenu emacs-buffer-path emacs-buffer-name
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
 
-tray-position = right
+tray-position = none
 tray-padding = 0
 tray-maxsize = 40
 
 [module/sep]
 type = custom/text
-content = " "
+format = " "
 
 [module/sep-long]
 type = custom/text
-content = "     "
+format = "     "
 
 [module/emacs-buffer-name]
 type = custom/ipc
@@ -300,8 +300,8 @@ type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = <output>
-format-foreground = ${colors.white}
-format-background = ${colors.blue}
+format-foreground = ${colors.background-alt}
+format-background = ${colors.cyan}
 
 [module/emacs-keycast-desc]
 type = custom/ipc
@@ -399,7 +399,6 @@ ramp-2 = 
 [module/powermenu]
 type = custom/menu
 label-open = "  "
-label-open-background = ${colors.background-alt}
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
