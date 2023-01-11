@@ -266,7 +266,7 @@ font-2 = "fontawesome:style=Regular:size=13;5"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu sep emacs-buffer-path emacs-buffer-name corner-right
+modules-left = powermenu sep emacs-buffer-path emacs-buffer-name
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long battery sep
 separator = ""
