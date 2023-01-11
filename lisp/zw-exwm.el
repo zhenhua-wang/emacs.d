@@ -91,6 +91,7 @@
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
+(setq exwm-systemtray-background-color "#2e3440")
 
 ;; ** tab bar
 (setq tab-bar-show t
