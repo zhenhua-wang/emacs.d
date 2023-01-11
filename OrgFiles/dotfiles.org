@@ -277,11 +277,11 @@ tray-maxsize = 40
 
 [module/sep]
 type = custom/text
-format = " "
+content = " "
 
 [module/sep-long]
 type = custom/text
-format = "     "
+content = "     "
 
 [module/emacs-buffer-name]
 type = custom/ipc
