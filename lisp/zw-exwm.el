@@ -162,7 +162,9 @@
 
 (add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch-post-command)
 (add-hook 'window-state-change-hook 'zw/exwm-transparent-scratch-post-command)
-(add-hook 'exwm-update-class-hook 'zw/exwm-transparent-scratch-post-command)
+(add-hook 'exwm-update-class-hook (lambda ()
+                                    (when exwm--floating-frame
+                                      (zw/exwm-transparent-scratch-post-command))))
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook #'zw/exwm-transparent-scratch-post-command nil t))
 
