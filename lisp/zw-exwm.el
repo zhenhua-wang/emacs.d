@@ -1,7 +1,6 @@
-;; * exwm package
+;; * exwm init
 (straight-use-package 'exwm)
 
-;; ** exwm config
 (setq
  ;; Window focus should follow the mouse pointer
  mouse-autoselect-window nil
@@ -15,7 +14,7 @@
  ;; able to move to buffer in inactive space
  exwm-layout-show-all-buffers nil)
 
-;; ** background apps
+;; * exwm applications
 (defun zw/exwm-run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
@@ -33,7 +32,7 @@
   (zw/exwm-run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
   (zw/exwm-run-in-background "ibus-daemon -drxR")
-  (when (executable-find "polybar") (zw/exwm-run-in-background "polybar panel")))
+  (zw/exwm-run-in-background "polybar panel"))
 
 ;; When EXWM starts up, do some extra configuration
 (add-hook 'exwm-init-hook #'zw/exwm-init-hook)
