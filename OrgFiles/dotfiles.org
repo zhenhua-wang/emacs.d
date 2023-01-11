@@ -271,7 +271,7 @@ modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long wired-network sep wireless-network sep battery sep
 separator = ""
 
-tray-position = none
+tray-position =
 tray-padding = 0
 tray-maxsize = 40
 
