@@ -155,7 +155,7 @@
 (defun zw/exwm-transparent-scratch-post-command ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
+             (string= (buffer-name (current-buffer)) "*scratch*")
              (= (buffer-size) 0))
         (zw/set-transparency t)
       (zw/set-transparency nil))))
