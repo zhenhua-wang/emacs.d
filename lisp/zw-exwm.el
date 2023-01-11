@@ -89,9 +89,8 @@
 (zw/exwm-set-wallpaper)
 
 ;; ** exwm systemtray
-(when (not (executable-find "polybar"))
-  (require 'exwm-systemtray)
-  (exwm-systemtray-enable))
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
 
 ;; ** tab bar
 (setq tab-bar-show t
