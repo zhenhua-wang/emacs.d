@@ -91,7 +91,6 @@
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
 (setq exwm-systemtray-background-color "#2e3440"
-      exwm-systemtray-height 40
       exwm-systemtray-icon-gap 1)
 
 ;; ** tab bar
