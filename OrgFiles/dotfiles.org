@@ -268,7 +268,7 @@ module-margin-left = 0
 module-margin-right = 0
 modules-left = powermenu emacs-buffer-path emacs-buffer-name
 modules-center = date
-modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long wired-network sep wireless-network sep battery sep
+modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long wireless-network battery
 separator = ""
 
 tray-position =
@@ -329,10 +329,10 @@ adapter = ADP1
 full-at = 100
 low-at = 10
 
-label-charging = "%percentage_raw%%"
-label-discharging = "%percentage_raw%%"
-label-full = "%percentage_raw%%"
-label-low = "%percentage_raw%%"
+label-charging = "%percentage_raw%% "
+label-discharging = "%percentage_raw%% "
+label-full = "%percentage_raw%% "
+label-low = "%percentage_raw%% "
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
@@ -362,7 +362,7 @@ animation-charging-framerate = 500
 type = internal/network
 interface-type = wireless
 ; Default: %ifname% %local_ip%
-label-connected = %netspeed%
+label-connected = "%netspeed% "
 format-connected =  <label-connected>
 
 [module/cpu]
