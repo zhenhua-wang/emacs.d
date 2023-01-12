@@ -21,4 +21,5 @@ yay -S brightnessctl
 yay -S alsa-utils
 yay -S playerctl
 yay -S scrot
+yay -S polybar
 #+end_src
