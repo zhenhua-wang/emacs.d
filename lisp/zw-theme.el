@@ -11,9 +11,10 @@
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
          (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
          (region (alist-get 'region theme-params)))
+
     ;; default fonts
     (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
-          (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0)))
+          (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 11.0)))
       (set-face-attribute 'default nil :font default-font)
       (dolist (charset '(kana han cjk-misc bopomofo))
         (set-fontset-font t charset cn-font)))
