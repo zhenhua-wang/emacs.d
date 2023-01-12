@@ -152,7 +152,7 @@
                           :foreground (face-foreground 'default)
                           :background (face-background 'mode-line)))))
 
-(defun zw/exwm-transparent-scratch-post-command ()
+(defun zw/exwm-transparent-scratch ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
@@ -160,13 +160,13 @@
         (zw/set-transparency t)
       (zw/set-transparency nil))))
 
-(add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch-post-command)
-(add-hook 'window-state-change-hook 'zw/exwm-transparent-scratch-post-command)
+(add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch)
+(add-hook 'window-state-change-hook 'zw/exwm-transparent-scratch)
 (add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook
-            (lambda () (when this-command (zw/exwm-transparent-scratch-post-command)))
+            (lambda () (when this-command (zw/exwm-transparent-scratch)))
             nil t))
 
 ;; ** polybar
