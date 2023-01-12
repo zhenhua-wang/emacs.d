@@ -160,6 +160,7 @@
         (zw/set-transparency t)
       (zw/set-transparency nil))))
 
+;; don't add 'zw/exwm-transparent-scratch' to 'window-state-change-hook'
 (add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch)
 (add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
