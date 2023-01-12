@@ -156,8 +156,7 @@
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0)
-             (not exwm-class-name))
+             (= (buffer-size) 0))
         (zw/set-transparency t)
       (zw/set-transparency nil))))
 
