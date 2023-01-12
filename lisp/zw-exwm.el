@@ -156,13 +156,15 @@
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
+             (= (buffer-size) 0)
+             (not exwm-class-name))
         (zw/set-transparency t)
       (zw/set-transparency nil))))
 
 (add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch-post-command)
 (add-hook 'window-state-change-hook 'zw/exwm-transparent-scratch-post-command)
-(add-hook 'exwm-update-class-hook 'zw/exwm-transparent-scratch-post-command)
+(add-hook 'exwm-manage-finish-hook 'zw/exwm-transparent-scratch-post-command)
+(advice-add 'zw/exwm-update-title :after 'zw/exwm-transparent-scratch-post-command)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook #'zw/exwm-transparent-scratch-post-command nil t))
 
