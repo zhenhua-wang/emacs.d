@@ -165,7 +165,9 @@
 (add-hook 'exwm-manage-finish-hook 'zw/exwm-transparent-scratch-post-command)
 (advice-add 'zw/exwm-update-title :after 'zw/exwm-transparent-scratch-post-command)
 (with-current-buffer "*scratch*"
-  (add-hook 'post-command-hook #'zw/exwm-transparent-scratch-post-command nil t))
+  (add-hook 'post-command-hook
+            (lambda () (when this-command (zw/exwm-transparent-scratch-post-command)))
+            nil t))
 
 ;; ** polybar
 (defun zw/restart-polybar ()
