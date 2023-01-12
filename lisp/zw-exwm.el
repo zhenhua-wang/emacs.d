@@ -43,8 +43,8 @@
   (if (and exwm-title
            (string= (downcase exwm-title)
                     (downcase exwm-class-name)))
-      (exwm-workspace-rename-buffer (capitalize exwm-class-name))
-    (exwm-workspace-rename-buffer (format "%s: %s" (capitalize exwm-class-name) exwm-title))))
+      (exwm-workspace-rename-buffer exwm-class-name)
+    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
 
 ;; When window "class" updates, use it to set the buffer name
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
