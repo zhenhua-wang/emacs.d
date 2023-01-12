@@ -162,8 +162,8 @@
 
 (add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch-post-command)
 (add-hook 'window-state-change-hook 'zw/exwm-transparent-scratch-post-command)
-(add-hook 'exwm-manage-finish-hook 'zw/exwm-transparent-scratch-post-command)
-(advice-add 'zw/exwm-update-title :after 'zw/exwm-transparent-scratch-post-command)
+(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
+(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook
             (lambda () (when this-command (zw/exwm-transparent-scratch-post-command)))
