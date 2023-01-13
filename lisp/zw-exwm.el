@@ -76,13 +76,14 @@
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
-  (when (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (with-current-buffer "*scratch*"
-      ;; (setq-local cursor-type nil
-      ;;             mode-line-format nil)
-      (display-line-numbers-mode 0))
-    (start-process-shell-command
-     "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png")))
+  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
+    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
+  (with-current-buffer "*scratch*"
+    ;; (setq-local cursor-type nil
+    ;;             mode-line-format nil)
+    (display-line-numbers-mode 0))
+  (start-process-shell-command
+   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
 
 ;; set wallpaper
 (zw/exwm-set-wallpaper)
