@@ -428,6 +428,11 @@
            :map vertico-map
            ("s-<tab>" . vertico-next))
 
+;; * exwm misc
+;; disable marginalia for switch-to-buffer
+(add-to-list 'marginalia-command-categories
+             '(switch-to-buffer . exwm-switch-to-buffer))
+
 ;; * exwm enable
 (exwm-enable)
 (provide 'zw-exwm)
