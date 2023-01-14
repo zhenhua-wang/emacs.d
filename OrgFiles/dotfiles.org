@@ -268,7 +268,7 @@ module-margin-left = 0
 module-margin-right = 0
 modules-left = powermenu emacs-buffer-path emacs-buffer-name
 modules-center = date
-modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long temperature cpu wireless-network battery
+modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long cpu temperature wireless-network battery
 separator = ""
 
 tray-position =
@@ -369,7 +369,7 @@ format-connected =  <label-connected>
 type = internal/cpu
 interval = 0.5
 
-format = <ramp-coreload> <label>
+format = "<ramp-coreload> "
 label = "%percentage:2%% "
 ; Spacing between individual per-core ramps
 ramp-coreload-spacing = 0
