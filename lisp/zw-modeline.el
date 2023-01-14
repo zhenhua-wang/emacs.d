@@ -95,6 +95,11 @@
   "Process face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-input-method-active
+  '((t (:inherit zw/modeline-default-active :bold t)))
+  "Input method face for active modeline"
+  :group 'zw/modeline-active)
+
 (defun zw/modeline-set-face (active-face inactive-face)
   (if (zw/modeline-selected-window-active-p)
       active-face
@@ -308,7 +313,7 @@
   (let ((method (string-trim (or current-input-method-title ""))))
     (when (not (length= method 0))
       (concat (propertize method
-                          'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
+                          'face (zw/modeline-set-face 'zw/modeline-input-method-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
 (defun zw/modeline-middle-space ()
