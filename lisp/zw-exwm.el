@@ -261,7 +261,8 @@
   (setq pyim-page-tooltip 'minibuffer
         pyim-default-scheme 'quanpin
         pyim-page-style 'two-lines
-        pyim-page-length 8)
+        pyim-page-length 8
+        pyim-cloudim 'google)
   (global-set-key (kbd "C-\\") 'toggle-input-method))
 
 (use-package pyim-basedict
