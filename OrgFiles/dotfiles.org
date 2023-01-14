@@ -360,7 +360,7 @@ format-connected =  <label-connected>
 
 [module/cpu]
 type = internal/cpu
-interval = 0.5
+interval = 1
 
 format = "<ramp-coreload> "
 label = "%percentage:2%% "
@@ -377,7 +377,7 @@ ramp-coreload-7 = █
 
 [module/temperature]
 type = internal/temperature
-interval = 0.5
+interval = 1
 base-temperature = 20
 warn-temperature = 60
 units = true
