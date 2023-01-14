@@ -280,8 +280,8 @@
   :custom
   (desktop-environment-volume-normal-increment "5%+")
   (desktop-environment-volume-normal-decrement "5%-")
-  (desktop-environment-brightness-normal-increment "5%+")
-  (desktop-environment-brightness-normal-decrement "5%-")
+  (desktop-environment-brightness-normal-increment "10%+")
+  (desktop-environment-brightness-normal-decrement "10%-")
   (desktop-environment-keyboard-backlight-normal-increment 70)
   (desktop-environment-keyboard-backlight-normal-decrement -70)
   :config
