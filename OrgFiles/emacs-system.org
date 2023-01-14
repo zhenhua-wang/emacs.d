@@ -62,7 +62,7 @@ BorderlessMaximizedWindows=true
    - run ~locale-gen~ in shell
 2. install =noto-fonts-cjk=
 3. add =input method panel= to KDE's panel
-4. use =ibus= and add =ibus-libpinyin=
+4. use =ibus= and add +ibus-libpinyin+ =ibus-rime=
    - to autostart and config ibus, add the following scripts to ~~/.config/plasma-workspace/env/~
 #+begin_src sh
 export LC_CTYPE=zh_CN.UTF-8     # this is need to enable ibus in emacs
