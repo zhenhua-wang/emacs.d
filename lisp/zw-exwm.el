@@ -251,14 +251,14 @@
 (setenv "QT_IM_MODULE" "xim")
 (setenv "XMODIFIERS" "@im=exwm-xim")
 (setenv "CLUTTER_IM_MODULE" "xim")
+(setq default-input-method "pyim")
 
 (use-package pyim
   :bind (:map pyim-mode-map
               ("," . pyim-previous-page)
               ("." . pyim-next-page))
   :config
-  (setq default-input-method "pyim"
-        pyim-page-tooltip 'minibuffer
+  (setq pyim-page-tooltip 'minibuffer
         pyim-default-scheme 'quanpin
         pyim-page-style 'two-lines
         pyim-page-length 8)
