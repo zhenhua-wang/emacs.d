@@ -253,6 +253,9 @@
 (setenv "CLUTTER_IM_MODULE" "xim")
 
 (use-package pyim
+  :bind (:map pyim-mode-map
+              ("," . pyim-previous-page)
+              ("." . pyim-next-page))
   :config
   (setq default-input-method "pyim"
         pyim-page-tooltip 'minibuffer
