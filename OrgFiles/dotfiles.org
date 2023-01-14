@@ -268,7 +268,7 @@ module-margin-left = 0
 module-margin-right = 0
 modules-left = powermenu emacs-buffer-path emacs-buffer-name
 modules-center = date
-modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long cpu wireless-network battery
+modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long cpu temperature wireless-network battery
 separator = ""
 
 tray-position =
@@ -371,7 +371,6 @@ interval = 0.5
 
 format = <ramp-coreload> <label>
 label = "%percentage:2%% "
-format-padding = 1
 ; Spacing between individual per-core ramps
 ramp-coreload-spacing = 0
 ramp-coreload-0 = ▁
@@ -389,21 +388,14 @@ interval = 0.5
 base-temperature = 20
 warn-temperature = 60
 units = true
+zone-type = x86_pkg_temp
 
-format = <ramp> <label>
-format-padding = 1
-format-warn = <ramp> <label-warn>
-format-warn-padding = 1
+format = <label>
+format-warn = <label-warn>
 
 label = "%temperature-c% "
 label-warn = "%temperature-c% "
 label-warn-foreground = ${colors.red}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
 
 [module/powermenu]
 type = custom/menu
