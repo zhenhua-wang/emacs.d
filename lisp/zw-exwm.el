@@ -31,7 +31,7 @@
   (zw/exwm-run-in-background "udiskie --no-automount -t")
   (zw/exwm-run-in-background "blueman-applet")
   ;; set ibus to use "system keyboard layout" in advanced setting
-  (zw/exwm-run-in-background "ibus-daemon -drxR")
+  ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
   (zw/exwm-run-in-background "polybar panel"))
 
 ;; When EXWM starts up, do some extra configuration
@@ -240,17 +240,17 @@
 
 ;; ** input method
 ;; use ibus-rime for X11 apps
-(setenv "GTK_IM_MODULE" "ibus")
-(setenv "QT_IM_MODULE" "ibus")
-(setenv "XMODIFIERS" "@im=ibus")
-(setenv "LC_CTYPE" "zh_CN.UTF-8")
-;; (require 'exwm-xim)
-;; (exwm-xim-enable)
-;; (push ?\C-\\ exwm-input-prefix-keys)
-;; (setenv "GTK_IM_MODULE" "xim")
-;; (setenv "QT_IM_MODULE" "xim")
-;; (setenv "XMODIFIERS" "@im=exwm-xim")
-;; (setenv "CLUTTER_IM_MODULE" "xim")
+;; (setenv "GTK_IM_MODULE" "ibus")
+;; (setenv "QT_IM_MODULE" "ibus")
+;; (setenv "XMODIFIERS" "@im=ibus")
+;; (setenv "LC_CTYPE" "zh_CN.UTF-8")
+(require 'exwm-xim)
+(exwm-xim-enable)
+(push ?\C-\\ exwm-input-prefix-keys)
+(setenv "GTK_IM_MODULE" "xim")
+(setenv "QT_IM_MODULE" "xim")
+(setenv "XMODIFIERS" "@im=exwm-xim")
+(setenv "CLUTTER_IM_MODULE" "xim")
 (setq default-input-method "pyim")
 
 (use-package pyim
