@@ -71,9 +71,6 @@
          (pos-y (cdr pos)))
     (exwm-floating-move (- pos-x) (- pos-y))))
 
-;; Hide the modeline on all floating X windows
-(add-hook 'exwm-floating-setup-hook (lambda () (exwm-layout-hide-mode-line)))
-
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
   (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
