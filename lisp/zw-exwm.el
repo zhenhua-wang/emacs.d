@@ -251,6 +251,7 @@
 (setq default-input-method "pyim")
 
 (use-package pyim
+  :demand t
   :bind (:map pyim-mode-map
               ("," . pyim-previous-page)
               ("." . pyim-next-page))
@@ -263,6 +264,7 @@
   (global-set-key (kbd "C-\\") 'toggle-input-method))
 
 (use-package pyim-basedict
+  :after pyim
   :config
   (pyim-basedict-enable))
 
