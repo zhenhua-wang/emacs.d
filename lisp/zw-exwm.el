@@ -28,8 +28,8 @@
   (zw/exwm-run-in-background "dunst")
   (zw/exwm-run-in-background "nm-applet")
   (zw/exwm-run-in-background "pasystray")
-  (zw/exwm-run-in-background "udiskie --no-automount -t")
   (zw/exwm-run-in-background "blueman-applet")
+  (zw/exwm-run-in-background "udiskie --no-automount -t")
   ;; set ibus to use "system keyboard layout" in advanced setting
   ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
   (zw/exwm-run-in-background "polybar panel"))
