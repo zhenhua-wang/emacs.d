@@ -1172,16 +1172,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                      (eglot-ensure)))))
 #+end_src
 
-*** Tree sitter
-#+begin_src emacs-lisp
-(use-package tree-sitter
-  :diminish
-  :hook (after-init . global-tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
-#+end_src
-
 *** Code reference
 #+begin_src emacs-lisp
 (use-package xref
