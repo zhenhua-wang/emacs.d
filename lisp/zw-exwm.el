@@ -85,11 +85,42 @@
 ;; set wallpaper
 (zw/exwm-set-wallpaper)
 
-;; ** exwm systemtray
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-(setq exwm-systemtray-background-color "#2e3440"
-      exwm-systemtray-icon-gap 1)
+;; ** transparency
+(defun zw/set-transparency (predicate)
+  (if predicate
+      (progn
+        (setq-local cursor-type nil)
+        (set-frame-parameter (selected-frame) 'alpha-background 0)
+        (pcase (frame-parameter nil 'background-mode)
+          ('light (set-face-attribute 'tab-bar nil
+                                      :foreground "black"
+                                      :background "white"))
+          ('dark (set-face-attribute 'tab-bar nil
+                                     :foreground "white"
+                                     :background "black"))))
+    (progn
+      (setq-local cursor-type (default-value 'cursor-type))
+      (set-frame-parameter (selected-frame) 'alpha-background 90)
+      (set-face-attribute 'tab-bar nil
+                          :foreground (face-foreground 'default)
+                          :background (face-background 'mode-line)))))
+
+(defun zw/exwm-transparent-scratch ()
+  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*")
+             (= (buffer-size) 0))
+        (zw/set-transparency t)
+      (zw/set-transparency nil))))
+
+;; don't add 'zw/exwm-transparent-scratch' to 'window-state-change-hook'
+(add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch)
+(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
+(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
+(with-current-buffer "*scratch*"
+  (add-hook 'post-command-hook
+            (lambda () (when this-command (zw/exwm-transparent-scratch)))
+            nil t))
 
 ;; ** tab bar
 (setq tab-bar-show t
@@ -130,44 +161,10 @@
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (keycast-tab-bar-mode))
 
-;; ** transparency
-(defun zw/set-transparency (predicate)
-  (if predicate
-      (progn
-        (setq-local cursor-type nil)
-        (set-frame-parameter (selected-frame) 'alpha-background 0)
-        (pcase (frame-parameter nil 'background-mode)
-          ('light (set-face-attribute 'tab-bar nil
-                                      :foreground "black"
-                                      :background "white"))
-          ('dark (set-face-attribute 'tab-bar nil
-                                     :foreground "white"
-                                     :background "black"))))
-    (progn
-      (setq-local cursor-type (default-value 'cursor-type))
-      (set-frame-parameter (selected-frame) 'alpha-background 90)
-      (set-face-attribute 'tab-bar nil
-                          :foreground (face-foreground 'default)
-                          :background (face-background 'mode-line)))))
-
-(defun zw/exwm-transparent-scratch ()
-  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
-    (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
-        (zw/set-transparency t)
-      (zw/set-transparency nil))))
-
-;; don't add 'zw/exwm-transparent-scratch' to 'window-state-change-hook'
-(add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch)
-(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
-(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
-(with-current-buffer "*scratch*"
-  (add-hook 'post-command-hook
-            (lambda () (when this-command (zw/exwm-transparent-scratch)))
-            nil t))
-
 ;; ** polybar
+(setenv "BAR_BG" (face-background 'mode-line))
+(setenv "BAR_FG" (face-foreground 'mode-line))
+
 (defun zw/restart-polybar ()
   (interactive)
   (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
@@ -228,6 +225,13 @@
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
   (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)))
   (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-desc" 1))))
+
+
+;; ** exwm systemtray
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+(setq exwm-systemtray-background-color (face-background 'mode-line)
+      exwm-systemtray-icon-gap 1)
 
 ;; * exwm tool
 ;; ** xmodmap

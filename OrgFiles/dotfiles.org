@@ -235,10 +235,8 @@ screenchange-reload = true
 
 [colors]
 ;; dark theme
-background =            #2e3440
-background-alt =        #1f2024
-foreground =            #FFFFFF
-foreground-alt =        #eceff4
+background =            ${env:BAR_BG}
+foreground =            ${env:BAR_FG}
 red =                   #bf616a
 green =                 #a3be8c
 yellow =                #ebcb8b
@@ -246,6 +244,8 @@ blue =                  #5e81ac
 magenta =               #b48ead
 cyan =                  #88c0d0
 gray =                  #4c566a
+black =                 #1f2024
+white =                 #eceff4
 
 [bar/panel]
 dpi = ${xrdb:Xft.dpi}
@@ -300,7 +300,7 @@ type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = <output>
-format-foreground = ${colors.background-alt}
+format-foreground = ${colors.black}
 format-background = ${colors.cyan}
 
 [module/emacs-keycast-desc]
@@ -395,7 +395,7 @@ label-open = "  "
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+label-separator-foreground = ${colors.white}
 format-spacing = 1
 format-open-padding = 1
 
