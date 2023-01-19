@@ -345,6 +345,9 @@
         (,(kbd "C-w") . ,(kbd "C-x"))
         (,(kbd "M-w") . ,(kbd "C-c"))
         (,(kbd "C-y") . ,(kbd "C-v"))
+        ;; navigation
+        (,(kbd "M-v") . [prior])
+        (,(kbd "C-v") . [next])
         (,(kbd "C-a") . ,(kbd "<home>"))
         (,(kbd "C-e") . ,(kbd "<end>"))
         (,(kbd "M-<") . ,(kbd "C-<home>"))
