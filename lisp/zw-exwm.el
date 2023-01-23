@@ -162,8 +162,13 @@
   (keycast-tab-bar-mode))
 
 ;; ** polybar
-(setenv "BAR_BG" (face-background 'mode-line))
-(setenv "BAR_FG" (face-foreground 'mode-line))
+(let ((fg (face-foreground 'mode-line))
+      (bg (face-background 'mode-line)))
+  (setenv "EXWM_BAR_FG" fg)
+  (setenv "EXWM_BAR_BG" bg)
+  (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
+                              ('light (doom-darken bg 0.1))
+                              ('dark (doom-lighten bg 0.1)))))
 
 (defun zw/restart-polybar ()
   (interactive)
