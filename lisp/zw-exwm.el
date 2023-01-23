@@ -428,7 +428,8 @@
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
-        ;; Switch workspace (M-s-num)
+        ;; Switch workspace
+        (,(kbd "s-!") . exwm-workspace-switch)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "M-s-%d" i)) .
                       (lambda ()
