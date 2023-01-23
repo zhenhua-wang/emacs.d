@@ -8,7 +8,7 @@
  ;; Automatically send the mouse cursor to the selected workspace's display
  exwm-workspace-warp-cursor t
  ;; Set the default number of workspaces
- exwm-workspace-number 1
+ exwm-workspace-number 6
  ;; show buffer in all workspace
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
@@ -22,7 +22,7 @@
 ;; initialization
 (defun zw/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
-  (exwm-workspace-switch-create 0)
+  (exwm-workspace-switch-create 1)
 
   ;; Launch apps that will run in the background
   (zw/exwm-run-in-background "dunst")
@@ -170,6 +170,9 @@
   (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
   (zw/exwm-run-in-background "polybar panel"))
 
+(defun zw/exwm-polybar-exwm-workspace ()
+  (zw/exwm-send-polybar-hook "exwm-workspace" 1))
+
 (defun zw/exwm-polybar-update-buffer ()
   (zw/exwm-send-polybar-hook "emacs-buffer-path" 1)
   (zw/exwm-send-polybar-hook "emacs-buffer-name" 1))
@@ -219,6 +222,7 @@
 (when (executable-find "polybar")
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
+  (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-exwm-workspace)
   (add-hook 'window-configuration-change-hook 'zw/exwm-polybar-update-buffer)
   (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer)
   (add-hook 'exwm-manage-finish-hook 'zw/exwm-polybar-update-buffer)

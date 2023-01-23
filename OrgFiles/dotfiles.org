@@ -266,7 +266,7 @@ font-2 = "fontawesome:style=Regular:size=13;5"
 
 module-margin-left = 0
 module-margin-right = 0
-modules-left = powermenu emacs-buffer-path emacs-buffer-name
+modules-left = exwm-workspace sep emacs-buffer-path emacs-buffer-name
 modules-center = date
 modules-right = emacs-keycast-key sep emacs-keycast-desc sep-long cpu temperature wireless-network battery
 separator = ""
@@ -282,6 +282,12 @@ content = " "
 [module/sep-long]
 type = custom/text
 content = "     "
+
+[module/exwm-workspace]
+type = custom/ipc
+hook-0 = emacsclient -e "exwm-workspace-current-index" | sed -e 's/^"//' -e 's/"$//' | awk '{print " "$1" "}'
+initial = 1
+format-background = ${colors.gray}
 
 [module/emacs-buffer-name]
 type = custom/ipc
