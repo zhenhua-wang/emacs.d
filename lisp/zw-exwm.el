@@ -102,7 +102,7 @@
     (progn
       (setq-local cursor-type (default-value 'cursor-type)
                   mode-line-format (default-value 'mode-line-format))
-      (set-frame-parameter (selected-frame) 'alpha-background 95)
+      (set-frame-parameter (selected-frame) 'alpha-background 98)
       (set-face-attribute 'tab-bar nil
                           :foreground (face-foreground 'default)
                           :background (face-background 'mode-line)))))
