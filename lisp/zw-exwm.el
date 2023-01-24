@@ -76,8 +76,6 @@
   (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
     (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
   (with-current-buffer "*scratch*"
-    ;; (setq-local cursor-type nil
-    ;;             mode-line-format nil)
     (display-line-numbers-mode 0))
   (start-process-shell-command
    "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
@@ -89,8 +87,7 @@
 (defun zw/set-transparency (predicate)
   (if predicate
       (progn
-        (setq-local cursor-type nil
-                    mode-line-format nil)
+        (setq-local cursor-type nil)
         (set-frame-parameter (selected-frame) 'alpha-background 0)
         (pcase (frame-parameter nil 'background-mode)
           ('light (set-face-attribute 'tab-bar nil
@@ -100,8 +97,7 @@
                                      :foreground "white"
                                      :background "black"))))
     (progn
-      (setq-local cursor-type (default-value 'cursor-type)
-                  mode-line-format (default-value 'mode-line-format))
+      (setq-local cursor-type (default-value 'cursor-type))
       (set-frame-parameter (selected-frame) 'alpha-background 98)
       (set-face-attribute 'tab-bar nil
                           :foreground (face-foreground 'default)
