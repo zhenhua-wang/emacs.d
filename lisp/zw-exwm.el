@@ -100,7 +100,7 @@
                                      :background "black"))))
     (progn
       (setq-local cursor-type (default-value 'cursor-type))
-      (set-frame-parameter (selected-frame) 'alpha-background 90)
+      (set-frame-parameter (selected-frame) 'alpha-background 95)
       (set-face-attribute 'tab-bar nil
                           :foreground (face-foreground 'default)
                           :background (face-background 'mode-line)))))
