@@ -89,7 +89,8 @@
 (defun zw/set-transparency (predicate)
   (if predicate
       (progn
-        (setq-local cursor-type nil)
+        (setq-local cursor-type nil
+                    mode-line-format nil)
         (set-frame-parameter (selected-frame) 'alpha-background 0)
         (pcase (frame-parameter nil 'background-mode)
           ('light (set-face-attribute 'tab-bar nil
@@ -99,7 +100,8 @@
                                      :foreground "white"
                                      :background "black"))))
     (progn
-      (setq-local cursor-type (default-value 'cursor-type))
+      (setq-local cursor-type (default-value 'cursor-type)
+                  mode-line-format (default-value 'mode-line-format))
       (set-frame-parameter (selected-frame) 'alpha-background 95)
       (set-face-attribute 'tab-bar nil
                           :foreground (face-foreground 'default)
