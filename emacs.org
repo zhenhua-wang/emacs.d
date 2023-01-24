@@ -1786,6 +1786,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                  (outline-minor-mode 0)))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
+               ("C-c C-b" . polymode-eval-buffer)
                ("M-p" . polymode-previous-chunk)
                ("M-n" . polymode-next-chunk)))
   :init
