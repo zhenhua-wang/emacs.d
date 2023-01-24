@@ -84,30 +84,44 @@
 (zw/exwm-set-wallpaper)
 
 ;; ** transparency
-(defun zw/set-transparency (predicate)
+(defun zw/set-opacity (predicate)
   (if predicate
-      (progn
-        (setq-local cursor-type nil)
-        (set-frame-parameter (selected-frame) 'alpha-background 0))
-    (progn
-      (setq-local cursor-type (default-value 'cursor-type))
-      (set-frame-parameter (selected-frame) 'alpha-background 98))))
+      (set-frame-parameter (selected-frame) 'alpha-background 98)
+    (set-frame-parameter (selected-frame) 'alpha-background 0)))
 
-(defun zw/exwm-transparent-scratch ()
+(defun zw/exwm-set-scratch-ui (predicate)
+  (if predicate
+      (setq-local cursor-type (default-value 'cursor-type)
+                  mode-line-format (default-value 'mode-line-format))
+    (setq-local cursor-type nil
+                mode-line-format nil)))
+
+(defun zw/exwm-scratch-hide-ui ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
-        (zw/set-transparency t)
-      (zw/set-transparency nil))))
+        (zw/exwm-set-scratch-ui nil)
+      (zw/exwm-set-scratch-ui t))))
 
-;; don't add 'zw/exwm-transparent-scratch' to 'window-state-change-hook'
-(add-hook 'window-configuration-change-hook 'zw/exwm-transparent-scratch)
-(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-transparency nil)))
-(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-transparency nil)))
+(defun zw/exwm-scratch-transparent-frame ()
+  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*")
+             (= (buffer-size) 0))
+        (zw/set-opacity nil)
+      (zw/set-opacity t))))
+
+(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
+(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-opacity t)))
+(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
+(add-hook 'window-state-change-hook 'zw/exwm-scratch-hide-ui)
+(add-hook 'buffer-list-update-hook 'zw/exwm-scratch-hide-ui)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook
-            (lambda () (when this-command (zw/exwm-transparent-scratch)))
+            (lambda () (when this-command
+                         (zw/exwm-scratch-hide-ui)
+                         (zw/exwm-scratch-transparent-frame)))
             nil t))
 
 ;; ** modeline
