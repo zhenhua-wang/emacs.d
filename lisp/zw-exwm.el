@@ -122,6 +122,9 @@
             (lambda () (when this-command (zw/exwm-transparent-scratch)))
             nil t))
 
+;; ** modeline
+(set-face-attribute 'mode-line nil :box nil)
+
 ;; ** tab bar
 (setq tab-bar-show t
       tab-bar-format '(tab-bar-separator
