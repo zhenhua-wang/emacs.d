@@ -295,6 +295,21 @@
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
+;; ** exwm switch to buffer
+(defun zw/exwm-switch-to-buffer ()
+  (interactive)
+  (let* ((buffers (seq-filter (lambda (x)
+                                (and (not (eq (current-buffer) x))
+                                     (not (string-match "^[[:space:]].*$" (buffer-name x)))
+                                     (or (string= (buffer-name x) "*scratch*")
+                                         (buffer-file-name x)
+                                         (with-current-buffer x
+                                           exwm-class-name))))
+                              (buffer-list)))
+         (buffer-names (seq-map 'buffer-name buffers))
+         (buffer (completing-read "EXWM switch to buffer: " buffer-names)))
+    (switch-to-buffer buffer)))
+
 ;; ** desktop environment
 (use-package desktop-environment
   :after exwm
@@ -425,7 +440,7 @@
         ;; (,(kbd "s-<tab>") . (lambda ()
         ;;                       (interactive)
         ;;                       (call-process-shell-command "rofi -show window")))
-        (,(kbd "s-<tab>") . switch-to-buffer)
+        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         (,(kbd "C-M-;") . magit-status)
         ;; input
         (,(kbd "C-\\") . toggle-input-method)
