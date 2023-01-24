@@ -88,20 +88,10 @@
   (if predicate
       (progn
         (setq-local cursor-type nil)
-        (set-frame-parameter (selected-frame) 'alpha-background 0)
-        (pcase (frame-parameter nil 'background-mode)
-          ('light (set-face-attribute 'tab-bar nil
-                                      :foreground "black"
-                                      :background "white"))
-          ('dark (set-face-attribute 'tab-bar nil
-                                     :foreground "white"
-                                     :background "black"))))
+        (set-frame-parameter (selected-frame) 'alpha-background 0))
     (progn
       (setq-local cursor-type (default-value 'cursor-type))
-      (set-frame-parameter (selected-frame) 'alpha-background 98)
-      (set-face-attribute 'tab-bar nil
-                          :foreground (face-foreground 'default)
-                          :background (face-background 'mode-line)))))
+      (set-frame-parameter (selected-frame) 'alpha-background 98))))
 
 (defun zw/exwm-transparent-scratch ()
   (let ((n-window (length (mapcar #'window-buffer (window-list)))))
