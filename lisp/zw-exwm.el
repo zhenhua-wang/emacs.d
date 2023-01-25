@@ -232,12 +232,12 @@
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
   (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-exwm-workspace)
-  (add-hook 'window-configuration-change-hook 'zw/exwm-polybar-update-buffer)
-  (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer)
+  (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
   (add-hook 'exwm-manage-finish-hook 'zw/exwm-polybar-update-buffer)
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
-  (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)))
-  (advice-add 'keycast--update :after (lambda () (zw/exwm-send-polybar-hook "emacs-keycast-desc" 1))))
+  (advice-add 'keycast--update :after (lambda ()
+                                        (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)
+                                        (zw/exwm-send-polybar-hook "emacs-keycast-desc" 1))))
 
 
 ;; ** exwm systemtray
