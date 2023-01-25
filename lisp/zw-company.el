@@ -61,11 +61,6 @@
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
         company-posframe-show-indicator t)
-  ;; enable company in minibuffer
-  (defun company-enable-in-minibuffer ()
-    (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      (company-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'company-enable-in-minibuffer)
   ;; set show parameters
   (defun zw/company-posframe-show-params ()
     (setq company-posframe-show-params
