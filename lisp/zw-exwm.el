@@ -113,7 +113,6 @@
       (zw/set-opacity t))))
 
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
-(add-hook 'exwm-manage-finish-hook (lambda () (zw/set-opacity t)))
 (add-hook 'buffer-list-update-hook 'zw/exwm-scratch-hide-ui)
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
 (with-current-buffer "*scratch*"
@@ -233,7 +232,6 @@
   (tab-bar-mode 1)
   (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-exwm-workspace)
   (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
-  (add-hook 'exwm-manage-finish-hook 'zw/exwm-polybar-update-buffer)
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
   (advice-add 'keycast--update :after (lambda ()
                                         (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)
