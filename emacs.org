@@ -195,6 +195,7 @@
            ("s-{" . shrink-window-horizontally)
            ("s-}" . enlarge-window-horizontally)
            ("s-^" . enlarge-window)
+           ("s-`" . window-toggle-side-windows)
            ;; tab operations
            ("s-1" . zw/tab-switch)
            ("s-9" . tab-new)
@@ -483,24 +484,6 @@ FACE defaults to inheriting from default and highlight."
   (with-eval-after-load 'magit
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
-#+end_src
-
-** Popper
-#+begin_src emacs-lisp
-(use-package popper
-  :straight '(popper :host github
-                     :repo "karthink/popper"
-                     :branch "local-mode-line-format")
-  :bind (("s-`"   . popper-cycle))
-  :hook
-  (after-init . popper-mode)
-  (popper-mode . popper-echo-mode)
-  :config
-  (setq popper-mode-line ""
-        popper-display-control nil
-        popper-reference-buffers
-        '(inferior-ess-r-mode
-          inferior-python-mode)))
 #+end_src
 
 ** Window placement
