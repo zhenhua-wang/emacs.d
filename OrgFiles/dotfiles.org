@@ -238,15 +238,11 @@ screenchange-reload = true
 foreground =            ${env:EXWM_BAR_FG}
 background =            ${env:EXWM_BAR_BG}
 background-alt =        ${env:EXWM_BAR_BG_ALT}
-red =                   #bf616a
-green =                 #a3be8c
-yellow =                #ebcb8b
-blue =                  #5e81ac
-magenta =               #b48ead
-cyan =                  #88c0d0
-gray =                  #4c566a
-black =                 #1f2024
-white =                 #eceff4
+highlight =             ${env:EXWM_BAR_HL}
+red =                   ${env:EXWM_BAR_RED}
+green =                 ${env:EXWM_BAR_GREEN}
+black =                 #000000
+white =                 #ffffff
 
 [bar/panel]
 dpi = ${xrdb:Xft.dpi}
@@ -300,7 +296,7 @@ format = "<output>"
 type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
-format-foreground = ${colors.cyan}
+format-foreground = ${colors.highlight}
 
 [module/emacs-keycast-key]
 type = custom/ipc
@@ -308,7 +304,7 @@ hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's
 initial = 1
 format = <output>
 format-foreground = ${colors.black}
-format-background = ${colors.cyan}
+format-background = ${colors.highlight}
 
 [module/emacs-keycast-desc]
 type = custom/ipc
@@ -407,25 +403,25 @@ format-spacing = 1
 format-open-padding = 1
 
 menu-0-0 = "reboot"
-menu-0-0-foreground = ${colors.yellow}
+menu-0-0-foreground = ${colors.highlight}
 menu-0-0-exec = menu-open-1
 menu-0-1 = "poweroff"
-menu-0-1-foreground = ${colors.yellow}
+menu-0-1-foreground = ${colors.highlight}
 menu-0-1-exec = menu-open-2
 menu-0-2 = "suspend "
-menu-0-2-foreground = ${colors.yellow}
+menu-0-2-foreground = ${colors.highlight}
 menu-0-2-exec = menu-open-3
 
 menu-1-0 = "reboot "
-menu-1-0-foreground = ${colors.yellow}
+menu-1-0-foreground = ${colors.highlight}
 menu-1-0-exec = systemctl reboot
 
 menu-2-0 = "poweroff "
-menu-2-0-foreground = ${colors.yellow}
+menu-2-0-foreground = ${colors.highlight}
 menu-2-0-exec = systemctl poweroff
 
 menu-3-0 = "suspend "
-menu-3-0-foreground = ${colors.yellow}
+menu-3-0-foreground = ${colors.highlight}
 menu-3-0-exec = systemctl suspend
 #+end_src
 
