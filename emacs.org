@@ -1306,6 +1306,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Python
 #+begin_src emacs-lisp
 (use-package python
+  :hook (inferior-python-mode . (lambda ()
+                                  (bind-keys :map inferior-python-mode-map
+                                             ("C-x 1" . zw/maximize-shell))))
   :bind ((:map python-mode-map
                ("C-<return>" . zw/python-shell-send-line)
                ("C-c C-b" . python-shell-send-buffer)
@@ -1389,7 +1392,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
-               ("C-c C-c" . zw/ess-send-region-or-block)))
+               ("C-c C-c" . zw/ess-send-region-or-block))
+         (:map inferior-ess-r-mode-map
+               ("C-x 1" . zw/maximize-shell)))
   :config
   (require 'ess-site)
   (defun zw/ess-send-region-or-block ()
