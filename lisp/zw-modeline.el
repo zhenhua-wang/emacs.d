@@ -180,7 +180,8 @@
                                          org-agenda-mode
                                          image-mode
                                          eaf-mode
-                                         vterm-mode))))
+                                         vterm-mode
+                                         exwm-mode))))
      "")
     ('pdf-view-mode
      (propertize (concat
