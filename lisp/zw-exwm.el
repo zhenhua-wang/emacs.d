@@ -252,6 +252,19 @@
 (setq exwm-systemtray-background-color (face-background 'mode-line)
       exwm-systemtray-icon-gap 1)
 
+;; ** buffer placement
+;; plots
+(defvar zw/exwm-plot-buffers
+  '("^R_x11.*$"
+    "^matplotlib.*$"))
+
+(dolist (buffer zw/exwm-plot-buffers)
+  (add-to-list 'display-buffer-alist
+               `(,buffer
+                 (display-buffer-in-side-window)
+                 (side                . right)
+                 (window-height       . 0.5))))
+
 ;; * exwm tool
 ;; ** xmodmap
 (defun zw/exwm-run-xmodmap ()

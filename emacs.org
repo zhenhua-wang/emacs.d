@@ -536,10 +536,10 @@ FACE defaults to inheriting from default and highlight."
          (slot . 1))
         ;; right side window
         ("\\*\\(R\\|Python\\).*"
-         (display-buffer-reuse-mode-window)
+         (display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
-         (slot . -1))
+         (slot . 1))
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
          (window-width . 0.5)
@@ -1306,9 +1306,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Python
 #+begin_src emacs-lisp
 (use-package python
-  :hook (inferior-python-mode . (lambda ()
-                                  (bind-keys :map inferior-python-mode-map
-                                             ("s-q" . zw/close-shell))))
   :bind ((:map python-mode-map
                ("C-<return>" . zw/python-shell-send-line)
                ("C-c C-b" . python-shell-send-buffer)
@@ -1392,9 +1389,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
-               ("C-c C-c" . zw/ess-send-region-or-block))
-         (:map inferior-ess-r-mode-map
-               ("s-q" . zw/close-shell)))
+               ("C-c C-c" . zw/ess-send-region-or-block)))
   :config
   (require 'ess-site)
   (defun zw/ess-send-region-or-block ()
