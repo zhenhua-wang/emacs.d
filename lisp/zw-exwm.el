@@ -113,7 +113,6 @@
       (zw/set-opacity t))))
 
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
-(add-hook 'buffer-list-update-hook 'zw/exwm-scratch-hide-ui)
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook
