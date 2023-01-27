@@ -167,7 +167,8 @@
 ;; ** polybar
 (let ((fg (face-foreground 'mode-line))
       (bg (face-background 'mode-line))
-      (hl (face-background 'mode-line-highlight))
+      (hl-fg (face-foreground 'mode-line-highlight))
+      (hl-bg (face-background 'mode-line-highlight))
       (gn (face-foreground 'success))
       (rd (face-foreground 'error)))
   (setenv "EXWM_BAR_FG" fg)
@@ -175,7 +176,8 @@
   (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
                               ('light (doom-darken bg 0.1))
                               ('dark (doom-lighten bg 0.1))))
-  (setenv "EXWM_BAR_HL" hl)
+  (setenv "EXWM_BAR_HL_FG" hl-fg)
+  (setenv "EXWM_BAR_HL_BG" hl-bg)
   (setenv "EXWM_BAR_RED" rd)
   (setenv "EXWM_BAR_GREEN" gn))
 

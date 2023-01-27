@@ -238,11 +238,10 @@ screenchange-reload = true
 foreground =            ${env:EXWM_BAR_FG}
 background =            ${env:EXWM_BAR_BG}
 background-alt =        ${env:EXWM_BAR_BG_ALT}
-highlight =             ${env:EXWM_BAR_HL}
+highlight-fg =          ${env:EXWM_BAR_HL_FG}
+highlight-bg =          ${env:EXWM_BAR_HL_BG}
 red =                   ${env:EXWM_BAR_RED}
 green =                 ${env:EXWM_BAR_GREEN}
-black =                 #000000
-white =                 #ffffff
 
 [bar/panel]
 dpi = ${xrdb:Xft.dpi}
@@ -296,15 +295,15 @@ format = "<output>"
 type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
-format-foreground = ${colors.highlight}
+format-foreground = ${colors.highlight-bg}
 
 [module/emacs-keycast-key]
 type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
 format = <output>
-format-foreground = ${colors.black}
-format-background = ${colors.highlight}
+format-foreground = ${colors.highlight-fg}
+format-background = ${colors.highlight-bg}
 
 [module/emacs-keycast-desc]
 type = custom/ipc
@@ -398,7 +397,7 @@ label-open = "  "
 label-close = " close"
 label-close-foreground = ${colors.red}
 label-separator = |
-label-separator-foreground = ${colors.white}
+label-separator-foreground = ${colors.foreground}
 format-spacing = 1
 format-open-padding = 1
 
