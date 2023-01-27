@@ -2,6 +2,8 @@
 (straight-use-package 'exwm)
 
 (setq
+ ;; disable conformation to kill processes on Emacs exit
+ confirm-kill-processes nil
  ;; Window focus should follow the mouse pointer
  mouse-autoselect-window nil
  focus-follows-mouse nil
