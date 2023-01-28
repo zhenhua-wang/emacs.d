@@ -350,6 +350,10 @@
   (exwm-input-set-key (kbd "s-#") 'desktop-environment-screenshot)
   (exwm-input-set-key (kbd "s-$") 'desktop-environment-screenshot-part))
 
+;; ** app launcher
+(use-package app-launcher
+  :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
+
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
@@ -449,19 +453,13 @@
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
         (,(kbd "s-/") . emacs-websearch)
-        ;; Launch applications via shell command
+        ;; Launch applications
         (,(kbd "s-&") . (lambda (command)
                           (interactive (list (read-shell-command "$ ")))
                           (start-process-shell-command command nil command)))
-        ;; rofi
-        (,(kbd "s-SPC") . (lambda ()
-                            (interactive)
-                            (call-process-shell-command "rofi -show")))
-        ;; rofi switch window
-        ;; (,(kbd "s-<tab>") . (lambda ()
-        ;;                       (interactive)
-        ;;                       (call-process-shell-command "rofi -show window")))
+        (,(kbd "s-SPC") . app-launcher-run-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
+        ;; git
         (,(kbd "C-M-;") . magit-status)
         ;; input
         (,(kbd "C-\\") . toggle-input-method)
