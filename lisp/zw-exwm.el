@@ -299,7 +299,12 @@
         pyim-page-style 'two-lines
         pyim-page-length 8
         pyim-cloudim 'google)
-  (global-set-key (kbd "C-\\") 'toggle-input-method))
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  ;; vertico search pinyin
+  (defun pyim-orderless-regexp (orig-func component)
+    (let ((result (funcall orig-func component)))
+      (pyim-cregexp-build result)))
+  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp))
 
 (use-package pyim-basedict
   :after pyim
