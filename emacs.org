@@ -1393,13 +1393,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (require 'ess-site)
   (defun zw/ess-send-region-or-block ()
     (interactive)
-    (cond (mark-active
-           (let ((beg (region-beginning))
-                 (end (region-end)))
-             (ess-eval-region beg end 'nowait)
-             (goto-char end)))
-          (t (progn (ess-eval-paragraph 'nowait)
-                    (forward-paragraph)))))
+    (if mark-active
+        (let ((beg (region-beginning))
+              (end (region-end)))
+          (ess-eval-region beg end 'nowait)
+          (goto-char end))
+      (progn (ess-eval-paragraph 'nowait)
+             (forward-paragraph))))
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
   ;; See https://github.com/emacs-ess/ESS/issues/300"
   (defun zw/ess-fix-read-only-inferior-ess-mode ()
