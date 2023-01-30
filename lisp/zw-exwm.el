@@ -265,6 +265,7 @@
                `(,buffer
                  (display-buffer-in-side-window)
                  (side                . right)
+                 (slot                . -1)
                  (window-height       . 0.5))))
 
 ;; * exwm tool
