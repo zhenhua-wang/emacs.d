@@ -1288,6 +1288,43 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Python
 #+begin_src emacs-lisp
+(defun zw/python-shell-send-line ()
+  (interactive)
+  (python-shell-send-statement)
+  (python-nav-forward-statement))
+
+(defun zw/python-region-or-block-string ()
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (buffer-substring-no-properties beg end))
+    (let* ((current-line-empty-p
+            (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
+           (beg (if current-line-empty-p
+                    (point)
+                  (save-excursion (backward-paragraph) (point))))
+           (end (save-excursion (forward-paragraph) (point))))
+      (set-mark beg) (goto-char end)
+      (buffer-substring-no-properties beg end))))
+
+(defun zw/python-shell-send-region-or-block ()
+  (interactive)
+  (let ((code-string (zw/python-region-or-block-string)))
+    (if (python-shell-get-process)
+        (python-shell-send-string code-string)
+      (progn
+        (setq-local python-shell-setup-codes nil)
+        (let* ((python-shell-setup-codes (cons code-string
+                                               python-shell-setup-codes))
+               (process (python-shell-get-or-create-process
+                         (python-shell-parse-command))))
+          (save-selected-window
+            (switch-to-buffer-other-window
+             (process-buffer process)))))))
+  (sit-for 0.2)
+  (goto-char (region-end))
+  (deactivate-mark))
+
 (use-package python
   :hook (inferior-python-mode . (lambda ()
                                   (bind-keys :map inferior-python-mode-map
@@ -1301,33 +1338,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
     (add-to-list 'python-shell-completion-native-disabled-interpreters
-                 "ipython"))
-  (defun zw/python-shell-send-line ()
-    (interactive)
-    (python-shell-send-statement)
-    (python-nav-forward-statement))
-  (defun zw/python-shell-send-region-or-block ()
-    (interactive)
-    (if (python-shell-get-process)
-        (if mark-active
-            (progn
-              (python-shell-send-string
-               (buffer-substring (region-beginning) (region-end)))
-              (goto-char (region-end))
-              (deactivate-mark))
-          (progn
-            (let* ((current-line-empty-p
-                    (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
-                   (beg (if current-line-empty-p
-                            (point)
-                          (save-excursion (backward-paragraph) (point))))
-                   (end (save-excursion (forward-paragraph) (point))))
-              (save-excursion (set-mark beg) (goto-char end) (activate-mark))
-              (python-shell-send-string (buffer-substring beg end)))
-            (forward-paragraph)
-            (sit-for 0.3)
-            (deactivate-mark)))
-      (message "No python process"))))
+                 "ipython")))
 
 (use-package conda
   :after python
