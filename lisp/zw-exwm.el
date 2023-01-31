@@ -327,13 +327,12 @@
   (let* ((buffers (seq-filter (lambda (x)
                                 (and (not (eq (current-buffer) x))
                                      (not (string-match "^[[:space:]].*$" (buffer-name x)))
-                                     (or (string= (buffer-name x) "*scratch*")
-                                         (buffer-file-name x)
+                                     (or (buffer-file-name x)
                                          (with-current-buffer x
                                            exwm-class-name))))
                               (buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
-         (buffer (completing-read "EXWM switch to buffer: " buffer-names)))
+         (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
     (switch-to-buffer buffer)))
 
 ;; ** desktop environment
@@ -444,6 +443,10 @@
                                 (kill-this-buffer))
                             (kill-this-buffer))))
         ;; window
+        (,(kbd "s-<XF86AudioRaiseVolume>") . (lambda ()
+                                               (if (string= (buffer-name) "*scratch*")
+                                                   (switch-to-buffer nil)
+                                                 (switch-to-buffer "*scratch*"))))
         (,(kbd "s-m") . bury-buffer)
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
