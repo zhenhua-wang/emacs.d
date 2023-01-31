@@ -1288,19 +1288,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 *** Python
 #+begin_src emacs-lisp
-(defun zw/python-region-or-block-string ()
-  (if mark-active
-      (let ((beg (region-beginning))
-            (end (region-end)))
-        (buffer-substring-no-properties beg end))
-    (let* ((current-line-empty-p
-            (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
-           (beg (if current-line-empty-p
-                    (point)
-                  (save-excursion (backward-paragraph) (point))))
-           (end (save-excursion (forward-paragraph) (point))))
-      (set-mark beg) (goto-char end)
-      (buffer-substring-no-properties beg end))))
+(defun zw/python-init-hook ()
+  (when (executable-find "ipython")
+    (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args
+          "-i --simple-prompt --InteractiveShell.display_page=True")
+    (add-to-list 'python-shell-completion-native-disabled-interpreters
+                 "ipython")))
 
 (defun zw/python-start-shell-before-send-string (code-string)
   (if (python-shell-get-process)
@@ -1318,6 +1312,30 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (goto-char (region-end))
   (deactivate-mark))
 
+(defun zw/python-region-or-block-string ()
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (buffer-substring-no-properties beg end))
+    (let* ((current-line-empty-p
+            (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
+           (beg (if current-line-empty-p
+                    (point)
+                  (save-excursion (backward-paragraph) (point))))
+           (end (save-excursion (forward-paragraph) (point))))
+      (set-mark beg) (goto-char end)
+      (buffer-substring-no-properties beg end))))
+
+(defun zw/python-shell-send-region-or-block ()
+  (interactive)
+  (zw/python-start-shell-before-send-string
+   (zw/python-region-or-block-string)))
+
+(defun zw/python-shell-send-buffer ()
+  (interactive)
+  (save-excursion
+    (zw/python-start-shell-before-send-string (buffer-string))))
+
 (defun zw/python-shell-send-line ()
   (interactive)
   (let ((beg (save-excursion (beginning-of-line) (point)))
@@ -1325,30 +1343,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (zw/python-start-shell-before-send-string
      (buffer-substring-no-properties beg end))))
 
-(defun zw/python-shell-send-buffer ()
-  (interactive)
-  (save-excursion
-    (zw/python-start-shell-before-send-string (buffer-string))))
-
-(defun zw/python-shell-send-region-or-block ()
-  (interactive)
-  (zw/python-start-shell-before-send-string
-   (zw/python-region-or-block-string)))
-
 (use-package python
-  :hook (inferior-python-mode . (lambda ()
-                                  (bind-keys :map inferior-python-mode-map
-                                             ("C-x 1" . zw/maximize-shell))))
+  :hook
+  (inferior-python-mode . (lambda ()
+                            (bind-keys :map inferior-python-mode-map
+                                       ("C-x 1" . zw/maximize-shell))))
+  (python-mode . zw/python-init-hook)
   :bind ((:map python-mode-map
-               ("C-<return>" . zw/python-shell-send-line)
+               ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
-               ("C-c C-c" . zw/python-shell-send-region-or-block)))
-  :config
-  (when (executable-find "ipython")
-    (setq python-shell-interpreter "ipython"
-          python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
-    (add-to-list 'python-shell-completion-native-disabled-interpreters
-                 "ipython")))
+               ("C-<return>" . zw/python-shell-send-line))))
 
 (use-package conda
   :after python
