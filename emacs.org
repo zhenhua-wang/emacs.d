@@ -1293,8 +1293,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (python-shell-send-string code-string)
     (progn
       (setq-local python-shell-setup-codes nil)
-      (let* ((python-shell-setup-codes (cons code-string
-                                             python-shell-setup-codes))
+      (let* ((python-shell-setup-codes (list code-string))
              (process (python-shell-get-or-create-process
                        (python-shell-parse-command))))
         (save-selected-window
