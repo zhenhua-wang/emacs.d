@@ -444,6 +444,7 @@
                             (kill-this-buffer))))
         ;; window
         (,(kbd "s-<XF86AudioRaiseVolume>") . (lambda ()
+                                               (interactive)
                                                (if (string= (buffer-name) "*scratch*")
                                                    (switch-to-buffer nil)
                                                  (switch-to-buffer "*scratch*"))))
