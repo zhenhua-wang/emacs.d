@@ -335,6 +335,13 @@
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
     (switch-to-buffer buffer)))
 
+;; ** exwm show desktop
+(defun zw/exwm-show-desktop ()
+  (interactive)
+  (if (string= (buffer-name) "*scratch*")
+      (switch-to-buffer nil)
+    (switch-to-buffer "*scratch*")))
+
 ;; ** desktop environment
 (use-package desktop-environment
   :after exwm
@@ -443,11 +450,7 @@
                                 (kill-this-buffer))
                             (kill-this-buffer))))
         ;; window
-        (,(kbd "s-<XF86AudioRaiseVolume>") . (lambda ()
-                                               (interactive)
-                                               (if (string= (buffer-name) "*scratch*")
-                                                   (switch-to-buffer nil)
-                                                 (switch-to-buffer "*scratch*"))))
+        (,(kbd "s-<f3>") . zw/exwm-show-desktop)
         (,(kbd "s-m") . bury-buffer)
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
