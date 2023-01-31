@@ -1300,7 +1300,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         (save-selected-window
           (switch-to-buffer-other-window
            (process-buffer process))))))
-  (sit-for 0.2)
+  (sit-for 0.1)
   (goto-char (region-end))
   (deactivate-mark))
 
