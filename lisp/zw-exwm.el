@@ -461,7 +461,7 @@
         (,(kbd "s-<down>") . windmove-down)
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
-        (,(kbd "s-`") . zw/toggle-side-windows)
+        (,(kbd "s-`") . window-toggle-side-windows)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
