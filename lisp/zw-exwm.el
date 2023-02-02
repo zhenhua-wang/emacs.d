@@ -99,7 +99,7 @@
                 mode-line-format nil)))
 
 (defun zw/exwm-scratch-hide-ui ()
-  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
+  (let ((n-window (length (window-list))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
@@ -107,7 +107,7 @@
       (zw/exwm-set-scratch-ui t))))
 
 (defun zw/exwm-scratch-transparent-frame ()
-  (let ((n-window (length (mapcar #'window-buffer (window-list)))))
+  (let ((n-window (length (window-list))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
@@ -326,7 +326,7 @@
   (interactive)
   (let* ((buffers (seq-filter (lambda (x)
                                 (and (not (eq (current-buffer) x))
-                                     (not (string-match "^[[:space:]].*$" (buffer-name x)))
+                                     (not (zw/hidden-buffer-p x))
                                      (or (buffer-file-name x)
                                          (with-current-buffer x
                                            exwm-class-name))))
@@ -461,7 +461,7 @@
         (,(kbd "s-<down>") . windmove-down)
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
-        (,(kbd "s-`") . window-toggle-side-windows)
+        (,(kbd "s-`") . zw/toggle-side-windows)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search

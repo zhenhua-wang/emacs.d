@@ -195,7 +195,7 @@
            ("s-{" . shrink-window-horizontally)
            ("s-}" . enlarge-window-horizontally)
            ("s-^" . enlarge-window)
-           ("s-`" . window-toggle-side-windows)
+           ("s-`" . zw/toggle-side-windows)
            ;; tab operations
            ("s-1" . zw/tab-switch)
            ("s-9" . tab-new)
@@ -544,6 +544,34 @@ FACE defaults to inheriting from default and highlight."
         ("\\*Calendar.*"
          (display-buffer-reuse-mode-window display-buffer-below-selected)
          (window-height . shrink-window-if-larger-than-buffer))))
+#+end_src
+
+** Side window
+#+begin_src emacs-lisp
+(defvar zw/side-window-buffers '()
+  "list of opened buffers in side window")
+
+(defun zw/add-to-side-window-buffers ()
+  (when (and (window-parameter (selected-window) 'window-side)
+             (not (zw/hidden-buffer-p)))
+    (add-to-list 'zw/side-window-buffers (buffer-name))))
+
+(defun zw/remove-from-side-window-buffers ()
+  (when (window-parameter (selected-window) 'window-side)
+    (setq zw/side-window-buffers
+          (remove (buffer-name) zw/side-window-buffers))))
+
+(defun zw/toggle-side-windows ()
+  (interactive)
+  (if (and (> (length (window-list)) 1)
+           (window-at-side-list (selected-frame) 'right))
+      (dolist (buffer zw/side-window-buffers)
+        (delete-window (get-buffer-window buffer)))
+    (dolist (buffer zw/side-window-buffers)
+      (display-buffer buffer))))
+
+(add-hook 'buffer-list-update-hook 'zw/add-to-side-window-buffers)
+(add-hook 'kill-buffer-hook 'zw/remove-from-side-window-buffers)
 #+end_src
 
 ** Whitespace

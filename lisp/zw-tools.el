@@ -163,4 +163,7 @@ i.e. windows tiled side-by-side."
    ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
 
+(defun zw/hidden-buffer-p (&optional buffer)
+  (string-match "^[[:space:]].*$" (buffer-name buffer)))
+
 (provide 'zw-tools)
