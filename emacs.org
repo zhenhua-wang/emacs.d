@@ -828,7 +828,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 #+begin_src emacs-lisp
 (use-package calculator
   :bind (:map calculator-mode-map
-              ("s-q" . zw/close-shell)))
+              ("s-q" . calculator-quit)))
 #+end_src
 
 ** Custom tools
