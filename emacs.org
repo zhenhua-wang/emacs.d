@@ -570,7 +570,7 @@ FACE defaults to inheriting from default and highlight."
             (delete-window (get-buffer-window buffer)))
         (dolist (buffer zw/side-window-buffers)
           (display-buffer buffer)))
-    (message "No opened side windows")))
+    (message "No side windows")))
 
 (add-hook 'buffer-list-update-hook 'zw/add-to-side-window-buffers)
 (add-hook 'kill-buffer-hook 'zw/remove-from-side-window-buffers)
