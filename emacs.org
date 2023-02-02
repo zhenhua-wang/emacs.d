@@ -563,12 +563,14 @@ FACE defaults to inheriting from default and highlight."
 
 (defun zw/toggle-side-windows ()
   (interactive)
-  (if (and (> (length (window-list)) 1)
-           (window-at-side-list (selected-frame) 'right))
-      (dolist (buffer zw/side-window-buffers)
-        (delete-window (get-buffer-window buffer)))
-    (dolist (buffer zw/side-window-buffers)
-      (display-buffer buffer))))
+  (if zw/side-window-buffers
+      (if (and (> (length (window-list)) 1)
+               (window-at-side-list (selected-frame) 'right))
+          (dolist (buffer zw/side-window-buffers)
+            (delete-window (get-buffer-window buffer)))
+        (dolist (buffer zw/side-window-buffers)
+          (display-buffer buffer)))
+    (message "No opened side windows")))
 
 (add-hook 'buffer-list-update-hook 'zw/add-to-side-window-buffers)
 (add-hook 'kill-buffer-hook 'zw/remove-from-side-window-buffers)
