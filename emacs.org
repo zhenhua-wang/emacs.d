@@ -824,6 +824,13 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
         lazy-count-prefix-format "%s/%s "))
 #+end_src
 
+** Calculator
+#+begin_src emacs-lisp
+(use-package calculator
+  :bind (:map calculator-mode-map
+              ("s-q" . zw/close-shell)))
+#+end_src
+
 ** Custom tools
 #+begin_src emacs-lisp
 (require 'zw-tools)
