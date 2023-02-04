@@ -322,6 +322,10 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch to buffer
+(defun zw/exwm-switch-to-buffer-annotation (style)
+  (with-current-buffer style
+    (concat "     " (symbol-name major-mode))))
+
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
   (let* ((buffers (seq-filter (lambda (x)
@@ -329,9 +333,11 @@
                                      (not (zw/hidden-buffer-p x))
                                      (or (buffer-file-name x)
                                          (with-current-buffer x
-                                           exwm-class-name))))
+                                           (or exwm-class-name
+                                               (eq major-mode 'dired-mode))))))
                               (buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
+         (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
     (switch-to-buffer buffer)))
 
