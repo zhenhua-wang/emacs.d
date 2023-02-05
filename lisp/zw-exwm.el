@@ -341,6 +341,18 @@
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
     (switch-to-buffer buffer)))
 
+;; register exwm buffer switch marginalia
+(with-eval-after-load "marginalia"
+  (add-to-list 'marginalia-prompt-categories '("\\<EXWM switch to buffer\\>" . exwm-buffer))
+  (add-to-list 'marginalia-annotator-registry
+               '(exwm-buffer marginalia-annotate-exwm-buffer builtin none))
+  (defun marginalia-annotate-exwm-buffer (cand)
+    (let* ((ann (with-current-buffer cand (symbol-name major-mode)))
+           (ann-width (string-width ann)))
+      (message (number-to-string ann-width))
+      (concat (propertize " " 'display `(space :align-to (- right ,ann-width)))
+              (propertize ann 'face 'marginalia-mode)))))
+
 ;; ** exwm show desktop
 (defun zw/exwm-show-desktop ()
   (interactive)
