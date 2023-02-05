@@ -1000,7 +1000,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          (:map minibuffer-local-completion-map
                ("C-x C-d" . consult-dir)))
   :init
-  (setq consult-preview-key (kbd "M-.")
+  (setq consult-preview-key "M-."
         register-preview-delay 0.5
         register-preview-function #'consult-register-format
         xref-show-xrefs-function #'consult-xref
