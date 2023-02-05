@@ -349,7 +349,6 @@
   (defun marginalia-annotate-exwm-buffer (cand)
     (let* ((ann (with-current-buffer cand (symbol-name major-mode)))
            (ann-width (string-width ann)))
-      (message (number-to-string ann-width))
       (concat (propertize " " 'display `(space :align-to (- right ,ann-width)))
               (propertize ann 'face 'marginalia-mode)))))
 
