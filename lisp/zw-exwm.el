@@ -324,7 +324,8 @@
 ;; ** exwm switch to buffer
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
-    (concat "     " (symbol-name major-mode))))
+    (concat (propertize " " 'display `(space :align-to center))
+            (symbol-name major-mode))))
 
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
