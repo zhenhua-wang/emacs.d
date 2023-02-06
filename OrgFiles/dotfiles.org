@@ -198,8 +198,8 @@ format-padding = 0
 
 [module/battery]
 type = internal/battery
-battery = ${EXWM_BAR_BATTERY}
-adapter = ${EXWM_BAR_ADAPTER}
+battery = ${env:EXWM_BAR_BATTERY}
+adapter = ${env:EXWM_BAR_ADAPTER}
 full-at = 100
 low-at = 10
 
