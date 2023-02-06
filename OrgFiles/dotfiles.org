@@ -3,20 +3,13 @@
 #+PROPERTY: header-args :mkdirp yes
 -----
 * XKB
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf" "no")
+#+HEADER: :tangle "no"
 #+begin_src emacs-lisp
 Section "InputClass"
         Identifier "system-keyboard"
         MatchIsKeyboard "on"
         Option "XkbLayout" "us"
         Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
-EndSection
-
-Section "InputClass"
-        Identifier "BY Tech Air75"
-        MatchIsKeyboard "on"
-        Option "XkbLayout" "us"
-        Option "XkbOptions" "caps:ctrl_modifier"
 EndSection
 #+end_src
 
