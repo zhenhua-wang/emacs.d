@@ -2,6 +2,17 @@
 #+author: Zhenhua Wang
 #+PROPERTY: header-args :mkdirp yes
 -----
+* XKB
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf" "no")
+#+begin_src emacs-lisp
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "us"
+        Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+EndSection
+#+end_src
+
 * .Rprofile
 #+HEADER: :tangle "~/.Rprofile"
 #+begin_src conf
