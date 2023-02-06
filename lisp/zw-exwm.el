@@ -175,12 +175,15 @@
   (keycast-tab-bar-mode))
 
 ;; ** polybar
-(let ((fg (face-foreground 'mode-line))
-      (bg (face-background 'mode-line))
-      (hl-fg (face-foreground 'mode-line-highlight))
-      (hl-bg (face-background 'mode-line-highlight))
-      (gn (face-foreground 'success))
-      (rd (face-foreground 'error)))
+(let* ((fg (face-foreground 'mode-line))
+       (bg (face-background 'mode-line))
+       (hl-fg (face-foreground 'mode-line-highlight))
+       (hl-bg (face-background 'mode-line-highlight))
+       (gn (face-foreground 'success))
+       (rd (face-foreground 'error))
+       (power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
+       (power-lines (split-string power-supply "\n")))
+
   (setenv "EXWM_BAR_FG" fg)
   (setenv "EXWM_BAR_BG" bg)
   (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
@@ -189,7 +192,13 @@
   (setenv "EXWM_BAR_HL_FG" hl-fg)
   (setenv "EXWM_BAR_HL_BG" hl-bg)
   (setenv "EXWM_BAR_RED" rd)
-  (setenv "EXWM_BAR_GREEN" gn))
+  (setenv "EXWM_BAR_GREEN" gn)
+  (dolist (line power-lines)
+    (cond
+     ((string-match "BAT" line)
+      (setenv "EXWM_BAR_BATTERY" line))
+     ((string-match "AC" line)
+      (setenv "EXWM_BAR_ADAPTER" line)))))
 
 (defun zw/restart-polybar ()
   (interactive)
