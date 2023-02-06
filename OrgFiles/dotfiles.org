@@ -3,6 +3,7 @@
 #+PROPERTY: header-args :mkdirp yes
 -----
 * XKB
+Copy to ~/etc/X11/xorg.conf.d/00-keyboard.conf~
 #+HEADER: :tangle "no"
 #+begin_src emacs-lisp
 Section "InputClass"
