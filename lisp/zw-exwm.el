@@ -27,14 +27,22 @@
   (exwm-workspace-switch-create 1)
 
   ;; Launch apps that will run in the background
-  (zw/exwm-run-in-background "dunst")
-  (zw/exwm-run-in-background "nm-applet")
-  (zw/exwm-run-in-background "pasystray")
-  (zw/exwm-run-in-background "blueman-applet")
-  (zw/exwm-run-in-background "udiskie --no-automount -t")
+  (when (executable-find "dunst")
+    (zw/exwm-run-in-background "dunst"))
+  (when (executable-find "nm-applet")
+    (zw/exwm-run-in-background "nm-applet"))
+  (when (executable-find "pasystray")
+    (zw/exwm-run-in-background "pasystray"))
+  (when (executable-find "blueman-applet")
+    (zw/exwm-run-in-background "blueman-applet"))
+  (when (executable-find "udiskie")
+    (zw/exwm-run-in-background "udiskie --no-automount -t"))
+  (when (executable-find "cbatticon")
+    (zw/exwm-run-in-background "cbatticon"))
   ;; set ibus to use "system keyboard layout" in advanced setting
   ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
-  (zw/exwm-run-in-background "polybar panel"))
+  (when (executable-find "polybar")
+    (zw/exwm-run-in-background "polybar panel")))
 
 ;; When EXWM starts up, do some extra configuration
 (add-hook 'exwm-init-hook #'zw/exwm-init-hook)
