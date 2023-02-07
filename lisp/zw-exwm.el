@@ -403,6 +403,13 @@
 (use-package app-launcher
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
+;; ** vertico posframe
+(use-package vertico-posframe
+  :hook (vertico-mode . vertico-posframe-mode)
+  :config
+  (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
+        vertico-posframe-width (frame-width)))
+
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
