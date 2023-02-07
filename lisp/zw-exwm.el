@@ -39,9 +39,8 @@
     (zw/exwm-run-in-background "udiskie --no-automount -t"))
   (when (executable-find "cbatticon")
     (zw/exwm-run-in-background "cbatticon"))
-  (ignore-errors
-    (when (executable-find "onboard")
-      (zw/exwm-run-in-background "onboard")))
+  (when (executable-find "onboard")
+    (zw/exwm-run-in-background "onboard"))
   ;; set ibus to use "system keyboard layout" in advanced setting
   ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
   (when (executable-find "polybar")
