@@ -100,8 +100,6 @@ map cmd+v       paste_from_clipboard
 [global]
 monitor = 0
 follow = mouse
-width = 300
-height = 80
 origin = top-right
 offset = 10x48
 corner_radius = 0
@@ -115,8 +113,6 @@ progress_bar_max_width = 300
 indicate_hidden = yes
 transparency = 0
 separator_height = 2
-padding = 15
-horizontal_padding = 15
 text_icon_padding = 0
 frame_width = 4
 gap_size = 0
