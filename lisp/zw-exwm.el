@@ -408,7 +408,12 @@
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
-        vertico-posframe-width (frame-width)))
+        vertico-posframe-width (frame-width))
+  (defun vertico-posframe-set-cursor (&rest args)
+    (with-current-buffer vertico-posframe--buffer
+      (setq-local cursor-type 'bar)
+      (setq-local cursor-in-non-selected-windows 'bar)))
+  (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor))
 
 ;; * exwm keymap
   ;; ** exwm prefix keys
