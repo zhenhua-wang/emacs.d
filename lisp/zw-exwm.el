@@ -405,8 +405,8 @@
 
 ;; ** vertico posframe
 (use-package vertico-posframe
-  :hook (vertico-mode . vertico-posframe-mode)
   :config
+  (vertico-posframe-mode 1)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
         vertico-posframe-width (frame-width)))
 
