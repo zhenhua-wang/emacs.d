@@ -500,7 +500,8 @@ FACE defaults to inheriting from default and highlight."
     (window--display-buffer buffer largest-window 'reuse alist)))
 
 ;; buffer placement rules
-(setq display-buffer-alist
+(setq display-buffer-base-action '(zw/display-buffer-in-largest-window)
+      display-buffer-alist
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
          (display-buffer-reuse-window
@@ -1265,6 +1266,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind (("C-M-;" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo))
+  :hook
+  (magit-mode . (lambda ()
+                  (setq display-buffer-base-action nil)))
   :commands (magit-status magit-get-current-branch)
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
