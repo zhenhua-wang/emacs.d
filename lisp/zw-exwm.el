@@ -423,10 +423,7 @@
       (setq-local cursor-in-non-selected-windows 'bar)))
   (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
   (setq vertico-posframe-poshandler 'zw/posframe-poshandler-bottom-center
-        vertico-posframe-width (frame-width)
-        vertico-posframe-parameters
-        '((left-fringe . 8)
-          (right-fringe . 8)))
+        vertico-posframe-width (frame-width))
   (vertico-posframe-mode 1))
 
 ;; * exwm keymap
