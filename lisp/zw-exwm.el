@@ -40,7 +40,7 @@
   (when (executable-find "cbatticon")
     (zw/exwm-run-in-background "cbatticon"))
   (when (executable-find "qvkbd")
-    (zw/exwm-run-in-background "qvkbd -hide"))
+    (zw/exwm-run-in-background "qvkbd --hide"))
   ;; set ibus to use "system keyboard layout" in advanced setting
   ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
   (when (executable-find "polybar")
