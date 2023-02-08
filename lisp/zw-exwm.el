@@ -352,6 +352,10 @@
   (let* ((buffers (seq-filter (lambda (x)
                                 (and (not (eq (current-buffer) x))
                                      (not (zw/hidden-buffer-p x))
+                                     (not (cl-some 'identity
+                                                   (seq-map (lambda (y)
+                                                              (string-match y (buffer-name x)))
+                                                            zw/exwm-plot-buffers)))
                                      (or (buffer-file-name x)
                                          (with-current-buffer x
                                            (or exwm-class-name
