@@ -513,6 +513,11 @@ FACE defaults to inheriting from default and highlight."
          (window-height . 0.2)
          (side . top)
          (slot . 1))
+        ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
+         (display-buffer-in-side-window)
+         (window-width . 0.2)
+         (side . top)
+         (slot . 1))
         ;; right side window
         ("\\*\\(R\\|Python\\).*"
          (display-buffer-in-side-window)
@@ -520,11 +525,6 @@ FACE defaults to inheriting from default and highlight."
          (side . right)
          (slot . 1)
          (dedicated . t))
-        ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
-         (display-buffer-in-side-window)
-         (window-width . 0.5)
-         (side . right)
-         (slot . 1))
         ;; left side window
         ("^\\*Ilist\\*$"
          (display-buffer-in-side-window)
