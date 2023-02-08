@@ -522,7 +522,8 @@ FACE defaults to inheriting from default and highlight."
          (display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
-         (slot . 1))
+         (slot . 1)
+         (dedicated . t))
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
          (window-width . 0.5)

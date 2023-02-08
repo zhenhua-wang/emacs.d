@@ -283,9 +283,10 @@
   (add-to-list 'display-buffer-alist
                `(,buffer
                  (display-buffer-in-side-window)
-                 (side                . right)
-                 (slot                . -1)
-                 (window-height       . 0.5))))
+                 (side . right)
+                 (slot . -1)
+                 (dedicated . t)
+                 (window-height . 0.5))))
 
 ;; * exwm tool
 ;; ** xmodmap
