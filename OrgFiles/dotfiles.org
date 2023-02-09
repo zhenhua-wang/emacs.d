@@ -167,7 +167,7 @@ frame_color = "#E06B74"
 * Picom
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/picom.conf" "no")
 #+begin_src conf
-fading = true;
+fading = false;
 fade-in-step = 1;
 fade-out-step = 0.03;
 fade-exclude = ["class_g = 'Emacs'"];
