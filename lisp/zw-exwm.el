@@ -408,24 +408,6 @@
 (use-package app-launcher
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
-;; ** vertico posframe
-(use-package vertico-posframe
-  :config
-  (defun zw/posframe-poshandler-bottom-center (info)
-    (cons (/ (- (plist-get info :parent-frame-width)
-                (plist-get info :posframe-width))
-             2)
-          (- (plist-get info :parent-frame-height)
-             (plist-get info :posframe-height))))
-  (defun vertico-posframe-set-cursor (&rest args)
-    (with-current-buffer vertico-posframe--buffer
-      (setq-local cursor-type 'bar)
-      (setq-local cursor-in-non-selected-windows 'bar)))
-  (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
-  (setq vertico-posframe-poshandler 'zw/posframe-poshandler-bottom-center
-        vertico-posframe-width (frame-width))
-  (vertico-posframe-mode 1))
-
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
