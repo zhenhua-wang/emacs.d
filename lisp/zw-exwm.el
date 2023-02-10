@@ -142,7 +142,7 @@
   '(:eval
     (let ((window-type (if exwm--floating-frame "float" "tile")))
       (concat " " (propertize window-type
-                              'help-echo "left click: toggling floating"
+                              'help-echo "mouse-1: Toggling floating"
                               'mouse-face 'mode-line-highlight
                               'local-map (make-mode-line-mouse-map 'mouse-1 'exwm-floating-toggle-floating))))))
 
