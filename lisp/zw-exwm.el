@@ -14,7 +14,8 @@
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
  exwm-layout-show-all-buffers nil
- exwm-manage-force-tiling t)
+ exwm-manage-force-tiling t
+ exwm-floating-border-width 3)
 
 ;; * exwm applications
 (defun zw/exwm-run-in-background (command)
@@ -136,6 +137,18 @@
 
 ;; ** modeline
 (set-face-attribute 'mode-line nil :box nil)
+
+(defun zw/exwm-modeline-float ()
+  '(:eval
+    (let ((window-type (if exwm--floating-frame "float" "tile")))
+      (concat " " (propertize window-type
+                              'help-echo "left click: toggling floating"
+                              'mouse-face 'mode-line-highlight
+                              'local-map (make-mode-line-mouse-map 'mouse-1 'exwm-floating-toggle-floating))))))
+
+(add-hook 'exwm-manage-finish-hook
+          (lambda ()
+            (add-to-list 'mode-line-process (zw/exwm-modeline-float) t)))
 
 ;; ** keycast
 (use-package keycast
