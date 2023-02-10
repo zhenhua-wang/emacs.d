@@ -148,7 +148,8 @@
 
 (add-hook 'exwm-manage-finish-hook
           (lambda ()
-            (add-to-list 'mode-line-process (zw/exwm-modeline-float) t)))
+            (setq-local mode-line-process
+                        (append mode-line-process (list (zw/exwm-modeline-float))))))
 
 ;; ** keycast
 (use-package keycast
