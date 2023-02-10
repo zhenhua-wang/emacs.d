@@ -180,7 +180,6 @@ fade-exclude = ["class_g = 'Emacs'"];
 screenchange-reload = true
 
 [colors]
-;; dark theme
 foreground =            ${env:EXWM_BAR_FG}
 background =            ${env:EXWM_BAR_BG}
 background-alt =        ${env:EXWM_BAR_BG_ALT}
