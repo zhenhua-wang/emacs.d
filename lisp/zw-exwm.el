@@ -137,37 +137,7 @@
 ;; ** modeline
 (set-face-attribute 'mode-line nil :box nil)
 
-;; ** tab bar
-(setq tab-bar-show t
-      tab-bar-format '(tab-bar-separator
-                       zw/tab-bar-format-menu-bar
-                       tab-bar-separator
-                       zw/tab-bar-format-file-path
-                       tab-bar-format-align-right
-                       tab-bar-separator
-                       tab-bar-separator
-                       tab-bar-separator
-                       zw/tab-bar-format-global))
-(tab-bar-mode 1)
-;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
-
-;; time
-(setq display-time-format "%b %-e %a %T %p"
-      display-time-interval 1
-      display-time-default-load-average nil)
-(display-time-mode 1)
-
-;; battery on laptop
-(require 'battery)
-(setq have-battery-status-p
-      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-        (and perc-charged
-             (not (zerop (string-to-number (cdr perc-charged)))))))
-(when (and have-battery-status-p
-           tab-bar-show)
-  (display-battery-mode 1))
-
-;; keycast
+;; ** keycast
 (use-package keycast
   :config
   (setq keycast-tab-bar-format "%k%c%R "
@@ -175,6 +145,37 @@
   (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (keycast-tab-bar-mode))
+
+;; ** tab bar
+(unless (executable-find "polybar")
+  (setq tab-bar-show t
+        tab-bar-format '(tab-bar-separator
+                         zw/tab-bar-format-menu-bar
+                         tab-bar-separator
+                         zw/tab-bar-format-file-path
+                         tab-bar-format-align-right
+                         tab-bar-separator
+                         tab-bar-separator
+                         tab-bar-separator
+                         zw/tab-bar-format-global))
+  (tab-bar-mode 1)
+  ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
+
+  ;; time
+  (setq display-time-format "%b %-e %a %T %p"
+        display-time-interval 1
+        display-time-default-load-average nil)
+  (display-time-mode 1)
+
+  ;; battery on laptop
+  (require 'battery)
+  (setq have-battery-status-p
+        (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+          (and perc-charged
+               (not (zerop (string-to-number (cdr perc-charged)))))))
+  (when (and have-battery-status-p
+             tab-bar-show)
+    (display-battery-mode 1)))
 
 ;; ** polybar
 (let* ((fg (face-foreground 'mode-line))
