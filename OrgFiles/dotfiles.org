@@ -255,6 +255,7 @@ format-background = ${colors.highlight-bg}
 type = custom/ipc
 hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-desc)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
 initial = 1
+format-foreground = ${colors.highlight-bg}
 
 [module/date]
 type = internal/date
