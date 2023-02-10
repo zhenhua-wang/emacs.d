@@ -1284,9 +1284,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :bind (("C-M-;" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo))
-  :hook
-  (magit-mode . (lambda ()
-                  (setq display-buffer-base-action nil)))
   :commands (magit-status magit-get-current-branch)
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
