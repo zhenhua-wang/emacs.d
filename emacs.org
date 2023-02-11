@@ -632,6 +632,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
   (dired-mode . (lambda () (visual-line-mode 0)))
+  :bind ((:map dired-mode-map
+               ("<tab>" . dired-subtree-toggle)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t
@@ -651,9 +653,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
    (dirvish-directory-view-mode . diredfl-mode)))
 
 (use-package dired-subtree
-  :commands (dired-subtree-toggle)
-  :bind ((:map dired-mode-map
-               ("<tab>" . dired-subtree-toggle))))
+  :commands (dired-subtree-toggle))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode)
