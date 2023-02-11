@@ -226,25 +226,25 @@ content = "     "
 
 [module/exwm-workspace]
 type = custom/ipc
-hook-0 = emacsclient -e "exwm-workspace-current-index" | sed -e 's/^"//' -e 's/"$//' | awk '{print " "$1" "}'
+hook-0 = emacsclient -e "exwm-workspace-current-index" | awk '{print " "$1" "}'
 initial = 1
 format-background = ${colors.background-alt}
 
 [module/emacs-buffer-name]
 type = custom/ipc
-hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-name)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-name)" | tr -d '"'
 initial = 1
 format = "<output>"
 
 [module/emacs-buffer-path]
 type = custom/ipc
-hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-path)" | tr -d '"'
 initial = 1
 format-foreground = ${colors.highlight-bg}
 
 [module/emacs-keycast-key]
 type = custom/ipc
-hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-key)" | tr -d '"'
 initial = 1
 format = <output>
 format-foreground = ${colors.highlight-fg}
@@ -252,7 +252,7 @@ format-background = ${colors.highlight-bg}
 
 [module/emacs-keycast-desc]
 type = custom/ipc
-hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-desc)"  | sed -e 's/^"//' -e 's/"$//' | awk '{print ""$0""}'
+hook-0 = emacsclient -e "(zw/exwm-polybar-keycast-desc)" | tr -d '"'
 initial = 1
 format-foreground = ${colors.highlight-bg}
 
