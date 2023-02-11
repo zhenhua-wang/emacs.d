@@ -261,10 +261,7 @@ type = internal/date
 interval = 5
 
 date = "%a %b %d"
-date-alt = "%A %B %d %Y"
-
 time = %l:%M %p
-time-alt = %H:%M:%S
 
 label = "%date% - %time%"
 format = <label>
