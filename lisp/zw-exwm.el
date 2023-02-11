@@ -58,12 +58,6 @@
       (exwm-workspace-rename-buffer exwm-class-name)
     (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
 
-;; When window "class" updates, use it to set the buffer name
-(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
-
-;; When window title updates, use it to set the buffer name
-(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
-
 (defun zw/exwm-configure-window-by-class ()
   (pcase exwm-class-name
     ;; floating utils
@@ -72,16 +66,9 @@
     ("Emacs"
      (exwm-floating-toggle-floating))))
 
-;; Configure windows as they're created
 (add-hook 'exwm-manage-finish-hook #'zw/exwm-configure-window-by-class)
-
-;; This function isn't currently used, only serves as an example how to
-;; position a window
-(defun zw/exwm-position-window ()
-  (let* ((pos (frame-position))
-         (pos-x (car pos))
-         (pos-y (cdr pos)))
-    (exwm-floating-move (- pos-x) (- pos-y))))
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
@@ -92,7 +79,6 @@
   (start-process-shell-command
    "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
 
-;; set wallpaper
 (zw/exwm-set-wallpaper)
 
 ;; ** transparency
