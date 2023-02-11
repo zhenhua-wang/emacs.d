@@ -258,10 +258,10 @@ format-foreground = ${colors.highlight-bg}
 
 [module/date]
 type = internal/date
-interval = 5
+interval = 1.0
 
 date = "%a %b %d"
-time = %l:%M %p
+time = %l:%M:%S %p
 
 label = "%date% - %time%"
 format = <label>
