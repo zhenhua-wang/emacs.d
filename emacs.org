@@ -630,7 +630,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :straight (:type built-in)
   :hook
   (dired-mode . dired-async-mode)
-  (dired-mode . dired-hide-details-mode)
   (dired-mode . dired-omit-mode)
   (dired-mode . (lambda () (visual-line-mode 0)))
   :init
@@ -653,28 +652,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :config
 )
 
-(use-package dirvish
-  :hook
-  (after-init . dirvish-override-dired-mode)
-  (dirvish-find-entry . (lambda (&rest _) (setq-local truncate-lines t)))
-  :custom
-  (dirvish-quick-access-entries
-   '(("h" "~/"                          "Home")
-     ("d" "~/Downloads/"                "Downloads")
-     ("w" "~/Workspace/"                "Workspace")
-     ("p" "~/Pictures/"                 "Pictures")))
-  :bind ((:map dirvish-mode-map
-               ("<tab>" . dirvish-subtree-toggle)
-               ("a" . dirvish-quick-access)))
-  :config
-  (setq dirvish-subtree-always-show-state t
-        dirvish-side-width 25
-        dirvish-use-mode-line nil
-        dirvish-use-header-line nil
-        dirvish-header-line-height 20
-        dirvish-side-window-parameters nil
-        dirvish-attributes
-        '(vc-state subtree-state all-the-icons git-msg file-time file-size)))
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode)
+  :config (setq all-the-icons-dired-monochrome nil))
 #+end_src
 
 ** Openwith
