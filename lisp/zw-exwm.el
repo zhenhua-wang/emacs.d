@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; * exwm init
 (straight-use-package 'exwm)
 
