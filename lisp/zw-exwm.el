@@ -221,12 +221,8 @@
   (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
   (zw/exwm-run-in-background "polybar panel"))
 
-(defun zw/exwm-polybar-exwm-workspace ()
-  (zw/exwm-send-polybar-hook "exwm-workspace" 1))
-
-(defun zw/exwm-polybar-update-buffer ()
-  (zw/exwm-send-polybar-hook "emacs-buffer-path" 1)
-  (zw/exwm-send-polybar-hook "emacs-buffer-name" 1))
+(defun zw/exwm-send-polybar-hook (module-name hook-index)
+  (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
 
 (defun zw/exwm-polybar-buffer-name ()
   (with-current-buffer (window-buffer (selected-window))
@@ -267,19 +263,24 @@
        "...")
     ""))
 
-(defun zw/exwm-send-polybar-hook (module-name hook-index)
-  (call-process-shell-command (format "polybar-msg hook %s %s" module-name hook-index) nil 0))
+(defun zw/exwm-polybar-update-exwm-workspace ()
+  (zw/exwm-send-polybar-hook "exwm-workspace" 0))
+
+(defun zw/exwm-polybar-update-buffer ()
+  (zw/exwm-send-polybar-hook "emacs-buffer-path" 0)
+  (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
+
+(defun zw/exwm-polybar-update-keycast ()
+  (zw/exwm-send-polybar-hook "emacs-keycast-key" 0)
+  (zw/exwm-send-polybar-hook "emacs-keycast-desc" 0))
 
 (when (executable-find "polybar")
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
-  (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-exwm-workspace)
+  (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
   (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
-  (advice-add 'keycast--update :after (lambda ()
-                                        (zw/exwm-send-polybar-hook "emacs-keycast-key" 1)
-                                        (zw/exwm-send-polybar-hook "emacs-keycast-desc" 1))))
-
+  (advice-add 'keycast--update :after 'zw/exwm-polybar-update-keycast))
 
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
