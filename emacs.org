@@ -1245,7 +1245,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Fast comment
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
-  :bind (("M-/" . evilnc-comment-or-uncomment-lines)))
+  :bind (("s-;" . evilnc-comment-or-uncomment-lines)))
 #+end_src
 
 *** Flymake
@@ -1265,7 +1265,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Version control
 #+begin_src emacs-lisp
 (use-package magit
-  :bind (("C-M-;" . magit-status)
+  :bind (("s-:" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo))
   :commands (magit-status magit-get-current-branch)

@@ -493,7 +493,7 @@
                                 (kill-this-buffer))
                             (kill-this-buffer))))
         ;; window
-        (,(kbd "s-<f3>") . zw/exwm-show-desktop)
+        (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "s-m") . bury-buffer)
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
@@ -516,7 +516,7 @@
         (,(kbd "s-SPC") . app-launcher-run-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
-        (,(kbd "C-M-;") . magit-status)
+        (,(kbd "s-:") . magit-status)
         ;; input
         (,(kbd "C-\\") . toggle-input-method)
         ;; side bar
