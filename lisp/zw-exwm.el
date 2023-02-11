@@ -378,7 +378,7 @@
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
-    (ido-visit-buffer buffer 'raise-frame t)))
+    (switch-to-buffer buffer)))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
