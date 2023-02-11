@@ -9,7 +9,7 @@
  focus-follows-mouse nil
  ;; Automatically send the mouse cursor to the selected workspace's display
  exwm-workspace-warp-cursor t
- exwm-workspace-number 6
+ exwm-workspace-number 2
  ;; show buffer in all workspace
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
@@ -24,8 +24,7 @@
 
 ;; initialization
 (defun zw/exwm-init-hook ()
-  ;; Make workspace 1 be the one where we land at startup
-  (exwm-workspace-switch-create 1)
+  (exwm-workspace-switch 1)
 
   ;; Launch apps that will run in the background
   (when (executable-find "dunst")
@@ -379,7 +378,7 @@
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
-    (switch-to-buffer buffer)))
+    (ido-visit-buffer buffer 'raise-frame t)))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
