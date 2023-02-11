@@ -1265,7 +1265,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** Version control
 #+begin_src emacs-lisp
 (use-package magit
-  :bind (("s-:" . magit-status)
+  :bind (("s-M" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo))
   :commands (magit-status magit-get-current-branch)

@@ -516,7 +516,7 @@
         (,(kbd "s-SPC") . app-launcher-run-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
-        (,(kbd "s-:") . magit-status)
+        (,(kbd "s-M") . magit-status)
         ;; input
         (,(kbd "C-\\") . toggle-input-method)
         ;; side bar
