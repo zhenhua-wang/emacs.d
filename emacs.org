@@ -648,9 +648,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook
   ((dired-mode . diredfl-mode)
    ;; highlight parent and preview as well
-   (dirvish-directory-view-mode . diredfl-mode))
-  :config
-)
+   (dirvish-directory-view-mode . diredfl-mode)))
+
+(use-package dired-subtree
+  :commands (dired-subtree-toggle)
+  :bind ((:map dired-mode-map
+               ("<tab>" . dired-subtree-toggle))))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode)
