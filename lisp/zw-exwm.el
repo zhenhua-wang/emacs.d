@@ -381,7 +381,7 @@
 ;; add icons
 (defun zw/all-the-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'exwm-buffer)
-      (all-the-icons-completion-get-file-icon cand)
+      (all-the-icons-completion-get-buffer-icon cand)
     (funcall orig-func cand cat)))
 
 (advice-add 'all-the-icons-completion-get-icon :around #'zw/all-the-icons-completion-get-icon)
