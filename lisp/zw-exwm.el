@@ -428,7 +428,11 @@
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
 ;; ** exwm edit
-(use-package exwm-edit)
+(use-package exwm-edit
+  :config
+  (define-key exwm-edit-mode-map (kbd "C-c C-c") nil)
+  (define-key exwm-edit-mode-map (kbd "s-q") (lambda () (interactive) (message "Close with C-c C-k")))
+  (define-key exwm-edit-mode-map [remap save-buffer] nil))
 
 ;; * exwm keymap
   ;; ** exwm prefix keys
