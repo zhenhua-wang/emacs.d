@@ -62,9 +62,30 @@
         company-posframe-show-metadata nil
         company-posframe-show-indicator t)
   ;; set show parameters
+  (defun zw/company-posframe-refposhandler (&optional frame)
+    (cond
+     ((bound-and-true-p exwm--connection)
+      (or (ignore-errors
+            (let ((info (elt exwm-workspace--workareas
+                             exwm-workspace-current-index)))
+              (cons (elt info 0)
+                    (elt info 1))))
+          (ignore-errors
+            (posframe-refposhandler-xwininfo frame))
+          (cons 0 0)))
+     (t nil)))
+  (defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
+    (cond
+     ((bound-and-true-p exwm--connection) (cons 0 0))
+     (t . nil)))
+  (setq company-posframe-quickhelp-show-params
+        (list :refposhandler 'zw/company-posframe-quickhelp-refposhandler
+              :poshandler 'company-posframe-quickhelp-right-poshandler
+              :timeout 60
+              :no-properties nil))
   (defun zw/company-posframe-show-params ()
     (setq company-posframe-show-params
-          (list :refposhandler 'exwm-posframe-refposhandler
+          (list :refposhandler 'zw/company-posframe-refposhandler
                 :override-parameters
                 `((tab-bar-mode . 0)
                   (tab-bar-format . nil)
