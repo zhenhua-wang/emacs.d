@@ -137,15 +137,6 @@
             (setq-local mode-line-process
                         (append mode-line-process (list (zw/exwm-modeline-float))))))
 
-;; ** keycast
-(use-package keycast
-  :config
-  (setq keycast-tab-bar-format "%k%c%R "
-        keycast-tab-bar-minimal-width 0)
-  (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
-  (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
-  (keycast-tab-bar-mode))
-
 ;; ** tab bar
 (unless (executable-find "polybar")
   (setq tab-bar-show t
@@ -176,6 +167,15 @@
   (when (and have-battery-status-p
              tab-bar-show)
     (display-battery-mode 1)))
+
+;; ** keycast
+(use-package keycast
+  :config
+  (setq keycast-tab-bar-format "%k%c%R "
+        keycast-tab-bar-minimal-width 0)
+  (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
+  (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
+  (keycast-tab-bar-mode))
 
 ;; ** polybar
 (when (executable-find "polybar")
