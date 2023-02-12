@@ -10,7 +10,7 @@
  focus-follows-mouse nil
  ;; Automatically send the mouse cursor to the selected workspace's display
  exwm-workspace-warp-cursor t
- exwm-workspace-number 2
+ exwm-workspace-number 1
  ;; show buffer in all workspace
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
@@ -25,8 +25,6 @@
 
 ;; initialization
 (defun zw/exwm-init-hook ()
-  (exwm-workspace-switch 1)
-
   ;; Launch apps that will run in the background
   (when (executable-find "dunst")
     (zw/exwm-run-in-background "dunst"))
