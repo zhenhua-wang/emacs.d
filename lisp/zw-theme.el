@@ -6,6 +6,7 @@
          (fixed-font         `(:font "Hack"))
          (variable-font      `(:font "EB Garamond"))
          (modeline-height     130)
+         (tab-bar-height      115)
          (block-bg (alist-get 'block-bg theme-params))
          (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
@@ -96,7 +97,7 @@
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-default-active)))))
 
      ;; tab-bar
-     `(tab-bar ((t (:height ,modeline-height :foreground ,(face-foreground 'default) :weight SemiBold))))
+     `(tab-bar ((t (:height ,tab-bar-height :foreground ,(face-foreground 'default) :weight regular))))
      `(zw/tab-bar-default-selected ((t (:inherit tab-bar))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
@@ -104,6 +105,10 @@
      `(zw/tab-bar-tab-battery-load-charging ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'success)))))
      `(zw/tab-bar-tab-battery-load-low ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning)))))
      `(zw/tab-bar-tab-battery-load-critical ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error)))))
+
+     ;; key-cast
+     `(keycast-key ((t (:height ,tab-bar-height))))
+     `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
