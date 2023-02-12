@@ -64,7 +64,8 @@
   ;; set show parameters
   (defun zw/company-posframe-show-params ()
     (setq company-posframe-show-params
-          (list :override-parameters
+          (list :refposhandler 'exwm-posframe-refposhandler
+                :override-parameters
                 `((tab-bar-mode . 0)
                   (tab-bar-format . nil)
                   (tab-line-format . nil)
