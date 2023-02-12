@@ -46,4 +46,5 @@
       (_ (org-babel-load-file "~/.emacs.d/emacs.org")))))
 
 ;; start server
-(server-start)
+(require 'server)
+(unless (server-running-p) (server-start))

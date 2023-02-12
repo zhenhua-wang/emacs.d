@@ -433,6 +433,8 @@
 
 ;; ** exwm edit
 (use-package exwm-edit
+  :init
+  (setq exwm-edit-bind-default-keys nil)
   :config
   (define-key exwm-edit-mode-map (kbd "C-c C-c") nil)
   (define-key exwm-edit-mode-map (kbd "s-q") (lambda () (interactive) (message "Close with C-c C-k")))
@@ -527,10 +529,6 @@
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
-        (,(kbd "s-<left>") . windmove-left)
-        (,(kbd "s-<right>") . windmove-right)
-        (,(kbd "s-<up>") . windmove-up)
-        (,(kbd "s-<down>") . windmove-down)
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
         (,(kbd "s-`") . window-toggle-side-windows)
@@ -550,10 +548,6 @@
         (,(kbd "C-\\") . toggle-input-method)
         ;; side bar
         (,(kbd "s-b") . dired-jump)
-        ;; tab bar
-        (,(kbd "s-1") . zw/tab-switch)
-        (,(kbd "s-9") . tab-new)
-        (,(kbd "s-0") . tab-close)
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
@@ -573,6 +567,15 @@
            ;; send C-c to clients
            ("C-c" . nil)
            ("C-c '" . exwm-edit--compose)
+           ;; window
+           ("s-<left>" . windmove-left)
+           ("s-<right>" . windmove-right)
+           ("s-<up>" . windmove-up)
+           ("s-<down>" . windmove-down)
+           ;; tab bar
+           ("s-1" . zw/tab-switch)
+           ("s-9" . tab-new)
+           ("s-0" . tab-close)
            :map vertico-map
            ("s-<tab>" . vertico-next))
 
