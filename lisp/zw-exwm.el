@@ -57,15 +57,19 @@
       (exwm-workspace-rename-buffer exwm-class-name)
     (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
 
-(defun zw/exwm-configure-window-by-class ()
-  (pcase exwm-class-name
-    ;; floating utils
-    ("URxvt"
-     (exwm-floating-toggle-floating))
-    ("Emacs"
-     (exwm-floating-toggle-floating))))
+(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
+       (float-height (floor (/ (frame-pixel-height) 1.2)))
+       (float-x (/ (- (frame-pixel-width) float-width) 2))
+       (float-y (/ (- (frame-pixel-height) float-height) 2)))
+  (setq exwm-manage-configurations
+        `(((string= "Emacs" exwm-class-name)
+           x ,float-x
+           y ,float-y
+           width ,float-width
+           height ,float-height
+           floating t
+           char-mode t))))
 
-(add-hook 'exwm-manage-finish-hook #'zw/exwm-configure-window-by-class)
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
