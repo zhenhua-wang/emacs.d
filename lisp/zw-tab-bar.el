@@ -46,15 +46,6 @@
   "Face for critical battery load on active tab-bar"
   :group 'zw/tab-bar-selected)
 
-(defvar zw/tab-bar-path-max 30
-  "Maximum length of current tab path")
-
-(defvar zw/tab-bar-name-max 30
-  "Maximum length of current tab name")
-
-(defvar zw/tab-bar-func-def-max 50
-  "Maximum length of current function definition")
-
 (defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
@@ -67,24 +58,27 @@
               tab-bar-menu-bar :help "Menu Bar")))
 
 (defun zw/tab-bar-tab-name ()
-  (let* ((tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
+  (let* ((buffer-file-p (buffer-file-name (window-buffer (minibuffer-selected-window))))
+         (tab-name-max (if buffer-file-p 30 50))
+         (dir-name-max 30)
+         (tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
                                'face 'zw/tab-bar-tab-selected))
          (tab-name-abbrev (truncate-string-to-width
-                           tab-name zw/tab-bar-name-max nil nil
+                           tab-name tab-name-max nil nil
                            zw/tab-bar-ellipsis))
-         (dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
+         (dir-name (if buffer-file-p
                        (propertize (abbreviate-file-name default-directory)
                                    'face 'zw/tab-bar-tab-path-selected)
                      ""))
          (dir-name-length (length dir-name))
-         (dir-name-abbrev (if (< dir-name-length zw/tab-bar-path-max)
+         (dir-name-abbrev (if (< dir-name-length dir-name-max)
                               dir-name
                             (concat zw/tab-bar-ellipsis
                                     "/"
                                     (string-join (cdr (split-string (truncate-string-to-width
                                                                      dir-name
                                                                      dir-name-length
-                                                                     (- dir-name-length zw/tab-bar-path-max))
+                                                                     (- dir-name-length dir-name-max))
                                                                     "\\/"))
                                                  "/"))))
          (dir-name-abbrev-prop (propertize dir-name-abbrev
@@ -110,15 +104,16 @@
 (defun zw/tab-bar--func-def ()
   "helper function to get function definition"
   ;; if all three predicates are true, return the value of the last predicate
-  (and (derived-mode-p 'prog-mode)
-       (ignore-errors (zw/in-defun-p))
-       (ignore-errors (concat
-                       (propertize " Def "
-                                   'face 'mode-line-highlight)
-                       " "
-                       (truncate-string-to-width
-                        (string-trim (zw/tab-bar-beginning-of-defun)) zw/tab-bar-func-def-max nil nil
-                        zw/tab-bar-ellipsis)))))
+  (let ((tab-func-def-max 50))
+    (and (derived-mode-p 'prog-mode)
+         (ignore-errors (zw/in-defun-p))
+         (ignore-errors (concat
+                         (propertize " Def "
+                                     'face 'mode-line-highlight)
+                         " "
+                         (truncate-string-to-width
+                          (string-trim (zw/tab-bar-beginning-of-defun)) tab-func-def-max nil nil
+                          zw/tab-bar-ellipsis))))))
 
 (defun zw/tab-bar-format-function-def ()
   `((global menu-item ,(zw/tab-bar--func-def)

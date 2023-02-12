@@ -178,90 +178,90 @@
     (display-battery-mode 1)))
 
 ;; ** polybar
-(let* ((fg (face-foreground 'mode-line))
-       (bg (face-background 'mode-line))
-       (hl-fg (face-foreground 'mode-line-highlight))
-       (hl-bg (face-background 'mode-line-highlight))
-       (gn (face-foreground 'success))
-       (rd (face-foreground 'error))
-       (power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
-       (power-lines (split-string power-supply "\n")))
-
-  (setenv "EXWM_BAR_FG" fg)
-  (setenv "EXWM_BAR_BG" bg)
-  (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
-                              ('light (doom-darken bg 0.1))
-                              ('dark (doom-lighten bg 0.1))))
-  (setenv "EXWM_BAR_HL_FG" hl-fg)
-  (setenv "EXWM_BAR_HL_BG" hl-bg)
-  (setenv "EXWM_BAR_RED" rd)
-  (setenv "EXWM_BAR_GREEN" gn)
-  (dolist (line power-lines)
-    (cond
-     ((string-match "BAT" line)
-      (setenv "EXWM_BAR_BATTERY" line))
-     ((string-match "AC" line)
-      (setenv "EXWM_BAR_ADAPTER" line)))))
-
-(defun zw/restart-polybar ()
-  (interactive)
-  (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
-  (zw/exwm-run-in-background "polybar panel"))
-
-(defun zw/exwm-send-polybar-hook (module-name hook-index)
-  (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
-
-(defun zw/exwm-polybar-buffer-name ()
-  (with-current-buffer (window-buffer (selected-window))
-    (let* ((tab-name-max (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
-                             30 50))
-           (tab-name (buffer-name (window-buffer (minibuffer-selected-window)))))
-      (truncate-string-to-width
-       tab-name tab-name-max nil nil
-       zw/tab-bar-ellipsis))))
-
-(defun zw/exwm-polybar-buffer-path ()
-  (with-current-buffer (window-buffer (selected-window))
-    (let* ((dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
-                         (abbreviate-file-name default-directory)
-                       ""))
-           (dir-name-length (length dir-name)))
-      (if (< dir-name-length zw/tab-bar-path-max)
-          dir-name
-        (concat zw/tab-bar-ellipsis
-                "/"
-                (string-join (cdr (split-string (truncate-string-to-width
-                                                 dir-name
-                                                 dir-name-length
-                                                 (- dir-name-length zw/tab-bar-path-max))
-                                                "\\/"))
-                             "/"))))))
-
-(defun zw/exwm-polybar-keycast-key ()
-  (let ((key (key-description keycast--this-command-keys)))
-    (if (string= key "")
-        ""
-      (format " %s " key))))
-
-(defun zw/exwm-polybar-keycast-desc ()
-  (if keycast--this-command-desc
-      (truncate-string-to-width
-       (format "%s" keycast--this-command-desc) 30 nil nil
-       "...")
-    ""))
-
-(defun zw/exwm-polybar-update-exwm-workspace ()
-  (zw/exwm-send-polybar-hook "exwm-workspace" 0))
-
-(defun zw/exwm-polybar-update-buffer ()
-  (zw/exwm-send-polybar-hook "emacs-buffer-path" 0)
-  (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
-
-(defun zw/exwm-polybar-update-keycast ()
-  (zw/exwm-send-polybar-hook "emacs-keycast-key" 0)
-  (zw/exwm-send-polybar-hook "emacs-keycast-desc" 0))
-
 (when (executable-find "polybar")
+  (let* ((fg (face-foreground 'mode-line))
+         (bg (face-background 'mode-line))
+         (hl-fg (face-foreground 'mode-line-highlight))
+         (hl-bg (face-background 'mode-line-highlight))
+         (gn (face-foreground 'success))
+         (rd (face-foreground 'error))
+         (power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
+         (power-lines (split-string power-supply "\n")))
+
+    (setenv "EXWM_BAR_FG" fg)
+    (setenv "EXWM_BAR_BG" bg)
+    (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
+                                ('light (doom-darken bg 0.1))
+                                ('dark (doom-lighten bg 0.1))))
+    (setenv "EXWM_BAR_HL_FG" hl-fg)
+    (setenv "EXWM_BAR_HL_BG" hl-bg)
+    (setenv "EXWM_BAR_RED" rd)
+    (setenv "EXWM_BAR_GREEN" gn)
+    (dolist (line power-lines)
+      (cond
+       ((string-match "BAT" line)
+        (setenv "EXWM_BAR_BATTERY" line))
+       ((string-match "AC" line)
+        (setenv "EXWM_BAR_ADAPTER" line)))))
+
+  (defun zw/restart-polybar ()
+    (interactive)
+    (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
+    (zw/exwm-run-in-background "polybar panel"))
+
+  (defun zw/exwm-send-polybar-hook (module-name hook-index)
+    (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
+
+  (defun zw/exwm-polybar-buffer-name ()
+    (with-current-buffer (window-buffer (selected-window))
+      (let* ((tab-name-max (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
+                               30 50))
+             (tab-name (buffer-name (window-buffer (minibuffer-selected-window)))))
+        (truncate-string-to-width
+         tab-name tab-name-max nil nil
+         zw/tab-bar-ellipsis))))
+
+  (defun zw/exwm-polybar-buffer-path ()
+    (with-current-buffer (window-buffer (selected-window))
+      (let* ((dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
+                           (abbreviate-file-name default-directory)
+                         ""))
+             (dir-name-length (length dir-name)))
+        (if (< dir-name-length zw/tab-bar-path-max)
+            dir-name
+          (concat zw/tab-bar-ellipsis
+                  "/"
+                  (string-join (cdr (split-string (truncate-string-to-width
+                                                   dir-name
+                                                   dir-name-length
+                                                   (- dir-name-length zw/tab-bar-path-max))
+                                                  "\\/"))
+                               "/"))))))
+
+  (defun zw/exwm-polybar-keycast-key ()
+    (let ((key (key-description keycast--this-command-keys)))
+      (if (string= key "")
+          ""
+        (format " %s " key))))
+
+  (defun zw/exwm-polybar-keycast-desc ()
+    (if keycast--this-command-desc
+        (truncate-string-to-width
+         (format "%s" keycast--this-command-desc) 30 nil nil
+         "...")
+      ""))
+
+  (defun zw/exwm-polybar-update-exwm-workspace ()
+    (zw/exwm-send-polybar-hook "exwm-workspace" 0))
+
+  (defun zw/exwm-polybar-update-buffer ()
+    (zw/exwm-send-polybar-hook "emacs-buffer-path" 0)
+    (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
+
+  (defun zw/exwm-polybar-update-keycast ()
+    (zw/exwm-send-polybar-hook "emacs-keycast-key" 0)
+    (zw/exwm-send-polybar-hook "emacs-keycast-desc" 0))
+
   (setq tab-bar-show nil)
   (tab-bar-mode 1)
   (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
