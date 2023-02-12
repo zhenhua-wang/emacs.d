@@ -427,6 +427,11 @@
 (use-package app-launcher
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
+;; ** exwm edit
+(use-package exwm-edit
+  :bind (:map exwm-mode-map
+              ("C-c '" . exwm-edit--compose)))
+
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
