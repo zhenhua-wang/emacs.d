@@ -516,13 +516,6 @@
       `(
         ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
-        ;;close current buffer
-        (,(kbd "s-q") . (lambda ()
-                          (interactive)
-                          (if exwm-class-name
-                              (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
-                                (kill-this-buffer))
-                            (kill-this-buffer))))
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "s-m") . bury-buffer)
@@ -567,6 +560,11 @@
            ;; send C-c to clients
            ("C-c" . nil)
            ("C-c '" . exwm-edit--compose)
+           ;;close current buffer
+           ("s-q" . (lambda ()
+                      (interactive)
+                      (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
+                        (kill-this-buffer))))
            ;; window
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
