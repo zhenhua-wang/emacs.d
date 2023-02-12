@@ -428,9 +428,7 @@
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
 ;; ** exwm edit
-(use-package exwm-edit
-  :bind (:map exwm-mode-map
-              ("C-c '" . exwm-edit--compose)))
+(use-package exwm-edit)
 
 ;; * exwm keymap
   ;; ** exwm prefix keys
@@ -566,6 +564,7 @@
            ("C-q" . exwm-input-send-next-key)
            ;; send C-c to clients
            ("C-c" . nil)
+           ("C-c '" . exwm-edit--compose)
            :map vertico-map
            ("s-<tab>" . vertico-next))
 
