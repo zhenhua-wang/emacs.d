@@ -16,6 +16,9 @@ picom &
 export VISUAL=emacsclient
 export EDITOR="$VISUAL"
 
+# fix java display
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # Fire it up
 # exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/zw-exwm.el
 exec dbus-launch emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el
