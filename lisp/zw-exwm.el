@@ -16,7 +16,8 @@
  ;; able to move to buffer in inactive space
  exwm-layout-show-all-buffers nil
  exwm-manage-force-tiling t
- exwm-floating-border-width 3)
+ exwm-floating-border-width 4
+ exwm-floating-border-color (face-background 'highlight))
 
 ;; * exwm applications
 (defun zw/exwm-run-in-background (command)
