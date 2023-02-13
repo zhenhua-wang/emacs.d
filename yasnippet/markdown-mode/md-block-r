@@ -3,6 +3,6 @@
 # key: <r
 # --
 
-\`\`\`{r}
+\`\`\`{r message=FALSE, warning=FALSE}
 $0
 \`\`\`

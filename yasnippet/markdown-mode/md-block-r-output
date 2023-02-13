@@ -3,6 +3,6 @@
 # key: <ro
 # --
 
-\`\`\`{r, echo=FALSE, message=FALSE, warning=FALSE}
+\`\`\`{r echo=FALSE, message=FALSE, warning=FALSE}
 $0
 \`\`\`
