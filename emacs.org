@@ -244,7 +244,9 @@
   (add-to-list 'all-the-icons-extension-icon-alist
                '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue))
   (add-to-list 'all-the-icons-mode-icon-alist
-               '(ess-r-mode all-the-icons-fileicon "R" :face all-the-icons-lblue)))
+               '(ess-r-mode all-the-icons-fileicon "R" :face all-the-icons-lblue))
+  (add-to-list 'all-the-icons-mode-icon-alist
+               '(exwm-mode all-the-icons-faicon "windows" :v-adjust 0.1)))
 #+end_src
 
 ** Theme
