@@ -134,10 +134,9 @@
                               'mouse-face 'mode-line-highlight
                               'local-map (make-mode-line-mouse-map 'mouse-1 'exwm-floating-toggle-floating))))))
 
-(add-hook 'exwm-manage-finish-hook
-          (lambda ()
-            (setq-local mode-line-process
-                        (append mode-line-process (list (zw/exwm-modeline-float))))))
+(advice-add 'exwm-input--update-mode-line :after
+            (lambda (&rest args)
+              (add-to-list 'mode-line-process (zw/exwm-modeline-float) t)))
 
 ;; ** tab bar
 (unless (executable-find "polybar")
