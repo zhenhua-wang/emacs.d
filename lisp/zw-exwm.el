@@ -530,9 +530,9 @@
         ;; web search
         (,(kbd "s-/") . emacs-websearch)
         ;; Launch applications
-        (,(kbd "s-&") . (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command)))
+        (,(kbd "s-<return>") . (lambda (command)
+                                 (interactive (list (read-shell-command "$ ")))
+                                 (async-shell-command command)))
         (,(kbd "s-SPC") . app-launcher-run-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
