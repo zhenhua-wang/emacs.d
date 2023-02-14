@@ -301,10 +301,7 @@
            height ,float-height
            floating t
            char-mode t)
-          ((and (cl-some 'identity
-                         (mapcar (lambda (x)
-                                   (string-match-p x exwm-class-name))
-                                 zw/exwm-plot-buffers))
+          ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (x) (string-match-p
                                               "^Emacs.*$"
@@ -316,6 +313,7 @@
            width ,(floor (* float-width 0.3))
            height ,(floor (* float-width 0.3))
            floating t
+           char-mode t
            floating-mode-line nil))))
 
 ;; *** exwm auto hide float
@@ -337,6 +335,13 @@
 (defvar zw/exwm-plot-buffers
   '("^R_x11.*$"
     "^matplotlib.*$"))
+
+(defun zw/exwm-plot-buffer-p (buffer-or-name)
+  (let ((buffer (get-buffer buffer-or-name)))
+    (cl-some 'identity
+             (seq-map (lambda (y)
+                        (string-match y (buffer-name buffer)))
+                      zw/exwm-plot-buffers))))
 
 (dolist (buffer zw/exwm-plot-buffers)
   (add-to-list 'display-buffer-alist
@@ -411,13 +416,10 @@
   (let* ((buffers (seq-filter (lambda (x)
                                 (and (not (eq (current-buffer) x))
                                      (not (zw/hidden-buffer-p x))
-                                     (not (cl-some 'identity
-                                                   (seq-map (lambda (y)
-                                                              (string-match y (buffer-name x)))
-                                                            zw/exwm-plot-buffers)))
                                      (or (buffer-file-name x)
                                          (with-current-buffer x
-                                           (or exwm-class-name
+                                           (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
+                                               exwm--floating-frame
                                                (eq major-mode 'dired-mode))))))
                               (buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
