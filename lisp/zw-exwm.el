@@ -53,6 +53,15 @@
 ;; ** modeline
 (set-face-attribute 'mode-line nil :box nil)
 
+(defun zw/exwm-modeline-float-hide ()
+  (propertize "[-]"
+              'help-echo "mouse-1: Hide floating window"
+              'mouse-face 'mode-line-highlight
+              'local-map (let ((map (make-sparse-keymap)))
+                           (define-key map (vector 'mode-line 'mouse-1) 'exwm-floating-hide)
+                           (define-key map (vector 'header-line 'mouse-1) 'exwm-floating-hide)
+                           map)))
+
 (defun zw/exwm-modeline-toggle-float ()
   (let ((window-type (if exwm--floating-frame "float" "tile")))
     (propertize window-type
@@ -288,6 +297,9 @@
            floating t
            char-mode t
            floating-header-line ,(list
+                                  '(:eval (propertize
+                                           (zw/exwm-modeline-float-hide)
+                                           'face 'zw/modeline-process-active))
                                   " "
                                   '(:eval (propertize
                                            (upcase (zw/exwm-modeline-toggle-float))
@@ -404,7 +416,7 @@
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
-    (switch-to-buffer buffer)))
+    (exwm-workspace-switch-to-buffer buffer)))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
