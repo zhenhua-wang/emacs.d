@@ -277,6 +277,7 @@
       exwm-systemtray-icon-gap 1)
 
 ;; ** exwm window management
+;; *** exwm update title
 (defun zw/exwm-update-title ()
   (if (and exwm-title
            (string= (downcase exwm-title)
@@ -284,6 +285,10 @@
       (exwm-workspace-rename-buffer exwm-class-name)
     (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
 
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
+
+;; *** exwm window config
 (let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
        (float-height (floor (/ (frame-pixel-height) 1.2)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
@@ -313,8 +318,19 @@
            floating t
            floating-mode-line nil))))
 
-(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
-(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
+;; *** exwm auto hide float
+(defun zw/exwm-hide-float (window)
+  (with-current-buffer (window-buffer window)
+    (unless exwm--floating-frame
+      (unless (eq window (active-minibuffer-window))
+        (let ((buffer-list (mapcar 'cdr exwm--id-buffer-alist)))
+          (dolist (buffer buffer-list)
+            (with-current-buffer buffer
+              (when exwm--floating-frame
+                (exwm-floating-hide)))))))))
+
+(advice-add 'exwm-input--update-focus :before
+            'zw/exwm-hide-float)
 
 ;; ** exwm buffer placement
 ;; plots
