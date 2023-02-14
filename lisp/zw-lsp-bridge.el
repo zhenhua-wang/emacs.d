@@ -20,7 +20,7 @@
   (setq acm-enable-doc nil
         acm-candidate-match-function 'orderless-prefixes)
   ;; acm font
-  (set-face-attribute 'acm-select-face nil
+  (set-face-attribute 'acm-frame-select-face nil
 		      :bold t
                       :foreground (face-foreground 'warning)
                       :underline t)
