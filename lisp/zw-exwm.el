@@ -50,111 +50,23 @@
 (add-hook 'exwm-init-hook #'zw/exwm-init-hook)
 
 ;; * exwm appearance
-;; ** window management
-(defun zw/exwm-update-title ()
-  (if (and exwm-title
-           (string= (downcase exwm-title)
-                    (downcase exwm-class-name)))
-      (exwm-workspace-rename-buffer exwm-class-name)
-    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
-
-(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
-       (float-height (floor (/ (frame-pixel-height) 1.2)))
-       (float-x (/ (- (frame-pixel-width) float-width) 2))
-       (float-y (/ (- (frame-pixel-height) float-height) 2)))
-  (setq exwm-manage-configurations
-        `(((string= "Emacs" exwm-class-name)
-           x ,float-x
-           y ,float-y
-           width ,float-width
-           height ,float-height
-           floating t
-           char-mode t)
-          ((and (cl-some 'identity
-                         (mapcar (lambda (x)
-                                   (string-match-p x exwm-class-name))
-                                 zw/exwm-plot-buffers))
-                (cl-some 'identity
-                         (mapcar (lambda (x) (string-match-p
-                                              "^Emacs.*$"
-                                              (buffer-name x)))
-                                 (buffer-list))))
-           x ,(- (+ float-x float-width)
-                 (floor (* float-width 0.3)))
-           y ,float-y
-           width ,(floor (* float-width 0.3))
-           height ,(floor (* float-width 0.3))
-           floating t
-           char-mode t
-           floating-mode-line nil))))
-
-(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
-(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
-
-;; ** wallpaper
-(defun zw/exwm-set-wallpaper ()
-  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
-  (with-current-buffer "*scratch*"
-    (display-line-numbers-mode 0))
-  (start-process-shell-command
-   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
-
-(zw/exwm-set-wallpaper)
-
-;; ** transparency
-(defun zw/set-opacity (predicate)
-  (if predicate
-      (set-frame-parameter (selected-frame) 'alpha-background 98)
-    (set-frame-parameter (selected-frame) 'alpha-background 0)))
-
-(defun zw/exwm-set-scratch-ui (predicate)
-  (if predicate
-      (setq-local cursor-type (default-value 'cursor-type)
-                  mode-line-format (default-value 'mode-line-format))
-    (setq-local cursor-type nil
-                mode-line-format nil)))
-
-(defun zw/exwm-scratch-hide-ui ()
-  (let ((n-window (length (window-list))))
-    (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
-        (zw/exwm-set-scratch-ui nil)
-      (zw/exwm-set-scratch-ui t))))
-
-(defun zw/exwm-scratch-transparent-frame ()
-  (let ((n-window (length (window-list))))
-    (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
-        (zw/set-opacity nil)
-      (zw/set-opacity t))))
-
-(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
-(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
-(with-current-buffer "*scratch*"
-  (zw/exwm-set-scratch-ui nil)
-  (add-hook 'post-command-hook
-            (lambda () (when this-command
-                         (zw/exwm-scratch-hide-ui)
-                         (zw/exwm-scratch-transparent-frame)))
-            nil t))
-
 ;; ** modeline
 (set-face-attribute 'mode-line nil :box nil)
 
-(defun zw/exwm-modeline-float ()
-  '(:eval
-    (let ((window-type (if exwm--floating-frame "float" "tile")))
-      (concat " " (propertize window-type
-                              'help-echo "mouse-1: Toggling floating"
-                              'mouse-face 'mode-line-highlight
-                              'local-map (make-mode-line-mouse-map 'mouse-1 'exwm-floating-toggle-floating))))))
+(defun zw/exwm-modeline-toggle-float ()
+  (let ((window-type (if exwm--floating-frame "float" "tile")))
+    (propertize window-type
+                'help-echo "mouse-1: Toggling char-mode"
+                'mouse-face 'mode-line-highlight
+                'local-map (let ((map (make-sparse-keymap)))
+                             (define-key map (vector 'mode-line 'mouse-1) 'exwm-floating-toggle-floating)
+                             (define-key map (vector 'header-line 'mouse-1) 'exwm-floating-toggle-floating)
+                             map))))
 
 (advice-add 'exwm-input--update-mode-line :after
             (lambda (&rest args)
-              (add-to-list 'mode-line-process (zw/exwm-modeline-float) t)))
+              (add-to-list 'mode-line-process
+                           '(:eval (concat " " (zw/exwm-modeline-toggle-float))) t)))
 
 ;; ** tab bar
 (unless (executable-find "polybar")
@@ -299,13 +211,109 @@
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
   (advice-add 'keycast--update :after 'zw/exwm-polybar-update-keycast))
 
+;; ** wallpaper
+(defun zw/exwm-set-wallpaper ()
+  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
+    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
+  (with-current-buffer "*scratch*"
+    (display-line-numbers-mode 0))
+  (start-process-shell-command
+   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
+
+(zw/exwm-set-wallpaper)
+
+;; ** transparency
+(defun zw/set-opacity (predicate)
+  (if predicate
+      (set-frame-parameter (selected-frame) 'alpha-background 98)
+    (set-frame-parameter (selected-frame) 'alpha-background 0)))
+
+(defun zw/exwm-set-scratch-ui (predicate)
+  (if predicate
+      (setq-local cursor-type (default-value 'cursor-type)
+                  mode-line-format (default-value 'mode-line-format))
+    (setq-local cursor-type nil
+                mode-line-format nil)))
+
+(defun zw/exwm-scratch-hide-ui ()
+  (let ((n-window (length (window-list))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*")
+             (= (buffer-size) 0))
+        (zw/exwm-set-scratch-ui nil)
+      (zw/exwm-set-scratch-ui t))))
+
+(defun zw/exwm-scratch-transparent-frame ()
+  (let ((n-window (length (window-list))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*")
+             (= (buffer-size) 0))
+        (zw/set-opacity nil)
+      (zw/set-opacity t))))
+
+(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
+(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
+(with-current-buffer "*scratch*"
+  (zw/exwm-set-scratch-ui nil)
+  (add-hook 'post-command-hook
+            (lambda () (when this-command
+                         (zw/exwm-scratch-hide-ui)
+                         (zw/exwm-scratch-transparent-frame)))
+            nil t))
+
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
 (setq exwm-systemtray-background-color (face-background 'mode-line)
       exwm-systemtray-icon-gap 1)
 
-;; ** buffer placement
+;; ** exwm window management
+(defun zw/exwm-update-title ()
+  (if (and exwm-title
+           (string= (downcase exwm-title)
+                    (downcase exwm-class-name)))
+      (exwm-workspace-rename-buffer exwm-class-name)
+    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
+
+(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
+       (float-height (floor (/ (frame-pixel-height) 1.2)))
+       (float-x (/ (- (frame-pixel-width) float-width) 2))
+       (float-y (/ (- (frame-pixel-height) float-height) 2)))
+  (setq exwm-manage-configurations
+        `(((string= "Emacs" exwm-class-name)
+           x ,float-x
+           y ,float-y
+           width ,float-width
+           height ,float-height
+           floating t
+           char-mode t
+           floating-header-line ,(list
+                                  " "
+                                  '(:eval (propertize
+                                           (upcase (zw/exwm-modeline-toggle-float))
+                                           'face 'zw/modeline-process-active))))
+          ((and (cl-some 'identity
+                         (mapcar (lambda (x)
+                                   (string-match-p x exwm-class-name))
+                                 zw/exwm-plot-buffers))
+                (cl-some 'identity
+                         (mapcar (lambda (x) (string-match-p
+                                              "^Emacs.*$"
+                                              (buffer-name x)))
+                                 (buffer-list))))
+           x ,(- (+ float-x float-width)
+                 (floor (* float-width 0.3)))
+           y ,float-y
+           width ,(floor (* float-width 0.3))
+           height ,(floor (* float-width 0.3))
+           floating t
+           char-mode t
+           floating-mode-line nil))))
+
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
+
+;; ** exwm buffer placement
 ;; plots
 (defvar zw/exwm-plot-buffers
   '("^R_x11.*$"
