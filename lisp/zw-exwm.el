@@ -295,15 +295,7 @@
            width ,float-width
            height ,float-height
            floating t
-           char-mode t
-           floating-header-line ,(list
-                                  '(:eval (propertize
-                                           (zw/exwm-modeline-float-hide)
-                                           'face 'zw/modeline-process-active))
-                                  " "
-                                  '(:eval (propertize
-                                           (upcase (zw/exwm-modeline-toggle-float))
-                                           'face 'zw/modeline-process-active))))
+           char-mode t)
           ((and (cl-some 'identity
                          (mapcar (lambda (x)
                                    (string-match-p x exwm-class-name))
@@ -555,7 +547,9 @@
         (,(kbd "s-R") . exwm-reset)
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
-        (,(kbd "s-m") . bury-buffer)
+        (,(kbd "s-m") . (lambda ()
+                          (interactive)
+                          (if exwm--floating-frame (exwm-floating-hide) (bury-buffer))))
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
