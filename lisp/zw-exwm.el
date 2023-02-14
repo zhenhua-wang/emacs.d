@@ -311,7 +311,6 @@
            width ,(floor (* float-width 0.3))
            height ,(floor (* float-width 0.3))
            floating t
-           char-mode t
            floating-mode-line nil))))
 
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
