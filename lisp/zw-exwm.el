@@ -79,6 +79,9 @@
                                               "^Emacs.*$"
                                               (buffer-name x)))
                                  (buffer-list))))
+           x ,(- (+ float-x float-width)
+                 (floor (* float-width 0.3)))
+           y ,float-y
            width ,(floor (* float-width 0.3))
            height ,(floor (* float-width 0.3))
            floating t
