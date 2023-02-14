@@ -69,7 +69,20 @@
            width ,float-width
            height ,float-height
            floating t
-           char-mode t))))
+           char-mode t)
+          ((and (cl-some 'identity
+                         (mapcar (lambda (x)
+                                   (string-match-p x exwm-class-name))
+                                 zw/exwm-plot-buffers))
+                (cl-some 'identity
+                         (mapcar (lambda (x) (string-match-p
+                                              "^Emacs.*$"
+                                              (buffer-name x)))
+                                 (buffer-list))))
+           width ,(floor (* float-width 0.3))
+           height ,(floor (* float-width 0.3))
+           floating t
+           floating-mode-line nil))))
 
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
