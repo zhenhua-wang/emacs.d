@@ -1,3 +1,5 @@
+;; HACK: when things break, check posframe's repo
+
 (defvar exwm--main-frame-width nil)
 (defvar exwm--main-frame-height nil)
 (defvar exwm--main-frame-pixel-width nil)
