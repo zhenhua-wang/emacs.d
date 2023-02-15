@@ -1,4 +1,4 @@
-;; HACK: when things break, check posframe's repo
+;; HACK: when things break, check updates on posframe's repo
 
 (defvar exwm--main-frame-width nil)
 (defvar exwm--main-frame-height nil)
@@ -234,10 +234,10 @@
   :global t
   (if exwm-posframe-mode
       (progn
-        (setq exwm--main-frame-width (frame-width))
-        (setq exwm--main-frame-height (frame-height))
-        (setq exwm--main-frame-pixel-width (frame-pixel-width))
-        (setq exwm--main-frame-pixel-height (frame-pixel-height))
+        (setq exwm--main-frame-width (frame-width)
+              exwm--main-frame-height (frame-height)
+              exwm--main-frame-pixel-width (frame-pixel-width)
+              exwm--main-frame-pixel-height (frame-pixel-height))
         (advice-add 'posframe-show :override 'exwm-posframe-show)
         (advice-add 'vertico-posframe-get-size :override 'exwm-vertico-posframe-get-size)
         (advice-add 'posframe-poshandler-frame-bottom-center :override 'exwm-posframe-poshandler-frame-bottom-center))
