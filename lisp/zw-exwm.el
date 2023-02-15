@@ -327,8 +327,14 @@
               (when exwm--floating-frame
                 (exwm-floating-hide)))))))))
 
-(advice-add 'exwm-input--update-focus :before
-            'zw/exwm-hide-float)
+(define-minor-mode exwm-float-auto-hide-mode
+  "Auto hide exwm float windows."
+  :global t
+  (if exwm-float-auto-hide-mode
+      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
+    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
+
+(exwm-float-auto-hide-mode 1)
 
 ;; ** exwm buffer placement
 ;; plots
