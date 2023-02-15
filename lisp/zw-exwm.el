@@ -361,7 +361,7 @@
 
 ;; ** posframe
 (require 'exwm-posframe-mode)
-(exwm-posframe-mode 1)
+(add-hook 'exwm-init-hook (lambda () (exwm-posframe-mode 1)))
 
 ;; * exwm tool
 ;; ** xmodmap

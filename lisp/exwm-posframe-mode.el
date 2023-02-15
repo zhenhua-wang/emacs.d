@@ -1,7 +1,7 @@
-(defvar exwm--main-frame-width (frame-width))
-(defvar exwm--main-frame-height (frame-height))
-(defvar exwm--main-frame-pixel-width (frame-pixel-width))
-(defvar exwm--main-frame-pixel-height (frame-pixel-height))
+(defvar exwm--main-frame-width nil)
+(defvar exwm--main-frame-height nil)
+(defvar exwm--main-frame-pixel-width nil)
+(defvar exwm--main-frame-pixel-height nil)
 
 (cl-defun exwm-posframe-show (buffer-or-name
                               &key
@@ -233,6 +233,10 @@
   :global t
   (if exwm-posframe-mode
       (progn
+        (setq exwm--main-frame-width (frame-width))
+        (setq exwm--main-frame-height (frame-height))
+        (setq exwm--main-frame-pixel-width (frame-pixel-width))
+        (setq exwm--main-frame-pixel-height (frame-pixel-height))
         (advice-add 'posframe-show :override 'exwm-posframe-show)
         (advice-add 'vertico-posframe-get-size :override 'exwm-vertico-posframe-get-size)
         (advice-add 'posframe-poshandler-frame-bottom-center :override 'exwm-posframe-poshandler-frame-bottom-center))
