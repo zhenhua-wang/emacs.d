@@ -359,6 +359,10 @@
                          (zw/exwm-scratch-transparent-frame)))
             nil t))
 
+;; ** posframe
+(require 'exwm-posframe-mode)
+(exwm-posframe-mode 1)
+
 ;; * exwm tool
 ;; ** xmodmap
 (defun zw/exwm-run-xmodmap ()
