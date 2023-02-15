@@ -50,7 +50,7 @@
 (add-hook 'exwm-init-hook #'zw/exwm-init-hook)
 
 ;; * exwm appearance
-;; ** modeline
+;; ** exwm modeline
 (set-face-attribute 'mode-line nil :box nil)
 
 (defun zw/exwm-modeline-float-hide ()
@@ -77,7 +77,7 @@
               (add-to-list 'mode-line-process
                            '(:eval (concat " " (zw/exwm-modeline-toggle-float))) t)))
 
-;; ** tab bar
+;; ** exwm tab bar
 (unless (executable-find "polybar")
   (set-face-attribute 'zw/tab-bar-menu-bar nil
                       :background (let ((bg (face-background 'mode-line)))
@@ -118,6 +118,95 @@
   (when (and have-battery-status-p
              tab-bar-show)
     (display-battery-mode 1)))
+
+;; ** exwm systemtray
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+(setq exwm-systemtray-background-color (face-background 'mode-line)
+      exwm-systemtray-icon-gap 1)
+
+;; ** exwm window management
+;; *** exwm update title
+(defun zw/exwm-update-title ()
+  (if (and exwm-title
+           (string= (downcase exwm-title)
+                    (downcase exwm-class-name)))
+      (exwm-workspace-rename-buffer exwm-class-name)
+    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
+
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
+
+;; *** exwm window config
+(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
+       (float-height (floor (/ (frame-pixel-height) 1.2)))
+       (float-x (/ (- (frame-pixel-width) float-width) 2))
+       (float-y (/ (- (frame-pixel-height) float-height) 2)))
+  (setq exwm-manage-configurations
+        `(((string= "Emacs" exwm-class-name)
+           x ,float-x
+           y ,float-y
+           width ,float-width
+           height ,float-height
+           floating t
+           char-mode t)
+          ((and (zw/exwm-plot-buffer-p exwm-class-name)
+                (cl-some 'identity
+                         (mapcar (lambda (x) (string-match-p
+                                              "^Emacs.*$"
+                                              (buffer-name x)))
+                                 (buffer-list))))
+           x ,(- (+ float-x float-width)
+                 (floor (* float-width 0.3)))
+           y ,float-y
+           width ,(floor (* float-width 0.3))
+           height ,(floor (* float-width 0.3))
+           floating t
+           char-mode t
+           floating-mode-line nil))))
+
+;; *** exwm auto hide float
+(defun zw/exwm-hide-float (window)
+  (with-current-buffer (window-buffer window)
+    (unless (or exwm--floating-frame
+                (eq window (active-minibuffer-window)))
+      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
+        (dolist (exwm-id exwm-id-list)
+          (with-current-buffer (exwm--id->buffer exwm-id)
+            (when exwm--floating-frame
+              (exwm-layout--hide exwm--id)
+              (select-frame-set-input-focus exwm-workspace--current))))))))
+
+(define-minor-mode exwm-float-auto-hide-mode
+  "Auto hide exwm float windows."
+  :global t
+  (if exwm-float-auto-hide-mode
+      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
+    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
+
+(exwm-float-auto-hide-mode 1)
+
+;; ** exwm buffer placement
+;; plots
+(defvar zw/exwm-plot-buffers
+  '("^R_x11.*$"
+    "^matplotlib.*$"))
+
+(defun zw/exwm-plot-buffer-p (buffer-or-name)
+  (let ((buffer (get-buffer buffer-or-name)))
+    (cl-some 'identity
+             (seq-map (lambda (y)
+                        (string-match y (buffer-name buffer)))
+                      zw/exwm-plot-buffers))))
+
+(dolist (buffer zw/exwm-plot-buffers)
+  (add-to-list 'display-buffer-alist
+               `(,buffer
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . -1)
+                 (dedicated . t)
+                 (window-height . 0.5))))
 
 ;; ** keycast
 (use-package keycast
@@ -269,95 +358,6 @@
                          (zw/exwm-scratch-hide-ui)
                          (zw/exwm-scratch-transparent-frame)))
             nil t))
-
-;; ** exwm systemtray
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-(setq exwm-systemtray-background-color (face-background 'mode-line)
-      exwm-systemtray-icon-gap 1)
-
-;; ** exwm window management
-;; *** exwm update title
-(defun zw/exwm-update-title ()
-  (if (and exwm-title
-           (string= (downcase exwm-title)
-                    (downcase exwm-class-name)))
-      (exwm-workspace-rename-buffer exwm-class-name)
-    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
-
-(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
-(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
-
-;; *** exwm window config
-(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
-       (float-height (floor (/ (frame-pixel-height) 1.2)))
-       (float-x (/ (- (frame-pixel-width) float-width) 2))
-       (float-y (/ (- (frame-pixel-height) float-height) 2)))
-  (setq exwm-manage-configurations
-        `(((string= "Emacs" exwm-class-name)
-           x ,float-x
-           y ,float-y
-           width ,float-width
-           height ,float-height
-           floating t
-           char-mode t)
-          ((and (zw/exwm-plot-buffer-p exwm-class-name)
-                (cl-some 'identity
-                         (mapcar (lambda (x) (string-match-p
-                                              "^Emacs.*$"
-                                              (buffer-name x)))
-                                 (buffer-list))))
-           x ,(- (+ float-x float-width)
-                 (floor (* float-width 0.3)))
-           y ,float-y
-           width ,(floor (* float-width 0.3))
-           height ,(floor (* float-width 0.3))
-           floating t
-           char-mode t
-           floating-mode-line nil))))
-
-;; *** exwm auto hide float
-(defun zw/exwm-hide-float (window)
-  (with-current-buffer (window-buffer window)
-    (unless (or exwm--floating-frame
-                (eq window (active-minibuffer-window)))
-      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
-        (dolist (exwm-id exwm-id-list)
-          (with-current-buffer (exwm--id->buffer exwm-id)
-            (when exwm--floating-frame
-              (exwm-layout--hide exwm--id)
-              (select-frame-set-input-focus exwm-workspace--current))))))))
-
-(define-minor-mode exwm-float-auto-hide-mode
-  "Auto hide exwm float windows."
-  :global t
-  (if exwm-float-auto-hide-mode
-      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
-    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
-
-(exwm-float-auto-hide-mode 1)
-
-;; ** exwm buffer placement
-;; plots
-(defvar zw/exwm-plot-buffers
-  '("^R_x11.*$"
-    "^matplotlib.*$"))
-
-(defun zw/exwm-plot-buffer-p (buffer-or-name)
-  (let ((buffer (get-buffer buffer-or-name)))
-    (cl-some 'identity
-             (seq-map (lambda (y)
-                        (string-match y (buffer-name buffer)))
-                      zw/exwm-plot-buffers))))
-
-(dolist (buffer zw/exwm-plot-buffers)
-  (add-to-list 'display-buffer-alist
-               `(,buffer
-                 (display-buffer-in-side-window)
-                 (side . right)
-                 (slot . -1)
-                 (dedicated . t)
-                 (window-height . 0.5))))
 
 ;; * exwm tool
 ;; ** xmodmap
