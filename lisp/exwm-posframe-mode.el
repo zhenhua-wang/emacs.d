@@ -225,7 +225,6 @@
            2)
         (- exwm--main-frame-pixel-height
            (plist-get info :posframe-height)
-           (plist-get info :mode-line-height)
            (plist-get info :minibuffer-height))))
 
 (define-minor-mode exwm-posframe-mode
