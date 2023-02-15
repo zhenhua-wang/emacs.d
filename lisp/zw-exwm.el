@@ -65,7 +65,7 @@
 (defun zw/exwm-modeline-toggle-float ()
   (let ((window-type (if exwm--floating-frame "float" "tile")))
     (propertize window-type
-                'help-echo "mouse-1: Toggling char-mode"
+                'help-echo "mouse-1: Toggling window type"
                 'mouse-face 'mode-line-highlight
                 'local-map (let ((map (make-sparse-keymap)))
                              (define-key map (vector 'mode-line 'mouse-1) 'exwm-floating-toggle-floating)
