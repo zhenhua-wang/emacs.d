@@ -335,3 +335,8 @@ label = "%temperature-c% "
 label-warn = "%temperature-c% "
 #+end_src
 
+* MPV
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/mpv/mpv.conf" "no")
+#+begin_src conf
+keep-open=yes
+#+end_src
