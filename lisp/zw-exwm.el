@@ -182,6 +182,7 @@
            height ,float-height
            floating t
            char-mode t
+           floating-mode-line nil
            floating-header-line ,float-header-line)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
@@ -195,7 +196,10 @@
            width ,(floor (* float-width 0.3))
            height ,(floor (* float-width 0.3))
            floating t
-           floating-mode-line nil))))
+           floating-mode-line nil
+           floating-header-line nil)
+          (t floating-header-line nil
+             floating-mode-line nil))))
 
 ;; *** exwm auto hide float
 (defun zw/exwm-hide-float (window)
