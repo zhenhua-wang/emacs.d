@@ -15,7 +15,7 @@
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
  exwm-layout-show-all-buffers nil
- exwm-manage-force-tiling t
+ exwm-manage-force-tiling nil
  exwm-floating-border-width 4
  exwm-floating-border-color (face-background 'highlight))
 
