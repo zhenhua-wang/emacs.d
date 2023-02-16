@@ -62,7 +62,7 @@
                            (define-key map (vector 'header-line 'mouse-1) 'exwm-floating-hide)
                            map)))
 
-(defun zw/exwm-modeline-toggle-float ()
+(defun zw/exwm-modeline-toggle-window-type ()
   (let ((window-type (if exwm--floating-frame "float" "tile")))
     (propertize window-type
                 'help-echo "mouse-1: Toggling window type"
@@ -75,7 +75,7 @@
 (advice-add 'exwm-input--update-mode-line :after
             (lambda (&rest args)
               (add-to-list 'mode-line-process
-                           '(:eval (concat " " (zw/exwm-modeline-toggle-float))) t)))
+                           '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
 
 ;; ** exwm tab bar
 (unless (executable-find "polybar")
@@ -149,7 +149,9 @@
            width ,float-width
            height ,float-height
            floating t
-           char-mode t)
+           char-mode t
+           floating-header-line ,(list :eval (propertize (zw/exwm-modeline-float-hide)
+                                                         'face 'zw/modeline-process-active)))
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (x) (string-match-p
@@ -162,7 +164,6 @@
            width ,(floor (* float-width 0.3))
            height ,(floor (* float-width 0.3))
            floating t
-           char-mode t
            floating-mode-line nil))))
 
 ;; *** exwm auto hide float
