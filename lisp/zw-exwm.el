@@ -165,7 +165,15 @@
 (let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
        (float-height (floor (/ (frame-pixel-height) 1.2)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
-       (float-y (/ (- (frame-pixel-height) float-height) 2)))
+       (float-y (/ (- (frame-pixel-height) float-height) 2))
+       (float-header-line (list '(:eval (propertize (zw/exwm-modeline-float-hide)
+                                                    'face 'zw/modeline-process-active))
+                                " "
+                                '(:eval (propertize (zw/exwm-modeline-toggle-window-input)
+                                                    'face 'zw/modeline-process-active))
+                                " "
+                                '(:eval (propertize (zw/exwm-modeline-toggle-window-type)
+                                                    'face 'zw/modeline-process-active)))))
   (setq exwm-manage-configurations
         `(((string= "Emacs" exwm-class-name)
            x ,float-x
@@ -174,14 +182,7 @@
            height ,float-height
            floating t
            char-mode t
-           floating-header-line ,(list '(:eval (propertize (zw/exwm-modeline-float-hide)
-                                                           'face 'zw/modeline-process-active))
-                                       " "
-                                       '(:eval (propertize (zw/exwm-modeline-toggle-window-input)
-                                                           'face 'zw/modeline-process-active))
-                                       " "
-                                       '(:eval (propertize (zw/exwm-modeline-toggle-window-type)
-                                                           'face 'zw/modeline-process-active))))
+           floating-header-line ,float-header-line)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (x) (string-match-p
