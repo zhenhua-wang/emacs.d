@@ -467,6 +467,7 @@
                                          (with-current-buffer x
                                            (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
                                                exwm--floating-frame
+                                               (string-match "^\\*EXWM.*$" (buffer-name x))
                                                (eq major-mode 'dired-mode))))))
                               (buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
