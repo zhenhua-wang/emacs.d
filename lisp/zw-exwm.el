@@ -63,28 +63,29 @@
                            map)))
 
 (defun zw/exwm-modeline-toggle-window-input ()
-  (let (help-echo cmd mode)
-    (with-current-buffer (exwm--id->buffer exwm--id)
-      (cl-case exwm--input-mode
-        (line-mode
-         (setq mode "line"
-               help-echo "mouse-1: Switch to char-mode"
-               cmd (lambda ()
-                     (interactive)
-                     (exwm-input-release-keyboard exwm--id))))
-        (char-mode
-         (setq mode "char"
-               help-echo "mouse-1: Switch to line-mode"
-               cmd (lambda ()
-                     (interactive)
-                     (exwm-input-grab-keyboard exwm--id)))))
-      (propertize mode
-                  'help-echo help-echo
-                  'mouse-face 'mode-line-highlight
-                  'local-map (let ((map (make-sparse-keymap)))
-                               (define-key map (vector 'mode-line 'mouse-1) cmd)
-                               (define-key map (vector 'header-line 'mouse-1) cmd)
-                               map)))))
+  (when-let ((exwm-buffer (exwm--id->buffer exwm--id)))
+    (let (help-echo cmd mode)
+      (with-current-buffer exwm-buffer
+        (cl-case exwm--input-mode
+          (line-mode
+           (setq mode "line"
+                 help-echo "mouse-1: Switch to char-mode"
+                 cmd (lambda ()
+                       (interactive)
+                       (exwm-input-release-keyboard exwm--id))))
+          (char-mode
+           (setq mode "char"
+                 help-echo "mouse-1: Switch to line-mode"
+                 cmd (lambda ()
+                       (interactive)
+                       (exwm-input-grab-keyboard exwm--id)))))
+        (propertize mode
+                    'help-echo help-echo
+                    'mouse-face 'mode-line-highlight
+                    'local-map (let ((map (make-sparse-keymap)))
+                                 (define-key map (vector 'mode-line 'mouse-1) cmd)
+                                 (define-key map (vector 'header-line 'mouse-1) cmd)
+                                 map))))))
 
 (defun zw/exwm-modeline-toggle-window-type ()
   (let ((window-type (if exwm--floating-frame "float" "tile")))
