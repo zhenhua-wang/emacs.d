@@ -162,18 +162,24 @@
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
 ;; *** exwm window config
+(defun zw/exwm-float-header-line-rhs ()
+  (concat (propertize (zw/exwm-modeline-toggle-window-input)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-toggle-window-type)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-float-hide)
+                      'face 'zw/modeline-process-active)))
+
 (let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
        (float-height (floor (/ (frame-pixel-height) 1.2)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
        (float-y (/ (- (frame-pixel-height) float-height) 2))
-       (float-header-line (list '(:eval (propertize (zw/exwm-modeline-float-hide)
+       (float-header-line (list '(:eval (propertize (buffer-name)
                                                     'face 'zw/modeline-process-active))
-                                " "
-                                '(:eval (propertize (zw/exwm-modeline-toggle-window-input)
-                                                    'face 'zw/modeline-process-active))
-                                " "
-                                '(:eval (propertize (zw/exwm-modeline-toggle-window-type)
-                                                    'face 'zw/modeline-process-active)))))
+                                '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
+                                '(:eval (zw/exwm-float-header-line-rhs)))))
   (setq exwm-manage-configurations
         `(((string= "Emacs" exwm-class-name)
            x ,float-x
@@ -198,7 +204,7 @@
            floating t
            floating-mode-line nil
            floating-header-line nil)
-          (t floating-header-line nil
+          (t floating-header-line ,float-header-line
              floating-mode-line nil))))
 
 ;; *** exwm auto hide float

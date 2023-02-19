@@ -317,8 +317,8 @@
                           'face (zw/modeline-set-face 'zw/modeline-input-method-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
-(defun zw/modeline-middle-space ()
-  (let* ((middle-space (string-pixel-width (zw/modeline-rhs))))
+(defun zw/modeline-middle-space (rhs)
+  (let* ((middle-space (string-pixel-width rhs)))
     (propertize
      " "
      'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
@@ -363,7 +363,7 @@
   ;; is remote file?
   '(:eval (zw/modeline-remote))
   ;; add space between left and right
-  '(:eval (zw/modeline-middle-space))
+  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   ;; right hand side of the modeline
   '(:eval (zw/modeline-rhs))
   " "))
