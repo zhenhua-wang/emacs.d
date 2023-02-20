@@ -104,17 +104,15 @@
 
 ;; ** exwm tab bar
 (unless (executable-find "polybar")
-  (set-face-attribute 'zw/tab-bar-menu-bar nil
-                      :background (let ((bg (face-background 'mode-line)))
-                                    (pcase (frame-parameter nil 'background-mode)
-                                      ('light (doom-darken bg 0.1))
-                                      ('dark (doom-lighten bg 0.1))))
-                      :weight 'regular)
   (defun zw/tab-bar-format-exwm-workspace ()
     "Produce menu that shows current exwm workspace."
-    `((menu-bar menu-item (propertize (format " %d " exwm-workspace-current-index)
-                                      'face 'zw/tab-bar-menu-bar)
-                tab-bar-menu-bar :help (format "Current EXWM workspace: %d" exwm-workspace-current-index))))
+    (let* ((bg (face-background 'mode-line))
+           (bg-alt (pcase (frame-parameter nil 'background-mode)
+                     ('light (doom-darken bg 0.1))
+                     ('dark (doom-lighten bg 0.1)))))
+      `((menu-bar menu-item ,(propertize (format " %d " exwm-workspace-current-index)
+                                         'face `(:background ,bg-alt :weight regular))
+                  tab-bar-menu-bar :help (format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
   (setq tab-bar-show t
         tab-bar-format '(zw/tab-bar-format-exwm-workspace
