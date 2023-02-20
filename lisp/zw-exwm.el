@@ -177,7 +177,7 @@
        (float-height (floor (/ (frame-pixel-height) 1.2)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
        (float-y (/ (- (frame-pixel-height) float-height) 2))
-       (float-header-line (list '(:eval (propertize (buffer-name)
+       (float-header-line (list '(:eval (propertize (zw/tab-bar-tab-name)
                                                     'face 'zw/modeline-process-active))
                                 '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
                                 '(:eval (zw/exwm-float-header-line-rhs)))))
