@@ -25,7 +25,7 @@
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
 ;; initialization
-(defun zw/exwm-init-hook ()
+(defun zw/exwm-run-apps ()
   ;; Launch apps that will run in the background
   (when (executable-find "dunst")
     (zw/exwm-run-in-background "dunst"))
@@ -47,7 +47,7 @@
     (zw/exwm-run-in-background "polybar panel")))
 
 ;; When EXWM starts up, do some extra configuration
-(add-hook 'exwm-init-hook #'zw/exwm-init-hook)
+(add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
 ;; * exwm appearance
 ;; ** exwm modeline
