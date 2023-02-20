@@ -124,7 +124,8 @@
                          tab-bar-separator
                          tab-bar-separator
                          tab-bar-separator
-                         zw/tab-bar-format-global))
+                         zw/tab-bar-format-time
+                         zw/tab-bar-format-battery))
   (tab-bar-mode 1)
   ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 
