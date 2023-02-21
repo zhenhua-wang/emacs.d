@@ -189,7 +189,7 @@
            floating t
            char-mode t
            floating-mode-line nil
-           floating-header-line ,float-header-line)
+           floating-header-line nil)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (x) (string-match-p
