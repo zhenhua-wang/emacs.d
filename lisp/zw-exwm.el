@@ -357,8 +357,7 @@
     (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
   (with-current-buffer "*scratch*"
     (display-line-numbers-mode 0))
-  (start-process-shell-command
-   "feh" nil  "feh --bg-scale ~/.cache/emacs/wallpaper.png"))
+  (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png") nil 0)
 
 (zw/exwm-set-wallpaper)
 
