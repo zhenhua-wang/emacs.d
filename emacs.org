@@ -526,12 +526,6 @@ FACE defaults to inheriting from default and highlight."
          (side . right)
          (slot . 1)
          (dedicated . t))
-        ;; left side window
-        ("^\\*Ilist\\*$"
-         (display-buffer-in-side-window)
-         (window-width . 0.2)
-         (side . left)
-         (slot . 1))
         ;; bottom buffer (NOT side window)
         ("\\*.*\\(e?shell\\|v?term\\).*"
          (display-buffer-at-bottom)
