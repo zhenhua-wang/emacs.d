@@ -204,7 +204,7 @@
            floating t
            floating-mode-line nil
            floating-header-line nil)
-          (t floating-header-line ,float-header-line
+          (t floating-header-line nil
              floating-mode-line nil))))
 
 ;; *** exwm auto hide float
