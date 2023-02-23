@@ -490,9 +490,7 @@ FACE defaults to inheriting from default and highlight."
 ;; window split
 (setq split-width-threshold  80
       split-height-threshold 80
-      split-window-preferred-function 'split-window-sensibly
-      ;; If a popup does happen, don't resize windows to be equal-sized
-      even-window-sizes nil)
+      split-window-preferred-function 'split-window-sensibly)
 
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) t)))
