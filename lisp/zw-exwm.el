@@ -110,9 +110,14 @@
            (bg-alt (pcase (frame-parameter nil 'background-mode)
                      ('light (doom-darken bg 0.1))
                      ('dark (doom-lighten bg 0.1)))))
-      `((menu-bar menu-item ,(propertize (format " %d " exwm-workspace-current-index)
-                                         'face `(:background ,bg-alt :weight regular))
-                  tab-bar-menu-bar :help (format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
+      `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
+                                       'face `(:background ,bg-alt :weight regular))
+                nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
+
+  (defun zw/tab-bar-format-cpu-temp ()
+    "Produce menu that shows cpu temperature."
+    `((global menu-item ,cpu-temperature-string
+              nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
 
   (setq tab-bar-show t
         tab-bar-format '(zw/tab-bar-format-exwm-workspace
@@ -122,13 +127,13 @@
                          tab-bar-separator
                          tab-bar-separator
                          tab-bar-separator
+                         zw/tab-bar-format-cpu-temp
                          zw/tab-bar-format-time
                          zw/tab-bar-format-battery))
   (tab-bar-mode 1)
-  ;; (add-to-list 'tab-bar-format 'zw/tab-bar-format-function-def 'append)
 
   ;; time
-  (setq display-time-format "%b %-e %a %T %p"
+  (setq display-time-format "%b %-e %a %H:%M:%S %p"
         display-time-interval 1
         display-time-default-load-average nil)
   (display-time-mode 1)
@@ -546,6 +551,13 @@
   (define-key exwm-edit-mode-map (kbd "C-c C-c") nil)
   (define-key exwm-edit-mode-map (kbd "s-q") (lambda () (interactive) (message "Close with C-c C-k")))
   (define-key exwm-edit-mode-map [remap save-buffer] nil))
+
+;; ** CPU temperature
+(use-package emacs-cpu-temperature
+  :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
+  :config
+  (setq cpu-temperature-update-interval 1)
+  (cpu-temperature-mode 1))
 
 ;; * exwm keymap
   ;; ** exwm prefix keys

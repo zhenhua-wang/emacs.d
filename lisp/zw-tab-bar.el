@@ -169,13 +169,13 @@
 
 (defun zw/tab-bar-format-battery ()
   "Produce battery information for the tab bar."
-  `((global menu-item ,(format-mode-line battery-mode-line-string) nil
+  `((global menu-item ,battery-mode-line-string nil
             :help (plist-get (text-properties-at 0 battery-mode-line-string)
                              'help-echo))))
 
 (defun zw/tab-bar-format-time ()
   "Produce time information for the tab bar."
-  `((global menu-item ,(format-mode-line display-time-string) nil
+  `((global menu-item ,display-time-string nil
             :help (plist-get (text-properties-at 0 display-time-string)
                              'help-echo))))
 
