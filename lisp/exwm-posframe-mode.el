@@ -26,6 +26,8 @@
                               internal-border-width
                               internal-border-color
                               font
+                              cursor
+                              window-point
                               foreground-color
                               background-color
                               respect-header-line
@@ -41,7 +43,6 @@
                               hidehandler
                               refposhandler
                               &allow-other-keys)
-
   (let* ((position (or position (point)))
          (max-width (if (numberp max-width)
                         max-width
@@ -57,6 +58,7 @@
                    (min (max height min-height) max-height)))
          (x-pixel-offset (or x-pixel-offset 0))
          (y-pixel-offset (or y-pixel-offset 0))
+         (window-point (or window-point 0))
          ;;-----------------------------------------------------
          (buffer (get-buffer-create buffer-or-name))
          (parent-window (selected-window))
@@ -99,6 +101,7 @@
              buffer
              :position position
              :font font
+             :cursor cursor
              :parent-frame
              (unless ref-position
                parent-frame)
@@ -174,7 +177,7 @@
       ;; Make sure not hide buffer's content for scroll down.
       (let ((window (frame-root-window posframe--frame)))
         (when (window-live-p window)
-          (set-window-point window 0)))
+          (set-window-point window window-point)))
 
       ;; Hide posframe when switch buffer
       (let* ((parent-buffer (window-buffer parent-window))
