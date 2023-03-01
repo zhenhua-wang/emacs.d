@@ -554,10 +554,11 @@
 
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
+  :demand t
   :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
+  :hook (exwm-init . cpu-temperature-mode)
   :config
-  (setq cpu-temperature-update-interval 1)
-  (cpu-temperature-mode 1))
+  (setq cpu-temperature-update-interval 1))
 
 ;; * exwm keymap
   ;; ** exwm prefix keys
