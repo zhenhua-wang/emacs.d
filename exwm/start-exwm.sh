@@ -20,5 +20,5 @@ export EDITOR="$VISUAL"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Fire it up
-# exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el
-exec emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el
+exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el
+# exec emacs -mm --debug-init -l ~/.emacs.d/lisp/zw-exwm.el

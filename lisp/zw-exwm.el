@@ -573,6 +573,7 @@
         ?\M-:))
 
   ;; ** exwm x windows simulate keys
+;; *** default
 (setq exwm-input-simulation-keys
       `((,(kbd "s-r") . ,(kbd "C-r"))
         (,(kbd "s-f") . ,(kbd "C-f"))
@@ -583,15 +584,6 @@
         (,(kbd "s-t") . ,(kbd "C-t"))
         (,(kbd "s-T") . ,(kbd "C-S-t"))
         (,(kbd "s-w") . ,(kbd "C-w"))
-        (,(kbd "s-1") . ,(kbd "M-1"))
-        (,(kbd "s-2") . ,(kbd "M-2"))
-        (,(kbd "s-3") . ,(kbd "M-3"))
-        (,(kbd "s-4") . ,(kbd "M-4"))
-        (,(kbd "s-5") . ,(kbd "M-5"))
-        (,(kbd "s-6") . ,(kbd "M-6"))
-        (,(kbd "s-7") . ,(kbd "M-7"))
-        (,(kbd "s-8") . ,(kbd "M-8"))
-        (,(kbd "s-9") . ,(kbd "M-9"))
         ;; text edit
         (,(kbd "s-<backspace>") . ,(kbd "S-<home> <delete>"))
         (,(kbd "s-a") . ,(kbd "C-a"))
@@ -614,6 +606,24 @@
         (,(kbd "C-S-a") . ,(kbd "S-<home>"))
         (,(kbd "C-S-e") . ,(kbd "S-<end>"))))
 
+;; *** browser
+(add-hook 'exwm-manage-finish-hook
+          (lambda ()
+            (when (and exwm-class-name
+                       (string= exwm-class-name "firefox"))
+              (exwm-input-set-local-simulation-keys
+               (append exwm-input-simulation-keys
+                       `((,(kbd "s-1") . ,(kbd "M-1"))
+                         (,(kbd "s-2") . ,(kbd "M-2"))
+                         (,(kbd "s-3") . ,(kbd "M-3"))
+                         (,(kbd "s-4") . ,(kbd "M-4"))
+                         (,(kbd "s-5") . ,(kbd "M-5"))
+                         (,(kbd "s-6") . ,(kbd "M-6"))
+                         (,(kbd "s-7") . ,(kbd "M-7"))
+                         (,(kbd "s-8") . ,(kbd "M-8"))
+                         (,(kbd "s-9") . ,(kbd "M-9"))))))))
+
+;; *** chat
 (add-hook 'exwm-manage-finish-hook
           (lambda ()
             (when (and exwm-class-name
@@ -623,7 +633,7 @@
                        `((,(kbd "C-w") . ,(kbd "s-m"))
                          (,(kbd "s-w") . ,(kbd "s-m"))))))))
 
-;; disable simulate keys in kitty
+;; *** no simulate keys
 (add-hook 'exwm-manage-finish-hook
           (lambda ()
             (when (and exwm-class-name
