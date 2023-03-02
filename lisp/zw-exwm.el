@@ -432,7 +432,9 @@
   :demand t
   :bind (:map pyim-mode-map
               ("," . pyim-previous-page)
-              ("." . pyim-next-page))
+              ("." . pyim-next-page)
+              ("<left>" . pyim-backward-point)
+              ("<right>" . pyim-forward-point))
   :config
   (setq pyim-page-tooltip 'minibuffer
         pyim-default-scheme 'quanpin
