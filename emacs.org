@@ -1207,12 +1207,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                        (+ ,comment-start-symbol)
                                        (+ space) (group (+ "*")))
                                 space))))
-      (setq outline-level 'zw/outline--level
-            outline-regexp outline-header)
       (font-lock-add-keywords nil `((,outline-header 1 '(face nil display ""))))
-      (setq-local font-lock-unfontify-region-function #'zw/outline--unfontify))
+      (setq-local outline-level 'zw/outline--level
+                  outline-regexp outline-header
+                  font-lock-unfontify-region-function #'zw/outline--unfontify))
     (outline-minor-mode 1)
-    (outline--show-headings-up-to-level 1)))
+    (outline-hide-sublevels 1)))
 
 (use-package outline-minor-faces
   :after outline
