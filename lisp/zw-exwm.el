@@ -37,8 +37,6 @@
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
     (zw/exwm-run-in-background "udiskie --no-automount -t"))
-  (when (executable-find "cbatticon")
-    (zw/exwm-run-in-background "cbatticon"))
   (when (executable-find "onboard")
     (zw/exwm-run-in-background "onboard"))
   ;; set ibus to use "system keyboard layout" in advanced setting
