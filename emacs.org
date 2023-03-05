@@ -259,14 +259,6 @@
         doom-themes-enable-italic nil)
   (doom-themes-visual-bell-config))
 
-(use-package modus-themes
-  :defer t
-  :config
-  (setq modus-themes-bold-constructs t
-        modus-themes-italic-constructs t
-        modus-themes-prompts '(extrabold italic)
-        modus-themes-org-blocks 'gray-background))
-
 ;; load theme
 (setq zw/theme-selector
       (expand-file-name "emacs-select-theme.el" user-emacs-directory))
@@ -1434,20 +1426,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package ess-smart-assign
   :after ess
   :straight (ess-smart-assign :host github :repo "zhenhua-wang/ess-smart-assign"))
-
-;;; stan-mode.el
-(use-package stan-mode
-  :defer t
-  :mode ("\\.stan\\'" . stan-mode)
-  :hook (stan-mode . stan-mode-setup)
-  :config
-  (setq stan-indentation-offset 2))
-
-;; company-stan
-(use-package company-stan
-  :hook (stan-mode . company-stan-setup)
-  :config
-  (setq company-stan-fuzzy nil))
 #+end_src
 
 * Document
