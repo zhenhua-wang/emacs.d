@@ -145,7 +145,7 @@
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
-(setq exwm-systemtray-background-color (face-background 'mode-line)
+(setq exwm-systemtray-background-color 'workspace-background
       exwm-systemtray-icon-gap 1)
 
 ;; ** exwm window management
