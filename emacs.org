@@ -1453,8 +1453,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("M-p" . org-previous-block)
                ("M-n" . org-next-block)))
   :hook
-  ;; careful! Don't use tabs in org-indent-mode, use spaces instead
-  (org-mode . org-indent-mode)
   (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
@@ -1519,33 +1517,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq org-modern-star '("◉" "●")
         org-modern-hide-stars t
         org-modern-block-fringe t
-        org-modern-table nil
+        org-modern-table t
         org-modern-table-vertical 3
         org-modern-table-horizontal 1
         org-modern-todo t
         org-modern-todo-faces
         '(("TODO" . (:inherit fixed-pitch :foreground "white" :background "#B25068" :weight bold))
           ("DONE" . (:inherit fixed-pitch :foreground "black" :background "#6CC4A1" :weight bold)))))
-
-(use-package org-visual-indent
-  :straight `(org-visual-indent
-              :host github
-              :repo "legalnonsense/org-visual-outline")
-  :hook (org-mode . org-visual-indent-mode)
-  :config
-  ;; match org-headings color
-  (setq org-visual-indent-color-indent
-        (cl-loop for x from 1 to 8
-                 with color = nil
-                 do (setq color (or (face-foreground
-                                     (intern
-                                      (concat "org-level-"
-                                              (number-to-string x))))
-                                    (face-foreground 'org-level-1)))
-                 collect `(,x ,(list
-                                :background color
-                                :foreground color
-                                :height .1)))))
 
 ;; Auto-show Markup Symbols
 (use-package org-appear
