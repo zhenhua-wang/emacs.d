@@ -1,12 +1,14 @@
 ;; -*- lexical-binding: t -*-
 
 (defun zw/set-theme (theme-params)
-  (let* ((base-font-color     (face-foreground 'default nil 'default))
-         (headline           `(:inherit default :weight bold :foreground ,base-font-color))
-         (fixed-font         `(:font "Hack"))
-         (variable-font      `(:font "EB Garamond"))
-         (modeline-height     130)
-         (tab-bar-height      115)
+  (let* ((base-font-color         (face-foreground 'default nil 'default))
+         (headline               `(:inherit default :weight bold :foreground ,base-font-color))
+         (fixed-font             `(:font "Hack"))
+         (fixed-font-height       150)
+         (variable-font          `(:font "EB Garamond"))
+         (variable-font-height    200)
+         (modeline-height         130)
+         (tab-bar-height          115)
          (block-bg (alist-get 'block-bg theme-params))
          (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
@@ -23,18 +25,10 @@
     (custom-theme-set-faces
      'user
      ;; fonts
-     `(fixed-pitch ((t (,@fixed-font :height 150))))
-     `(variable-pitch ((t (,@variable-font :height 200))))
+     `(fixed-pitch ((t (,@fixed-font :height ,fixed-font-height))))
+     `(variable-pitch ((t (,@variable-font :height ,variable-font-height))))
 
      ;; org
-     `(org-level-8 ((t (,@headline ,@variable-font :weight SemiBold))))
-     `(org-level-7 ((t (,@headline ,@variable-font :weight SemiBold))))
-     `(org-level-6 ((t (,@headline ,@variable-font :weight SemiBold))))
-     `(org-level-5 ((t (,@headline ,@variable-font :weight SemiBold))))
-     `(org-level-4 ((t (,@headline ,@variable-font :weight SemiBold :height 1.5))))
-     `(org-level-3 ((t (,@headline ,@variable-font :weight SemiBold :height 1.5))))
-     `(org-level-2 ((t (,@headline ,@variable-font :weight SemiBold :height 1.5))))
-     `(org-level-1 ((t (,@headline ,@variable-font :weight SemiBold :height 1.75))))
      `(org-document-title ((t (,@headline ,@variable-font :height 2.0 :underline t))))
      ;; setup fixed pitch fonts
      `(org-ellipsis ((t (:inherit fixed-pitch))))
@@ -59,12 +53,6 @@
      `(org-visual-indent-blank-pipe-face ((t (:foreground ,(face-background 'default) :background ,(face-background 'default) :height .1))))
 
      ;; markdown
-     `(markdown-header-face-6 ((t (,@headline ,@variable-font))))
-     `(markdown-header-face-5 ((t (,@headline ,@variable-font))))
-     `(markdown-header-face-4 ((t (,@headline ,@variable-font :height 1.5))))
-     `(markdown-header-face-3 ((t (,@headline ,@variable-font :height 1.5))))
-     `(markdown-header-face-2 ((t (,@headline ,@variable-font :height 1.5))))
-     `(markdown-header-face-1 ((t (,@headline ,@variable-font :height 1.75))))
      `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :height 2.0 :underline t :bold t))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
@@ -128,7 +116,7 @@
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-font))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-font :height ,fixed-font-height))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
