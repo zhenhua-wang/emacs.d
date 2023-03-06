@@ -2,7 +2,6 @@
 
 (defun zw/set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (headline               `(:inherit default :weight bold :foreground ,base-font-color))
          (fixed-font             `(:font "Hack"))
          (fixed-font-height       150)
          (variable-font          `(:font "EB Garamond"))
@@ -29,7 +28,15 @@
      `(variable-pitch ((t (,@variable-font :height ,variable-font-height))))
 
      ;; org
-     `(org-document-title ((t (,@headline ,@variable-font :height 2.0 :underline t))))
+     `(org-level-8 ((t (:inherit outline-8 ,@variable-font :weight SemiBold))))
+     `(org-level-7 ((t (:inherit outline-7 ,@variable-font :weight SemiBold))))
+     `(org-level-6 ((t (:inherit outline-6 ,@variable-font :weight SemiBold))))
+     `(org-level-5 ((t (:inherit outline-5 ,@variable-font :weight SemiBold))))
+     `(org-level-4 ((t (:inherit outline-4 ,@variable-font :weight SemiBold :height 1.25))))
+     `(org-level-3 ((t (:inherit outline-3 ,@variable-font :weight SemiBold :height 1.25))))
+     `(org-level-2 ((t (:inherit outline-2 ,@variable-font :weight SemiBold :height 1.25))))
+     `(org-level-1 ((t (:inherit outline-1 ,@variable-font :weight SemiBold :height 1.5))))
+     `(org-document-title ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 2.0 :underline t))))
      ;; setup fixed pitch fonts
      `(org-ellipsis ((t (:inherit fixed-pitch))))
      `(org-meta-line ((t (:inherit (shadow fixed-pitch)))))
@@ -53,6 +60,12 @@
      `(org-visual-indent-blank-pipe-face ((t (:foreground ,(face-background 'default) :background ,(face-background 'default) :height .1))))
 
      ;; markdown
+     `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font :weight SemiBold))))
+     `(markdown-header-face-5 ((t (:inherit outline-5 ,@variable-font :weight SemiBold))))
+     `(markdown-header-face-4 ((t (:inherit outline-4 ,@variable-font :weight SemiBold :height 1.25))))
+     `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :weight SemiBold :height 1.25))))
+     `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :weight SemiBold :height 1.25))))
+     `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :weight SemiBold :height 1.5))))
      `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :height 2.0 :underline t :bold t))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
