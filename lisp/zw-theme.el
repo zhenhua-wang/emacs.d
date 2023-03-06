@@ -55,9 +55,6 @@
      `(org-block-end-line ((t (:background ,block-bg :bold t :italic t :extend t))))
      `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
      `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-bg :box ,(face-foreground 'default)))))
-     ;; org-visual-indent
-     `(org-visual-indent-pipe-face ((t (:foreground ,(face-foreground 'default) :background ,(face-foreground 'default) :height .1))))
-     `(org-visual-indent-blank-pipe-face ((t (:foreground ,(face-background 'default) :background ,(face-background 'default) :height .1))))
 
      ;; markdown
      `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font :weight SemiBold))))
@@ -66,7 +63,7 @@
      `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :weight SemiBold :height 1.25))))
      `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :weight SemiBold :height 1.25))))
      `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :weight SemiBold :height 1.5))))
-     `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :height 2.0 :underline t :bold t))))
+     `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 2.0 :underline t))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
      `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
