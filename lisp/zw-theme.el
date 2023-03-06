@@ -128,7 +128,7 @@
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-font :height 150))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-font))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
