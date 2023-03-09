@@ -617,7 +617,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (dired-mode . dired-omit-mode)
   (dired-mode . (lambda () (visual-line-mode 0)))
   :bind ((:map dired-mode-map
-               ("<tab>" . dired-subtree-toggle)))
+               ("<tab>" . dired-subtree-toggle)
+               ("<mouse-2>" . dired-find-file)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t
