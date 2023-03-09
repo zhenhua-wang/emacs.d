@@ -1718,7 +1718,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands (poly-rmarkdown-mode))
 #+end_src
 
-** Readers
+** Reader
 #+begin_src emacs-lisp
 ;; pdf-tools need to be deleted and reinstalled after after emacs update
 (use-package pdf-tools
@@ -1740,7 +1740,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (pdf-loader-install))
 #+end_src
 
-** Spelling
+** Spell checker
 #+begin_src emacs-lisp
 ;; On-the-fly spell checker
 (use-package flyspell
