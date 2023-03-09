@@ -27,6 +27,9 @@
      `(fixed-pitch ((t (,@fixed-font :height ,fixed-font-height))))
      `(variable-pitch ((t (,@variable-font :height ,variable-font-height))))
 
+     ;; child frame
+     `(child-frame-border ((t (:background ,(face-background 'highlight)))))
+
      ;; org
      `(org-level-8 ((t (:inherit outline-8 ,@variable-font :weight SemiBold))))
      `(org-level-7 ((t (:inherit outline-7 ,@variable-font :weight SemiBold))))
