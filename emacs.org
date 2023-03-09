@@ -1017,7 +1017,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** lsp-ui
 #+begin_src emacs-lisp
-;; lsp ui
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :bind ((:map lsp-ui-mode-map
@@ -1058,7 +1057,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** lsp org
 #+begin_src emacs-lisp
-;; enable lsp in org babel
 (with-eval-after-load 'org
   ;; enable lsp-org inside src block
   (cl-defmacro lsp-org-babel-enable (lang)
