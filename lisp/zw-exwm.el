@@ -100,7 +100,7 @@
 (unless (executable-find "polybar")
   (defun zw/tab-bar-format-exwm-workspace ()
     "Produce menu that shows current exwm workspace."
-    (let* ((bg (face-background 'mode-line))
+    (let* ((bg (face-background 'tab-bar))
            (bg-alt (pcase (frame-parameter nil 'background-mode)
                      ('light (doom-darken bg 0.1))
                      ('dark (doom-lighten bg 0.1)))))
