@@ -359,43 +359,39 @@
 (zw/exwm-set-wallpaper)
 
 ;; ** transparency
-(defun zw/set-opacity (predicate)
+(defun zw/exwm-set-opacity (predicate)
   (if predicate
       (set-frame-parameter (selected-frame) 'alpha-background 98)
     (set-frame-parameter (selected-frame) 'alpha-background 0)))
 
-(defun zw/exwm-set-scratch-ui (predicate)
+(defun zw/exwm-set-ui (predicate)
   (if predicate
       (setq-local cursor-type (default-value 'cursor-type)
                   mode-line-format (default-value 'mode-line-format))
     (setq-local cursor-type nil
                 mode-line-format nil)))
 
-(defun zw/exwm-scratch-hide-ui ()
+(defun zw/exwm-scratch-config ()
   (let ((n-window (length (window-list))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
-        (zw/exwm-set-scratch-ui nil)
-      (zw/exwm-set-scratch-ui t))))
+        (with-current-buffer "*scratch*"
+          (zw/exwm-set-ui nil)
+          (zw/exwm-set-opacity nil))
+      (with-current-buffer "*scratch*"
+        (zw/exwm-set-ui t)
+        (zw/exwm-set-opacity t)))))
 
-(defun zw/exwm-scratch-transparent-frame ()
-  (let ((n-window (length (window-list))))
-    (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
-        (zw/set-opacity nil)
-      (zw/set-opacity t))))
+(defun zw/exwm-scratch-post-command ()
+  (when this-command
+    (zw/exwm-scratch-config)))
 
-(advice-add 'zw/exwm-update-title :after (lambda () (zw/set-opacity t)))
-(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-transparent-frame)
+(advice-add 'zw/exwm-update-title :after (lambda () (zw/exwm-set-opacity t)))
+(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
 (with-current-buffer "*scratch*"
-  (zw/exwm-set-scratch-ui nil)
-  (add-hook 'post-command-hook
-            (lambda () (when this-command
-                         (zw/exwm-scratch-hide-ui)
-                         (zw/exwm-scratch-transparent-frame)))
-            nil t))
+  (zw/exwm-set-ui nil)
+  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
 ;; ** posframe
 (require 'exwm-posframe-mode)
