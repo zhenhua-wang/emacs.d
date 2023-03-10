@@ -327,7 +327,7 @@
 
 ** Child frame
 #+begin_src emacs-lisp
-(add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 5))
+(add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 3))
 
 (use-package posframe
   :defer t)
