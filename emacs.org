@@ -550,7 +550,8 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
-               ("s-e" . zw/delte-window-or-bury-buffer)))
+               ("s-e" . zw/delte-window-or-bury-buffer)
+               ("<f5>" . nil)))
   :init
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t)
