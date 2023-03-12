@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
 # name: latex code block
-# key: <la
+# key: <l
 # --
 
-#+begin_src latex
+#+begin_export latex
 $0
-#+end_src
+#+end_export

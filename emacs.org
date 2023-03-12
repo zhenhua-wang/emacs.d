@@ -1484,17 +1484,14 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         '(("TODO" . (:inherit fixed-pitch :foreground "white" :background "#B25068" :weight bold))
           ("DONE" . (:inherit fixed-pitch :foreground "black" :background "#6CC4A1" :weight bold)))))
 
-;; Auto-show Markup Symbols
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
-  :init
-  (setq org-pretty-entities t)
-  :custom
-  (org-appear-autolinks t)
-  (org-appear-autosubmarkers t)
-  (org-appear-autoentities t)
-  (org-appear-autokeywords t)
-  (org-appear-inside-latex t))
+  :config
+  (setq org-appear-autolinks t
+        org-appear-autosubmarkers t
+        org-appear-autoentities t
+        org-appear-autokeywords t
+        org-appear-inside-latex t))
 #+end_src
 
 **** agenda
