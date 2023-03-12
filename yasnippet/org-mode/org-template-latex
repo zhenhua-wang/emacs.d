@@ -5,10 +5,6 @@
 #+TITLE: ${1:title}
 #+SUBTITLE: ${2:subtitle}
 #+AUTHOR: Zhenhua Wang
-#+LaTeX_CLASS: article
-#+LaTeX_CLASS_OPTIONS: [letterpaper]
-#+LaTeX_HEADER: \usepackage[style=apa,sortcites=false,uniquename=init,backend=biber,natbib=true,hyperref=true,maxbibnames=99,mincitenames=1, maxcitenames=2, citetracker]{biblatex}
-#+LaTeX_HEADER: \addbibresource{${3:bibfile}}
 #+SETUPFILE: ~/.emacs.d/OrgFiles/LatexTemplates/zw-latex-standard.setup
 #+OPTIONS: toc:nil
 
