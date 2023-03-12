@@ -28,7 +28,7 @@
               company-dabbrev-minimum-length 4
               company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
-              company-dabbrev-downcase 'case-replace
+              company-dabbrev-downcase nil
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
               company-dabbrev-char-regexp "[[:word:]_-]+"
