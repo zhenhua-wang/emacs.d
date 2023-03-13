@@ -187,7 +187,7 @@
            height ,float-height
            floating t
            char-mode t
-           floating-mode-line ,float-header-line
+           floating-mode-line nil
            floating-header-line nil)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
