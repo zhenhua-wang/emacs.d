@@ -245,7 +245,8 @@
                  (side . right)
                  (slot . -1)
                  (dedicated . t)
-                 (window-height . 0.5))))
+                 (window-height . 0.5)))
+  (add-to-list 'zw/side-window-buffer-regex buffer))
 
 ;; ** keycast
 (use-package keycast
@@ -640,7 +641,7 @@
         (,(kbd "s-^") . enlarge-window)
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
-        (,(kbd "s-`") . window-toggle-side-windows)
+        (,(kbd "s-`") . zw/side-window-toggle)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search

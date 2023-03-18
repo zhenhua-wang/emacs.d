@@ -196,7 +196,7 @@
            ("s-{" . shrink-window-horizontally)
            ("s-}" . enlarge-window-horizontally)
            ("s-^" . enlarge-window)
-           ("s-`" . window-toggle-side-windows)
+           ("s-`" . zw/side-window-toggle)
            ;; tab operations
            ("s-1" . zw/tab-switch)
            ("s-9" . tab-new)
@@ -495,6 +495,39 @@
   (add-hook mode (lambda ()
                    (if buffer-file-name
                        (setq-local show-trailing-whitespace t)))))
+#+end_src
+
+** Side windows
+#+begin_src emacs-lisp
+(defcustom zw/side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
+  "List of modes of buffer displayed in side window.")
+
+(defcustom zw/side-window-buffer-regex nil
+  "List of name regex of buffer displayed in side window.")
+
+(defvar zw/side-window--buffer-opened nil)
+
+(defun zw/side-window--update ()
+  (setq zw/side-window--buffer-opened nil)
+  (let* ((buffers (buffer-list)))
+    (dolist (buffer buffers)
+      (with-current-buffer buffer
+        (if (or (member major-mode zw/side-window-buffer-mode)
+                (seq-some (lambda (regex)
+                            (string-match-p regex (buffer-name buffer)))
+                          zw/side-window-buffer-regex))
+            (add-to-list 'zw/side-window--buffer-opened buffer))))))
+
+(defun zw/side-window-toggle ()
+  "Toggle side windows."
+  (interactive)
+  (zw/side-window--update)
+  (if (seq-some (lambda (buffer) (get-buffer-window buffer))
+                zw/side-window--buffer-opened)
+      (dolist (buffer zw/side-window--buffer-opened)
+        (delete-window (get-buffer-window buffer)))
+    (dolist (buffer zw/side-window--buffer-opened)
+      (display-buffer buffer))))
 #+end_src
 
 * Tool
