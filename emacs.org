@@ -522,12 +522,14 @@
   "Toggle side windows."
   (interactive)
   (zw/side-window--update)
-  (if (seq-some (lambda (buffer) (get-buffer-window buffer))
-                zw/side-window--buffer-opened)
-      (dolist (buffer zw/side-window--buffer-opened)
-        (delete-window (get-buffer-window buffer)))
-    (dolist (buffer zw/side-window--buffer-opened)
-      (display-buffer buffer))))
+  (if zw/side-window--buffer-opened
+      (if (seq-some (lambda (buffer) (get-buffer-window buffer))
+                    zw/side-window--buffer-opened)
+          (dolist (buffer zw/side-window--buffer-opened)
+            (delete-window (get-buffer-window buffer)))
+        (dolist (buffer zw/side-window--buffer-opened)
+          (display-buffer buffer)))
+    (message "No buffer in side window.")))
 #+end_src
 
 * Tool
