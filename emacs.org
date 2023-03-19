@@ -528,9 +528,10 @@
                     zw/side-window--buffer-opened)
           (dolist (buffer zw/side-window--buffer-opened)
             (let ((buffer-window (get-buffer-window buffer)))
-              (if  (eq buffer-window (window-main-window))
-                  (previous-buffer)
-                (delete-window buffer-window))))
+              (when buffer-window
+                (if  (eq buffer-window (window-main-window))
+                    (previous-buffer)
+                  (delete-window buffer-window)))))
         (dolist (buffer zw/side-window--buffer-opened)
           (display-buffer buffer)))
     (message "No buffer in side window.")))
