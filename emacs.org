@@ -629,7 +629,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"))
   (setq dired-use-ls-dired t
-        dired-listing-switches "-al --group-directories-first"))
+        dired-listing-switches "-al --no-group --human-readable --group-directories-first"))
 
 (use-package diredfl
   :hook
