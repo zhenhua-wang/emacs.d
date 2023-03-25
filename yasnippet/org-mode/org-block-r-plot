@@ -3,7 +3,6 @@
 # key: <rp
 # --
 
-#+ATTR_LATEX: :options frame=lines
 #+begin_src ess-r :session :results graphics file :file ${1:filename} :exports both
 $0
 #+end_src

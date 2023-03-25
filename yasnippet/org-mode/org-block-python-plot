@@ -3,7 +3,6 @@
 # key: <pyp
 # --
 
-#+ATTR_LATEX: :options frame=lines
 #+begin_src python :session :results file :exports both
 $0
 #+end_src

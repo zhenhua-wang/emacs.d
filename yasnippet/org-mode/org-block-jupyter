@@ -3,7 +3,6 @@
 # key: <jupyter-python
 # --
 
-#+ATTR_LATEX: :options frame=lines
 #+begin_src jupyter-python :exports both
 $0
 #+end_src
