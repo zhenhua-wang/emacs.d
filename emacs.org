@@ -1566,7 +1566,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (bind-keys :map org-agenda-mode-map
-                         ("s-q" . org-agenda-exit))))
+                         ("s-q" . org-agenda-exit)
+                         ("q" . org-agenda-exit))))
   ;; agenda settings
   (setq org-agenda-files '("~/Documents/Agenda/Work.org"))
   ;; default agenda
