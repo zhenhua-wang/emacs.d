@@ -1,5 +1,5 @@
 #+LaTeX_CLASS: org-plain-latex
-#+LaTeX_CLASS_OPTIONS: [letterpaper, 11pt]
+#+LaTeX_CLASS_OPTIONS: [article, 12pt]
 #+LATEX_HEADER: \usepackage{lmodern} % Ensures we have the right font
 
 #+LATEX_HEADER: \usepackage[T1]{fontenc}
@@ -29,7 +29,7 @@
 # #+LATEX_HEADER: \RaggedRight
 
 % Page geometry
-#+LATEX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.55in, right=1.55in]{geometry}
+#+LATEX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1in, right=1in]{geometry}
 
 % Line spacing
 #+LATEX_HEADER: \renewcommand{\baselinestretch}{1.15}
