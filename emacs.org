@@ -1494,6 +1494,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
   ;; org-export
   (setq org-latex-listings 't)
+  ;; mapping jupyter-python to Python
+  (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
   (add-to-list 'org-latex-classes
                '("org-plain-latex"
                  "\\documentclass{article}
@@ -1746,8 +1748,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
                                                        (:session . "py")
                                                        (:kernel . "python3")))
-  ;; mapping jupyter-python to Python
-  (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
   ;; enable jupyter-org-interaction-mode
   (advice-add #'org-babel-jupyter-initiate-session :after
               (lambda (&optional SESSION PARAMS)
