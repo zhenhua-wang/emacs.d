@@ -78,7 +78,7 @@
 # #+LATEX_HEADER: \titleformat{\subsubsection} {\large}{\thesubsubsection}{1em}{#1}
 \titlespacing\subsubsection{0pt}{5pt}{-5pt} % left margin, space before subsection header, space after subsection header
 
-# % code highlighting
+# % code highlighting https://denbeke.be/blog/programming/syntax-highlighting-in-latex/
 #+LATEX_HEADER: \usepackage{listings}
 #+LATEX_HEADER: \lstset{
 #+LATEX_HEADER:         backgroundcolor=\color[rgb]{0.973000, 0.973000, 0.973000},
@@ -87,7 +87,10 @@
 #+LATEX_HEADER:         stringstyle=\color[rgb]{0.558215, 0.000000, 0.135316},
 #+LATEX_HEADER:         basicstyle=\ttfamily\small,
 #+LATEX_HEADER:         columns=fullflexible,
-#+LATEX_HEADER:         basewidth={0.5em,0.4em}
+#+LATEX_HEADER:         basewidth={0.5em,0.4em},
+#+LATEX_HEADER:         showspaces=false,
+#+LATEX_HEADER:         showstringspaces=false,
+#+LATEX_HEADER:         showtabs=false
 #+LATEX_HEADER:         }
 
 # % code results highlighting
