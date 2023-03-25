@@ -80,3 +80,16 @@
 
 # % code highlighting
 #+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:         backgroundcolor=\color[rgb]{0.973000, 0.973000, 0.973000},
+#+LATEX_HEADER:         keywordstyle=\color[rgb]{0.000000, 0.000000, 0.635294},
+#+LATEX_HEADER:         commentstyle=\color[rgb]{0.497495, 0.497587, 0.497464},
+#+LATEX_HEADER:         stringstyle=\color[rgb]{0.558215, 0.000000, 0.135316},
+#+LATEX_HEADER:         basicstyle=\ttfamily\small,
+#+LATEX_HEADER:         columns=fullflexible,
+#+LATEX_HEADER:         basewidth={0.5em,0.4em}
+#+LATEX_HEADER:         }
+
+# % code results highlighting
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatcom = {\color[rgb]{0.5,0,0}}}
