@@ -469,7 +469,8 @@
                                            (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
                                                exwm--floating-frame
                                                (string-match "^\\*EXWM.*$" (buffer-name x))
-                                               (eq major-mode 'dired-mode))))))
+                                               (eq major-mode 'dired-mode)
+                                               (eq major-mode 'org-agenda-mode))))))
                               (buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
@@ -552,6 +553,10 @@
   :hook (exwm-init . cpu-temperature-mode)
   :config
   (setq cpu-temperature-update-interval 1))
+
+;; ** agenda
+(when (file-directory-p "~/Documents/Agenda")
+  (org-agenda nil "d"))
 
 ;; * exwm keymap
   ;; ** exwm prefix keys
