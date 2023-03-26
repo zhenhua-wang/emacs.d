@@ -191,9 +191,9 @@
            floating-header-line nil)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
-                         (mapcar (lambda (x) (string-match-p
-                                              "^Emacs.*$"
-                                              (buffer-name x)))
+                         (mapcar (lambda (buffer)
+                                   (with-current-buffer buffer
+                                     (string= "Emacs" exwm-class-name)))
                                  (buffer-list))))
            x ,(- (+ float-x float-width)
                  (floor (* float-width 0.3)))
