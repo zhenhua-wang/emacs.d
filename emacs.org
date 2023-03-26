@@ -1497,6 +1497,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq org-latex-listings 't)
   ;; mapping jupyter-python to Python
   (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
+  (add-to-list 'org-latex-listings-langs '(ess-r "R"))
   (add-to-list 'org-latex-classes
                '("org-plain-latex"
                  "\\documentclass{article}
