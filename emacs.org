@@ -1796,8 +1796,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                ("s-+" . pdf-view-enlarge)
                ("s--" . pdf-view-shrink)
                ("j" . pdf-view-next-line-or-next-page)
-               ("k" . pdf-view-previous-line-or-previous-page)
-               ("q" . nil)))
+               ("k" . pdf-view-previous-line-or-previous-page)))
   :init
   (setq pdf-view-display-size 'fit-page
         pdf-view-use-imagemagick nil
