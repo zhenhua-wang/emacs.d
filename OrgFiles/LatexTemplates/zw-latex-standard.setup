@@ -90,7 +90,9 @@
 #+LATEX_HEADER:         basewidth={0.5em,0.4em},
 #+LATEX_HEADER:         showspaces=false,
 #+LATEX_HEADER:         showstringspaces=false,
-#+LATEX_HEADER:         showtabs=false
+#+LATEX_HEADER:         showtabs=false,
+#+LATEX_HEADER:         breakatwhitespace=true,
+#+LATEX_HEADER:         breaklines=true
 #+LATEX_HEADER:         }
 
 # % code results highlighting
