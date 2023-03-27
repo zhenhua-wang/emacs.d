@@ -1,6 +1,7 @@
 #+Title: Emacs Configuration
 #+AUTHOR: Zhenhua Wang
 #+auto_tangle: t
+#+STARTUP: overview
 #+PROPERTY: header-args+ :tangle "yes"
 -----
 * Header
@@ -1473,7 +1474,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
    ;; init appearance
    org-num-face 'default
    org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
-   org-startup-folded  t               ;'content
    org-image-actual-width nil          ; use user defined image size
    org-hide-emphasis-markers t
    org-src-fontify-natively t
