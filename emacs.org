@@ -1767,6 +1767,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (advice-add #'org-babel-jupyter-initiate-session :after
               (lambda (&optional SESSION PARAMS)
                 (jupyter-org-interaction-mode)))
+  :config
   (defun zw/jupyter-send-block ()
     (interactive)
     (jupyter-eval-string (zw/python-region-or-block-string
