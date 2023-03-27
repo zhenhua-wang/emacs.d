@@ -471,11 +471,23 @@
          (side . top)
          (slot . 1))
         ;; right side window
-        ("\\*\\(R\\|Python\\).*"
+        ("\\*\\(R\\|Python\\|jupyter-display\\).*"
          (display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
          (slot . 1)
+         (dedicated . t))
+        ("\\*jupyter-output.*"
+         (display-buffer-in-side-window)
+         (window-width . 0.3)
+         (side . right)
+         (slot . 2)
+         (dedicated . t))
+        ("\\*jupyter-error.*"
+         (display-buffer-in-side-window)
+         (window-width . 0.3)
+         (side . right)
+         (slot . 3)
          (dedicated . t))
         ;; bottom buffer (NOT side window)
         ("\\*.*\\(e?shell\\|v?term\\).*"
@@ -1287,7 +1299,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (goto-char (region-end))
   (deactivate-mark))
 
-(defun zw/python-region-or-block-string ()
+(defun zw/python-region-or-block-string (forward-func backward-func)
   (if mark-active
       (let ((beg (region-beginning))
             (end (region-end)))
@@ -1296,15 +1308,15 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
            (beg (if current-line-empty-p
                     (point)
-                  (save-excursion (backward-paragraph) (point))))
-           (end (save-excursion (forward-paragraph) (point))))
+                  (save-excursion (funcall backward-func) (point))))
+           (end (save-excursion (funcall forward-func) (point))))
       (set-mark beg) (goto-char end)
       (buffer-substring-no-properties beg end))))
 
 (defun zw/python-shell-send-region-or-block ()
   (interactive)
   (zw/python-start-shell-before-send-string
-   (zw/python-region-or-block-string)))
+   (zw/python-region-or-block-string 'forward-paragraph 'backward-paragraph)))
 
 (defun zw/python-shell-send-buffer ()
   (interactive)
@@ -1754,7 +1766,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; enable jupyter-org-interaction-mode
   (advice-add #'org-babel-jupyter-initiate-session :after
               (lambda (&optional SESSION PARAMS)
-                (jupyter-org-interaction-mode))))
+                (jupyter-org-interaction-mode)))
+  (defun zw/jupyter-send-block ()
+    (interactive)
+    (jupyter-eval-string (zw/python-region-or-block-string
+                          'org-forward-paragraph
+                          'org-backward-paragraph))
+    (sit-for 0.1)
+    (goto-char (region-end))
+    (deactivate-mark))
+  (jupyter-org-define-key (kbd "C-c C-c") #'zw/jupyter-send-block))
 #+end_src
 
 *** Polymode
