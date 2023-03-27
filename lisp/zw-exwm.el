@@ -171,8 +171,8 @@
           (propertize (zw/exwm-modeline-float-hide)
                       'face 'zw/modeline-process-active)))
 
-(let* ((float-width (floor (/ (frame-pixel-width) 1.2)))
-       (float-height (floor (/ (frame-pixel-height) 1.2)))
+(let* ((float-width (floor (/ (frame-pixel-width) 1.1)))
+       (float-height (floor (/ (frame-pixel-height) 1.1)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
        (float-y (/ (- (frame-pixel-height) float-height) 2))
        (float-header-line (list '(:eval (propertize (zw/tab-bar-tab-name)
