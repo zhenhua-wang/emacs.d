@@ -1493,6 +1493,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 **** ox latex
+requirements:
+- export bibtex: ~texlive-bibtexextra~
+- highlight src code in html: ~htmlize.el~
+
 #+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
   ;; make LaTeX-mode formula larger
