@@ -12,5 +12,9 @@
 #+LATEX_HEADER: \usetheme{metropolis}
 #+LATEX_HEADER: \metroset{block=fill}
 #+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
+#+BIBLIOGRAPHY: ${3:bibliography file}
 -----
 $0
+
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:

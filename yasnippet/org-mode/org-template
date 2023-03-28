@@ -6,6 +6,10 @@
 #+SUBTITLE: ${2:subtitle}
 #+AUTHOR: Zhenhua Wang
 #+SETUPFILE: ~/.emacs.d/OrgFiles/LatexTemplates/zw-latex-standard.setup
+#+BIBLIOGRAPHY: ${3:bibliography file}
 #+OPTIONS: num:nil toc:nil
 
 $0
+
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:
