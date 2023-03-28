@@ -1494,7 +1494,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** ox latex
 requirements:
-- export bibtex: ~texlive-bibtexextra~
+- export natbib: ~texlive-bibtexextra~
 - highlight src code in html: ~htmlize.el~
 
 #+begin_src emacs-lisp
