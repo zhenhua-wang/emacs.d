@@ -29,13 +29,15 @@
       (kill-buffer)
     (kill-buffer-and-window)))
 
-(defun zw/maximize-shell ()
-  "maximize shell buffer including REPLs"
+(defun zw/maximize-window ()
+  "maximize window (also works for side windows)."
   (interactive)
   (let ((current-buffer-name (buffer-name (current-buffer))))
-    (select-window (window-main-window))
-    (delete-other-windows)
-    (switch-to-buffer current-buffer-name)))
+    (if (window-parameter (get-buffer-window) 'window-side)
+        (progn (select-window (window-main-window))
+               (delete-other-windows)
+               (switch-to-buffer current-buffer-name))
+      (delete-other-windows))))
 
 (defun zw/delte-window-or-bury-buffer ()
   "delete or bury"

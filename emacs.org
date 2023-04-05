@@ -198,6 +198,7 @@
            ("s-}" . enlarge-window-horizontally)
            ("s-^" . enlarge-window)
            ("s-`" . zw/side-window-toggle)
+           ("C-x 1" . zw/maximize-window)
            ;; tab operations
            ("s-1" . zw/tab-switch)
            ("s-9" . tab-new)
@@ -1332,10 +1333,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
      (buffer-substring-no-properties beg end))))
 
 (use-package python
-  :hook
-  (inferior-python-mode . (lambda ()
-                            (bind-keys :map inferior-python-mode-map
-                                       ("C-x 1" . zw/maximize-shell))))
   :bind ((:map python-mode-map
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
@@ -1394,9 +1391,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
-               ("C-c C-c" . zw/ess-send-region-or-block))
-         (:map inferior-ess-r-mode-map
-               ("C-x 1" . zw/maximize-shell)))
+               ("C-c C-c" . zw/ess-send-region-or-block)))
   :config
   (require 'ess-site)
   (defun zw/ess-send-region-or-block ()
