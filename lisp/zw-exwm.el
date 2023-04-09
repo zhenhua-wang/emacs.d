@@ -225,6 +225,8 @@
       (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
+(exwm-float-auto-hide-mode 1)
+
 ;; ** exwm buffer placement
 ;; plots
 (defvar zw/exwm-plot-buffers
