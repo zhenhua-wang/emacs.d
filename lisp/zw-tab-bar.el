@@ -158,7 +158,7 @@
                           (battery-format battery-echo-area-format data)
                         "Battery status not available")))
       (setq battery-mode-line-string
-            (propertize (concat icon " ") 'face face 'help-echo help-echo)))))
+            (propertize icon 'face face 'help-echo help-echo)))))
 (advice-add #'battery-update :override #'zw/tab-bar-update-battery-status)
 
 (defun zw/tab-bar-format-battery ()
