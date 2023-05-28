@@ -605,6 +605,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . zw/delte-window-or-bury-buffer)
+               ("s-z" . vterm-undo)
                ("<f5>" . nil)))
   :init
   (setq vterm-kill-buffer-on-exit t
@@ -1430,7 +1431,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           (ess-fl-keyword:operators . t)
           (ess-fl-keyword:numbers . t)
           (ess-R-fl-keyword:F&T . t)
-          (ess-fl-keyword:= . t))))
+          (ess-fl-keyword:= . t)))
+  ;; fix jags mode indentation
+  (add-hook 'ess-jags-mode-hook
+            (lambda ()
+              (setq-local indent-line-function #'ess-r-indent-line))))
 
 (use-package ess-smart-assign
   :after ess
