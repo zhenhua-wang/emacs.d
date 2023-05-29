@@ -1390,11 +1390,14 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands R
   :hook
   (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
+  (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
                ("C-c C-c" . zw/ess-send-region-or-block)))
   :config
   (require 'ess-site)
+  (defun zw/ess-indent ()
+    (setq-local indent-line-function #'ess-r-indent-line))
   (defun zw/ess-send-region-or-block ()
     (interactive)
     (if mark-active
@@ -1431,11 +1434,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
           (ess-fl-keyword:operators . t)
           (ess-fl-keyword:numbers . t)
           (ess-R-fl-keyword:F&T . t)
-          (ess-fl-keyword:= . t)))
-  ;; fix jags mode indentation
-  (add-hook 'ess-jags-mode-hook
-            (lambda ()
-              (setq-local indent-line-function #'ess-r-indent-line))))
+          (ess-fl-keyword:= . t))))
 
 (use-package ess-smart-assign
   :after ess
