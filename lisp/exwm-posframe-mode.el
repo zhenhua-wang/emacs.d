@@ -230,7 +230,8 @@
            2)
         (- exwm--main-frame-pixel-height
            (plist-get info :posframe-height)
-           (plist-get info :minibuffer-height))))
+           (plist-get info :minibuffer-height)
+           (window-mode-line-height))))
 
 (define-minor-mode exwm-posframe-mode
   "Auto hide exwm float windows."
