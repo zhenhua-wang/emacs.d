@@ -96,6 +96,7 @@
      `(zw/modeline-default-inactive ((t (:height ,modeline-height :foreground ,(face-foreground 'font-lock-comment-face)))))
      `(zw/modeline-highlight-foreground-active ((t (:height ,modeline-height))))
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-default-active)))))
+     `(zw/modeline-major-mode-active ((t (:inherit mode-line :foreground ,modeline-highlight-bg :bold t))))
 
      ;; tab-bar
      `(tab-bar ((t (:height ,tab-bar-height :foreground ,(face-foreground 'default) :weight regular))))
