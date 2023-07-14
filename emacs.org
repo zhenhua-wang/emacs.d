@@ -450,11 +450,20 @@
   (let ((largest-window (get-largest-window (selected-frame) t)))
     (window--display-buffer buffer largest-window 'reuse alist)))
 
-;; buffer placement rules
+;; default buffer placement rules
 (setq display-buffer-base-action '((display-buffer--maybe-same-window
-                                    display-buffer--maybe-pop-up-frame-or-window
-                                    zw/display-buffer-in-largest-window))
-      display-buffer-alist
+                                    zw/display-buffer-in-largest-window)))
+
+;; popup buffers
+(dolist (mode '(magit-mode-hook
+                git-commit-setup-hook))
+  (add-hook mode
+            (lambda () (setq-local display-buffer-base-action
+                                   '((display-buffer--maybe-same-window
+                                      display-buffer--maybe-pop-up-frame-or-window))))))
+
+;; buffer placement rules
+(setq display-buffer-alist
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
          (display-buffer-reuse-window
