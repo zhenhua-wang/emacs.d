@@ -120,7 +120,7 @@
             :help "Function definition")))
 
 (defun zw/tab-bar-format-file-path ()
-  `((current-tab menu-item  (zw/tab-bar-tab-name)
+  `((current-tab menu-item ,(zw/tab-bar-tab-name)
                  :help "File path")))
 
 (defun zw/tab-bar-update-battery-status ()

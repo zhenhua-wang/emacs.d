@@ -461,19 +461,23 @@
     (concat (propertize " " 'display `(space :align-to center))
             (symbol-name major-mode))))
 
+(defun zw/exwm-switch-to-buffer-list ()
+  (seq-filter
+   (lambda (x)
+     (and (not (eq (current-buffer) x))
+          (not (zw/hidden-buffer-p x))
+          (or (buffer-file-name x)
+              (with-current-buffer x
+                (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
+                    exwm--floating-frame
+                    (string-match "^\\*EXWM.*$" (buffer-name x))
+                    (eq major-mode 'dired-mode)
+                    (eq major-mode 'org-agenda-mode))))))
+   (buffer-list)))
+
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
-  (let* ((buffers (seq-filter (lambda (x)
-                                (and (not (eq (current-buffer) x))
-                                     (not (zw/hidden-buffer-p x))
-                                     (or (buffer-file-name x)
-                                         (with-current-buffer x
-                                           (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
-                                               exwm--floating-frame
-                                               (string-match "^\\*EXWM.*$" (buffer-name x))
-                                               (eq major-mode 'dired-mode)
-                                               (eq major-mode 'org-agenda-mode))))))
-                              (buffer-list)))
+  (let* ((buffers (zw/exwm-switch-to-buffer-list))
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
