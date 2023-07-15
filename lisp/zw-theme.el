@@ -103,10 +103,10 @@
      `(zw/tab-bar-default-selected ((t (:inherit tab-bar))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
-     `(zw/tab-bar-tab-battery-load-default ((t (:inherit zw/tab-bar-default-selected))))
-     `(zw/tab-bar-tab-battery-load-charging ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'success)))))
-     `(zw/tab-bar-tab-battery-load-low ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning)))))
-     `(zw/tab-bar-tab-battery-load-critical ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error)))))
+     `(zw/tab-bar-tab-battery-load-default ((t (:inherit zw/tab-bar-default-selected :bold t))))
+     `(zw/tab-bar-tab-battery-load-charging ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'success) :bold t))))
+     `(zw/tab-bar-tab-battery-load-low ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning) :bold t))))
+     `(zw/tab-bar-tab-battery-load-critical ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error) :bold t))))
 
      ;; key-cast
      `(keycast-key ((t (:height ,tab-bar-height))))
