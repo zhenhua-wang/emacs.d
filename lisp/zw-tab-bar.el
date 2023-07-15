@@ -155,10 +155,10 @@
                            (t " "))
                    " "))
            (text (if (>= percentage 100)
-                     (format "%d " percentage)
+                     (format "%d%% " percentage)
                    (if charging?
-                       (format "+%02d " percentage)
-                     (format " %02d " percentage))))
+                       (format "+%02d%% " percentage)
+                     (format " %02d%% " percentage))))
            (help-echo (if (and battery-echo-area-format data valid-percentage?)
                           (battery-format battery-echo-area-format data)
                         "Battery status not available")))
