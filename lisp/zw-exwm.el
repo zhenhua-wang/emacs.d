@@ -127,7 +127,7 @@
                               (propertize bname 'face 'font-lock-comment-face)))
                 (current-tab `(current-tab menu-item ,bname-face
                                            (lambda () (interactive)
-                                             (switch-to-buffer ,(buffer-name buffer)))
+                                             (exwm-workspace-switch-to-buffer ,(buffer-name buffer)))
                                            :help "Click to switch buffer"))
                 (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
            (if (= i buffer-list-length)
