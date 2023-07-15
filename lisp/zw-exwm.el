@@ -108,6 +108,30 @@
                                        'face `(:background ,bg-alt :weight regular))
                 nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
+  (defun zw/tab-bar-format-buffers ()
+    (let* ((i 0)
+           (screen-width (frame-width))
+           (buffer-list (zw/exwm-switch-to-buffer-list))
+           (buffer-list-length (length buffer-list))
+           (buffer-name-max (when (> buffer-list-length 0)
+                              (/ screen-width buffer-list-length 2)))
+           (buffer-name-ellipsis "...")
+           (buffer-separator " | "))
+      (mapcan
+       (lambda (buffer)
+         (setq i (1+ i))
+         (let* ((bname (truncate-string-to-width
+                        (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
+                (bname-face (if (string= (buffer-name buffer) (buffer-name))
+                                bname
+                              (propertize bname 'face 'font-lock-comment-face))))
+           `((current-tab menu-item ,bname-face
+                          (lambda () (interactive)
+                            (switch-to-buffer ,(buffer-name buffer)))
+                          :help "Click to switch buffer")
+             (,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore))))
+       buffer-list)))
+
   (defun zw/tab-bar-format-cpu-temp ()
     "Produce menu that shows cpu temperature."
     `((global menu-item ,cpu-temperature-string
@@ -116,7 +140,7 @@
   (setq tab-bar-show t
         tab-bar-format '(zw/tab-bar-format-exwm-workspace
                          tab-bar-separator
-                         zw/tab-bar-format-file-path
+                         zw/tab-bar-format-buffers
                          tab-bar-format-align-right
                          tab-bar-separator
                          tab-bar-separator
