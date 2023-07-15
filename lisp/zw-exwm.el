@@ -464,8 +464,7 @@
 (defun zw/exwm-switch-to-buffer-list ()
   (seq-filter
    (lambda (x)
-     (and (not (eq (current-buffer) x))
-          (not (zw/hidden-buffer-p x))
+     (and (not (zw/hidden-buffer-p x))
           (or (buffer-file-name x)
               (with-current-buffer x
                 (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
@@ -477,7 +476,9 @@
 
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
-  (let* ((buffers (zw/exwm-switch-to-buffer-list))
+  (let* ((buffers (seq-filter
+                   (lambda (x) (not (eq (current-buffer) x)))
+                   (zw/exwm-switch-to-buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
