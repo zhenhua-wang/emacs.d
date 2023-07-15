@@ -123,13 +123,16 @@
          (let* ((bname (truncate-string-to-width
                         (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
                 (bname-face (if (string= (buffer-name buffer) (buffer-name))
-                                bname
-                              (propertize bname 'face 'font-lock-comment-face))))
-           `((current-tab menu-item ,bname-face
-                          (lambda () (interactive)
-                            (switch-to-buffer ,(buffer-name buffer)))
-                          :help "Click to switch buffer")
-             (,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore))))
+                                (propertize bname 'face '(:weight bold))
+                              (propertize bname 'face 'font-lock-comment-face)))
+                (current-tab `(current-tab menu-item ,bname-face
+                                           (lambda () (interactive)
+                                             (switch-to-buffer ,(buffer-name buffer)))
+                                           :help "Click to switch buffer"))
+                (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
+           (if (= i buffer-list-length)
+               (list current-tab)
+             (list current-tab tab-seperator))))
        buffer-list)))
 
   (defun zw/tab-bar-format-cpu-temp ()
