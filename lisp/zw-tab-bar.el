@@ -154,11 +154,16 @@
                            ((> percentage battery-load-critical) " ")
                            (t " "))
                    " "))
+           (text (if (>= percentage 100)
+                     (format "%d " percentage)
+                   (if charging?
+                       (format "+%02d " percentage)
+                     (format " %02d " percentage))))
            (help-echo (if (and battery-echo-area-format data valid-percentage?)
                           (battery-format battery-echo-area-format data)
                         "Battery status not available")))
       (setq battery-mode-line-string
-            (propertize icon 'face face 'help-echo help-echo)))))
+            (propertize text 'face face 'help-echo help-echo)))))
 (advice-add #'battery-update :override #'zw/tab-bar-update-battery-status)
 
 (defun zw/tab-bar-format-battery ()
