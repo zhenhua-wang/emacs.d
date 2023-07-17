@@ -593,9 +593,6 @@
 (when (file-directory-p "~/Documents/Agenda")
   (org-agenda nil "d"))
 
-;; ** company
-(setq company-idle-delay nil)
-
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
