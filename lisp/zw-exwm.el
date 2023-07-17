@@ -44,10 +44,6 @@
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
 ;; * exwm appearance
-;; ** exwm theme
-(load "zw-theme")
-(load-theme 'doom-one t)
-
 ;; ** exwm modeline
 (set-face-attribute 'mode-line nil :box nil)
 
@@ -213,19 +209,14 @@
                                 '(:eval (zw/exwm-float-header-line-rhs)))))
   (setq exwm-manage-configurations
         `(((string= "Emacs" exwm-class-name)
-           floating nil
+           x ,float-x
+           y ,float-y
+           width ,float-width
+           height ,float-height
+           floating t
            char-mode t
-           tiling-mode-line nil
-           tiling-mode-line nil)
-          ;; ((string= "Emacs" exwm-class-name)
-          ;;  x ,float-x
-          ;;  y ,float-y
-          ;;  width ,float-width
-          ;;  height ,float-height
-          ;;  floating t
-          ;;  char-mode t
-          ;;  floating-mode-line nil
-          ;;  floating-header-line nil)
+           floating-mode-line nil
+           floating-header-line nil)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (buffer)
