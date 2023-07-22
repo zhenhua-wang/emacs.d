@@ -526,7 +526,17 @@
 ;; add icons
 (defun zw/nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'exwm-buffer)
-      (nerd-icons-completion-get-icon cand 'buffer)
+      (let* ((exwm-name (with-current-buffer (get-buffer cand)
+                          (if exwm-class-name
+                              (downcase exwm-class-name))))
+             (name (if exwm-name
+                       (string-join (split-string exwm-name "-") "_")))
+             (icon (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
+                       (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
+                       (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
+        (if icon
+            (concat icon " ")
+          (nerd-icons-completion-get-icon cand 'buffer)))
     (funcall orig-func cand cat)))
 
 (advice-add 'nerd-icons-completion-get-icon :around #'zw/nerd-icons-completion-get-icon)
