@@ -524,12 +524,12 @@
               (propertize ann 'face 'marginalia-mode)))))
 
 ;; add icons
-(defun zw/all-the-icons-completion-get-icon (orig-func cand cat)
+(defun zw/nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'exwm-buffer)
-      (all-the-icons-completion-get-icon cand 'buffer)
+      (nerd-icons-completion-get-icon cand 'buffer)
     (funcall orig-func cand cat)))
 
-(advice-add 'all-the-icons-completion-get-icon :around #'zw/all-the-icons-completion-get-icon)
+(advice-add 'nerd-icons-completion-get-icon :around #'zw/nerd-icons-completion-get-icon)
 
 ;; ** exwm show desktop
 (defun zw/exwm-show-desktop ()

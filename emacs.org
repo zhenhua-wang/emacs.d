@@ -238,18 +238,28 @@
 #+end_src
 
 * Appearance
-** All-the-icons
+** Nerd icons
 #+begin_src emacs-lisp
-(use-package all-the-icons
+(use-package nerd-icons
   :if (zw/icon-displayable-p)
-  :init (setq all-the-icons-scale-factor 1)
   :config
-  (add-to-list 'all-the-icons-extension-icon-alist
-               '("rmd" all-the-icons-octicon "markdown" :v-adjust 0.0 :face all-the-icons-lblue))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(ess-r-mode all-the-icons-fileicon "R" :face all-the-icons-lblue))
-  (add-to-list 'all-the-icons-mode-icon-alist
-               '(exwm-mode all-the-icons-faicon "windows" :v-adjust 0.1)))
+  (add-to-list 'nerd-icons-extension-icon-alist
+               '("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
+  (add-to-list 'nerd-icons-mode-icon-alist
+               '(ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
+  (add-to-list 'nerd-icons-mode-icon-alist
+               '(exwm-mode nerd-icons-faicon "nf-fa-windows")))
+
+(use-package nerd-icons-dired
+  :after nerd-icons
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package nerd-icons-completion
+  :if (zw/icon-displayable-p)
+  :after (marginalia nerd-icons)
+  :hook
+  (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  (marginalia-mode . nerd-icons-completion-mode))
 #+end_src
 
 ** Theme
@@ -663,10 +673,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package dired-subtree
   :commands (dired-subtree-toggle))
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode)
-  :config (setq all-the-icons-dired-monochrome nil))
 #+end_src
 
 ** Openwith
@@ -959,13 +965,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
              (propertize " [Off]" 'face 'marginalia-off))))
        (marginalia-annotate-binding cand)
        (marginalia--documentation (marginalia--function-doc sym))))))
-
-(use-package all-the-icons-completion
-  :if (zw/icon-displayable-p)
-  :after (marginalia all-the-icons)
-  :hook
-  (marginalia-mode . all-the-icons-completion-marginalia-setup)
-  (marginalia-mode . all-the-icons-completion-mode))
 #+end_src
 
 *** consult
