@@ -595,16 +595,13 @@
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
 
 ;; add nerd-icons-completion support
-(defun nerd-icons-completion-get-linux-app-icon (cand)
-  "Return the icon for the candidate CAND of completion category Linux app."
-  (let* ((name (downcase cand))
-         (icon (or (zw/nerd-icons-get-app-icon name)
-                   (apply (car nerd-icons-default-file-icon)
-                          (cdr nerd-icons-default-file-icon)))))
-    (concat icon " ")))
 (defun app-launcher-nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'linux-app)
-      (nerd-icons-completion-get-linux-app-icon cand)
+      (let* ((name (downcase cand))
+             (icon (or (zw/nerd-icons-get-app-icon name)
+                       (apply (car nerd-icons-default-file-icon)
+                              (cdr nerd-icons-default-file-icon)))))
+        (concat icon " "))
     (funcall orig-func cand cat)))
 (advice-add 'nerd-icons-completion-get-icon :around #'app-launcher-nerd-icons-completion-get-icon)
 
