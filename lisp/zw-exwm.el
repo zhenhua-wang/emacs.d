@@ -542,8 +542,9 @@
   (if (eq cat 'exwm-buffer)
       (let* ((icon (with-current-buffer (get-buffer cand)
                      (or (let* ((icons-alist (nerd-icons-match-to-alist cand nerd-icons-regexp-icon-alist)))
-                           (apply (car icons-alist)
-                                  (cdr icons-alist)))
+                           (if icons-alist
+                               (apply (car icons-alist)
+                                      (cdr icons-alist))))
                          (if exwm-class-name
                              (zw/nerd-icons-get-app-icon
                               (downcase exwm-class-name)))))))
