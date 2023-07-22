@@ -483,6 +483,20 @@
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
+;; ** nerd icon
+(defun zw/nerd-icons-get-app-icon (name)
+  (let* ((get-icon (lambda (name)
+                     (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
+         (name-splits (split-string name "[- ]+"))
+         (full-name (string-join name-splits "_"))
+         (icon (funcall get-icon full-name)))
+    (if icon
+        icon
+      (let* ((name-first (car name-splits)))
+        (funcall get-icon name-first)))))
+
 ;; ** exwm switch to buffer
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
@@ -526,19 +540,14 @@
 ;; add icons
 (defun zw/nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'exwm-buffer)
-      (let* ((exwm-name (with-current-buffer (get-buffer cand)
-                          (if exwm-class-name
-                              (downcase exwm-class-name))))
-             (name (if exwm-name
-                       (string-join (split-string exwm-name "-") "_")))
-             (icon (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
-                       (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
-                       (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
+      (let* ((icon (with-current-buffer (get-buffer cand)
+                     (if exwm-class-name
+                         (zw/nerd-icons-get-app-icon
+                          (downcase exwm-class-name))))))
         (if icon
             (concat icon " ")
           (nerd-icons-completion-get-icon cand 'buffer)))
     (funcall orig-func cand cat)))
-
 (advice-add 'nerd-icons-completion-get-icon :around #'zw/nerd-icons-completion-get-icon)
 
 ;; ** exwm show desktop
@@ -581,6 +590,22 @@
 ;; ** app launcher
 (use-package app-launcher
   :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
+
+;; add nerd-icons-completion support
+(defun nerd-icons-completion-get-linux-app-icon (cand)
+  "Return the icon for the candidate CAND of completion category Linux app."
+  (let* ((name (downcase cand))
+         (icon (zw/nerd-icons-get-app-icon name)))
+    (if icon
+        (concat icon " ")
+      (concat
+       (apply (car nerd-icons-default-file-icon) (cdr nerd-icons-default-file-icon))
+       " "))))
+(defun app-launcher-nerd-icons-completion-get-icon (orig-func cand cat)
+  (if (eq cat 'linux-app)
+      (nerd-icons-completion-get-linux-app-icon cand)
+    (funcall orig-func cand cat)))
+(advice-add 'nerd-icons-completion-get-icon :around #'app-launcher-nerd-icons-completion-get-icon)
 
 ;; ** exwm edit
 (use-package exwm-edit
