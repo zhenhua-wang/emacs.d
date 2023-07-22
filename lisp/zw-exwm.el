@@ -278,6 +278,20 @@
                  (window-height . 0.5)))
   (add-to-list 'zw/side-window-buffer-regex buffer))
 
+;; ** nerd icon
+(defun zw/nerd-icons-get-app-icon (name)
+  (let* ((get-icon (lambda (name)
+                     (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
+         (name-splits (split-string name "[- ]+"))
+         (full-name (string-join name-splits "_"))
+         (icon (funcall get-icon full-name)))
+    (if icon
+        icon
+      (let* ((name-first (car name-splits)))
+        (funcall get-icon name-first)))))
+
 ;; ** keycast
 (use-package keycast
   :config
@@ -482,20 +496,6 @@
 
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
-
-;; ** nerd icon
-(defun zw/nerd-icons-get-app-icon (name)
-  (let* ((get-icon (lambda (name)
-                     (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
-                         (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
-                         (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
-         (name-splits (split-string name "[- ]+"))
-         (full-name (string-join name-splits "_"))
-         (icon (funcall get-icon full-name)))
-    (if icon
-        icon
-      (let* ((name-first (car name-splits)))
-        (funcall get-icon name-first)))))
 
 ;; ** exwm switch to buffer
 (defun zw/exwm-switch-to-buffer-annotation (style)
