@@ -2,26 +2,6 @@
 (require 'proced)
 (require 'seq)
 
-(defun zw/get-face-attr-recur (face attr)
-  "helper functions to get face background/foreground recursively"
-  (let ((face-attr (face-attribute face attr)))
-    (if (and face-attr
-             (not (eq face-attr 'unspecified)))
-        face-attr
-      (let ((parent-face (face-attribute face :inherit)))
-        (if (and parent-face
-                 (not (eq parent-face 'unspecified)))
-            (zw/get-face-attr-recur parent-face attr)
-          nil)))))
-
-(defun zw/get-face-bg-recur (face)
-  "get face background recursively"
-  (zw/get-face-attr-recur face :background))
-
-(defun zw/get-face-fg-recur (face)
-  "get face foreground recursively"
-  (zw/get-face-attr-recur face :foreground))
-
 (defun zw/close-shell ()
   "close window when close shell buffer including REPLs"
   (interactive)
@@ -164,8 +144,5 @@ i.e. windows tiled side-by-side."
    ((and outline-minor-mode (outline-on-heading-p)) (outline-toggle-children))
    ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
-
-(defun zw/hidden-buffer-p (&optional buffer)
-  (string-match "^[[:space:]].*$" (buffer-name buffer)))
 
 (provide 'zw-tools)

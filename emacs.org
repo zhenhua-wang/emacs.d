@@ -85,11 +85,42 @@
 #+end_src
 
 * Setting
-** Global variable
+** Global helper
 #+begin_src emacs-lisp
 (defun zw/icon-displayable-p ()
   "Return non-nil if icons are displayable."
   (or (display-graphic-p) (daemonp)))
+
+(defun zw/hidden-buffer-p (&optional buffer)
+  (string-match "^[[:space:]].*$" (buffer-name buffer)))
+
+(defun zw/merge-list-to-list (dst src &optional prepend)
+  "Merges content of the 2nd list with the 1st one"
+  (if prepend
+      (set dst
+           (append src (eval dst)))
+    (set dst
+         (append (eval dst) src))))
+
+(defun zw/get-face-attr-recur (face attr)
+  "helper functions to get face background/foreground recursively"
+  (let ((face-attr (face-attribute face attr)))
+    (if (and face-attr
+             (not (eq face-attr 'unspecified)))
+        face-attr
+      (let ((parent-face (face-attribute face :inherit)))
+        (if (and parent-face
+                 (not (eq parent-face 'unspecified)))
+            (zw/get-face-attr-recur parent-face attr)
+          nil)))))
+
+(defun zw/get-face-bg-recur (face)
+  "get face background recursively"
+  (zw/get-face-attr-recur face :background))
+
+(defun zw/get-face-fg-recur (face)
+  "get face foreground recursively"
+  (zw/get-face-attr-recur face :foreground))
 #+end_src
 
 ** Global modes
@@ -243,16 +274,21 @@
 (use-package nerd-icons
   :if (zw/icon-displayable-p)
   :config
-  (add-to-list 'nerd-icons-regexp-icon-alist
-               '("^firefox:.*" nerd-icons-mdicon "nf-md-firefox"))
-  (add-to-list 'nerd-icons-regexp-icon-alist
-               '("^discord:.*" nerd-icons-mdicon "nf-md-discord"))
-  (add-to-list 'nerd-icons-extension-icon-alist
-               '("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
-  (add-to-list 'nerd-icons-mode-icon-alist
-               '(ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
-  (add-to-list 'nerd-icons-mode-icon-alist
-               '(exwm-mode nerd-icons-faicon "nf-fa-windows")))
+  (zw/merge-list-to-list 'nerd-icons/mdicon-alist
+                         '(("nf-md-firefox_web_browser" . "󰈹")
+                           ("nf-md-visual_studio_code" . "󰨞"))
+                         'prepend)
+  (zw/merge-list-to-list 'nerd-icons-regexp-icon-alist
+                         '(("^firefox:.*" nerd-icons-mdicon "nf-md-firefox")
+                           ("^discord:.*" nerd-icons-mdicon "nf-md-discord"))
+                         'prepend)
+  (zw/merge-list-to-list 'nerd-icons-extension-icon-alist
+                         '(("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
+                         'prepend)
+  (zw/merge-list-to-list 'nerd-icons-mode-icon-alist
+                         '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue)
+                           (exwm-mode nerd-icons-faicon "nf-fa-windows"))
+                         'prepend))
 
 (use-package nerd-icons-dired
   :after nerd-icons
