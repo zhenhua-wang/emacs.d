@@ -243,6 +243,10 @@
 (use-package nerd-icons
   :if (zw/icon-displayable-p)
   :config
+  (add-to-list 'nerd-icons-regexp-icon-alist
+               '("^firefox:.*" nerd-icons-mdicon "nf-md-firefox"))
+  (add-to-list 'nerd-icons-regexp-icon-alist
+               '("^discord:.*" nerd-icons-mdicon "nf-md-discord"))
   (add-to-list 'nerd-icons-extension-icon-alist
                '("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
   (add-to-list 'nerd-icons-mode-icon-alist
