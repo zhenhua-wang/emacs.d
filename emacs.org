@@ -280,7 +280,8 @@
                          'prepend)
   (zw/merge-list-to-list 'nerd-icons-regexp-icon-alist
                          '(("^firefox:.*" nerd-icons-mdicon "nf-md-firefox")
-                           ("^discord:.*" nerd-icons-mdicon "nf-md-discord"))
+                           ("^discord:.*" nerd-icons-mdicon "nf-md-discord")
+                           ("^Code:.*" nerd-icons-mdicon "nf-md-visual_studio_code"))
                          'prepend)
   (zw/merge-list-to-list 'nerd-icons-extension-icon-alist
                          '(("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))

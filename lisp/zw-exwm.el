@@ -541,9 +541,12 @@
 (defun zw/nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'exwm-buffer)
       (let* ((icon (with-current-buffer (get-buffer cand)
-                     (if exwm-class-name
-                         (zw/nerd-icons-get-app-icon
-                          (downcase exwm-class-name))))))
+                     (or (let* ((icons-alist (nerd-icons-match-to-alist cand nerd-icons-regexp-icon-alist)))
+                           (apply (car icons-alist)
+                                  (cdr icons-alist)))
+                         (if exwm-class-name
+                             (zw/nerd-icons-get-app-icon
+                              (downcase exwm-class-name)))))))
         (if icon
             (concat icon " ")
           (nerd-icons-completion-get-icon cand 'buffer)))
@@ -595,12 +598,10 @@
 (defun nerd-icons-completion-get-linux-app-icon (cand)
   "Return the icon for the candidate CAND of completion category Linux app."
   (let* ((name (downcase cand))
-         (icon (zw/nerd-icons-get-app-icon name)))
-    (if icon
-        (concat icon " ")
-      (concat
-       (apply (car nerd-icons-default-file-icon) (cdr nerd-icons-default-file-icon))
-       " "))))
+         (icon (or (zw/nerd-icons-get-app-icon name)
+                   (apply (car nerd-icons-default-file-icon)
+                          (cdr nerd-icons-default-file-icon)))))
+    (concat icon " ")))
 (defun app-launcher-nerd-icons-completion-get-icon (orig-func cand cat)
   (if (eq cat 'linux-app)
       (nerd-icons-completion-get-linux-app-icon cand)
