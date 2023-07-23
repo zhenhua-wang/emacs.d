@@ -522,14 +522,14 @@
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
          (zw/display-buffer-in-largest-window))
         ;; top side window
-        ("\\*\\(polymode export\\|compilation\\).*"
-         (display-buffer-in-side-window)
-         (window-height . 0.2)
-         (side . top)
-         (slot . 1))
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
          (window-width . 0.2)
+         (side . top)
+         (slot . -1))
+        ("\\*\\(polymode export\\|compilation\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
          (side . top)
          (slot . 1))
         ;; right side window

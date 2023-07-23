@@ -281,7 +281,8 @@
 ;; ** nerd icon
 (defun zw/nerd-icons-get-app-icon (name)
   (let* ((get-icon (lambda (name)
-                     (or (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
+                     (or (ignore-errors (nerd-icons-devicon (format "nf-dev-%s" name)))
+                         (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
                          (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
                          (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
          (name-splits (split-string name "[- ]+"))
