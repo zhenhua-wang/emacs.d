@@ -29,7 +29,7 @@
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
   :keymap
-  `((,(kbd "s-b") . zw/kill-bufer-quit-window)
+  `((,(kbd "s-b") . quit-window)
     (,(kbd "^") . zw/dired-up-directory)
     (,(kbd "RET") . zw/dired-find-file))
   (let* ((dir (dired-current-directory))
