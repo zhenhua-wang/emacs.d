@@ -732,7 +732,7 @@
         ;; input
         (,(kbd "C-\\") . toggle-input-method)
         ;; side bar
-        (,(kbd "s-b") . dired-jump)
+        (,(kbd "s-b") . zw/dired-on-left)
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
