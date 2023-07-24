@@ -4,8 +4,7 @@
   (let* ((dir (or (vc-root-dir)
                   (ignore-errors (file-name-directory (buffer-file-name)))
                   default-directory))
-         (buffer (dired-noselect dir))
-         (name (concat " :" dir)))
+         (buffer (dired-noselect dir)))
     (with-current-buffer buffer (zw-dired-sidebar-mode 1))
     (display-buffer-in-side-window
      buffer `((side . left) (slot . 0)
@@ -29,7 +28,9 @@
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
   :keymap
-  `((,(kbd "s-b") . quit-window)
+  `((,(kbd "s-q") . zw/kill-bufer-quit-window)
+    (,(kbd "q") . zw/kill-bufer-quit-window)
+    (,(kbd "s-b") . zw/kill-bufer-quit-window)
     (,(kbd "^") . zw/dired-up-directory)
     (,(kbd "RET") . zw/dired-find-file))
   (let* ((dir (dired-current-directory))
