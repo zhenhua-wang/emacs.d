@@ -144,7 +144,7 @@ i.e. windows tiled side-by-side."
    (t (indent-for-tab-command))))
 
 (defun zw/dired-on-left ()
-  "Display `default-directory' in side window on left, hiding details."
+  "Display project root in side window on left, hiding details."
   (interactive)
   (let ((buffer (dired-noselect (or (vc-root-dir)
                                     (ignore-errors (file-name-directory (buffer-file-name)))
