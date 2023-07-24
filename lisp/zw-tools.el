@@ -154,7 +154,8 @@ i.e. windows tiled side-by-side."
      buffer `((side . left) (slot . 0)
               (window-width . 0.2)
               (preserve-size . (t . nil))
-              (window-parameters . ((no-delete-other-windows . t)))))
+              (window-parameters . ((no-delete-other-windows . t)
+                                    (dedicated . t)))))
     (select-window (get-buffer-window buffer))))
 
 (provide 'zw-tools)
