@@ -702,7 +702,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind ((:map dired-mode-map
                ("<tab>" . dired-subtree-toggle)
                ("<mouse-2>" . dired-find-file)
-               ("q" . dired-find-file)))
+               ("q" . zw/kill-bufer-quit-window)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t
