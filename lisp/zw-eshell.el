@@ -28,7 +28,7 @@
   :config
   (add-hook 'eshell-mode-hook
             (lambda ()
-              (define-key eshell-mode-map (kbd "s-q") #'zw/close-shell)
+              (define-key eshell-mode-map (kbd "s-q") #'zw/kill-bufer-quit-window)
               (define-key eshell-mode-map (kbd "s-e") #'delete-window)
               (define-key eshell-hist-mode-map (kbd "M-s") nil))))
 

@@ -671,7 +671,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
-               ("s-e" . zw/delte-window-or-bury-buffer)
+               ("s-e" . quit-window)
                ("s-z" . vterm-undo)
                ("<f5>" . nil)))
   :init
@@ -697,10 +697,12 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
+  (dired-mode . dired-hide-details-mode)
   (dired-mode . (lambda () (visual-line-mode 0)))
   :bind ((:map dired-mode-map
                ("<tab>" . dired-subtree-toggle)
-               ("<mouse-2>" . dired-find-file)))
+               ("<mouse-2>" . dired-find-file)
+               ("q" . dired-find-file)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t

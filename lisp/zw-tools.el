@@ -2,8 +2,13 @@
 (require 'proced)
 (require 'seq)
 
-(defun zw/close-shell ()
-  "close window when close shell buffer including REPLs"
+(defun zw/quit-window-kill-bufer ()
+  "Quit window then kill buffer."
+  (interactive)
+  (quit-window 'kill))
+
+(defun zw/kill-bufer-quit-window ()
+  "Kill buffer then quit window."
   (interactive)
   (if (one-window-p)
       (kill-buffer)
@@ -18,13 +23,6 @@
                (delete-other-windows)
                (switch-to-buffer current-buffer-name))
       (delete-other-windows))))
-
-(defun zw/delte-window-or-bury-buffer ()
-  "delete or bury"
-  (interactive)
-  (if (one-window-p)
-      (bury-buffer)
-    (delete-window)))
 
 (defun zw/update-emacs-tangle-dotfiles ()
   "update zw/emacs and tangle dotfiles"
