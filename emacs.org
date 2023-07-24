@@ -236,7 +236,6 @@
            ("s-0" . tab-close)
            ;; misc commands
            ("s-i" . zw/show-info)
-           ("s-b" . zw/dired-on-left)
            ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
            ("s-\\" . toggle-input-method)
@@ -723,6 +722,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
 
 (use-package dired-subtree
   :commands (dired-subtree-toggle))
+
+(use-package zw-dired-sidebar
+  :straight (:type built-in)
+  :bind (("s-b" . zw/toggle-dired-sidebar)))
 #+end_src
 
 ** Openwith
