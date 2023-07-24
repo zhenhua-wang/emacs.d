@@ -236,7 +236,7 @@
            ("s-0" . tab-close)
            ;; misc commands
            ("s-i" . zw/show-info)
-           ("s-b" . dired-jump)
+           ("s-b" . zw/dired-on-left)
            ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
            ("s-\\" . toggle-input-method)

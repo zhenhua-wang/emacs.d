@@ -145,4 +145,18 @@ i.e. windows tiled side-by-side."
    ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
 
+(defun zw/dired-on-left ()
+  "Display `default-directory' in side window on left, hiding details."
+  (interactive)
+  (let ((buffer (dired-noselect (or (vc-root-dir)
+                                    (ignore-errors (file-name-directory (buffer-file-name)))
+                                    default-directory))))
+    (with-current-buffer buffer (dired-hide-details-mode t))
+    (display-buffer-in-side-window
+     buffer `((side . left) (slot . 0)
+              (window-width . 0.2)
+              (preserve-size . (t . nil))
+              (window-parameters . ((no-delete-other-windows . t)))))
+    (select-window (get-buffer-window buffer))))
+
 (provide 'zw-tools)
