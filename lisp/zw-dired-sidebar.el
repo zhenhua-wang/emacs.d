@@ -1,6 +1,12 @@
 (defun zw/toggle-dired-sidebar ()
   "Toggle dired on left side."
   (interactive)
+  ;; close all old sidebars
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when zw-dired-sidebar-mode
+        (kill-buffer buffer))))
+  ;; open current directory in sidebar
   (let* ((dir (abbreviate-file-name
                (or (vc-root-dir)
                    (ignore-errors (file-name-directory (buffer-file-name)))
@@ -15,15 +21,22 @@
                                     (dedicated . t)))))
     (select-window (get-buffer-window buffer))))
 
-(defun zw/dired-find-file ()
+(defun zw/dired-sidebar-find-file ()
   (interactive)
   (dired-find-file)
   (zw-dired-sidebar-mode 1))
 
-(defun zw/dired-up-directory ()
+(defun zw/dired-sidebar-up-directory ()
   (interactive)
   (dired-up-directory)
   (zw-dired-sidebar-mode 1))
+
+(defun zw/dired-sidebar-open-in-dired ()
+  (interactive)
+  (let* ((dir (dired-current-directory)))
+    (kill-buffer (current-buffer))
+    (dired dir)
+    (message (format "open %s in dired" dir))))
 
 (defun zw/dired-sidebar-modeline-major-mode ()
   "Sidebar modeline major mode."
@@ -41,9 +54,10 @@
   `((,(kbd "s-q") . zw/kill-bufer-quit-window)
     (,(kbd "q") . zw/kill-bufer-quit-window)
     (,(kbd "s-b") . zw/kill-bufer-quit-window)
-    (,(kbd "^") . zw/dired-up-directory)
-    (,(kbd "RET") . zw/dired-find-file)
-    (,(kbd "<mouse-2>") . zw/dired-find-file))
+    (,(kbd "^") . zw/dired-sidebar-up-directory)
+    (,(kbd "RET") . zw/dired-sidebar-find-file)
+    (,(kbd "<mouse-2>") . zw/dired-sidebar-find-file)
+    (,(kbd "C-x 1") . zw/dired-sidebar-open-in-dired))
   (let* ((dir (abbreviate-file-name (dired-current-directory)))
          (current-dir (zw/dired-sidebar-modeline-directory dir))
          (buffer (dired-noselect dir))
