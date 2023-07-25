@@ -25,6 +25,11 @@
   (dired-up-directory)
   (zw-dired-sidebar-mode 1))
 
+(defun zw/dired-sidebar-modeline-major-mode ()
+  "Sidebar modeline major mode."
+  (propertize "Sidebar " 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                                     'zw/modeline-default-inactive)))
+
 (define-minor-mode zw-dired-sidebar-mode
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
@@ -43,7 +48,11 @@
           (dired-hide-details-mode t)
           (rename-buffer name)
           (setq-local mode-line-format
-                      (list "%e" " " dir)))
+                      (list "%e" " "
+                            dir zw/modeline-separator
+                            '(:eval (zw/modeline-remote))
+                            '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))
+                            '(:eval (zw/dired-sidebar-modeline-major-mode)))))
       (with-current-buffer buffer
         (rename-buffer dir)))))
 
