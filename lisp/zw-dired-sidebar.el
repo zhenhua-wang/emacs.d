@@ -71,7 +71,8 @@
                             current-dir zw/modeline-separator
                             '(:eval (zw/modeline-remote))
                             '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))
-                            '(:eval (zw/dired-sidebar-modeline-major-mode)))))
+                            '(:eval (zw/dired-sidebar-modeline-major-mode))))
+          (set-window-dedicated-p (get-buffer-window (current-buffer)) 'dedicated))
       (with-current-buffer buffer
         (rename-buffer dir)))))
 
