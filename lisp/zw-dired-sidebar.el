@@ -30,6 +30,10 @@
   (propertize "Sidebar " 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                      'zw/modeline-default-inactive)))
 
+(defun zw/dired-sidebar-modeline-directory (dir)
+  "Sidebar modeline directory."
+  (car (last (split-string dir "/") 2)))
+
 (define-minor-mode zw-dired-sidebar-mode
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
@@ -41,6 +45,7 @@
     (,(kbd "RET") . zw/dired-find-file)
     (,(kbd "<mouse-2>") . zw/dired-find-file))
   (let* ((dir (abbreviate-file-name (dired-current-directory)))
+         (current-dir (zw/dired-sidebar-modeline-directory dir))
          (buffer (dired-noselect dir))
          (name (concat " :" dir)))
     (if zw-dired-sidebar-mode
@@ -49,7 +54,7 @@
           (rename-buffer name)
           (setq-local mode-line-format
                       (list "%e" " "
-                            dir zw/modeline-separator
+                            current-dir zw/modeline-separator
                             '(:eval (zw/modeline-remote))
                             '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))
                             '(:eval (zw/dired-sidebar-modeline-major-mode)))))
