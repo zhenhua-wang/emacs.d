@@ -696,7 +696,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
   :hook
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
-  (dired-mode . dired-hide-details-mode)
   (dired-mode . (lambda () (visual-line-mode 0)))
   :bind ((:map dired-mode-map
                ("<tab>" . dired-subtree-toggle)
