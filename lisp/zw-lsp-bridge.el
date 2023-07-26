@@ -5,7 +5,7 @@
   :hook
   (python-mode . lsp-bridge-mode)
   ((c++-mode c-mode) . lsp-bridge-mode)
-  ;; (ess-r-mode . lsp-bridge-mode)
+  (ess-r-mode . lsp-bridge-mode)
   (lsp-bridge-mode . (lambda () (company-mode -1)))
   :bind ((:map lsp-bridge-mode-map
                ("M-<tab>" . (lambda () (interactive) (acm-update)))
