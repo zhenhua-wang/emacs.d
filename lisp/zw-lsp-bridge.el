@@ -18,11 +18,6 @@
   :config
   (setq acm-enable-doc nil
         acm-candidate-match-function 'orderless-prefixes)
-  ;; acm font
-  (set-face-attribute 'acm-frame-select-face nil
-		      :bold t
-                      :foreground (face-foreground 'warning)
-                      :underline t)
   ;; send polymode content to lsp-bridge
   (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
