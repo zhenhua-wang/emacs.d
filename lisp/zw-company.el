@@ -60,7 +60,7 @@
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
-        company-posframe-show-indicator nil)
+        company-posframe-show-indicator t)
   ;; set show parameters
   (defun zw/company-posframe-refposhandler (&optional frame)
     (cond
