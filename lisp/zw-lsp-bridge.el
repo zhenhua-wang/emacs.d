@@ -16,8 +16,6 @@
                ("M->" . acm-select-last)
                ("M-<" . acm-select-first)))
   :config
-  (setq acm-enable-doc nil
-        acm-candidate-match-function 'orderless-prefixes)
   ;; send polymode content to lsp-bridge
   (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
