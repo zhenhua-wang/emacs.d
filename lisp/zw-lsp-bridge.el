@@ -9,13 +9,14 @@
   (lsp-bridge-mode . (lambda () (company-mode -1)))
   :bind ((:map lsp-bridge-mode-map
                ("M-<tab>" . (lambda () (interactive) (acm-update)))
-               ("s-d" . lsp-bridge-lookup-documentation)
-               ("s-n" . lsp-bridge-popup-documentation-scroll-up)
-               ("s-p" . lsp-bridge-popup-documentation-scroll-down))
+               ("s-d" . acm-doc-toggle)
+               ("s-n" . acm-doc-scroll-up)
+               ("s-p" . acm-doc-scroll-down))
          (:map acm-mode-map
                ("M->" . acm-select-last)
                ("M-<" . acm-select-first)))
   :config
+  (setq acm-enable-doc nil)
   ;; send polymode content to lsp-bridge
   (defun zw-polymode-lsp-buffer-content (orig-fun &rest arguments)
     (if (and polymode-mode pm/polymode)
