@@ -94,6 +94,10 @@
 (defun zw/hidden-buffer-p (&optional buffer)
   (string-match "^[[:space:]].*$" (buffer-name buffer)))
 
+(defun zw/side-window-p ()
+  "Return non-nil if current window is a side window."
+  (window-parameter (get-buffer-window) 'window-side))
+
 (defun zw/merge-list-to-list (dst src &optional prepend)
   "Merges content of the 2nd list with the 1st one"
   (if prepend

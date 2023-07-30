@@ -75,8 +75,11 @@
                             '(:eval (zw/modeline-remote))
                             '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))
                             '(:eval (zw/dired-sidebar-modeline-major-mode))))
-          (set-window-dedicated-p (get-buffer-window (current-buffer)) 'dedicated))
+          (set-window-dedicated-p (get-buffer-window buffer) 'dedicated))
       (with-current-buffer buffer
-        (rename-buffer dir)))))
+        (dired-hide-details-mode 0)
+        (rename-buffer dir)
+        (setq-local mode-line-format (default-value 'mode-line-format))
+        (set-window-dedicated-p (get-buffer-window buffer) nil)))))
 
 (provide 'zw-dired-sidebar)
