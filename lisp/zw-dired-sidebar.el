@@ -1,6 +1,7 @@
 (defun zw/dired-sidebar-enable ()
   (interactive)
-  (if (eq major-mode 'dired-mode)
+  (if (and (eq major-mode 'dired-mode)
+           (zw/side-window-p))
       (zw-dired-sidebar-mode 1)))
 
 (defun zw/dired-sidebar-disable ()
@@ -24,12 +25,12 @@
     ;; bury current dired buffer when it has the same root as sidebar
     (when (eq (current-buffer) buffer)
       (bury-buffer))
-    (with-current-buffer buffer (zw/dired-sidebar-enable))
     (display-buffer-in-side-window
      buffer `((side . left) (slot . 0)
               (window-width . 0.2)
               (preserve-size . (t . nil))
               (window-parameters . ((dedicated . t)))))
+    (with-current-buffer buffer (zw/dired-sidebar-enable))
     (select-window (get-buffer-window buffer))))
 
 (defun zw/dired-sidebar-find-file ()
