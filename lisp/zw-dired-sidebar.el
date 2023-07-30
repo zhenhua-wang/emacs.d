@@ -1,3 +1,12 @@
+(defun zw/dired-sidebar-enable ()
+  (interactive)
+  (if (eq major-mode 'dired-mode)
+      (zw-dired-sidebar-mode 1)))
+
+(defun zw/dired-sidebar-disable ()
+  (interactive)
+  (zw-dired-sidebar-mode 0))
+
 (defun zw/toggle-dired-sidebar ()
   "Toggle dired on left side."
   (interactive)
@@ -15,31 +24,28 @@
     ;; bury current dired buffer when it has the same root as sidebar
     (when (eq (current-buffer) buffer)
       (bury-buffer))
-    (with-current-buffer buffer (zw-dired-sidebar-mode 1))
+    (with-current-buffer buffer (zw/dired-sidebar-enable))
     (display-buffer-in-side-window
      buffer `((side . left) (slot . 0)
               (window-width . 0.2)
               (preserve-size . (t . nil))
-              (window-parameters . ((no-delete-other-windows . t)
-                                    (dedicated . t)))))
+              (window-parameters . ((dedicated . t)))))
     (select-window (get-buffer-window buffer))))
 
 (defun zw/dired-sidebar-find-file ()
   (interactive)
   (dired-find-file)
-  (zw-dired-sidebar-mode 1))
+  (zw/dired-sidebar-enable))
 
 (defun zw/dired-sidebar-up-directory ()
   (interactive)
   (dired-up-directory)
-  (zw-dired-sidebar-mode 1))
+  (zw/dired-sidebar-enable))
 
-(defun zw/dired-sidebar-open-in-dired ()
+(defun zw/dired-sidebar-maximize ()
   (interactive)
-  (let* ((dir (dired-current-directory)))
-    (kill-buffer (current-buffer))
-    (dired dir)
-    (message (format "open %s in dired" dir))))
+  (zw/maximize-window)
+  (zw/dired-sidebar-disable))
 
 (defun zw/dired-sidebar-modeline-major-mode ()
   "Sidebar modeline major mode."
@@ -60,7 +66,7 @@
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-find-file)
-    (,(kbd "C-x 1") . zw/dired-sidebar-open-in-dired))
+    (,(kbd "C-x 1") . zw/dired-sidebar-maximize))
   (let* ((dir (abbreviate-file-name (dired-current-directory)))
          (current-dir (zw/dired-sidebar-modeline-directory dir))
          (buffer (dired-noselect dir))
