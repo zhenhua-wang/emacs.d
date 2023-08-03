@@ -1,15 +1,18 @@
-An emacs config tailored for statistician and data scientist.
+<div align="center">
+
+# Zhenhua Emacs Config
 
 ![example](./example.png)
 
-# Table of Contents
+</div>
 
-1.  [Prerequisite](#orgfb4b193)
-2.  [install](#orgf33587f)
-3.  [Main Packages](#org64c0f2f)
+---
 
+### Table of Contents
 
-<a id="orgfb4b193"></a>
+1.  [Prerequisite](#prerequisite)
+2.  [Installation](#installation)
+3.  [Main Packages](#main-packages)
 
 # Prerequisite
 
@@ -19,15 +22,10 @@ An emacs config tailored for statistician and data scientist.
 -   hack: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 -   EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
 
-<a id="orgf33587f"></a>
-
-# install
+# Installation
 
 -   clone this reposition to your home folder (~).
 -   change folder name into .emacs.d. (adding a dot in the front)
-
-
-<a id="org64c0f2f"></a>
 
 # Main Packages
 
