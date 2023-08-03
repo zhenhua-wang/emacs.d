@@ -379,7 +379,10 @@
                            " "
                            '(:eval (zw/modeline-tab-index))
                            ;; the buffer name
-                           '(:eval (zw/modeline-buffer-name 10 "..."))
+                           '(:eval (propertize
+                                    (zw/modeline-buffer-name 10 "...")
+                                    'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                                                'zw/modeline-default-inactive)))
                            ;; text scale amount
                            '(:eval (zw/modeline-text-scale))
                            ;; mark active

@@ -78,10 +78,11 @@
           (rename-buffer name)
           (setq-local mode-line-format
                       (list "%e" " "
-                            current-dir zw/modeline-separator
+                            `(:eval (propertize ,(concat current-dir zw/modeline-separator)
+                                                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                                                            'zw/modeline-default-inactive)))
                             '(:eval (zw/modeline-remote))
-                            '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))
-                            '(:eval (zw/dired-sidebar-modeline-major-mode))))
+                            '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))))
           (set-window-dedicated-p (get-buffer-window buffer) 'dedicated))
       (with-current-buffer buffer
         (dired-hide-details-mode 0)
