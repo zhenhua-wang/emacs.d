@@ -172,7 +172,7 @@
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
-(setq exwm-systemtray-background-color 'workspace-background
+(setq exwm-systemtray-background-color (face-background 'mode-line)
       exwm-systemtray-icon-gap 1)
 
 ;; ** exwm window management
@@ -438,9 +438,13 @@
   (zw/exwm-set-ui nil)
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
-;; ** posframe
-(require 'exwm-posframe-mode)
-(add-hook 'exwm-init-hook (lambda () (exwm-posframe-mode 1)))
+;; ** minibuffer
+(vertico-posframe-mode 0)
+(setq exwm-workspace-minibuffer-position 'bottom
+      exwm-workspace-display-echo-area-timeout 1)
+(add-hook 'exwm-init-hook
+          (lambda ()
+            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
 
 ;; * exwm tool
 ;; ** xmodmap
