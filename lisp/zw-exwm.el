@@ -443,7 +443,7 @@
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (setq exwm-workspace-minibuffer-position 'bottom)
 ;; FIXME: detached minibuffer freezes on help message
-(setq show-help-function nil)
+(tooltip-mode 1)
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
