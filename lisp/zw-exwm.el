@@ -140,6 +140,14 @@
     `((global menu-item ,cpu-temperature-string
               nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
 
+  (defun zw/tab-bar-format-pyim ()
+    "Produce menu that shows pyim."
+    (let* ((input-method (or current-input-method-title ""))
+           (chinese-input-method-p (string-match-p "PYIM" input-method))
+           (chinese-input-method (if chinese-input-method-p "中 " "EN ")))
+      `((global menu-item ,chinese-input-method
+                nil :help ,(format "Current input method: %s" current-input-method-title)))))
+
   (setq tab-bar-show t
         tab-bar-format '(zw/tab-bar-format-exwm-workspace
                          tab-bar-separator
@@ -148,6 +156,7 @@
                          tab-bar-separator
                          tab-bar-separator
                          tab-bar-separator
+                         zw/tab-bar-format-pyim
                          zw/tab-bar-format-cpu-temp
                          zw/tab-bar-format-time
                          zw/tab-bar-format-battery))
