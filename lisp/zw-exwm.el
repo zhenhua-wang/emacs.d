@@ -441,8 +441,9 @@
 ;; ** minibuffer
 (vertico-posframe-mode 0)
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
-(setq exwm-workspace-minibuffer-position 'bottom
-      exwm-workspace-display-echo-area-timeout nil)
+(setq exwm-workspace-minibuffer-position 'bottom)
+;; FIXME: detached minibuffer freezes on help message
+(setq show-help-function nil)
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
