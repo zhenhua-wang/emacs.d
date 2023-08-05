@@ -731,7 +731,6 @@
         (,(kbd "s-`") . zw/side-window-toggle)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
-        (,(kbd "<f7>") . exwm-workspace-toggle-minibuffer)
         ;; web search
         (,(kbd "s-/") . emacs-websearch)
         ;; Launch applications
