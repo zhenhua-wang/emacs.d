@@ -448,6 +448,9 @@
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
 (add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
+(with-eval-after-load "pyim"
+  (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
+  (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
 
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
