@@ -143,8 +143,8 @@
   (defun zw/tab-bar-format-pyim ()
     "Produce menu that shows pyim."
     (let* ((input-method (or current-input-method-title ""))
-           (chinese-input-method-p (string-match-p "PYIM" input-method))
-           (chinese-input-method (if chinese-input-method-p "中 " "EN ")))
+           (chinese-input-method-p (string-match-p "PYIM/C" input-method))
+           (chinese-input-method (if chinese-input-method-p "中 " "")))
       `((global menu-item ,chinese-input-method
                 nil :help ,(format "Current input method: %s" current-input-method-title)))))
 
