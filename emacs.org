@@ -565,7 +565,8 @@
          (display-buffer-at-bottom)
          ;; (display-buffer-in-side-window)
          (window-height . 0.2)
-         (side . bottom))
+         (side . bottom)
+         (dedicated . t))
         ;; below current window
         ("\\*Calendar.*"
          (display-buffer-reuse-mode-window display-buffer-below-selected)
