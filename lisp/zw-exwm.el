@@ -452,6 +452,7 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
+(bind-keys :map global-map ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit))
 
 ;; * exwm tool
 ;; ** xmodmap
@@ -714,7 +715,6 @@
 ;; ** exwm global keys
 (setq exwm-input-global-keys
       `(
-        (,(kbd "<escape>") . zw/exwm-minibuffer-and-keyboard-quit)
         ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
         ;; window
