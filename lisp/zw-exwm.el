@@ -447,6 +447,7 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
+(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
