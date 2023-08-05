@@ -128,7 +128,7 @@
                 (current-tab `(current-tab menu-item ,bname-face
                                            (lambda () (interactive)
                                              (exwm-workspace-switch-to-buffer ,(buffer-name buffer)))
-                                           :help "Click to switch buffer"))
+                                           :help ,(buffer-name buffer)))
                 (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
            (if (= i buffer-list-length)
                (list current-tab)
