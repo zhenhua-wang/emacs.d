@@ -468,7 +468,11 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
-(bind-keys :map global-map ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit))
+(bind-keys :map global-map
+           ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit)
+           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
+           :map exwm-mode-map
+           ("s-<escape>" . exwm-workspace-toggle-minibuffer))
 
 ;; * exwm tool
 ;; ** xmodmap
