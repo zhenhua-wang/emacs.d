@@ -451,7 +451,7 @@
 (vertico-posframe-mode 0)
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (setq exwm-workspace-minibuffer-position 'bottom)
-;; FIXME: detached minibuffer freezes on help message
+;; detached minibuffer freezes on help message
 ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
 (tooltip-mode 1)
 (setq echo-keystrokes 0)
