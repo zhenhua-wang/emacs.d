@@ -115,9 +115,9 @@
            (buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y))))
            (buffer-list (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func))
            (buffer-list-length (length buffer-list))
-           (buffer-name-max (- (when (> buffer-list-length 0)
-                                 (/ screen-width buffer-list-length 2))
-                               (length buffer-separator))))
+           (buffer-name-max (when (> buffer-list-length 0)
+                              (- (/ screen-width buffer-list-length 2)
+                                 (length buffer-separator)))))
       (mapcan
        (lambda (buffer)
          (setq i (1+ i))
