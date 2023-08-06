@@ -453,6 +453,7 @@
 ;; detached minibuffer freezes on help message
 ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
 (tooltip-mode 1)
+(which-key-mode 0)
 (setq echo-keystrokes 0)
 (add-hook 'exwm-init-hook
           (lambda ()
