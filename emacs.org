@@ -1315,7 +1315,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   ;; show flymake when cursor hovers
   (setq help-at-pt-timer-delay 0.9
-        help-at-pt-display-when-idle t))
+        help-at-pt-display-when-idle 'never))
 #+end_src
 
 *** Version control
