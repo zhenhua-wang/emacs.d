@@ -449,7 +449,6 @@
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)
-;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (setq exwm-workspace-minibuffer-position 'bottom)
 ;; detached minibuffer freezes on help message
 ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
@@ -462,7 +461,7 @@
 (with-eval-after-load "pyim"
   (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
   (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
-
+;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
   (if (active-minibuffer-window)
