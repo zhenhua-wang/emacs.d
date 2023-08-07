@@ -310,6 +310,7 @@
         keycast-tab-bar-minimal-width 0)
   (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
+  (add-to-list 'keycast-substitute-alist '(tab-bar-touchscreen-begin nil nil))
   (keycast-tab-bar-mode))
 
 ;; ** polybar

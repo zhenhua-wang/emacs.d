@@ -373,6 +373,7 @@
 
 (when (fboundp 'pixel-scroll-precision-mode)
   (pixel-scroll-precision-mode t)
+  (setq touch-screen-precision-scroll t)
   (bind-keys :map pixel-scroll-precision-mode-map
              ("<prior>" . nil)
              ("<next>" . nil)))
