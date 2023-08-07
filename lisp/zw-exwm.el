@@ -164,6 +164,21 @@
                          zw/tab-bar-format-battery))
   (tab-bar-mode 1)
 
+  ;; handle touchscreen tap
+  (bind-keys :map tab-bar-map
+             ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select))
+
+  (defun zw/tab-bar-touchscreen-tab-select (event)
+    "Select a tab at touchscreen tap."
+    (interactive "e")
+    (let* ((posn (cdadr event))
+           (item (tab-bar--event-to-item posn)))
+      (when (eq (catch 'context-menu
+                  (when (touch-screen-track-tap event)
+                    (call-interactively (cadr item))))
+                'context-menu)
+        (tab-bar-mouse-context-menu event posn))))
+
   ;; time
   (setq display-time-format "%b %-e %a %H:%M:%S %p"
         display-time-interval 1
@@ -310,7 +325,7 @@
         keycast-tab-bar-minimal-width 0)
   (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
-  (add-to-list 'keycast-substitute-alist '(tab-bar-touchscreen-begin nil nil))
+  (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil))
   (keycast-tab-bar-mode))
 
 ;; ** polybar
