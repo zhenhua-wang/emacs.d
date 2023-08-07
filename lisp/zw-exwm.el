@@ -126,10 +126,10 @@
                 (bname-face (if (string= (buffer-name buffer) (buffer-name))
                                 (propertize bname 'face '(:weight bold))
                               (propertize bname 'face 'font-lock-comment-face)))
-                (tab-func (lambda () (interactive)
-                            (exwm-workspace-switch-to-buffer buffer)))
+                (tab-click-func (lambda () (interactive)
+                                  (exwm-workspace-switch-to-buffer buffer)))
                 (current-tab `(current-tab menu-item ,bname-face
-                                           ,tab-func
+                                           ,tab-click-func
                                            :help ,(buffer-name buffer)))
                 (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
            (if (= i buffer-list-length)
