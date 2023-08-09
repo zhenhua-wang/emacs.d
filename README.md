@@ -2,7 +2,9 @@
 
 # Zhenhua Emacs Config
 
-![example](./example.png)
+| ![desktop](./screenshots/desktop.png) | ![agenda](./screenshots/agenda.png)           |
+|:-------------------------------------:|:---------------------------------------------:|
+| ![web](./screenshots/web.png)         | ![programming](./screenshots/programming.png) |
 
 </div>
 
