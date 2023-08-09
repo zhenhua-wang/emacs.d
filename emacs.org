@@ -844,12 +844,6 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
     (browse-url-default-browser (eww-current-url))))
 #+end_src
 
-** Request
-#+begin_src emacs-lisp
-(use-package request
-  :commands (request))
-#+end_src
-
 ** Websearch
 #+begin_src emacs-lisp
 (use-package emacs-websearch
