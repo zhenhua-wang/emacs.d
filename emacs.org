@@ -386,10 +386,8 @@
   (markdown-mode . iscroll-mode))
 #+end_src
 
-** Child frame
+** Posframe
 #+begin_src emacs-lisp
-(add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
-
 (use-package posframe
   :defer t)
 #+end_src
@@ -447,9 +445,11 @@
 (use-package paren
   :straight (:type built-in)
   :hook (after-init . show-paren-mode)
-  :init (setq show-paren-when-point-inside-paren nil
-              show-paren-when-point-in-periphery nil
-              show-paren-context-when-offscreen 'child-frame))
+  :config
+  (setq show-paren-when-point-inside-paren nil
+        show-paren-when-point-in-periphery nil
+        show-paren-context-when-offscreen 'child-frame)
+  (add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4)))
 #+end_src
 
 ** Highlight line
