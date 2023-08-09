@@ -189,6 +189,12 @@
                        zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
 
+(bind-keys :map global-map
+           ;; tab operations
+           ("s-1" . zw/tab-switch)
+           ("s-9" . tab-new)
+           ("s-0" . tab-close))
+
 ;; enable tab-bar
 (add-hook 'after-init-hook #'tab-bar-mode)
 

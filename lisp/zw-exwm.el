@@ -97,6 +97,7 @@
 
 ;; ** exwm tab bar
 (unless (executable-find "polybar")
+  (require 'zw-tab-bar)
   (defun zw/tab-bar-format-exwm-workspace ()
     "Produce menu that shows current exwm workspace."
     (let* ((bg (face-background 'tab-bar))

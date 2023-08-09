@@ -234,10 +234,6 @@
            ("s-^" . enlarge-window)
            ("s-`" . zw/side-window-toggle)
            ("C-x 1" . zw/maximize-window)
-           ;; tab operations
-           ("s-1" . zw/tab-switch)
-           ("s-9" . tab-new)
-           ("s-0" . tab-close)
            ;; misc commands
            ("s-i" . zw/show-info)
            ("s-o" . zw/open-in-external)
@@ -351,12 +347,6 @@
 ** Modeline
 #+begin_src emacs-lisp
 (require 'zw-modeline)
-#+end_src
-
-** Tab bar
-#+begin_src emacs-lisp
-(setq tab-bar-show nil)
-(require 'zw-tab-bar)
 #+end_src
 
 ** Scroll
