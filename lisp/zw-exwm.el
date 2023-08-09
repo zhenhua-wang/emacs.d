@@ -769,7 +769,7 @@
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
-        (,(kbd "s-/") . emacs-websearch)
+        (,(kbd "s-l") . emacs-websearch)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
