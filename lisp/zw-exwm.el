@@ -1,6 +1,8 @@
 ;; -*- lexical-binding: t -*-
 ;; * exwm init
-(straight-use-package 'exwm)
+(use-package exwm
+  :demand t
+  :straight (:host github :repo "ch11ng/exwm" :files ("*")))
 
 (setq
  ;; disable conformation to kill processes on Emacs exit
