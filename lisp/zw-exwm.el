@@ -823,4 +823,3 @@
 
 ;; * exwm enable
 (exwm-enable)
-(provide 'zw-exwm)
