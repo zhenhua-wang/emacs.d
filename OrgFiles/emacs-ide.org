@@ -2,6 +2,7 @@
 #+author: Zhenhua Wang
 #+SETUPFILE: ~/.emacs.d/OrgFiles/htmlTemplates/white_clean.theme
 #+OPTIONS: num:nil toc:nil
+#+STARTUP: overview
 -----
 * C/C++
 ** Project setup for LSP

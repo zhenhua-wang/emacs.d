@@ -1,5 +1,6 @@
 #+title: Dotfiles
 #+author: Zhenhua Wang
+#+STARTUP: overview
 #+PROPERTY: header-args :mkdirp yes
 -----
 * XKB

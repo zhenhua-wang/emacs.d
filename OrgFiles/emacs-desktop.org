@@ -1,6 +1,6 @@
 #+Title: Emacs Desktop
 #+AUTHOR: Zhenhua Wang
-#+auto_tangle: t
+#+STARTUP: overview
 #+PROPERTY: header-args+ :tangle "yes"
 -----
 * External screens

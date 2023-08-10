@@ -1,5 +1,6 @@
 #+title: System Configuration
 #+author: Zhenhua Wang
+#+STARTUP: overview
 -----
 * MacOS
 ** Homebrew
