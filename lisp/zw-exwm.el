@@ -637,12 +637,12 @@
               (lambda (&rest args)
                 (when (executable-find "dunst")
                   (call-process-shell-command
-                   (concat "dunstify -r 1 \"  " (desktop-environment-volume-get) "\"") nil 0))))
+                   (concat "dunstify -r 1 \"  " (desktop-environment-volume-get) "\"") nil 0))))
   (advice-add 'desktop-environment-brightness-set :after
               (lambda (&rest args)
                 (when (executable-find "dunst")
                   (call-process-shell-command
-                   (concat "dunstify -r 1 \"  " (desktop-environment-brightness-get) "\"") nil 0)))))
+                   (concat "dunstify -r 1 \"󰖨  " (desktop-environment-brightness-get) "\"") nil 0)))))
 
 ;; ** app launcher
 (use-package app-launcher
