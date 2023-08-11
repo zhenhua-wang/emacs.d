@@ -173,6 +173,13 @@ fading = false;
 fade-in-step = 1;
 fade-out-step = 0.03;
 fade-exclude = ["class_g = 'Emacs'"];
+opacity-rule = [
+             "90:class_g = 'Emacs'",
+             "90:class_g = 'kitty'"
+             ];
+blur-method = "dual_kawase";
+blur-strength = 6;
+backend = "glx";
 #+end_src
 
 * Polybar
