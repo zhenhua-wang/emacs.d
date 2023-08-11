@@ -90,6 +90,7 @@ bold_font        Noto Sans Mono Bold
 italic_font      Noto Sans Mono Italic
 bold_italic_font Noto Sans Mono Bold Italic
 font_size        15.0
+background #282c34
 # keymap
 map cmd+c       copy_to_clipboard
 map cmd+v       paste_from_clipboard
