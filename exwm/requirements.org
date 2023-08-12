@@ -24,6 +24,7 @@ yay -S scrot
 #+begin_src sh
 yay -S arc-gtk-theme
 yay -S arc-icon-theme
+yay -S capitaine-cursors
 yay -S lxappearance
 # For archlinux-tweak-tool to work, need to run
 # "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
