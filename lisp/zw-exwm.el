@@ -36,11 +36,7 @@
   (when (executable-find "blueman-applet")
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
-    (zw/exwm-run-in-background "udiskie --no-automount -t"))
-  ;; set ibus to use "system keyboard layout" in advanced setting
-  ;; (zw/exwm-run-in-background "ibus-daemon -drxR")
-  (when (executable-find "polybar")
-    (zw/exwm-run-in-background "polybar panel")))
+    (zw/exwm-run-in-background "udiskie --no-automount -t")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -98,105 +94,104 @@
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
 
 ;; ** exwm tab bar
-(unless (executable-find "polybar")
-  (require 'zw-tab-bar)
-  (defun zw/tab-bar-format-exwm-workspace ()
-    "Produce menu that shows current exwm workspace."
-    (let* ((bg (face-background 'tab-bar))
-           (bg-alt (pcase (frame-parameter nil 'background-mode)
-                     ('light (doom-darken bg 0.1))
-                     ('dark (doom-lighten bg 0.1)))))
-      `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
-                                       'face `(:background ,bg-alt :weight regular))
-                nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
+(require 'zw-tab-bar)
+(defun zw/tab-bar-format-exwm-workspace ()
+  "Produce menu that shows current exwm workspace."
+  (let* ((bg (face-background 'tab-bar))
+         (bg-alt (pcase (frame-parameter nil 'background-mode)
+                   ('light (doom-darken bg 0.1))
+                   ('dark (doom-lighten bg 0.1)))))
+    `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
+                                     'face `(:background ,bg-alt :weight regular))
+              nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
-  (defun zw/tab-bar-format-buffers ()
-    (let* ((i 0)
-           (buffer-name-ellipsis ".")
-           (buffer-separator " | ")
-           (screen-width (frame-width))
-           (buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y))))
-           (buffer-list (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func))
-           (buffer-list-length (length buffer-list))
-           (buffer-name-max (when (> buffer-list-length 0)
-                              (- (/ screen-width buffer-list-length 2)
-                                 (length buffer-separator)))))
-      (mapcan
-       (lambda (buffer)
-         (setq i (1+ i))
-         (let* ((bname (truncate-string-to-width
-                        (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
-                (bname-face (if (string= (buffer-name buffer) (buffer-name))
-                                (propertize bname 'face '(:weight bold))
-                              (propertize bname 'face 'font-lock-comment-face)))
-                (tab-click-func (lambda () (interactive)
-                                  (exwm-workspace-switch-to-buffer buffer)))
-                (current-tab `(current-tab menu-item ,bname-face
-                                           ,tab-click-func
-                                           :help ,(buffer-name buffer)))
-                (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
-           (if (= i buffer-list-length)
-               (list current-tab)
-             (list current-tab tab-seperator))))
-       buffer-list)))
+(defun zw/tab-bar-format-buffers ()
+  (let* ((i 0)
+         (buffer-name-ellipsis ".")
+         (buffer-separator " | ")
+         (screen-width (frame-width))
+         (buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y))))
+         (buffer-list (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func))
+         (buffer-list-length (length buffer-list))
+         (buffer-name-max (when (> buffer-list-length 0)
+                            (- (/ screen-width buffer-list-length 2)
+                               (length buffer-separator)))))
+    (mapcan
+     (lambda (buffer)
+       (setq i (1+ i))
+       (let* ((bname (truncate-string-to-width
+                      (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
+              (bname-face (if (string= (buffer-name buffer) (buffer-name))
+                              (propertize bname 'face '(:weight bold))
+                            (propertize bname 'face 'font-lock-comment-face)))
+              (tab-click-func (lambda () (interactive)
+                                (exwm-workspace-switch-to-buffer buffer)))
+              (current-tab `(current-tab menu-item ,bname-face
+                                         ,tab-click-func
+                                         :help ,(buffer-name buffer)))
+              (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
+         (if (= i buffer-list-length)
+             (list current-tab)
+           (list current-tab tab-seperator))))
+     buffer-list)))
 
-  (defun zw/tab-bar-format-cpu-temp ()
-    "Produce menu that shows cpu temperature."
-    `((global menu-item ,cpu-temperature-string
-              nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
+(defun zw/tab-bar-format-cpu-temp ()
+  "Produce menu that shows cpu temperature."
+  `((global menu-item ,cpu-temperature-string
+            nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
 
-  (defun zw/tab-bar-format-pyim ()
-    "Produce menu that shows pyim."
-    (let* ((input-method (or current-input-method-title ""))
-           (chinese-input-method-p (string-match-p "PYIM/C" input-method))
-           (chinese-input-method (if chinese-input-method-p "中 " "")))
-      `((global menu-item ,chinese-input-method
-                nil :help ,(format "Current input method: %s" current-input-method-title)))))
+(defun zw/tab-bar-format-pyim ()
+  "Produce menu that shows pyim."
+  (let* ((input-method (or current-input-method-title ""))
+         (chinese-input-method-p (string-match-p "PYIM/C" input-method))
+         (chinese-input-method (if chinese-input-method-p "中 " "")))
+    `((global menu-item ,chinese-input-method
+              nil :help ,(format "Current input method: %s" current-input-method-title)))))
 
-  (setq tab-bar-show t
-        tab-bar-format '(zw/tab-bar-format-exwm-workspace
-                         tab-bar-separator
-                         zw/tab-bar-format-buffers
-                         tab-bar-format-align-right
-                         tab-bar-separator
-                         tab-bar-separator
-                         tab-bar-separator
-                         zw/tab-bar-format-pyim
-                         zw/tab-bar-format-cpu-temp
-                         zw/tab-bar-format-time
-                         zw/tab-bar-format-battery))
-  (tab-bar-mode 1)
+(setq tab-bar-show t
+      tab-bar-format '(zw/tab-bar-format-exwm-workspace
+                       tab-bar-separator
+                       zw/tab-bar-format-buffers
+                       tab-bar-format-align-right
+                       tab-bar-separator
+                       tab-bar-separator
+                       tab-bar-separator
+                       zw/tab-bar-format-pyim
+                       zw/tab-bar-format-cpu-temp
+                       zw/tab-bar-format-time
+                       zw/tab-bar-format-battery))
+(tab-bar-mode 1)
 
-  ;; handle touchscreen tap
-  (bind-keys :map tab-bar-map
-             ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select))
+;; handle touchscreen tap
+(bind-keys :map tab-bar-map
+           ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select))
 
-  (defun zw/tab-bar-touchscreen-tab-select (event)
-    "Select a tab at touchscreen tap."
-    (interactive "e")
-    (let* ((posn (cdadr event))
-           (item (tab-bar--event-to-item posn)))
-      (when (eq (catch 'context-menu
-                  (when (touch-screen-track-tap event)
-                    (call-interactively (cadr item))))
-                'context-menu)
-        (tab-bar-mouse-context-menu event posn))))
+(defun zw/tab-bar-touchscreen-tab-select (event)
+  "Select a tab at touchscreen tap."
+  (interactive "e")
+  (let* ((posn (cdadr event))
+         (item (tab-bar--event-to-item posn)))
+    (when (eq (catch 'context-menu
+                (when (touch-screen-track-tap event)
+                  (call-interactively (cadr item))))
+              'context-menu)
+      (tab-bar-mouse-context-menu event posn))))
 
-  ;; time
-  (setq display-time-format "%b %-e %a %H:%M:%S %p"
-        display-time-interval 1
-        display-time-default-load-average nil)
-  (display-time-mode 1)
+;; time
+(setq display-time-format "%b %-e %a %H:%M:%S %p"
+      display-time-interval 1
+      display-time-default-load-average nil)
+(display-time-mode 1)
 
-  ;; battery on laptop
-  (require 'battery)
-  (setq have-battery-status-p
-        (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-          (and perc-charged
-               (not (zerop (string-to-number (cdr perc-charged)))))))
-  (when (and have-battery-status-p
-             tab-bar-show)
-    (display-battery-mode 1)))
+;; battery on laptop
+(require 'battery)
+(setq have-battery-status-p
+      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+        (and perc-charged
+             (not (zerop (string-to-number (cdr perc-charged)))))))
+(when (and have-battery-status-p
+           tab-bar-show)
+  (display-battery-mode 1))
 
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
@@ -330,98 +325,6 @@
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil))
   (keycast-tab-bar-mode))
-
-;; ** polybar
-(when (executable-find "polybar")
-  (let* ((fg (face-foreground 'mode-line))
-         (bg (face-background 'mode-line))
-         (hl-fg (face-foreground 'mode-line-highlight))
-         (hl-bg (face-background 'mode-line-highlight))
-         (gn (face-foreground 'success))
-         (rd (face-foreground 'error))
-         (power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
-         (power-lines (split-string power-supply "\n")))
-
-    (setenv "EXWM_BAR_FG" fg)
-    (setenv "EXWM_BAR_BG" bg)
-    (setenv "EXWM_BAR_BG_ALT" (pcase (frame-parameter nil 'background-mode)
-                                ('light (doom-darken bg 0.1))
-                                ('dark (doom-lighten bg 0.1))))
-    (setenv "EXWM_BAR_HL_FG" hl-fg)
-    (setenv "EXWM_BAR_HL_BG" hl-bg)
-    (setenv "EXWM_BAR_RED" rd)
-    (setenv "EXWM_BAR_GREEN" gn)
-    (dolist (line power-lines)
-      (cond
-       ((string-match "BAT" line)
-        (setenv "EXWM_BAR_BATTERY" line))
-       ((string-match "AC" line)
-        (setenv "EXWM_BAR_ADAPTER" line)))))
-
-  (defun zw/restart-polybar ()
-    (interactive)
-    (start-process-shell-command "polybar-msg" nil "polybar-msg cmd quit")
-    (zw/exwm-run-in-background "polybar panel"))
-
-  (defun zw/exwm-send-polybar-hook (module-name hook-index)
-    (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
-
-  (defun zw/exwm-polybar-buffer-name ()
-    (with-current-buffer (window-buffer (selected-window))
-      (let* ((tab-name-max (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
-                               30 50))
-             (tab-name (buffer-name (window-buffer (minibuffer-selected-window)))))
-        (truncate-string-to-width
-         tab-name tab-name-max nil nil
-         zw/tab-bar-ellipsis))))
-
-  (defun zw/exwm-polybar-buffer-path ()
-    (with-current-buffer (window-buffer (selected-window))
-      (let* ((dir-name (if (buffer-file-name (window-buffer (minibuffer-selected-window)))
-                           (abbreviate-file-name default-directory)
-                         ""))
-             (dir-name-length (length dir-name)))
-        (if (< dir-name-length zw/tab-bar-path-max)
-            dir-name
-          (concat zw/tab-bar-ellipsis
-                  "/"
-                  (string-join (cdr (split-string (truncate-string-to-width
-                                                   dir-name
-                                                   dir-name-length
-                                                   (- dir-name-length zw/tab-bar-path-max))
-                                                  "\\/"))
-                               "/"))))))
-
-  (defun zw/exwm-polybar-keycast-key ()
-    (let ((key (key-description keycast--this-command-keys)))
-      (if (string= key "")
-          ""
-        (format " %s " key))))
-
-  (defun zw/exwm-polybar-keycast-desc ()
-    (if keycast--this-command-desc
-        (truncate-string-to-width
-         (format "%s" keycast--this-command-desc) 30 nil nil
-         "...")
-      ""))
-
-  (defun zw/exwm-polybar-update-exwm-workspace ()
-    (zw/exwm-send-polybar-hook "exwm-workspace" 0))
-
-  (defun zw/exwm-polybar-update-buffer ()
-    (zw/exwm-send-polybar-hook "emacs-buffer-path" 0)
-    (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
-
-  (defun zw/exwm-polybar-update-keycast ()
-    (zw/exwm-send-polybar-hook "emacs-keycast-key" 0)
-    (zw/exwm-send-polybar-hook "emacs-keycast-desc" 0))
-
-  (setq tab-bar-show nil)
-  (tab-bar-mode 1)
-  (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
-  (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
-  (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer)
-  (advice-add 'keycast--update :after 'zw/exwm-polybar-update-keycast))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
