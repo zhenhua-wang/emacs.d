@@ -668,6 +668,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                ("s-e" . quit-window)
                ("s-z" . vterm-undo)
                ("M-:" . nil)
+               ("<escape>" . nil)
                ("<f5>" . nil)))
   :config
   (setq vterm-kill-buffer-on-exit t
@@ -679,7 +680,10 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                      (window (get-buffer-window buffer)))
                 (when (not (one-window-p))
                   (delete-window window)))))
-  (call-process-shell-command "~/.cache/emacs/vterm_conf.sh"))
+  (defun zw/vterm-current-directory ()
+    (ignore-errors
+      (file-truename (format "/proc/%d/cwd/"
+                             (process-id vterm--process))))))
 
 (use-package multi-vterm
   :commands (multi-vterm)
