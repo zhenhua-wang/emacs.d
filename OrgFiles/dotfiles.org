@@ -15,38 +15,17 @@ Section "InputClass"
 EndSection
 #+end_src
 
-* .Rprofile
-#+HEADER: :tangle "~/.Rprofile"
-#+begin_src conf
-## don't show gui menu
-options(menu.graphics=FALSE)
-#+end_src
-
-* EXWM
-** Xresources
+* Xresources
 #+HEADER: :tangle (let ((xresources (expand-file-name "Xresources" user-emacs-directory))) (if (file-exists-p xresources) "no" xresources))
 #+begin_src conf
 Xft.dpi:   180
 #+end_src
 
-** Xmodmap
-#+HEADER: :tangle (let ((xmodmap (expand-file-name "Xmodmap" user-emacs-directory))) (if (file-exists-p xmodmap) "no" xmodmap))
+* Rprofile
+#+HEADER: :tangle "~/.Rprofile"
 #+begin_src conf
-! swap ctrl caps_lock
-remove Lock = Caps_Lock
-remove Control = Control_L
-keycode 66 = Control_L
-keycode 37 = Caps_Lock
-add Lock = Caps_Lock
-add Control = Control_L
-
-! swap alt and super
-remove mod1 = Alt_L
-remove mod4 = Super_L
-keycode 133 = Alt_L
-keycode 64 = Super_L
-add mod1 = Alt_L
-add mod4 = Super_L
+## don't show gui menu
+options(menu.graphics=FALSE)
 #+end_src
 
 * Zathura
