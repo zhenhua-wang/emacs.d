@@ -668,16 +668,18 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                ("s-e" . quit-window)
                ("s-z" . vterm-undo)
                ("<f5>" . nil)))
-  :init
+  :config
   (setq vterm-kill-buffer-on-exit t
-        vterm-always-compile-module t)
+        vterm-always-compile-module t
+        vterm-buffer-name-string "vterm %s")
   ;; close window when vterm exit
   (add-hook 'vterm-exit-functions
             (lambda (_ _)
               (let* ((buffer (current-buffer))
                      (window (get-buffer-window buffer)))
                 (when (not (one-window-p))
-                  (delete-window window))))))
+                  (delete-window window)))))
+  (call-process-shell-command "~/.cache/emacs/vterm_conf.sh"))
 
 (use-package multi-vterm
   :commands (multi-vterm)
