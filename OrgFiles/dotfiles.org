@@ -158,7 +158,7 @@ keep-open=yes
 #+HEADER: :tangle "~/.cache/emacs/vterm_conf.sh"
 #+begin_src sh
 # vterm working directory tracking
-vterm_printf() {
+function vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
@@ -169,10 +169,10 @@ vterm_printf() {
         printf "\e]%s\e\\" "$1"
     fi
 }
-vterm_prompt_end() {
+function vterm_prompt_end() {
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
 }
 setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+export PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 #+end_src
 
