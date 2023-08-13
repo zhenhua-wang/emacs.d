@@ -670,8 +670,7 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                ("<f5>" . nil)))
   :config
   (setq vterm-kill-buffer-on-exit t
-        vterm-always-compile-module t
-        vterm-buffer-name-string "vterm %s")
+        vterm-always-compile-module t)
   ;; close window when vterm exit
   (add-hook 'vterm-exit-functions
             (lambda (_ _)
