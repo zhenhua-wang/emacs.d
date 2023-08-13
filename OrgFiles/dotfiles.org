@@ -174,8 +174,5 @@ vterm_prompt_end() {
 }
 setopt PROMPT_SUBST
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
-# vterm buffer name
-autoload -U add-zsh-hook
-add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 #+end_src
 
