@@ -680,10 +680,9 @@ For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-con
                      (window (get-buffer-window buffer)))
                 (when (not (one-window-p))
                   (delete-window window)))))
-  (defun zw/vterm-current-directory ()
-    (when vterm--process
-      (file-truename (format "/proc/%d/cwd/"
-                             (process-id vterm--process))))))
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n"))))
 
 (use-package multi-vterm
   :commands (multi-vterm)

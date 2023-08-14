@@ -20,7 +20,6 @@
   (let* ((dir (abbreviate-file-name
                (or (vc-root-dir)
                    (ignore-errors (file-name-directory (buffer-file-name)))
-                   (ignore-errors (zw/vterm-current-directory))
                    default-directory)))
          (buffer (dired-noselect dir)))
     ;; bury current dired buffer when it has the same root as sidebar
