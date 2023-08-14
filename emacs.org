@@ -658,8 +658,6 @@ For host with two factor auth, you need to
 #+end_src
 
 ** Vterm
-For detailed Config, see https://github.com/akermu/emacs-libvterm#shell-side-configuration
-
 #+begin_src emacs-lisp
 (use-package vterm
   :bind ((:map vterm-copy-mode-map
