@@ -20,6 +20,32 @@ SuspendMode=
 SuspendState=mem
 #+end_src
 
+** Hibernation
+#+begin_src shell
+# create swapfile (12G)
+dd if=/dev/zero of=/swapfile bs=1M count=12288 status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+swapon /swapfile
+## edit the fstab (/etc/fstab) configuration to add an entry for the swap file:
+/swapfile none swap defaults 0 0
+# use hibernator to add resume to kernel parameters
+git clone https://github.com/Chrysostomus/hibernator.git
+cd hibernator
+sudo chmod +x hibernator
+./hibernator
+# update grub
+yay -S update-grub
+sudo update-grub
+# enable suspend-then-hibernate
+## edit /etc/systemd/logind.conf to add the following
+HandleLidSwitch=suspend-then-hibernate
+## edit HibernateDelaySec in /etc/systemd/sleep.conf
+HibernateDelaySec=20min
+## restart service
+sudo systemctl restart systemd-logind.service
+#+end_src
+
 ** SSH
 use ssh config file
 #+begin_example
@@ -35,17 +61,6 @@ sudo apt-get install openssh-server
 sudo systemctl enable ssh
 sudo systemctl start ssh
 #+end_example
-
-** Zsh
-#+begin_src sh
-# add these to ".zshrc" to set workon_home
-conda activate py
-
-export CONDA_PREFIX="~/.conda/"
-
-# use open
-alias open="xdg-open"
-#+end_src
 
 ** KDE
 - install =plasma-meta=
@@ -76,7 +91,32 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 *** zoom
 Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
 
-** GPU and tensorflow
+** Applications
+*** Emacs
+#+begin_src shell
+git clone git://git.sv.gnu.org/emacs.git
+cd emacs
+./autogen.sh
+./configure --with-dbus \
+            --with-jpeg \
+            --with-tiff \
+            --with-gif \
+            --with-png \
+            --with-rsvg \
+            --with-xwidgets \
+            --with-xml2 \
+            # --with-native-compilation \
+            --with-pgtk
+make -j8
+sudo make install
+#+end_src
+
+*** Statistics
+#+begin_src shell
+yay -S r pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
+#+end_src
+
+*** GPU and tensorflow
 Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
 #+begin_src sh
 # create python environment
@@ -99,54 +139,6 @@ python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000,
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 #+end_src
 
-** Applications
-*** Emacs
-#+begin_src shell
-git clone git://git.sv.gnu.org/emacs.git
-cd emacs
-./autogen.sh
-./configure --with-dbus \
-            --with-jpeg \
-            --with-tiff \
-            --with-gif \
-            --with-png \
-            --with-rsvg \
-            --with-xwidgets \
-            --with-xml2 \
-            # --with-native-compilation \
-            --with-pgtk
-make -j8
-sudo make install
-#+end_src
-
-*** Latex
-#+begin_src shell
-yay -S pandoc
-yay -S texlive-core
-yay -S texlive-latexextra
-#+end_src
-
-*** Zathura -- pdf reader
-1. in ~./zathura/zathurarc~
-2. add the following to make zathura maximized
-#+begin_src example
-set selection-clipboard clipboard
-set window-height 3000
-set window-width 3000
-unmap [normal] <Tab>
-map [normal] <F11> toggle_presentation
-map [normal] P adjust_window best-fit
-map [normal] p scroll full-up
-map [normal] n scroll full-down
-map [normal] = zoom in
-map [normal] o toggle_index
-map [index] q toggle_index
-map [index] <Tab> navigate_index expand
-map [presentation] <F11> toggle_presentation
-map [presentation] p navigate previous
-map [presentation] n navigate next
-#+end_src
-
 *** Firefox
 1. Messed up font rendering in Firefox PDF viewer
    - disable "Allow websites to pick their own fonts" (=browser.display.use_document_fonts= would be 0 in about:config) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
@@ -155,33 +147,6 @@ map [presentation] n navigate next
 #+begin_src sh
 yay -S tzupdate
 sudo tzupdate
-#+end_src
-
-** System Settings
-*** Hibernation
-#+begin_src shell
-# create swapfile (12G)
-dd if=/dev/zero of=/swapfile bs=1M count=12288 status=progress
-chmod 0600 /swapfile
-mkswap -U clear /swapfile
-swapon /swapfile
-## edit the fstab (/etc/fstab) configuration to add an entry for the swap file:
-/swapfile none swap defaults 0 0
-# use hibernator to add resume to kernel parameters
-git clone https://github.com/Chrysostomus/hibernator.git
-cd hibernator
-sudo chmod +x hibernator
-./hibernator
-# update grub
-yay -S update-grub
-sudo update-grub
-# enable suspend-then-hibernate
-## edit /etc/systemd/logind.conf to add the following
-HandleLidSwitch=suspend-then-hibernate
-## edit HibernateDelaySec in /etc/systemd/sleep.conf
-HibernateDelaySec=20min
-## restart service
-sudo systemctl restart systemd-logind.service
 #+end_src
 
 * EXWM
