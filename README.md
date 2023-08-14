@@ -27,7 +27,8 @@
 # Installation
 
 -   clone this reposition to your home folder (~).
--   change folder name into .emacs.d. (adding a dot in the front)
+-   change folder name to `.emacs.d`. (adding a dot in the front)
+-   `cp .emacs.d/fonts/* ~/.fonts && fc-cache -f -v`
 
 # Main Packages
 
