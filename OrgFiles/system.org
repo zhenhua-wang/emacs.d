@@ -92,23 +92,41 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
 
 ** Applications
+*** Core
+#+begin_src sh
+# yay
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+# x11
+yay -S xorg-server
+sudo mkdir /usr/share/xsessions
+# display manager
+yay -S sddm
+sudo systemctl enable sddm.service
+#+end_src
+
 *** Emacs
 #+begin_src shell
+# compile emacs
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-dbus \
-            --with-jpeg \
-            --with-tiff \
-            --with-gif \
-            --with-png \
-            --with-rsvg \
-            --with-xwidgets \
-            --with-xml2 \
-            # --with-native-compilation \
-            --with-pgtk
+./configure --with-json
 make -j8
 sudo make install
+# clone repo
+git clone https://github.com/zhenhua-wang/emacs.d.git
+mv emacs.d .emacs.d
+cp .emacs.d/fonts/* ~/.fonts && fc-cache -f -v
+#+end_src
+
+*** Exwm
+#+begin_src sh
+sudo ln -f ~/.emacs.d/exwm/EXWM.desktop /usr/share/xsessions/EXWM.desktop
+yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl scrot
+yay -S arc-gtk-theme papirus-icon-theme capitaine-cursors lxappearance
 #+end_src
 
 *** Statistics
