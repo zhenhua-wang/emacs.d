@@ -107,6 +107,10 @@ sudo systemctl enable sddm.service
 
 *** Emacs
 #+begin_src shell
+# clone repo
+git clone https://github.com/zhenhua-wang/emacs.d.git
+mv emacs.d .emacs.d
+cp .emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
 yay -S libxaw libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
@@ -115,10 +119,6 @@ cd emacs
 ./configure --with-json
 make -j8
 sudo make install
-# clone repo
-git clone https://github.com/zhenhua-wang/emacs.d.git
-mv emacs.d .emacs.d
-cp .emacs.d/fonts/* ~/.fonts && fc-cache -f -v
 #+end_src
 
 *** Exwm

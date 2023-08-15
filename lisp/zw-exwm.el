@@ -185,13 +185,14 @@
 
 ;; battery on laptop
 (require 'battery)
-(setq have-battery-status-p
-      (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-        (and perc-charged
-             (not (zerop (string-to-number (cdr perc-charged)))))))
-(when (and have-battery-status-p
-           tab-bar-show)
-  (display-battery-mode 1))
+(when battery-status-function
+  (setq have-battery-status-p
+        (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+          (and perc-charged
+               (not (zerop (string-to-number (cdr perc-charged)))))))
+  (when (and have-battery-status-p
+             tab-bar-show)
+    (display-battery-mode 1)))
 
 ;; ** exwm systemtray
 (require 'exwm-systemtray)
