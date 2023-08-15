@@ -41,7 +41,125 @@
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
 ;; * exwm appearance
-;; ** exwm modeline
+;; ** window management
+;; *** X window
+;; **** update title
+(defun zw/exwm-update-title ()
+  (if (and exwm-title
+           (string= (downcase exwm-title)
+                    (downcase exwm-class-name)))
+      (exwm-workspace-rename-buffer exwm-class-name)
+    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
+
+(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
+(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
+
+;; **** window config
+(defun zw/exwm-float-header-line-rhs ()
+  (concat (propertize (zw/exwm-modeline-toggle-window-input)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-toggle-window-type)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-float-hide)
+                      'face 'zw/modeline-process-active)))
+
+(let* ((float-width (floor (/ (frame-pixel-width) 1.1)))
+       (float-height (floor (/ (frame-pixel-height) 1.1)))
+       (float-x (/ (- (frame-pixel-width) float-width) 2))
+       (float-y (/ (- (frame-pixel-height) float-height) 2))
+       (float-header-line (list '(:eval (propertize (zw/tab-bar-tab-name)
+                                                    'face 'zw/modeline-process-active))
+                                '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
+                                '(:eval (zw/exwm-float-header-line-rhs)))))
+  (setq exwm-manage-configurations
+        `(((string= "Emacs" exwm-class-name)
+           x ,float-x
+           y ,float-y
+           width ,float-width
+           height ,float-height
+           floating t
+           char-mode t
+           floating-mode-line nil
+           floating-header-line nil)
+          ((and (zw/exwm-plot-buffer-p exwm-class-name)
+                (cl-some 'identity
+                         (mapcar (lambda (buffer)
+                                   (with-current-buffer buffer
+                                     (string= "Emacs" exwm-class-name)))
+                                 (buffer-list))))
+           x ,(- (+ float-x float-width)
+                 (floor (* float-width 0.3)))
+           y ,float-y
+           width ,(floor (* float-width 0.3))
+           height ,(floor (* float-width 0.3))
+           floating t
+           floating-mode-line nil
+           floating-header-line nil)
+          (t floating-header-line nil
+             floating-mode-line nil))))
+
+;; **** auto hide float
+(defun zw/exwm-hide-float (window)
+  (with-current-buffer (window-buffer window)
+    (unless (or exwm--floating-frame
+                (eq window (active-minibuffer-window)))
+      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
+        (dolist (exwm-id exwm-id-list)
+          (with-current-buffer (exwm--id->buffer exwm-id)
+            (when exwm--floating-frame
+              (exwm-layout--hide exwm--id)
+              (select-frame-set-input-focus exwm-workspace--current))))))))
+
+(define-minor-mode exwm-float-auto-hide-mode
+  "Auto hide exwm float windows."
+  :global t
+  (if exwm-float-auto-hide-mode
+      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
+    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
+
+(exwm-float-auto-hide-mode 1)
+
+;; *** emacs buffer
+;; plots
+(defvar zw/exwm-plot-buffers
+  '("^R_x11.*$"
+    "^matplotlib.*$"))
+
+(defun zw/exwm-plot-buffer-p (buffer-or-name)
+  (let ((buffer (get-buffer buffer-or-name)))
+    (cl-some 'identity
+             (seq-map (lambda (y)
+                        (string-match y (buffer-name buffer)))
+                      zw/exwm-plot-buffers))))
+
+(dolist (buffer zw/exwm-plot-buffers)
+  (add-to-list 'display-buffer-alist
+               `(,buffer
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . -1)
+                 (dedicated . t)
+                 (window-height . 0.5)))
+  (add-to-list 'zw/side-window-buffer-regex buffer))
+
+;; ** nerd icon
+(defun zw/nerd-icons-get-app-icon (name)
+  (let* ((get-icon (lambda (name)
+                     (or (ignore-errors (nerd-icons-devicon (format "nf-dev-%s" name)))
+                         (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
+                         (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
+         (name-splits (split-string name "[- ]+"))
+         (full-name (string-join name-splits "_"))
+         (icon (funcall get-icon full-name)))
+    (if icon
+        icon
+      (let* ((name-first (car name-splits)))
+        (funcall get-icon name-first)))))
+
+;; ** modeline
 (set-face-attribute 'mode-line nil :box nil)
 
 (defun zw/exwm-modeline-float-hide ()
@@ -93,7 +211,7 @@
               (add-to-list 'mode-line-process
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
 
-;; ** exwm tab bar
+;; ** tab bar
 (require 'zw-tab-bar)
 (defun zw/tab-bar-format-exwm-workspace ()
   "Produce menu that shows current exwm workspace."
@@ -194,130 +312,7 @@
              tab-bar-show)
     (display-battery-mode 1)))
 
-;; ** exwm systemtray
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-(setq exwm-systemtray-background-color (face-background 'mode-line)
-      exwm-systemtray-icon-gap 1)
-
-;; ** exwm window management
-;; *** exwm update title
-(defun zw/exwm-update-title ()
-  (if (and exwm-title
-           (string= (downcase exwm-title)
-                    (downcase exwm-class-name)))
-      (exwm-workspace-rename-buffer exwm-class-name)
-    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
-
-(add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
-(add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
-
-;; *** exwm window config
-(defun zw/exwm-float-header-line-rhs ()
-  (concat (propertize (zw/exwm-modeline-toggle-window-input)
-                      'face 'zw/modeline-process-active)
-          " "
-          (propertize (zw/exwm-modeline-toggle-window-type)
-                      'face 'zw/modeline-process-active)
-          " "
-          (propertize (zw/exwm-modeline-float-hide)
-                      'face 'zw/modeline-process-active)))
-
-(let* ((float-width (floor (/ (frame-pixel-width) 1.1)))
-       (float-height (floor (/ (frame-pixel-height) 1.1)))
-       (float-x (/ (- (frame-pixel-width) float-width) 2))
-       (float-y (/ (- (frame-pixel-height) float-height) 2))
-       (float-header-line (list '(:eval (propertize (zw/tab-bar-tab-name)
-                                                    'face 'zw/modeline-process-active))
-                                '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
-                                '(:eval (zw/exwm-float-header-line-rhs)))))
-  (setq exwm-manage-configurations
-        `(((string= "Emacs" exwm-class-name)
-           x ,float-x
-           y ,float-y
-           width ,float-width
-           height ,float-height
-           floating t
-           char-mode t
-           floating-mode-line nil
-           floating-header-line nil)
-          ((and (zw/exwm-plot-buffer-p exwm-class-name)
-                (cl-some 'identity
-                         (mapcar (lambda (buffer)
-                                   (with-current-buffer buffer
-                                     (string= "Emacs" exwm-class-name)))
-                                 (buffer-list))))
-           x ,(- (+ float-x float-width)
-                 (floor (* float-width 0.3)))
-           y ,float-y
-           width ,(floor (* float-width 0.3))
-           height ,(floor (* float-width 0.3))
-           floating t
-           floating-mode-line nil
-           floating-header-line nil)
-          (t floating-header-line nil
-             floating-mode-line nil))))
-
-;; *** exwm auto hide float
-(defun zw/exwm-hide-float (window)
-  (with-current-buffer (window-buffer window)
-    (unless (or exwm--floating-frame
-                (eq window (active-minibuffer-window)))
-      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
-        (dolist (exwm-id exwm-id-list)
-          (with-current-buffer (exwm--id->buffer exwm-id)
-            (when exwm--floating-frame
-              (exwm-layout--hide exwm--id)
-              (select-frame-set-input-focus exwm-workspace--current))))))))
-
-(define-minor-mode exwm-float-auto-hide-mode
-  "Auto hide exwm float windows."
-  :global t
-  (if exwm-float-auto-hide-mode
-      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
-    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
-
-(exwm-float-auto-hide-mode 1)
-
-;; ** exwm buffer placement
-;; plots
-(defvar zw/exwm-plot-buffers
-  '("^R_x11.*$"
-    "^matplotlib.*$"))
-
-(defun zw/exwm-plot-buffer-p (buffer-or-name)
-  (let ((buffer (get-buffer buffer-or-name)))
-    (cl-some 'identity
-             (seq-map (lambda (y)
-                        (string-match y (buffer-name buffer)))
-                      zw/exwm-plot-buffers))))
-
-(dolist (buffer zw/exwm-plot-buffers)
-  (add-to-list 'display-buffer-alist
-               `(,buffer
-                 (display-buffer-in-side-window)
-                 (side . right)
-                 (slot . -1)
-                 (dedicated . t)
-                 (window-height . 0.5)))
-  (add-to-list 'zw/side-window-buffer-regex buffer))
-
-;; ** nerd icon
-(defun zw/nerd-icons-get-app-icon (name)
-  (let* ((get-icon (lambda (name)
-                     (or (ignore-errors (nerd-icons-devicon (format "nf-dev-%s" name)))
-                         (ignore-errors (nerd-icons-mdicon (format "nf-md-%s" name)))
-                         (ignore-errors (nerd-icons-sucicon (format "nf-seti-%s" name)))
-                         (ignore-errors (nerd-icons-sucicon (format "nf-custom-%s" name))))))
-         (name-splits (split-string name "[- ]+"))
-         (full-name (string-join name-splits "_"))
-         (icon (funcall get-icon full-name)))
-    (if icon
-        icon
-      (let* ((name-first (car name-splits)))
-        (funcall get-icon name-first)))))
-
-;; ** keycast
+;; keycast
 (use-package keycast
   :config
   (setq keycast-tab-bar-format "%k%c%R "
@@ -327,17 +322,40 @@
   (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil))
   (keycast-tab-bar-mode))
 
-;; ** wallpaper
-(defun zw/exwm-set-wallpaper ()
-  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
-  (with-current-buffer "*scratch*"
-    (display-line-numbers-mode 0))
-  (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png") nil 0)
+;; ** minibuffer
+(vertico-posframe-mode 0)
+(setq exwm-workspace-minibuffer-position 'bottom)
+;; detached minibuffer freezes on help message
+;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
+(tooltip-mode 1)
+(which-key-mode 0)
+(setq echo-keystrokes 0)
+(add-hook 'exwm-init-hook
+          (lambda ()
+            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
+(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
+(with-eval-after-load "pyim"
+  (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
+  (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
+;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
+(defun zw/exwm-minibuffer-and-keyboard-quit ()
+  (interactive)
+  (if (active-minibuffer-window)
+      (abort-recursive-edit)
+    (keyboard-quit)))
+(bind-keys :map global-map
+           ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit)
+           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
+           :map exwm-mode-map
+           ("s-<escape>" . exwm-workspace-toggle-minibuffer))
 
-(zw/exwm-set-wallpaper)
+;; ** systemtray
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+(setq exwm-systemtray-background-color (face-background 'mode-line)
+      exwm-systemtray-icon-gap 1)
 
-;; ** transparency
+;; ** desktop
 (defun zw/exwm-set-opacity (predicate)
   (if predicate
       (set-frame-parameter (selected-frame) 'alpha-background 98)
@@ -369,35 +387,18 @@
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/exwm-set-opacity t)))
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
 (with-current-buffer "*scratch*"
-  (zw/exwm-set-ui nil)
-  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
+  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
+  (zw/exwm-set-ui nil))
 
-;; ** minibuffer
-(vertico-posframe-mode 0)
-(setq exwm-workspace-minibuffer-position 'bottom)
-;; detached minibuffer freezes on help message
-;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
-(tooltip-mode 1)
-(which-key-mode 0)
-(setq echo-keystrokes 0)
-(add-hook 'exwm-init-hook
-          (lambda ()
-            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
-(with-eval-after-load "pyim"
-  (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
-  (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
-;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
-(defun zw/exwm-minibuffer-and-keyboard-quit ()
-  (interactive)
-  (if (active-minibuffer-window)
-      (abort-recursive-edit)
-    (keyboard-quit)))
-(bind-keys :map global-map
-           ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit)
-           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
-           :map exwm-mode-map
-           ("s-<escape>" . exwm-workspace-toggle-minibuffer))
+;; ** wallpaper
+(defun zw/exwm-set-wallpaper ()
+  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
+    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
+  (with-current-buffer "*scratch*"
+    (display-line-numbers-mode 0))
+  (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png") nil 0)
+
+(zw/exwm-set-wallpaper)
 
 ;; * exwm tool
 ;; ** xmodmap
