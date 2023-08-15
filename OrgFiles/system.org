@@ -112,15 +112,13 @@ git clone https://github.com/zhenhua-wang/emacs.d.git
 mv emacs.d .emacs.d
 cp .emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-# yay -S libxaw libtiff giflib
-# git clone git://git.sv.gnu.org/emacs.git
-# cd emacs
-# ./autogen.sh
-# ./configure --with-json
-# make -j8
-# sudo make install
-# TODO: install all dependencies before compiling
-yay -S emacs
+yay -S gtk3 libxft libxpm libtiff giflib
+git clone git://git.sv.gnu.org/emacs.git
+cd emacs
+./autogen.sh
+./configure --with-json
+make -j8
+sudo make install
 #+end_src
 
 *** Exwm
