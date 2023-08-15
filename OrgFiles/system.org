@@ -100,16 +100,15 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 # x11
-yay -S xorg-server
-sudo mkdir /usr/share/xsessions
-# display manager
 yay -S sddm
+sudo mkdir /usr/share/xsessions
 sudo systemctl enable sddm.service
 #+end_src
 
 *** Emacs
 #+begin_src shell
 # compile emacs
+yay -S libxaw libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
