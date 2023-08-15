@@ -2,14 +2,6 @@
 #+author: Zhenhua Wang
 #+STARTUP: overview
 -----
-* MacOS
-** Homebrew
-
-#+begin_src shell
-brew tap d12frosted/emacs-plus
-brew install emacs-plus@29 --with-imagemagick --with-modern-sjrmanning-icon
-#+end_src
-
 * Arch Linux
 ** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
@@ -164,4 +156,11 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 #+begin_src sh
 yay -S tzupdate
 sudo tzupdate
+#+end_src
+
+* MacOS
+** Homebrew
+#+begin_src shell
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@29 --with-imagemagick --with-modern-sjrmanning-icon
 #+end_src
