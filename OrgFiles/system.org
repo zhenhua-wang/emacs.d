@@ -87,7 +87,7 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 *** Core
 #+begin_src sh
 # yay
-sudo pacman -S --needed git base-devel wget
+sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
