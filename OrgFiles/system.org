@@ -140,9 +140,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 yay -S firefox kitty
 #+end_src
 
-*** Wifi driver
+*** Hardware drivers
 #+begin_src sh
-yay -S linux-headers rtl88x2bu-dkms-git
+yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
 #+end_src
 
 *** GPU and tensorflow
