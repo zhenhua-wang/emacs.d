@@ -83,6 +83,14 @@ ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 *** zoom
 Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
 
+** Dual boot with windows
+- Make sure you've installed ntfs-3g: ~yay -S ntfs-3g~
+- Make sure you've installed os-prober: ~yay -S os-prober~
+- Edit grub to use os-prober ~/etc/default/grub~ Find the last (or towards the bottom) line and make it say: ~GRUB_DISABLE_OS_PROBER=false~. Save and exit.
+- Make sure you've mounted windows ~sudo mount -t ntfs /dev/nvme**** /mint/windows~. (Put whatever partition windows is on where the =stars= are).
+- ~(ignore)~ Make sure you've installed grub to the correct drive (pretty sure you have or it wouldn't boot Linux): sudo grub-install /dev/sd*
+- Re run grub config: ~sudo grub-mkconfig -o /boot/grub/grub.cfg~
+
 ** Applications
 *** Core
 #+begin_src sh
