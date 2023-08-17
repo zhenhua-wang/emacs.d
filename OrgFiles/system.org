@@ -131,6 +131,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 yay -S firefox
 #+end_src
 
+*** Wifi driver
+#+begin_src sh
+yay -S linux-headers rtl88x2bu-dkms-git
+#+end_src
+
 *** GPU and tensorflow
 Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
 #+begin_src sh
