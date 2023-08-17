@@ -1874,6 +1874,7 @@ requirements:
                ("s-=" . pdf-view-enlarge)
                ("s-+" . pdf-view-enlarge)
                ("s--" . pdf-view-shrink)
+               ("q" . kill-current-buffer)
                ("j" . pdf-view-next-line-or-next-page)
                ("k" . pdf-view-previous-line-or-previous-page)))
   :init
