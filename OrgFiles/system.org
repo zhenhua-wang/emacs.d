@@ -100,7 +100,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 # x11
-yay -S sddm
+yay -S sddm xorg-xrdb
 sudo mkdir /usr/share/xsessions
 sudo systemctl enable sddm.service
 sudo systemctl enable bluetooth.service
