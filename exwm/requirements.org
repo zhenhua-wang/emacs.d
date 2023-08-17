@@ -14,7 +14,7 @@ yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightne
 #+begin_src sh
 yay -S arc-gtk-theme
 yay -S papirus-icon-theme
-yay -S capitaine-cursors
+yay -S xcursor-breeze
 yay -S lxappearance
 # For archlinux-tweak-tool to work, need to run
 # "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
