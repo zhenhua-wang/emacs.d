@@ -136,8 +136,8 @@ yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecomme
 # zsh
 yay -S zsh && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# entertainment
-yay -S firefox
+# misc
+yay -S firefox kitty
 #+end_src
 
 *** Wifi driver
