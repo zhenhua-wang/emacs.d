@@ -16,9 +16,10 @@ EndSection
 #+end_src
 
 * Xresources
+For Xft.dpi, using integer multiples of 96 usually works best, e.g. 192 for 200% scaling.
 #+HEADER: :tangle (let ((xresources (expand-file-name "Xresources" user-emacs-directory))) (if (file-exists-p xresources) "no" xresources))
 #+begin_src conf
-Xft.dpi:   180
+Xft.dpi:   192
 #+end_src
 
 * Rprofile
