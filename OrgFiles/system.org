@@ -103,6 +103,7 @@ makepkg -si
 yay -S sddm
 sudo mkdir /usr/share/xsessions
 sudo systemctl enable sddm.service
+sudo systemctl enable bluetooth.service
 #+end_src
 
 *** Emacs
