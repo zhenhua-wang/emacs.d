@@ -117,7 +117,7 @@ sudo make install
 #+begin_src sh
 sudo ln -f ~/.emacs.d/exwm/EXWM.desktop /usr/share/xsessions/EXWM.desktop
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl scrot
-yay -S arc-gtk-theme papirus-icon-theme capitaine-cursors lxappearance
+yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
 #+end_src
 
 *** Others
