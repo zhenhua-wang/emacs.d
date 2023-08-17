@@ -87,7 +87,7 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 *** Core
 #+begin_src sh
 # yay
-sudo pacman -S --needed git base-devel
+sudo pacman -S --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
@@ -120,9 +120,15 @@ yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightne
 yay -S arc-gtk-theme papirus-icon-theme capitaine-cursors lxappearance
 #+end_src
 
-*** Statistics
+*** Others
 #+begin_src shell
+# statistics
 yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
+# zsh
+yay -S zsh && chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# entertainment
+yay -S firefox
 #+end_src
 
 *** GPU and tensorflow
