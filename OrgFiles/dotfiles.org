@@ -22,6 +22,27 @@ For Xft.dpi, using integer multiples of 96 usually works best, e.g. 192 for 200%
 Xft.dpi:   192
 #+end_src
 
+* EXWM
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/usr/share/xsessions/EXWM.desktop" "no")
+#+begin_src conf
+[Desktop Entry]
+Name=EXWM
+Comment=Emacs Window Manager
+Exec=sh /home/zhenhua/.emacs.d/exwm/start-exwm.sh
+TryExec=sh
+Type=Application
+X-LightDM-DesktopName=exwm
+DesktopNames=exwm
+#+end_src
+
+* SDDM
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/sddm.conf" "no")
+#+begin_src conf
+[Theme]
+Current=catppuccin-frappe
+CursorTheme=Breeze
+#+end_src
+
 * Rprofile
 #+HEADER: :tangle "~/.Rprofile"
 #+begin_src conf

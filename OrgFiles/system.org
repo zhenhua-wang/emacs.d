@@ -140,6 +140,16 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 yay -S firefox kitty
 #+end_src
 
+*** SDDM theme
+#+begin_src sh
+yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
+#+end_src
+
+*** Grub theme
+#+begin_src sh
+
+#+end_src
+
 *** Hardware drivers
 #+begin_src sh
 yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
