@@ -111,7 +111,7 @@ sudo systemctl enable bluetooth.service
 git clone https://github.com/zhenhua-wang/emacs.d.git
 mv emacs.d .emacs.d
 mkdir ~/.fonts
-cp .emacs.d/fonts/* ~/.fonts && fc-cache -fv
+cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
 yay -S gtk3 libxft libxpm libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
