@@ -148,7 +148,17 @@ yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 
 *** Grub theme
 #+begin_src sh
+yay -S grub-theme-vimix-very-dark-blue
+#+end_src
 
+To apply this theme, update the GRUB_THEME line in the /etc/default/grub file to the following:
+#+begin_src conf
+GRUB_THEME="/usr/share/grub/themes/grub-theme-vimix-very-dark-blue/theme.txt"
+#+end_src
+
+Then, generate the GRUB configuration file with superuser privileges by running the following command:
+#+begin_src sh
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 #+end_src
 
 *** Hardware drivers
