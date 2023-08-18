@@ -3,7 +3,67 @@
 #+STARTUP: overview
 -----
 * Arch Linux
-** Dell closing lid doesn't suspend
+** Core
+#+begin_src sh
+# yay
+sudo pacman -S --needed git base-devel cmake inetutils
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+# x11
+yay -S sddm xorg-xrdb
+sudo systemctl enable sddm.service
+sudo systemctl enable bluetooth.service
+#+end_src
+
+** Emacs
+#+begin_src shell
+# clone repo
+git clone https://github.com/zhenhua-wang/emacs.d.git
+mv emacs.d .emacs.d
+mkdir ~/.fonts
+cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
+# compile emacs
+yay -S gtk3 libxft libxpm libtiff giflib
+git clone git://git.sv.gnu.org/emacs.git
+cd emacs
+./autogen.sh
+./configure --with-json
+make -j8
+sudo make install
+#+end_src
+
+** Exwm
+#+begin_src sh
+# required
+yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl scrot
+# optional
+yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
+#+end_src
+
+** Other Applications
+#+begin_src shell
+# statistics
+yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
+# zsh
+yay -S zsh && chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# misc
+yay -S firefox kitty
+#+end_src
+
+** SDDM Theme
+#+begin_src sh
+yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
+#+end_src
+
+** Hardware Drivers
+#+begin_src sh
+yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
+#+end_src
+
+** Misc
+*** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
 In =/etc/systemd/sleep.conf=
 #+begin_src conf
@@ -12,7 +72,7 @@ SuspendMode=
 SuspendState=mem
 #+end_src
 
-** Hibernation
+*** Hibernation
 #+begin_src shell
 # create swapfile (12G)
 dd if=/dev/zero of=/swapfile bs=1M count=12288 status=progress
@@ -38,7 +98,7 @@ HibernateDelaySec=20min
 sudo systemctl restart systemd-logind.service
 #+end_src
 
-** SSH
+*** SSH
 use ssh config file
 #+begin_example
 Host vm-server
@@ -54,17 +114,17 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 #+end_example
 
-** KDE
+*** KDE
 - install =plasma-meta=
 - use =terminator=
-*** hide titlebar when maximized
+**** hide titlebar when maximized
 Add the following scripts in =~/.config/kwinrc=
 #+begin_src sh
 [Windows]
 BorderlessMaximizedWindows=true
 #+end_src
 
-*** chinese input
+**** chinese input
 1. enable Chinese locale
    - make =zh_CN.UTF-8 UTF-8= is in ~/etc/locale.gen~
    - run ~locale-gen~ in shell
@@ -80,10 +140,10 @@ export QT_IM_MODULE=ibus
 ibus-daemon -drxR --panel=/usr/lib/kimpanel-ibus-panel
 #+end_src
 
-*** zoom
+**** zoom
 Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config/zoomus.conf~ to ensure a correct scale for zoom.
 
-** Dual boot with windows
+*** Dual boot with windows
 - Make sure you've installed ntfs-3g: ~yay -S ntfs-3g~
 - Make sure you've installed os-prober: ~yay -S os-prober~
 - Edit grub to use os-prober ~/etc/default/grub~ Find the last (or towards the bottom) line and make it say: ~GRUB_DISABLE_OS_PROBER=false~. Save and exit.
@@ -91,67 +151,11 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 - ~(ignore)~ Make sure you've installed grub to the correct drive (pretty sure you have or it wouldn't boot Linux): sudo grub-install /dev/sd*
 - Re run grub config: ~sudo grub-mkconfig -o /boot/grub/grub.cfg~
 
-** Applications
-*** Core
-#+begin_src sh
-# yay
-sudo pacman -S --needed git base-devel cmake inetutils
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-# x11
-yay -S sddm xorg-xrdb
-sudo systemctl enable sddm.service
-sudo systemctl enable bluetooth.service
-#+end_src
+*** Firefox
+1. Messed up font rendering in Firefox PDF viewer
+   - disable "Allow websites to pick their own fonts" (=browser.display.use_document_fonts= would be 0 in about:config) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
 
-*** Emacs
-#+begin_src shell
-# clone repo
-git clone https://github.com/zhenhua-wang/emacs.d.git
-mv emacs.d .emacs.d
-mkdir ~/.fonts
-cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
-# compile emacs
-yay -S gtk3 libxft libxpm libtiff giflib
-git clone git://git.sv.gnu.org/emacs.git
-cd emacs
-./autogen.sh
-./configure --with-json
-make -j8
-sudo make install
-#+end_src
-
-*** Exwm
-#+begin_src sh
-# required
-yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl scrot
-# optional
-yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
-#+end_src
-
-*** Others
-#+begin_src shell
-# statistics
-yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
-# zsh
-yay -S zsh && chsh -s $(which zsh)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# misc
-yay -S firefox kitty
-#+end_src
-
-*** SDDM theme
-#+begin_src sh
-yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
-#+end_src
-
-*** Hardware drivers
-#+begin_src sh
-yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
-#+end_src
-
-*** GPU and tensorflow
+*** GPU and Tensorflow
 Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
 #+begin_src sh
 # create python environment
@@ -174,11 +178,7 @@ python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000,
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 #+end_src
 
-*** Firefox
-1. Messed up font rendering in Firefox PDF viewer
-   - disable "Allow websites to pick their own fonts" (=browser.display.use_document_fonts= would be 0 in about:config) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
-
-*** update time zone
+*** Auto Time Zone
 #+begin_src sh
 yay -S tzupdate
 sudo tzupdate
