@@ -36,8 +36,7 @@
   (when (executable-find "blueman-applet")
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
-    (zw/exwm-run-in-background "udiskie --no-automount -t"))
-  (redisplay t))
+    (zw/exwm-run-in-background "udiskie --no-automount -t")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -367,7 +366,8 @@
       (setq-local cursor-type (default-value 'cursor-type)
                   mode-line-format (default-value 'mode-line-format))
     (setq-local cursor-type nil
-                mode-line-format nil)))
+                mode-line-format nil))
+  (redisplay t))
 
 (defun zw/exwm-scratch-config ()
   (let ((n-window (length (window-list))))
@@ -379,8 +379,7 @@
           (zw/exwm-set-ui nil))
       (with-current-buffer "*scratch*"
         (zw/exwm-set-opacity t)
-        (zw/exwm-set-ui t))))
-  (redisplay t))
+        (zw/exwm-set-ui t)))))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
