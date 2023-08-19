@@ -373,10 +373,10 @@
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
-        (with-current-buffer "*scratch*"
+        (progn
           (zw/exwm-set-opacity nil)
           (zw/exwm-set-ui nil))
-      (with-current-buffer "*scratch*"
+      (progn
         (zw/exwm-set-opacity t)
         (zw/exwm-set-ui t)))))
 
