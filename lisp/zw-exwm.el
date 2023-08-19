@@ -366,8 +366,7 @@
       (setq-local cursor-type (default-value 'cursor-type)
                   mode-line-format (default-value 'mode-line-format))
     (setq-local cursor-type nil
-                mode-line-format nil))
-  (redisplay))
+                mode-line-format nil)))
 
 (defun zw/exwm-scratch-config ()
   (let ((n-window (length (window-list))))
@@ -375,11 +374,12 @@
              (string= (buffer-name) "*scratch*")
              (= (buffer-size) 0))
         (with-current-buffer "*scratch*"
-          (zw/exwm-set-ui nil)
-          (zw/exwm-set-opacity nil))
+          (zw/exwm-set-opacity nil)
+          (zw/exwm-set-ui nil))
       (with-current-buffer "*scratch*"
-        (zw/exwm-set-ui t)
-        (zw/exwm-set-opacity t)))))
+        (zw/exwm-set-opacity t)
+        (zw/exwm-set-ui t))))
+  (redisplay))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
