@@ -368,7 +368,7 @@
     (setq-local cursor-type nil
                 mode-line-format nil)))
 
-(defun zw/exwm-scratch-config ()
+(defun zw/exwm-desktop-window-config-change ()
   (let ((n-window (length (window-list))))
     (if (and (= n-window 1)
              (string= (buffer-name) "*scratch*")
@@ -380,14 +380,20 @@
         (zw/exwm-set-opacity t)
         (zw/exwm-set-ui t)))))
 
+(defun zw/exwm-desktop-window-buffer-change (arg)
+  (unless (string= (buffer-name) "*scratch*")
+    (with-current-buffer "*scratch*"
+      (zw/exwm-set-ui t))))
+
 (defun zw/exwm-scratch-post-command ()
   (when this-command
-    (zw/exwm-scratch-config)))
+    (zw/exwm-desktop-window-config-change)))
 
-(add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
+(add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config-change)
+(add-hook 'window-buffer-change-functions 'zw/exwm-desktop-window-buffer-change)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
-  (zw/exwm-scratch-config))
+  (zw/exwm-desktop-window-config-change))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
