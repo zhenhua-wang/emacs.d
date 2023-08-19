@@ -380,12 +380,24 @@
         (zw/exwm-set-opacity t)
         (zw/exwm-set-ui t)))))
 
+(defun zw/exwm-scratch-config-ui ()
+  (let ((n-window (length (window-list))))
+    (if (and (= n-window 1)
+             (string= (buffer-name) "*scratch*")
+             (= (buffer-size) 0))
+        (with-current-buffer "*scratch*"
+          (zw/exwm-set-ui nil))
+      (with-current-buffer "*scratch*"
+        (zw/exwm-set-ui t)))))
+
 (defun zw/exwm-scratch-post-command ()
   (when this-command
     (zw/exwm-scratch-config)))
 
 (advice-add 'zw/exwm-update-title :after (lambda () (zw/exwm-set-opacity t)))
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
+;; only use this when modeline is disable on exwm buffer
+(add-hook 'window-state-change-hook 'zw/exwm-scratch-config-ui)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
   (zw/exwm-scratch-config))
