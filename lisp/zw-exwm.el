@@ -36,7 +36,8 @@
   (when (executable-find "blueman-applet")
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
-    (zw/exwm-run-in-background "udiskie --no-automount -t")))
+    (zw/exwm-run-in-background "udiskie --no-automount -t"))
+  (redisplay t))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -379,7 +380,7 @@
       (with-current-buffer "*scratch*"
         (zw/exwm-set-opacity t)
         (zw/exwm-set-ui t))))
-  (redisplay))
+  (redisplay t))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
