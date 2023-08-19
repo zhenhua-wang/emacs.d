@@ -363,8 +363,11 @@
 
 (defun zw/exwm-set-ui (predicate)
   (if predicate
-      (setq-local cursor-type (default-value 'cursor-type))
-    (setq-local cursor-type nil)))
+      (setq-local cursor-type (default-value 'cursor-type)
+                  mode-line-format (default-value 'mode-line-format))
+    (setq-local cursor-type nil
+                mode-line-format nil))
+  (redisplay))
 
 (defun zw/exwm-scratch-config ()
   (let ((n-window (length (window-list))))
@@ -386,8 +389,8 @@
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
-  (zw/exwm-set-ui nil)
-  (setq-local mode-line-format nil))
+  (setq-local cursor-type nil
+              mode-line-format nil))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
