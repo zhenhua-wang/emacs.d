@@ -378,9 +378,7 @@
           (zw/exwm-set-ui nil))
       (with-current-buffer "*scratch*"
         (zw/exwm-set-opacity t)
-        (zw/exwm-set-ui t))))
-  (force-mode-line-update)
-  (redraw-display))
+        (zw/exwm-set-ui t)))))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
