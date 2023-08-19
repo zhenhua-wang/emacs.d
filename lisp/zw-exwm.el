@@ -378,7 +378,9 @@
           (zw/exwm-set-ui nil))
       (with-current-buffer "*scratch*"
         (zw/exwm-set-opacity t)
-        (zw/exwm-set-ui t)))))
+        (zw/exwm-set-ui t))))
+  (force-mode-line-update)
+  (redraw-display))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
@@ -388,10 +390,7 @@
 (add-hook 'window-configuration-change-hook 'zw/exwm-scratch-config)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
-  (setq-local cursor-type nil
-              mode-line-format nil)
-  (force-mode-line-update)
-  (redraw-display))
+  (zw/exwm-scratch-config))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
