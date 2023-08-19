@@ -390,7 +390,8 @@
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
   (setq-local cursor-type nil
-              mode-line-format nil))
+              mode-line-format nil)
+  (redisplay t))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
