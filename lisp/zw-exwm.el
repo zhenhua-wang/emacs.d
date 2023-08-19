@@ -392,8 +392,7 @@
 (add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config-change)
 (add-hook 'window-buffer-change-functions 'zw/exwm-desktop-window-buffer-change)
 (with-current-buffer "*scratch*"
-  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
-  (zw/exwm-desktop-window-config-change))
+  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
