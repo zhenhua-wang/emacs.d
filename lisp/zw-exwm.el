@@ -366,8 +366,7 @@
       (setq-local cursor-type (default-value 'cursor-type)
                   mode-line-format (default-value 'mode-line-format))
     (setq-local cursor-type nil
-                mode-line-format nil))
-  (redisplay t))
+                mode-line-format nil)))
 
 (defun zw/exwm-scratch-config ()
   (let ((n-window (length (window-list))))
@@ -391,7 +390,8 @@
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)
   (setq-local cursor-type nil
               mode-line-format nil)
-  (redisplay t))
+  (force-mode-line-update)
+  (redraw-display))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
