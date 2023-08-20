@@ -356,30 +356,27 @@
       exwm-systemtray-icon-gap 1)
 
 ;; ** desktop
-(defun zw/exwm-set-opacity (predicate)
-  (if predicate
-      (set-frame-parameter (selected-frame) 'alpha-background 98)
-    (set-frame-parameter (selected-frame) 'alpha-background 0)))
-
 (defun zw/exwm-set-ui (predicate)
-  (if predicate
-      (setq-local cursor-type (default-value 'cursor-type)
-                  mode-line-format (default-value 'mode-line-format))
-    (setq-local cursor-type nil
-                mode-line-format nil)))
+  (with-current-buffer "*scratch*"
+    (if predicate
+        (progn
+          (setq-local cursor-type (default-value 'cursor-type)
+                      mode-line-format (default-value 'mode-line-format))
+          (set-frame-parameter (selected-frame) 'alpha-background 98))
+      (progn
+        (setq-local cursor-type nil
+                    mode-line-format nil)
+        (set-frame-parameter (selected-frame) 'alpha-background 0)))))
 
 (defun zw/exwm-desktop-window-config ()
-  (unless (string= (buffer-name) " *Minibuf-0*")
-    (let ((n-window (length (window-list))))
-      (if (and (= n-window 1)
-               (string= (buffer-name) "*scratch*")
-               (= (buffer-size) 0))
-          (with-current-buffer "*scratch*"
-            (zw/exwm-set-opacity nil)
-            (zw/exwm-set-ui nil))
-        (with-current-buffer "*scratch*"
-          (zw/exwm-set-opacity t)
-          (zw/exwm-set-ui t))))))
+  (pcase (buffer-name)
+    (" *Minibuf-0*" nil)
+    ("*scratch*" (let ((n-window (length (window-list))))
+                   (if (and (= n-window 1)
+                            (= (buffer-size) 0))
+                       (zw/exwm-set-ui nil)
+                     (zw/exwm-set-ui t))))
+    (_ (zw/exwm-set-ui t))))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
