@@ -369,7 +369,7 @@
                 mode-line-format nil)))
 
 (defun zw/exwm-desktop-window-config ()
-  (unless (minibufferp)
+  (unless (string= (buffer-name) " *Minibuf-0*")
     (let ((n-window (length (window-list))))
       (if (and (= n-window 1)
                (string= (buffer-name) "*scratch*")
