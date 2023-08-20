@@ -368,29 +368,24 @@
     (setq-local cursor-type nil
                 mode-line-format nil)))
 
-(defun zw/exwm-desktop-window-config-change ()
-  (let ((n-window (length (window-list))))
-    (if (and (= n-window 1)
-             (string= (buffer-name) "*scratch*")
-             (= (buffer-size) 0))
-        (progn
-          (zw/exwm-set-opacity nil)
-          (zw/exwm-set-ui nil))
-      (progn
-        (zw/exwm-set-opacity t)
-        (zw/exwm-set-ui t)))))
-
-(defun zw/exwm-desktop-window-buffer-change (arg)
-  (unless (string= (buffer-name) "*scratch*")
-    (with-current-buffer "*scratch*"
-      (zw/exwm-set-ui t))))
+(defun zw/exwm-desktop-window-config ()
+  (unless (string= (buffer-name) " *Minibuf-0*")
+    (let ((n-window (length (window-list))))
+      (if (and (= n-window 1)
+               (string= (buffer-name) "*scratch*")
+               (= (buffer-size) 0))
+          (with-current-buffer "*scratch*"
+            (zw/exwm-set-opacity nil)
+            (zw/exwm-set-ui nil))
+        (with-current-buffer "*scratch*"
+          (zw/exwm-set-opacity t)
+          (zw/exwm-set-ui t))))))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
-    (zw/exwm-desktop-window-config-change)))
+    (zw/exwm-desktop-window-config)))
 
-(add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config-change)
-(add-hook 'window-buffer-change-functions 'zw/exwm-desktop-window-buffer-change)
+(add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
 (with-current-buffer "*scratch*"
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
