@@ -210,6 +210,7 @@
             (lambda (&rest args)
               (add-to-list 'mode-line-process
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
+(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
 ;; ** tab bar
 (require 'zw-tab-bar)
@@ -333,7 +334,6 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 (with-eval-after-load "pyim"
   (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
   (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
