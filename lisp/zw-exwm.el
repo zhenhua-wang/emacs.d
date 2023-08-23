@@ -234,7 +234,8 @@
          (buffer-list-length (length buffer-list))
          (buffer-name-max (when (> buffer-list-length 0)
                             (- (/ screen-width buffer-list-length 2)
-                               (length buffer-separator)))))
+                               (length buffer-separator)
+                               5))))
     (mapcan
      (lambda (buffer)
        (setq i (1+ i))
