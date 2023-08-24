@@ -143,4 +143,21 @@ i.e. windows tiled side-by-side."
    ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
 
+(defun zw/install-fonts ()
+  "Install required fonts."
+  (interactive)
+  (let ((font-dest (cond
+                    ;; Default Linux install directories
+                    ((member system-type '(gnu gnu/linux gnu/kfreebsd))
+                     (concat (or (getenv "XDG_DATA_HOME")
+                                 (concat (getenv "HOME") "/.local/share"))
+                             "/fonts/"))
+                    ;; Default MacOS install directory
+                    ((eq system-type 'darwin)
+                     (concat (getenv "HOME")
+                             "/Library/Fonts/")))))
+    (dolist (font (directory-files-recursively "~/.emacs.d/fonts" ""))
+      (copy-file font font-dest t)))
+  (nerd-icons-install-fonts))
+
 (provide 'zw-tools)
