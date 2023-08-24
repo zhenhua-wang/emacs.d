@@ -30,7 +30,7 @@
 
 -   clone this reposition to your home folder (~).
 -   change folder name to `.emacs.d`. (adding a dot in the front)
--   `cp .emacs.d/fonts/* ~/.fonts && fc-cache -f -v`
+-   run `(zw/install-fonts)` in emacs
 
 # Main Packages
 
