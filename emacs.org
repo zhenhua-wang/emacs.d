@@ -1609,24 +1609,34 @@ requirements:
 #+begin_src emacs-lisp
 (defun zw/git-add-commit-push-agenda ()
   (interactive)
-  (shell-command "cd ~/Documents/Agenda && git add *")
-  (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
-  (shell-command "cd ~/Documents/Agenda && git push")
-  (message "Agenda pushed!"))
+  (if (file-directory-p "~/Documents/Agenda")
+      (progn
+        (shell-command "cd ~/Documents/Agenda && git add *")
+        (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
+        (shell-command "cd ~/Documents/Agenda && git push")
+        (message "Agenda pushed!"))
+    (message "Agenda doesn't exit!")))
 
 (defun zw/git-pull-agenda ()
   (interactive)
-  (shell-command "cd ~/Documents/Agenda && git pull")
-  (message "Agenda pulled!"))
+  (if (file-directory-p "~/Documents/Agenda")
+      (progn
+        (shell-command "cd ~/Documents/Agenda && git pull")
+        (message "Agenda pulled!"))
+    (message "Agenda doesn't exit!")))
+
+(defun zw/open-agenda ()
+  (interactive)
+  (if (file-directory-p "~/Documents/Agenda")
+      (org-agenda nil "d")
+    (message "Agenda doesn't exit!")))
 
 ;; agenda keys
 (bind-keys :prefix-map zw/org-agenda-map
            :prefix "<f12>"
            ("<down>" . zw/git-pull-agenda)
            ("<up>" . zw/git-add-commit-push-agenda)
-           ("<f12>" . (lambda (&optional arg)
-                        (interactive "P")
-                        (org-agenda arg "d"))))
+           ("<f12>" . zw/open-agenda))
 
 (with-eval-after-load 'org
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
