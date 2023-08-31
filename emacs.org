@@ -912,12 +912,6 @@ For host with two factor auth, you need to
          ("C-c q" . vr/query-replace)))
 #+end_src
 
-** Last change
-#+begin_src emacs-lisp
-(use-package goto-last-change
-  :bind (("M-g l" . goto-last-change)))
-#+end_src
-
 * Completion
 ** Orderless
 #+begin_src emacs-lisp
