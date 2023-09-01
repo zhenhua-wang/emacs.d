@@ -79,7 +79,6 @@
 (defun zw/exwm-ui-set-color ()
   (set-face-foreground 'tab-bar zw/exwm-ui-fg)
   (set-face-background 'tab-bar zw/exwm-ui-bg)
-  (set-face-background 'vertico-current zw/exwm-ui-bg-hl)
   (set-face-foreground 'keycast-key "#000000")
   (set-face-background 'keycast-key zw/exwm-ui-highlight)
   (set-face-foreground 'keycast-command zw/exwm-ui-highlight))
@@ -374,8 +373,7 @@
 (setq echo-keystrokes 0)
 (add-hook 'exwm-init-hook
           (lambda ()
-            (set-frame-parameter exwm-workspace--minibuffer 'foreground-color zw/exwm-ui-fg)
-            (set-frame-parameter exwm-workspace--minibuffer 'background-color zw/exwm-ui-bg)))
+            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
 (with-eval-after-load "pyim"
   (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
   (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
@@ -394,7 +392,7 @@
 ;; ** systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
-(setq exwm-systemtray-background-color zw/exwm-ui-bg
+(setq exwm-systemtray-background-color (face-background 'mode-line)
       exwm-systemtray-icon-gap 1)
 
 ;; ** desktop
