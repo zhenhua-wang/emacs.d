@@ -41,6 +41,50 @@
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
 ;; * exwm appearance
+;; ** Color
+(defgroup zw/exwm-ui nil
+  "zw/exwm-ui."
+  :group 'convenience)
+
+(defcustom zw/exwm-ui-fg "#bbc2cf"
+  "zw/exwm ui foreground."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defcustom zw/exwm-ui-bg "#21242b"
+  "zw/exwm ui background."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defcustom zw/exwm-ui-fg-alt "#3f444a"
+  "zw/exwm ui alternative foreground."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defcustom zw/exwm-ui-bg-alt (doom-lighten zw/exwm-ui-bg 0.1)
+  "zw/exwm ui alternative background."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defcustom zw/exwm-ui-bg-hl "#42444a"
+  "zw/exwm ui background current line."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defcustom zw/exwm-ui-highlight "#51afef"
+  "zw/exwm ui highlight."
+  :group 'zw/exwm-ui
+  :type 'string)
+
+(defun zw/exwm-ui-set-color ()
+  (set-face-foreground 'tab-bar zw/exwm-ui-fg)
+  (set-face-background 'tab-bar zw/exwm-ui-bg)
+  (set-face-background 'vertico-current zw/exwm-ui-bg-hl)
+  (set-face-foreground 'keycast-key "#000000")
+  (set-face-background 'keycast-key zw/exwm-ui-highlight)
+  (set-face-foreground 'keycast-command zw/exwm-ui-highlight))
+(add-hook 'exwm-init-hook 'zw/exwm-ui-set-color)
+
 ;; ** window management
 ;; *** X window
 ;; **** update title
@@ -216,13 +260,9 @@
 (require 'zw-tab-bar)
 (defun zw/tab-bar-format-exwm-workspace ()
   "Produce menu that shows current exwm workspace."
-  (let* ((bg (face-background 'tab-bar))
-         (bg-alt (pcase (frame-parameter nil 'background-mode)
-                   ('light (doom-darken bg 0.1))
-                   ('dark (doom-lighten bg 0.1)))))
-    `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
-                                     'face `(:background ,bg-alt :weight regular))
-              nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
+  `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
+                                   'face `(:background ,zw/exwm-ui-bg-alt :weight regular))
+            nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index))))
 
 (defun zw/tab-bar-format-buffers ()
   (let* ((i 0)
@@ -243,7 +283,7 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer) (buffer-name))
                               (propertize bname 'face '(:weight bold))
-                            (propertize bname 'face 'font-lock-comment-face)))
+                            (propertize bname 'face `(:foreground ,zw/exwm-ui-fg-alt))))
               (tab-click-func (lambda () (interactive)
                                 (exwm-workspace-switch-to-buffer buffer)))
               (current-tab `(current-tab menu-item ,bname-face
@@ -334,7 +374,8 @@
 (setq echo-keystrokes 0)
 (add-hook 'exwm-init-hook
           (lambda ()
-            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
+            (set-frame-parameter exwm-workspace--minibuffer 'foreground-color zw/exwm-ui-fg)
+            (set-frame-parameter exwm-workspace--minibuffer 'background-color zw/exwm-ui-bg)))
 (with-eval-after-load "pyim"
   (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
   (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
@@ -353,7 +394,7 @@
 ;; ** systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
-(setq exwm-systemtray-background-color (face-background 'mode-line)
+(setq exwm-systemtray-background-color zw/exwm-ui-bg
       exwm-systemtray-icon-gap 1)
 
 ;; ** desktop
