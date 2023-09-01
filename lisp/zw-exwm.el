@@ -243,7 +243,7 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer) (buffer-name))
                               (propertize bname 'face '(:weight bold))
-                            (propertize bname 'face 'tab-bar-tab-inactive)))
+                            (propertize bname 'face 'font-lock-comment-face)))
               (tab-click-func (lambda () (interactive)
                                 (exwm-workspace-switch-to-buffer buffer)))
               (current-tab `(current-tab menu-item ,bname-face
