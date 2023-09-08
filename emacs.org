@@ -967,6 +967,7 @@ For host with two factor auth, you need to
            (seq-remove (lambda (x) (string-suffix-p "/" x)) files))))
 
 (use-package vertico-posframe
+  :hook (vertico-mode . vertico-posframe-mode)
   :config
   (defun vertico-posframe-set-cursor (&rest args)
     (with-current-buffer vertico-posframe--buffer
@@ -974,8 +975,7 @@ For host with two factor auth, you need to
       (setq-local cursor-in-non-selected-windows 'bar)))
   (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
-        vertico-posframe-width (frame-width))
-  (vertico-posframe-mode 1))
+        vertico-posframe-width (frame-width)))
 #+end_src
 
 *** marginalia
@@ -1052,25 +1052,19 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         consult-async-refresh-delay  0.15
         consult-async-input-throttle 0.2
         consult-async-input-debounce 0.1)
-
-  ;; Preview consult commands
-  (consult-customize consult-goto-line :preview-key '(:debounce 0 any)
-                     consult-theme :preview-key '(:debounce 0.2 any))
-
   ;; custom functions
   (defun zw/consult-line-multi ()
     (interactive)
     (consult-line-multi t)))
 
-;; custom consult packages
+;; other consult packages
 (use-package consult-yasnippet
   :commands consult-yasnippet)
 (use-package consult-dir
   :commands consult-dir)
 (use-package consult-tramp
   :commands consult-tramp
-  :straight
-  (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
+  :straight (consult-tramp :host github :repo "Ladicle/consult-tramp")
   :init (setq consult-tramp-method "ssh"))
 (use-package consult-flyspell
   :commands consult-flyspell)
