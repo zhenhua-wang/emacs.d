@@ -336,8 +336,11 @@
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
 (with-eval-after-load "pyim"
-  (add-hook 'pyim-activate-hook 'exwm-workspace-attach-minibuffer)
-  (add-hook 'pyim-deactivate-hook 'exwm-workspace-detach-minibuffer))
+  (defun zw/exwm-workspace-clear (orig-func)
+    (unless (pyim-process--translating-p)
+      (funcall orig-func)))
+  (advice-add 'exwm-workspace--on-echo-area-clear :around 'zw/exwm-workspace-clear)
+  (advice-add 'pyim-process-terminate :after 'exwm-workspace--on-echo-area-clear))
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
