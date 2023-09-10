@@ -2,7 +2,7 @@
 ;; * exwm init
 (use-package exwm
   :demand t
-  :straight (:host github :repo "ch11ng/exwm" :files ("*")))
+  :straight (:host github :repo "zhenhua-wang/exwm" :files ("*")))
 
 (setq
  ;; disable conformation to kill processes on Emacs exit
