@@ -407,11 +407,6 @@
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
 ;; ** input method
-;; use ibus-rime for X11 apps
-;; (setenv "GTK_IM_MODULE" "ibus")
-;; (setenv "QT_IM_MODULE" "ibus")
-;; (setenv "XMODIFIERS" "@im=ibus")
-;; (setenv "LC_CTYPE" "zh_CN.UTF-8")
 (require 'exwm-xim)
 (exwm-xim-enable)
 (push ?\C-\\ exwm-input-prefix-keys)
