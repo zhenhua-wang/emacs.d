@@ -415,6 +415,8 @@
 (setenv "GTK_IM_MODULE" "fcitx")
 (setenv "QT_IM_MODULE" "fcitx")
 (setenv "XMODIFIERS" "@im=fcitx")
+(setenv "SDL_IM_MODULE" "fcitx")
+(setenv "GLFW_IM_MODULE" "ibus")
 (setq default-input-method "pyim")
 
 (use-package pyim
