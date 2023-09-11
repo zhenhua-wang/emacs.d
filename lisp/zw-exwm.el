@@ -36,7 +36,9 @@
   (when (executable-find "blueman-applet")
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
-    (zw/exwm-run-in-background "udiskie --no-automount -t")))
+    (zw/exwm-run-in-background "udiskie --no-automount -t"))
+  (when (executable-find "fcitx5")
+    (zw/exwm-run-in-background "fcitx5")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -407,13 +409,13 @@
   (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
 
 ;; ** input method
-(require 'exwm-xim)
-(exwm-xim-enable)
+;; (require 'exwm-xim)
+;; (exwm-xim-enable)
+;; (setenv "CLUTTER_IM_MODULE" "xim")
 (push ?\C-\\ exwm-input-prefix-keys)
-(setenv "GTK_IM_MODULE" "xim")
-(setenv "QT_IM_MODULE" "xim")
-(setenv "XMODIFIERS" "@im=exwm-xim")
-(setenv "CLUTTER_IM_MODULE" "xim")
+(setenv "GTK_IM_MODULE" "fcitx")
+(setenv "QT_IM_MODULE" "fcitx")
+(setenv "XMODIFIERS" "@im=fcitx")
 (setq default-input-method "pyim")
 
 (use-package pyim
@@ -424,9 +426,9 @@
               ("<left>" . pyim-backward-point)
               ("<right>" . pyim-forward-point))
   :config
-  (setq pyim-page-tooltip 'minibuffer
+  (setq pyim-page-tooltip 'posframe
         pyim-default-scheme 'quanpin
-        pyim-page-style 'minibuffer
+        pyim-page-style 'vertical
         pyim-page-length 9
         pyim-cloudim 'google)
   (global-set-key (kbd "C-\\") 'toggle-input-method)
@@ -681,8 +683,6 @@
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
-        ;; input
-        (,(kbd "C-\\") . toggle-input-method)
         ;; side bar
         (,(kbd "s-b") . zw/toggle-dired-sidebar)
         ;; vterm

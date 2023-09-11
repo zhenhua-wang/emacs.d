@@ -177,3 +177,179 @@ function vterm_prompt_end() {
 setopt PROMPT_SUBST
 export PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 #+end_src
+
+* Fcitx5
+** Config
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/config" "no")
+#+begin_src conf
+[Hotkey]
+# Trigger Input Method
+TriggerKeys=
+# Enumerate when press trigger key repeatedly
+EnumerateWithTriggerKeys=True
+# Temporally switch between first and current Input Method
+AltTriggerKeys=
+# Enumerate Input Method Forward
+EnumerateForwardKeys=
+# Enumerate Input Method Backward
+EnumerateBackwardKeys=
+# Skip first input method while enumerating
+EnumerateSkipFirst=False
+# Enumerate Input Method Group Forward
+EnumerateGroupForwardKeys=
+# Enumerate Input Method Group Backward
+EnumerateGroupBackwardKeys=
+# Activate Input Method
+ActivateKeys=
+# Deactivate Input Method
+DeactivateKeys=
+# Default Previous page
+PrevPage=
+# Default Next page
+NextPage=
+# Default Previous Candidate
+PrevCandidate=
+# Default Next Candidate
+NextCandidate=
+# Toggle embedded preedit
+TogglePreedit=
+
+[Behavior]
+# Active By Default
+ActiveByDefault=False
+# Share Input State
+ShareInputState=Program
+# Show preedit in application
+PreeditEnabledByDefault=True
+# Show Input Method Information when switch input method
+ShowInputMethodInformation=True
+# Show Input Method Information when changing focus
+showInputMethodInformationWhenFocusIn=True
+# Show compact input method information
+CompactInputMethodInformation=True
+# Show first input method information
+ShowFirstInputMethodInformation=False
+# Default page size
+DefaultPageSize=9
+# Override Xkb Option
+OverrideXkbOption=False
+# Custom Xkb Option
+CustomXkbOption=
+# Force Enabled Addons
+EnabledAddons=
+# Force Disabled Addons
+DisabledAddons=
+# Preload input method to be used by default
+PreloadInputMethod=True
+#+end_src
+
+** Profile
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/profile" "no")
+#+begin_src conf
+[Groups/0]
+# Group Name
+Name=Default
+# Layout
+Default Layout=us
+# Default Input Method
+DefaultIM=rime
+
+[Groups/0/Items/0]
+# Name
+Name=rime
+# Layout
+Layout=
+
+[GroupOrder]
+0=Default
+#+end_src
+
+** Theme
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/conf/classicui.conf" "no")
+#+begin_src sh
+# Vertical Candidate List
+Vertical Candidate List=True
+# Use mouse wheel to go to prev or next page
+WheelForPaging=True
+# Font
+Font="Sans 12"
+# Menu Font
+MenuFont="Sans 12"
+# Tray Font
+TrayFont="Sans Bold 12"
+# Tray Label Outline Color
+TrayOutlineColor=#000000
+# Tray Label Text Color
+TrayTextColor=#ffffff
+# Prefer Text Icon
+PreferTextIcon=False
+# Show Layout Name In Icon
+ShowLayoutNameInIcon=True
+# Use input method language to display text
+UseInputMethodLanguageToDisplayText=True
+# Theme
+Theme=default
+# Dark Theme
+DarkTheme=default-dark
+# Follow system light/dark color scheme
+UseDarkTheme=True
+# Use Per Screen DPI on X11
+PerScreenDPI=True
+# Force font DPI on Wayland
+ForceWaylandDPI=0
+# Enable fractional scale under Wayland
+EnableFractionalScale=True
+#+end_src
+
+* Rime
+** Main
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.local/share/fcitx5/rime/default.custom.yaml" "no")
+#+begin_src conf
+patch:
+  schema_list:
+    - schema: luna_pinyin
+    - schema: terra_pinyin
+  menu:
+    page_size: 9
+  switcher:
+    caption: "〔方案选单〕"
+    hotkeys:
+      - Control+grave
+      - F4
+  ascii_composer:
+    good_old_caps_lock: true
+    switch_key:
+      Shift_L: noop
+      Shift_R: noop
+      Control_L: noop
+      Control_R: noop
+      Caps_Lock: noop
+      Eisu_toggle: noop
+  key_binder:
+    bindings:
+      - {accept: Control+backslash, toggle: ascii_mode, when: always}
+      - {accept: minus, send: Page_Up, when: paging}
+      - {accept: equal, send: Page_Down, when: has_menu}
+      - {accept: comma, send: Page_Up, when: paging}
+      - {accept: period, send: Page_Down, when: has_menu}
+      - {accept: bracketleft, send: Page_Up, when: paging}
+      - {accept: bracketright, send: Page_Down, when: has_menu}
+#+end_src
+
+** Luna pinyin
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.local/share/fcitx5/rime/luna_pinyin.custom.yaml" "no")
+#+begin_src conf
+patch:
+  switches:
+    - name: ascii_mode
+      reset: 1
+      states: [ 中文, 西文 ]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: simplification
+      reset: 1
+      states: [ 漢字, 汉字 ]
+    - name: ascii_punct
+      states: [ 。，, ．， ]
+#+end_src
+
