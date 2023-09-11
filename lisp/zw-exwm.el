@@ -423,7 +423,8 @@
               ("," . pyim-previous-page)
               ("." . pyim-next-page)
               ("<left>" . pyim-backward-point)
-              ("<right>" . pyim-forward-point))
+              ("<right>" . pyim-forward-point)
+              ("C-\\" . pyim/toggle-input-method))
   :config
   (setq pyim-page-tooltip 'posframe
         pyim-default-scheme 'quanpin
@@ -435,7 +436,14 @@
   (defun pyim-orderless-regexp (orig-func component)
     (let ((result (funcall orig-func component)))
       (pyim-cregexp-build result)))
-  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp))
+  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp)
+  ;; toggle input entered pinyin
+  (defun pyim/toggle-input-method ()
+    (interactive)
+    (let ((word (pyim-entered-get)))
+      (pyim-quit-clear)
+      (funcall-interactively #'toggle-input-method)
+      (insert word))))
 
 (use-package pyim-basedict
   :after pyim
