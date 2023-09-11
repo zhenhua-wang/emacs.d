@@ -427,7 +427,7 @@
   :config
   (setq pyim-page-tooltip 'posframe
         pyim-default-scheme 'quanpin
-        pyim-page-style 'vertical
+        pyim-page-style 'two-line
         pyim-page-length 9
         pyim-cloudim 'google)
   (global-set-key (kbd "C-\\") 'toggle-input-method)

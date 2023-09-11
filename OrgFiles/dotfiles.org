@@ -268,7 +268,7 @@ Layout=
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/conf/classicui.conf" "no")
 #+begin_src sh
 # Vertical Candidate List
-Vertical Candidate List=True
+Vertical Candidate List=False
 # Use mouse wheel to go to prev or next page
 WheelForPaging=True
 # Font
