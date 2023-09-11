@@ -278,7 +278,6 @@
                        tab-bar-separator
                        tab-bar-separator
                        tab-bar-separator
-                       zw/tab-bar-format-pyim
                        zw/tab-bar-format-cpu-temp
                        zw/tab-bar-format-time
                        zw/tab-bar-format-battery))
