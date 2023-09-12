@@ -357,14 +357,14 @@ patch:
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
-  font: "Noto Sans Mono 10";
+  font: "Noto Sans Mono 8";
   matching: "fuzzy";
   show-icons: true;
   modi: "combi";
-  display-combi: "";
+  display-combi: " Apps";
   combi-modi: "window,drun";
-  combi-hide-mode-prefix: false;
-  drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+  combi-hide-mode-prefix: true;
+  drun-display-format: "{name}";
   window-format: "{w} · {c} · {t}";
 }
 
@@ -424,9 +424,9 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     0px;
     margin:                      0px;
-    padding:                     30px;
+    padding:                     20px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-colour;
@@ -438,14 +438,14 @@ mainbox {
 inputbar {
     enabled:                     true;
     spacing:                     10px;
-    margin:                      0px;
-    padding:                     0px;
+    margin:                      0px 0px 10px 0px;
+    padding:                     5px 10px;
     border:                      0px solid;
-    border-radius:               0px;
+    border-radius:               10px;
     border-color:                @border-colour;
-    background-color:            transparent;
+    background-color:            @alternate-background;
     text-color:                  @foreground-colour;
-    children:                    [ "textbox-prompt-colon", "entry", "mode-switcher" ];
+    children:                    [ "textbox-prompt-colon", "entry" ];
 }
 prompt {
     enabled:                     true;
@@ -498,19 +498,19 @@ case-indicator {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       9;
+    lines:                       10;
     cycle:                       true;
     dynamic:                     true;
-    scrollbar:                   true;
+    scrollbar:                   false;
     layout:                      vertical;
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
     spacing:                     5px;
     margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
+    padding:                     10px;
+    border:                      2px 2px 2px 2px ;
+    border-radius:               10px 10px 10px 10px;
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
@@ -528,9 +528,9 @@ element {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     5px 10px;
+    padding:                     6px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               6px;
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
@@ -575,6 +575,7 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
+    size:                        48px;
     cursor:                      inherit;
 }
 element-text {
@@ -586,36 +587,10 @@ element-text {
     horizontal-align:            0.0;
 }
 
-/*****----- Mode Switcher -----*****/
-mode-switcher{
-    enabled:                     true;
-    spacing:                     10px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               0px;
-    border-color:                @border-colour;
-    background-color:            transparent;
-    text-color:                  @foreground-colour;
-}
-button {
-    padding:                     5px 10px;
-    border:                      0px solid;
-    border-radius:               10px;
-    border-color:                @border-colour;
-    background-color:            @alternate-background;
-    text-color:                  inherit;
-    cursor:                      pointer;
-}
-button selected {
-    background-color:            var(selected-normal-background);
-    text-color:                  var(selected-normal-foreground);
-}
-
 /*****----- Message -----*****/
 message {
     enabled:                     true;
-    margin:                      0px;
+    margin:                      0px 0px 10px 0px;
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
@@ -624,7 +599,7 @@ message {
     text-color:                  @foreground-colour;
 }
 textbox {
-    padding:                     8px 10px;
+    padding:                     10px;
     border:                      0px solid;
     border-radius:               10px;
     border-color:                @border-colour;
