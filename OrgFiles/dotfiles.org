@@ -357,7 +357,7 @@ patch:
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
-  font: "Noto Sans Mono 8";
+  font: "Noto Sans Mono 10";
   matching: "fuzzy";
   show-icons: true;
   modi: "combi";
@@ -575,7 +575,7 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        48px;
+    size:                        60px;
     cursor:                      inherit;
 }
 element-text {
