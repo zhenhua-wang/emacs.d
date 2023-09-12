@@ -357,7 +357,7 @@ patch:
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
-  display-combi: "ROFI";
+  display-combi: "";
   combi-modi: "window,drun";
   combi-hide-mode-prefix: false;
   drun-display-format: "{icon} {name}";
