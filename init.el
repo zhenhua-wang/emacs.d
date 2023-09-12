@@ -29,3 +29,6 @@
     (pcase system-type
       ('windows-nt (org-babel-load-file "~/.emacs.d/emacs-windows.org"))
       (_ (org-babel-load-file "~/.emacs.d/emacs.org")))))
+
+;; clear echo area
+(message nil)
