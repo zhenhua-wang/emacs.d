@@ -359,12 +359,13 @@ patch:
 configuration {
   display-combi: "ROFI";
   combi-modi: "window,drun";
+  combi-hide-mode-prefix: false;
   drun-display-format: "{icon} {name}";
   font: "Noto Sans Mono 10";
   modi: "combi";
   matching: "fuzzy";
   show-icons: true;
-  sidebar-mode: true;
+  sidebar-mode: false;
   kb-mode-next: "super+Tab";
   kb-mode-previous: "super+shift+Tab";
 }
