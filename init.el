@@ -9,7 +9,8 @@
 
 (setq auto-mode-case-fold nil
       inhibit-startup-screen t
-      initial-scratch-message nil)
+      initial-scratch-message nil
+      cursor-in-non-selected-windows nil)
 
 ;; Unset file-name-handler-alist temporarily and restore it later
 (unless (or (daemonp) noninteractive init-file-debug)
