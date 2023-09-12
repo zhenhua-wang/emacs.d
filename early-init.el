@@ -12,8 +12,7 @@
 (setq gc-cons-threshold most-positive-fixnum
       load-prefer-newer noninteractive
       frame-inhibit-implied-resize t
-      package-enable-at-startup nil
-      use-package-enable-imenu-support t)
+      package-enable-at-startup nil)
 
 ;; set UI
 (push '(menu-bar-lines . 0)   default-frame-alist)
