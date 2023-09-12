@@ -11,8 +11,6 @@
       inhibit-startup-screen t
       initial-scratch-message nil)
 
-(setq-default cursor-in-non-selected-windows nil)
-
 ;; Unset file-name-handler-alist temporarily and restore it later
 (unless (or (daemonp) noninteractive init-file-debug)
   (let ((old-file-name-handler-alist file-name-handler-alist))

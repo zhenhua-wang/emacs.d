@@ -158,27 +158,22 @@
 
 ** Global settings
 #+begin_src emacs-lisp
-;; setq default folder
-(setq default-directory (concat (getenv "HOME") "/"))
-;; confirm emacs quit
-(setq confirm-kill-emacs 'yes-or-no-p)
-;; disable tooltips
-(setq use-dialog-box nil)
-;; Set up the visible bell
-(setq visible-bell t)
-;; cursor
-(setq-default cursor-type '(bar . 2))
+(setq-default default-directory (concat (getenv "HOME") "/")
+              confirm-kill-emacs 'yes-or-no-p
+              use-dialog-box nil
+              visible-bell t
+              cursor-type '(bar . 2)
+              cursor-in-non-selected-windows nil
+              ;; sse spaces for indent
+              indent-tabs-mode nil
+              ;; save clipboard before kill ring
+              save-interprogram-paste-before-kill t
+              select-enable-clipboard t
+              ;; revert buffer
+              global-auto-revert-non-file-buffers t
+              revert-buffer-quick-short-answers t)
 ;; default coding
 (set-default-coding-systems 'utf-8)
-;; save clipboard before kill ring
-(setq save-interprogram-paste-before-kill t)
-(setq-default select-enable-clipboard t)
-;; Revert Dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-;; use short answer for revert buffer
-(setq revert-buffer-quick-short-answers t)
-;; Use spaces instead of tabs for indentation
-(setq-default indent-tabs-mode nil)
 #+end_src
 
 ** Keymap
