@@ -732,3 +732,5 @@
 
 ;; * exwm enable
 (exwm-enable)
+;; clear echo area
+(message nil)

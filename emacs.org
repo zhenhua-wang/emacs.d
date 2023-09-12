@@ -32,8 +32,7 @@
 
 ;; Install use-package
 (straight-use-package 'use-package)
-(setq package-enable-at-startup nil     ;;; Disable package.el in favor of straight.el
-      straight-use-package-by-default t
+(setq straight-use-package-by-default t
       ;; disable checking at start-up
       straight-check-for-modifications '(watch-files find-when-checking)
       use-package-verbose t)
@@ -82,6 +81,12 @@
   (after-init . exec-path-from-shell-initialize)
   :init
   (setq exec-path-from-shell-check-startup-files nil))
+#+end_src
+
+** Server
+#+begin_src emacs-lisp
+(use-package server
+  :hook (after-init . server-start))
 #+end_src
 
 * Setting
