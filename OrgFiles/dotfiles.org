@@ -357,15 +357,14 @@ patch:
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
 #+begin_src conf
 configuration {
+  font: "Noto Sans Mono 10";
+  matching: "fuzzy";
+  show-icons: true;
+  modi: "combi";
   display-combi: "";
   combi-modi: "window,drun";
   combi-hide-mode-prefix: false;
-  drun-display-format: "{icon} {name}";
-  font: "Noto Sans Mono 10";
-  modi: "combi";
-  matching: "fuzzy";
-  show-icons: true;
-  drun-display-format: "{name}";
+  drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
   window-format: "{w} · {c} · {t}";
 }
 
