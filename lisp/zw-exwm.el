@@ -570,6 +570,10 @@
     (funcall orig-func cand cat)))
 (advice-add 'nerd-icons-completion-get-icon :around #'app-launcher-nerd-icons-completion-get-icon)
 
+(defun zw/show-rofi ()
+  (interactive)
+  (call-process-shell-command "rofi -show combi -dpi 1"))
+
 ;; ** exwm edit
 (use-package exwm-edit
   :init
@@ -688,7 +692,7 @@
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
                                  (async-shell-command command)))
-        (,(kbd "s-SPC") . app-launcher-run-app)
+        (,(kbd "s-SPC") . zw/show-rofi)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
