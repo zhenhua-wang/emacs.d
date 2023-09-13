@@ -348,8 +348,27 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
+(defun zw/exwm-focus-minibuffer ()
+  (interactive)
+  (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-outer-id)))
+    (xcb:+request exwm--connection
+        (make-instance 'xcb:SetInputFocus
+                       :revert-to xcb:InputFocus:Parent
+                       :focus id
+                       :time xcb:Time:CurrentTime))
+    (xcb:flush exwm--connection)))
+(defun zw/exwm-focus-main ()
+  (interactive)
+  (select-frame-set-input-focus exwm-workspace--current))
+(defun zw/exwm-window-down ()
+  (interactive)
+  (if (active-minibuffer-window)
+      (zw/exwm-focus-minibuffer)
+    (windmove-down)))
 (bind-keys :map global-map
-           ("<escape>" . zw/exwm-minibuffer-and-keyboard-quit)
+           ("s-<down>" . zw/exwm-window-down)
+           :map minibuffer-mode-map
+           ("s-<up>" . zw/exwm-focus-main)
            ("s-<escape>" . exwm-workspace-toggle-minibuffer)
            :map exwm-mode-map
            ("s-<escape>" . exwm-workspace-toggle-minibuffer))
@@ -726,7 +745,7 @@
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
-           ("s-<down>" . windmove-down)
+           ("s-<down>" . zw/exwm-window-down)
            ;; tab bar
            ("s-1" . zw/tab-switch)
            ("s-9" . tab-new)
