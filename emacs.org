@@ -911,9 +911,16 @@
 ;; orderless
 (use-package orderless
   :config
-  (setq completion-styles '(orderless partial-completion basic)
+  (orderless-define-completion-style orderless+initialism
+    (orderless-matching-styles '(orderless-initialism
+                                 orderless-literal
+                                 orderless-regexp)))
+  (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides '((file (styles basic partial-completion))
+                                        (command (styles orderless+initialism))
+                                        (variable (styles orderless+initialism))
+                                        (symbol (styles orderless+initialism)))))
 #+end_src
 
 ** Minibuffer Completion
