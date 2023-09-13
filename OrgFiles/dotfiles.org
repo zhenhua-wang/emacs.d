@@ -575,7 +575,6 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        60px;
     cursor:                      inherit;
 }
 element-text {
