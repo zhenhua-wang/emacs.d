@@ -1183,15 +1183,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
 
-**** eglot
-#+begin_src emacs-lisp
-(setq eglot-autoshutdown t)
-(dolist (mode '(c++-mode-hook c-mode-hook))
-  (add-hook mode (lambda ()
-                   (when (file-remote-p default-directory)
-                     (eglot-ensure)))))
-#+end_src
-
 *** Code reference
 #+begin_src emacs-lisp
 (use-package xref
