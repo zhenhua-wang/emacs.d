@@ -348,6 +348,9 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
+(defun zw/exwm-hide-minibuffer ()
+  (interactive)
+  (exwm-workspace--hide-minibuffer))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-outer-id)))
@@ -367,10 +370,12 @@
     (windmove-down)))
 (bind-keys :map global-map
            ("s-<down>" . zw/exwm-window-down)
+           ("C-<escape>" . zw/exwm-hide-minibuffer)
+           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
            :map minibuffer-mode-map
            ("s-<up>" . zw/exwm-focus-main)
-           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
            :map exwm-mode-map
+           ("C-<escape>" . zw/exwm-hide-minibuffer)
            ("s-<escape>" . exwm-workspace-toggle-minibuffer))
 
 ;; ** systemtray
