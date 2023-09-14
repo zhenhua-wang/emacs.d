@@ -1045,6 +1045,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         xref-show-definitions-function #'consult-xref)
   (advice-add #'register-preview :override #'consult-register-window)
   :config
+  (consult-customize consult-theme :preview-key '(:debounce 0.2 any))
   ;; Optionally configure the narrowing key.
   (setq consult-narrow-key "<" ;; (kbd "C-+")
         consult-line-numbers-widen t
