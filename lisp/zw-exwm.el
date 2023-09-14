@@ -353,7 +353,7 @@
   (exwm-workspace--hide-minibuffer))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
-  (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-outer-id)))
+  (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
     (xcb:+request exwm--connection
         (make-instance 'xcb:SetInputFocus
                        :revert-to xcb:InputFocus:Parent
