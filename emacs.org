@@ -1677,10 +1677,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-babel-do-load-languages
    'org-babel-load-languages ob-language-alist)
 
-  ;; alias ess-r to R
+  ;; language alias
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
-  (defalias 'org-babel-ess-r-initiate-session
-    'org-babel-R-initiate-session)
+  (defalias 'org-babel-ess-r-initiate-session 'org-babel-R-initiate-session)
 
   ;; enable lsp-org inside src block
   (cl-defmacro lsp-org-babel-enable (lang)
