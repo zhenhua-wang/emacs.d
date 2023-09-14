@@ -533,23 +533,11 @@
          (side . top)
          (slot . 1))
         ;; right side window
-        ("\\*\\(R\\|Python\\|jupyter-display\\).*"
+        ("\\*\\(R\\|Python\\).*"
          (display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
          (slot . 1)
-         (dedicated . t))
-        ("\\*jupyter-output.*"
-         (display-buffer-in-side-window)
-         (window-width . 0.3)
-         (side . right)
-         (slot . 2)
-         (dedicated . t))
-        ("\\*jupyter-error.*"
-         (display-buffer-in-side-window)
-         (window-width . 0.3)
-         (side . right)
-         (slot . 3)
          (dedicated . t))
         ;; bottom buffer (NOT side window)
         ("\\*.*\\(e?shell\\|v?term\\).*"
@@ -1343,10 +1331,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (add-to-list 'python-shell-completion-native-disabled-interpreters
                    "ipython"))
     (if (and (featurep 'lsp-mode) lsp-mode)
-        (lsp-restart-workspace))
-    (if (and (executable-find "jupyter")
-             (fboundp 'jupyter-available-kernelspecs))
-        (jupyter-available-kernelspecs t)))
+        (lsp-restart-workspace)))
   (advice-add #'conda-env-activate :after #'zw/conda-env-update)
   (advice-add #'conda-env-deactivate :after #'zw/conda-env-update))
 #+end_src
@@ -1477,8 +1462,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (setq org-highlight-latex-and-related '(latex entities))
   ;; org-export
   (setq org-latex-listings 't)
-  ;; mapping jupyter-python to Python
-  (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
+  ;; language alias
   (add-to-list 'org-latex-listings-langs '(ess-r "R"))
   (add-to-list 'org-latex-classes
                '("org-plain-latex"
