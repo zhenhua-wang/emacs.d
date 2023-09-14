@@ -1463,15 +1463,19 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
-  (setq
-   ;; init appearance
-   org-num-face 'default
-   org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
-   org-image-actual-width nil          ; use user defined image size
-   org-hide-emphasis-markers t
-   org-src-fontify-natively t
-   org-fontify-quote-and-verse-blocks t
-   org-support-shift-select 'always))
+  (setq org-num-face 'default
+        org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
+        org-image-actual-width nil          ; use user defined image size
+        org-hide-emphasis-markers t
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-support-shift-select 'always)
+  ;; custom functions
+  (defun zw/org-fold-all-but-current ()
+    (interactive)
+    (org-remove-occur-highlights)
+    (org-overview)
+    (org-reveal)))
 
 ;; auto tangle
 (use-package org-auto-tangle
@@ -1601,15 +1605,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
            ("<down>" . zw/git-pull-agenda)
            ("<up>" . zw/git-add-commit-push-agenda)
            ("<f12>" . zw/open-agenda))
-#+end_src
-
-**** custom functions
-#+begin_src emacs-lisp
-(defun zw/org-fold-all-but-current ()
-  (interactive)
-  (org-remove-occur-highlights)
-  (org-overview)
-  (org-reveal))
 #+end_src
 
 *** Markdown
