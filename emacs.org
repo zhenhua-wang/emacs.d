@@ -899,7 +899,7 @@
 #+end_src
 
 ** Minibuffer Completion
-*** vertico
+*** Vertico
 #+begin_src emacs-lisp
 (use-package vertico
   :straight (vertico :files (:defaults "extensions/*")
@@ -953,7 +953,7 @@
         vertico-posframe-width (frame-width)))
 #+end_src
 
-*** marginalia
+*** Marginalia
 #+begin_src emacs-lisp
 (use-package marginalia
   :bind (("M-A" . marginalia-cycle)
@@ -979,7 +979,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
        (marginalia--documentation (marginalia--function-doc sym))))))
 #+end_src
 
-*** consult
+*** Consult
 #+begin_src emacs-lisp
 (use-package consult
   :demand
