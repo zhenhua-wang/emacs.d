@@ -1671,11 +1671,17 @@ when executed.")
 take one argument (the language specified in the src block, as a string). Stops
 at the first function to return non-nil.")
 
-  (defun +org--babel-lazy-load (lang)
-    (cl-check-type lang symbol)
-    (or (run-hook-with-args-until-success '+org-babel-load-functions lang)
-        (require (intern (format "ob-%s" lang)) nil t)
-        (require lang nil t)))
+  (defun +org--babel-lazy-load (lang &optional async)
+    (cl-check-type lang (or symbol null))
+    (unless (cdr (assq lang org-babel-load-languages))
+      (when async
+        ;; ob-async has its own agenda for lazy loading packages (in the child
+        ;; process), so we only need to make sure it's loaded.
+        (require 'ob-async nil t))
+      (prog1 (or (run-hook-with-args-until-success '+org-babel-load-functions lang)
+                 (require (intern (format "ob-%s" lang)) nil t)
+                 (require lang nil t))
+        (add-to-list 'org-babel-load-languages (cons lang t)))))
 
   (defun +org--src-lazy-load-library-a (lang)
     "Lazy load a babel package to ensure syntax highlighting."
@@ -1690,16 +1696,16 @@ at the first function to return non-nil.")
                        ((stringp lang) (intern lang))))
            (lang (or (cdr (assq lang +org-babel-mode-alist))
                      lang)))
-      (when (and lang
-                 (not (cdr (assq lang org-babel-load-languages)))
-                 (+org--babel-lazy-load lang))
-        (when (assq :async (nth 2 info))
-          ;; ob-async has its own agenda for lazy loading packages (in the
-          ;; child process), so we only need to make sure it's loaded.
-          (require 'ob-async nil t))
-        (add-to-list 'org-babel-load-languages (cons lang t)))
+      (+org--babel-lazy-load
+       lang (and (not (assq :sync (nth 2 info)))
+                 (assq :async (nth 2 info))))
       t))
   (advice-add #'org-babel-confirm-evaluate :after-while #'+org--babel-lazy-load-library-a)
+
+  (defun +org--export-lazy-load-library-h (&optional element)
+    "Lazy load a babel package when a block is executed during exporting."
+    (+org--babel-lazy-load-library-a (org-babel-get-src-block-info nil element)))
+  (advice-add #'org-babel-exp-src-block :before #'+org--export-lazy-load-library-h)
 
   ;; language alias
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
