@@ -1740,8 +1740,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
       (R . t)
       (shell . t))
     "Alist of org ob languages.")
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               load-language-alist)
+  (org-babel-do-load-languages
+   'org-babel-load-languages ob-language-alist)
 
   ;; alias ess-r to R
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
