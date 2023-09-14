@@ -1733,7 +1733,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         org-src-tab-acts-natively t)
 
   ;; defer load org babel languages
-  (require 'ob-teximg)
   (use-package ob-lisp
     :defer t
     :straight (:type built-in)
