@@ -1713,6 +1713,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 *** Code-cells
+This requires the python library, ~jupytext~.
 #+begin_src emacs-lisp
 (use-package code-cells
   :hook (python-mode . code-cells-mode-maybe)
