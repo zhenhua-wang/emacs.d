@@ -374,6 +374,7 @@
            ("s-<escape>" . exwm-workspace-toggle-minibuffer)
            :map minibuffer-mode-map
            ("s-<up>" . zw/exwm-focus-main)
+           ("<down-mouse-1>" . zw/exwm-focus-minibuffer)
            :map exwm-mode-map
            ("C-<escape>" . zw/exwm-hide-minibuffer)
            ("s-<escape>" . exwm-workspace-toggle-minibuffer))
