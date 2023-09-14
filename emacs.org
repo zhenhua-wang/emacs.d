@@ -483,7 +483,7 @@
               diff-hl-show-staged-changes nil)
   :config
   ;; Integration with magit
-  (with-eval-after-load 'magit
+  (with-eval-after-load "magit"
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 #+end_src
@@ -628,7 +628,7 @@
       (format "\\(%s\\)\\|\\(%s\\)"
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
-(with-eval-after-load 'tramp
+(with-eval-after-load "tramp"
   (customize-set-variable 'tramp-ssh-controlmaster-options
                           (concat
                            "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
@@ -1146,39 +1146,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
 #+end_src
 
-**** lsp org
-#+begin_src emacs-lisp
-(with-eval-after-load 'org
-  ;; enable lsp-org inside src block
-  (cl-defmacro lsp-org-babel-enable (lang)
-    "Support LANG in org source code block."
-    (cl-check-type lang stringp)
-    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
-      `(progn
-         (defun ,intern-pre (info)
-           (let ((file-name (->> info caddr (alist-get :file))))
-             (unless file-name
-               (setq file-name (make-temp-file "babel-lsp-")))
-             (setq buffer-file-name file-name)
-             (lsp-deferred)))
-         (put ',intern-pre 'function-documentation
-              (format "Enable lsp-mode in the buffer of org source block (%s)."
-                      (upcase ,lang)))
-         (if (fboundp ',edit-pre)
-             (advice-add ',edit-pre :after ',intern-pre)
-           (progn
-             (defun ,edit-pre (info)
-               (,intern-pre info))
-             (put ',edit-pre 'function-documentation
-                  (format "Prepare local buffer environment for org source block (%s)."
-                          (upcase ,lang))))))))
-  (defvar org-babel-lang-list
-    '("ess-r" "R" "python" "latex"))
-  (dolist (lang org-babel-lang-list)
-    (eval `(lsp-org-babel-enable ,lang))))
-#+end_src
-
 *** Code reference
 #+begin_src emacs-lisp
 (use-package xref
@@ -1519,7 +1486,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 **** ox latex
 ~htmlize.el~ is needed for exporting colorful codes to html
 #+begin_src emacs-lisp
-(with-eval-after-load 'ox-latex
+(with-eval-after-load "ox-latex"
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
@@ -1608,7 +1575,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
            ("<up>" . zw/git-add-commit-push-agenda)
            ("<f12>" . zw/open-agenda))
 
-(with-eval-after-load 'org
+(with-eval-after-load "org-agenda"
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
   (add-hook 'org-agenda-mode-hook
             (lambda ()
@@ -1724,7 +1691,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 ** Literate Programming
 *** Org-babel
 #+begin_src emacs-lisp
-(with-eval-after-load 'org
+(with-eval-after-load "ob"
   ;; init org-babel
   (setq org-src-window-setup 'split-window-below
         org-src-preserve-indentation t      ; helps to indent python code in org mode
@@ -1746,7 +1713,36 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; alias ess-r to R
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)
   (defalias 'org-babel-ess-r-initiate-session
-    'org-babel-R-initiate-session))
+    'org-babel-R-initiate-session)
+
+  ;; enable lsp-org inside src block
+  (cl-defmacro lsp-org-babel-enable (lang)
+    "Support LANG in org source code block."
+    (cl-check-type lang stringp)
+    (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+           (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+      `(progn
+         (defun ,intern-pre (info)
+           (let ((file-name (->> info caddr (alist-get :file))))
+             (unless file-name
+               (setq file-name (make-temp-file "babel-lsp-")))
+             (setq buffer-file-name file-name)
+             (lsp-deferred)))
+         (put ',intern-pre 'function-documentation
+              (format "Enable lsp-mode in the buffer of org source block (%s)."
+                      (upcase ,lang)))
+         (if (fboundp ',edit-pre)
+             (advice-add ',edit-pre :after ',intern-pre)
+           (progn
+             (defun ,edit-pre (info)
+               (,intern-pre info))
+             (put ',edit-pre 'function-documentation
+                  (format "Prepare local buffer environment for org source block (%s)."
+                          (upcase ,lang))))))))
+  (defvar org-babel-lang-list
+    '("ess-r" "R" "python"))
+  (dolist (lang org-babel-lang-list)
+    (eval `(lsp-org-babel-enable ,lang))))
 #+end_src
 
 *** Code-cells
