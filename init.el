@@ -25,7 +25,5 @@
 ;; load init
 (let ((zw/test-config nil))
   (if zw/test-config
-      (org-babel-load-file "~/.emacs.d/emacs-minimal.org")
-    (pcase system-type
-      ('windows-nt (org-babel-load-file "~/.emacs.d/emacs-windows.org"))
-      (_ (org-babel-load-file "~/.emacs.d/emacs.org")))))
+      (load-file "~/.emacs.d/emacs-minimal.el")
+    (load-file "~/.emacs.d/emacs.el")))

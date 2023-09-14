@@ -29,6 +29,8 @@
   (interactive)
   (shell-command "cd ~/.emacs.d && git pull")
   (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
+  (org-babel-tangle-file "~/.emacs.d/emacs.org")
+  (org-babel-tangle-file "~/.emacs.d/emacs-minimal.org")
   (message "Emacs updated & dotfiles tangled!"))
 
 (defun zw/show-info ()
