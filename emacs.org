@@ -1666,13 +1666,35 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         org-confirm-babel-evaluate nil
         org-src-tab-acts-natively t)
 
+  (use-package jupyter
+    :config
+    ;; default headers
+    (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
+                                                         (:session . "py")
+                                                         (:kernel . "python3")))
+    ;; enable jupyter-org-interaction-mode
+    (advice-add #'org-babel-jupyter-initiate-session :after
+                (lambda (&optional SESSION PARAMS)
+                  (jupyter-org-interaction-mode)))
+    (require 'jupyter-org-client)
+    (defun zw/jupyter-send-block ()
+      (interactive)
+      (jupyter-eval-string (zw/python-region-or-block-string
+                            'org-forward-paragraph
+                            'org-backward-paragraph))
+      (sit-for 0.1)
+      (goto-char (region-end))
+      (deactivate-mark))
+    (jupyter-org-define-key (kbd "C-c C-c") #'zw/jupyter-send-block))
+
   ;; org babel languages
   (defconst ob-language-alist
     '((emacs-lisp . t)
       (python . t)
       (latex . t)
       (R . t)
-      (shell . t))
+      (shell . t)
+      (jupyter . t))
     "Alist of org ob languages.")
   (org-babel-do-load-languages
    'org-babel-load-languages ob-language-alist)
