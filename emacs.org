@@ -1521,8 +1521,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 **** ox latex
+~htmlize.el~ is needed for exporting colorful codes to html
 #+begin_src emacs-lisp
-;; TRICK: install "htmlize.el" to export colorful codes in html
 (with-eval-after-load 'ox-latex
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
