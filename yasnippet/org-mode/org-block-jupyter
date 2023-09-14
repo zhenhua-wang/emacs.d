@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: jupyter python code block
+# key: <jupyter-python
+# --
+
+#+begin_src jupyter-python :exports both
+$0
+#+end_src
