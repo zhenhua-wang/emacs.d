@@ -1521,13 +1521,9 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 #+end_src
 
 **** ox latex
-requirements:
-- export natbib: ~texlive-bibtexextra~
-- highlight src code in html: ~htmlize.el~
-
 #+begin_src emacs-lisp
+;; TRICK: install "htmlize.el" to export colorful codes in html
 (with-eval-after-load 'ox-latex
-  ;; make LaTeX-mode formula larger
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
@@ -1537,7 +1533,6 @@ requirements:
        (setq org-latex-create-formula-image-program 'dvisvgm))))
   ;; latex '(latex script entities)
   (setq org-highlight-latex-and-related '(latex entities))
-
   ;; org-export
   (setq org-latex-listings 't)
   ;; mapping jupyter-python to Python
