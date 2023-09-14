@@ -1544,37 +1544,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 
 **** agenda
 #+begin_src emacs-lisp
-(defun zw/git-add-commit-push-agenda ()
-  (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
-      (progn
-        (shell-command "cd ~/Documents/Agenda && git add *")
-        (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
-        (shell-command "cd ~/Documents/Agenda && git push")
-        (message "Agenda pushed!"))
-    (message "Agenda doesn't exit!")))
-
-(defun zw/git-pull-agenda ()
-  (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
-      (progn
-        (shell-command "cd ~/Documents/Agenda && git pull")
-        (message "Agenda pulled!"))
-    (message "Agenda doesn't exit!")))
-
-(defun zw/open-agenda ()
-  (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
-      (org-agenda nil "d")
-    (message "Agenda doesn't exit!")))
-
-;; agenda keys
-(bind-keys :prefix-map zw/org-agenda-map
-           :prefix "<f12>"
-           ("<down>" . zw/git-pull-agenda)
-           ("<up>" . zw/git-add-commit-push-agenda)
-           ("<f12>" . zw/open-agenda))
-
 (with-eval-after-load "org-agenda"
   (add-hook 'org-agenda-mode-hook 'visual-fill-column-mode)
   (add-hook 'org-agenda-mode-hook
@@ -1604,6 +1573,34 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
             (alltodo "" ((org-agenda-overriding-header "\n⚡ To Do")
                          (org-agenda-sorting-strategy '(priority-down))
                          (org-agenda-todo-keyword-format ""))))))))
+
+;; agenda keys
+(defun zw/git-add-commit-push-agenda ()
+  (interactive)
+  (if (file-directory-p "~/Documents/Agenda")
+      (progn
+        (shell-command "cd ~/Documents/Agenda && git add *")
+        (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
+        (shell-command "cd ~/Documents/Agenda && git push")
+        (message "Agenda pushed!"))
+    (message "Agenda doesn't exit!")))
+(defun zw/git-pull-agenda ()
+  (interactive)
+  (if (file-directory-p "~/Documents/Agenda")
+      (progn
+        (shell-command "cd ~/Documents/Agenda && git pull")
+        (message "Agenda pulled!"))
+    (message "Agenda doesn't exit!")))
+(defun zw/open-agenda ()
+  (interactive)
+  (if (file-directory-p "~/Documents/Agenda")
+      (org-agenda nil "d")
+    (message "Agenda doesn't exit!")))
+(bind-keys :prefix-map zw/org-agenda-map
+           :prefix "<f12>"
+           ("<down>" . zw/git-pull-agenda)
+           ("<up>" . zw/git-add-commit-push-agenda)
+           ("<f12>" . zw/open-agenda))
 #+end_src
 
 **** custom functions
