@@ -1655,7 +1655,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 **** lazy load
 #+begin_src emacs-lisp
 (with-eval-after-load "ob"
-  ;; org babel languages
   (defvar +org-babel-mode-alist
     '((cpp . C)
       (C++ . C)
