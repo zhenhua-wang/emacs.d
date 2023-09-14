@@ -1779,40 +1779,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                (shell-quote-argument buffer-file-name))))))
 #+end_src
 
-*** Jupyter
-#+begin_src emacs-lisp
-(use-package jupyter
-  :defer t)
-
-(use-package ob-jupyter
-  :defer t
-  :straight (:type built-in)
-  :commands (org-babel-execute:jupyter-python)
-  :init
-  ;; add ob-jupyter
-  (dolist (lang '(python))
-    (cl-pushnew (cons (format "jupyter-%s" lang) lang)
-                org-src-lang-modes :key #'car))
-  ;; default headers
-  (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
-                                                       (:session . "py")
-                                                       (:kernel . "python3")))
-  ;; enable jupyter-org-interaction-mode
-  (advice-add #'org-babel-jupyter-initiate-session :after
-              (lambda (&optional SESSION PARAMS)
-                (jupyter-org-interaction-mode)))
-  :config
-  (defun zw/jupyter-send-block ()
-    (interactive)
-    (jupyter-eval-string (zw/python-region-or-block-string
-                          'org-forward-paragraph
-                          'org-backward-paragraph))
-    (sit-for 0.1)
-    (goto-char (region-end))
-    (deactivate-mark))
-  (jupyter-org-define-key (kbd "C-c C-c") #'zw/jupyter-send-block))
-#+end_src
-
 *** Polymode
 #+begin_src emacs-lisp
 (use-package polymode

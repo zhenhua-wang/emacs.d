@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: teximg code block
-# key: <ti
-# --
-
-#+HEADER: :fname teximg-`(format-time-string "%s")`.png
-#+begin_src teximg :results file :exports results
-$0
-#+end_src
