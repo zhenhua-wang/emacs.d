@@ -1651,15 +1651,26 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
         org-src-tab-acts-natively t)
 
   ;; org babel languages
-  (defconst ob-language-alist
-    '((emacs-lisp . t)
-      (python . t)
-      (latex . t)
-      (R . t)
-      (shell . t))
-    "Alist of org ob languages.")
-  (org-babel-do-load-languages
-   'org-babel-load-languages ob-language-alist)
+  (use-package ob-lisp
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:lisp))
+  (use-package ob-latex
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:latex))
+  (use-package ob-R
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:R))
+  (use-package ob-python
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:python))
+  (use-package ob-shell
+    :defer t
+    :straight (:type built-in)
+    :commands (org-babel-execute:sh))
 
   ;; language alias
   (defalias 'org-babel-execute:ess-r 'org-babel-execute:R)

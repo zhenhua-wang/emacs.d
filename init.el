@@ -25,5 +25,5 @@
 ;; load init
 (let ((zw/test-config nil))
   (if zw/test-config
-      (load-file "~/.emacs.d/emacs-minimal.el")
-    (load-file "~/.emacs.d/emacs.el")))
+      (org-babel-load-file "~/.emacs.d/emacs-minimal.el")
+    (org-babel-load-file "~/.emacs.d/emacs.el")))
