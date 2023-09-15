@@ -4,14 +4,26 @@
 #+PROPERTY: header-args :mkdirp yes
 -----
 * XKB
+** Keyboard
 Copy to ~/etc/X11/xorg.conf.d/00-keyboard.conf~
 #+HEADER: :tangle "no"
 #+begin_src conf
 Section "InputClass"
-        Identifier "system-keyboard"
-        MatchIsKeyboard "on"
-        Option "XkbLayout" "us"
-        Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+    Identifier "system-keyboard"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us"
+    Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+EndSection
+#+end_src
+
+** Touchpad
+#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/X11/xorg.conf.d/30-touchpad.conf" "no")
+#+begin_src conf
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "ClickMethod" "clickfinger"
 EndSection
 #+end_src
 
