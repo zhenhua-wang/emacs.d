@@ -336,12 +336,13 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-;; disable scroll warnings in echo area and *message*
+;; disable message in echo area and *message*
 (defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
   "Advice function that silences all messages in ORIG-FUN."
   (let ((inhibit-message t)
         (message-log-max nil))
     (apply orig-fun args)))
+;; HACK: disable warnings to prevent freeze
 (advice-add 'pixel-scroll-precision :around 'zw/exwm-minibuffer-silence-messages-advice)
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
