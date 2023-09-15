@@ -422,11 +422,6 @@
 (zw/exwm-set-wallpaper)
 
 ;; * exwm tool
-;; ** xmodmap
-(defun zw/exwm-run-xmodmap ()
-  (interactive)
-  (shell-command "xmodmap ~/.cache/emacs/Xmodmap"))
-
 ;; ** input method
 ;; (require 'exwm-xim)
 ;; (exwm-xim-enable)
@@ -593,15 +588,6 @@
 (defun zw/show-rofi ()
   (interactive)
   (call-process-shell-command "rofi -show combi -dpi 1"))
-
-;; ** exwm edit
-(use-package exwm-edit
-  :init
-  (setq exwm-edit-bind-default-keys nil)
-  :config
-  (define-key exwm-edit-mode-map (kbd "C-c C-c") nil)
-  (define-key exwm-edit-mode-map (kbd "s-q") (lambda () (interactive) (message "Close with C-c C-k")))
-  (define-key exwm-edit-mode-map [remap save-buffer] nil))
 
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
