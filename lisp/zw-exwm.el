@@ -336,7 +336,7 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-;; disable scroll warnings in minibuffer and *message*
+;; disable scroll warnings in echo area and *message*
 (defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
   "Advice function that silences all messages in ORIG-FUN."
   (let ((inhibit-message t)
