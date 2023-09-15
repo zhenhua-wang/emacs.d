@@ -342,7 +342,6 @@
   (let ((inhibit-message t)
         (message-log-max nil))
     (apply orig-fun args)))
-;; HACK: disable warnings to prevent freeze
 (advice-add 'pixel-scroll-precision :around 'zw/exwm-minibuffer-silence-messages-advice)
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
