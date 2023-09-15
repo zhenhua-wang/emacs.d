@@ -232,7 +232,7 @@
            ("s-{" . shrink-window-horizontally)
            ("s-}" . enlarge-window-horizontally)
            ("s-^" . enlarge-window)
-           ("s-`" . zw/side-window-toggle)
+           ("s-B" . zw/side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands
            ("s-i" . zw/show-info)

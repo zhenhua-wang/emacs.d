@@ -370,14 +370,14 @@
     (windmove-down)))
 (bind-keys :map global-map
            ("s-<down>" . zw/exwm-window-down)
-           ("C-<escape>" . zw/exwm-hide-minibuffer)
-           ("s-<escape>" . exwm-workspace-toggle-minibuffer)
+           ("s-`" . zw/exwm-hide-minibuffer)
+           ("s-~" . exwm-workspace-toggle-minibuffer)
            :map minibuffer-mode-map
            ("s-<up>" . zw/exwm-focus-main)
            ("<down-mouse-1>" . zw/exwm-focus-minibuffer)
            :map exwm-mode-map
-           ("C-<escape>" . zw/exwm-hide-minibuffer)
-           ("s-<escape>" . exwm-workspace-toggle-minibuffer))
+           ("s-`" . zw/exwm-hide-minibuffer)
+           ("s-~" . exwm-workspace-toggle-minibuffer))
 
 ;; ** systemtray
 (require 'exwm-systemtray)
@@ -708,7 +708,9 @@
         (,(kbd "s-^") . enlarge-window)
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
-        (,(kbd "s-`") . zw/side-window-toggle)
+        ;; side bar
+        (,(kbd "s-b") . zw/toggle-dired-sidebar)
+        (,(kbd "s-B") . zw/side-window-toggle)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
@@ -721,8 +723,6 @@
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
-        ;; side bar
-        (,(kbd "s-b") . zw/toggle-dired-sidebar)
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
