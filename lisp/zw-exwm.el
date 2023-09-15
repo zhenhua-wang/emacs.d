@@ -707,8 +707,8 @@
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
         ;; mininbuffer
-        (,(kbd "s-`") . zw/exwm-hide-minibuffer)
-        (,(kbd "s-~") . exwm-workspace-toggle-minibuffer)
+        (,(kbd "s-<escape>") . zw/exwm-hide-minibuffer)
+        (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
