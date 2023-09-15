@@ -709,7 +709,7 @@
         (,(kbd "s-u") . winner-undo)
         (,(kbd "s-U") . winner-redo)
         ;; side bar
-        (,(kbd "s-b") . zw/toggle-dired-sidebar)
+        (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)

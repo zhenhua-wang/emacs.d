@@ -8,7 +8,7 @@
   (interactive)
   (zw-dired-sidebar-mode 0))
 
-(defun zw/toggle-dired-sidebar ()
+(defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
   (interactive)
   ;; close all old sidebars

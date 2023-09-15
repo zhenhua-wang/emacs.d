@@ -702,7 +702,7 @@
 
 (use-package zw-dired-sidebar
   :straight (:type built-in)
-  :bind (("s-b" . zw/toggle-dired-sidebar)))
+  :bind (("s-b" . zw/dired-sidebar-toggle)))
 #+end_src
 
 ** Openwith
