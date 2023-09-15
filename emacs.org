@@ -86,7 +86,11 @@
 ** Server
 #+begin_src emacs-lisp
 (use-package server
-  :hook (after-init . server-start))
+  :hook (after-init . zw/start-server)
+  :config
+  (defun zw/start-server ()
+    (unless (server-running-p)
+      (server-start))))
 #+end_src
 
 * Setting
