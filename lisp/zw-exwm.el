@@ -370,14 +370,9 @@
     (windmove-down)))
 (bind-keys :map global-map
            ("s-<down>" . zw/exwm-window-down)
-           ("s-`" . zw/exwm-hide-minibuffer)
-           ("s-~" . exwm-workspace-toggle-minibuffer)
            :map minibuffer-mode-map
            ("s-<up>" . zw/exwm-focus-main)
-           ("<down-mouse-1>" . zw/exwm-focus-minibuffer)
-           :map exwm-mode-map
-           ("s-`" . zw/exwm-hide-minibuffer)
-           ("s-~" . exwm-workspace-toggle-minibuffer))
+           ("<down-mouse-1>" . zw/exwm-focus-minibuffer))
 
 ;; ** systemtray
 (require 'exwm-systemtray)
@@ -711,6 +706,9 @@
         ;; side bar
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
+        ;; mininbuffer
+        (,(kbd "s-`") . zw/exwm-hide-minibuffer)
+        (,(kbd "s-~") . exwm-workspace-toggle-minibuffer)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
