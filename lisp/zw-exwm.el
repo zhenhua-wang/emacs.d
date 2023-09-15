@@ -336,12 +336,13 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-(with-eval-after-load "pyim"
-  (defun zw/exwm-workspace-clear (orig-func)
-    (unless (pyim-process--translating-p)
-      (funcall orig-func)))
-  (advice-add 'exwm-workspace--on-echo-area-clear :around 'zw/exwm-workspace-clear)
-  (advice-add 'pyim-process-terminate :after 'exwm-workspace--on-echo-area-clear))
+;; disable scroll warnings in minibuffer and *message*
+(defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
+  "Advice function that silences all messages in ORIG-FUN."
+  (let ((inhibit-message t)
+        (message-log-max nil))
+    (apply orig-fun args)))
+(advice-add 'pixel-scroll-precision :around 'zw/exwm-minibuffer-silence-messages-advice)
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
