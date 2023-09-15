@@ -4,7 +4,6 @@
 #+PROPERTY: header-args :mkdirp yes
 -----
 * XKB
-** Keyboard
 Copy to ~/etc/X11/xorg.conf.d/00-keyboard.conf~
 #+HEADER: :tangle "no"
 #+begin_src conf
@@ -13,18 +12,6 @@ Section "InputClass"
         MatchIsKeyboard "on"
         Option "XkbLayout" "us"
         Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
-EndSection
-#+end_src
-
-** Tcouchpad
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/X11/xorg.conf.d/70-synaptics.conf" "no")
-#+begin_src conf
-Section "InputClass"
-    Identifier "touchpad"
-    Driver "synaptics"
-    MatchIsTouchpad "on"
-        Option "TapButton1" "1"
-        Option "TapButton2" "3"
 EndSection
 #+end_src
 

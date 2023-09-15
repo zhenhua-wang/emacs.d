@@ -43,8 +43,6 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
 
 ** Other Applications
 #+begin_src shell
-# X11 optional drivers
-yay -S xf86-input-synaptics
 # statistics
 yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
 # zsh
