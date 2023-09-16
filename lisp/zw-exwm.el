@@ -342,7 +342,10 @@
   (let ((inhibit-message t)
         (message-log-max nil))
     (apply orig-fun args)))
-(advice-add 'pixel-scroll-precision :around 'zw/exwm-minibuffer-silence-messages-advice)
+(dolist (func '(pixel-scroll-precision
+                desktop-environment-brightness-set
+                desktop-environment-volume-set))
+  (advice-add func :around 'zw/exwm-minibuffer-silence-messages-advice))
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
