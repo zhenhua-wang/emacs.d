@@ -31,5 +31,6 @@
     (setq native-comp-speed 2
           native-comp-async-query-on-exit t
           native-comp-jit-compilation nil
-          native-comp-async-report-warnings-errors nil)
-    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
+          native-comp-async-report-warnings-errors nil
+          native-comp-eln-load-path (cons (expand-file-name "eln-cache/" user-emacs-directory)
+                                          (cdr native-comp-eln-load-path)))))
