@@ -343,6 +343,7 @@
         (message-log-max nil))
     (apply orig-fun args)))
 (dolist (func '(pixel-scroll-precision
+                touch-screen-scroll
                 desktop-environment-brightness-set
                 desktop-environment-volume-set))
   (advice-add func :around 'zw/exwm-minibuffer-silence-messages-advice))

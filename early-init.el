@@ -21,9 +21,8 @@
 (push '(fullscreen . maximized) default-frame-alist) ; maximized
 (push '(undecorated . t) default-frame-alist)        ; remove title
 
-;; set user dirs
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-      url-history-file (expand-file-name "url/history" user-emacs-directory))
+;; set user directory
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
 
 ;; native-comp settings
 (when (and (fboundp 'native-comp-available-p)
@@ -31,6 +30,6 @@
   (progn
     (setq native-comp-speed 2
           native-comp-async-query-on-exit t
-          inhibit-automatic-native-compilation t
+          native-comp-jit-compilation nil
           native-comp-async-report-warnings-errors nil)
     (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))))
