@@ -551,12 +551,10 @@
   (desktop-environment-brightness-normal-decrement "10%-")
   :config
   (desktop-environment-mode)
-  (exwm-input-set-key (kbd "<XF86KbdBrightnessUp>") 'desktop-environment-keyboard-backlight-increment)
-  (exwm-input-set-key (kbd "<XF86KbdBrightnessDown>") 'desktop-environment-keyboard-backlight-decrement)
   (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") 'desktop-environment-brightness-increment)
   (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-brightness-decrement)
   (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") 'desktop-environment-volume-increment)
-  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") 'desktop-environment-volume-decrement)
+  (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") 'desktop-environment-volume-decrement)
   (exwm-input-set-key (kbd "<XF86AudioMute>") 'desktop-environment-toggle-mute)
   (exwm-input-set-key (kbd "s-#") 'desktop-environment-screenshot)
   (exwm-input-set-key (kbd "s-$") 'desktop-environment-screenshot-part)
