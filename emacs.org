@@ -16,6 +16,9 @@
 (push "~/.emacs.d/lisp" load-path)
 
 ;; straight
+(with-eval-after-load "straight"
+  (setq straight--native-comp-available nil
+        straight-disable-native-compile t))
 (setq straight-repository-branch "develop")
 (defvar bootstrap-version)
 (let ((bootstrap-file
