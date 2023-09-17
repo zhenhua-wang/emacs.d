@@ -27,14 +27,12 @@
 ;; native-comp settings
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
-  (let ((zw/native-comp-path (expand-file-name  "var/eln-cache/" user-emacs-directory)))
-    (setq-default native-comp-speed 2
-                  native-comp-async-query-on-exit t
-                  native-comp-jit-compilation nil
-                  native-comp-async-report-warnings-errors nil
-                  straight-disable-native-compile t
-                  native-comp-enable-subr-trampolines zw/native-comp-path)
-    (startup-redirect-eln-cache zw/native-comp-path)))
+  (setq-default native-comp-speed 2
+                native-comp-async-query-on-exit t
+                native-comp-jit-compilation nil
+                native-comp-async-report-warnings-errors nil
+                straight-disable-native-compile t)
+  (startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory)))
 
 ;; disable keysym
 (setq x-quit-keysym nil)
