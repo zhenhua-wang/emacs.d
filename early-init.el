@@ -34,3 +34,6 @@
           native-comp-async-report-warnings-errors nil
           native-comp-eln-load-path (cons (expand-file-name "eln-cache/" user-emacs-directory)
                                           (cdr native-comp-eln-load-path)))))
+
+;; disable keysym
+(setq x-quit-keysym nil)
