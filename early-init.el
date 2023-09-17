@@ -27,8 +27,7 @@
 ;; native-comp settings
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
-  (let ((zw/native-comp-path (convert-standard-filename
-                              (expand-file-name  "var/eln-cache/" user-emacs-directory))))
+  (let ((zw/native-comp-path (expand-file-name  "var/eln-cache/" user-emacs-directory)))
     (setq-default native-comp-speed 2
                   native-comp-async-query-on-exit t
                   native-comp-jit-compilation nil
