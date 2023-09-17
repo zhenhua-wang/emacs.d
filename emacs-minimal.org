@@ -124,7 +124,6 @@ Again, steal from [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][D
 * Completion
 #+begin_src emacs-lisp
 (require 'zw-company)
-(require 'zw-ivy)
 #+end_src
 
 * modeline
