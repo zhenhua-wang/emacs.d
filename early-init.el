@@ -18,20 +18,18 @@
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(push '(fullscreen . maximized) default-frame-alist) ; maximized
-(push '(undecorated . t) default-frame-alist)        ; remove title
+(push '(fullscreen . maximized) default-frame-alist)
+(push '(undecorated . t) default-frame-alist)
 
 ;; set user directory
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
 
 ;; native-comp settings
-(when (and (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (setq-default native-comp-speed 2
-                native-comp-async-query-on-exit t
-                native-comp-jit-compilation nil
-                native-comp-async-report-warnings-errors nil)
-  (startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory)))
+(startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory))
+(setq-default native-comp-speed 2
+              native-comp-async-query-on-exit t
+              native-comp-jit-compilation nil
+              native-comp-async-report-warnings-errors nil)
 
 ;; disable keysym
 (setq x-quit-keysym nil)
