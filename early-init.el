@@ -27,11 +27,11 @@
 ;; native-comp settings
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
-  (progn
-    (setq native-comp-speed 2
-          native-comp-async-query-on-exit t
-          native-comp-jit-compilation nil
-          native-comp-async-report-warnings-errors nil))
+  (setq-default native-comp-speed 2
+                native-comp-async-query-on-exit t
+                native-comp-jit-compilation nil
+                native-comp-async-report-warnings-errors nil
+                straight-disable-native-compile t)
   (startup-redirect-eln-cache
    (convert-standard-filename
     (expand-file-name  "var/eln-cache/" user-emacs-directory))))
