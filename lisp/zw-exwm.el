@@ -229,7 +229,7 @@
 (defun zw/tab-bar-format-buffers ()
   (let* ((i 0)
          (buffer-name-ellipsis ".")
-         (buffer-separator " | ")
+         (buffer-separator (propertize " | " 'face 'font-lock-comment-face))
          (screen-width (frame-width))
          (buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y))))
          (buffer-list (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func))
