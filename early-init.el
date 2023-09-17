@@ -31,9 +31,10 @@
     (setq native-comp-speed 2
           native-comp-async-query-on-exit t
           native-comp-jit-compilation nil
-          native-comp-async-report-warnings-errors nil
-          native-comp-eln-load-path (cons (expand-file-name "eln-cache/" user-emacs-directory)
-                                          (cdr native-comp-eln-load-path)))))
+          native-comp-async-report-warnings-errors nil))
+  (startup-redirect-eln-cache
+   (convert-standard-filename
+    (expand-file-name  "var/eln-cache/" user-emacs-directory))))
 
 ;; disable keysym
 (setq x-quit-keysym nil)
