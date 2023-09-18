@@ -441,12 +441,12 @@
 
 (use-package pyim
   :demand t
-  :bind (:map pyim-mode-map
-              ("," . pyim-previous-page)
-              ("." . pyim-next-page)
-              ("<left>" . pyim-backward-point)
-              ("<right>" . pyim-forward-point)
-              ("C-\\" . pyim/toggle-input-method))
+  :bind ((:map pyim-mode-map
+               ("," . pyim-previous-page)
+               ("." . pyim-next-page)
+               ("<left>" . pyim-backward-point)
+               ("<right>" . pyim-forward-point)
+               ("C-\\" . pyim/toggle-input-method)))
   :config
   (setq pyim-page-tooltip 'posframe
         pyim-default-scheme 'quanpin
@@ -547,7 +547,8 @@
 
 ;; ** desktop environment
 (use-package desktop-environment
-  :after exwm
+  :bind ((:map desktop-environment-mode-map
+               ("s-l" . nil)))
   :custom
   (desktop-environment-volume-normal-increment "5%+")
   (desktop-environment-volume-normal-decrement "5%-")
@@ -701,7 +702,7 @@
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
-        (,(kbd "s-/") . emacs-websearch)
+        (,(kbd "s-l") . emacs-websearch)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))

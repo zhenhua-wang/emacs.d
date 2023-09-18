@@ -222,7 +222,6 @@
            ("s-a" . mark-whole-buffer)
            ("s-s" . save-buffer)
            ("s-S" . write-file)
-           ("s-l" . goto-line)
            ;; term/shell
            ("s-e" . vterm)
            ;; buffer operations
@@ -804,7 +803,7 @@
 #+begin_src emacs-lisp
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
-  :bind (("s-/" . emacs-websearch)))
+  :bind (("s-l" . emacs-websearch)))
 #+end_src
 
 ** Winner-mode
@@ -1234,8 +1233,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 *** C/C++
 #+begin_src emacs-lisp
 (use-package cc-mode
-  :bind (:map c-mode-base-map
-              ("C-c C-c" . compile))
+  :bind ((:map c-mode-base-map
+               ("C-c C-c" . compile)))
   :hook (c-mode-common . (lambda () (remove-hook 'flymake-diagnostic-functions
                                                  'flymake-cc t)))
   :config (advice-add #'c-indent-line-or-region :after
