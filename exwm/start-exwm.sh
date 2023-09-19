@@ -12,6 +12,9 @@ picom &
 # xss-lock -- slock &
 # xss-lock -- i3lock -n -i ~/Pictures/XJu51Ly-arch-linux-wallpaper.png &
 
+# enable gesture in firefox
+export MOZ_USE_XINPUT2=1
+
 # set current emacs as editor if being prompted
 export VISUAL=emacsclient
 export EDITOR="$VISUAL"
