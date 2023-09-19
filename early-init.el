@@ -25,11 +25,13 @@
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
 
 ;; native-comp settings
-(startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory))
-(setq-default native-comp-speed 2
-              native-comp-async-query-on-exit t
-              native-comp-jit-compilation nil
-              native-comp-async-report-warnings-errors nil)
+(when (and (featurep 'native-comp-available-p)
+           (native-comp-available-p))
+  (startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory))
+  (setq-default native-comp-speed 2
+                native-comp-async-query-on-exit t
+                native-comp-jit-compilation nil
+                native-comp-async-report-warnings-errors nil))
 
 ;; disable keysym
 (setq x-quit-keysym nil)
