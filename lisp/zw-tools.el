@@ -127,11 +127,11 @@ i.e. windows tiled side-by-side."
   (interactive)
   (if zw/presentation-on
       (progn
-        (setq-local mode-line-format (default-value 'mode-line-format))
-        (setq-local zw/presentation-on nil))
+        (setq-local mode-line-format (default-value 'mode-line-format)
+                    zw/presentation-on nil))
     (progn
-      (setq-local mode-line-format nil)
-      (setq-local zw/presentation-on t)))
+      (setq-local mode-line-format nil
+                  zw/presentation-on t)))
   (when (eq major-mode 'pdf-view-mode)
     (pdf-view-fit-page-to-window))
   (force-mode-line-update)
