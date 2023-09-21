@@ -20,6 +20,16 @@
  exwm-floating-border-width 4
  exwm-floating-border-color (face-background 'highlight))
 
+;; * exwm utils
+(defun zw/exwm-get-geometry (id)
+  (let ((reply (xcb:+request-unchecked+reply exwm--connection
+                   (make-instance 'xcb:GetGeometry :drawable id))))
+    (with-slots (x y width height) reply
+      (list (cons 'x x)
+            (cons 'y y)
+            (cons 'width width)
+            (cons 'height height)))))
+
 ;; * exwm applications
 (defun zw/exwm-run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
@@ -354,9 +364,15 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
-(defun zw/exwm-hide-minibuffer ()
+(defun zw/exwm-toggle-minibuffer ()
   (interactive)
-  (exwm-workspace--hide-minibuffer))
+  (let* ((geometry (zw/exwm-get-geometry
+                    (frame-parameter exwm-workspace--minibuffer
+                                     'exwm-container)))
+         (height (alist-get 'height geometry)))
+    (if (> height 1)
+        (exwm-workspace--hide-minibuffer)
+      (exwm-workspace--show-minibuffer))))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
@@ -698,7 +714,7 @@
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
         ;; mininbuffer
-        (,(kbd "s-<escape>") . zw/exwm-hide-minibuffer)
+        (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
