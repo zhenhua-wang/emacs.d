@@ -366,8 +366,6 @@
     (keyboard-quit)))
 ;; HACK: record minibuffer visible state
 (defvar zw/exwm-minibuffer-visible nil)
-(advice-add 'exwm-workspace--show-minibuffer :after (lambda () (setq zw/exwm-minibuffer-visible t)))
-(advice-add 'exwm-workspace--hide-minibuffer :after (lambda () (setq zw/exwm-minibuffer-visible nil)))
 (defun zw/exwm-toggle-minibuffer ()
   (interactive)
   (let* ((geometry (zw/exwm-get-geometry
@@ -376,8 +374,10 @@
          (height (alist-get 'height geometry)))
     (if (or (> height 1)
             zw/exwm-minibuffer-visible)
-        (exwm-workspace--hide-minibuffer)
-      (exwm-workspace--show-minibuffer))))
+        (progn (exwm-workspace--hide-minibuffer)
+               (setq zw/exwm-minibuffer-visible nil))
+      (progn (exwm-workspace--show-minibuffer)
+             (setq zw/exwm-minibuffer-visible t)))))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
