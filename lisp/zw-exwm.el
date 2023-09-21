@@ -406,10 +406,6 @@
 (setq exwm-systemtray-background-color (face-background 'mode-line)
       exwm-systemtray-icon-gap 1)
 
-;; ** window divider
-(setq window-divider-default-places t)
-(window-divider-mode 1)
-
 ;; ** desktop
 (defun zw/exwm-set-ui (predicate)
   (with-current-buffer "*scratch*"
