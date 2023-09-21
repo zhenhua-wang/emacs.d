@@ -373,8 +373,10 @@
     (if (> height 1)
         (exwm-workspace--hide-minibuffer)
       (exwm-workspace--show-minibuffer))))
-;; HACK: don't clear echo area after every input
-(add-hook 'exwm-mode-hook (lambda () (setq-local exwm-input--event-hook nil)))
+;; don't clear echo area after every input
+(advice-add 'exwm-workspace--init :after
+            (lambda () (remove-hook 'exwm-input--event-hook
+                                    #'exwm-workspace--on-echo-area-clear)))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
