@@ -364,20 +364,17 @@
   (if (active-minibuffer-window)
       (abort-recursive-edit)
     (keyboard-quit)))
-;; HACK: record minibuffer visible state
-(defvar zw/exwm-minibuffer-visible nil)
 (defun zw/exwm-toggle-minibuffer ()
   (interactive)
   (let* ((geometry (zw/exwm-get-geometry
                     (frame-parameter exwm-workspace--minibuffer
                                      'exwm-container)))
          (height (alist-get 'height geometry)))
-    (if (or (> height 1)
-            zw/exwm-minibuffer-visible)
-        (progn (exwm-workspace--hide-minibuffer)
-               (setq zw/exwm-minibuffer-visible nil))
-      (progn (exwm-workspace--show-minibuffer)
-             (setq zw/exwm-minibuffer-visible t)))))
+    (if (> height 1)
+        (exwm-workspace--hide-minibuffer)
+      (exwm-workspace--show-minibuffer))))
+;; HACK: don't clear echo area after every input
+(add-hook 'exwm-mode-hook (lambda () (setq-local exwm-input--event-hook nil)))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
