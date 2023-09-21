@@ -327,7 +327,8 @@
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)
-(setq exwm-workspace-minibuffer-position 'bottom)
+(setq exwm-workspace-minibuffer-position 'bottom
+      exwm-workspace-display-echo-area-timeout 3)
 ;; detached minibuffer freezes on help message
 ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
 (tooltip-mode 1)
