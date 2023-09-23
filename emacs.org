@@ -368,8 +368,6 @@
       scroll-margin 1
       scroll-conservatively 101
       scroll-preserve-screen-position t
-      hscroll-step 1
-      hscroll-margin 2
       mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
       mouse-wheel-scroll-amount-horizontal 2
       mouse-wheel-progressive-speed nil
