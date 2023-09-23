@@ -7,9 +7,16 @@
 
 ;;; Code:
 
-(setq auto-mode-case-fold nil
-      inhibit-startup-screen t
-      initial-scratch-message nil)
+(setq-default auto-mode-case-fold nil
+              inhibit-startup-screen t
+              initial-scratch-message nil
+              ;; speed up emacs
+              bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right
+              bidi-inhibit-bpa t
+              idle-update-delay 1.0
+              inhibit-compacting-font-caches t
+              redisplay-skip-fontification-on-input t)
 
 ;; Unset file-name-handler-alist temporarily and restore it later
 (unless (or (daemonp) noninteractive init-file-debug)

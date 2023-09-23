@@ -154,7 +154,9 @@
                 ;; yank overwrite what is selected
                 delete-selection-mode
                 ;; record last location in the file
-                save-place-mode))
+                save-place-mode
+                ;; handle large file
+                global-so-long-mode))
   (add-hook 'after-init-hook mode))
 
 ;; modes disable after init
@@ -364,7 +366,7 @@
 #+begin_src emacs-lisp
 (setq scroll-step 1
       scroll-margin 0
-      scroll-conservatively 100000
+      scroll-conservatively 101
       scroll-preserve-screen-position t
       mouse-wheel-scroll-amount '(1 ((shift) . hscroll))
       mouse-wheel-scroll-amount-horizontal 1
