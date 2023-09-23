@@ -1775,7 +1775,8 @@ This requires the python library, ~jupytext~.
   :hook (polymode-init-inner . (lambda ()
                                  (display-line-numbers-mode 0)
                                  (outline-minor-mode 0)
-                                 (setq-local outline-minor-mode-use-buttons nil)))
+                                 (setq-local outline-minor-mode-use-buttons nil)
+                                 (setq-local lsp-diagnostics-provider :none)))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
