@@ -1058,17 +1058,16 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
+        ;; modeline
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-workspace-status-enable nil
         lsp-headerline-breadcrumb-enable nil
+        ;; doc
         lsp-eldoc-enable-hover nil
         lsp-signature-render-documentation nil
-        lsp-enable-file-watchers nil
+        ;; others
         lsp-enable-folding nil
-        lsp-enable-text-document-color nil
-        lsp-enable-indentation nil
-        lsp-enable-on-type-formatting nil
         lsp-completion-provider :none
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
 #+end_src
