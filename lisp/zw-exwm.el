@@ -626,6 +626,15 @@
 (when (file-directory-p "~/Documents/Agenda")
   (org-agenda nil "d"))
 
+;; ** winner mode
+(defun zw/winner-clean-up-modified-list ()
+  "Remove dead frames from `winner-modified-list`"
+  (dolist (frame winner-modified-list)
+    (unless (frame-live-p frame)
+      (delete frame winner-modified-list))))
+(advice-add 'winner-save-old-configurations :before
+            #'zw/winner-clean-up-modified-list)
+
 ;; * exwm keymap
   ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
