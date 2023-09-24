@@ -697,12 +697,14 @@
         dired-kill-when-opening-new-dired-buffer t
         dired-create-destination-dirs t
         dired-create-destination-dirs-on-trailing-dirsep t
+        dired-mouse-drag-files t
+        dired-free-space 'separate
+        dired-use-ls-dired t
+        dired-listing-switches "-al --no-group --human-readable --group-directories-first"
         dired-omit-extensions '("~")
         dired-omit-files "^\\.$\\|^\\.\\.$")
   (when (eq system-type 'darwin)
-    (setq insert-directory-program "gls"))
-  (setq dired-use-ls-dired t
-        dired-listing-switches "-al --no-group --human-readable --group-directories-first"))
+    (setq insert-directory-program "gls")))
 
 (use-package diredfl
   :hook
