@@ -690,7 +690,6 @@
   (dired-mode . (lambda () (visual-line-mode 0)))
   :bind ((:map dired-mode-map
                ("<tab>" . dired-subtree-toggle)
-               ("<mouse-2>" . dired-find-file)
                ("q" . zw/kill-bufer-quit-window)))
   :init
   (setq dired-dwim-target t
