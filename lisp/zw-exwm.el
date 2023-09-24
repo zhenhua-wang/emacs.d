@@ -236,13 +236,23 @@
                                      'face `(:background ,bg-alt :weight regular))
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
+(defun zw/tab-bar--buffer-list ()
+  (let* ((buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y)))))
+    (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func)))
+
+(defun zw/tab-bar-switch-to-buffer (i)
+  "Tab bar switch to buffer."
+  (let* ((buffer-list (zw/tab-bar--buffer-list))
+         (buffer (nth (- i 1) buffer-list)))
+    (exwm-workspace-switch-to-buffer buffer)))
+
 (defun zw/tab-bar-format-buffers ()
+  "Show buffers of current frame on tab-bar."
   (let* ((i 0)
          (buffer-name-ellipsis ".")
          (buffer-separator (propertize " | " 'face 'font-lock-comment-face))
          (screen-width (frame-width))
-         (buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y))))
-         (buffer-list (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func))
+         (buffer-list (zw/tab-bar--buffer-list))
          (buffer-list-length (length buffer-list))
          (buffer-name-max (when (> buffer-list-length 0)
                             (- (/ screen-width buffer-list-length 2)
@@ -258,7 +268,7 @@
                             (propertize bname 'face 'font-lock-comment-face)))
               (tab-click-func (lambda () (interactive)
                                 (exwm-workspace-switch-to-buffer buffer)))
-              (current-tab `(current-tab menu-item ,bname-face
+              (current-tab `(tab menu-item ,bname-face
                                          ,tab-click-func
                                          :help ,(buffer-name buffer)))
               (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
@@ -744,8 +754,14 @@
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
-        ;; Switch workspace
-        (,(kbd "s-!") . exwm-workspace-switch)
+        ;; switch buffer
+        ,@(mapcar (lambda (i)
+                    `(,(kbd (format "C-s-%d" i)) .
+                      (lambda ()
+                        (interactive)
+                        (zw/tab-bar-switch-to-buffer ,i))))
+                  (number-sequence 1 9))
+        ;; switch workspace
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "M-s-%d" i)) .
                       (lambda ()
