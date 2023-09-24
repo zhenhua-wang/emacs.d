@@ -243,8 +243,11 @@
 (defun zw/tab-bar-switch-to-buffer (i)
   "Tab bar switch to buffer."
   (let* ((buffer-list (zw/tab-bar--buffer-list))
-         (buffer (nth (- i 1) buffer-list)))
-    (exwm-workspace-switch-to-buffer buffer)))
+         (buffer (nth (- i 1) buffer-list))
+         (buffer-window (get-buffer-window buffer)))
+    (if buffer-window
+        (select-window buffer-window)
+      (exwm-workspace-switch-to-buffer buffer))))
 
 (defun zw/tab-bar-format-buffers ()
   "Show buffers of current frame on tab-bar."
