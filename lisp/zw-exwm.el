@@ -592,8 +592,6 @@
   (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") 'desktop-environment-volume-increment)
   (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") 'desktop-environment-volume-decrement)
   (exwm-input-set-key (kbd "<XF86AudioMute>") 'desktop-environment-toggle-mute)
-  (exwm-input-set-key (kbd "s-#") 'desktop-environment-screenshot)
-  (exwm-input-set-key (kbd "s-$") 'desktop-environment-screenshot-part)
   (advice-add 'desktop-environment-volume-set :after
               (lambda (&rest args)
                 (when (executable-find "dunst")
@@ -756,7 +754,7 @@
         (,(kbd "s-E") . multi-vterm)
         ;; switch buffer
         ,@(mapcar (lambda (i)
-                    `(,(kbd (format "C-s-%d" i)) .
+                    `(,(kbd (format "s-%s" (zw/translate-shift-number i))) .
                       (lambda ()
                         (interactive)
                         (zw/tab-bar-switch-to-buffer ,i))))

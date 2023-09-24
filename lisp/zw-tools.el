@@ -162,4 +162,17 @@ i.e. windows tiled side-by-side."
       (copy-file font font-dest t)))
   (nerd-icons-install-fonts))
 
+(defun zw/translate-shift-number (i)
+  (pcase i
+    (1 "!")
+    (2 "@")
+    (3 "#")
+    (4 "$")
+    (5 "%")
+    (6 "^")
+    (7 "&")
+    (8 "*")
+    (9 "(")
+    (0 ")")))
+
 (provide 'zw-tools)
