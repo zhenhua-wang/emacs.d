@@ -189,16 +189,7 @@
                        zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
 
-(bind-keys :map global-map
-           ;; tab operations
-           ("s-1" . zw/tab-switch)
-           ("s-9" . tab-new)
-           ("s-0" . tab-close))
-
-;; enable tab-bar
-(add-hook 'after-init-hook #'tab-bar-mode)
-
-;;; misc config
+;;; keymap
 ;; switch to tab
 (defun zw/tab-switch (index-name)
   (interactive
@@ -239,5 +230,24 @@
                "*current tab*"
              (string-join bufs " "))
            :face 'marginalia-documentation)))))))
+
+;; define zw-tab-bar-keymap-mode
+(define-minor-mode zw-tab-bar-keymap-mode
+  "zw tab bar keymap mode."
+  :global t
+  (if zw-tab-bar-keymap-mode
+      (bind-keys :map global-map
+                 ;; tab operations
+                 ("s-1" . zw/tab-switch)
+                 ("s-9" . tab-new)
+                 ("s-0" . tab-close))
+    (bind-keys :map global-map
+               ;; tab operations
+               ("s-1" . nil)
+               ("s-9" . nil)
+               ("s-0" . nil))))
+
+;; enable tab-bar
+(add-hook 'after-init-hook #'tab-bar-mode)
 
 (provide 'zw-tab-bar)
