@@ -253,9 +253,15 @@
   (let* ((buffer-list (zw/tab-bar--buffer-list))
          (buffer (nth (- i 1) buffer-list))
          (buffer-window (get-buffer-window buffer)))
-    (if buffer-window
-        (select-window buffer-window)
-      (exwm-workspace-switch-to-buffer buffer))))
+    (cond (exwm--floating-frame
+           (exwm-floating-hide)
+           (exwm-workspace-switch-to-buffer buffer))
+          (buffer-window
+           (with-current-buffer buffer
+             (if exwm--floating-frame
+                 (select-frame-set-input-focus exwm--floating-frame)
+               (select-window buffer-window))))
+          (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/tab-bar-format-buffers ()
   "Show buffers of current frame on tab-bar."
