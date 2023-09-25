@@ -70,8 +70,8 @@
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize))
   (let* ((dir (abbreviate-file-name (dired-current-directory)))
          (current-dir (zw/dired-sidebar-modeline-directory dir))
-         (buffer (dired-noselect dir))
-         (name (concat " :" dir)))
+         (name (concat " :" dir))
+         (buffer (current-buffer)))
     (if zw-dired-sidebar-mode
         (with-current-buffer buffer
           (dired-hide-details-mode t)
