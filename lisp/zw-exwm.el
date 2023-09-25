@@ -222,6 +222,16 @@
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
 (add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
+;; ** frame
+(defvar zw/exwm-active-frame exwm-workspace--current)
+
+(defun zw/exwm-set-active-frame (arg)
+  (let ((frame (selected-frame)))
+    (unless (eq frame exwm-workspace--minibuffer)
+      (setq zw/exwm-active-frame frame))))
+
+(add-hook 'window-selection-change-functions 'zw/exwm-set-active-frame)
+
 ;; ** tab bar
 (require 'zw-tab-bar)
 (defun zw/tab-bar-format-exwm-workspace ()
@@ -264,14 +274,19 @@
        (setq i (1+ i))
        (let* ((bname (truncate-string-to-width
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
-              (bname-face (if (string= (buffer-name buffer) (buffer-name))
+              (bname-face (if (string= (buffer-name buffer)
+                                       ;; handle multi-frames
+                                       (if (frame-live-p zw/exwm-active-frame)
+                                           (with-selected-frame zw/exwm-active-frame
+                                             (buffer-name))
+                                         (buffer-name)))
                               (propertize bname 'face '(:weight bold))
                             (propertize bname 'face 'font-lock-comment-face)))
               (tab-click-func (lambda () (interactive)
                                 (exwm-workspace-switch-to-buffer buffer)))
               (current-tab `(tab menu-item ,bname-face
-                                         ,tab-click-func
-                                         :help ,(buffer-name buffer)))
+                                 ,tab-click-func
+                                 :help ,(buffer-name buffer)))
               (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
          (if (= i buffer-list-length)
              (list current-tab)
