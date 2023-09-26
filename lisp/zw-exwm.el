@@ -271,7 +271,7 @@
                  (select-frame-set-input-focus exwm--floating-frame))
                 (buffer-window (select-window buffer-window))
                 (t (exwm-workspace-switch-to-buffer buffer))))
-      (message (format "Tab-%d does not exist." i)))))
+      (message "Tab-%d does not exist." i))))
 
 (defun zw/tab-bar-format-buffers ()
   "Show buffers of current frame on tab-bar."
