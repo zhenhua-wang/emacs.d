@@ -258,7 +258,9 @@
          (buffer (nth (- i 1) buffer-list))
          (buffer-window (get-buffer-window buffer))
          (buffer-float (with-current-buffer buffer exwm--floating-frame)))
-    (cond ((and exwm--floating-frame buffer-float)
+    (cond ((and exwm--floating-frame
+                (eq exwm--floating-frame buffer-float)) nil)
+          ((and exwm--floating-frame buffer-float)
            (exwm-floating-hide)
            (exwm-workspace-switch-to-buffer buffer))
           (exwm--floating-frame
