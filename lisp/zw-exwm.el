@@ -230,7 +230,11 @@
     (unless (eq frame exwm-workspace--minibuffer)
       (setq zw/exwm-active-frame frame))))
 
+(defun zw/exwm-unset-active-frame (arg)
+  (setq zw/exwm-active-frame nil))
+
 (add-hook 'window-selection-change-functions 'zw/exwm-set-active-frame)
+(add-hook 'delete-frame-functions 'zw/exwm-unset-active-frame)
 
 ;; ** tab bar
 (require 'zw-tab-bar)
@@ -252,15 +256,17 @@
   "Tab bar switch to buffer."
   (let* ((buffer-list (zw/tab-bar--buffer-list))
          (buffer (nth (- i 1) buffer-list))
-         (buffer-window (get-buffer-window buffer)))
-    (cond (exwm--floating-frame
+         (buffer-window (get-buffer-window buffer))
+         (buffer-float (with-current-buffer buffer exwm--floating-frame)))
+    (cond ((and exwm--floating-frame buffer-float)
            (exwm-floating-hide)
            (exwm-workspace-switch-to-buffer buffer))
-          (buffer-window
-           (with-current-buffer buffer
-             (if exwm--floating-frame
-                 (select-frame-set-input-focus exwm--floating-frame)
-               (select-window buffer-window))))
+          (exwm--floating-frame
+           (exwm-floating-hide)
+           (zw/tab-bar-switch-to-buffer i))
+          ((and buffer-window buffer-float)
+           (select-frame-set-input-focus exwm--floating-frame))
+          (buffer-window (select-window buffer-window))
           (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/tab-bar-format-buffers ()
@@ -282,7 +288,7 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer)
                                        ;; handle multi-frames
-                                       (if (frame-live-p zw/exwm-active-frame)
+                                       (if zw/exwm-active-frame
                                            (with-selected-frame zw/exwm-active-frame
                                              (buffer-name))
                                          (buffer-name)))
