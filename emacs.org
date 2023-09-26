@@ -1846,7 +1846,6 @@ This requires the python library, ~jupytext~.
 (use-package flyspell-correct
   :after flyspell
   :bind ((:map flyspell-mode-map
-               ("M-$" . flyspell-correct-at-point)
-               ("M-`" . flyspell-correct-at-point))))
+               ("M-$" . flyspell-correct-at-point))))
 #+end_src
 
