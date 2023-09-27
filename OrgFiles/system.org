@@ -28,7 +28,7 @@ yay -S gtk3 libxft libxpm libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-json --with-native-compilation=aot --with-xinput2 --with-x-toolkit=gtk3 --without-compress-install
+./configure --with-json --with-xinput2 --with-x-toolkit=gtk3 --without-compress-install
 make -j8
 sudo make install
 #+end_src
