@@ -1832,7 +1832,6 @@ This requires the python library, ~jupytext~.
 
 ** Spell checker
 #+begin_src emacs-lisp
-;; On-the-fly spell checker
 (use-package flyspell
   :straight (:type built-in)
   :diminish
@@ -1845,7 +1844,6 @@ This requires the python library, ~jupytext~.
 
 (use-package flyspell-correct
   :after flyspell
-  :bind ((:map flyspell-mode-map
-               ("M-$" . flyspell-correct-at-point))))
+  :bind ((:map flyspell-mode-map ("M-$" . flyspell-correct-at-point))))
 #+end_src
 
