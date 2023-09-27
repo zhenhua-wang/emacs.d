@@ -250,9 +250,24 @@
                                      'face `(:background ,bg-alt :weight regular))
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
+(defvar-local zw/exwm-buffer-create-time nil)
+(defun zw/exwm-set-buffer-create-time ()
+  (when (or (buffer-file-name)
+            (eq major-mode 'exwm-mode))
+    (setq-local zw/exwm-buffer-create-time
+                (time-convert (current-time) 'integer))))
+(add-hook 'find-file-hook 'zw/exwm-set-buffer-create-time)
+(add-hook 'exwm-mode-hook 'zw/exwm-set-buffer-create-time)
+
+(defun zw/tab-bar--buffer-sort (x y)
+  (< (with-current-buffer x
+       (or zw/exwm-buffer-create-time most-positive-fixnum))
+     (with-current-buffer y
+       (or zw/exwm-buffer-create-time 0))))
+
 (defun zw/tab-bar--buffer-list ()
-  (let* ((buffer-name-sort-func (lambda (x y) (string< (buffer-name x) (buffer-name y)))))
-    (sort (zw/exwm-switch-to-buffer-list) buffer-name-sort-func)))
+  (sort (zw/exwm-switch-to-buffer-list)
+        'zw/tab-bar--buffer-sort))
 
 (defun zw/tab-bar-switch-to-buffer (i)
   "Tab bar switch to buffer."
@@ -289,8 +304,8 @@
                                5))))
     (mapcan
      (lambda (buffer)
-       (setq i (1+ i))
-       (let* ((bname (truncate-string-to-width
+       (let* ((i (1+ i))
+              (bname (truncate-string-to-width
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer)
                                        ;; handle multi-frames
@@ -300,10 +315,9 @@
                                          (buffer-name)))
                               (propertize bname 'face '(:weight bold))
                             (propertize bname 'face 'font-lock-comment-face)))
-              (tab-click-func (lambda () (interactive)
-                                (exwm-workspace-switch-to-buffer buffer)))
               (current-tab `(tab menu-item ,bname-face
-                                 ,tab-click-func
+                                 (lambda () (interactive)
+                                   (exwm-workspace-switch-to-buffer ,buffer))
                                  :help ,(buffer-name buffer)))
               (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
          (if (= i buffer-list-length)
