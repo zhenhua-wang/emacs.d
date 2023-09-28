@@ -1,6 +1,15 @@
 ;; -*- lexical-binding: t -*-
 
-(defun zw/set-theme (theme-params)
+;; * doom theme
+(use-package doom-themes
+  :defer t
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic nil)
+  (doom-themes-visual-bell-config))
+
+;; * zw theme
+(defun zw/theme--set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
          (fixed-font             `(:font "Hack"))
          (fixed-font-height       150)
@@ -139,19 +148,37 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified)))))))
 
-;; set theme
-(let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
-                            (modeline-highlight-bg . "#0000c0")
-                            (modeline-highlight-fg . "#ffffff")
-                            (modeline-3d-p . t)
-                            (region . ,(doom-darken (face-background 'default) 0.2))))
-      (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
-                           (modeline-highlight-bg . "#51afef")
-                           (modeline-highlight-fg . "#000000")
-                           (modeline-3d-p . nil)
-                           (region . ,(doom-lighten (face-background 'default) 0.2)))))
-  (pcase (frame-parameter nil 'background-mode)
-    ('light (zw/set-theme light-theme-params))
-    ('dark (zw/set-theme dark-theme-params))))
+(defun zw/theme-set-theme ()
+  (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
+                              (modeline-highlight-bg . "#0000c0")
+                              (modeline-highlight-fg . "#ffffff")
+                              (modeline-3d-p . t)
+                              (region . ,(doom-darken (face-background 'default) 0.2))))
+        (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
+                             (modeline-highlight-bg . "#51afef")
+                             (modeline-highlight-fg . "#000000")
+                             (modeline-3d-p . nil)
+                             (region . ,(doom-lighten (face-background 'default) 0.2)))))
+    (pcase (frame-parameter nil 'background-mode)
+      ('light (zw/theme--set-theme light-theme-params))
+      ('dark (zw/theme--set-theme dark-theme-params)))))
 
+;; * load theme
+(setq zw/theme-selector
+      (expand-file-name "emacs-select-theme.el" user-emacs-directory))
+(when (not (file-exists-p zw/theme-selector))
+  (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
+(load zw/theme-selector)
+
+;; load custom faces
+(zw/theme-set-theme)
+(add-hook 'server-after-make-frame-hook 'zw/theme-set-theme)
+(advice-add
+ #'consult-theme
+ :after (lambda (arg)
+          (zw/theme-set-theme)
+          (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
+                        nil zw/theme-selector)))
+
+;; * Provide
 (provide 'zw-theme)

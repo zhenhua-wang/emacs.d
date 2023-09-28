@@ -4,6 +4,293 @@
 (require 'proced)
 (require 'seq)
 
+;; * Tramp
+;; Set default connection mode to SSH
+(setq tramp-default-method "ssh")
+(setq tramp-auto-save-directory
+      (expand-file-name "tramp-auto-save" user-emacs-directory))
+(setq tramp-persistency-file-name
+      (expand-file-name "tramp-connection-history" user-emacs-directory))
+(setq password-cache-expiry nil)
+(setq remote-file-name-inhibit-cache nil)
+(setq tramp-use-ssh-controlmaster-options nil)
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
+(with-eval-after-load "tramp"
+  (customize-set-variable 'tramp-ssh-controlmaster-options
+                          (concat
+                           "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
+                           "-o ControlMaster=auto -o ControlPersist=yes"))
+  ;; respect the PATH variable on the remote machine
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
+;; * Comint
+(use-package comint
+  :straight (:type built-in)
+  :config
+  ;; Make processes’ outputs read-only. The prompt is easy.
+  (setq comint-prompt-read-only t
+        comint-scroll-to-bottom-on-input t
+        comint-scroll-to-bottom-on-output nil
+        comint-move-point-for-output nil))
+
+;; * Vterm
+(use-package vterm
+  :bind ((:map vterm-copy-mode-map
+               ("<return>" . vterm-copy-mode))
+         (:map vterm-mode-map
+               ("s-e" . quit-window)
+               ("s-z" . vterm-undo)
+               ("M-:" . nil)
+               ("<escape>" . nil)
+               ("<f5>" . nil)))
+  :config
+  (setq vterm-kill-buffer-on-exit t
+        vterm-always-compile-module t)
+  ;; close window when vterm exit
+  (add-hook 'vterm-exit-functions
+            (lambda (_ _)
+              (let* ((buffer (current-buffer))
+                     (window (get-buffer-window buffer)))
+                (when (not (one-window-p))
+                  (delete-window window)))))
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n"))))
+
+(use-package multi-vterm
+  :commands (multi-vterm)
+  :bind (("s-E" . multi-vterm)))
+
+;; * Dired
+;; ** main
+(use-package dired
+  :straight (:type built-in)
+  :hook
+  (dired-mode . dired-async-mode)
+  (dired-mode . dired-omit-mode)
+  (dired-mode . (lambda () (visual-line-mode 0)))
+  :bind ((:map global-map
+               ("s-b" . zw/dired-sidebar-toggle)
+          :map dired-mode-map
+               ("<tab>" . dired-subtree-toggle)
+               ("q" . zw/kill-bufer-quit-window)))
+  :init
+  (setq dired-dwim-target t
+        dired-kill-when-opening-new-dired-buffer t
+        dired-create-destination-dirs t
+        dired-create-destination-dirs-on-trailing-dirsep t
+        dired-mouse-drag-files t
+        dired-free-space 'separate
+        dired-use-ls-dired t
+        dired-listing-switches "-al --no-group --human-readable --group-directories-first"
+        dired-omit-extensions '("~")
+        dired-omit-files "^\\.$\\|^\\.\\.$")
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program "gls")))
+
+(use-package diredfl
+  :hook
+  ((dired-mode . diredfl-mode)
+   ;; highlight parent and preview as well
+   (dirvish-directory-view-mode . diredfl-mode)))
+
+(use-package dired-subtree
+  :commands (dired-subtree-toggle))
+
+;; ** dired side bar
+(defun zw/dired-sidebar-enable ()
+  (interactive)
+  (if (and (eq major-mode 'dired-mode)
+           (zw/side-window-p))
+      (zw-dired-sidebar-mode 1)))
+
+(defun zw/dired-sidebar-disable ()
+  (interactive)
+  (zw-dired-sidebar-mode 0))
+
+(defun zw/dired-sidebar-toggle ()
+  "Toggle dired on left side."
+  (interactive)
+  ;; close all old sidebars
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when zw-dired-sidebar-mode
+        (kill-buffer buffer))))
+  ;; open current directory in sidebar
+  (let* ((dir (abbreviate-file-name
+               (or (vc-root-dir)
+                   (ignore-errors (file-name-directory (buffer-file-name)))
+                   default-directory)))
+         (buffer (dired-noselect dir)))
+    ;; bury current dired buffer when it has the same root as sidebar
+    (when (eq (current-buffer) buffer)
+      (bury-buffer))
+    (display-buffer-in-side-window
+     buffer `((side . left) (slot . 0)
+              (window-width . 0.2)
+              (preserve-size . (t . nil))
+              (window-parameters . ((dedicated . t)))))
+    (with-current-buffer buffer (zw/dired-sidebar-enable))
+    (select-window (get-buffer-window buffer))))
+
+(defun zw/dired-sidebar-find-file ()
+  (interactive)
+  (dired-find-file)
+  (zw/dired-sidebar-enable))
+
+(defun zw/dired-sidebar-up-directory ()
+  (interactive)
+  (dired-up-directory)
+  (zw/dired-sidebar-enable))
+
+(defun zw/dired-sidebar-maximize ()
+  (interactive)
+  (zw/maximize-window)
+  (zw/dired-sidebar-disable))
+
+(defun zw/dired-sidebar-modeline-major-mode ()
+  "Sidebar modeline major mode."
+  (propertize "Sidebar " 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                                     'zw/modeline-default-inactive)))
+
+(defun zw/dired-sidebar-modeline-directory (dir)
+  "Sidebar modeline directory."
+  (car (last (split-string dir "/") 2)))
+
+(define-minor-mode zw-dired-sidebar-mode
+  "Toggle zw-dired-sidebar mode."
+  :lighter " Dired-Sidebar"
+  :keymap
+  `((,(kbd "s-q") . zw/kill-bufer-quit-window)
+    (,(kbd "q") . zw/kill-bufer-quit-window)
+    (,(kbd "s-b") . zw/kill-bufer-quit-window)
+    (,(kbd "^") . zw/dired-sidebar-up-directory)
+    (,(kbd "RET") . zw/dired-sidebar-find-file)
+    (,(kbd "<mouse-2>") . zw/dired-sidebar-find-file)
+    (,(kbd "C-x 1") . zw/dired-sidebar-maximize))
+  (let* ((dir (abbreviate-file-name (dired-current-directory)))
+         (current-dir (zw/dired-sidebar-modeline-directory dir))
+         (name (concat " :" dir))
+         (buffer (current-buffer)))
+    (if zw-dired-sidebar-mode
+        (with-current-buffer buffer
+          (dired-hide-details-mode t)
+          (rename-buffer name)
+          (setq-local mode-line-format
+                      (list "%e" " "
+                            `(:eval (propertize ,(concat current-dir zw/modeline-separator)
+                                                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                                                            'zw/modeline-default-inactive)))
+                            '(:eval (zw/modeline-remote))
+                            '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))))
+          (set-window-dedicated-p (get-buffer-window buffer) 'dedicated))
+      (with-current-buffer buffer
+        (dired-hide-details-mode 0)
+        (rename-buffer dir)
+        (setq-local mode-line-format (default-value 'mode-line-format))
+        (set-window-dedicated-p (get-buffer-window buffer) nil)))))
+
+;; * Openwith
+(defvar open-app-command (pcase system-type
+                           ('gnu/linux "xdg-open")
+                           (_ "open"))
+  "Shell command used to open in external apps.")
+
+(use-package openwith
+  :hook
+  (after-init . openwith-mode)
+  :config
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
+                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
+                  "ogg" "mkv"))
+               open-app-command
+               '(file)))))
+
+(defun zw/open-in-external (arg)
+  "Open visited file in default external program."
+  (interactive "P")
+  (when buffer-file-name
+    (call-process-shell-command
+     (concat open-app-command " " (shell-quote-argument buffer-file-name))
+     nil 0)))
+
+;; * Recentf
+(use-package recentf
+  :straight (:type built-in)
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+                no-littering-var-directory no-littering-etc-directory
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name)
+  ;; save recentf-list before closing frame
+  (advice-add 'save-buffers-kill-terminal :before 'recentf-save-list))
+
+;; * Savehist
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :hook (after-init . savehist-mode)
+  :config (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+                history-length 25))
+
+;; * Helpful
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)))
+
+;; * Key hints
+(use-package hydra
+  :hook (emacs-lisp-mode . hydra-add-imenu))
+
+(use-package which-key
+  :diminish
+  :hook (after-init . which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+
+;; * Open address
+(use-package goto-addr
+  :straight (:type built-in)
+  :hook
+  (text-mode . goto-address-mode)
+  (prog-mode . goto-address-prog-mode))
+
+;; * Web search
+(use-package emacs-websearch
+  :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
+  :bind (("s-l" . emacs-websearch)))
+
+;; * Winner-mode
+(use-package winner
+  :straight (:type built-in)
+  :hook (after-init . winner-mode)
+  :bind (("s-T" . winner-undo)
+         ("s-u" . winner-undo)
+         ("s-U" . winner-redo)))
+
+;; * Isearch
+(use-package isearch
+  :straight (:type built-in)
+  :bind (:map isearch-mode-map
+              ([remap isearch-delete-char] . isearch-del-char))
+  :config
+  (setq isearch-lazy-count t
+        lazy-count-prefix-format "%s/%s "))
+
+;; * Custom tools
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
   (interactive)
@@ -164,4 +451,5 @@ i.e. windows tiled side-by-side."
       (copy-file font font-dest t)))
   (nerd-icons-install-fonts))
 
+;; * Provide
 (provide 'zw-tools)

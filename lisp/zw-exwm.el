@@ -1,4 +1,5 @@
 ;; -*- lexical-binding: t -*-
+
 ;; * exwm init
 (use-package exwm
   :demand t
