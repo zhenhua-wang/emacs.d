@@ -397,8 +397,7 @@
                            '(:eval (zw/modeline-env))
                            " ")))))
 
-;;; misc config
-;; ess-r
+;;; special mode
 (add-hook 'ess-mode-hook
           (lambda ()
             (setq-local mode-line-process nil)))
