@@ -105,8 +105,6 @@
         (overlay-put ov 'display display-string))))
   (setq hs-set-up-overlay 'display-code-line-counts))
 
-
-
 ;; ** outline
 (use-package outline
   :hook
