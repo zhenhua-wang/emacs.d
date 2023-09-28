@@ -494,8 +494,6 @@
 #+begin_src emacs-lisp
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
-  :bind ((:map diff-hl-command-map
-               ("SPC" . diff-hl-mark-hunk)))
   :hook ((after-init . global-diff-hl-mode)
          (diff-hl-mode . diff-hl-flydiff-mode))
   :init (setq diff-hl-side 'left
