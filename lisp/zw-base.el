@@ -78,9 +78,7 @@
               visible-bell t
               cursor-type '(bar . 2)
               cursor-in-non-selected-windows nil
-              ;; enable divider at right and bottom
-              window-divider-default-places t
-              ;; sse spaces for indent
+              ;; use spaces for indent
               indent-tabs-mode nil
               ;; save clipboard before kill ring
               save-interprogram-paste-before-kill t

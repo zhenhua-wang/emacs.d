@@ -498,6 +498,10 @@
 
 (zw/exwm-set-wallpaper)
 
+;; ** Window divider
+;; enable divider at right and bottom
+(setq window-divider-default-places t)
+
 ;; * exwm tool
 ;; ** input method
 ;; (require 'exwm-xim)
