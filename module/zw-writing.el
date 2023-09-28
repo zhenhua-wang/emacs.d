@@ -21,17 +21,16 @@
                ("M-n" . org-next-block)
                ("M-s b" . org-cite-insert)))
   :hook
-  (org-mode . org-num-mode)
+  ;; (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq org-num-face 'default
         org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
-        org-image-actual-width nil          ; use user defined image size
+        org-image-actual-width nil
         org-hide-emphasis-markers t
         org-src-fontify-natively t
         org-fontify-quote-and-verse-blocks t
-        org-support-shift-select 'always
-        org-special-ctrl-a/e t)
+        org-support-shift-select 'always)
   ;; custom functions
   (defun zw/org-fold-all-but-current ()
     (interactive)
@@ -83,7 +82,7 @@
   (org-agenda-finalize . org-modern-agenda)
   :init
   (setq org-modern-star '("◉" "●")
-        org-modern-hide-stars t
+        org-modern-hide-stars 'leading
         org-modern-block-fringe nil
         org-modern-table t
         org-modern-table-vertical 3
