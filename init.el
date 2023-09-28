@@ -25,19 +25,23 @@
 ;; Load path for manually installed packages
 (push "~/.emacs.d/lisp" load-path)
 
-;; load module
+;; base
 (require 'zw-package)
 (require 'zw-startup)
 (require 'zw-base)
+;; appearance
 (require 'zw-ui)
 (require 'zw-theme)
 (require 'zw-modeline)
+;; tools
 (require 'zw-tools)
 (require 'zw-editor)
 (require 'zw-completion)
 (require 'zw-company)
+;; development
 (require 'zw-ide)
 (require 'zw-lang)
+;; document
 (require 'zw-writing)
 (require 'zw-literate)
 (require 'zw-reader)
