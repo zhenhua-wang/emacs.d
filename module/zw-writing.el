@@ -81,7 +81,7 @@
   (org-mode . org-modern-mode)
   (org-agenda-finalize . org-modern-agenda)
   :init
-  (setq org-modern-star '("◉" "●")
+  (setq org-modern-star '("◉" "●" "○" "◈" "◇" "✳")
         org-modern-hide-stars 'leading
         org-modern-block-fringe nil
         org-modern-table t
