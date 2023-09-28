@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defgroup zw/modeline nil
   "zw/modeline"
   :group 'convenience)

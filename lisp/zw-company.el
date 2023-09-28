@@ -1,4 +1,4 @@
-;; zw-company.el --- Initialize company configurations.	-*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (use-package company
   :hook

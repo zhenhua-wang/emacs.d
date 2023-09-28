@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (require 'map)
 (require 'proced)
 (require 'seq)

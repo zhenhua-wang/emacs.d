@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (use-package lsp-bridge
   :straight (lsp-bridge :host github :repo "manateelazycat/lsp-bridge"
                         :files ("*"))

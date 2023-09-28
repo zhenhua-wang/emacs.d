@@ -1,7 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-;;; code
-
 (use-package treemacs
   :commands (treemacs treemacs-current)
   :config

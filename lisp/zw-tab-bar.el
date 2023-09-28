@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defgroup zw/tab-bar nil
   "zw/tab-bar"
   :group 'convenience)

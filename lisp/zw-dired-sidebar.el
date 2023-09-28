@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defun zw/dired-sidebar-enable ()
   (interactive)
   (if (and (eq major-mode 'dired-mode)
