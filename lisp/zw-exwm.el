@@ -56,8 +56,7 @@
 
 ;; * exwm appearance
 ;; ** window management
-;; *** X window
-;; **** update title
+;; *** update title
 (defun zw/exwm-update-title ()
   (if (and exwm-title
            (string= (downcase exwm-title)
@@ -68,7 +67,7 @@
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
-;; **** window config
+;; *** window config
 (defun zw/exwm-float-header-line-rhs ()
   (concat (propertize (zw/exwm-modeline-toggle-window-input)
                       'face 'zw/modeline-process-active)
@@ -114,7 +113,7 @@
           (t floating-header-line nil
              floating-mode-line nil))))
 
-;; **** auto hide float
+;; *** auto hide float
 (defun zw/exwm-hide-float (window)
   (with-current-buffer (window-buffer window)
     (unless (or exwm--floating-frame
@@ -133,7 +132,7 @@
       (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
-;; *** emacs buffer
+;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers
   '("^R_x11.*$"
@@ -155,6 +154,17 @@
                  (dedicated . t)
                  (window-height . 0.5)))
   (add-to-list 'zw/side-window-buffer-regex buffer))
+
+(defun zw/exwm-display-buffer-p (x)
+  (and (not (zw/hidden-buffer-p x))
+       (with-current-buffer x
+         (or (buffer-file-name)
+             (eq major-mode 'exwm-mode)
+             (eq major-mode 'dired-mode)
+             (eq major-mode 'org-agenda-mode)))))
+
+(defun zw/exwm-display-buffer-list ()
+  (seq-filter 'zw/exwm-display-buffer-p (buffer-list)))
 
 ;; ** nerd icon
 (defun zw/nerd-icons-get-app-icon (name)
@@ -252,8 +262,7 @@
 
 (defvar-local zw/exwm-buffer-create-time nil)
 (defun zw/exwm-set-buffer-create-time ()
-  (when (or (buffer-file-name)
-            (eq major-mode 'exwm-mode))
+  (when (zw/exwm-display-buffer-p (current-buffer))
     (setq-local zw/exwm-buffer-create-time
                 (time-convert (current-time) 'integer))))
 (add-hook 'find-file-hook 'zw/exwm-set-buffer-create-time)
@@ -266,7 +275,7 @@
        (or zw/exwm-buffer-create-time 0))))
 
 (defun zw/tab-bar--buffer-list ()
-  (sort (zw/exwm-switch-to-buffer-list)
+  (sort (zw/exwm-display-buffer-list)
         'zw/tab-bar--buffer-sort))
 
 (defun zw/tab-bar-switch-to-buffer (i)
@@ -566,24 +575,11 @@
     (concat (propertize " " 'display `(space :align-to center))
             (symbol-name major-mode))))
 
-(defun zw/exwm-switch-to-buffer-list ()
-  (seq-filter
-   (lambda (x)
-     (and (not (zw/hidden-buffer-p x))
-          (or (buffer-file-name x)
-              (with-current-buffer x
-                (or (and exwm-class-name (not (zw/exwm-plot-buffer-p x)))
-                    exwm--floating-frame
-                    (string-match "^\\*EXWM.*$" (buffer-name x))
-                    (eq major-mode 'dired-mode)
-                    (eq major-mode 'org-agenda-mode))))))
-   (buffer-list)))
-
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
   (let* ((buffers (seq-filter
                    (lambda (x) (not (eq (current-buffer) x)))
-                   (zw/exwm-switch-to-buffer-list)))
+                   (zw/exwm-display-buffer-list)))
          (buffer-names (seq-map 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
