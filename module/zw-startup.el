@@ -10,7 +10,7 @@
         gcmh-auto-idle-delay-factor 10
         gcmh-high-cons-threshold (* 16 1024 1024)))
 
-;; * ** Keep .emacs.d Clean
+;; * Keep .emacs.d Clean
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering)
 
