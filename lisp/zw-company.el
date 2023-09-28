@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
+;; * main
 (use-package company
   :hook
   (after-init . global-company-mode)
@@ -49,7 +50,7 @@
   (company-mode . company-prescient-mode)
   (company-prescient-mode . prescient-persist-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; frontend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; * frontend
 (use-package company-posframe
   :hook
   (company-mode . company-posframe-mode)
@@ -95,7 +96,7 @@
                   (background-color . ,(zw/get-face-bg-recur 'company-tooltip))))))
   (advice-add #'company-posframe-show :before #'zw/company-posframe-show-params))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; backend ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; * backend
 (defun company-R-objects--prefix ()
   (unless (ess-inside-string-or-comment-p)
     (let ((start (ess-symbol-start)))
@@ -165,4 +166,5 @@
                      (interactive)
                      (setq-local company-backends '(company-files company-shell)))))
 
+;; * Provide
 (provide 'zw-company)
