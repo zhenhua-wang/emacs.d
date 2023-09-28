@@ -113,25 +113,6 @@
           (t floating-header-line nil
              floating-mode-line nil))))
 
-;; *** auto hide float
-(defun zw/exwm-hide-float (window)
-  (with-current-buffer (window-buffer window)
-    (unless (or exwm--floating-frame
-                (eq window (active-minibuffer-window)))
-      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
-        (dolist (exwm-id exwm-id-list)
-          (with-current-buffer (exwm--id->buffer exwm-id)
-            (when exwm--floating-frame
-              (exwm-layout--hide exwm--id)
-              (select-frame-set-input-focus exwm-workspace--current))))))))
-
-(define-minor-mode exwm-float-auto-hide-mode
-  "Auto hide exwm float windows."
-  :global t
-  (if exwm-float-auto-hide-mode
-      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
-    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
-
 ;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers
@@ -155,6 +136,7 @@
                  (window-height . 0.5)))
   (add-to-list 'zw/side-window-buffer-regex buffer))
 
+;; display buffers
 (defun zw/exwm-display-buffer-p (x)
   (and (not (zw/hidden-buffer-p x))
        (with-current-buffer x
@@ -619,6 +601,25 @@
   (if (string= (buffer-name) "*scratch*")
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
+
+;; ** auto hide float
+(defun zw/exwm-hide-float (window)
+  (with-current-buffer (window-buffer window)
+    (unless (or exwm--floating-frame
+                (eq window (active-minibuffer-window)))
+      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
+        (dolist (exwm-id exwm-id-list)
+          (with-current-buffer (exwm--id->buffer exwm-id)
+            (when exwm--floating-frame
+              (exwm-layout--hide exwm--id)
+              (select-frame-set-input-focus exwm-workspace--current))))))))
+
+(define-minor-mode exwm-float-auto-hide-mode
+  "Auto hide exwm float windows."
+  :global t
+  (if exwm-float-auto-hide-mode
+      (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
+    (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
 ;; ** desktop environment
 (use-package desktop-environment
