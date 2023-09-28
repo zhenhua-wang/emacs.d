@@ -681,10 +681,6 @@
   :config
   (setq cpu-temperature-update-interval 1))
 
-;; ** agenda
-(when (file-directory-p "~/Documents/Agenda")
-  (org-agenda nil "d"))
-
 ;; ** winner mode
 (defun zw/winner-clean-up-modified-list ()
   "Remove dead frames from `winner-modified-list`"
