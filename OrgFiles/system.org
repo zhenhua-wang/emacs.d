@@ -55,7 +55,7 @@ git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 # misc
-yay -S firefox kitty
+yay -S firefox kitty aspell aspell-en
 #+end_src
 
 ** SDDM Theme
