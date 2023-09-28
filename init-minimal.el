@@ -23,7 +23,7 @@
                                            old-file-name-handler-alist)))))))
 
 ;; Load path for manually installed packages
-(push "~/.emacs.d/lisp" load-path)
+(push "~/.emacs.d/module" load-path)
 
 ;; load module
 (require 'zw-package)
