@@ -30,7 +30,8 @@
         org-hide-emphasis-markers t
         org-src-fontify-natively t
         org-fontify-quote-and-verse-blocks t
-        org-support-shift-select 'always)
+        org-support-shift-select 'always
+        org-special-ctrl-a/e t)
   ;; custom functions
   (defun zw/org-fold-all-but-current ()
     (interactive)
