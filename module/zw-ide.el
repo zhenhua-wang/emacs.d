@@ -160,8 +160,8 @@
                                        (+ space) (group (+ "*")))
                                 space))))
       (font-lock-add-keywords nil `((,outline-header 1 '(face nil display ""))))
-      (setq-local outline-level 'zw/outline--level
-                  outline-regexp outline-header
+      (setq-local outline-regexp outline-header
+                  outline-level 'zw/outline--level
                   font-lock-unfontify-region-function #'zw/outline--unfontify))
     (outline-minor-mode 1)
     (outline-hide-sublevels 1)))
