@@ -156,7 +156,7 @@
     (interactive "p")
     (save-excursion
       (backward-char)
-      (zw/outline-show))
+      (zw/outline-reveal))
     (backward-delete-char N))
   (defun zw/outline-init ()
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
