@@ -4,16 +4,10 @@
 ;; orderless
 (use-package orderless
   :config
-  (orderless-define-completion-style orderless+initialism
-    (orderless-matching-styles '(orderless-initialism
-                                 orderless-literal
-                                 orderless-regexp)))
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles basic partial-completion))
-                                        (command (styles orderless+initialism))
-                                        (variable (styles orderless+initialism))
-                                        (symbol (styles orderless+initialism)))))
+        orderless-component-separator #'orderless-escapable-split-on-space
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; * Vertico
 (use-package vertico
