@@ -124,7 +124,8 @@
            (append '(display) font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)))
   (defun zw/outline-previous-invisible-p ()
-    (outline-invisible-p (- (point) 1)))
+    (unless (= (point) 1)
+      (outline-invisible-p (- (point) 1))))
   (defun zw/outline-reveal-children ()
     (save-excursion
       (outline-back-to-heading)
