@@ -164,7 +164,8 @@
                   outline-level 'zw/outline--level
                   font-lock-unfontify-region-function #'zw/outline--unfontify))
     (outline-minor-mode 1)
-    (outline-hide-sublevels 1)))
+    (outline-hide-sublevels 1)
+    (add-hook 'save-place-after-find-file-hook 'zw/outline-show-entry nil t)))
 
 (use-package outline-minor-faces
   :after outline
