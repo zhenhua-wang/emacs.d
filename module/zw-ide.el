@@ -45,8 +45,7 @@
             (string (-some--> (-zip-fill "" src1 src2)
                       (--map (lsp-ui-peek--adjust win-width it) it)
                       (-map-indexed 'lsp-ui-peek--make-line it)
-                      (-concat it (lsp-ui-peek--make-footer))))
-            )
+                      (-concat it (lsp-ui-peek--make-footer)))))
       (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
       (posframe-show lsp-ui-peek--buffer
                      :string (mapconcat 'identity string "")
