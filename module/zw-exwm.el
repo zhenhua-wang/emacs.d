@@ -405,9 +405,7 @@
         (message-log-max nil))
     (apply orig-fun args)))
 (dolist (func '(pixel-scroll-precision
-                touch-screen-scroll
-                desktop-environment-brightness-set
-                desktop-environment-volume-set))
+                touch-screen-scroll))
   (advice-add func :around 'zw/exwm-minibuffer-silence-messages-advice))
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
@@ -637,17 +635,7 @@
   (desktop-environment-brightness-normal-increment "10%+")
   (desktop-environment-brightness-normal-decrement "10%-")
   :config
-  (desktop-environment-mode)
-  (advice-add 'desktop-environment-volume-set :after
-              (lambda (&rest args)
-                (when (executable-find "dunst")
-                  (call-process-shell-command
-                   (concat "dunstify -r 1 \"  " (desktop-environment-volume-get) "\"") nil 0))))
-  (advice-add 'desktop-environment-brightness-set :after
-              (lambda (&rest args)
-                (when (executable-find "dunst")
-                  (call-process-shell-command
-                   (concat "dunstify -r 1 \"󰖨  " (desktop-environment-brightness-get) "\"") nil 0)))))
+  (desktop-environment-mode))
 
 ;; ** app launcher
 (use-package app-launcher
