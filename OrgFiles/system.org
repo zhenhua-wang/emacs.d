@@ -29,7 +29,7 @@ git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
 ./configure --with-json --with-xinput2 --with-x-toolkit=gtk3 --without-compress-install
-make -j8
+make
 sudo make install
 #+end_src
 
