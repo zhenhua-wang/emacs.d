@@ -124,9 +124,7 @@
            (append '(display) font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)))
   (defun zw/outline-previous-invisible-p ()
-    (save-excursion
-      (backward-char)
-      (outline-invisible-p)))
+    (outline-invisible-p (- (point) 1)))
   (defun zw/outline-reveal-children ()
     (save-excursion
       (outline-back-to-heading)
@@ -145,7 +143,7 @@
     (self-insert-command N C)
     (zw/outline-reveal))
   (defun zw/outline-newline (&optional ARG INTERACTIVE)
-    (interactive "p")
+    (interactive "*P\np")
     (newline ARG INTERACTIVE)
     (zw/outline-reveal))
   (defun zw/outline-delete-char (N)
@@ -153,7 +151,7 @@
     (delete-char N)
     (zw/outline-reveal))
   (defun zw/outline-backward-delete-char (ARG &optional KILLP)
-    (interactive "p")
+    (interactive "p\nP")
     (backward-delete-char-untabify ARG KILLP)
     (save-excursion
       (backward-char)
