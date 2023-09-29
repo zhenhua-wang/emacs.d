@@ -24,11 +24,11 @@ mv emacs.d .emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S gtk3 libxft libxpm libtiff giflib tree-sitter
+yay -S gtk3 libxft libxpm libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-json --with-xinput2 --with-x-toolkit=gtk3 --without-compress-install --with-tree-sitter
+./configure --with-json --with-xinput2 --with-x-toolkit=gtk3 --without-compress-install
 make
 sudo make install
 #+end_src
