@@ -68,14 +68,14 @@
         '((python-mode . python-ts-mode)
           (bash-mode . bash-ts-mode)))
 
-  ;; hook
-  (setq python-ts-mode-hook python-mode-hook)
-
-  ;; keymap
-  (bind-keys :map python-ts-mode-map
-             ("C-c C-c" . zw/python-shell-send-region-or-block)
-             ("C-c C-b" . zw/python-shell-send-buffer)
-             ("C-<return>" . zw/python-shell-send-line))
+  (use-package python-ts-mode
+    :straight (:type built-in)
+    :bind ((:map python-ts-mode-map
+                 ("C-c C-c" . zw/python-shell-send-region-or-block)
+                 ("C-c C-b" . zw/python-shell-send-buffer)
+                 ("C-<return>" . zw/python-shell-send-line)))
+    :config
+    (setq python-ts-mode-hook python-mode-hook))
 
   (use-package treesit-auto
     :hook (after-init . global-treesit-auto-mode)
