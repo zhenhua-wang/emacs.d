@@ -499,6 +499,7 @@
 ;; ** Window divider
 ;; enable divider at right and bottom
 (setq window-divider-default-places t)
+(window-divider-mode 1)
 
 ;; * exwm tool
 ;; ** input method
