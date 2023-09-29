@@ -108,7 +108,13 @@
 ;; ** outline
 (use-package outline
   :hook
-  (prog-mode . zw/init-outline)
+  (prog-mode . zw/outline-init)
+  :bind
+  ((:map outline-minor-mode-map
+         ("<DEL>" . zw/outline-backward-delete-char)
+         ("<remap> <self-insert-command>" . zw/outline-self-insert-command)
+         ("<remap> <newline>" . zw/outline-newline)
+         ("<remap> <delete-char>" . zw/outline-delete-char)))
   :config
   (setq outline-minor-mode-use-buttons t)
   (defun zw/outline--level ()
@@ -117,7 +123,36 @@
     (let ((font-lock-extra-managed-props
            (append '(display) font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)))
-  (defun zw/init-outline ()
+  (defun zw/outline-previous-invisible-p ()
+    (save-excursion
+      (backward-char)
+      (outline-invisible-p)))
+  (defun zw/outline-show-entry ()
+    (cond
+     ((and (outline-has-subheading-p) (outline-invisible-p) (outline-on-heading-p)) (outline-show-branches))
+     ((outline-has-subheading-p) (outline-show-branches) (zw/outline-show-entry))
+     (t (outline-show-entry))))
+  (defun zw/outline-self-insert-command (N &optional C)
+    (interactive "p")
+    (when (outline-invisible-p)
+      (zw/outline-show-entry))
+    (self-insert-command N C))
+  (defun zw/outline-newline (&optional ARG INTERACTIVE)
+    (interactive "p")
+    (when (outline-invisible-p)
+      (zw/outline-show-entry))
+    (newline ARG INTERACTIVE))
+  (defun zw/outline-delete-char (N)
+    (interactive "p")
+    (when (outline-invisible-p)
+      (zw/outline-show-entry))
+    (delete-char N))
+  (defun zw/outline-backward-delete-char (N)
+    (interactive "p")
+    (when (zw/outline-previous-invisible-p)
+      (zw/outline-show-entry))
+    (backward-delete-char N))
+  (defun zw/outline-init ()
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
            (outline-header (rx-to-string
                             `(: (group (0+ space)
