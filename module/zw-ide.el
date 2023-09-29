@@ -127,30 +127,36 @@
     (save-excursion
       (backward-char)
       (outline-invisible-p)))
-  (defun zw/outline-show-entry ()
+  (defun zw/outline-reveal-children ()
+    (save-excursion
+      (outline-back-to-heading)
+      (outline-show-children) (outline-show-entry)))
+  (defun zw/outline-reveal ()
     (cond
-     ((and (outline-has-subheading-p) (outline-invisible-p) (outline-on-heading-p)) (outline-show-branches))
-     ((outline-has-subheading-p) (outline-show-branches) (zw/outline-show-entry))
-     (t (outline-show-entry))))
+     ;; visible
+     ((not (outline-invisible-p)) nil)
+     ;; invisible, has sub
+     ((outline-has-subheading-p)
+      (zw/outline-reveal-children) (zw/outline-reveal))
+     ;; invisible, no sub
+     (t (zw/outline-reveal-children))))
   (defun zw/outline-self-insert-command (N &optional C)
     (interactive "p")
-    (when (outline-invisible-p)
-      (zw/outline-show-entry))
+    (zw/outline-reveal)
     (self-insert-command N C))
   (defun zw/outline-newline (&optional ARG INTERACTIVE)
     (interactive "p")
-    (when (outline-invisible-p)
-      (zw/outline-show-entry))
+    (zw/outline-reveal)
     (newline ARG INTERACTIVE))
   (defun zw/outline-delete-char (N)
     (interactive "p")
-    (when (outline-invisible-p)
-      (zw/outline-show-entry))
+    (zw/outline-reveal)
     (delete-char N))
   (defun zw/outline-backward-delete-char (N)
     (interactive "p")
-    (when (zw/outline-previous-invisible-p)
-      (zw/outline-show-entry))
+    (save-excursion
+      (backward-char)
+      (zw/outline-show))
     (backward-delete-char N))
   (defun zw/outline-init ()
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
@@ -165,8 +171,7 @@
                   font-lock-unfontify-region-function #'zw/outline--unfontify))
     (outline-minor-mode 1)
     (outline-hide-sublevels 1)
-    (add-hook 'save-place-after-find-file-hook
-              (lambda () (when (outline-invisible-p) (zw/outline-show-entry)) nil t))))
+    (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t)))
 
 (use-package outline-minor-faces
   :after outline
