@@ -175,8 +175,7 @@
 ;; ** line column
 (defun zw/modeline-line-column ()
   (pcase major-mode
-    ((pred (lambda (mode) (member mode '(dired-mode
-                                         org-agenda-mode
+    ((pred (lambda (mode) (member mode '(org-agenda-mode
                                          image-mode
                                          eaf-mode
                                          vterm-mode
