@@ -186,7 +186,7 @@
                                                                             'zw/modeline-default-inactive)))
                             '(:eval (zw/modeline-remote))
                             '(:eval (zw/modeline-middle-space (zw/dired-sidebar-modeline-major-mode)))))
-          (set-window-dedicated-p (get-buffer-window buffer) 'dedicated))
+          (set-window-dedicated-p (get-buffer-window buffer) t))
       (with-current-buffer buffer
         (dired-hide-details-mode 0)
         (rename-buffer dir)
