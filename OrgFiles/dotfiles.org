@@ -121,6 +121,7 @@ show_indicators = yes
 icon_position = left
 min_icon_size = 0
 max_icon_size = 64
+icon_path = /usr/share/icons/Papirus/16x16/status/:/usr/share/icons/Papirus/16x16/devices/
 # progress bar
 progress_bar = true
 progress_bar_height = 10
