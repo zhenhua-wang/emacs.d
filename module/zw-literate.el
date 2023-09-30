@@ -122,6 +122,7 @@ at the first function to return non-nil.")
 (use-package polymode
   :commands polymode-mode
   :hook (polymode-init-inner . (lambda ()
+                                 (buffer-face-mode 0)
                                  (display-line-numbers-mode 0)
                                  (outline-minor-mode 0)
                                  (setq-local outline-minor-mode-use-buttons nil)

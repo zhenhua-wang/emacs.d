@@ -38,12 +38,10 @@
 
 ;; * Buffer face mode
 ;; Set fixed-font faces for prog
-(dolist (mode '(prog-mode-hook
-                markdown-mode-hook
-                latex-mode-hook LaTeX-mode-hook))
-  (add-hook mode (lambda ()
-                   (setq-local buffer-face-mode-face 'fixed-pitch)
-                   (buffer-face-mode))))
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local buffer-face-mode-face 'fixed-pitch)
+            (buffer-face-mode)))
 
 ;; * Scroll
 (setq scroll-step 0
