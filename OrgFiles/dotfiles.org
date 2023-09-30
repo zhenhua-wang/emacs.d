@@ -162,10 +162,10 @@ timeout = 0
 * Picom
 #+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/picom.conf" "no")
 #+begin_src conf
-fading = false;
-fade-in-step = 1;
+fading = true;
+fade-in-step = 0.028;
 fade-out-step = 0.03;
-fade-exclude = ["class_g = 'Emacs'"];
+fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
 # opacity-rule = [
 #   "90:class_g = 'kitty' && focused",
 #   "40:class_g = 'kitty' && !focused",
