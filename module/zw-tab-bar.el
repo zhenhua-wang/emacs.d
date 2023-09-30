@@ -187,6 +187,21 @@
             :help (plist-get (text-properties-at 0 display-time-string)
                              'help-echo))))
 
+;; ** cpu temperature
+(defun zw/tab-bar-format-cpu-temp ()
+  "Produce menu that shows cpu temperature."
+  `((global menu-item ,cpu-temperature-string
+            nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
+
+;; ** pyim
+(defun zw/tab-bar-format-pyim ()
+  "Produce menu that shows pyim."
+  (let* ((input-method (or current-input-method-title ""))
+         (chinese-input-method-p (string-match-p "PYIM/C" input-method))
+         (chinese-input-method (if chinese-input-method-p "中 " "")))
+    `((global menu-item ,chinese-input-method
+              nil :help ,(format "Current input method: %s" current-input-method-title)))))
+
 ;; * Keymap
 ;; switch to tab
 (defun zw/tab-switch (index-name)

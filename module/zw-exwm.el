@@ -166,8 +166,7 @@
         (funcall get-icon name-first)))))
 
 ;; ** modeline
-(set-face-attribute 'mode-line nil :box nil)
-
+;; *** hide float window
 (defun zw/exwm-modeline-float-hide ()
   (propertize "[-]"
               'help-echo "mouse-1: Hide floating window"
@@ -177,6 +176,7 @@
                            (define-key map (vector 'header-line 'mouse-1) 'exwm-floating-hide)
                            map)))
 
+;; *** toggle exwn input type
 (defun zw/exwm-modeline-toggle-window-input ()
   (when-let ((exwm-buffer (exwm--id->buffer exwm--id)))
     (let (help-echo cmd mode)
@@ -216,10 +216,14 @@
             (lambda (&rest args)
               (add-to-list 'mode-line-process
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
+
+;; *** config
+(set-face-attribute 'mode-line nil :box nil)
 (add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
 ;; ** tab bar
 (require 'zw-tab-bar)
+;; *** exwm workspace
 (defun zw/tab-bar-format-exwm-workspace ()
   "Produce menu that shows current exwm workspace."
   (let* ((bg (face-background 'tab-bar))
@@ -230,6 +234,7 @@
                                      'face `(:background ,bg-alt :weight regular))
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
+;; *** exwm buffer
 (defvar-local zw/exwm-buffer-create-time nil)
 (defun zw/exwm-set-buffer-create-time ()
   (when (zw/exwm-display-buffer-p (current-buffer))
@@ -304,19 +309,7 @@
            (list current-tab tab-seperator))))
      buffer-list)))
 
-(defun zw/tab-bar-format-cpu-temp ()
-  "Produce menu that shows cpu temperature."
-  `((global menu-item ,cpu-temperature-string
-            nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
-
-(defun zw/tab-bar-format-pyim ()
-  "Produce menu that shows pyim."
-  (let* ((input-method (or current-input-method-title ""))
-         (chinese-input-method-p (string-match-p "PYIM/C" input-method))
-         (chinese-input-method (if chinese-input-method-p "中 " "")))
-    `((global menu-item ,chinese-input-method
-              nil :help ,(format "Current input method: %s" current-input-method-title)))))
-
+;; *** config
 (setq tab-bar-show t
       tab-bar-format '(zw/tab-bar-format-exwm-workspace
                        tab-bar-separator
@@ -345,13 +338,13 @@
               'context-menu)
       (tab-bar-mouse-context-menu event posn))))
 
-;; time
+;; *** time
 (setq display-time-format "%b %-e %a %H:%M:%S %p"
       display-time-interval 1
       display-time-default-load-average nil)
 (display-time-mode 1)
 
-;; battery on laptop
+;; *** battery
 (require 'battery)
 (when battery-status-function
   (setq have-battery-status-p
@@ -362,7 +355,7 @@
              tab-bar-show)
     (display-battery-mode 1)))
 
-;; keycast
+;; *** keycast
 (use-package keycast
   :config
   (setq keycast-tab-bar-format "%k%c%R "
