@@ -630,12 +630,11 @@
 (use-package desktop-environment
   :bind ((:map desktop-environment-mode-map
                ("s-l" . nil)))
-  :custom
-  (desktop-environment-volume-normal-increment "5%+")
-  (desktop-environment-volume-normal-decrement "5%-")
-  (desktop-environment-brightness-normal-increment "10%+")
-  (desktop-environment-brightness-normal-decrement "10%-")
   :config
+  (setq desktop-environment-volume-normal-increment "5%+"
+        desktop-environment-volume-normal-decrement "5%-"
+        desktop-environment-brightness-normal-increment "10%+"
+        desktop-environment-brightness-normal-decrement "10%-")
   (desktop-environment-mode))
 
 ;; ** app launcher
