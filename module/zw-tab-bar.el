@@ -53,7 +53,7 @@
   "Replacing string for long path name or file name")
 
 ;; * Module
-;; show menu
+;; ** menu bar
 (defun zw/tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
   `((menu-bar menu-item (propertize "☰"
@@ -61,6 +61,7 @@
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
 
+;; ** tab name
 (defun zw/tab-bar-tab-name ()
   (let* ((buffer-file-p (buffer-file-name (window-buffer (minibuffer-selected-window))))
          (tab-name-max (if buffer-file-p 30 50))
@@ -89,6 +90,7 @@
                                            'face 'zw/tab-bar-tab-path-selected)))
     (concat dir-name-abbrev-prop tab-name-abbrev)))
 
+;; ** function definition
 (defun zw/tab-bar-beginning-of-defun ()
   "Return the line moved to by `beginning-of-defun'."
   (save-excursion
@@ -123,10 +125,12 @@
   `((global menu-item ,(zw/tab-bar--func-def)
             :help "Function definition")))
 
+;; ** file path
 (defun zw/tab-bar-format-file-path ()
   `((current-tab menu-item ,(zw/tab-bar-tab-name)
                  :help "File path")))
 
+;; ** battery
 (defun zw/tab-bar-update-battery-status ()
   "Update battery status."
   (when (bound-and-true-p display-battery-mode)
@@ -176,6 +180,7 @@
             :help (plist-get (text-properties-at 0 battery-mode-line-string)
                              'help-echo))))
 
+;; ** time
 (defun zw/tab-bar-format-time ()
   "Produce time information for the tab bar."
   `((global menu-item ,display-time-string nil
