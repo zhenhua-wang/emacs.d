@@ -142,12 +142,12 @@ class = Dunst
 
 [urgency_low]
 background = "#282a36"
-foreground = "#6272a4"
+foreground = "#C6D0F5"
 timeout = 5
 
 [urgency_normal]
 background = "#282a36"
-foreground = "#bd93f9"
+foreground = "#C6D0F5"
 timeout = 5
 
 [urgency_critical]
