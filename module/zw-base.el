@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-;; * helper functions
+;; * helper
 (defun zw/icon-displayable-p ()
   "Return non-nil if icons are displayable."
   (or (display-graphic-p) (daemonp)))
@@ -47,6 +47,25 @@
     (5 "%") (6 "^") (7 "&") (8 "*")
     (9 "(") (0 ")")))
 
+;; keep track active window
+(defvar zw/active-window nil)
+(defun zw/update-active-window (arg)
+  "Update selected window (before mode-line is active)"
+  (setq zw/active-window (selected-window)))
+(add-hook 'window-selection-change-functions #'zw/update-active-window)
+
+;; keep track active frame
+(defvar exwm-workspace--minibuffer)
+(defvar zw/active-frame nil)
+(defun zw/update-active-frame (arg)
+  (let ((frame (selected-frame)))
+    (unless (eq frame exwm-workspace--minibuffer)
+      (setq zw/active-frame frame))))
+(defun zw/delete-active-frame (arg)
+  (setq zw/active-frame nil))
+(add-hook 'window-selection-change-functions 'zw/update-active-frame)
+(add-hook 'delete-frame-functions 'zw/delete-active-frame)
+
 ;; * Global mode
 ;; modes run after init
 (dolist (mode '(window-divider-mode
@@ -91,7 +110,7 @@
 ;; default coding
 (set-default-coding-systems 'utf-8)
 
-;; * Global keymaps
+;; * Global keymap
 ;; modifiers
 (pcase system-type
   ('darwin

@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
+;; * Face
 (defgroup zw/tab-bar nil
   "zw/tab-bar"
   :group 'convenience)
@@ -51,6 +52,7 @@
 (defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
+;; * Module
 ;; show menu
 (defun zw/tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
@@ -180,18 +182,7 @@
             :help (plist-get (text-properties-at 0 display-time-string)
                              'help-echo))))
 
-;; format tab-bar-mode
-(setq tab-bar-new-tab-choice "*scratch*"
-      tab-bar-new-button-show nil
-      tab-bar-close-button-show nil
-      tab-bar-separator " "
-      tab-bar-format '(tab-bar-separator
-                       zw/tab-bar-format-menu-bar
-                       tab-bar-separator
-                       zw/tab-bar-format-file-path
-                       tab-bar-format-align-right))
-
-;;; keymap
+;; * Keymap
 ;; switch to tab
 (defun zw/tab-switch (index-name)
   (interactive
@@ -249,7 +240,20 @@
                ("s-9" . nil)
                ("s-0" . nil))))
 
+
+;; * Config
+(setq tab-bar-new-tab-choice "*scratch*"
+      tab-bar-new-button-show nil
+      tab-bar-close-button-show nil
+      tab-bar-separator " "
+      tab-bar-format '(tab-bar-separator
+                       zw/tab-bar-format-menu-bar
+                       tab-bar-separator
+                       zw/tab-bar-format-file-path
+                       tab-bar-format-align-right))
+
 ;; enable tab-bar
 (add-hook 'after-init-hook #'tab-bar-mode)
 
+;; * Provide
 (provide 'zw-tab-bar)

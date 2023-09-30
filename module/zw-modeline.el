@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
+;; * Face
 (defgroup zw/modeline nil
   "zw/modeline"
   :group 'convenience)
@@ -102,26 +103,16 @@
   "Input method face for active modeline"
   :group 'zw/modeline-active)
 
+(defun zw/modeline-window-active-p ()
+  (let* ((window (get-buffer-window (current-buffer))))
+    (eq window zw/active-window)))
+
 (defun zw/modeline-set-face (active-face inactive-face)
-  (if (zw/modeline-selected-window-active-p)
+  (if (zw/modeline-window-active-p)
       active-face
     inactive-face))
 
-;; keep track of selected window
-(defvar zw/modeline--selected-window nil)
-(defun zw/modeline--update-selected-window ()
-  "Update selected window (before mode-line is active)"
-  (setq zw/modeline--selected-window (selected-window)))
-
-;; This hooks is necessary to register selected window because when
-;;  a modeline is evaluated, the corresponding window is always selected.
-(add-hook 'post-command-hook #'zw/modeline--update-selected-window)
-
-(defun zw/modeline-selected-window-active-p ()
-  (let* ((window (get-buffer-window (current-buffer))))
-    (eq window zw/modeline--selected-window)))
-
-;; modeline segments
+;; * Module
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
@@ -345,7 +336,7 @@
    ;; major mode
    (zw/modeline-major-mode)))
 
-;;; main modeline
+;; * Config
 (setq-default
  mode-line-format
  (list
@@ -408,4 +399,5 @@
             (setq-local mode-line-process
                         '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings))))))
 
+;; * Provide
 (provide 'zw-modeline)

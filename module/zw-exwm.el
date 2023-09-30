@@ -218,20 +218,6 @@
                            '(:eval (concat " " (zw/exwm-modeline-toggle-window-type))) t)))
 (add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
-;; ** frame
-(defvar zw/exwm-active-frame exwm-workspace--current)
-
-(defun zw/exwm-set-active-frame (arg)
-  (let ((frame (selected-frame)))
-    (unless (eq frame exwm-workspace--minibuffer)
-      (setq zw/exwm-active-frame frame))))
-
-(defun zw/exwm-unset-active-frame (arg)
-  (setq zw/exwm-active-frame nil))
-
-(add-hook 'window-selection-change-functions 'zw/exwm-set-active-frame)
-(add-hook 'delete-frame-functions 'zw/exwm-unset-active-frame)
-
 ;; ** tab bar
 (require 'zw-tab-bar)
 (defun zw/tab-bar-format-exwm-workspace ()
@@ -302,8 +288,8 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer)
                                        ;; handle multi-frames
-                                       (if zw/exwm-active-frame
-                                           (with-selected-frame zw/exwm-active-frame
+                                       (if zw/active-frame
+                                           (with-selected-frame zw/active-frame
                                              (buffer-name))
                                          (buffer-name)))
                               (propertize bname 'face '(:weight bold))
