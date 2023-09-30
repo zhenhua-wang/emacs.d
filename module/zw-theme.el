@@ -11,7 +11,7 @@
 ;; * zw theme
 (defun zw/theme--set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (fixed-font             `(:font "Hack"))
+         (fixed-font             `(:font "JetBrainsMono"))
          (fixed-font-height       150)
          (variable-font          `(:font "EB Garamond"))
          (variable-font-height    200)
