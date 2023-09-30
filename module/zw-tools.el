@@ -431,8 +431,7 @@ i.e. windows tiled side-by-side."
   (cond
    ((and outline-minor-mode
          (or (outline-on-heading-p)
-             (outline-invisible-p)
-             (zw/outline-previous-invisible-p)))
+             (outline-invisible-p)))
     (outline-toggle-children))
    ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
    (t (indent-for-tab-command))))
