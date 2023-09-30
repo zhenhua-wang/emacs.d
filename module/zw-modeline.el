@@ -113,9 +113,11 @@
     inactive-face))
 
 ;; * Module
+;; ** seperator
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
+;; ** tab index
 (defun zw/modeline-tab-index ()
   (when (length> (tab-bar-tabs) 1)
     (concat
@@ -129,6 +131,7 @@
      ">"
      zw/modeline-separator)))
 
+;; ** buffer name
 (defun zw/modeline-buffer-name (zw/modeline-buffer-name-max zw/modeline-buffer-name-ellipse)
   (let* ((file-name (buffer-name))
          (file-name-abbrev (if (length< file-name zw/modeline-buffer-name-max)
@@ -144,6 +147,7 @@
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
      zw/modeline-separator)))
 
+;; ** text scale
 (defun zw/modeline-text-scale ()
   (when (and (boundp 'text-scale-mode-amount)
              (/= text-scale-mode-amount 0))
@@ -157,6 +161,7 @@
       'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** count region
 (defun zw/modeline-count-region ()
   (when (region-active-p)
     (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
@@ -167,6 +172,7 @@
         'help-echo (concat "Word counts: " num-words))
        zw/modeline-separator))))
 
+;; ** line column
 (defun zw/modeline-line-column ()
   (pcase major-mode
     ((pred (lambda (mode) (member mode '(dired-mode
@@ -195,6 +201,7 @@
                   'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
       (zw/modeline-count-region)))))
 
+;; ** encoding
 (defun zw/modeline-encoding ()
   (let* ((sys (coding-system-plist buffer-file-coding-system))
          (cat (plist-get sys :category))
@@ -210,6 +217,7 @@
         'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))
        zw/modeline-separator))))
 
+;; ** mark active
 (defun zw/modeline-mark-active ()
   (when mark-active
     (concat
@@ -217,6 +225,7 @@
                  'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** kmacro recording
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
@@ -225,6 +234,7 @@
                  'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** remote
 (defun zw/modeline-remote ()
   (when (file-remote-p default-directory)
     (concat
@@ -232,6 +242,7 @@
                  'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** env
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat
@@ -240,6 +251,7 @@
                                              'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** VC
 (defun zw/modeline-vc ()
   (when vc-mode
     (let* ((backend (vc-backend buffer-file-name))
@@ -253,6 +265,7 @@
                                                  'zw/modeline-default-inactive)))
        zw/modeline-separator))))
 
+;; ** LSP
 (defun zw/modeline-lsp-bridge ()
   (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
     (when lsp-bridge-server
@@ -291,11 +304,13 @@
                                        (eglot--project-nickname server)))))
        zw/modeline-separator))))
 
+;; ** major mode
 (defun zw/modeline-major-mode ()
   (concat (propertize (format-mode-line mode-name)
                       'face (zw/modeline-set-face 'zw/modeline-major-mode-active 'zw/modeline-default-inactive))
           zw/modeline-separator))
 
+;; ** process
 (defun zw/modeline-process ()
   (let ((process (string-trim (format-mode-line mode-line-process))))
     (when (not (length= process 0))
@@ -303,6 +318,7 @@
                           'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
+;; ** input method
 (defun zw/modeline-input-method ()
   (let ((method (string-trim (or current-input-method-title ""))))
     (when (not (length= method 0))
@@ -310,6 +326,7 @@
                           'face (zw/modeline-set-face 'zw/modeline-input-method-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
+;; ** middle space
 (defun zw/modeline-middle-space (rhs)
   (let* ((middle-space (string-pixel-width rhs)))
     (propertize
@@ -319,6 +336,7 @@
                        (- (+ right right-fringe right-margin)
                           (,middle-space)))))))
 
+;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
    ;; input method
