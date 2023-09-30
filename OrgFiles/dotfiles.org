@@ -95,14 +95,17 @@ frame_color = "#8CAAEE"
 separator_color= frame
 
 [urgency_low]
+timeout = 3
 background = "#303446"
 foreground = "#C6D0F5"
 
 [urgency_normal]
+timeout = 3
 background = "#303446"
 foreground = "#C6D0F5"
 
 [urgency_critical]
+timeout = 0
 background = "#303446"
 foreground = "#C6D0F5"
 frame_color = "#EF9F76"
