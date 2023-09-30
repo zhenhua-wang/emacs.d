@@ -635,6 +635,18 @@
         desktop-environment-volume-normal-decrement "5%-"
         desktop-environment-brightness-normal-increment "10%+"
         desktop-environment-brightness-normal-decrement "10%-")
+  (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
+  (advice-add 'desktop-environment-volume-set :after
+              (lambda (&rest args)
+                (when (executable-find "dunst")
+                  (call-process-shell-command
+                   (concat "dunstify -r 1 \"  " (desktop-environment-volume-get) "\"") nil 0))))
+  (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
+  (advice-add 'desktop-environment-brightness-set :after
+              (lambda (&rest args)
+                (when (executable-find "dunst")
+                  (call-process-shell-command
+                   (concat "dunstify -r 1 \"󰖨  " (desktop-environment-brightness-get) "\"") nil 0))))
   (desktop-environment-mode))
 
 ;; ** app launcher
