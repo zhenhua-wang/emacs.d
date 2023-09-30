@@ -165,7 +165,8 @@ timeout = 0
 fading = true;
 fade-in-step = 0.028;
 fade-out-step = 0.03;
-fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
+fade-exclude = ["class_g != 'Dunst'"];
+# fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
 # opacity-rule = [
 #   "90:class_g = 'kitty' && focused",
 #   "40:class_g = 'kitty' && !focused",
