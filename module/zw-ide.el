@@ -22,6 +22,7 @@
         ;; others
         lsp-enable-folding nil
         lsp-completion-provider :none
+        lsp-enable-on-type-formatting nil
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
 
 (use-package lsp-ui
