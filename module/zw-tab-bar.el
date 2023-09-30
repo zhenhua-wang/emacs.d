@@ -101,7 +101,7 @@
 (defun zw/in-defun-p ()
   "check if current cursor is in a function definition"
   (save-excursion
-    ;; HACK: if `end-of-defun' moves the cursor, cursor if in a definition
+    ;; if `end-of-defun' moves the cursor, cursor if in a definition
     (let ((current-point (point)))
       (end-of-defun)
       ;; return true if cursor moved
