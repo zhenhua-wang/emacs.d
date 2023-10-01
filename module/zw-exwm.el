@@ -794,7 +794,7 @@
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/show-rofi)
         (,(kbd "s-<tab>") . zw/exwm-next-buffer)
-        (,(kbd "s-`") . zw/exwm-switch-to-buffer)
+        (,(kbd "s-<iso-lefttab>") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
         ;; vterm
