@@ -540,6 +540,12 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
+;; hide float window before switch
+(advice-add 'exwm-workspace-switch-to-buffer :before
+            (lambda (arg)
+              (if exwm--floating-frame
+                  (exwm-floating-hide))))
+
 (defun zw/exwm--next-buffer (index)
   (let* ((buffer-list (zw/tab-bar--buffer-list))
          (buffer-length (length buffer-list))
