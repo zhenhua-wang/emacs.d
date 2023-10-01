@@ -543,7 +543,8 @@
     (cond
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
-                  (seq-map 'get-buffer-window buffer-list) t) nil)
+                  (seq-map 'get-buffer-window buffer-list) t)
+      (zw/exwm-dunst-send-message 2 "gnome-windows" "\"No other invisible buffer\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
@@ -628,6 +629,12 @@
       (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
+;; ** dunst
+(defun zw/exwm-dunst-send-message (id icon msg)
+  (when (executable-find "dunst")
+    (call-process-shell-command
+     (format "dunstify -r %d -i %s %s" id icon msg) nil 0)))
+
 ;; ** desktop environment
 (use-package desktop-environment
   :bind ((:map desktop-environment-mode-map
@@ -640,15 +647,11 @@
   (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-volume-set :after
               (lambda (&rest args)
-                (when (executable-find "dunst")
-                  (call-process-shell-command
-                   (concat "dunstify -r 1 -i no_icon \" " (desktop-environment-volume-get) "\"") nil 0))))
+                (zw/exwm-dunst-send-message 1 "no_icon" (concat "\" " (desktop-environment-volume-get) "\""))))
   (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-brightness-set :after
               (lambda (&rest args)
-                (when (executable-find "dunst")
-                  (call-process-shell-command
-                   (concat "dunstify -r 1 -i no_icon \"󰖨 " (desktop-environment-brightness-get) "\"") nil 0))))
+                (zw/exwm-dunst-send-message 1 "no_icon" (concat "\"󰖨 " (desktop-environment-brightness-get) "\""))))
   (desktop-environment-mode))
 
 ;; ** app launcher
