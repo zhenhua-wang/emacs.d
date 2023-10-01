@@ -32,6 +32,3 @@
                 native-comp-async-query-on-exit t
                 native-comp-jit-compilation nil
                 native-comp-async-report-warnings-errors nil))
-
-;; disable keysym
-(setq x-quit-keysym nil)
