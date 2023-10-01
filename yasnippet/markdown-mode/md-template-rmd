@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: markdown header
-# key: <header
+# key: <template
 # --
 ---
 title: ${1:title}
