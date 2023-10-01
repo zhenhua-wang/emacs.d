@@ -324,6 +324,7 @@
 ;; handle touchscreen tap
 (bind-keys :map tab-bar-map
            ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
+           ("<down-mouse-1>" . nil)
            ("<mouse-1>" . zw/tab-bar-click-tab-select))
 
 (defun zw/tab-bar-touchscreen-tab-select (event)
@@ -543,10 +544,10 @@
 
 ;; ** exwm switch buffer
 ;; hide float window before switch
-(advice-add 'exwm-workspace-switch-to-buffer :before
-            (lambda (arg)
-              (when exwm--floating-frame
-                (exwm-floating-hide))))
+(defun zw/exwm-workspace-switch-to-buffer-hook (buffer)
+  (when exwm--floating-frame
+    (exwm-floating-hide)))
+(advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-workspace-switch-to-buffer-hook)
 
 (defun zw/exwm--next-buffer (index)
   (let* ((buffer-list (zw/tab-bar--buffer-list))
