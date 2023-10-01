@@ -536,16 +536,28 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
+(defun zw/exwm--next-buffer (index)
+  (let* ((buffer-list (zw/tab-bar--buffer-list))
+         (buffer-length (length buffer-list))
+         (buffer (nth index buffer-list)))
+    (cond
+     ;; all buffers are visible
+     ((seq-reduce (lambda (x y) (and x y))
+                  (seq-map 'get-buffer-window buffer-list) t) nil)
+     ;; next buffer is visible
+     ((get-buffer-window buffer)
+      (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
+     (t (exwm-workspace-switch-to-buffer buffer)))))
+
 (defun zw/exwm-next-buffer ()
   (interactive)
   (let* ((buffer-list (zw/tab-bar--buffer-list))
-         (buffer-length (length (zw/tab-bar--buffer-list)))
+         (buffer-length (length buffer-list))
          (current-index (cl-position (current-buffer) buffer-list))
          (next-index (if current-index
                          (mod (+ current-index 1) buffer-length)
-                       0))
-         (next-buffer (nth next-index buffer-list)))
-    (exwm-workspace-switch-to-buffer next-buffer)))
+                       0)))
+    (zw/exwm--next-buffer next-index)))
 
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
