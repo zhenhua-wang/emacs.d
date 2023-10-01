@@ -325,7 +325,8 @@
 (bind-keys :map tab-bar-map
            ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
            ("<down-mouse-1>" . nil)
-           ("<mouse-1>" . zw/tab-bar-click-tab-select))
+           ("<mouse-1>" . zw/tab-bar-click-tab-select)
+           ("<down-mouse-3>" . nil))
 
 (defun zw/tab-bar-touchscreen-tab-select (event)
   "Select a tab at touchscreen tap."
