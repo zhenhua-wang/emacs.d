@@ -55,7 +55,7 @@
 (add-hook 'window-selection-change-functions #'zw/update-active-window)
 
 ;; keep track active frame
-(defvar exwm-workspace--minibuffer)
+(defvar exwm-workspace--minibuffer nil)
 (defvar zw/active-frame nil)
 (defun zw/update-active-frame (arg)
   (let ((frame (selected-frame)))
