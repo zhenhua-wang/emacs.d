@@ -275,7 +275,7 @@
          (buffer-list-size (length buffer-list)))
     (if (>= buffer-list-size i)
         (let* ((buffer (nth (- i 1) buffer-list)))
-          (zw/tab-bar--switch-to-buffer buffer))
+          (zw/tab-bar-switch-or-focus-buffer buffer))
       (message "Tab-%d does not exist." i))))
 
 (defun zw/tab-bar-format-buffers ()
@@ -552,6 +552,10 @@
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
+     ;; current buffer is floating
+     (exwm--floating-frame
+      (exwm-floating-hide)
+      (zw/exwm--next-buffer index))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
