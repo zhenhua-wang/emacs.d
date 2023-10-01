@@ -841,7 +841,8 @@
            ("s-9" . tab-new)
            ("s-0" . tab-close)
            :map vertico-map
-           ("s-<tab>" . vertico-next))
+           ("s-<tab>" . vertico-next)
+           ("s-`" . vertico-next))
 
 ;; * exwm enable
 (exwm-enable)
