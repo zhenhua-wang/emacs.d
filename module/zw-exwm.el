@@ -253,25 +253,29 @@
   (sort (zw/exwm-display-buffer-list)
         'zw/tab-bar--buffer-sort))
 
+(defun zw/tab-bar-switch-or-focus-buffer (buffer)
+  "Switch to buffer if not visible, otherwise focus buffer."
+  (let* ((buffer-window (get-buffer-window buffer))
+         (buffer-float (with-current-buffer buffer exwm--floating-frame)))
+    (cond ((eq (current-buffer) buffer) nil)
+          ((and exwm--floating-frame buffer-float)
+           (exwm-floating-hide)
+           (exwm-workspace-switch-to-buffer buffer))
+          (exwm--floating-frame
+           (exwm-floating-hide)
+           (zw/tab-bar-switch-or-focus-buffer buffer))
+          ((and buffer-window buffer-float)
+           (select-frame-set-input-focus exwm--floating-frame))
+          (buffer-window (select-window buffer-window))
+          (t (exwm-workspace-switch-to-buffer buffer)))))
+
 (defun zw/tab-bar-switch-to-buffer (i)
   "Tab bar switch to buffer."
   (let* ((buffer-list (zw/tab-bar--buffer-list))
          (buffer-list-size (length buffer-list)))
     (if (>= buffer-list-size i)
-        (let* ((buffer (nth (- i 1) buffer-list))
-               (buffer-window (get-buffer-window buffer))
-               (buffer-float (with-current-buffer buffer exwm--floating-frame)))
-          (cond ((eq (current-buffer) buffer) nil)
-                ((and exwm--floating-frame buffer-float)
-                 (exwm-floating-hide)
-                 (exwm-workspace-switch-to-buffer buffer))
-                (exwm--floating-frame
-                 (exwm-floating-hide)
-                 (zw/tab-bar-switch-to-buffer i))
-                ((and buffer-window buffer-float)
-                 (select-frame-set-input-focus exwm--floating-frame))
-                (buffer-window (select-window buffer-window))
-                (t (exwm-workspace-switch-to-buffer buffer))))
+        (let* ((buffer (nth (- i 1) buffer-list)))
+          (zw/tab-bar--switch-to-buffer buffer))
       (message "Tab-%d does not exist." i))))
 
 (defun zw/tab-bar-format-buffers ()
@@ -301,7 +305,7 @@
                             (propertize bname 'face 'font-lock-comment-face)))
               (current-tab `(tab menu-item ,bname-face
                                  (lambda () (interactive)
-                                   (exwm-workspace-switch-to-buffer ,buffer))
+                                   (zw/tab-bar-switch-or-focus-buffer ,buffer))
                                  :help ,(buffer-name buffer)))
               (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
          (if (= i buffer-list-length)
