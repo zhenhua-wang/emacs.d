@@ -535,7 +535,18 @@
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
-;; ** exwm switch to buffer
+;; ** exwm switch buffer
+(defun zw/exwm-next-buffer ()
+  (interactive)
+  (let* ((buffer-list (zw/tab-bar--buffer-list))
+         (buffer-length (length (zw/tab-bar--buffer-list)))
+         (current-index (cl-position (current-buffer) buffer-list))
+         (next-index (if current-index
+                         (mod (+ current-index 1) buffer-length)
+                       0))
+         (next-buffer (nth next-index buffer-list)))
+    (exwm-workspace-switch-to-buffer next-buffer)))
+
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
     (concat (propertize " " 'display `(space :align-to center))
@@ -767,7 +778,7 @@
                                  (interactive (list (read-shell-command "$ ")))
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/show-rofi)
-        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
+        (,(kbd "s-<tab>") . zw/exwm-next-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
         ;; vterm
