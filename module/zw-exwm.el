@@ -544,7 +544,7 @@
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
                   (seq-map 'get-buffer-window buffer-list) t)
-      (zw/exwm-dunst-send-message 2 "gnome-windows" "\"No other invisible buffer\""))
+      (zw/exwm-dunst-send-message 2 "gnome-windows" "\"No other buffers\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
