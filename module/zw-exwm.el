@@ -259,7 +259,7 @@
          (buffer-float (with-current-buffer buffer exwm--floating-frame)))
     (cond ((eq (current-buffer) buffer) nil)
           ((and buffer-window buffer-float)
-           (select-frame-set-input-focus exwm--floating-frame))
+           (select-frame-set-input-focus buffer-float))
           (buffer-window (select-window buffer-window))
           (t (exwm-workspace-switch-to-buffer buffer)))))
 
@@ -323,18 +323,26 @@
 
 ;; handle touchscreen tap
 (bind-keys :map tab-bar-map
-           ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select))
+           ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
+           ("<mouse-1>" . zw/tab-bar-click-tab-select))
 
 (defun zw/tab-bar-touchscreen-tab-select (event)
   "Select a tab at touchscreen tap."
   (interactive "e")
   (let* ((posn (cdadr event))
-         (item (tab-bar--event-to-item posn)))
-    (when (eq (catch 'context-menu
-                (when (touch-screen-track-tap event)
-                  (call-interactively (cadr item))))
-              'context-menu)
-      (tab-bar-mouse-context-menu event posn))))
+         (item (tab-bar--event-to-item posn))
+         (func (nth 1 item)))
+    (when (and (touch-screen-track-tap event)
+               (functionp func))
+      (call-interactively func))))
+
+(defun zw/tab-bar-click-tab-select (event)
+  "Select a tab at click."
+  (interactive "e")
+  (let* ((item (tab-bar--event-to-item (event-start event)))
+         (func (nth 1 item)))
+    (when (functionp func)
+      (call-interactively func))))
 
 ;; *** time
 (setq display-time-format "%b %-e %a %H:%M:%S %p"
@@ -537,8 +545,8 @@
 ;; hide float window before switch
 (advice-add 'exwm-workspace-switch-to-buffer :before
             (lambda (arg)
-              (if exwm--floating-frame
-                  (exwm-floating-hide))))
+              (when exwm--floating-frame
+                (exwm-floating-hide))))
 
 (defun zw/exwm--next-buffer (index)
   (let* ((buffer-list (zw/tab-bar--buffer-list))
@@ -552,10 +560,6 @@
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
-     ;; current buffer is floating
-     (exwm--floating-frame
-      (exwm-floating-hide)
-      (zw/exwm--next-buffer index))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
