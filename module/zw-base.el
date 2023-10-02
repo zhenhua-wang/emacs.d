@@ -47,24 +47,17 @@
     (5 "%") (6 "^") (7 "&") (8 "*")
     (9 "(") (0 ")")))
 
-;; keep track active window
-(defvar zw/active-window nil)
-(defun zw/update-active-window (arg)
-  "Update selected window (before mode-line is active)"
-  (setq zw/active-window (selected-window)))
-(add-hook 'window-selection-change-functions #'zw/update-active-window)
-
-;; keep track active frame
-(defvar exwm-workspace--minibuffer nil)
+;; keep track active UI
 (defvar zw/active-frame nil)
-(defun zw/update-active-frame (arg)
-  (let ((frame (selected-frame)))
-    (unless (eq frame exwm-workspace--minibuffer)
-      (setq zw/active-frame frame))))
-(defun zw/delete-active-frame (arg)
-  (setq zw/active-frame nil))
-(add-hook 'window-selection-change-functions 'zw/update-active-frame)
-(add-hook 'delete-frame-functions 'zw/delete-active-frame)
+(defvar zw/active-window nil)
+(defun zw/update-active-ui ()
+  "Update active UI."
+  (let ((frame (selected-frame))
+        (window (selected-window)))
+    (unless (minibufferp (window-buffer window))
+      (setq zw/active-frame frame))
+    (setq zw/active-window (selected-window))))
+(add-hook 'post-command-hook #'zw/update-active-ui)
 
 ;; * Global mode
 ;; modes run after init
