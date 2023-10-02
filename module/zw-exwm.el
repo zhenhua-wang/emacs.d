@@ -546,8 +546,7 @@
 ;; ** exwm switch buffer
 ;; hide float window before switch
 (defun zw/exwm-workspace-switch-to-buffer-hook (&optional buffer)
-  (when exwm--floating-frame
-    (exwm-floating-hide)))
+  (zw/exwm-floating-hide-all))
 (advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-workspace-switch-to-buffer-hook)
 
 (defun zw/exwm--next-buffer (index)
