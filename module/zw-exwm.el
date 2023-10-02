@@ -625,16 +625,19 @@
     (switch-to-buffer "*scratch*")))
 
 ;; ** auto hide float
+(defun zw/exwm-floating-hide-all ()
+  (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
+    (dolist (exwm-id exwm-id-list)
+      (with-current-buffer (exwm--id->buffer exwm-id)
+        (when exwm--floating-frame
+          (exwm-layout--hide exwm--id)
+          (select-frame-set-input-focus exwm-workspace--current))))))
+
 (defun zw/exwm-hide-float (window)
   (with-current-buffer (window-buffer window)
     (unless (or exwm--floating-frame
                 (eq window (active-minibuffer-window)))
-      (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
-        (dolist (exwm-id exwm-id-list)
-          (with-current-buffer (exwm--id->buffer exwm-id)
-            (when exwm--floating-frame
-              (exwm-layout--hide exwm--id)
-              (select-frame-set-input-focus exwm-workspace--current))))))))
+      (zw/exwm-floating-hide-all))))
 
 (define-minor-mode exwm-float-auto-hide-mode
   "Auto hide exwm float windows."
