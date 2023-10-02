@@ -94,14 +94,13 @@ idle_threshold = 120
 width = 300
 height = 300
 origin = top-right
-offset = 10x50
+offset = 50x50
 scale = 0
 # frame
 transparency = 0
 separator_height = 1
 padding = 8
 horizontal_padding = 10
-text_icon_padding = 0
 frame_width = 3
 frame_color = "#8CAAEE"
 separator_color= frame
@@ -125,6 +124,7 @@ icon_theme = Papirus
 icon_position = left
 min_icon_size = 16
 max_icon_size = 128
+text_icon_padding = 0
 # progress bar
 progress_bar = true
 progress_bar_height = 10
