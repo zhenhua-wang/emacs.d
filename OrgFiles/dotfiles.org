@@ -92,7 +92,7 @@ sort = yes
 idle_threshold = 120
 # geometry
 width = 300
-height = 300
+height = 120
 origin = top-right
 offset = 50x50
 scale = 0
