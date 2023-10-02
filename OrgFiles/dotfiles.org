@@ -102,6 +102,7 @@ separator_height = 1
 padding = 8
 horizontal_padding = 10
 text_icon_padding = 0
+frame_width = 3
 frame_color = "#8CAAEE"
 separator_color= frame
 corner_radius = 5
