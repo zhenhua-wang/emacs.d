@@ -663,11 +663,11 @@
   (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-volume-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 1 "no_icon" (concat "\" " (desktop-environment-volume-get) "\""))))
+                (zw/exwm-dunst-send-message 1 "volume-level-high" (pp (desktop-environment-volume-get)))))
   (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-brightness-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 1 "no_icon" (concat "\"󰖨 " (desktop-environment-brightness-get) "\""))))
+                (zw/exwm-dunst-send-message 1 "xfpm-brightness-lcd" (pp (desktop-environment-brightness-get)))))
   (desktop-environment-mode))
 
 ;; ** app launcher
