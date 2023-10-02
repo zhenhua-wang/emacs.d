@@ -54,6 +54,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
+# power management
+pacman -S tlp tlp-rdw
+sudo systemctl enable tlp.service NetworkManager-dispatcher.service
+systemctl mask systemd-rfkill.service systemd-rfkill.socket
 # misc
 yay -S firefox kitty aspell aspell-en
 #+end_src
