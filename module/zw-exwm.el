@@ -557,7 +557,7 @@
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
                   (seq-map 'get-buffer-window buffer-list) t)
-      (zw/exwm-dunst-send-message 2 "gnome-windows" "\"No other buffers\""))
+      (zw/exwm-dunst-send-message 2 "gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
@@ -646,10 +646,10 @@
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
 ;; ** dunst
-(defun zw/exwm-dunst-send-message (id icon msg)
+(defun zw/exwm-dunst-send-message (id icon summary body)
   (when (executable-find "dunst")
     (call-process-shell-command
-     (format "dunstify -r %d -i %s %s" id icon msg) nil 0)))
+     (format "dunstify -r %d -i %s %s %s" id icon summary body) nil 0)))
 
 ;; ** desktop environment
 (use-package desktop-environment
@@ -663,11 +663,11 @@
   (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-volume-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 1 "volume-level-high" (pp (desktop-environment-volume-get)))))
+                (zw/exwm-dunst-send-message 1 "volume-level-high" "Volume" (desktop-environment-volume-get))))
   (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-brightness-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 1 "xfpm-brightness-lcd" (pp (desktop-environment-brightness-get)))))
+                (zw/exwm-dunst-send-message 2 "xfpm-brightness-lcd" "Brightness" (desktop-environment-brightness-get))))
   (desktop-environment-mode))
 
 ;; ** app launcher
