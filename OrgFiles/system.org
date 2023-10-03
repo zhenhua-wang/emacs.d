@@ -41,10 +41,16 @@ yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightne
 yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
 #+end_src
 
+** Driver
+#+begin_src sh
+# touchpad
+yay -S libinput-three-finger-drag libinput-gestures
+# dkms
+yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
+#+end_src
+
 ** Other Applications
 #+begin_src shell
-# optional X11 driver
-yay -S libinput-three-finger-drag libinput-gestures
 # statistics
 yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
 # zsh
@@ -54,26 +60,14 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
+# SDDM theme
+yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 # misc
 yay -S firefox kitty aspell aspell-en
-#+end_src
-
-** SDDM Theme
-#+begin_src sh
-yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
-#+end_src
-
-** Laptop power management
-#+begin_src sh
-# power management
+# laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
 sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
-#+end_src
-
-** Hardware Drivers
-#+begin_src sh
-yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
 #+end_src
 
 ** Misc
