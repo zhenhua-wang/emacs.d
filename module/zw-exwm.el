@@ -721,10 +721,12 @@
                     (zw/desktop-environment-player-metadata))))
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
+                (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
+                    (and (sit-for 3) (zw/desktop-environment-player-metadata)))))
   (advice-add 'desktop-environment-music-next :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
+                (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
+                    (and (sit-for 3) (zw/desktop-environment-player-metadata)))))
   ;; screenshot
   (advice-add 'desktop-environment-screenshot :around
               (lambda (func &rest args)
