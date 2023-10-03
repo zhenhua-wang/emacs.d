@@ -557,7 +557,7 @@
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
                   (seq-map 'get-buffer-window buffer-list) t)
-      (zw/exwm-dunst-send-message "-r 3 -i gnome-windows" "Window" "\"No other buffers\""))
+      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
@@ -686,22 +686,22 @@
   ;; music
   (advice-add 'desktop-environment-toggle-music :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
   (advice-add 'desktop-environment-music-next :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
   ;; screenshot
   (advice-add 'desktop-environment-screenshot :after
               (lambda (&rest arg)
-                (zw/exwm-dunst-send-message "-r 2 -i gnome-screenshot" "Screenshot" "\"Screenshot taken\"")))
+                (zw/exwm-dunst-send-message "-r 4 -i gnome-screenshot" "Screenshot" "\"Screenshot taken\"")))
   (advice-add 'desktop-environment-screenshot-part :around
               (lambda (func &args)
                 (let ((inhibit-message t))
                   (funcall func &args)
-                  (zw/exwm-dunst-send-message "-r 2 -i gnome-screenshot" "Screenshot"
+                  (zw/exwm-dunst-send-message "-r 4 -i gnome-screenshot" "Screenshot"
                                               "\"Please select the part of your screen to shoot\""))))
   (desktop-environment-mode))
 
