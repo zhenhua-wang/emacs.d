@@ -669,6 +669,35 @@
                                           (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
                                                                                      (car (last (split-string msg))))))
             (zw/exwm-dunst-send-message dunst-options dunst-summary (format "\"%s\"" msg)))))))
+  (defun zw/desktop-environment-player-metadata ()
+    (let* ((metadata (desktop-environment--shell-command-to-string "playerctl metadata"))
+           (metadata-lines (split-string metadata "\n"))
+           (title-rx (rx line-start
+                         (group-n 1 (+ anything))
+                         (+ space)
+                         (+ anything) "title"
+                         (+ space)
+                         (group-n 2 (+ anything))))
+           (artist-rx (rx line-start
+                          (+ anything) "artist"
+                          (+ space)
+                          (group-n 1 (+ anything))))
+           (icon-rx (rx line-start
+                        (+ anything) "artUrl"
+                        (+ space)
+                        (group-n 1 (+ anything)))))
+      (let (device artist icon title)
+        (dolist (line metadata-lines)
+          (cond
+           ((string-match title-rx line)
+            (setq device (match-string 1 line)
+                  title (match-string 2 line)))
+           ((string-match artist-rx line)
+            (setq artist (match-string 1 line)))
+           ((string-match icon-rx line)
+            (setq icon (match-string 1 line)))))
+        (zw/exwm-dunst-send-message
+         (format "-r 1 -i %s" icon) device (format "\"%s\n%s\"" artist title)))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
@@ -688,7 +717,8 @@
   ;; music
   (advice-add 'desktop-environment-toggle-music :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
+                (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
+                    (zw/desktop-environment-player-metadata))))
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
                 (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
