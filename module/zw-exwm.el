@@ -291,10 +291,10 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer)
                                        ;; handle multi-frames
-                                       (or (ignore-errors
-                                             (with-selected-frame zw/active-frame
-                                               (buffer-name)))
-                                           (buffer-name)))
+                                       (if (frame-live-p zw/active-frame)
+                                           (with-selected-frame zw/active-frame
+                                             (buffer-name))
+                                         (buffer-name)))
                               (propertize bname 'face '(:weight bold))
                             (propertize bname 'face 'font-lock-comment-face)))
               (current-tab `(tab menu-item ,bname-face
