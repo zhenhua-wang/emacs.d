@@ -657,16 +657,18 @@
   :bind ((:map desktop-environment-mode-map
                ("s-l" . nil)))
   :config
-  (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary truncate-p func &rest args)
+  (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary truncate-p alt-msg func &rest args)
     (let* ((inhibit-message t)
            (message-log-max nil)
            (msg (apply func args)))
-      (when msg
-        (if truncate-p
-            (zw/exwm-dunst-send-message dunst-options dunst-summary
-                                        (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
-                                                                                   (car (last (split-string msg))))))
-          (zw/exwm-dunst-send-message dunst-options dunst-summary (format "\"%s\"" msg))))))
+      (if alt-msg
+          (zw/exwm-dunst-send-message dunst-options dunst-summary alt-msg)
+        (when msg
+          (if truncate-p
+              (zw/exwm-dunst-send-message dunst-options dunst-summary
+                                          (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
+                                                                                     (car (last (split-string msg))))))
+            (zw/exwm-dunst-send-message dunst-options dunst-summary (format "\"%s\"" msg)))))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
@@ -675,34 +677,33 @@
   ;; volume
   (advice-add 'desktop-environment-toggle-mute :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t func)))
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t nil func)))
   (advice-add 'desktop-environment-volume-set :around
               (lambda (func args)
-                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t func args)))
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t nil func args)))
   ;; brightness
   (advice-add 'desktop-environment-brightness-set :around
               (lambda (func args)
-                (zw/desktop-environment-dunst-advice "-r 2 -i xfpm-brightness-lcd" "Brightness" t func args)))
+                (zw/desktop-environment-dunst-advice "-r 2 -i xfpm-brightness-lcd" "Brightness" t nil func args)))
   ;; music
   (advice-add 'desktop-environment-toggle-music :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
   (advice-add 'desktop-environment-music-next :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil func)))
+                (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)))
   ;; screenshot
-  (advice-add 'desktop-environment-screenshot :after
-              (lambda (&rest arg)
-                (zw/exwm-dunst-send-message "-r 4 -i gnome-screenshot" "Screenshot" "\"Screenshot taken\"")))
+  (advice-add 'desktop-environment-screenshot :around
+              (lambda (func &rest args)
+                (zw/desktop-environment-dunst-advice "-r 4 -i gnome-screenshot" "Screenshot" nil
+                                                     "\"Screenshot taken\"" func args)))
   (advice-add 'desktop-environment-screenshot-part :around
-              (lambda (func &args)
-                (let ((inhibit-message t))
-                  (funcall func &args)
-                  (zw/exwm-dunst-send-message "-r 4 -i gnome-screenshot" "Screenshot"
-                                              "\"Please select the part of your screen to shoot\""))))
+              (lambda (func &rest args)
+                (zw/desktop-environment-dunst-advice "-r 4 -i gnome-screenshot" "Screenshot" nil
+                                                     "\"Please select the part of your screen to shoot\"" func args)))
   (desktop-environment-mode))
 
 ;; ** app launcher
