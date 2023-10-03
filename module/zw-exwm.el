@@ -694,6 +694,9 @@
               (lambda (func)
                 (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
   ;; screenshot
+  (advice-add 'desktop-environment-screenshot-part :after
+              (lambda ()
+                (zw/exwm-dunst-send-message "-r 2 -i gnome-screenshot" "Screenshot" "Screenshot taken.")))
   (advice-add 'desktop-environment-screenshot-part :around
               (lambda (func args)
                 (zw/desktop-environment-dunst-advice "-r 2 -i gnome-screenshot" "Screenshot" nil func args)))
