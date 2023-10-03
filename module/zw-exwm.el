@@ -557,7 +557,7 @@
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
                   (seq-map 'get-buffer-window buffer-list) t)
-      (zw/exwm-dunst-send-message 2 "gnome-windows" "Window" "\"No other buffers\""))
+      (zw/exwm-dunst-send-message "-r 3 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
@@ -646,16 +646,29 @@
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
 ;; ** dunst
-(defun zw/exwm-dunst-send-message (id icon summary body)
+(defun zw/exwm-dunst-send-message (options summary body)
   (when (executable-find "dunst")
     (call-process-shell-command
-     (format "dunstify -r %d -i %s %s %s" id icon summary body) nil 0)))
+     (format "dunstify %s %s %s" options summary body) nil 0)))
 
 ;; ** desktop environment
 (use-package desktop-environment
+  :demand t
   :bind ((:map desktop-environment-mode-map
-               ("s-l" . nil)))
+               ("s-l" . nil)
+               ("<XF86AudioMute>" . zw/desktop-environment-volume-mute)))
   :config
+  (defun zw/desktop-environment-volume-mute ()
+    "Toggle between muted and un-muted."
+    (interactive)
+    (let ((output (desktop-environment--shell-command-to-string desktop-environment-volume-toggle-command)))
+      (zw/exwm-dunst-send-message "-r 1 -i volume-level-high" "Volume"
+                                  (format
+                                   "\"Sound %s\""
+                                   (save-match-data
+                                     (string-match desktop-environment-volume-toggle-regexp output)
+                                     (match-string 0 output))))))
+  ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
         desktop-environment-brightness-normal-increment "10%+"
@@ -663,11 +676,11 @@
   (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-volume-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 1 "volume-level-high" "Volume" (desktop-environment-volume-get))))
+                (zw/exwm-dunst-send-message "-r 1 -i volume-level-high" "Volume" (desktop-environment-volume-get))))
   (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
   (advice-add 'desktop-environment-brightness-set :after
               (lambda (&rest args)
-                (zw/exwm-dunst-send-message 2 "xfpm-brightness-lcd" "Brightness" (desktop-environment-brightness-get))))
+                (zw/exwm-dunst-send-message "-r 2 -i xfpm-brightness-lcd" "Brightness" (desktop-environment-brightness-get))))
   (desktop-environment-mode))
 
 ;; ** app launcher
