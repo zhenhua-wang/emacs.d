@@ -655,32 +655,29 @@
 (use-package desktop-environment
   :demand t
   :bind ((:map desktop-environment-mode-map
-               ("s-l" . nil)
-               ("<XF86AudioMute>" . zw/desktop-environment-volume-mute)))
+               ("s-l" . nil)))
   :config
-  (defun zw/desktop-environment-volume-mute ()
-    "Toggle between muted and un-muted."
-    (interactive)
-    (let ((output (desktop-environment--shell-command-to-string desktop-environment-volume-toggle-command)))
-      (zw/exwm-dunst-send-message "-r 1 -i volume-level-high" "Volume"
-                                  (format
-                                   "\"Sound %s\""
-                                   (save-match-data
-                                     (string-match desktop-environment-volume-toggle-regexp output)
-                                     (match-string 0 output))))))
+  (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary func &rest args)
+    (let* ((inhibit-message t)
+           (message-log-max nil)
+           (msg (apply func args)))
+      (zw/exwm-dunst-send-message dunst-options dunst-summary
+                                  (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
+                                                                             (car (last (split-string msg))))))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
         desktop-environment-brightness-normal-increment "10%+"
         desktop-environment-brightness-normal-decrement "10%-")
-  (advice-add 'desktop-environment-volume-set :around 'zw/exwm-minibuffer-silence-messages-advice)
-  (advice-add 'desktop-environment-volume-set :after
-              (lambda (&rest args)
-                (zw/exwm-dunst-send-message "-r 1 -i volume-level-high" "Volume" (desktop-environment-volume-get))))
-  (advice-add 'desktop-environment-brightness-set :around 'zw/exwm-minibuffer-silence-messages-advice)
-  (advice-add 'desktop-environment-brightness-set :after
-              (lambda (&rest args)
-                (zw/exwm-dunst-send-message "-r 2 -i xfpm-brightness-lcd" "Brightness" (desktop-environment-brightness-get))))
+  (advice-add 'desktop-environment-toggle-mute :around
+              (lambda (func)
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" func)))
+  (advice-add 'desktop-environment-volume-set :around
+              (lambda (func args)
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" func args)))
+  (advice-add 'desktop-environment-brightness-set :around
+              (lambda (func args)
+                (zw/desktop-environment-dunst-advice "-r 2 -i xfpm-brightness-lcd" "Brightness" func args)))
   (desktop-environment-mode))
 
 ;; ** app launcher
