@@ -690,7 +690,7 @@
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
                 (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
-  (advice-add 'desktop-environment-music-previous :around
+  (advice-add 'desktop-environment-music-next :around
               (lambda (func)
                 (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
   ;; screenshot
