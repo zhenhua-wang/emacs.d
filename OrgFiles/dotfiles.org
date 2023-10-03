@@ -5,7 +5,7 @@
 -----
 * XKB
 ** Keyboard
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/etc/X11/xorg.conf.d/00-keyboard.conf")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf")
 #+begin_src conf
 Section "InputClass"
     Identifier "system-keyboard"
@@ -15,7 +15,7 @@ Section "InputClass"
 EndSection
 #+end_src
 
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/etc/X11/xorg.conf.d/90-custom-kbd.conf")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/90-custom-kbd.conf")
 #+begin_src conf
 Section "InputClass"
     Identifier "BY Tech Air75"
