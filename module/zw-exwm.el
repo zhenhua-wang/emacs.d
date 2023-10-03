@@ -663,7 +663,7 @@
            (msg (apply func args)))
       (if alt-msg
           (zw/exwm-dunst-send-message dunst-options dunst-summary alt-msg)
-        (when msg
+        (when (and msg (length> msg 0))
           (if truncate-p
               (zw/exwm-dunst-send-message dunst-options dunst-summary
                                           (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
