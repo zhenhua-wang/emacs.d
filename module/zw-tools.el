@@ -49,13 +49,6 @@
   :config
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t)
-  ;; close window when vterm exit
-  (add-hook 'vterm-exit-functions
-            (lambda (_ _)
-              (let* ((buffer (current-buffer))
-                     (window (get-buffer-window buffer)))
-                (when (not (one-window-p))
-                  (delete-window window)))))
   (add-hook 'vterm-mode-hook
             (lambda ()
               (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n"))))
