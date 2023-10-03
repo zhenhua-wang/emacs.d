@@ -54,10 +54,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
-# power management
-yay -S tlp tlp-rdw
-sudo systemctl enable tlp.service NetworkManager-dispatcher.service
-sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 # misc
 yay -S firefox kitty aspell aspell-en
 #+end_src
@@ -65,6 +61,14 @@ yay -S firefox kitty aspell aspell-en
 ** SDDM Theme
 #+begin_src sh
 yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
+#+end_src
+
+** Power management
+#+begin_src sh
+# power management
+yay -S tlp tlp-rdw
+sudo systemctl enable tlp.service NetworkManager-dispatcher.service
+sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 #+end_src
 
 ** Hardware Drivers
