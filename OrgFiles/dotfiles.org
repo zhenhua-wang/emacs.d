@@ -5,14 +5,24 @@
 -----
 * XKB
 ** Keyboard
-Copy to ~/etc/X11/xorg.conf.d/00-keyboard.conf~
-#+HEADER: :tangle "no"
+#+HEADER: :tangle "/etc/X11/xorg.conf.d/00-keyboard.conf"
 #+begin_src conf
 Section "InputClass"
     Identifier "system-keyboard"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
     Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+EndSection
+#+end_src
+
+#+HEADER: :tangle "/etc/X11/xorg.conf.d/90-custom-kbd.conf"
+#+begin_src conf
+Section "InputClass"
+    Identifier "BY Tech Air75"
+    MatchProduct "BY Tech Air75"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us"
+    Option "XkbOptions" "caps:ctrl_modifier"
 EndSection
 #+end_src
 
