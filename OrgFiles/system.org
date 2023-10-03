@@ -63,7 +63,7 @@ yay -S firefox kitty aspell aspell-en
 yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 #+end_src
 
-** Power management
+** Laptop power management
 #+begin_src sh
 # power management
 yay -S tlp tlp-rdw
