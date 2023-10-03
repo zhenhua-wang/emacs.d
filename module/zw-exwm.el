@@ -672,7 +672,8 @@
                                                                                      (car (last (split-string msg))))))
             (zw/exwm-dunst-send-message dunst-options dunst-summary (format "\"%s\"" msg)))))))
   (defun zw/desktop-environment-player-metadata ()
-    (let* ((metadata (desktop-environment--shell-command-to-string "playerctl metadata"))
+    (let* ((status (desktop-environment--shell-command-to-string "playerctl status"))
+           (metadata (desktop-environment--shell-command-to-string "playerctl metadata"))
            (metadata-lines (split-string metadata "\n"))
            (title-rx (rx line-start
                          (group-n 1 (+ anything))
@@ -692,14 +693,21 @@
         (dolist (line metadata-lines)
           (cond
            ((string-match title-rx line)
-            (setq device (match-string 1 line)
+            (setq device (capitalize (match-string 1 line))
                   title (match-string 2 line)))
            ((string-match artist-rx line)
             (setq artist (match-string 1 line)))
            ((string-match icon-rx line)
             (setq icon (match-string 1 line)))))
-        (zw/exwm-dunst-send-message
-         (format "-r 1 -i %s" icon) device (format "\"%s\n%s\"" artist title)))))
+        (if (string= status "Playing")
+            (zw/exwm-dunst-send-message
+             (format "-r 1 -i %s" icon)
+             (format "\"%s - Paused\"" device)
+             (format "\"%s\n%s\"" artist title))
+          (zw/exwm-dunst-send-message
+           (format "-r 1 -i %s" icon)
+           (format "\"%s - Playing\"" device)
+           (format "\"%s\n%s\"" artist title))))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
@@ -724,11 +732,11 @@
   (advice-add 'desktop-environment-music-previous :around
               (lambda (func)
                 (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
-                    (and (sit-for 3) (zw/desktop-environment-player-metadata)))))
+                    (zw/exwm-dunst-send-message "-r 3 -i xt7-player-mpv" "Player" "Previous"))))
   (advice-add 'desktop-environment-music-next :around
               (lambda (func)
                 (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
-                    (and (sit-for 3) (zw/desktop-environment-player-metadata)))))
+                    (zw/exwm-dunst-send-message "-r 3 -i xt7-player-mpv" "Player" "Next"))))
   ;; screenshot
   (advice-add 'desktop-environment-screenshot :around
               (lambda (func &rest args)
