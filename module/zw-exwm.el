@@ -385,7 +385,7 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-;; disable message in echo area and *message*
+;; disable message to prevent freezing
 (defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
   "Advice function that silences all messages in ORIG-FUN."
   (let ((inhibit-message t)
