@@ -68,6 +68,10 @@ yay -S firefox kitty aspell aspell-en
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
 sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+# application dock
+yay -S plank
+# dconf dump /net/launchpad/plank/docks/ > docks.ini
+cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 #+end_src
 
 ** Misc
