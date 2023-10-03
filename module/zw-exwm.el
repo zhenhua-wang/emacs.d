@@ -51,7 +51,9 @@
   (when (executable-find "udiskie")
     (zw/exwm-run-in-background "udiskie --no-automount -t"))
   (when (executable-find "fcitx5")
-    (zw/exwm-run-in-background "fcitx5")))
+    (zw/exwm-run-in-background "fcitx5"))
+  (when (executable-find "plank")
+    (zw/exwm-run-in-background "plank")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
