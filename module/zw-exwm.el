@@ -657,27 +657,46 @@
   :bind ((:map desktop-environment-mode-map
                ("s-l" . nil)))
   :config
-  (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary func &rest args)
+  (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary truncate-p func &rest args)
     (let* ((inhibit-message t)
            (message-log-max nil)
            (msg (apply func args)))
-      (zw/exwm-dunst-send-message dunst-options dunst-summary
-                                  (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
-                                                                             (car (last (split-string msg))))))))
+      (when msg
+        (if truncate-p
+            (zw/exwm-dunst-send-message dunst-options dunst-summary
+                                        (format "\"%s\"" (replace-regexp-in-string "[^[:alnum:]%-]" ""
+                                                                                   (car (last (split-string msg))))))
+          (zw/exwm-dunst-send-message dunst-options dunst-summary (format "\"%s\"" msg))))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
         desktop-environment-brightness-normal-increment "10%+"
         desktop-environment-brightness-normal-decrement "10%-")
+  ;; volume
   (advice-add 'desktop-environment-toggle-mute :around
               (lambda (func)
-                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" func)))
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t func)))
   (advice-add 'desktop-environment-volume-set :around
               (lambda (func args)
-                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" func args)))
+                (zw/desktop-environment-dunst-advice "-r 1 -i volume-level-high" "Volume" t func args)))
+  ;; brightness
   (advice-add 'desktop-environment-brightness-set :around
               (lambda (func args)
-                (zw/desktop-environment-dunst-advice "-r 2 -i xfpm-brightness-lcd" "Brightness" func args)))
+                (zw/desktop-environment-dunst-advice "-r 2 -i xfpm-brightness-lcd" "Brightness" t func args)))
+  ;; music
+  (advice-add 'desktop-environment-toggle-music :around
+              (lambda (func)
+                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+  (advice-add 'desktop-environment-music-previous :around
+              (lambda (func)
+                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+  (advice-add 'desktop-environment-music-previous :around
+              (lambda (func)
+                (zw/desktop-environment-dunst-advice "-r 1 -i xt7-player-mpv" "Player" nil func)))
+  ;; screenshot
+  (advice-add 'desktop-environment-screenshot-part :around
+              (lambda (func args)
+                (zw/desktop-environment-dunst-advice "-r 2 -i gnome-screenshot" "Screenshot" nil func args)))
   (desktop-environment-mode))
 
 ;; ** app launcher
