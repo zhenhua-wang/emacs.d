@@ -8,7 +8,14 @@
         org-src-preserve-indentation t      ; helps to indent python code in org mode
         org-edit-src-content-indentation 2
         org-confirm-babel-evaluate nil
-        org-src-tab-acts-natively t))
+        org-src-tab-acts-natively t)
+  ;; declare babel safe expression
+  (zw/merge-list-to-list
+   'safe-local-eval-forms
+   '((defun zw/org-babel-tangle-linux (path)
+       (if (eq system-type 'gnu/linux) path "no"))
+     (defun zw/org-babel-tangle-not-exist (path)
+       (if (file-exists-p path) "no" path)))))
 
 
 ;; ** lazy load

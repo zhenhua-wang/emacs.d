@@ -17,7 +17,7 @@ EndSection
 #+end_src
 
 ** Touchpad
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/X11/xorg.conf.d/30-touchpad.conf" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/30-touchpad.conf")
 #+begin_src conf
 Section "InputClass"
     Identifier "touchpad"
@@ -30,13 +30,13 @@ EndSection
 
 * Xresources
 For Xft.dpi, using integer multiples of 96 usually works best, e.g. 192 for 200% scaling.
-#+HEADER: :tangle (let ((xresources (expand-file-name "Xresources" user-emacs-directory))) (if (file-exists-p xresources) "no" xresources))
+#+HEADER: :tangle (zw/org-babel-tangle-not-exist (expand-file-name "Xresources" user-emacs-directory))
 #+begin_src conf
 Xft.dpi:   192
 #+end_src
 
 * EXWM
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/usr/share/xsessions/EXWM.desktop" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/usr/share/xsessions/EXWM.desktop")
 #+begin_src conf
 [Desktop Entry]
 Name=EXWM
@@ -49,7 +49,7 @@ DesktopNames=exwm
 #+end_src
 
 * SDDM
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "/sudo::/etc/sddm.conf" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/sddm.conf")
 #+begin_src conf
 [Theme]
 Current=catppuccin-frappe
@@ -64,7 +64,7 @@ options(menu.graphics=FALSE)
 #+end_src
 
 * Kitty
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/kitty/kitty.conf" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/kitty/kitty.conf")
 #+begin_src conf
 # default conf
 font_family      Noto Sans Mono
@@ -80,7 +80,7 @@ map ctrl+backspace send_text all \x17
 #+end_src
 
 * Dunst
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/dunst/dunstrc" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/dunst/dunstrc")
 #+begin_src conf
 [global]
 # display
@@ -161,7 +161,7 @@ timeout = 0
 #+end_src
 
 * Picom
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/picom.conf" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/picom.conf")
 #+begin_src conf
 fading = true;
 fade-in-step = 0.028;
@@ -206,7 +206,7 @@ export PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
 * Fcitx5
 ** Config
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/config" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/config")
 #+begin_src conf
 [Hotkey]
 # Trigger Input Method
@@ -270,7 +270,7 @@ PreloadInputMethod=True
 #+end_src
 
 ** Profile
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/profile" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/profile")
 #+begin_src conf
 [Groups/0]
 # Group Name
@@ -291,7 +291,7 @@ Layout=
 #+end_src
 
 ** Theme
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/fcitx5/conf/classicui.conf" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/conf/classicui.conf")
 #+begin_src sh
 # Vertical Candidate List
 Vertical Candidate List=False
@@ -329,7 +329,7 @@ EnableFractionalScale=True
 
 * Rime
 ** Main
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.local/share/fcitx5/rime/default.custom.yaml" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/fcitx5/rime/default.custom.yaml")
 #+begin_src conf
 patch:
   schema_list:
@@ -363,7 +363,7 @@ patch:
 #+end_src
 
 ** Luna pinyin
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.local/share/fcitx5/rime/luna_pinyin.custom.yaml" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/fcitx5/rime/luna_pinyin.custom.yaml")
 #+begin_src conf
 patch:
   switches:
@@ -380,7 +380,7 @@ patch:
 #+end_src
 
 * Rofi
-#+HEADER: :tangle (if (eq system-type 'gnu/linux) "~/.config/rofi/config.rasi" "no")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/config.rasi")
 #+begin_src conf
 configuration {
   font: "Noto Sans Mono 12";
@@ -646,3 +646,10 @@ error-message {
     text-color:                  @foreground-colour;
 }
 #+end_src
+
+* Local variables
+Add the following expressions to ~safe-local-eval-forms~.
+# local variables:
+# eval: (defun zw/org-babel-tangle-linux (path) (if (eq system-type 'gnu/linux) path "no"))
+# eval: (defun zw/org-babel-tangle-not-exist (path) (if (file-exists-p path) "no" path))
+# end:
