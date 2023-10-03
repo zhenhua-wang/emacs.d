@@ -13,12 +13,9 @@ Section "InputClass"
     Option "XkbLayout" "us"
     Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
 EndSection
-#+end_src
 
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/90-custom-kbd.conf")
-#+begin_src conf
 Section "InputClass"
-    Identifier "BY Tech Air75"
+    Identifier "external-keyboard"
     MatchProduct "BY Tech Air75"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
