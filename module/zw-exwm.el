@@ -157,6 +157,11 @@
 (defun zw/exwm-display-buffer-list ()
   (seq-filter 'zw/exwm-display-buffer-p (buffer-list)))
 
+(defun zw/exwm-buffer-visible-p (buffer)
+  (or (get-buffer-window buffer)
+      (with-selected-frame exwm-workspace--current
+        (get-buffer-window buffer))))
+
 ;; ** nerd icon
 (defun zw/nerd-icons-get-app-icon (name)
   (let* ((get-icon (lambda (name)
@@ -262,15 +267,18 @@
 
 (defun zw/tab-bar-switch-or-focus-buffer (buffer)
   "Switch to buffer if not visible, otherwise focus buffer."
-  (let* ((buffer-window (or (get-buffer-window buffer)
-                            (with-selected-frame exwm-workspace--current
-                              (get-buffer-window buffer))))
+  (let* ((buffer-window (zw/exwm-buffer-visible-p buffer))
          (buffer-float (with-current-buffer buffer exwm--floating-frame)))
     (cond ((eq (current-buffer) buffer) nil)
           ((and buffer-window buffer-float)
+           (when exwm--floating-frame (exwm-floating-hide))
            (select-frame-set-input-focus buffer-float))
-          (buffer-window (select-window buffer-window))
-          (t (exwm-workspace-switch-to-buffer buffer)))))
+          (buffer-window
+           (when exwm--floating-frame (exwm-floating-hide))
+           (select-window buffer-window))
+          (t
+           (when exwm--floating-frame (exwm-floating-hide))
+           (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/tab-bar-switch-to-buffer (i)
   "Tab bar switch to buffer."
@@ -553,11 +561,6 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
-;; hide float window before switch
-(defun zw/exwm-workspace-switch-to-buffer-hook (&optional buffer)
-  (zw/exwm-floating-hide-all))
-(advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-workspace-switch-to-buffer-hook)
-
 (defun zw/exwm--next-buffer (index)
   (let* ((buffer-list (zw/tab-bar--buffer-list))
          (buffer-length (length buffer-list))
@@ -565,13 +568,14 @@
     (cond
      ;; all buffers are visible
      ((seq-reduce (lambda (x y) (and x y))
-                  (seq-map 'get-buffer-window buffer-list) t)
+                  (seq-map 'zw/exwm-buffer-visible-p buffer-list) t)
       (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
-     ((or (get-buffer-window buffer) (with-selected-frame exwm-workspace--current
-                                       (get-buffer-window buffer)))
+     ((zw/exwm-buffer-visible-p buffer)
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
-     (t (exwm-workspace-switch-to-buffer buffer)))))
+     (t
+      (when exwm--floating-frame (exwm-floating-hide))
+      (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
   (interactive)
@@ -793,7 +797,7 @@
             #'zw/winner-clean-up-modified-list)
 
 ;; * exwm keymap
-  ;; ** exwm prefix keys
+;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
       '(?\C-x
         ?\C-u
@@ -804,7 +808,7 @@
         ?\M-&
         ?\M-:))
 
-  ;; ** exwm x windows simulate keys
+;; ** exwm x windows simulate keys
 ;; *** default
 (setq exwm-input-simulation-keys
       `((,(kbd "s-r") . ,(kbd "C-r"))
