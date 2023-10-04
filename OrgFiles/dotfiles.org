@@ -681,6 +681,26 @@ error-message {
 }
 #+end_src
 
+* GTK3
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/gtk-3.0/settings.ini")
+#+begin_src conf
+[Settings]
+gtk-theme-name=Arc-Dark
+gtk-icon-theme-name=Papirus
+gtk-font-name=Cantarell 11
+gtk-cursor-theme-name=Breeze
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=1
+gtk-menu-images=1
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle=hintfull
+#+end_src
+
 * Local variables
 Add the following expressions to ~safe-local-eval-forms~.
 # local variables:
