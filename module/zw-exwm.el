@@ -262,7 +262,9 @@
 
 (defun zw/tab-bar-switch-or-focus-buffer (buffer)
   "Switch to buffer if not visible, otherwise focus buffer."
-  (let* ((buffer-window (get-buffer-window buffer))
+  (let* ((buffer-window (or (get-buffer-window buffer)
+                            (with-selected-frame exwm-workspace--current
+                              (get-buffer-window buffer))))
          (buffer-float (with-current-buffer buffer exwm--floating-frame)))
     (cond ((eq (current-buffer) buffer) nil)
           ((and buffer-window buffer-float)
@@ -566,7 +568,8 @@
                   (seq-map 'get-buffer-window buffer-list) t)
       (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
-     ((get-buffer-window buffer)
+     ((or (get-buffer-window buffer) (with-selected-frame exwm-workspace--current
+                                       (get-buffer-window buffer)))
       (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
