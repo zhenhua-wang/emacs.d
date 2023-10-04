@@ -287,7 +287,7 @@
     (if (>= buffer-list-size i)
         (let* ((buffer (nth (- i 1) buffer-list)))
           (zw/tab-bar-switch-or-focus-buffer buffer))
-      (message "Tab-%d does not exist." i))))
+      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" (format "\"Tab-%d does not exist\"" i)))))
 
 (defun zw/tab-bar-format-buffers ()
   "Show buffers of current frame on tab-bar."
