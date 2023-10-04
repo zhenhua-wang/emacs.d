@@ -80,6 +80,7 @@ italic_font      Noto Sans Mono Italic
 bold_italic_font Noto Sans Mono Bold Italic
 font_size        15.0
 # keymap
+kitty_mod cmd
 map cmd+c       copy_to_clipboard
 map cmd+v       paste_from_clipboard
 map ctrl+backspace send_text all \x17
