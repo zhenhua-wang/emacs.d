@@ -79,10 +79,16 @@ bold_font        Noto Sans Mono Bold
 italic_font      Noto Sans Mono Italic
 bold_italic_font Noto Sans Mono Bold Italic
 font_size        15.0
+tab_bar_min_tabs 1
+confirm_os_window_close 1
 # keymap
 map cmd+c       copy_to_clipboard
 map cmd+v       paste_from_clipboard
 map ctrl+backspace send_text all \x17
+map cmd+n new_tab
+map cmd+w close_tab
+map cmd+t new_window
+map cmd+q close_os_window
 # theme
 foreground #979eab
 background #282c34
