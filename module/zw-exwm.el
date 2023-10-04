@@ -663,7 +663,9 @@
 (defun zw/exwm-dunst-send-message (options summary body)
   (when (executable-find "dunst")
     (call-process-shell-command
-     (format "dunstify %s %s %s" options summary body) nil 0)))
+     (format "dunstify %s %s %s" options summary body) nil 0)
+    ;; return t after message sent
+    t))
 
 ;; ** desktop environment
 (use-package desktop-environment
@@ -713,11 +715,11 @@
             (setq icon (match-string 1 line)))))
         (if (string= status "Playing")
             (zw/exwm-dunst-send-message
-             (format "-r 1 -i %s" icon)
+             (format "-r 3 -i %s" icon)
              (format "\"%s - Paused\"" device)
              (format "\"%s\n%s\"" artist title))
           (zw/exwm-dunst-send-message
-           (format "-r 1 -i %s" icon)
+           (format "-r 3 -i %s" icon)
            (format "\"%s - Playing\"" device)
            (format "\"%s\n%s\"" artist title))))))
   ;; config
