@@ -90,12 +90,16 @@
                                 '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
                                 '(:eval (zw/exwm-float-header-line-rhs)))))
   (setq exwm-manage-configurations
-        `(((or (string= "Emacs" exwm-class-name)
-               (string= "kitty" exwm-class-name))
+        `(((string= "Emacs" exwm-class-name)
            x ,float-x
            y ,float-y
            width ,float-width
            height ,float-height
+           floating t
+           char-mode t
+           floating-mode-line nil
+           floating-header-line nil)
+          ((string= "kitty" exwm-class-name)
            floating t
            char-mode t
            floating-mode-line nil
