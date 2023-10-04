@@ -138,7 +138,7 @@ horizontal_padding = 10
 frame_width = 3
 frame_color = "#8CAAEE"
 separator_color= frame
-corner_radius = 5
+corner_radius = 10
 # text
 font = Noto Sans Mono 13
 line_height = 0
