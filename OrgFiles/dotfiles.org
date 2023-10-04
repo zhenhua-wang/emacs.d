@@ -128,7 +128,7 @@ idle_threshold = 120
 width = 300
 height = 150
 origin = top-right
-offset = 50x50
+offset = 20x50
 scale = 0
 # frame
 transparency = 0
