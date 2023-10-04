@@ -49,7 +49,7 @@
   (when (executable-find "blueman-applet")
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
-    (zw/exwm-run-in-background "udiskie --no-automount -t"))
+    (zw/exwm-run-in-background "udiskie --automount -t"))
   (when (executable-find "fcitx5")
     (zw/exwm-run-in-background "fcitx5"))
   (when (executable-find "plank")
