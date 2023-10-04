@@ -90,7 +90,8 @@
                                 '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
                                 '(:eval (zw/exwm-float-header-line-rhs)))))
   (setq exwm-manage-configurations
-        `(((string= "Emacs" exwm-class-name)
+        `(((or (string= "Emacs" exwm-class-name)
+               (string= "kitty" exwm-class-name))
            x ,float-x
            y ,float-y
            width ,float-width
