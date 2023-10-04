@@ -44,6 +44,8 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze lxappearance
 ** Driver
 #+begin_src sh
 # touchpad
+yay -S jq
+curl -sS 'https://gitlab.freedesktop.org/api/v4/users/20572/gpg_keys/530' | jq '.key' | xargs echo -e | gpg --import -i -
 yay -S libinput-three-finger-drag libinput-gestures
 # dkms
 yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
