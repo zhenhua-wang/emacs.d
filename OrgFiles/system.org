@@ -198,6 +198,13 @@ yay -S tzupdate
 sudo tzupdate
 #+end_src
 
+*** NVIDIA screen tearing
+#+begin_src sh
+yay -S nvidia-settings
+#+end_src
+
+click on the ~Advanced~ button that is available on the ~X Server Display Configuration~ menu option. Select either ~Force Full Composition Pipeline~ and click on Apply. Save to X configuration file.
+
 * MacOS
 ** Homebrew
 #+begin_src shell
