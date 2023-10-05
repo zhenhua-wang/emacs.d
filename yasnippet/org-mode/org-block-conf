@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: conf code block
+# key: <conf
+# --
+
+#+begin_src conf
+$0
+#+end_src
