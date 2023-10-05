@@ -208,10 +208,9 @@
          (side . right)
          (slot . 1)
          (dedicated . t))
-        ;; bottom buffer (NOT side window)
+        ;; bottom side buffer
         ("\\*.*\\(e?shell\\|v?term\\).*"
-         (display-buffer-at-bottom)
-         ;; (display-buffer-in-side-window)
+         (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . bottom)
          (dedicated . t))
