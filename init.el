@@ -42,6 +42,6 @@
 (require 'zw-ide)
 (require 'zw-lang)
 ;; document
-(require 'zw-writing)
+(require 'zw-document)
 (require 'zw-literate)
 (require 'zw-reader)

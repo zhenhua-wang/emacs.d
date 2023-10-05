@@ -244,4 +244,4 @@
   :bind ((:map flyspell-mode-map ("M-$" . flyspell-correct-at-point))))
 
 ;; * Provide
-(provide 'zw-writing)
+(provide 'zw-document)
