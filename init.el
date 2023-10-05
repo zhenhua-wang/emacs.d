@@ -44,4 +44,3 @@
 ;; document
 (require 'zw-document)
 (require 'zw-literate)
-(require 'zw-reader)
