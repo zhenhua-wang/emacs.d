@@ -810,7 +810,7 @@
         ?\M-&
         ?\M-:))
 
-;; ** exwm x windows simulate keys
+;; ** exwm simulate keys
 ;; *** default
 (setq exwm-input-simulation-keys
       `((,(kbd "s-r") . ,(kbd "C-r"))
