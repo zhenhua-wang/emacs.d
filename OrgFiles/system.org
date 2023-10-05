@@ -167,7 +167,11 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 
 *** Firefox
 1. Messed up font rendering in Firefox PDF viewer
-   - disable "Allow websites to pick their own fonts" (=browser.display.use_document_fonts= would be 0 in about:config) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
+   - disable "Allow websites to pick their own fonts" ( =browser.display.use_document_fonts= would be 0 in about:config ) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
+
+2. Ctrl or Cmd + trackpad or mouse wheel
+   - Set =mousewheel.with_meta.action= to 3 in about:config
+https://connect.mozilla.org/t5/discussions/ctrl-or-cmd-trackpad-or-mouse-wheel-on-firefox-109-macos/m-p/23108
 
 *** GPU and Tensorflow
 Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
