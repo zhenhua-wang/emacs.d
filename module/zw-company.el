@@ -7,7 +7,7 @@
   (company-mode . yas-minor-mode)
   (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
-               ("M-<tab>" . company-manual-begin)
+               ("M-<tab>" . company-complete)
                ("C-<tab>" . company-dabbrev)
                ("C-M-/" . company-dabbrev))
          (:map company-active-map
