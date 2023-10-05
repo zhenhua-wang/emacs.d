@@ -15,8 +15,16 @@ Section "InputClass"
 EndSection
 
 Section "InputClass"
-    Identifier "external-keyboard"
+    Identifier "external-keyboard1"
     MatchProduct "BY Tech Air75"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us"
+    Option "XkbOptions" "caps:ctrl_modifier"
+EndSection
+
+Section "InputClass"
+    Identifier "external-keyboard2"
+    MatchProduct "Air75 BT5.0"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
     Option "XkbOptions" "caps:ctrl_modifier"
