@@ -798,16 +798,6 @@
 (advice-add 'winner-save-old-configurations :before
             #'zw/winner-clean-up-modified-list)
 
-;; ** open with
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp" "pdf"
-                "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
-                "ogg" "mkv"))
-             open-app-command
-             '(file))))
-
 ;; * exwm keymap
 ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
