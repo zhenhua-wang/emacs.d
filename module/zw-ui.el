@@ -22,12 +22,7 @@
 
 (use-package nerd-icons-dired
   :after nerd-icons
-  :hook (dired-mode . nerd-icons-dired-mode)
-  :config
-  (advice-add 'dired-subtree-toggle :after (lambda ()
-                                             (interactive)
-                                             (when nerd-icons-dired-mode
-                                               (revert-buffer)))))
+  :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
   :if (zw/icon-displayable-p)

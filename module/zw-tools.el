@@ -102,7 +102,8 @@
                            (dired-get-filename) nil
                            directory-files-no-dot-files-regexp))
                   0))
-      (dired-subtree-toggle))))
+      (dired-subtree-toggle)
+      (revert-buffer))))
 
 ;; ** dired side bar
 (defun zw/dired-sidebar--modeline-major-mode ()
