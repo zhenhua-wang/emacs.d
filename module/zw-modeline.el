@@ -194,6 +194,20 @@
                   " ")
                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                              'zw/modeline-default-inactive)))
+    ('dired-mode
+     (concat
+      (propertize (let* (;; info-lines and last line
+                         (info-line-number (if (eq dired-free-space 'separate) 3 2))
+                         (total-line-number (- (save-excursion (goto-char (point-max)) (line-number-at-pos))
+                                               info-line-number))
+                         (current-line-number (- (line-number-at-pos) info-line-number)))
+                    (format "%s/%d "
+                            (if (and (> current-line-number 0)
+                                     (<= current-line-number total-line-number))
+                                current-line-number
+                              "*")
+                            total-line-number))
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))))
     (_
      (concat
       (propertize "%l:%c %p "

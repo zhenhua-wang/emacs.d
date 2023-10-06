@@ -81,7 +81,8 @@
         dired-use-ls-dired t
         dired-listing-switches "-al --no-group --human-readable --group-directories-first"
         dired-omit-extensions '("~")
-        dired-omit-files "^\\.$\\|^\\.\\.$")
+        dired-omit-files "^\\.$\\|^\\.\\.$"
+        dired-omit-verbose nil)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls")))
 
@@ -100,6 +101,10 @@
   (propertize "Sidebar " 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                      'zw/modeline-default-inactive)))
 
+(defun zw/dired-sidebar--modeline-rhs ()
+  (concat
+   (zw/dired-sidebar--modeline-major-mode)))
+
 (defun zw/dired-sidebar--modeline-directory (dir)
   "Sidebar modeline directory."
   (car (last (split-string dir "/") 2)))
@@ -109,8 +114,10 @@
         `(:eval (propertize ,(concat sidebar-name zw/modeline-separator)
                             'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                         'zw/modeline-default-inactive)))
+        '(:eval (zw/modeline-line-column))
         '(:eval (zw/modeline-remote))
-        '(:eval (zw/modeline-middle-space (zw/dired-sidebar--modeline-major-mode)))))
+        '(:eval (zw/modeline-middle-space (zw/dired-sidebar--modeline-rhs)))
+        '(:eval (zw/dired-sidebar--modeline-rhs))))
 
 (defun zw/dired-siderbar-display (buffer)
   ;; bury current dired buffer when it has the same root as sidebar
