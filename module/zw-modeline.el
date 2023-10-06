@@ -196,9 +196,10 @@
                                              'zw/modeline-default-inactive)))
     ('dired-mode
      (concat
-      (propertize (let* (;; info-lines and last line
-                         (info-line-number (if (eq dired-free-space 'separate) 3 2))
-                         (total-line-number (- (save-excursion (goto-char (point-max)) (line-number-at-pos))
+      (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
+                         (total-line-number (- (save-excursion
+                                                 (goto-char (point-max)) (backward-char)
+                                                 (line-number-at-pos))
                                                info-line-number))
                          (current-line-number (- (line-number-at-pos) info-line-number)))
                     (format "%s/%d "
