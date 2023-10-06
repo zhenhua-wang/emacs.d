@@ -69,7 +69,7 @@
                ("s-b" . zw/dired-sidebar-toggle))
 
          (:map dired-mode-map
-               ("<tab>" . dired-subtree-toggle)
+               ("<tab>" . zw/dired-subtree-toggle)
                ("q" . zw/kill-bufer-quit-window)))
   :init
   (setq dired-dwim-target t
@@ -93,7 +93,16 @@
    (dirvish-directory-view-mode . diredfl-mode)))
 
 (use-package dired-subtree
-  :commands (dired-subtree-toggle))
+  :commands (dired-subtree-toggle)
+  :config
+  (defun zw/dired-subtree-toggle ()
+    (interactive)
+    (when (and (dired-subtree--dired-line-is-directory-or-link-p)
+               (> (length (directory-files
+                           (dired-get-filename) nil
+                           directory-files-no-dot-files-regexp))
+                  0))
+      (dired-subtree-toggle))))
 
 ;; ** dired side bar
 (defun zw/dired-sidebar--modeline-major-mode ()
