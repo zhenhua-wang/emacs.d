@@ -93,8 +93,8 @@
    (dirvish-directory-view-mode . diredfl-mode)))
 
 (use-package dired-subtree
-  :commands (dired-subtree-toggle)
-  :config
+  :commands (dired-subtree-toggle dired-subtree--dired-line-is-directory-or-link-p)
+  :init
   (defun zw/dired-subtree-toggle ()
     (interactive)
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
