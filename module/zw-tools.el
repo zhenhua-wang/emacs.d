@@ -103,7 +103,9 @@
                            directory-files-no-dot-files-regexp))
                   0))
       (dired-subtree-toggle)
-      (revert-buffer))))
+      (revert-buffer)))
+  :config
+  (setq dired-subtree-use-backgrounds nil))
 
 ;; ** dired side bar
 (defun zw/dired-sidebar--modeline-major-mode ()
