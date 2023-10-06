@@ -47,8 +47,8 @@
         '((file (vertico-sort-function . sort-directories-first))))
   (defun sort-directories-first (files)
     (setq files (vertico-sort-history-length-alpha files))
-    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
-           (seq-remove (lambda (x) (string-suffix-p "/" x)) files))))
+    (nconc (cl-remove-if-not (lambda (x) (string-suffix-p "/" x)) files)
+           (cl-remove-if (lambda (x) (string-suffix-p "/" x)) files))))
 
 (use-package vertico-posframe
   :hook (vertico-mode . vertico-posframe-mode)

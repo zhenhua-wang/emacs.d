@@ -236,9 +236,9 @@
     (dolist (buffer buffers)
       (with-current-buffer buffer
         (if (or (member major-mode zw/side-window-buffer-mode)
-                (seq-some (lambda (regex)
-                            (string-match-p regex (buffer-name buffer)))
-                          zw/side-window-buffer-regex))
+                (cl-some (lambda (regex)
+                           (string-match-p regex (buffer-name buffer)))
+                         zw/side-window-buffer-regex))
             (add-to-list 'zw/side-window--buffer-opened buffer))))))
 
 (defun zw/side-window-toggle ()
@@ -246,8 +246,8 @@
   (interactive)
   (zw/side-window--update)
   (if zw/side-window--buffer-opened
-      (if (seq-some (lambda (buffer) (get-buffer-window buffer))
-                    zw/side-window--buffer-opened)
+      (if (cl-some (lambda (buffer) (get-buffer-window buffer))
+                   zw/side-window--buffer-opened)
           (dolist (buffer zw/side-window--buffer-opened)
             (let ((buffer-window (get-buffer-window buffer)))
               (when buffer-window

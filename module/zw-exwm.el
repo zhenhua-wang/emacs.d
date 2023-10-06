@@ -130,9 +130,9 @@
 (defun zw/exwm-plot-buffer-p (buffer-or-name)
   (let ((buffer (get-buffer buffer-or-name)))
     (cl-some 'identity
-             (seq-map (lambda (y)
-                        (string-match y (buffer-name buffer)))
-                      zw/exwm-plot-buffers))))
+             (cl-map 'list (lambda (y)
+                             (string-match y (buffer-name buffer)))
+                     zw/exwm-plot-buffers))))
 
 (dolist (buffer zw/exwm-plot-buffers)
   (add-to-list 'display-buffer-alist
@@ -155,7 +155,7 @@
              (eq major-mode 'org-agenda-mode)))))
 
 (defun zw/exwm-display-buffer-list ()
-  (seq-filter 'zw/exwm-display-buffer-p (buffer-list)))
+  (cl-remove-if-not 'zw/exwm-display-buffer-p (buffer-list)))
 
 (defun zw/exwm-buffer-visible-p (buffer)
   (or (get-buffer-window buffer)
@@ -567,8 +567,9 @@
          (buffer (nth index buffer-list)))
     (cond
      ;; all buffers are visible
-     ((seq-reduce (lambda (x y) (and x y))
-                  (seq-map 'zw/exwm-buffer-visible-p buffer-list) t)
+     ((cl-reduce (lambda (x y) (and x y))
+                 (cl-map 'list 'zw/exwm-buffer-visible-p buffer-list)
+                 :initial-value t)
       (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((zw/exwm-buffer-visible-p buffer)
@@ -594,10 +595,10 @@
 
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
-  (let* ((buffers (seq-filter
+  (let* ((buffers (cl-remove-if-not
                    (lambda (x) (not (eq (current-buffer) x)))
                    (zw/exwm-display-buffer-list)))
-         (buffer-names (seq-map 'buffer-name buffers))
+         (buffer-names (cl-map 'list 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
     (exwm-workspace-switch-to-buffer buffer)))

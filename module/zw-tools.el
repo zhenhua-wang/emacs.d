@@ -411,11 +411,12 @@ i.e. windows tiled side-by-side."
                   processes))
          (selection (map-elt candidates
                              (completing-read "kill process: "
-                                              (seq-sort
+                                              (cl-sort
+                                               candidates
                                                (lambda (p1 p2)
                                                  (string-lessp (nth 2 (split-string (string-trim (car p1))))
-                                                               (nth 2 (split-string (string-trim (car p2))))))
-                                               candidates) nil t)))
+                                                               (nth 2 (split-string (string-trim (car p2)))))))
+                                              nil t)))
          (prompt-title (format "%s %s %s"
                                (map-elt selection 'pid)
                                (map-elt selection 'user)
