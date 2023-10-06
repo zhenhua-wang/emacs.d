@@ -790,13 +790,11 @@
   (setq cpu-temperature-update-interval 1))
 
 ;; ** winner mode
-(defun zw/winner-clean-up-modified-list ()
-  "Remove dead frames from `winner-modified-list`"
-  (dolist (frame winner-modified-list)
-    (unless (frame-live-p frame)
-      (delete frame winner-modified-list))))
-(advice-add 'winner-save-old-configurations :before
-            #'zw/winner-clean-up-modified-list)
+(defun zw/winner-remove-dead-frame (&rest args)
+  "Remove dead frames"
+  (cl-remove-if-not #'frame-live-p winner-modified-list)
+  (cl-remove-if-not #'frame-live-p winner-currents))
+(advice-add 'winner-save-old-configurations :before #'zw/winner-remove-dead-frame)
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
