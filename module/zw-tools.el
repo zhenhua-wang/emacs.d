@@ -1,8 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-(require 'map)
 (require 'proced)
-(require 'seq)
 
 ;; * Tramp
 ;; Set default connection mode to SSH
