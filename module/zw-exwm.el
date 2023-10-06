@@ -3,7 +3,7 @@
 ;; * exwm init
 (use-package exwm
   :demand t
-  :straight (:host github :repo "zhenhua-wang/exwm" :files ("*")))
+  :straight (:host github :repo "ch11ng/exwm" :files ("*")))
 
 (setq
  ;; disable conformation to kill processes on Emacs exit
@@ -393,7 +393,7 @@
 ;; ** minibuffer
 (vertico-posframe-mode 0)
 (setq exwm-workspace-minibuffer-position 'bottom
-      exwm-workspace-display-echo-area-timeout 3)
+      exwm-workspace-display-echo-area-timeout 1)
 ;; detached minibuffer freezes on help message
 ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
 (tooltip-mode 1)
