@@ -293,7 +293,9 @@
   :hook (after-init . winner-mode)
   :bind (("s-T" . winner-undo)
          ("s-u" . winner-undo)
-         ("s-U" . winner-redo)))
+         ("s-U" . winner-redo))
+  :init
+  (setq winner-dont-bind-my-keys t))
 
 ;; * Isearch
 (use-package isearch
