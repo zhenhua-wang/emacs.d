@@ -792,8 +792,8 @@
 ;; ** winner mode
 (defun zw/winner-remove-dead-frame (&rest args)
   "Remove dead frames"
-  (cl-remove-if-not #'frame-live-p winner-modified-list)
-  (cl-remove-if-not #'frame-live-p winner-currents))
+  (setq winner-modified-list (cl-remove-if-not #'frame-live-p winner-modified-list))
+  (setq winner-currents (cl-remove-if-not #'frame-live-p winner-currents)))
 (advice-add 'winner-save-old-configurations :before #'zw/winner-remove-dead-frame)
 
 ;; * exwm keymap
