@@ -140,10 +140,6 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     (if (zw/modeline-window-active-p)
-         (nerd-icons-icon-for-buffer)
-       (propertize (nerd-icons-icon-for-buffer) 'face 'zw/modeline-default-inactive))
-     " "
      (propertize file-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
