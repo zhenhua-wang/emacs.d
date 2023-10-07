@@ -140,7 +140,14 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     (propertize file-name-abbrev
+     (propertize (concat (concat (when buffer-file-name (nerd-icons-icon-for-buffer)) " ")
+                         file-name-abbrev
+                         (cond (buffer-read-only " ")
+                               ((and buffer-file-name (buffer-modified-p)) " ")
+                               ((and buffer-file-name
+                                     (not (file-remote-p buffer-file-name))
+                                     (not (file-exists-p buffer-file-name))) " 🚫")
+                               (t "")))
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
@@ -260,7 +267,7 @@
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat
-     (propertize (upcase conda-env-current-name)
+     (propertize (concat " " (upcase conda-env-current-name))
                  'face (zw/modeline-set-face 'zw/modeline-env-active
                                              'zw/modeline-default-inactive))
      zw/modeline-separator)))
@@ -271,7 +278,7 @@
     (let* ((backend (vc-backend buffer-file-name))
            (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
       (concat
-       (propertize (concat vc-info)
+       (propertize (concat " " (concat vc-info))
                    'face (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
                              (zw/modeline-set-face 'zw/modeline-vc-active
                                                    'zw/modeline-default-inactive)
@@ -284,7 +291,7 @@
   (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
     (when lsp-bridge-server
       (concat
-       (propertize "BRIDGE"
+       (propertize " BRIDGE"
                    'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive))
        zw/modeline-separator))))
@@ -293,7 +300,7 @@
   (when (and (featurep 'lsp-mode) lsp-mode)
     (let ((workspaces (lsp-workspaces)))
       (concat
-       (propertize "LSP"
+       (propertize " LSP"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if workspaces
@@ -308,7 +315,7 @@
   (when (and (featurep 'eglot) (eglot-managed-p))
     (let ((server (eglot-current-server)))
       (concat
-       (propertize "EGLOT"
+       (propertize " EGLOT"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if server
@@ -374,22 +381,16 @@
  (list
   "%e"
   " "
+  ;; left
   '(:eval (zw/modeline-tab-index))
-  ;; the buffer name; the file name as a tool tip
   '(:eval (zw/modeline-buffer-name 30 "..."))
-  ;; text scale amount
   '(:eval (zw/modeline-text-scale))
-  ;; line and column
   '(:eval (zw/modeline-line-column))
-  ;; mark active
   '(:eval (zw/modeline-mark-active))
-  ;; record kmacro
   '(:eval (zw/modeline-kmacro-recording))
-  ;; is remote file?
   '(:eval (zw/modeline-remote))
-  ;; add space between left and right
+  ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-  ;; right hand side of the modeline
   '(:eval (zw/modeline-rhs))
   " "))
 
