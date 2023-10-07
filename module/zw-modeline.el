@@ -264,7 +264,6 @@
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat
-     (nerd-icons-devicon "nf-dev-python") " "
      (propertize (upcase conda-env-current-name)
                  'face (zw/modeline-set-face 'zw/modeline-env-active
                                              'zw/modeline-default-inactive))
@@ -276,7 +275,6 @@
     (let* ((backend (vc-backend buffer-file-name))
            (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
       (concat
-       (nerd-icons-devicon "nf-dev-github_alt") " "
        (propertize (concat vc-info)
                    'face (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
                              (zw/modeline-set-face 'zw/modeline-vc-active
@@ -290,7 +288,6 @@
   (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
     (when lsp-bridge-server
       (concat
-       (nerd-icons-faicon "nf-fa-rocket") " "
        (propertize "BRIDGE"
                    'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive))
@@ -300,7 +297,6 @@
   (when (and (featurep 'lsp-mode) lsp-mode)
     (let ((workspaces (lsp-workspaces)))
       (concat
-       (nerd-icons-faicon "nf-fa-rocket") " "
        (propertize "LSP"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
@@ -316,7 +312,6 @@
   (when (and (featurep 'eglot) (eglot-managed-p))
     (let ((server (eglot-current-server)))
       (concat
-       (nerd-icons-faicon "nf-fa-rocket") " "
        (propertize "EGLOT"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
