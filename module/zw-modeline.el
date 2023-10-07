@@ -264,7 +264,8 @@
 (defun zw/modeline-env ()
   (when (and (featurep 'conda) conda-env-current-name)
     (concat
-     (propertize (concat " " (upcase conda-env-current-name))
+     (nerd-icons-devicon "nf-dev-python") " "
+     (propertize (upcase conda-env-current-name)
                  'face (zw/modeline-set-face 'zw/modeline-env-active
                                              'zw/modeline-default-inactive))
      zw/modeline-separator)))
@@ -275,7 +276,8 @@
     (let* ((backend (vc-backend buffer-file-name))
            (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
       (concat
-       (propertize (concat " " (concat vc-info))
+       (nerd-icons-devicon "nf-dev-github_alt") " "
+       (propertize (concat vc-info)
                    'face (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
                              (zw/modeline-set-face 'zw/modeline-vc-active
                                                    'zw/modeline-default-inactive)
@@ -288,7 +290,8 @@
   (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
     (when lsp-bridge-server
       (concat
-       (propertize " BRIDGE"
+       (nerd-icons-faicon "nf-fa-rocket") " "
+       (propertize "BRIDGE"
                    'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive))
        zw/modeline-separator))))
@@ -297,7 +300,8 @@
   (when (and (featurep 'lsp-mode) lsp-mode)
     (let ((workspaces (lsp-workspaces)))
       (concat
-       (propertize " LSP"
+       (nerd-icons-faicon "nf-fa-rocket") " "
+       (propertize "LSP"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if workspaces
@@ -312,7 +316,8 @@
   (when (and (featurep 'eglot) (eglot-managed-p))
     (let ((server (eglot-current-server)))
       (concat
-       (propertize " EGLOT"
+       (nerd-icons-faicon "nf-fa-rocket") " "
+       (propertize "EGLOT"
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if server
