@@ -23,7 +23,9 @@
         lsp-enable-folding nil
         lsp-completion-provider :none
         lsp-enable-on-type-formatting nil
-        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)))
+        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
+        lsp-enable-file-watchers nil
+        lsp-enable-text-document-color nil))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
