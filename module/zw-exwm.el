@@ -321,7 +321,7 @@
               (current-tab `(tab menu-item ,bname-face
                                  (lambda () (interactive)
                                    (zw/tab-bar-switch-or-focus-buffer ,buffer))
-                                 :help ,(buffer-name buffer)))
+                                 :help ,(or (buffer-file-name buffer) (buffer-name buffer))))
               (tab-seperator `(seperator menu-item ,buffer-separator ignore)))
          (setq i (1+ i))
          (if (= i buffer-list-length)
