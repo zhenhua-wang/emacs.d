@@ -74,7 +74,9 @@
                 ;; record last location in the file
                 save-place-mode
                 ;; handle large file
-                global-so-long-mode))
+                global-so-long-mode
+                ;; right click menu
+                context-menu-mode))
   (add-hook 'after-init-hook mode))
 
 ;; modes disable after init

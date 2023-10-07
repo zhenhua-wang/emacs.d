@@ -63,10 +63,6 @@
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
 
-;; * Context menu
-(add-hook 'text-mode-hook 'context-menu-mode)
-(add-hook 'prog-mode-hook 'context-menu-mode)
-
 ;; * Posframe
 (use-package posframe :defer t)
 ;; * Line number mode
