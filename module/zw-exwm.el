@@ -427,11 +427,14 @@
         (exwm-workspace--hide-minibuffer)
       (exwm-workspace--show-minibuffer))))
 ;; don't clear echo area after every input
+(defun zw/exwm-input--clear-echo-area ()
+  (when (current-message)
+    (message nil)))
 (advice-add 'exwm-workspace--init :after
             (lambda ()
               (remove-hook 'echo-area-clear-hook #'exwm-workspace--on-echo-area-clear)
               (remove-hook 'exwm-input--event-hook #'exwm-workspace--on-echo-area-clear)
-              (add-hook 'exwm-input--event-hook (lambda () (message nil)))))
+              (add-hook 'exwm-input--event-hook #'zw/exwm-input--clear-echo-area)))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
