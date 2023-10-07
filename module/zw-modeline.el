@@ -393,8 +393,7 @@
   '(:eval (zw/modeline-remote))
   ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-  '(:eval (zw/modeline-rhs))
-  " "))
+  '(:eval (zw/modeline-rhs))))
 
 ;; repl modeline
 (dolist (mode '(inferior-ess-mode-hook
@@ -422,8 +421,7 @@
                            ;; add modeline process
                            '(:eval (zw/modeline-process))
                            ;; env
-                           '(:eval (zw/modeline-env))
-                           " ")))))
+                           '(:eval (zw/modeline-env)))))))
 
 ;;; special mode
 (add-hook 'ess-mode-hook
