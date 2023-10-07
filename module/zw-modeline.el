@@ -140,7 +140,7 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     (propertize (concat (concat (when buffer-file-name (nerd-icons-icon-for-buffer)) " ")
+     (propertize (concat (nerd-icons-icon-for-buffer) " "
                          file-name-abbrev
                          (cond (buffer-read-only " ")
                                ((and buffer-file-name (buffer-modified-p)) " ")
