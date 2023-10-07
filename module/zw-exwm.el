@@ -308,8 +308,7 @@
                                5))))
     (mapcan
      (lambda (buffer)
-       (let* ((i (1+ i))
-              (bname (truncate-string-to-width
+       (let* ((bname (truncate-string-to-width
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (string= (buffer-name buffer)
                                        ;; handle multi-frames
@@ -323,7 +322,8 @@
                                  (lambda () (interactive)
                                    (zw/tab-bar-switch-or-focus-buffer ,buffer))
                                  :help ,(buffer-name buffer)))
-              (tab-seperator `(,(intern (format "sep-%i" i)) menu-item ,buffer-separator ignore)))
+              (tab-seperator `(seperator menu-item ,buffer-separator ignore)))
+         (setq i (1+ i))
          (if (= i buffer-list-length)
              (list current-tab)
            (list current-tab tab-seperator))))
