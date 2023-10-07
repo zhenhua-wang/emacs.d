@@ -430,7 +430,8 @@
 (advice-add 'exwm-workspace--init :after
             (lambda ()
               (remove-hook 'echo-area-clear-hook #'exwm-workspace--on-echo-area-clear)
-              (remove-hook 'exwm-input--event-hook #'exwm-workspace--on-echo-area-clear)))
+              (remove-hook 'exwm-input--event-hook #'exwm-workspace--on-echo-area-clear)
+              (add-hook 'exwm-input--event-hook (lambda () (message nil)))))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
   (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
