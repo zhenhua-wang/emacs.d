@@ -140,14 +140,11 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     (propertize (concat (nerd-icons-icon-for-buffer) " "
-                         file-name-abbrev
-                         (cond (buffer-read-only " ")
-                               ((and buffer-file-name (buffer-modified-p)) " ")
-                               ((and buffer-file-name
-                                     (not (file-remote-p buffer-file-name))
-                                     (not (file-exists-p buffer-file-name))) " 🚫")
-                               (t "")))
+     (if (zw/modeline-window-active-p)
+         (nerd-icons-icon-for-buffer)
+       (propertize (nerd-icons-icon-for-buffer) 'face 'zw/modeline-default-inactive))
+     " "
+     (propertize file-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
