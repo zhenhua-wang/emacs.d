@@ -442,12 +442,19 @@
 (defun zw/exwm-focus-main ()
   (interactive)
   (select-frame-set-input-focus exwm-workspace--current))
+(defun zw/exwm-window-up ()
+  (interactive)
+  (if (minibufferp)
+      (zw/exwm-focus-main)
+    (windmove-up)))
 (defun zw/exwm-window-down ()
   (interactive)
-  (if (active-minibuffer-window)
+  (if (or (ignore-errors (windmove-down))
+          (active-minibuffer-window))
       (zw/exwm-focus-minibuffer)
-    (windmove-down)))
+    (message "No buffer below.")))
 (bind-keys :map global-map
+           ("s-<up>" . zw/exwm-window-up)
            ("s-<down>" . zw/exwm-window-down)
            :map minibuffer-mode-map
            ("s-<up>" . zw/exwm-focus-main)
@@ -937,7 +944,7 @@
            ;; window
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
-           ("s-<up>" . windmove-up)
+           ("s-<up>" . zw/exwm-window-up)
            ("s-<down>" . zw/exwm-window-down)
            ;; tab bar
            ("s-1" . zw/tab-switch)
