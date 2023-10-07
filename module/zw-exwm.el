@@ -162,6 +162,19 @@
       (with-selected-frame exwm-workspace--current
         (get-buffer-window buffer))))
 
+(defvar-local zw/exwm-buffer-create-time nil)
+(defun zw/exwm-set-buffer-create-time ()
+  (when (zw/exwm-display-buffer-p (current-buffer))
+    (setq-local zw/exwm-buffer-create-time
+                (time-convert (current-time) 'integer))))
+(add-hook 'find-file-hook 'zw/exwm-set-buffer-create-time)
+(add-hook 'exwm-mode-hook 'zw/exwm-set-buffer-create-time)
+(add-hook 'polymode-init-inner-hook
+          (lambda ()
+            (setq-local zw/exwm-buffer-create-time
+                        (with-current-buffer (buffer-base-buffer)
+                          zw/exwm-buffer-create-time))))
+
 ;; ** nerd icon
 (defun zw/nerd-icons-get-app-icon (name)
   (let* ((get-icon (lambda (name)
@@ -235,7 +248,7 @@
 
 ;; ** tab bar
 (require 'zw-tab-bar)
-;; *** exwm workspace
+;; *** workspace
 (defun zw/tab-bar-format-exwm-workspace ()
   "Produce menu that shows current exwm workspace."
   (let* ((bg (face-background 'tab-bar))
@@ -246,15 +259,7 @@
                                      'face `(:background ,bg-alt :weight regular))
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
-;; *** exwm buffer
-(defvar-local zw/exwm-buffer-create-time nil)
-(defun zw/exwm-set-buffer-create-time ()
-  (when (zw/exwm-display-buffer-p (current-buffer))
-    (setq-local zw/exwm-buffer-create-time
-                (time-convert (current-time) 'integer))))
-(add-hook 'find-file-hook 'zw/exwm-set-buffer-create-time)
-(add-hook 'exwm-mode-hook 'zw/exwm-set-buffer-create-time)
-
+;; *** buffer
 (defun zw/tab-bar--buffer-sort (x y)
   (< (with-current-buffer x
        (or zw/exwm-buffer-create-time most-positive-fixnum))
