@@ -253,14 +253,11 @@
                                5))))
     (mapcan
      (lambda (buffer)
-       (let* ((bname (truncate-string-to-width
+       (let* ((current-frame (if (frame-live-p zw/active-frame) zw/active-frame exwm-workspace--current))
+              (current-buffer (window-buffer (frame-selected-window current-frame)))
+              (bname (truncate-string-to-width
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
-              (bname-face (if (string= (buffer-name buffer)
-                                       ;; handle multi-frames
-                                       (if (frame-live-p zw/active-frame)
-                                           (with-selected-frame zw/active-frame
-                                             (buffer-name))
-                                         (buffer-name)))
+              (bname-face (if (eq buffer current-buffer)
                               (propertize bname 'face '(:weight bold))
                             (propertize bname 'face 'font-lock-comment-face)))
               (current-tab `(tab menu-item ,bname-face
