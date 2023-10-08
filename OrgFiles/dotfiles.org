@@ -750,6 +750,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 enable-ipc = true
 font-0 = monospace;2
+font-1 = monospace:weight=bold;2
 background = ${colors.background}
 foreground = ${colors.foreground}
 padding-left = 0
@@ -764,6 +765,8 @@ type = custom/ipc
 hook-0 = emacsclient -e "exwm-workspace-current-index" | awk '{print " "$1" "}'
 initial = 1
 format-background = ${colors.background-alt}
+format = "<output>"
+format-font = 2
 
 [module/emacs-buffer-name]
 type = custom/ipc
@@ -785,13 +788,17 @@ adapter = ${env:EXWM_BAR_ADAPTER}
 full-at = 100
 low-at = 30
 label-discharging = " %percentage_raw%%"
+label-discharging-font = 2
 format-discharging = <label-discharging>
 label-charging = "+%percentage_raw%%"
+label-charging-font = 2
 label-charging-foreground = ${colors.green}
 label-full-foreground = ${colors.green}
+label-full-font = 2
 format-charging = <label-charging>
 label-low = " %percentage_raw%%"
 label-low-foreground = ${colors.red}
+label-low-font = 2
 format-low = <label-low>
 
 [module/temperature]
