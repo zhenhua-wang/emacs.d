@@ -224,18 +224,23 @@ fade-in-step = 0.028;
 fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
-# opacity-rule = [
-#   "90:class_g = 'kitty' && focused",
-#   "40:class_g = 'kitty' && !focused",
-# ];
-# blur: {
-#       method = "dual_kawase";
-#       strength = 10;
-#       background = false;
-#       background-frame = false;
-#       background-fixed = false;
-# }
-# backend = "glx";
+opacity-rule = [
+  # "90:class_g = 'kitty' && focused",
+  # "40:class_g = 'kitty' && !focused",
+  "80:class_g = 'Polybar'"
+];
+backend = "glx";
+blur-method = "dual_kawase";
+blur-strength = 10;
+blur-background = false;
+blur-background-frame = false;
+blur-background-fixed = false;
+blur-background-exclude = [
+  "class_g = 'Plank'",
+  "class_g = 'Emacs'",
+  "window_type = 'desktop'",
+  "_GTK_FRAME_EXTENTS@:c"
+];
 #+end_src
 
 * Vterm
@@ -777,8 +782,7 @@ format = "<output>"
 [module/date]
 type = internal/date
 interval = 1
-date = %H:%M:%S
-date-alt = %Y-%m-%d %H:%M:%S
+date = %a %H:%M:%S
 label = %date%
 
 [module/battery]
