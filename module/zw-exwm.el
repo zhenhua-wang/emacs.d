@@ -400,8 +400,8 @@
         (set-frame-parameter (selected-frame) 'alpha-background 0)))))
 
 (defun zw/exwm-desktop-window-config ()
-  (cond (exwm--floating-frame nil)
-        ((string= (buffer-name) " *Minibuf-0*") nil)
+  (cond ((or exwm--floating-frame
+             (string= (buffer-name) " *Minibuf-0*")) nil)
         ((string= (buffer-name) "*scratch*")
          (let ((n-window (length (window-list))))
            (if (and (= n-window 1)
