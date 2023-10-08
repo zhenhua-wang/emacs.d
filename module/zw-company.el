@@ -66,13 +66,10 @@
   (defun zw/company-posframe-refposhandler (&optional frame)
     (cond
      ((bound-and-true-p exwm--connection)
-      (or (ignore-errors
-            (let ((info (elt exwm-workspace--workareas
-                             exwm-workspace-current-index)))
-              (cons (elt info 0)
-                    (elt info 1))))
-          (ignore-errors
-            (posframe-refposhandler-xwininfo frame))
+      (or (with-slots ((x* x) (y* y))
+              (exwm-workspace--workarea frame)
+            (cons x* y*))
+          (posframe-refposhandler-xwininfo frame)
           (cons 0 0)))
      (t nil)))
   (defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
