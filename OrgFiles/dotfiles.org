@@ -227,15 +227,7 @@ fading = true;
 fade-in-step = 0.028;
 fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
-# fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
-# blur
-backend = "glx";
-blur-method = "dual_kawase";
-blur-strength = 5;
-blur-background = false;
-blur-background-frame = false;
-blur-background-fixed = false;
-blur-background-exclude = ["class_g != 'Polybar'"];
+# opacity
 opacity-rule = ["85:class_g = 'Polybar'"];
 #+end_src
 
