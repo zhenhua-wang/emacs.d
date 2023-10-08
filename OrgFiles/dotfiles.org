@@ -228,7 +228,7 @@ fade-in-step = 0.028;
 fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # opacity
-opacity-rule = ["85:class_g = 'Polybar'"];
+opacity-rule = ["90:class_g = 'Polybar'"];
 #+end_src
 
 * Vterm
