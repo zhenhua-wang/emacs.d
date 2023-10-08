@@ -289,11 +289,10 @@
   (defun zw/exwm-send-polybar-hook (module-name hook-index)
     (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
   (defun zw/exwm-polybar-buffer-name ()
-    (let ((label (buffer-name
-                  (window-buffer
-                   (frame-selected-window zw/active-frame))))
-          (label-max 50)
-          (label-ellipsis ""))
+    (let* ((display-frame (if (frame-live-p zw/active-frame) zw/active-frame exwm-workspace--current))
+           (label (buffer-name (window-buffer (frame-selected-window display-frame))))
+           (label-max 50)
+           (label-ellipsis ""))
       (if (> (length label) label-max)
           (truncate-string-to-width
            label label-max nil nil label-ellipsis)
