@@ -219,6 +219,9 @@ timeout = 0
 * Picom
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/picom.conf")
 #+begin_src conf
+# resolve screen tearing
+vsync = true;
+unredir-if-possible = false;
 # fade
 fading = true;
 fade-in-step = 0.028;
@@ -231,7 +234,7 @@ opacity-rule = [
 ];
 backend = "glx";
 blur-method = "dual_kawase";
-blur-strength = 10;
+blur-strength = 8;
 blur-background = false;
 blur-background-frame = false;
 blur-background-fixed = false;
