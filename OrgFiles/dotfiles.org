@@ -229,21 +229,14 @@ fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # fade-exclude = ["class_g != 'Rofi' && class_g != 'Dunst'"];
 # blur
-opacity-rule = [
-  "85:class_g = 'Polybar'"
-];
 backend = "glx";
 blur-method = "dual_kawase";
 blur-strength = 8;
 blur-background = false;
 blur-background-frame = false;
 blur-background-fixed = false;
-blur-background-exclude = [
-  "class_g = 'Plank'",
-  "class_g = 'Emacs'",
-  "window_type = 'desktop'",
-  "_GTK_FRAME_EXTENTS@:c"
-];
+blur-background-exclude = ["class_g != 'Polybar'"];
+opacity-rule = ["85:class_g = 'Polybar'"];
 #+end_src
 
 * Vterm
