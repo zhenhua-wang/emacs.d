@@ -289,7 +289,7 @@
                   (window-buffer
                    (frame-selected-window
                     exwm-workspace--current))))
-          (label-max 50))
+          (label-max 30))
       (if (> (length label) label-max)
           (truncate-string-to-width
            label label-max nil nil
