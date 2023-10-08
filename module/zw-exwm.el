@@ -341,59 +341,6 @@
                        zw/tab-bar-format-cpu-temp
                        zw/tab-bar-format-time
                        zw/tab-bar-format-battery))
-(tab-bar-mode 1)
-
-;; handle touchscreen tap
-(bind-keys :map tab-bar-map
-           ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
-           ("<down-mouse-1>" . nil)
-           ("<mouse-1>" . zw/tab-bar-click-tab-select)
-           ("<down-mouse-3>" . nil))
-
-(defun zw/tab-bar-touchscreen-tab-select (event)
-  "Select a tab at touchscreen tap."
-  (interactive "e")
-  (let* ((posn (cdadr event))
-         (item (tab-bar--event-to-item posn))
-         (func (nth 1 item)))
-    (when (and (touch-screen-track-tap event)
-               (functionp func))
-      (call-interactively func))))
-
-(defun zw/tab-bar-click-tab-select (event)
-  "Select a tab at click."
-  (interactive "e")
-  (let* ((item (tab-bar--event-to-item (event-start event)))
-         (func (nth 1 item)))
-    (when (functionp func)
-      (call-interactively func))))
-
-;; *** time
-(setq display-time-format "%b %-e %a %H:%M:%S %p"
-      display-time-interval 1
-      display-time-default-load-average nil)
-(display-time-mode 1)
-
-;; *** battery
-(require 'battery)
-(when battery-status-function
-  (setq have-battery-status-p
-        (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-          (and perc-charged
-               (not (zerop (string-to-number (cdr perc-charged)))))))
-  (when (and have-battery-status-p
-             tab-bar-show)
-    (display-battery-mode 1)))
-
-;; *** keycast
-(use-package keycast
-  :config
-  (setq keycast-tab-bar-format "%k%c%R "
-        keycast-tab-bar-minimal-width 0)
-  (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
-  (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
-  (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil))
-  (keycast-tab-bar-mode))
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)
