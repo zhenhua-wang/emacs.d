@@ -723,6 +723,79 @@ gtk-xft-hinting=1
 gtk-xft-hintstyle=hintfull
 #+end_src
 
+* Polybar
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/polybar/config.ini")
+#+begin_src conf
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+[colors]
+background = #282A2E
+background-alt = #373B41
+foreground = #C5C8C6
+primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = #707880
+
+[bar/panel]
+width = 100%
+height = 20pt
+radius = 6
+line-size = 3pt
+border-size = 2pt
+border-color = #00000000
+dpi = ${xrdb:Xft.dpi}
+cursor-click = pointer
+cursor-scroll = ns-resize
+enable-ipc = true
+font-0 = monospace;2
+background = ${colors.background}
+foreground = ${colors.foreground}
+padding-left = 0
+padding-right = 1
+
+modules-left = exwm-workspace emacs-buffer-name
+modules-right = date battery
+
+[module/exwm-workspace]
+type = custom/ipc
+hook-0 = emacsclient -e "exwm-workspace-current-index" | awk '{print " "$1" "}'
+initial = 1
+format-background = ${colors.background-alt}
+
+[module/emacs-buffer-name]
+type = custom/ipc
+hook-0 = emacsclient -e "(zw/exwm-polybar-buffer-name)" | tr -d '"'
+initial = 1
+format = "<output>"
+
+[module/date]
+type = internal/date
+interval = 1
+date = %H:%M
+date-alt = %Y-%m-%d %H:%M:%S
+label = %date%
+
+[module/battery]
+type = internal/battery
+battery = ${env:EXWM_BAR_BATTERY}
+adapter = ${env:EXWM_BAR_ADAPTER}
+full-at = 100
+low-at = 10
+label-charging = "%percentage_raw%% "
+label-discharging = "%percentage_raw%% "
+label-full = "%percentage_raw%% "
+label-low = "%percentage_raw%% "
+format-charging = <label-charging>
+format-charging-foreground = ${colors.green}
+format-discharging = <label-discharging>
+format-full = <label-full>
+format-low = <label-low>
+format-low-foreground = ${colors.red}
+#+end_src
+
 * Local variables
 Add the following expressions to ~safe-local-eval-forms~.
 # local variables:

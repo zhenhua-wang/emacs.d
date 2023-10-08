@@ -53,7 +53,9 @@
   (when (executable-find "fcitx5")
     (zw/exwm-run-in-background "fcitx5"))
   (when (executable-find "plank")
-    (zw/exwm-run-in-background "plank")))
+    (zw/exwm-run-in-background "plank"))
+  (when (executable-find "polybar")
+    (zw/exwm-run-in-background "polybar panel")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -257,18 +259,40 @@
 (add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
 ;; ** tab bar
-(require 'zw-tab-bar)
-(setq tab-bar-show t
-      tab-bar-format '(zw/tab-bar-format-exwm-workspace
-                       tab-bar-separator
-                       zw/tab-bar-format-buffers
-                       tab-bar-format-align-right
-                       tab-bar-separator
-                       tab-bar-separator
-                       tab-bar-separator
-                       zw/tab-bar-format-cpu-temp
-                       zw/tab-bar-format-time
-                       zw/tab-bar-format-battery))
+(unless (executable-find "polybar")
+  (require 'zw-tab-bar)
+  (setq tab-bar-show t
+        tab-bar-format '(zw/tab-bar-format-exwm-workspace
+                         tab-bar-separator
+                         zw/tab-bar-format-buffers
+                         tab-bar-format-align-right
+                         tab-bar-separator
+                         tab-bar-separator
+                         tab-bar-separator
+                         zw/tab-bar-format-cpu-temp
+                         zw/tab-bar-format-time
+                         zw/tab-bar-format-battery)))
+
+(when (executable-find "polybar")
+  (let* ((power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
+         (power-lines (split-string power-supply "\n")))
+    (dolist (line power-lines)
+      (cond
+       ((string-match "BAT" line)
+        (setenv "EXWM_BAR_BATTERY" line))
+       ((string-match "AC" line)
+        (setenv "EXWM_BAR_ADAPTER" line)))))
+  (defun zw/exwm-send-polybar-hook (module-name hook-index)
+    (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
+  (defun zw/exwm-polybar-buffer-name ()
+    (buffer-name))
+  (defun zw/exwm-polybar-update-exwm-workspace ()
+    (zw/exwm-send-polybar-hook "exwm-workspace" 0))
+  (defun zw/exwm-polybar-update-buffer ()
+    (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
+  (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
+  (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
+  (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer))
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)
