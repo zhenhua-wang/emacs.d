@@ -16,7 +16,7 @@
          (variable-font          `(:font "EB Garamond"))
          (variable-font-height    200)
          (modeline-height         130)
-         (tab-bar-height          115)
+         (tab-bar-height          120)
          (block-bg (alist-get 'block-bg theme-params))
          (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
