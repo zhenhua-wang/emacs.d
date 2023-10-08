@@ -369,6 +369,7 @@
    (zw/modeline-major-mode)))
 
 ;; * Config
+;; ** main
 (setq-default
  mode-line-format
  (list
@@ -386,7 +387,7 @@
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   '(:eval (zw/modeline-rhs))))
 
-;; repl modeline
+;; ** repl
 (dolist (mode '(inferior-ess-mode-hook
                 inferior-python-mode-hook))
   (add-hook mode
@@ -414,7 +415,7 @@
                            ;; env
                            '(:eval (zw/modeline-env)))))))
 
-;;; special mode
+;; ** ess
 (add-hook 'ess-mode-hook
           (lambda ()
             (setq-local mode-line-process nil)))
