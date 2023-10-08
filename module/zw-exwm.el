@@ -285,14 +285,22 @@
   (defun zw/exwm-send-polybar-hook (module-name hook-index)
     (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
   (defun zw/exwm-polybar-buffer-name ()
-    (buffer-name))
+    (let ((label (buffer-name
+                  (window-buffer
+                   (frame-selected-window
+                    exwm-workspace--current))))
+          (label-max 50))
+      (if (> (length label) label-max)
+          (truncate-string-to-width
+           label label-max nil nil
+           "...")
+        label)))
   (defun zw/exwm-polybar-update-exwm-workspace ()
     (zw/exwm-send-polybar-hook "exwm-workspace" 0))
-  (defun zw/exwm-polybar-update-buffer ()
+  (defun zw/exwm-polybar-update-buffer-name ()
     (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
   (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
-  (add-hook 'buffer-list-update-hook 'zw/exwm-polybar-update-buffer)
-  (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer))
+  (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer-name))
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)

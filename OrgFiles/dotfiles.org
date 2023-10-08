@@ -735,9 +735,8 @@ background = #282A2E
 background-alt = #373B41
 foreground = #C5C8C6
 primary = #F0C674
-secondary = #8ABEB7
-alert = #A54242
-disabled = #707880
+green = #8ABEB7
+red = #A54242
 
 [bar/panel]
 width = 100%
@@ -755,6 +754,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 padding-left = 0
 padding-right = 1
+separator = " "
 
 modules-left = exwm-workspace emacs-buffer-name
 modules-right = date battery
@@ -774,7 +774,7 @@ format = "<output>"
 [module/date]
 type = internal/date
 interval = 1
-date = %H:%M
+date = %H:%M:%S
 date-alt = %Y-%m-%d %H:%M:%S
 label = %date%
 
@@ -784,14 +784,12 @@ battery = ${env:EXWM_BAR_BATTERY}
 adapter = ${env:EXWM_BAR_ADAPTER}
 full-at = 100
 low-at = 10
-label-charging = "%percentage_raw%% "
-label-discharging = "%percentage_raw%% "
-label-full = "%percentage_raw%% "
-label-low = "%percentage_raw%% "
+label-discharging = " %percentage_raw%%"
+format-discharging = <label-discharging>
+label-charging = "+ %percentage_raw%%"
 format-charging = <label-charging>
 format-charging-foreground = ${colors.green}
-format-discharging = <label-discharging>
-format-full = <label-full>
+label-low = " %percentage_raw%%"
 format-low = <label-low>
 format-low-foreground = ${colors.red}
 #+end_src
