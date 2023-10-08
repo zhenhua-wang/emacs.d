@@ -757,7 +757,7 @@ padding-right = 1
 separator = " "
 
 modules-left = exwm-workspace emacs-buffer-name
-modules-right = date battery
+modules-right = temperature date battery
 
 [module/exwm-workspace]
 type = custom/ipc
@@ -793,6 +793,11 @@ format-charging = <label-charging>
 label-low = " %percentage_raw%%"
 label-low-foreground = ${colors.red}
 format-low = <label-low>
+
+[module/temperature]
+type = internal/temperature
+interval = 1
+thermal-zone = ${env:EXWM_BAR_TEMP}
 #+end_src
 
 * Local variables
