@@ -787,11 +787,12 @@ low-at = 30
 label-discharging = " %percentage_raw%%"
 format-discharging = <label-discharging>
 label-charging = "+%percentage_raw%%"
+label-charging-foreground = ${colors.green}
+label-full-foreground = ${colors.green}
 format-charging = <label-charging>
-format-charging-foreground = ${colors.green}
 label-low = " %percentage_raw%%"
+label-low-foreground = ${colors.red}
 format-low = <label-low>
-format-low-foreground = ${colors.red}
 #+end_src
 
 * Local variables
