@@ -202,6 +202,78 @@
     `((global menu-item ,chinese-input-method
               nil :help ,(format "Current input method: %s" current-input-method-title)))))
 
+;; ** exwm
+;; *** workspace
+(defun zw/tab-bar-format-exwm-workspace ()
+  "Produce menu that shows current exwm workspace."
+  (let* ((bg (face-background 'tab-bar))
+         (bg-alt (pcase (frame-parameter nil 'background-mode)
+                   ('light (doom-darken bg 0.1))
+                   ('dark (doom-lighten bg 0.1)))))
+    `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
+                                     'face `(:background ,bg-alt :weight regular))
+              nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
+
+;; *** buffer
+(defun zw/tab-bar-switch-or-focus-buffer (buffer)
+  "Switch to buffer if not visible, otherwise focus buffer."
+  (let* ((buffer-window (zw/exwm-buffer-visible-p buffer))
+         (buffer-float (with-current-buffer buffer exwm--floating-frame)))
+    (cond ((eq (current-buffer) buffer) nil)
+          ((and buffer-window buffer-float)
+           (when exwm--floating-frame (exwm-floating-hide))
+           (select-frame-set-input-focus buffer-float))
+          (buffer-window
+           (when exwm--floating-frame (exwm-floating-hide))
+           (select-window buffer-window))
+          (t
+           (when exwm--floating-frame (exwm-floating-hide))
+           (exwm-workspace-switch-to-buffer buffer)))))
+
+(defun zw/tab-bar-switch-to-buffer (i)
+  "Tab bar switch to buffer."
+  (let* ((buffer-list (zw/exwm-buffer-sorted-display-list))
+         (buffer-list-size (length buffer-list)))
+    (if (>= buffer-list-size i)
+        (let* ((buffer (nth (- i 1) buffer-list)))
+          (zw/tab-bar-switch-or-focus-buffer buffer))
+      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" (format "\"Tab-%d does not exist\"" i)))))
+
+(defun zw/tab-bar-format-buffers ()
+  "Show buffers of current frame on tab-bar."
+  (let* ((i 0)
+         (buffer-name-ellipsis ".")
+         (buffer-separator (propertize " | " 'face 'font-lock-comment-face))
+         (screen-width (frame-width))
+         (buffer-list (zw/exwm-buffer-sorted-display-list))
+         (buffer-list-length (length buffer-list))
+         (buffer-name-max (when (> buffer-list-length 0)
+                            (- (/ screen-width buffer-list-length 2)
+                               (length buffer-separator)
+                               5))))
+    (mapcan
+     (lambda (buffer)
+       (let* ((bname (truncate-string-to-width
+                      (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
+              (bname-face (if (string= (buffer-name buffer)
+                                       ;; handle multi-frames
+                                       (if (frame-live-p zw/active-frame)
+                                           (with-selected-frame zw/active-frame
+                                             (buffer-name))
+                                         (buffer-name)))
+                              (propertize bname 'face '(:weight bold))
+                            (propertize bname 'face 'font-lock-comment-face)))
+              (current-tab `(tab menu-item ,bname-face
+                                 (lambda () (interactive)
+                                   (zw/tab-bar-switch-or-focus-buffer ,buffer))
+                                 :help ,(or (buffer-file-name buffer) (buffer-name buffer))))
+              (tab-seperator `(seperator menu-item ,buffer-separator ignore)))
+         (setq i (1+ i))
+         (if (= i buffer-list-length)
+             (list current-tab)
+           (list current-tab tab-seperator))))
+     buffer-list)))
+
 ;; * Keymap
 ;; switch to tab
 (defun zw/tab-switch (index-name)
@@ -296,9 +368,6 @@
                        tab-bar-separator
                        zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
-
-;; enable tab-bar
-(add-hook 'after-init-hook #'tab-bar-mode)
 
 ;; ** time
 (setq display-time-format "%b %-e %a %H:%M:%S %p"

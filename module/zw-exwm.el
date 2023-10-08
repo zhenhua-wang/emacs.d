@@ -154,13 +154,23 @@
              (eq major-mode 'dired-mode)
              (eq major-mode 'org-agenda-mode)))))
 
-(defun zw/exwm-display-buffer-list ()
+(defun zw/exwm-buffer-display-list ()
   (cl-remove-if-not 'zw/exwm-display-buffer-p (buffer-list)))
 
 (defun zw/exwm-buffer-visible-p (buffer)
   (or (get-buffer-window buffer)
       (with-selected-frame exwm-workspace--current
         (get-buffer-window buffer))))
+
+(defun zw/exwm-buffer--sort-time (x y)
+  (< (with-current-buffer x
+       (or zw/exwm-buffer-create-time most-positive-fixnum))
+     (with-current-buffer y
+       (or zw/exwm-buffer-create-time 0))))
+
+(defun zw/exwm-buffer-sorted-display-list ()
+  (sort (zw/exwm-buffer-display-list)
+        'zw/exwm-buffer--sort-time))
 
 (defvar-local zw/exwm-buffer-create-time nil)
 (defun zw/exwm-set-buffer-create-time ()
@@ -248,88 +258,6 @@
 
 ;; ** tab bar
 (require 'zw-tab-bar)
-;; *** workspace
-(defun zw/tab-bar-format-exwm-workspace ()
-  "Produce menu that shows current exwm workspace."
-  (let* ((bg (face-background 'tab-bar))
-         (bg-alt (pcase (frame-parameter nil 'background-mode)
-                   ('light (doom-darken bg 0.1))
-                   ('dark (doom-lighten bg 0.1)))))
-    `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
-                                     'face `(:background ,bg-alt :weight regular))
-              nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
-
-;; *** buffer
-(defun zw/tab-bar--buffer-sort (x y)
-  (< (with-current-buffer x
-       (or zw/exwm-buffer-create-time most-positive-fixnum))
-     (with-current-buffer y
-       (or zw/exwm-buffer-create-time 0))))
-
-(defun zw/tab-bar--buffer-list ()
-  (sort (zw/exwm-display-buffer-list)
-        'zw/tab-bar--buffer-sort))
-
-(defun zw/tab-bar-switch-or-focus-buffer (buffer)
-  "Switch to buffer if not visible, otherwise focus buffer."
-  (let* ((buffer-window (zw/exwm-buffer-visible-p buffer))
-         (buffer-float (with-current-buffer buffer exwm--floating-frame)))
-    (cond ((eq (current-buffer) buffer) nil)
-          ((and buffer-window buffer-float)
-           (when exwm--floating-frame (exwm-floating-hide))
-           (select-frame-set-input-focus buffer-float))
-          (buffer-window
-           (when exwm--floating-frame (exwm-floating-hide))
-           (select-window buffer-window))
-          (t
-           (when exwm--floating-frame (exwm-floating-hide))
-           (exwm-workspace-switch-to-buffer buffer)))))
-
-(defun zw/tab-bar-switch-to-buffer (i)
-  "Tab bar switch to buffer."
-  (let* ((buffer-list (zw/tab-bar--buffer-list))
-         (buffer-list-size (length buffer-list)))
-    (if (>= buffer-list-size i)
-        (let* ((buffer (nth (- i 1) buffer-list)))
-          (zw/tab-bar-switch-or-focus-buffer buffer))
-      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" (format "\"Tab-%d does not exist\"" i)))))
-
-(defun zw/tab-bar-format-buffers ()
-  "Show buffers of current frame on tab-bar."
-  (let* ((i 0)
-         (buffer-name-ellipsis ".")
-         (buffer-separator (propertize " | " 'face 'font-lock-comment-face))
-         (screen-width (frame-width))
-         (buffer-list (zw/tab-bar--buffer-list))
-         (buffer-list-length (length buffer-list))
-         (buffer-name-max (when (> buffer-list-length 0)
-                            (- (/ screen-width buffer-list-length 2)
-                               (length buffer-separator)
-                               5))))
-    (mapcan
-     (lambda (buffer)
-       (let* ((bname (truncate-string-to-width
-                      (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
-              (bname-face (if (string= (buffer-name buffer)
-                                       ;; handle multi-frames
-                                       (if (frame-live-p zw/active-frame)
-                                           (with-selected-frame zw/active-frame
-                                             (buffer-name))
-                                         (buffer-name)))
-                              (propertize bname 'face '(:weight bold))
-                            (propertize bname 'face 'font-lock-comment-face)))
-              (current-tab `(tab menu-item ,bname-face
-                                 (lambda () (interactive)
-                                   (zw/tab-bar-switch-or-focus-buffer ,buffer))
-                                 :help ,(or (buffer-file-name buffer) (buffer-name buffer))))
-              (tab-seperator `(seperator menu-item ,buffer-separator ignore)))
-         (setq i (1+ i))
-         (if (= i buffer-list-length)
-             (list current-tab)
-           (list current-tab tab-seperator))))
-     buffer-list)))
-
-;; *** config
 (setq tab-bar-show t
       tab-bar-format '(zw/tab-bar-format-exwm-workspace
                        tab-bar-separator
@@ -525,10 +453,8 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
-(defun zw/exwm--next-buffer (index)
-  (let* ((buffer-list (zw/tab-bar--buffer-list))
-         (buffer-length (length buffer-list))
-         (buffer (nth index buffer-list)))
+(defun zw/exwm--next-buffer (buffer-list buffer-length index)
+  (let* ((buffer (nth index buffer-list)))
     (cond
      ;; all buffers are visible
      ((cl-reduce (lambda (x y) (and x y))
@@ -537,20 +463,20 @@
       (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((zw/exwm-buffer-visible-p buffer)
-      (zw/exwm--next-buffer (mod (+ index 1) buffer-length)))
+      (zw/exwm--next-buffer buffer-list buffer-length (mod (+ index 1) buffer-length)))
      (t
       (when exwm--floating-frame (exwm-floating-hide))
       (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
   (interactive)
-  (let* ((buffer-list (zw/tab-bar--buffer-list))
+  (let* ((buffer-list (zw/exwm-buffer-sorted-display-list))
          (buffer-length (length buffer-list))
          (current-index (cl-position (current-buffer) buffer-list))
          (next-index (if current-index
                          (mod (+ current-index 1) buffer-length)
                        0)))
-    (zw/exwm--next-buffer next-index)))
+    (zw/exwm--next-buffer buffer-list buffer-length next-index)))
 
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
@@ -561,7 +487,7 @@
   (interactive)
   (let* ((buffers (cl-remove-if-not
                    (lambda (x) (not (eq (current-buffer) x)))
-                   (zw/exwm-display-buffer-list)))
+                   (zw/exwm-buffer-display-list)))
          (buffer-names (cl-map 'list 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
          (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
