@@ -50,14 +50,14 @@
 ;; keep track active UI
 (defvar zw/active-frame nil)
 (defvar zw/active-window nil)
-(defun zw/update-active-ui ()
+(defun zw/update-active-ui (&rest arg)
   "Update active UI."
   (let ((frame (selected-frame))
         (window (selected-window)))
     (unless (minibufferp (window-buffer window))
       (setq zw/active-frame frame))
     (setq zw/active-window (selected-window))))
-(add-hook 'post-command-hook #'zw/update-active-ui)
+(add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
 ;; * Global mode
 ;; modes run after init

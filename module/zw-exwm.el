@@ -400,14 +400,15 @@
         (set-frame-parameter (selected-frame) 'alpha-background 0)))))
 
 (defun zw/exwm-desktop-window-config ()
-  (pcase (buffer-name)
-    (" *Minibuf-0*" nil)
-    ("*scratch*" (let ((n-window (length (window-list))))
-                   (if (and (= n-window 1)
-                            (= (buffer-size) 0))
-                       (zw/exwm-set-ui nil)
-                     (zw/exwm-set-ui t))))
-    (_ (zw/exwm-set-ui t))))
+  (cond (exwm--floating-frame nil)
+        ((string= (buffer-name) " *Minibuf-0*") nil)
+        ((string= (buffer-name) "*scratch*")
+         (let ((n-window (length (window-list))))
+           (if (and (= n-window 1)
+                    (= (buffer-size) 0))
+               (zw/exwm-set-ui nil)
+             (zw/exwm-set-ui t))))
+        (t (zw/exwm-set-ui t))))
 
 (defun zw/exwm-scratch-post-command ()
   (when this-command
