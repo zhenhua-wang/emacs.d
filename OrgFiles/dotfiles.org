@@ -231,7 +231,7 @@ fade-exclude = ["class_g != 'Dunst'"];
 # blur
 backend = "glx";
 blur-method = "dual_kawase";
-blur-strength = 8;
+blur-strength = 5;
 blur-background = false;
 blur-background-frame = false;
 blur-background-fixed = false;
