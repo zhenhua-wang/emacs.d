@@ -292,11 +292,11 @@
     (let ((label (buffer-name
                   (window-buffer
                    (frame-selected-window zw/active-frame))))
-          (label-max 30))
+          (label-max 50)
+          (label-ellipsis ""))
       (if (> (length label) label-max)
           (truncate-string-to-width
-           label label-max nil nil
-           "...")
+           label label-max nil nil label-ellipsis)
         label)))
   (defun zw/exwm-polybar-update-exwm-workspace ()
     (zw/exwm-send-polybar-hook "exwm-workspace" 0))
