@@ -283,7 +283,9 @@
        ((string-match "AC" line)
         (setenv "EXWM_BAR_ADAPTER" line))))
     (with-eval-after-load "emacs-cpu-temperature"
-      (setenv "EXWM_BAR_TEMP" (substring-no-properties cpu-temperature--thermal-zone 12))))
+      (add-hook 'cpu-temperature-mode-hook
+                (lambda ()
+                  (setenv "EXWM_BAR_TEMP" (substring-no-properties cpu-temperature--thermal-zone 12))))))
   (defun zw/exwm-send-polybar-hook (module-name hook-index)
     (call-process-shell-command (format "polybar-msg action %s hook %s" module-name hook-index) nil 0))
   (defun zw/exwm-polybar-buffer-name ()
