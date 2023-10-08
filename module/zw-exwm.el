@@ -287,8 +287,7 @@
   (defun zw/exwm-polybar-buffer-name ()
     (let ((label (buffer-name
                   (window-buffer
-                   (frame-selected-window
-                    exwm-workspace--current))))
+                   (frame-selected-window zw/active-frame))))
           (label-max 30))
       (if (> (length label) label-max)
           (truncate-string-to-width
@@ -300,7 +299,8 @@
   (defun zw/exwm-polybar-update-buffer-name ()
     (zw/exwm-send-polybar-hook "emacs-buffer-name" 0))
   (add-hook 'exwm-workspace-switch-hook #'zw/exwm-polybar-update-exwm-workspace)
-  (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer-name))
+  (add-hook 'window-state-change-hook 'zw/exwm-polybar-update-buffer-name)
+  (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer-name))
 
 ;; ** minibuffer
 (vertico-posframe-mode 0)
