@@ -229,6 +229,11 @@ fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # opacity
 opacity-rule = ["90:class_g = 'Polybar'"];
+# blur: need to set "pseudo-transparency = false" in polybar
+# backend = "glx"
+# blur-method = "dual_kawase";
+# blur-strength = 12;
+# blur-background-exclude = ["class_g != 'Polybar'"];
 #+end_src
 
 * Vterm
@@ -994,6 +999,7 @@ height = 20pt
 line-size = 3pt
 radius = 0
 border-size = 0pt
+# need to set pseudo-transparency = true
 border-color = #00000000
 dpi = ${xrdb:Xft.dpi}
 cursor-click = pointer
