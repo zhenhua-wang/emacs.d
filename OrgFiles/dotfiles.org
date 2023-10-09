@@ -1062,10 +1062,11 @@ format-charging = <label-charging>
 type = internal/temperature
 interval = 1
 thermal-zone = ${env:EXWM_BAR_TEMP}
+label = "%temperature-c%"
 
 [module/powermenu]
 type = custom/text
-content = ""
+content = "  "
 click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
