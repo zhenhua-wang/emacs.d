@@ -210,10 +210,11 @@
                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                              'zw/modeline-default-inactive)))
     (_
-     (propertize "%l:%c %p "
-                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                             'zw/modeline-default-inactive))
-     (zw/modeline-count-region))))
+     (concat
+      (propertize "%l:%c %p "
+                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                              'zw/modeline-default-inactive))
+      (zw/modeline-count-region)))))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
