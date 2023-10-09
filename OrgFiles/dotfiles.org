@@ -808,11 +808,11 @@ USE_BUTTONS=YES
 window {
     /* properties for window widget */
     transparency:                "real";
-    location:                    east;
-    anchor:                      east;
+    location:                    center;
+    anchor:                      center;
     fullscreen:                  false;
-    width:                       115px;
-    x-offset:                    -15px;
+    width:                       800px;
+    x-offset:                    0px;
     y-offset:                    0px;
 
     /* properties for all widgets */
@@ -820,7 +820,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               12px;
+    border-radius:               20px;
     border-color:                @selected;
     cursor:                      "default";
     background-color:            @background;
@@ -831,18 +831,18 @@ mainbox {
     enabled:                     true;
     spacing:                     15px;
     margin:                      0px;
-    padding:                     15px;
+    padding:                     30px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "listview" ];
+    children:                    [ "inputbar", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
-    spacing:                     0px;
+    spacing:                     15px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px;
@@ -862,14 +862,14 @@ textbox-prompt-colon {
     expand:                      false;
     str:                         "";
     padding:                     12px 16px;
-    border-radius:               0px;
+    border-radius:               100%;
     background-color:            @urgent;
     text-color:                  @background;
 }
 prompt {
     enabled:                     true;
     padding:                     12px;
-    border-radius:               0px;
+    border-radius:               100%;
     background-color:            @active;
     text-color:                  @background;
 }
@@ -906,8 +906,8 @@ error-message {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     1;
-    lines:                       5;
+    columns:                     5;
+    lines:                       1;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -931,7 +931,7 @@ element {
     enabled:                     true;
     spacing:                     0px;
     margin:                      0px;
-    padding:                     20px 0px;
+    padding:                     40px 10px;
     border:                      0px solid;
     border-radius:               100%;
     border-color:                @selected;
@@ -940,7 +940,7 @@ element {
     cursor:                      pointer;
 }
 element-text {
-    font:                        "feather bold 24";
+    font:                        "feather bold 32";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
