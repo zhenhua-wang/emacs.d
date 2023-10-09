@@ -432,6 +432,10 @@ patch:
 ** Common
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/common.rasi")
 #+begin_src conf
+configuration {
+    font: "Noto Sans Mono 12";
+}
+
 ,* {
     background:     #1E2127FF;
     background-alt: #282B31FF;
@@ -439,7 +443,6 @@ patch:
     selected:       #61AFEFFF;
     active:         #98C379FF;
     urgent:         #E06C75FF;
-    font: "Noto Sans Mono 12";
 }
 #+end_src
 
