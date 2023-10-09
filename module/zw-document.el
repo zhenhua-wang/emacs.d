@@ -50,6 +50,7 @@
 ;; ** ox latex
 ;; htmlize.el is needed for exporting colorful codes to html
 (with-eval-after-load "ox-latex"
+  (require 'ox-beamer)
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
