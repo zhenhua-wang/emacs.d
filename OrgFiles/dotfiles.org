@@ -779,15 +779,6 @@ battery = ${env:EXWM_BAR_BATTERY}
 adapter = ${env:EXWM_BAR_ADAPTER}
 full-at = 100
 low-at = 30
-# discharging
-label-discharging = " %percentage_raw%%"
-label-discharging-font = 2
-format-discharging = <label-discharging>
-# charging
-label-charging = "+%percentage_raw%%"
-label-charging-font = 2
-label-charging-foreground = ${colors.green}
-format-charging = <label-charging>
 # full
 label-full = "100%"
 label-full-font = 2
@@ -797,6 +788,15 @@ label-low = " %percentage_raw%%"
 label-low-font = 2
 label-low-foreground = ${colors.red}
 format-low = <label-low>
+# discharging
+label-discharging = " %percentage_raw%%"
+label-discharging-font = 2
+format-discharging = <label-discharging>
+# charging
+label-charging = "+%percentage_raw%%"
+label-charging-font = 2
+label-charging-foreground = ${colors.green}
+format-charging = <label-charging>
 
 [module/temperature]
 type = internal/temperature
