@@ -439,6 +439,7 @@ patch:
     selected:       #61AFEFFF;
     active:         #98C379FF;
     urgent:         #E06C75FF;
+    font: "Noto Sans Mono 12";
 }
 #+end_src
 
@@ -446,7 +447,6 @@ patch:
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/config.rasi")
 #+begin_src conf
 configuration {
-  font: "Noto Sans Mono 12";
   matching: "fuzzy";
   show-icons: true;
   modi: "combi";
