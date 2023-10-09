@@ -119,9 +119,9 @@
   "Sidebar modeline directory."
   (car (last (split-string dir "/") 2)))
 
-(defun zw/dired-sidebar--modeline-format (sidebar-name)
+(defun zw/dired-sidebar--modeline-format (name)
   (list "%e" " "
-        `(:eval (propertize ,(concat sidebar-name zw/modeline-separator)
+        `(:eval (propertize ,(concat name zw/modeline-separator)
                             'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                         'zw/modeline-default-inactive)))
         '(:eval (zw/modeline-line-column))
