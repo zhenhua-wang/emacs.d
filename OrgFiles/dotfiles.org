@@ -735,8 +735,7 @@ rofi_cmd() {
     rofi -dmenu \
 	 -p "Uptime: $uptime" \
 	 -mesg "Uptime: $uptime" \
-	 -theme ${dir}/${theme}.rasi \
-         -dpi 1
+	 -theme ${dir}/${theme}.rasi
 }
 
 # Pass variables to rofi dmenu
@@ -941,7 +940,7 @@ element {
     cursor:                      pointer;
 }
 element-text {
-    font:                        "feather bold 20";
+    font:                        "feather bold 32";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
