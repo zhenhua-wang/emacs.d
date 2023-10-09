@@ -724,16 +724,16 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
 # Options
-shutdown='⏻ Shutdown'
-reboot=' Reboot'
-lock=' Lock'
-suspend=' Suspend'
-logout=' Logout'
+shutdown='⏻'
+reboot=''
+lock=''
+suspend=''
+logout=''
 
 # Rofi CMD
 rofi_cmd() {
     rofi -dmenu \
-	 -p "$host" \
+	 -p "Uptime: $uptime" \
 	 -mesg "Uptime: $uptime" \
 	 -theme ${dir}/${theme}.rasi \
          -dpi 1
@@ -801,6 +801,10 @@ configuration {
 /*****----- Global Properties -----*****/
 @import                          "common.rasi"
 
+/*
+USE_BUTTONS=YES
+*/
+
 /*****----- Main Window -----*****/
 window {
     /* properties for window widget */
@@ -808,7 +812,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       700px;
+    width:                       800px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -817,7 +821,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               20px;
     border-color:                @selected;
     cursor:                      "default";
     background-color:            @background;
@@ -826,20 +830,20 @@ window {
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     15px;
     margin:                      0px;
-    padding:                     20px;
+    padding:                     30px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
     background-color:            transparent;
-    children:                    [ "inputbar", "message", "listview" ];
+    children:                    [ "inputbar", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
-    spacing:                     10px;
+    spacing:                     15px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px;
@@ -847,7 +851,7 @@ inputbar {
     border-color:                @selected;
     background-color:            transparent;
     text-color:                  @foreground;
-    children:                    [ "textbox-prompt-colon", dummy, "prompt"];
+    children:                    [ "textbox-prompt-colon", "prompt"];
 }
 
 dummy {
@@ -858,15 +862,15 @@ textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "";
-    padding:                     10px 14px;
-    border-radius:               4px;
+    padding:                     12px 16px;
+    border-radius:               100%;
     background-color:            @urgent;
     text-color:                  @background;
 }
 prompt {
     enabled:                     true;
-    padding:                     10px;
-    border-radius:               4px;
+    padding:                     12px;
+    border-radius:               100%;
     background-color:            @active;
     text-color:                  @background;
 }
@@ -875,9 +879,9 @@ prompt {
 message {
     enabled:                     true;
     margin:                      0px;
-    padding:                     10px;
+    padding:                     12px;
     border:                      0px solid;
-    border-radius:               4px;
+    border-radius:               100%;
     border-color:                @selected;
     background-color:            @background-alt;
     text-color:                  @foreground;
@@ -892,7 +896,7 @@ textbox {
     markup:                      true;
 }
 error-message {
-    padding:                     10px;
+    padding:                     12px;
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
@@ -912,7 +916,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    spacing:                     10px;
+    spacing:                     15px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -928,15 +932,16 @@ element {
     enabled:                     true;
     spacing:                     0px;
     margin:                      0px;
-    padding:                     10px;
+    padding:                     40px 10px;
     border:                      0px solid;
-    border-radius:               4px;
+    border-radius:               100%;
     border-color:                @selected;
     background-color:            @background-alt;
     text-color:                  @foreground;
     cursor:                      pointer;
 }
 element-text {
+    font:                        "feather bold 32";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
@@ -944,8 +949,6 @@ element-text {
     horizontal-align:            0.5;
 }
 element selected.normal {
-    border:                      0px 2px 0px 2px;
-    border-radius:               4px;
     background-color:            var(selected);
     text-color:                  var(background);
 }
