@@ -429,6 +429,20 @@ patch:
 #+end_src
 
 * Rofi
+** Common
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/common.rasi")
+#+begin_src conf
+,* {
+    background:     #1E2127FF;
+    background-alt: #282B31FF;
+    foreground:     #FFFFFFFF;
+    selected:       #61AFEFFF;
+    active:         #98C379FF;
+    urgent:         #E06C75FF;
+}
+#+end_src
+
+** Launcher
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/config.rasi")
 #+begin_src conf
 configuration {
@@ -443,13 +457,10 @@ configuration {
   window-format: "{w} · {c} · {t}";
 }
 
+/*****----- Global Properties -----*****/
+@import                          "common.rasi"
+
 ,* {
-    background:     #1E2127FF;
-    background-alt: #282B31FF;
-    foreground:     #FFFFFFFF;
-    selected:       #61AFEFFF;
-    active:         #98C379FF;
-    urgent:         #E06C75FF;
     border-colour:               var(selected);
     handle-colour:               var(selected);
     background-colour:           var(background);
@@ -696,6 +707,267 @@ error-message {
 }
 #+end_src
 
+** Powermenu
+*** Shell
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/powermenu.sh")
+#+HEADER: :shebang "#!/bin/bash"
+#+begin_src sh
+# Current Theme
+dir="$HOME/.config/rofi"
+theme='powermenu'
+
+# CMDs
+uptime="`uptime -p | sed -e 's/up //g'`"
+host=`hostname`
+
+# Options
+shutdown='⏻ Shutdown'
+reboot=' Reboot'
+lock=' Lock'
+suspend=' Suspend'
+logout=' Logout'
+yes='✓ Yes'
+no='✗ No'
+
+# Rofi CMD
+rofi_cmd() {
+	rofi -dmenu \
+		-p "$host" \
+		-mesg "Uptime: $uptime" \
+		-theme ${dir}/${theme}.rasi
+}
+
+# Confirmation CMD
+confirm_cmd() {
+	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 250px;}' \
+		-theme-str 'mainbox {children: [ "message", "listview" ];}' \
+		-theme-str 'listview {columns: 2; lines: 1;}' \
+		-theme-str 'element-text {horizontal-align: 0.5;}' \
+		-theme-str 'textbox {horizontal-align: 0.5;}' \
+		-dmenu \
+		-p 'Confirmation' \
+		-mesg 'Are you Sure?' \
+		-theme ${dir}/${theme}.rasi
+}
+
+# Ask for confirmation
+confirm_exit() {
+	echo -e "$yes\n$no" | confirm_cmd
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+}
+
+# Execute Command
+run_cmd() {
+	selected="$(confirm_exit)"
+	if [[ "$selected" == "$yes" ]]; then
+		if [[ $1 == '--shutdown' ]]; then
+			systemctl poweroff
+		elif [[ $1 == '--reboot' ]]; then
+			systemctl reboot
+		elif [[ $1 == '--suspend' ]]; then
+			mpc -q pause
+			amixer set Master mute
+			systemctl suspend
+		elif [[ $1 == '--logout' ]]; then
+                        emacsclient -e "(recentf-save-list)"
+                        emacsclient -e "(save-some-buffers)"
+			killall emacs
+		fi
+	else
+		exit 0
+	fi
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+    $shutdown)
+		run_cmd --shutdown
+        ;;
+    $reboot)
+		run_cmd --reboot
+        ;;
+    $lock)
+		if [[ -x '/usr/bin/betterlockscreen' ]]; then
+			betterlockscreen -l
+		elif [[ -x '/usr/bin/i3lock' ]]; then
+			i3lock
+		fi
+        ;;
+    $suspend)
+		run_cmd --suspend
+        ;;
+    $logout)
+		run_cmd --logout
+        ;;
+esac
+#+end_src
+
+*** Style
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/rofi/powermenu.rasi")
+#+begin_src conf
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+}
+
+/*****----- Global Properties -----*****/
+@import                          "common.rasi"
+
+/*****----- Main Window -----*****/
+window {
+    /* properties for window widget */
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       605px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    /* properties for all widgets */
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @selected;
+    cursor:                      "default";
+    background-color:            @background;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     20px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            transparent;
+    children:                    [ "inputbar", "message", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    children:                    [ "textbox-prompt-colon", dummy, "prompt"];
+}
+
+dummy {
+    background-color:            transparent;
+}
+
+textbox-prompt-colon {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "";
+    padding:                     10px 14px;
+    border-radius:               4px;
+    background-color:            @urgent;
+    text-color:                  @background;
+}
+prompt {
+    enabled:                     true;
+    padding:                     10px;
+    border-radius:               4px;
+    background-color:            @active;
+    text-color:                  @background;
+}
+
+/*****----- Message -----*****/
+message {
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     10px;
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @selected;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+}
+textbox {
+    background-color:            inherit;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    placeholder-color:           @foreground;
+    blink:                       true;
+    markup:                      true;
+}
+error-message {
+    padding:                     10px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            @background;
+    text-color:                  @foreground;
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    columns:                     5;
+    lines:                       1;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    cursor:                      "default";
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                     true;
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     10px;
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @selected;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    cursor:                      pointer;
+}
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+element selected.normal {
+    border:                      0px 2px 0px 2px;
+    border-radius:               4px;
+    background-color:            var(selected);
+    text-color:                  var(background);
+}
+#+end_src
+
 * GTK3
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/gtk-3.0/settings.ini")
 #+begin_src conf
@@ -744,6 +1016,7 @@ cursor-scroll = ns-resize
 enable-ipc = true
 font-0 = monospace;2
 font-1 = monospace:weight=bold;2
+font-2 = Symbols Nerd Font Mono;2
 background = ${colors.background}
 foreground = ${colors.foreground}
 padding-left = 0
@@ -751,7 +1024,7 @@ padding-right = 1
 separator = " "
 
 modules-left = exwm-workspace emacs-buffer-name
-modules-right = temperature date battery
+modules-right = powermenu temperature date battery
 
 [module/exwm-workspace]
 type = custom/ipc
@@ -802,6 +1075,11 @@ format-charging = <label-charging>
 type = internal/temperature
 interval = 1
 thermal-zone = ${env:EXWM_BAR_TEMP}
+
+[module/powermenu]
+type = custom/text
+content = ""
+click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
 * Local variables
