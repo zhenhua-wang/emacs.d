@@ -1066,7 +1066,7 @@ label = "%temperature-c%"
 
 [module/powermenu]
 type = custom/text
-content = " "
+content = ""
 click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
