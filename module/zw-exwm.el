@@ -723,6 +723,13 @@
   (setq winner-currents (cl-remove-if-not #'frame-live-p winner-currents)))
 (advice-add 'winner-save-old-configurations :before #'zw/winner-remove-dead-frame)
 
+;; ** keycast
+(use-package keycast
+  :config
+  (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
+  (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
+  (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil)))
+
 ;; * exwm keymap
 ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys

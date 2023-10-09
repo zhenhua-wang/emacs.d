@@ -991,9 +991,9 @@ red = #A54242
 [bar/panel]
 width = 100%
 height = 20pt
-radius = 6
 line-size = 3pt
-border-size = 2pt
+radius = 0
+border-size = 0pt
 border-color = #00000000
 dpi = ${xrdb:Xft.dpi}
 cursor-click = pointer
