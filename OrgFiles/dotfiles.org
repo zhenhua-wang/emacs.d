@@ -226,7 +226,7 @@ unredir-if-possible = false;
 fading = true;
 fade-in-step = 0.028;
 fade-out-step = 0.03;
-fade-exclude = ["class_g != 'Dunst'"];
+fade-exclude = ["class_g != 'Dunst' && class_g != 'Rofi'"];
 # opacity
 opacity-rule = ["90:class_g = 'Polybar'"];
 #+end_src
