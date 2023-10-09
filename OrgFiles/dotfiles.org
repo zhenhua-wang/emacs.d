@@ -779,15 +779,20 @@ battery = ${env:EXWM_BAR_BATTERY}
 adapter = ${env:EXWM_BAR_ADAPTER}
 full-at = 100
 low-at = 30
+# discharging
 label-discharging = " %percentage_raw%%"
 label-discharging-font = 2
 format-discharging = <label-discharging>
+# charging
 label-charging = "+%percentage_raw%%"
 label-charging-font = 2
 label-charging-foreground = ${colors.green}
-label-full-foreground = ${colors.green}
-label-full-font = 2
 format-charging = <label-charging>
+# full
+label-full = "%percentage_raw%%"
+label-full-font = 2
+format-full = <label-full>
+# low
 label-low = " %percentage_raw%%"
 label-low-foreground = ${colors.red}
 label-low-font = 2
