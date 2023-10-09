@@ -789,13 +789,13 @@ label-charging-font = 2
 label-charging-foreground = ${colors.green}
 format-charging = <label-charging>
 # full
-label-full = "%percentage_raw%%"
+label-full = "100%"
 label-full-font = 2
 format-full = <label-full>
 # low
 label-low = " %percentage_raw%%"
-label-low-foreground = ${colors.red}
 label-low-font = 2
+label-low-foreground = ${colors.red}
 format-low = <label-low>
 
 [module/temperature]
