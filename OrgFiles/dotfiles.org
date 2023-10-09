@@ -1017,6 +1017,8 @@ enable-ipc = true
 font-0 = monospace;2
 font-1 = monospace:weight=bold;2
 font-2 = Symbols Nerd Font Mono;2
+font-3 = NotoEmoji:scale=10;2
+font-4 = NotoSansMonoCJKsc;2
 background = ${colors.background}
 foreground = ${colors.foreground}
 padding-left = 0
