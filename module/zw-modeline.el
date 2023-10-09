@@ -195,25 +195,25 @@
                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                              'zw/modeline-default-inactive)))
     ('dired-mode
-     (concat
-      (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
-                         (total-line-number (- (save-excursion
-                                                 (goto-char (point-max)) (backward-char)
-                                                 (line-number-at-pos))
-                                               info-line-number))
-                         (current-line-number (- (line-number-at-pos) info-line-number)))
-                    (format "%s/%d "
-                            (if (and (> current-line-number 0)
-                                     (<= current-line-number total-line-number))
-                                current-line-number
-                              "*")
-                            total-line-number))
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))))
+     (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
+                        (total-line-number (- (save-excursion
+                                                (goto-char (point-max)) (backward-char)
+                                                (line-number-at-pos))
+                                              info-line-number))
+                        (current-line-number (- (line-number-at-pos) info-line-number)))
+                   (format "%s/%d "
+                           (if (and (> current-line-number 0)
+                                    (<= current-line-number total-line-number))
+                               current-line-number
+                             "*")
+                           total-line-number))
+                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                             'zw/modeline-default-inactive)))
     (_
-     (concat
-      (propertize "%l:%c %p "
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive))
-      (zw/modeline-count-region)))))
+     (propertize "%l:%c %p "
+                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                             'zw/modeline-default-inactive))
+     (zw/modeline-count-region))))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
