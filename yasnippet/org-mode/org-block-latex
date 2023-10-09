@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex code block
-# key: <l
+# key: <latex
 # --
 
 #+begin_export latex
