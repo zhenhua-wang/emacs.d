@@ -747,8 +747,7 @@ confirm_cmd() {
 		-dmenu \
 		-p 'Confirmation' \
 		-mesg 'Are you Sure?' \
-		-theme ${dir}/${theme}.rasi \
-                -dpi 1
+		-theme ${dir}/${theme}.rasi
 }
 
 # Ask for confirmation
@@ -823,12 +822,12 @@ configuration {
 window {
     /* properties for window widget */
     transparency:                "real";
-    location:                    north east;
-    anchor:                      north east;
+    location:                    center;
+    anchor:                      center;
     fullscreen:                  false;
-    width:                       605px;
+    width:                       700px;
     x-offset:                    0px;
-    y-offset:                    40px;
+    y-offset:                    0px;
 
     /* properties for all widgets */
     enabled:                     true;
