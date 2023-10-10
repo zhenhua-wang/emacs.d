@@ -425,5 +425,13 @@
             (setq-local mode-line-process
                         '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings))))))
 
+;; ** dired
+(define-minor-mode zw-mode-line-dired-mode
+  "zw mode line dired mode."
+  :global nil
+  (if zw-mode-line-dired-mode
+      (add-hook 'post-command-hook #'force-mode-line-update nil t)
+    (remove-hook 'post-command-hook #'force-mode-line-update t)))
+
 ;; * Provide
 (provide 'zw-modeline)
