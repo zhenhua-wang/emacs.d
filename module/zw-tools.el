@@ -185,6 +185,11 @@
   (dired-find-file)
   (zw/dired-sidebar-enable (current-buffer)))
 
+(defun zw/dired-sidebar-mouse-find-file (event)
+  (interactive "e")
+  (dired-mouse-find-file event)
+  (zw/dired-sidebar-enable (current-buffer)))
+
 (defun zw/dired-sidebar-up-directory ()
   (interactive)
   (dired-up-directory)
@@ -204,7 +209,7 @@
     (,(kbd "s-b") . zw/kill-bufer-quit-window)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
-    (,(kbd "<mouse-2>") . zw/dired-sidebar-find-file)
+    (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize)))
 
 ;; * Openwith
