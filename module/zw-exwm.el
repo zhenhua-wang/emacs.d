@@ -865,7 +865,7 @@
            ;;close current buffer
            ("s-q" . (lambda ()
                       (interactive)
-                      (when (yes-or-no-p (format "Confirm kill %s? " exwm-class-name))
+                      (when (y-or-n-p (format "Confirm kill %s? " exwm-class-name))
                         (kill-this-buffer))))
            ;; window
            ("s-<left>" . windmove-left)
