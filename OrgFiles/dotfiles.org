@@ -1036,7 +1036,7 @@ format = "<output>"
 [module/date]
 type = internal/date
 interval = 1
-date = %a %H:%M:%S
+date = %b %d %a %H:%M:%S
 label = %date%
 
 [module/battery]
