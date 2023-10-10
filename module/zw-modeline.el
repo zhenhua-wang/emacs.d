@@ -174,47 +174,47 @@
 
 ;; ** line column
 (defun zw/modeline-line-column ()
-  (pcase major-mode
-    ((pred (lambda (mode) (member mode '(org-agenda-mode
-                                         image-mode
-                                         eaf-mode
-                                         vterm-mode
-                                         exwm-mode))))
-     "")
-    ('pdf-view-mode
-     (propertize (concat
-                  (number-to-string
-                   (pdf-view-current-page))
-                  "/"
-                  (or
-                   (ignore-errors
-                     (number-to-string
-                      (pdf-cache-number-of-pages)))
-                   "???")
-                  " ")
+  (cond
+   ((member major-mode '(org-agenda-mode
+                         image-mode
+                         eaf-mode
+                         vterm-mode
+                         exwm-mode))
+    "")
+   (zw-mode-line-dired-mode
+    (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
+                       (total-line-number (- (save-excursion
+                                               (goto-char (point-max)) (backward-char)
+                                               (line-number-at-pos))
+                                             info-line-number))
+                       (current-line-number (- (line-number-at-pos) info-line-number)))
+                  (format "%s/%d "
+                          (if (and (> current-line-number 0)
+                                   (<= current-line-number total-line-number))
+                              current-line-number
+                            "*")
+                          total-line-number))
+                'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                            'zw/modeline-default-inactive)))
+   ((eq major-mode 'pdf-view-mode)
+    (propertize (concat
+                 (number-to-string
+                  (pdf-view-current-page))
+                 "/"
+                 (or
+                  (ignore-errors
+                    (number-to-string
+                     (pdf-cache-number-of-pages)))
+                  "???")
+                 " ")
+                'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                            'zw/modeline-default-inactive)))
+   (t
+    (concat
+     (propertize "%l:%c %p "
                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                             'zw/modeline-default-inactive)))
-    ('dired-mode
-     (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
-                        (total-line-number (- (save-excursion
-                                                (goto-char (point-max)) (backward-char)
-                                                (line-number-at-pos))
-                                              info-line-number))
-                        (current-line-number (- (line-number-at-pos) info-line-number)))
-                   (format "%s/%d "
-                           (if (and (> current-line-number 0)
-                                    (<= current-line-number total-line-number))
-                               current-line-number
-                             "*")
-                           total-line-number))
-                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                             'zw/modeline-default-inactive)))
-    (_
-     (concat
-      (propertize "%l:%c %p "
-                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                              'zw/modeline-default-inactive))
-      (zw/modeline-count-region)))))
+                                             'zw/modeline-default-inactive))
+     (zw/modeline-count-region)))))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
