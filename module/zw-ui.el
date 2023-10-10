@@ -143,7 +143,8 @@
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
   :hook ((after-init . global-diff-hl-mode)
-         (diff-hl-mode . diff-hl-flydiff-mode))
+         (diff-hl-mode . diff-hl-flydiff-mode)
+         (dired-mode . diff-hl-dired-mode))
   :init (setq diff-hl-side 'left
               diff-hl-draw-borders nil
               diff-hl-show-staged-changes nil)
