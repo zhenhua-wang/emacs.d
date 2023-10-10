@@ -115,15 +115,17 @@
   (concat
    (zw/dired-sidebar--modeline-major-mode)))
 
-(defun zw/dired-sidebar--modeline-directory (dir)
-  "Sidebar modeline directory."
-  (car (last (split-string dir "/") 2)))
+(defun zw/dired-sidebar--modeline-name ()
+  "Sidebar modeline name."
+  (let* ((dir (dired-current-directory))
+         (name (car (last (split-string dir "/") 2))))
+    (propertize (concat name zw/modeline-separator)
+                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                            'zw/modeline-default-inactive))))
 
-(defun zw/dired-sidebar--modeline-format (name)
+(defun zw/dired-sidebar--modeline-format ()
   (list "%e" " "
-        `(:eval (propertize ,(concat name zw/modeline-separator)
-                            'face (zw/modeline-set-face 'zw/modeline-major-mode-active
-                                                        'zw/modeline-default-inactive)))
+        '(:eval (zw/dired-sidebar--modeline-name))
         '(:eval (zw/modeline-line-column))
         '(:eval (zw/modeline-remote))
         '(:eval (zw/modeline-middle-space (zw/dired-sidebar--modeline-rhs)))
@@ -146,11 +148,10 @@
     (when (eq major-mode 'dired-mode)
       (zw-dired-sidebar-mode 1)
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
-             (current-dir (zw/dired-sidebar--modeline-directory dir))
              (name (concat " :" dir)))
         (dired-hide-details-mode t)
         (rename-buffer name)
-        (setq-local mode-line-format (zw/dired-sidebar--modeline-format current-dir))
+        (setq-local mode-line-format (zw/dired-sidebar--modeline-format))
         (zw/dired-siderbar-display buffer)
         (set-window-dedicated-p (get-buffer-window buffer) t)))))
 
