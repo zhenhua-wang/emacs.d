@@ -107,7 +107,7 @@
   :defer t
   :commands R
   :hook
-  (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess-mode)
+  (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
@@ -127,7 +127,7 @@
              (forward-paragraph))))
   ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
   ;; See https://github.com/emacs-ess/ESS/issues/300"
-  (defun zw/ess-fix-read-only-inferior-ess-mode ()
+  (defun zw/ess-fix-read-only-inferior-ess ()
     (setq-local comint-use-prompt-regexp nil)
     (setq-local inhibit-field-text-motion nil))
   ;; fix freezing in macos by creating your process using pipe
