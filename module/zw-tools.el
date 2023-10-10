@@ -80,7 +80,7 @@
         dired-use-ls-dired t
         dired-listing-switches "-al --no-group --human-readable --group-directories-first"
         dired-omit-extensions '("~")
-        dired-omit-files "^\\.$\\|^\\.\\.$"
+        dired-omit-files "^\\.$"
         dired-omit-verbose nil)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls")))
