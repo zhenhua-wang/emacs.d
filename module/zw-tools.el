@@ -82,7 +82,10 @@
         dired-omit-files "^\\.$\\|^\\.\\.$"
         dired-omit-verbose nil)
   (when (eq system-type 'darwin)
-    (setq insert-directory-program "gls")))
+    (setq insert-directory-program "gls"))
+  :config
+  ;; force update mode line to display line number
+  (add-hook 'dired-mode-hook (lambda () (add-hook 'post-command-hook #'force-mode-line-update nil t))))
 
 (use-package diredfl
   :hook
