@@ -181,7 +181,7 @@
                          vterm-mode
                          exwm-mode))
     "")
-   (zw-mode-line-dired-mode
+   ((eq major-mode 'dired-mode)
     (propertize (let* ((info-line-number (if (eq dired-free-space 'separate) 2 1))
                        (total-line-number (- (save-excursion
                                                (goto-char (point-max)) (backward-char)
