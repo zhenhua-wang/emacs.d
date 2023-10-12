@@ -110,7 +110,7 @@
 ;; ** outline
 (use-package outline
   :hook
-  (prog-mode . zw/outline-init)
+  (prog-mode . zw/outline-setup)
   :bind
   ((:map outline-minor-mode-map
          ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)
@@ -159,7 +159,7 @@
     (save-excursion
       (backward-char)
       (zw/outline-reveal)))
-  (defun zw/outline-init ()
+  (defun zw/outline-setup ()
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
            (outline-header (rx-to-string
                             `(: (group (0+ space)
