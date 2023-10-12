@@ -107,13 +107,24 @@
   :defer t
   :commands R
   :hook
-  (inferior-ess-r-mode . zw/ess-fix-read-only-inferior-ess)
+  (ess-mode-hook . zw/ess-setup)
+  (inferior-ess-mode . zw/inferior-ess-setup)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
                ("C-c c e" . ess-complete-object-name)
                ("C-c C-c" . zw/ess-send-region-or-block)))
   :config
   (require 'ess-site)
+  (defun zw/ess-setup ()
+    (setq-local mode-line-process nil))
+  (defun zw/inferior-ess-setup ()
+    ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
+    ;; See https://github.com/emacs-ess/ESS/issues/300"
+    (setq-local comint-use-prompt-regexp nil)
+    (setq-local inhibit-field-text-motion nil)
+    ;; setup modeline
+    (setq-local mode-line-process
+                '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings)))))
   (defun zw/ess-indent ()
     (setq-local indent-line-function #'ess-r-indent-line))
   (defun zw/ess-send-region-or-block ()
@@ -125,11 +136,6 @@
           (goto-char end))
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
-  ;; "Fixes a bug when `comint-prompt-read-only' in non-nil.
-  ;; See https://github.com/emacs-ess/ESS/issues/300"
-  (defun zw/ess-fix-read-only-inferior-ess ()
-    (setq-local comint-use-prompt-regexp nil)
-    (setq-local inhibit-field-text-motion nil))
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)

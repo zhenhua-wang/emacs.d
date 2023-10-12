@@ -416,14 +416,5 @@
                            ;; env
                            '(:eval (zw/modeline-env)))))))
 
-;; ** ess
-(add-hook 'ess-mode-hook
-          (lambda ()
-            (setq-local mode-line-process nil)))
-(add-hook 'inferior-ess-mode-hook
-          (lambda ()
-            (setq-local mode-line-process
-                        '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings))))))
-
 ;; * Provide
 (provide 'zw-modeline)
