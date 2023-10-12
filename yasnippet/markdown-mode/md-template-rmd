@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: markdown header
-# key: <template
+# name: R markdown header
+# key: <template-rmd
 # --
 ---
 title: ${1:title}
