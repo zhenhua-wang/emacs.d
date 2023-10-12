@@ -18,6 +18,7 @@
         lsp-headerline-breadcrumb-enable nil
         ;; doc
         lsp-eldoc-enable-hover nil
+        lsp-signature-auto-activate nil
         lsp-signature-render-documentation nil
         ;; others
         lsp-enable-folding nil
