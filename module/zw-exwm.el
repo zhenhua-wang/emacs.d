@@ -239,6 +239,7 @@
                                  (define-key map (vector 'header-line 'mouse-1) cmd)
                                  map))))))
 
+;; *** toggle window type
 (defun zw/exwm-modeline-toggle-window-type ()
   (let ((window-type (if exwm--floating-frame "float" "tile")))
     (propertize window-type

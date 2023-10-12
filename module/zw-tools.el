@@ -62,8 +62,7 @@
   :hook
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
-  (dired-mode . zw-mode-line-dired-mode)
-  (dired-mode . (lambda () (visual-line-mode 0)))
+  (dired-mode . zw/dired-setup)
   :bind ((:map global-map
                ("s-b" . zw/dired-sidebar-toggle))
 
@@ -83,7 +82,10 @@
         dired-omit-files "^\\.$"
         dired-omit-verbose nil)
   (when (eq system-type 'darwin)
-    (setq insert-directory-program "gls")))
+    (setq insert-directory-program "gls"))
+  (defun zw/dired-setup ()
+    (visual-line-mode 0)
+    (add-hook 'post-command-hook #'force-mode-line-update nil t)))
 
 (use-package diredfl
   :hook
