@@ -383,10 +383,8 @@
              tab-bar-show)
     (display-battery-mode 1)))
 
-
-;; *** keycast
-(use-package keycast
-  :config
+;; ** keycast
+(with-eval-after-load "keycast"
   (setq keycast-tab-bar-format "%k%c%R "
         keycast-tab-bar-minimal-width 0)
   (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
