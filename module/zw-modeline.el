@@ -346,7 +346,6 @@
   (let* ((middle-space (string-pixel-width rhs)))
     (propertize
      " "
-     'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive)
      'display `((space :align-to
                        (- (+ right right-fringe right-margin)
                           (,middle-space)))))))
