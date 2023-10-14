@@ -9,8 +9,7 @@
 #+OPTIONS:   H:2 num:t toc:t \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
 #+OPTIONS:   d:nil todo:t pri:nil
 #+STARTUP: beamer
-#+LATEX_HEADER: \usetheme{Madrid}
-#+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
+#+SETUPFILE: ~/.emacs.d/OrgFiles/LatexTemplates/zw-latex-beamer.setup
 #+BIBLIOGRAPHY: ${3:bibliography file}
 
 $0

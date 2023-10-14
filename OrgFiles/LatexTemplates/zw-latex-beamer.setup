@@ -1,0 +1,9 @@
+#+LATEX_HEADER: \usepackage{lipsum}
+#+LATEX_HEADER: \usepackage{graphicx,xcolor}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \usepackage{amsmath,amssymb,amsfonts}
+#+LATEX_HEADER: \usepackage{caption}
+
+#+LATEX_HEADER: \usetheme{Madrid}
+#+LATEX_HEADER: \usefonttheme{professionalfonts}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}STRG}
