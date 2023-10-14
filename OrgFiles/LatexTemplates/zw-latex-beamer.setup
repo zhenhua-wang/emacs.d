@@ -6,4 +6,3 @@
 
 #+LATEX_HEADER: \usetheme{Madrid}
 #+LATEX_HEADER: \usefonttheme{professionalfonts}
-#+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}STRG}
