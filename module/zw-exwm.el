@@ -832,6 +832,8 @@
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
+                                 (recentf-save-list)
+                                 (save-some-buffers)
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/show-rofi)
         (,(kbd "s-<tab>") . zw/exwm-next-buffer)
