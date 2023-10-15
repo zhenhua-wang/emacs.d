@@ -219,9 +219,6 @@ timeout = 0
 * Picom
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/picom.conf")
 #+begin_src conf
-# resolve screen tearing
-vsync = true;
-unredir-if-possible = false;
 # fade
 fading = true;
 fade-in-step = 0.028;
