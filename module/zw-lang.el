@@ -107,7 +107,7 @@
   :defer t
   :commands R
   :hook
-  (ess-mode-hook . zw/ess-setup)
+  (ess-mode . zw/ess-setup)
   (inferior-ess-mode . zw/inferior-ess-setup)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
