@@ -93,14 +93,13 @@
   (setq pulsar-pulse t
         pulsar-delay 0.055
         pulsar-iterations 10
-        pulsar-face 'pulsar-generic
-        pulsar-highlight-face 'pulsar-yellow)
+        pulsar-face 'pulsar-red
+        pulsar-highlight-face 'pulsar-face)
   :hook
   (after-init . pulsar-global-mode)
   ;; integration with the `consult' package:
   (consult-after-jump . pulsar-recenter-top)
   (consult-after-jump . pulsar-reveal-entry)
-
   ;; integration with the built-in `imenu':
   (imenu-after-jump . pulsar-recenter-top)
   (imenu-after-jump . pulsar-reveal-entry))
