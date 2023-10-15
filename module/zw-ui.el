@@ -65,6 +65,7 @@
 
 ;; * Posframe
 (use-package posframe :defer t)
+
 ;; * Line number mode
 ;; line number mode
 (dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
