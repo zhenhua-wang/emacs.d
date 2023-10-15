@@ -273,9 +273,6 @@
          ("C-h k" . helpful-key)))
 
 ;; * Key hints
-(use-package hydra
-  :hook (emacs-lisp-mode . hydra-add-imenu))
-
 (use-package which-key
   :diminish
   :hook (after-init . which-key-mode)
