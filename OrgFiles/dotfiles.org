@@ -818,7 +818,7 @@ configuration {
     element-border-radius:       100%;
 
     textbox-font:                "Iosevka 20";
-    element-text-font:           "feather Bold 48";
+    element-text-font:           "Symbols Nerd Font 48";
 
     /* Gradients */
     gradient-1:                  linear-gradient(45, #1E98FD, #06FDA5);
