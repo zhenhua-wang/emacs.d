@@ -450,7 +450,7 @@ configuration {
     active:         #98C379FF;
     urgent:         #E06C75FF;
     /* Gradients */
-    gradient-1:                  linear-gradient(to right, #282c34, #4a4e69);
+    gradient-1:     linear-gradient(to right, #282c34, #4a4e69);
 }
 #+end_src
 
@@ -824,7 +824,7 @@ configuration {
     textbox-font:                "Iosevka 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    background-window:           #282c34;
+    background-window:           var(background-alt);
     background-normal:           white/5%;
     background-selected:         white/15%;
     foreground-normal:           white;
