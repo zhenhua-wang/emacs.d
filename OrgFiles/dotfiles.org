@@ -869,7 +869,6 @@ mainbox {
     children:                    [ "dummy", "message", "listview", "dummy" ];
 }
 
-/*****----- Inputbar -----*****/
 dummy {
     background-color:            transparent;
 }
