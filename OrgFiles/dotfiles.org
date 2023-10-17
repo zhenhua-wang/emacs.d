@@ -732,11 +732,11 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
 # Options
-shutdown=''
-reboot=''
-lock=''
+shutdown='󰐥'
+reboot='󰑙'
+lock=''
 suspend=''
-logout=''
+logout='󰍃'
 
 # Rofi CMD
 rofi_cmd() {
@@ -820,8 +820,8 @@ configuration {
     element-padding:             35px 0px;
     element-border-radius:       60px;
 
-    prompt-font:                 "Iosevka Bold 48";
-    textbox-font:                "Iosevka 20";
+    prompt-font:                 "Symbols Nerd Font Bold 48";
+    textbox-font:                "Symbols Nerd Font 20";
     element-text-font:           "Symbols Nerd Font 48";
 
     background-window:           var(background-alt);
