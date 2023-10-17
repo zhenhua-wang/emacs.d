@@ -741,7 +741,7 @@ logout=''
 # Rofi CMD
 rofi_cmd() {
     rofi -dmenu \
-	 -p "Uptime: $uptime" \
+	 -p "Goodbye ${USER}" \
 	 -mesg "Uptime: $uptime" \
 	 -theme ${dir}/${theme}.rasi
 }
@@ -812,20 +812,21 @@ configuration {
 ,* {
     /* Resolution : 1920x1080 */
     mainbox-spacing:             50px;
-    mainbox-margin:              0px 470px;
-    message-margin:              0px 350px;
-    message-padding:             15px;
-    message-border-radius:       100%;
+    mainbox-margin:              50px;
+    message-margin:              0px 300px;
+    message-padding:             12px;
+    message-border-radius:       12px;
     listview-spacing:            25px;
-    element-padding:             45px 40px;
-    element-border-radius:       100%;
+    element-padding:             35px 0px;
+    element-border-radius:       60px;
 
+    prompt-font:                 "Iosevka Bold 48";
     textbox-font:                "Iosevka 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    background-window:           var(gradient-1);
-    background-normal:           white/10%;
-    background-selected:         white/20%;
+    background-window:           #282c34;
+    background-normal:           white/5%;
+    background-selected:         white/15%;
     foreground-normal:           white;
     foreground-selected:         white;
 }
@@ -835,9 +836,11 @@ window {
     transparency:                "real";
     location:                    center;
     anchor:                      center;
-    fullscreen:                  true;
+    fullscreen:                  false;
+    width:                       1000px;
+    border-radius:               50px;
     cursor:                      "default";
-    background-image:            var(background-window);
+    background-color:            var(background-window);
 }
 
 /*****----- Main Box -----*****/
@@ -846,11 +849,25 @@ mainbox {
     spacing:                     var(mainbox-spacing);
     margin:                      var(mainbox-margin);
     background-color:            transparent;
-    children:                    [ "dummy", "message", "listview", "dummy" ];
+    children:                    [ "dummy", "inputbar", "listview", "message", "dummy" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                     true;
+    background-color:            transparent;
+    children:                    [ "dummy", "prompt", "dummy"];
 }
 
 dummy {
     background-color:            transparent;
+}
+
+prompt {
+    enabled:                     true;
+    font:                        var(prompt-font);
+    background-color:            transparent;
+    text-color:                  var(foreground-normal);
 }
 
 /*****----- Message -----*****/
