@@ -450,26 +450,7 @@ configuration {
     active:         #98C379FF;
     urgent:         #E06C75FF;
     /* Gradients */
-    gradient-1:                  linear-gradient(45, #1E98FD, #06FDA5);
-    gradient-2:                  linear-gradient(0, #F971C6, #7A72EC);
-    gradient-3:                  linear-gradient(70, #FFD56F, #FF6861);
-    gradient-4:                  linear-gradient(135, #44C6FA, #3043A1);
-    gradient-5:                  linear-gradient(to left, #bdc3c7, #2c3e50);
-    gradient-6:                  linear-gradient(to right, #0F2027, #203A43, #2C5364);
-    gradient-7:                  linear-gradient(to top, #12c2e9, #c471ed, #f64f59);
-    gradient-8:                  linear-gradient(to bottom, #FF0099, #493240);
-    gradient-9:                  linear-gradient(0, #1a2a6c, #b21f1f, #fdbb2d);
-    gradient-10:                 linear-gradient(0, #283c86, #45a247);
-    gradient-11:                 linear-gradient(0, #77A1D3, #79CBCA, #E684AE);
-    gradient-12:                 linear-gradient(0, #ff6e7f, #bfe9ff);
-    gradient-13:                 linear-gradient(0, #D31027, #EA384D);
-    gradient-14:                 linear-gradient(0, #DA22FF, #9733EE);
-    gradient-15:                 linear-gradient(0, #1D976C, #93F9B9);
-    gradient-16:                 linear-gradient(0, #232526, #414345);
-    gradient-17:                 linear-gradient(0, #833ab4, #fd1d1d, #fcb045);
-    gradient-18:                 linear-gradient(0, #667db6, #0082c8, #0082c8, #667db6);
-    gradient-19:                 linear-gradient(0, #03001e, #7303c0, #ec38bc, #fdeff9);
-    gradient-20:                 linear-gradient(0, #780206, #061161);
+    gradient-1:                  linear-gradient(to right, #282c34, #4a4e69);
 }
 #+end_src
 
@@ -842,8 +823,7 @@ configuration {
     textbox-font:                "Iosevka 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    /* background-window:           var(gradient-6); */
-    background-window:           url("~/.cache/emacs/wallpaper.png", width);
+    background-window:           var(gradient-1);
     background-normal:           white/10%;
     background-selected:         white/20%;
     foreground-normal:           white;
