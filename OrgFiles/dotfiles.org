@@ -837,7 +837,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1500px;
+    width:                       1300px;
     border-radius:               50px;
     cursor:                      "default";
     background-color:            var(background-window);
