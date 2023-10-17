@@ -842,7 +842,8 @@ configuration {
     textbox-font:                "Iosevka 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    background-window:           var(gradient-6);
+    /* background-window:           var(gradient-6); */
+    background-window:           url("~/.cache/emacs/wallpaper.png", width);
     background-normal:           white/10%;
     background-selected:         white/20%;
     foreground-normal:           white;
