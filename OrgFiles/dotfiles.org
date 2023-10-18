@@ -229,8 +229,11 @@ fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # opacity
 opacity-rule = ["90:class_g = 'Polybar'"];
-# blur: need to set "pseudo-transparency = false" in polybar
+# backend
 backend = "glx"
+glx-no-stencil = true;
+glx-no-rebind-pixmap = true;
+# blur: need to set "pseudo-transparency = false" in polybar
 blur-method = "dual_kawase";
 blur-strength = 12;
 blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
