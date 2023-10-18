@@ -823,7 +823,7 @@ configuration {
     element-padding:             35px 0px;
     element-border-radius:       60px;
 
-    prompt-font:                 "Symbols Nerd Font Bold 48";
+    prompt-font:                 "Symbols Nerd Font Bold Italic 48";
     textbox-font:                "Symbols Nerd Font 20";
     element-text-font:           "Symbols Nerd Font 48";
 
