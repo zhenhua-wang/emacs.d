@@ -228,12 +228,12 @@ fade-in-step = 0.028;
 fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # opacity
-opacity-rule = ["98:class_g = 'Polybar'"];
+opacity-rule = ["90:class_g = 'Polybar'"];
 # blur: need to set "pseudo-transparency = false" in polybar
-# backend = "glx"
-# blur-method = "dual_kawase";
-# blur-strength = 12;
-# blur-background-exclude = ["class_g != 'Polybar'"];
+backend = "glx"
+blur-method = "dual_kawase";
+blur-strength = 12;
+blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
 #+end_src
 
 * Vterm
@@ -824,7 +824,7 @@ configuration {
     textbox-font:                "Symbols Nerd Font 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    background-window:           var(background-alt);
+    background-window:           black/20%;
     background-normal:           white/5%;
     background-selected:         white/15%;
     foreground-normal:           white;
