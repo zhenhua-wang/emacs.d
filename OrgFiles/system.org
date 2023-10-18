@@ -65,7 +65,7 @@ git config --global credential.helper store
 # SDDM theme
 yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 # misc
-yay -S firefox kitty aspell aspell-en
+yay -S firefox kitty aspell aspell-en htop
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
