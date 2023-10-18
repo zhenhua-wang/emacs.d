@@ -751,6 +751,7 @@
         (,(kbd "s--") . ,(kbd "C--"))
         (,(kbd "s-=") . ,(kbd "C-="))
         (,(kbd "s-+") . ,(kbd "C-+"))
+        (,(kbd "s-p") . ,(kbd "C-p"))
         ;; tab
         (,(kbd "s-t") . ,(kbd "C-t"))
         (,(kbd "s-T") . ,(kbd "C-S-t"))
