@@ -824,7 +824,7 @@ configuration {
     textbox-font:                "Symbols Nerd Font 20";
     element-text-font:           "Symbols Nerd Font 48";
 
-    background-window:           black/20%;
+    background-window:           black/40%;
     background-normal:           white/5%;
     background-selected:         white/15%;
     foreground-normal:           white;
