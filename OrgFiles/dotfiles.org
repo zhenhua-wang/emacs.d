@@ -230,10 +230,10 @@ fade-exclude = ["class_g != 'Dunst'"];
 # opacity
 opacity-rule = ["90:class_g = 'Polybar'"];
 # blur: need to set "pseudo-transparency = false" in polybar
-backend = "glx"
-blur-method = "dual_kawase";
-blur-strength = 12;
-blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
+# backend = "glx"
+# blur-method = "dual_kawase";
+# blur-strength = 12;
+# blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
 #+end_src
 
 * Vterm
