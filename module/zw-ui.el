@@ -64,7 +64,9 @@
   (markdown-mode . iscroll-mode))
 
 ;; * Posframe
-(use-package posframe :defer t)
+(use-package posframe
+  :if (display-graphic-p)
+  :defer t)
 
 ;; * Line number mode
 ;; line number mode

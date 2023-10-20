@@ -52,6 +52,7 @@
 
 ;; * frontend
 (use-package company-posframe
+  :if (display-graphic-p)
   :hook
   (company-mode . company-posframe-mode)
   :bind ((:map company-posframe-active-map
