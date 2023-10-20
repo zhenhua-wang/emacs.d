@@ -36,7 +36,8 @@
               company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
-                                         vterm-mode eshell-mode)
+                                         vterm-mode eshell-mode
+                                         inferior-ess-mode)
               company-backends '(company-files
                                  company-capf
                                  company-yasnippet))
