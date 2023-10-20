@@ -51,6 +51,7 @@
            (cl-remove-if (lambda (x) (string-suffix-p "/" x)) files))))
 
 (use-package vertico-posframe
+  :if (display-graphic-p)
   :hook (vertico-mode . vertico-posframe-mode)
   :config
   (defun vertico-posframe-set-cursor (&rest args)
