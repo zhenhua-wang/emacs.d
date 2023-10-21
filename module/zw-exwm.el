@@ -599,7 +599,10 @@
 (use-package desktop-environment
   :demand t
   :bind ((:map desktop-environment-mode-map
-               ("s-l" . nil)))
+               ("s-l" . nil)
+               ("s-<print>" . desktop-environment-screenshot)
+               ("<print>" . desktop-environment-screenshot-part)
+               ("s-$" . desktop-environment-screenshot-part)))
   :config
   (defun zw/desktop-environment-dunst-advice (dunst-options dunst-summary truncate-p alt-msg func &rest args)
     (let* ((inhibit-message t)
