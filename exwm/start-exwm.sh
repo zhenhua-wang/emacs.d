@@ -22,6 +22,12 @@ export EDITOR="$VISUAL"
 # fix java display
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# scale DPI
+export EXWM_DPI=$(xrdb -query | grep dpi | grep -o '[0-9]\+')
+export EXWM_DPI_SCALE=$((EXWM_DPI/96))
+export GDK_SCALE=$((EXWM_DPI_SCALE))
+export GDK_DPI_SCALE=$(awk -v var="$EXWM_DPI_SCALE" "BEGIN {print 1/var}")
+
 # Fire it up
 # exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/module/zw-exwm.el
 # exec emacs -mm --debug-init -l ~/.emacs.d/module/zw-exwm.el
