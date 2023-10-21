@@ -55,7 +55,9 @@
   (when (executable-find "plank")
     (zw/exwm-run-in-background "plank"))
   (when (executable-find "polybar")
-    (zw/exwm-run-in-background "polybar panel")))
+    (zw/exwm-run-in-background "polybar panel"))
+  (when (executable-find "flameshot")
+    (zw/exwm-run-in-background "flameshot")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
@@ -654,7 +656,9 @@
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
         desktop-environment-brightness-normal-increment "10%+"
-        desktop-environment-brightness-normal-decrement "10%-")
+        desktop-environment-brightness-normal-decrement "10%-"
+        desktop-environment-screenshot-command "flameshot full"
+        desktop-environment-screenshot-partial-command "flameshot gui")
   ;; volume
   (advice-add 'desktop-environment-toggle-mute :around
               (lambda (func)
@@ -679,15 +683,6 @@
               (lambda (func)
                 (or (zw/desktop-environment-dunst-advice "-r 3 -i xt7-player-mpv" "Player" nil nil func)
                     (zw/exwm-dunst-send-message "-r 3 -i xt7-player-mpv" "Player" "Next"))))
-  ;; screenshot
-  (advice-add 'desktop-environment-screenshot :around
-              (lambda (func &rest args)
-                (zw/desktop-environment-dunst-advice "-r 4 -i gnome-screenshot" "Screenshot" nil
-                                                     "\"Screenshot taken\"" func args)))
-  (advice-add 'desktop-environment-screenshot-part :around
-              (lambda (func &rest args)
-                (zw/desktop-environment-dunst-advice "-r 4 -i gnome-screenshot" "Screenshot" nil
-                                                     "\"Please select the part of your screen to shoot\"" func args)))
   (desktop-environment-mode))
 
 ;; ** app launcher

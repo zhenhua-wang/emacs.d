@@ -36,7 +36,7 @@ sudo make install
 ** Exwm
 #+begin_src sh
 # required
-yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl scrot fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi
+yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi flameshot
 # optional
 yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 #+end_src
