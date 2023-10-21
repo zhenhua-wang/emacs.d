@@ -600,7 +600,7 @@
   :demand t
   :bind ((:map desktop-environment-mode-map
                ("s-l" . nil)
-               ("s-<print>" . desktop-environment-screenshot)
+               ("S-<print>" . desktop-environment-screenshot)
                ("<print>" . desktop-environment-screenshot-part)
                ("s-$" . desktop-environment-screenshot-part)))
   :config
