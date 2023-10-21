@@ -938,7 +938,7 @@ element selected.normal {
 #+begin_src conf
 [Settings]
 gtk-theme-name=Arc-Dark
-gtk-icon-theme-name=Papirus
+gtk-icon-theme-name=Papirus-Dark
 gtk-font-name=Cantarell 11
 gtk-cursor-theme-name=Breeze
 gtk-cursor-theme-size=0
