@@ -21,7 +21,7 @@ Section "InputClass"
     MatchProduct "BY Tech Air75"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
-    Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+    Option "XkbOptions" "caps:ctrl_modifier"
 EndSection
 
 Section "InputClass"
@@ -29,7 +29,7 @@ Section "InputClass"
     MatchProduct "Air75 BT5.0"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
-    Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
+    Option "XkbOptions" "caps:ctrl_modifier"
 EndSection
 #+end_src
 
