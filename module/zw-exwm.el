@@ -55,9 +55,7 @@
   (when (executable-find "plank")
     (zw/exwm-run-in-background "plank"))
   (when (executable-find "polybar")
-    (zw/exwm-run-in-background "polybar panel"))
-  (when (executable-find "flameshot")
-    (zw/exwm-run-in-background "flameshot")))
+    (zw/exwm-run-in-background "polybar panel")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
