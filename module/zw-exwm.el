@@ -401,7 +401,7 @@
         (set-frame-parameter exwm-workspace--current 'alpha 0)))))
 
 (defun zw/exwm-desktop-window-config ()
-  (cond ((or exwm--floating-frame
+  (cond ((or (not (eq (selected-frame) exwm-workspace--current))
              (minibufferp)) nil)
         ((string= (buffer-name) "*scratch*")
          (let ((n-window (length (window-list))))
