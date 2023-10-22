@@ -83,7 +83,7 @@
           (propertize (zw/exwm-modeline-float-hide)
                       'face 'zw/modeline-process-active)))
 
-(let* ((panel-height (if (executable-find "polybar") exwm-systemtray-height 0))
+(let* ((panel-height (if (executable-find "polybar") (line-pixel-height) 0))
        (float-width (floor (/ (frame-pixel-width) 1.1)))
        (float-height (floor (/ (frame-pixel-height) 1.1)))
        (float-x (/ (- (frame-pixel-width) float-width) 2))
