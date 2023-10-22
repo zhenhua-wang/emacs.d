@@ -23,6 +23,7 @@
         ;; others
         lsp-enable-folding nil
         lsp-completion-provider :none
+        lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
         lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
         lsp-enable-file-watchers nil
