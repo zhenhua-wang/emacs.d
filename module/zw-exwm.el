@@ -402,7 +402,7 @@
 
 (defun zw/exwm-desktop-window-config ()
   (cond ((or exwm--floating-frame
-             (string= (buffer-name) " *Minibuf-0*")) nil)
+             (minibufferp)) nil)
         ((string= (buffer-name) "*scratch*")
          (let ((n-window (length (window-list))))
            (if (and (= n-window 1)
