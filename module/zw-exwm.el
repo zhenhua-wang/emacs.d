@@ -491,6 +491,14 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
+(defun zw/exwm-switch-to-buffer-advice (&rest args)
+  (when exwm--floating-frame
+    (select-frame-set-input-focus exwm-workspace--current)
+    (select-window (frame-root-window exwm-workspace--current))))
+(advice-add 'find-file :before 'zw/exwm-switch-to-buffer-advice)
+(advice-add 'switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
+(advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
+
 (defun zw/exwm--next-buffer (buffer-list buffer-length index)
   (let* ((buffer (nth index buffer-list)))
     (cond
@@ -502,9 +510,7 @@
      ;; next buffer is visible
      ((zw/exwm-buffer-visible-p buffer)
       (zw/exwm--next-buffer buffer-list buffer-length (mod (+ index 1) buffer-length)))
-     (t
-      (when exwm--floating-frame (exwm-floating-hide))
-      (exwm-workspace-switch-to-buffer buffer)))))
+     (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
   (interactive)
