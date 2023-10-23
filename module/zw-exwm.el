@@ -502,14 +502,10 @@
 (defun zw/exwm--next-buffer (buffer-list buffer-length index)
   (let* ((buffer (nth index buffer-list)))
     (cond
-     ;; all buffers are visible
-     ((cl-reduce (lambda (x y) (and x y))
-                 (cl-map 'list 'zw/exwm-buffer-visible-p buffer-list)
-                 :initial-value t)
-      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
-     ((zw/exwm-buffer-visible-p buffer)
-      (zw/exwm--next-buffer buffer-list buffer-length (mod (+ index 1) buffer-length)))
+     ((get-buffer-window buffer)
+      (select-frame-set-input-focus exwm-workspace--current)
+      (select-window (get-buffer-window buffer)))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/exwm-next-buffer ()
