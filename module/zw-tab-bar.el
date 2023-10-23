@@ -221,13 +221,16 @@
          (buffer-float (with-current-buffer buffer exwm--floating-frame)))
     (cond ((eq (current-buffer) buffer) nil)
           ((and buffer-window buffer-float)
-           (when exwm--floating-frame (exwm-floating-hide))
+           (when exwm--floating-frame
+             (select-frame-set-input-focus exwm-workspace--current))
            (select-frame-set-input-focus buffer-float))
           (buffer-window
-           (when exwm--floating-frame (exwm-floating-hide))
+           (when exwm--floating-frame
+             (select-frame-set-input-focus exwm-workspace--current))
            (select-window buffer-window))
           (t
-           (when exwm--floating-frame (exwm-floating-hide))
+           (when exwm--floating-frame
+             (select-frame-set-input-focus exwm-workspace--current))
            (exwm-workspace-switch-to-buffer buffer)))))
 
 (defun zw/tab-bar-switch-to-buffer (i)
