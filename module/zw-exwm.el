@@ -502,6 +502,10 @@
 (defun zw/exwm--next-buffer (buffer-list buffer-length index)
   (let* ((buffer (nth index buffer-list)))
     (cond
+     ;; no other invisible buffers
+     ((or (not buffer-list)
+          (and (length= buffer-list 1) (eq (car buffer-list) (current-buffer))))
+      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
      ;; next buffer is visible
      ((get-buffer-window buffer)
       (select-frame-set-input-focus exwm-workspace--current)
