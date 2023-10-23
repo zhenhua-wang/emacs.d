@@ -154,8 +154,7 @@
        (with-current-buffer x
          (or (buffer-file-name)
              (eq major-mode 'exwm-mode)
-             (eq major-mode 'dired-mode)
-             (eq major-mode 'org-agenda-mode)))))
+             (eq major-mode 'dired-mode)))))
 
 (defun zw/exwm-buffer-display-list ()
   (cl-remove-if-not 'zw/exwm-display-buffer-p (buffer-list)))
