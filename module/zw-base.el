@@ -126,6 +126,13 @@
               large-hscroll-threshold 1000
               syntax-wholeline-max 1000)
 
+;; ** Whitespace
+(dolist (mode '(prog-mode-hook
+                text-mode-hook))
+  (add-hook mode (lambda ()
+                   (if buffer-file-name
+                       (setq-local show-trailing-whitespace t)))))
+
 ;; * Tool
 ;; ** Comint
 ;; Make processes’ outputs read-only.

@@ -176,13 +176,6 @@
          (display-buffer-reuse-mode-window display-buffer-below-selected)
          (window-height . shrink-window-if-larger-than-buffer))))
 
-;; * Whitespace
-(dolist (mode '(prog-mode-hook
-                text-mode-hook))
-  (add-hook mode (lambda ()
-                   (if buffer-file-name
-                       (setq-local show-trailing-whitespace t)))))
-
 ;; * Side window
 (defcustom zw/side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
   "List of modes of buffer displayed in side window.")
