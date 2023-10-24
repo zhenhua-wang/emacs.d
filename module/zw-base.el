@@ -98,6 +98,41 @@
               ;; use spaces for indent
               indent-tabs-mode nil)
 
+;; * Tool
+;; ** Comint
+(use-package comint
+  :straight (:type built-in)
+  :config
+  ;; Make processes’ outputs read-only. The prompt is easy.
+  (setq comint-prompt-read-only t
+        comint-scroll-to-bottom-on-input t
+        comint-scroll-to-bottom-on-output nil
+        comint-move-point-for-output nil))
+
+;; ** Recentf
+(use-package recentf
+  :straight (:type built-in)
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+                no-littering-var-directory no-littering-etc-directory
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name)
+  ;; save recentf-list before closing frame
+  (advice-add 'save-buffers-kill-terminal :before 'recentf-save-list))
+
+;; ** Savehist
+(use-package savehist
+  :hook (after-init . savehist-mode)
+  :config (setq enable-recursive-minibuffers t
+                history-length 25))
+
 ;; * Editor
 ;; ** Copy
 (setq-default
