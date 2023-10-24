@@ -11,6 +11,14 @@
   :hook (after-init . super-save-mode)
   :config (setq super-save-auto-save-when-idle t))
 
+;; * Auto revert
+(use-package autorevert
+  :straight (:type built-in)
+  :hook (after-init . global-auto-revert-mode)
+  :config
+  (setq global-auto-revert-non-file-buffers t
+        revert-buffer-quick-short-answers t))
+
 ;; * Sudo edit
 (use-package sudo-edit
   :commands (sudo-edit))

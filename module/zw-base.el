@@ -67,8 +67,6 @@
                 fringe-mode
                 ;; warp long line
                 global-visual-line-mode
-                ;; Revert buffers when the underlying file has changed
-                global-auto-revert-mode
                 ;; yank overwrite what is selected
                 delete-selection-mode
                 ;; record last location in the file
@@ -98,10 +96,7 @@
               save-interprogram-paste-before-kill t
               select-enable-clipboard t
               ;; copy while draging mouse
-              mouse-drag-copy-region t
-              ;; revert buffer
-              global-auto-revert-non-file-buffers t
-              revert-buffer-quick-short-answers t)
+              mouse-drag-copy-region t)
 ;; default coding
 (set-default-coding-systems 'utf-8)
 
