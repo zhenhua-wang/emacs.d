@@ -7,7 +7,6 @@
 
 ;; * Auto save
 (use-package super-save
-  :diminish
   :hook (after-init . super-save-mode)
   :config (setq super-save-auto-save-when-idle t))
 

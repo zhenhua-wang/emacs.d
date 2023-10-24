@@ -38,31 +38,6 @@
             (setq-local buffer-face-mode-face 'fixed-pitch)
             (buffer-face-mode)))
 
-;; * Scroll
-(setq scroll-step 0
-      scroll-margin 1
-      scroll-conservatively 101
-      scroll-preserve-screen-position t
-      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-      mouse-wheel-scroll-amount-horizontal 2
-      mouse-wheel-progressive-speed nil
-      auto-window-vscroll nil
-      fast-but-imprecise-scrolling t)
-
-(when (fboundp 'pixel-scroll-precision-mode)
-  (pixel-scroll-precision-mode t)
-  (setq touch-screen-precision-scroll t)
-  (bind-keys :map pixel-scroll-precision-mode-map
-             ("<prior>" . nil)
-             ("<next>" . nil)))
-
-(use-package iscroll
-  :diminish
-  :hook
-  (image-mode . iscroll-mode)
-  (org-mode . iscroll-mode)
-  (markdown-mode . iscroll-mode))
-
 ;; * Posframe
 (use-package posframe
   :if (display-graphic-p)
@@ -84,7 +59,6 @@
 ;; * Rainbow mode
 ;; Sets the background of HTML color strings in buffers to be the color mentioned.
 (use-package rainbow-mode
-  :diminish
   :hook
   (prog-mode . rainbow-mode)
   (text-mode . rainbow-mode))

@@ -232,7 +232,6 @@
 ;; * Spell checker
 (use-package flyspell
   :straight (:type built-in)
-  :diminish
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :init (setq flyspell-issue-message-flag nil

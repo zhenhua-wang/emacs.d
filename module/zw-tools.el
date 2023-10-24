@@ -239,7 +239,6 @@
 
 ;; * Which Key
 (use-package which-key
-  :diminish
   :hook (after-init . which-key-mode)
   :config
   (setq which-key-idle-delay 0.3))
@@ -274,6 +273,13 @@
   :config
   (setq isearch-lazy-count t
         lazy-count-prefix-format "%s/%s "))
+
+;; * Image scroll
+(use-package iscroll
+  :hook
+  (image-mode . iscroll-mode)
+  (org-mode . iscroll-mode)
+  (markdown-mode . iscroll-mode))
 
 ;; * Custom tools
 (defun zw/quit-window-kill-bufer ()

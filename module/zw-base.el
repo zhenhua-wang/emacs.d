@@ -135,6 +135,24 @@
                 history-length 25))
 
 ;; * Editor
+;; ** Scroll
+(setq scroll-step 0
+      scroll-margin 1
+      scroll-conservatively 101
+      scroll-preserve-screen-position t
+      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
+      mouse-wheel-scroll-amount-horizontal 2
+      mouse-wheel-progressive-speed nil
+      auto-window-vscroll nil
+      fast-but-imprecise-scrolling t)
+
+(when (fboundp 'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode t)
+  (setq touch-screen-precision-scroll t)
+  (bind-keys :map pixel-scroll-precision-mode-map
+             ("<prior>" . nil)
+             ("<next>" . nil)))
+
 ;; ** Copy
 (setq-default
  ;; save clipboard before kill ring

@@ -2,7 +2,6 @@
 
 ;; * Garbage collection
 (use-package gcmh
-  :diminish
   :hook
   (after-init . gcmh-mode)
   :init
