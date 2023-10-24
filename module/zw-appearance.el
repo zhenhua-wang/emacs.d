@@ -262,4 +262,4 @@
     (message "No buffer in side window.")))
 
 ;; * Provide
-(provide 'zw-ui)
+(provide 'zw-appearance)

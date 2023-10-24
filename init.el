@@ -27,7 +27,7 @@
 (require 'zw-startup)
 (require 'zw-base)
 ;; appearance
-(require 'zw-ui)
+(require 'zw-appearance)
 (require 'zw-theme)
 (require 'zw-modeline)
 ;; tools
