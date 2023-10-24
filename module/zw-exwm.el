@@ -812,8 +812,6 @@
         (,(kbd "s-}") . enlarge-window-horizontally)
         (,(kbd "s-{") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
-        (,(kbd "s-u") . winner-undo)
-        (,(kbd "s-U") . winner-redo)
         ;; side bar
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
