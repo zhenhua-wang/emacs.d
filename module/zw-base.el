@@ -82,7 +82,8 @@
     (bury-buffer)
     nil))
 
-;; * UI
+;; * Appearance
+;; ** UI
 (dolist (mode '(window-divider-mode
                 blink-cursor-mode
                 ;; fringe (nil is default)
@@ -98,16 +99,40 @@
               ;; use spaces for indent
               indent-tabs-mode nil)
 
+;; ** Buffer face mode
+;; Set fixed-font faces for prog
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local buffer-face-mode-face 'fixed-pitch)
+            (buffer-face-mode)))
+
+;; ** Line number mode
+;; line number mode
+(dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook mode 'display-line-numbers-mode))
+;; Override some modes which derive from the above
+(dolist (mode '(org-mode-hook markdown-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; ** Warp long line
+(add-hook 'after-init-hook 'global-visual-line-mode)
+
+;; ** So long
+(add-hook 'after-init-hook 'global-so-long-mode)
+;; HACK: disable bidi for long lines
+(setq-default bidi-display-reordering nil
+              bidi-inhibit-bpa t
+              long-line-threshold 1000
+              large-hscroll-threshold 1000
+              syntax-wholeline-max 1000)
+
 ;; * Tool
 ;; ** Comint
-(use-package comint
-  :straight (:type built-in)
-  :config
-  ;; Make processes’ outputs read-only. The prompt is easy.
-  (setq comint-prompt-read-only t
-        comint-scroll-to-bottom-on-input t
-        comint-scroll-to-bottom-on-output nil
-        comint-move-point-for-output nil))
+;; Make processes’ outputs read-only.
+(setq comint-prompt-read-only t
+      comint-scroll-to-bottom-on-input t
+      comint-scroll-to-bottom-on-output nil
+      comint-move-point-for-output nil)
 
 ;; ** Recentf
 (use-package recentf
@@ -128,11 +153,9 @@
   (advice-add 'save-buffers-kill-terminal :before 'recentf-save-list))
 
 ;; ** Savehist
-(use-package savehist
-  :straight (:type built-in)
-  :hook (after-init . savehist-mode)
-  :config (setq enable-recursive-minibuffers t
-                history-length 25))
+(add-hook 'after-init-hook 'savehist-mode)
+(setq enable-recursive-minibuffers t
+      history-length 25)
 
 ;; ** Scroll
 (setq scroll-step 0
@@ -152,30 +175,8 @@
              ("<prior>" . nil)
              ("<next>" . nil)))
 
-;; ** So long
-(use-package so-long
-  :straight (:type built-in)
-  :hook (after-init . global-so-long-mode)
-  :init
-  ;; HACK: disable bidi for long lines
-  (setq-default bidi-display-reordering nil
-                bidi-inhibit-bpa t
-                long-line-threshold 1000
-                large-hscroll-threshold 1000
-                syntax-wholeline-max 1000))
-
-;; ** Visual line
-(use-package simple
-  :straight (:type built-in)
-  :hook
-  ;; warp long line
-  (after-init . global-visual-line-mode))
-
 ;; ** Save place
-(use-package saveplace
-  :straight (:type built-in)
-  ;; record last location in the file
-  :hook (after-init . save-place-mode))
+(add-hook 'after-init-hook 'save-place-mode)
 
 ;; * Editor
 ;; ** Copy
@@ -187,17 +188,12 @@
  mouse-drag-copy-region t)
 
 ;; ** Auto revert
-(use-package autorevert
-  :straight (:type built-in)
-  :hook (after-init . global-auto-revert-mode)
-  :config
-  (setq global-auto-revert-non-file-buffers t
-        revert-buffer-quick-short-answers t))
+(add-hook 'after-init-hook 'global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t
+      revert-buffer-quick-short-answers t)
 
 ;; ** Delete selection
-(use-package delsel
-  :straight (:type built-in)
-  :hook (after-init . delete-selection-mode))
+(add-hook 'after-init-hook delete-selection-mode)
 
 ;; * Disabled
 (add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))

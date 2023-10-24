@@ -31,25 +31,10 @@
   (marginalia-mode . nerd-icons-completion-marginalia-setup)
   (marginalia-mode . nerd-icons-completion-mode))
 
-;; * Buffer face mode
-;; Set fixed-font faces for prog
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (setq-local buffer-face-mode-face 'fixed-pitch)
-            (buffer-face-mode)))
-
 ;; * Posframe
 (use-package posframe
   :if (display-graphic-p)
   :defer t)
-
-;; * Line number mode
-;; line number mode
-(dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
-  (add-hook mode 'display-line-numbers-mode))
-;; Override some modes which derive from the above
-(dolist (mode '(org-mode-hook markdown-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; * Rain bow delimiters
 (use-package rainbow-delimiters
