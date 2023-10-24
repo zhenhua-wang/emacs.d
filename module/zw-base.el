@@ -193,7 +193,7 @@
       revert-buffer-quick-short-answers t)
 
 ;; ** Delete selection
-(add-hook 'after-init-hook delete-selection-mode)
+(add-hook 'after-init-hook 'delete-selection-mode)
 
 ;; * Disabled
 (add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
