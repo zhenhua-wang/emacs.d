@@ -7,6 +7,7 @@
               idle-update-delay 1.0
               inhibit-compacting-font-caches t
               redisplay-skip-fontification-on-input t
+              ;; HACK: disable bidi for long lines
               bidi-display-reordering nil
               bidi-inhibit-bpa t
               long-line-threshold 1000
