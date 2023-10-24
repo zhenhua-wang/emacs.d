@@ -133,6 +133,13 @@
                    (if buffer-file-name
                        (setq-local show-trailing-whitespace t)))))
 
+;; ** Paren
+(add-hook 'after-init-hook 'show-paren-mode)
+(setq show-paren-when-point-inside-paren nil
+      show-paren-when-point-in-periphery nil
+      show-paren-context-when-offscreen 'child-frame)
+(add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
+
 ;; * Tool
 ;; ** Comint
 ;; Make processes’ outputs read-only.
@@ -142,18 +149,16 @@
       comint-move-point-for-output nil)
 
 ;; ** Recentf
-(use-package recentf
-  :straight (:type built-in)
-  :hook (after-init . recentf-mode)
-  :init (setq recentf-max-saved-items 300
-              recentf-exclude
-              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
-                no-littering-var-directory no-littering-etc-directory
-                (lambda (file) (file-in-directory-p file package-user-dir))))
-  :config
+(add-hook 'after-init-hook 'recentf-mode)
+(setq recentf-max-saved-items 300
+      recentf-exclude
+      '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+        "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+        "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+        no-littering-var-directory no-littering-etc-directory
+        (lambda (file) (file-in-directory-p file package-user-dir))))
+(with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name)
   ;; save recentf-list before closing frame
@@ -184,6 +189,14 @@
 
 ;; ** Save place
 (add-hook 'after-init-hook 'save-place-mode)
+
+;; ** Open address
+(add-hook 'text-mode-hook 'goto-address-mode)
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
+;; ** Isearch
+(setq isearch-lazy-count t
+      lazy-count-prefix-format "%s/%s ")
 
 ;; * Editor
 ;; ** Copy
@@ -269,6 +282,7 @@
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
            :map isearch-mode-map
+           ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab))

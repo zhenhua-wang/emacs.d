@@ -243,26 +243,10 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-;; * Open address
-(use-package goto-addr
-  :straight (:type built-in)
-  :hook
-  (text-mode . goto-address-mode)
-  (prog-mode . goto-address-prog-mode))
-
 ;; * Web search
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch)))
-
-;; * Isearch
-(use-package isearch
-  :straight (:type built-in)
-  :bind (:map isearch-mode-map
-              ([remap isearch-delete-char] . isearch-del-char))
-  :config
-  (setq isearch-lazy-count t
-        lazy-count-prefix-format "%s/%s "))
 
 ;; * Image scroll
 (use-package iscroll
