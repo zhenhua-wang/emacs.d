@@ -1,7 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(require 'proced)
-
 ;; * Tramp
 ;; Set default connection mode to SSH
 (setq tramp-default-method "ssh")
@@ -337,6 +335,7 @@ i.e. windows tiled side-by-side."
 (defun zw/quick-kill-process ()
   "quick-kill-process"
   (interactive)
+  (require 'proced)
   (let* ((pid-width 5)
          (comm-width 25)
          (user-width 10)
