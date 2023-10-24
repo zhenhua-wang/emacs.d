@@ -129,6 +129,7 @@
 
 ;; ** Savehist
 (use-package savehist
+  :straight (:type built-in)
   :hook (after-init . savehist-mode)
   :config (setq enable-recursive-minibuffers t
                 history-length 25))
