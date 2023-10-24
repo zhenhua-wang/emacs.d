@@ -199,7 +199,7 @@
   :straight (:type built-in)
   :hook (after-init . delete-selection-mode))
 
-;; * Disabled mode
+;; * Disabled
 (add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
 
 ;; * Keymap
