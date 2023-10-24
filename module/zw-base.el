@@ -134,7 +134,6 @@
   :config (setq enable-recursive-minibuffers t
                 history-length 25))
 
-;; * Editor
 ;; ** Scroll
 (setq scroll-step 0
       scroll-margin 1
@@ -153,6 +152,32 @@
              ("<prior>" . nil)
              ("<next>" . nil)))
 
+;; ** So long
+(use-package so-long
+  :straight (:type built-in)
+  :hook (after-init . global-so-long-mode)
+  :init
+  ;; HACK: disable bidi for long lines
+  (setq-default bidi-display-reordering nil
+                bidi-inhibit-bpa t
+                long-line-threshold 1000
+                large-hscroll-threshold 1000
+                syntax-wholeline-max 1000))
+
+;; ** Visual line
+(use-package simple
+  :straight (:type built-in)
+  :hook
+  ;; warp long line
+  (after-init . global-visual-line-mode))
+
+;; ** Save place
+(use-package saveplace
+  :straight (:type built-in)
+  ;; record last location in the file
+  :hook (after-init . save-place-mode))
+
+;; * Editor
 ;; ** Copy
 (setq-default
  ;; save clipboard before kill ring
@@ -169,35 +194,10 @@
   (setq global-auto-revert-non-file-buffers t
         revert-buffer-quick-short-answers t))
 
-;; ** So long
-(use-package so-long
-  :straight (:type built-in)
-  :hook (after-init . global-so-long-mode)
-  :init
-  ;; HACK: disable bidi for long lines
-  (setq-default bidi-display-reordering nil
-                bidi-inhibit-bpa t
-                long-line-threshold 1000
-                large-hscroll-threshold 1000
-                syntax-wholeline-max 1000))
-
-;; ** Save place
-(use-package saveplace
-  :straight (:type built-in)
-  ;; record last location in the file
-  :hook (after-init . save-place-mode))
-
 ;; ** Delete selection
 (use-package delsel
   :straight (:type built-in)
   :hook (after-init . delete-selection-mode))
-
-;; ** Visual line
-(use-package simple
-  :straight (:type built-in)
-  :hook
-  ;; warp long line
-  (after-init . global-visual-line-mode))
 
 ;; * Disabled mode
 (add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
