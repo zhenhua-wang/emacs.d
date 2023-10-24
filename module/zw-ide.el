@@ -180,6 +180,9 @@
   :after outline
   :hook (outline-minor-mode . outline-minor-faces-mode))
 
+;; * Code document
+(add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
+
 ;; * Fast comment
 (use-package evil-nerd-commenter
   :bind (("s-;" . evilnc-comment-or-uncomment-lines)))

@@ -59,48 +59,93 @@
     (setq zw/active-window (selected-window))))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
-;; * Global mode
-;; modes run after init
+;; * Config
+(setq-default default-directory (concat (getenv "HOME") "/")
+              confirm-kill-emacs 'yes-or-no-p)
+
+;; default coding
+(set-default-coding-systems 'utf-8)
+
+;; disable saving for buffers not visiting a file
+(defadvice save-buffer (around interactive-no-visited-file-name activate)
+  "When called interactively, disable for buffers not visiting a file."
+  (when (or (not (called-interactively-p 'any))
+            buffer-file-name)
+    ad-do-it))
+;; make scratch and dashboard unkillable
+(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
+(defun zw/dont-kill-scratch ()
+  (if (not (or (equal (buffer-name) "*scratch*")
+               (equal (buffer-name) "*dashboard*")))
+      t
+    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
+    (bury-buffer)
+    nil))
+
+;; * UI
 (dolist (mode '(window-divider-mode
                 blink-cursor-mode
                 ;; fringe (nil is default)
                 fringe-mode
-                ;; warp long line
-                global-visual-line-mode
-                ;; yank overwrite what is selected
-                delete-selection-mode
-                ;; record last location in the file
-                save-place-mode
-                ;; handle large file
-                global-so-long-mode
                 ;; right click menu
                 context-menu-mode))
   (add-hook 'after-init-hook mode))
 
-;; modes disable after init
-(add-hook 'after-init-hook
-          (lambda ()
-            (global-eldoc-mode -1)
-            (tooltip-mode -1)))
-
-;; * Global config
-(setq-default default-directory (concat (getenv "HOME") "/")
-              confirm-kill-emacs 'yes-or-no-p
-              use-dialog-box nil
+(setq-default use-dialog-box nil
               visible-bell t
               cursor-type '(bar . 2)
               cursor-in-non-selected-windows nil
               ;; use spaces for indent
-              indent-tabs-mode nil
-              ;; save clipboard before kill ring
-              save-interprogram-paste-before-kill t
-              select-enable-clipboard t
-              ;; copy while draging mouse
-              mouse-drag-copy-region t)
-;; default coding
-(set-default-coding-systems 'utf-8)
+              indent-tabs-mode nil)
 
-;; * Global keymap
+;; * Editor
+;; ** Copy
+(setq-default
+ ;; save clipboard before kill ring
+ save-interprogram-paste-before-kill t
+ select-enable-clipboard t
+ ;; copy while draging mouse
+ mouse-drag-copy-region t)
+
+;; ** Auto revert
+(use-package autorevert
+  :straight (:type built-in)
+  :hook (after-init . global-auto-revert-mode)
+  :config
+  (setq global-auto-revert-non-file-buffers t
+        revert-buffer-quick-short-answers t))
+
+;; ** So long
+(use-package so-long
+  :straight (:type built-in)
+  :hook (after-init . global-so-long-mode)
+  :init
+  ;; HACK: disable bidi for long lines
+  (setq-default bidi-display-reordering nil
+                bidi-inhibit-bpa t
+                long-line-threshold 1000
+                large-hscroll-threshold 1000
+                syntax-wholeline-max 1000))
+
+;; ** Save place
+(use-package saveplace
+  :straight (:type built-in)
+  ;; record last location in the file
+  :hook (after-init . save-place-mode))
+
+;; ** Delete selection
+(use-package delsel
+  :straight (:type built-in)
+  :hook (after-init . delete-selection-mode))
+
+;; ** Visual line
+(use-package simple
+  :straight (:type built-in)
+  :hook
+  ;; warp long line
+  (after-init . global-visual-line-mode))
+
+;; * Keymap
 ;; modifiers
 (pcase system-type
   ('darwin
@@ -167,23 +212,6 @@
            ("s-f" . isearch-repeat-forward)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab))
-
-;; * Misc
-;; disable saving for buffers not visiting a file
-(defadvice save-buffer (around interactive-no-visited-file-name activate)
-  "When called interactively, disable for buffers not visiting a file."
-  (when (or (not (called-interactively-p 'any))
-            buffer-file-name)
-    ad-do-it))
-;; make scratch and dashboard unkillable
-(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
-(defun zw/dont-kill-scratch ()
-  (if (not (or (equal (buffer-name) "*scratch*")
-               (equal (buffer-name) "*dashboard*")))
-      t
-    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
-    (bury-buffer)
-    nil))
 
 ;; * Provide
 (provide 'zw-base)
