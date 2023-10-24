@@ -96,8 +96,8 @@
               visible-bell t
               cursor-type '(bar . 2)
               cursor-in-non-selected-windows nil
-              ;; use spaces for indent
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              enable-recursive-minibuffers t)
 
 ;; ** Buffer face mode
 ;; Set fixed-font faces for prog
@@ -166,8 +166,6 @@
 
 ;; ** Savehist
 (add-hook 'after-init-hook 'savehist-mode)
-(setq enable-recursive-minibuffers t
-      history-length 25)
 
 ;; ** Scroll
 (setq scroll-step 0
