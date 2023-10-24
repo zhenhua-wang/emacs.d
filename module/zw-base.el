@@ -181,6 +181,9 @@
   ;; warp long line
   (after-init . global-visual-line-mode))
 
+;; * Disabled mode
+(add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
+
 ;; * Keymap
 ;; modifiers
 (pcase system-type
