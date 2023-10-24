@@ -256,7 +256,7 @@
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch)))
 
-;; * Winner-mode
+;; * Winner mode
 (use-package winner
   :straight (:type built-in)
   :hook (after-init . winner-mode)
