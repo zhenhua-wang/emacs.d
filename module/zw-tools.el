@@ -255,16 +255,6 @@
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch)))
 
-;; * Winner mode
-(use-package winner
-  :straight (:type built-in)
-  :hook (after-init . winner-mode)
-  :bind (("s-T" . winner-undo)
-         ("s-u" . winner-undo)
-         ("s-U" . winner-redo))
-  :init
-  (setq winner-dont-bind-my-keys t))
-
 ;; * Isearch
 (use-package isearch
   :straight (:type built-in)
