@@ -65,14 +65,6 @@
   (imenu-after-jump . pulsar-recenter-top)
   (imenu-after-jump . pulsar-reveal-entry))
 
-;; * Highlight line
-;; Highlight the current line
-(use-package hl-line
-  :straight (:type built-in)
-  :hook ((after-init . global-hl-line-mode)
-         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
-          (lambda () (setq-local global-hl-line-mode nil)))))
-
 ;; * Highlight TODO
 ;; Highlight TODO and similar keywords in comments and strings
 (use-package hl-todo

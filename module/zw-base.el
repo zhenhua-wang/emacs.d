@@ -114,6 +114,11 @@
 (dolist (mode '(org-mode-hook markdown-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; ** Highlight line
+(add-hook 'after-init-hook 'global-hl-line-mode)
+(dolist (mode '(eshell-mode-hook shell-mode-hook term-mode-hook vterm-mode-hook))
+  (add-hook mode (lambda () (setq-local global-hl-line-mode nil))))
+
 ;; ** Warp long line
 (add-hook 'after-init-hook 'global-visual-line-mode)
 
