@@ -466,7 +466,8 @@ configuration {
   matching: "fuzzy";
   show-icons: true;
   modi: "combi,calc";
-  display-combi: " Apps";
+  display-combi: "";
+  display-calc: "󰪚";
   combi-modi: "window,drun";
   combi-hide-mode-prefix: true;
   drun-display-format: "{name}";
@@ -534,7 +535,7 @@ mainbox {
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-colour;
     background-color:            transparent;
-    children:                    [ "inputbar", "message", "mode-switcher", "listview" ];
+    children:                    [ "inputbar", "message", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
@@ -548,7 +549,7 @@ inputbar {
     border-color:                @border-colour;
     background-color:            @alternate-background;
     text-color:                  @foreground-colour;
-    children:                    [ "textbox-prompt-colon", "entry" ];
+    children:                    [ "textbox-prompt-colon", "entry", "mode-switcher" ];
 }
 prompt {
     enabled:                     true;
@@ -612,8 +613,8 @@ listview {
     spacing:                     5px;
     margin:                      0px;
     padding:                     10px;
-    border:                      0px 2px 2px 2px ;
-    border-radius:               0px 0px 10px 10px;
+    border:                      2px 2px 2px 2px ;
+    border-radius:               2px 2px 10px 10px;
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
@@ -692,8 +693,7 @@ element-text {
 /*****----- Mode Switcher -----*****/
 mode-switcher{
     enabled:                     true;
-    expand:                      false;
-    spacing:                     0px;
+    spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -703,20 +703,17 @@ mode-switcher{
     text-color:                  @foreground-colour;
 }
 button {
-    padding:                     10px;
-    border:                      0px 0px 2px 0px ;
-    border-radius:               10px 10px 0px 0px;
+    padding:                     5px 10px;
+    border:                      0px solid;
+    border-radius:               10px;
     border-color:                @border-colour;
-    background-color:            @background-colour;
+    background-color:            @alternate-background;
     text-color:                  inherit;
     cursor:                      pointer;
 }
 button selected {
-    border:                      2px 2px 0px 2px ;
-    border-radius:               10px 10px 0px 0px;
-    border-color:                @border-colour;
-    background-color:            var(normal-background);
-    text-color:                  var(normal-foreground);
+    background-color:            var(selected-normal-background);
+    text-color:                  var(selected-normal-foreground);
 }
 
 /*****----- Message -----*****/
