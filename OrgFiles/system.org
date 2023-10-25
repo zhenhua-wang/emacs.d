@@ -70,7 +70,8 @@ yay -S plank plank-theme-bigsur
 cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 # misc
 yay -S firefox kitty aspell aspell-en htop
-yay -S mpv yt-dlp
+# media
+yay -S mpv yt-dlp streamlink
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
