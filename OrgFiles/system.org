@@ -64,16 +64,17 @@ git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 # SDDM theme
 yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
-# misc
-yay -S firefox kitty aspell aspell-en htop
-# laptop power management
-yay -S tlp tlp-rdw
-sudo systemctl enable tlp.service NetworkManager-dispatcher.service
-sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 # application dock
 yay -S plank plank-theme-bigsur
 # dconf dump /net/launchpad/plank/docks/ > docks.ini
 cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
+# misc
+yay -S firefox kitty aspell aspell-en htop
+yay -S mpv yt-dlp
+# laptop power management
+yay -S tlp tlp-rdw
+sudo systemctl enable tlp.service NetworkManager-dispatcher.service
+sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 #+end_src
 
 ** Misc
