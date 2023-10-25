@@ -102,6 +102,20 @@
            char-mode t
            floating-mode-line nil
            floating-header-line nil)
+          ((and (zw/exwm-plot-buffer-p exwm-class-name)
+                (cl-some 'identity
+                         (cl-mapcar (lambda (buffer)
+                                      (with-current-buffer buffer
+                                        (string= "Emacs" exwm-class-name)))
+                                    (buffer-list))))
+           x ,(- (+ float-x float-width)
+                 (floor (* float-width 0.3)))
+           y ,float-y
+           width ,(floor (* float-width 0.3))
+           height ,(floor (* float-width 0.3))
+           floating t
+           floating-mode-line nil
+           floating-header-line nil)
           ((string= "kitty" exwm-class-name)
            floating t
            char-mode t
@@ -111,20 +125,6 @@
                (string= "mpv" exwm-class-name))
            floating t
            char-mode nil
-           floating-mode-line nil
-           floating-header-line nil)
-          ((and (zw/exwm-plot-buffer-p exwm-class-name)
-                (cl-some 'identity
-                         (mapcar (lambda (buffer)
-                                   (with-current-buffer buffer
-                                     (string= "Emacs" exwm-class-name)))
-                                 (buffer-list))))
-           x ,(- (+ float-x float-width)
-                 (floor (* float-width 0.3)))
-           y ,float-y
-           width ,(floor (* float-width 0.3))
-           height ,(floor (* float-width 0.3))
-           floating t
            floating-mode-line nil
            floating-header-line nil)
           (t floating-header-line nil
