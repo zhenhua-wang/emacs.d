@@ -107,6 +107,12 @@
            char-mode t
            floating-mode-line nil
            floating-header-line nil)
+          ((or (string= "vlc" exwm-class-name)
+               (string= "mpv" exwm-class-name))
+           floating t
+           char-mode nil
+           floating-mode-line nil
+           floating-header-line nil)
           ((and (zw/exwm-plot-buffer-p exwm-class-name)
                 (cl-some 'identity
                          (mapcar (lambda (buffer)
