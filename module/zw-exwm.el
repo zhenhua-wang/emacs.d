@@ -549,6 +549,7 @@
     (exwm-workspace-switch-to-buffer buffer)))
 
 ;; preview exwm switch buffer
+;; BUG: lost focus in exwm char-mode
 (defun consult--exwm-buffer-preview ()
   "Exwm buffer preview function."
   (let ((orig-buf (current-buffer))
