@@ -839,8 +839,8 @@
         (,(kbd "s-m") . (lambda ()
                           (interactive)
                           (if exwm--floating-frame (exwm-floating-hide) (bury-buffer))))
-        (,(kbd "s-}") . enlarge-window-horizontally)
-        (,(kbd "s-{") . shrink-window-horizontally)
+        (,(kbd "s-+") . enlarge-window-horizontally)
+        (,(kbd "s-_") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
         ;; side bar
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
