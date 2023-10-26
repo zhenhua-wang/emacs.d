@@ -714,9 +714,11 @@
     (funcall orig-func cand cat)))
 (advice-add 'nerd-icons-completion-get-icon :around #'app-launcher-nerd-icons-completion-get-icon)
 
-(defun zw/show-rofi ()
+(defun zw/launch-app ()
   (interactive)
-  (call-process-shell-command "rofi -show combi -dpi 1"))
+  (if (executable-find "rofi")
+      (call-process-shell-command "rofi -show combi -dpi 1")
+    (app-launcher-run-app)))
 
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
@@ -836,7 +838,7 @@
                                  (recentf-save-list)
                                  (save-some-buffers)
                                  (async-shell-command command)))
-        (,(kbd "s-SPC") . zw/show-rofi)
+        (,(kbd "s-SPC") . zw/launch-app)
         (,(kbd "s-<tab>") . zw/exwm-next-buffer)
         (,(kbd "s-`") . zw/exwm-switch-to-buffer)
         ;; git
