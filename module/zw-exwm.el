@@ -564,13 +564,9 @@
              (with-current-buffer buf
                (zw/exwm-switch-to-buffer-advice)
                (exwm-workspace-switch-to-buffer buf)
-               (if exwm--floating-frame
-                   (progn
-                     (unless (eq buf orig-buf)
-                       (add-to-list 'preview-bufs buf))
-                     (redirect-frame-focus exwm--floating-frame
-                                           exwm-workspace--minibuffer))
-                 (x-focus-frame exwm-workspace--minibuffer))))))))))
+               (when (and exwm--floating-frame (not (eq buf orig-buf)))
+                 (add-to-list 'preview-bufs buf))
+               (x-focus-frame exwm-workspace--minibuffer)))))))))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
