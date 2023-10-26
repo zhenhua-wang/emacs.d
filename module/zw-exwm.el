@@ -540,7 +540,12 @@
                    (zw/exwm-buffer-display-list)))
          (buffer-names (cl-map 'list 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
-         (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
+         ;; (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
+         (buffer (consult--read buffer-names
+                                :prompt "EXWM switch to buffer: "
+                                ;; :state (consult--buffer-preview)
+                                ;; :preview-key '(:debounce 0.2 any)
+                                :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
 ;; register exwm buffer switch marginalia
