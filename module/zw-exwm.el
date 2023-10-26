@@ -5,7 +5,7 @@
   :demand t
   :straight (:host github :repo "ch11ng/exwm" :files ("*")))
 
-(add-hook 'after-init-hook 'server-start)
+(server-start)
 
 (setq
  ;; disable conformation to kill processes on Emacs exit
