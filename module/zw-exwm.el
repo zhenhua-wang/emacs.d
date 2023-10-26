@@ -500,8 +500,7 @@
 ;; ** exwm switch buffer
 (defun zw/exwm-switch-to-buffer-advice (&rest args)
   (when exwm--floating-frame
-    (select-frame-set-input-focus exwm-workspace--current)
-    (select-window (frame-root-window exwm-workspace--current))))
+    (select-frame-set-input-focus exwm-workspace--current)))
 (advice-add 'find-file :before 'zw/exwm-switch-to-buffer-advice)
 (advice-add 'switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
 (advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
