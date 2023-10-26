@@ -5,6 +5,7 @@
   :demand t
   :straight (:host github :repo "ch11ng/exwm" :files ("*")))
 
+;; start server for ipc
 (server-start)
 
 (setq
