@@ -19,7 +19,7 @@
                ("C-," . nil)
                ("M-p" . org-previous-block)
                ("M-n" . org-next-block)
-               ("M-s b" . org-cite-insert)))
+               ("M-s c" . org-cite-insert)))
   :hook
   ;; (org-mode . org-num-mode)
   ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
