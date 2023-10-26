@@ -37,13 +37,5 @@
   :init
   (setq exec-path-from-shell-check-startup-files nil))
 
-;; * Server
-(use-package server
-  :hook (after-init . zw/start-server)
-  :config
-  (defun zw/start-server ()
-    (unless (server-running-p)
-      (server-start))))
-
 ;; * Provide
 (provide 'zw-startup)
