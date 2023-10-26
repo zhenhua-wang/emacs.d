@@ -361,13 +361,7 @@
               (add-hook 'exwm-input--event-hook #'zw/exwm-input--clear-echo-area)))
 (defun zw/exwm-focus-minibuffer ()
   (interactive)
-  (let ((id (frame-parameter exwm-workspace--minibuffer 'exwm-id)))
-    (xcb:+request exwm--connection
-        (make-instance 'xcb:SetInputFocus
-                       :revert-to xcb:InputFocus:Parent
-                       :focus id
-                       :time xcb:Time:CurrentTime))
-    (xcb:flush exwm--connection)))
+  (select-frame-set-input-focus exwm-workspace--minibuffer))
 (defun zw/exwm-focus-main ()
   (interactive)
   (select-frame-set-input-focus exwm-workspace--current))
@@ -852,6 +846,7 @@
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
         ;; mininbuffer
+        (,(kbd "s-<down>") . zw/exwm-window-down)
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
         ;; update emacs
