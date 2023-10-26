@@ -543,10 +543,30 @@
          ;; (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
          (buffer (consult--read buffer-names
                                 :prompt "EXWM switch to buffer: "
-                                ;; :state (consult--buffer-preview)
-                                ;; :preview-key '(:debounce 0.2 any)
+                                :state (consult--exwm-buffer-preview)
+                                :preview-key '(:debounce 0.2 any)
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
+
+;; preview exwm switch buffer
+(defun consult--exwm-buffer-preview ()
+  "Exwm buffer preview function."
+  (let ((orig-buf (current-buffer))
+        preview-bufs)
+    (lambda (action cand)
+      (pcase action
+        ('exit
+         (cl-mapc (lambda (buf) (with-current-buffer buf (exwm-floating-hide)))
+                  preview-bufs))
+        ('preview
+         (let ((buf (or (and cand (get-buffer cand)) orig-buf)))
+           (when (buffer-live-p buf)
+             (with-current-buffer buf
+               (when (and exwm--floating-frame (not (eq buf orig-buf)))
+                 (add-to-list 'preview-bufs buf)))
+             (zw/exwm-switch-to-buffer-advice)
+             (exwm-workspace-switch-to-buffer buf)
+             (x-focus-frame exwm-workspace--minibuffer))))))))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
