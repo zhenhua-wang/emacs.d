@@ -201,6 +201,10 @@
 (setq isearch-lazy-count t
       lazy-count-prefix-format "%s/%s ")
 
+;; ** Winner mode
+(add-hook 'after-init-hook 'winner-mode)
+(setq winner-dont-bind-my-keys t)
+
 ;; * Editor
 ;; ** Copy
 (setq-default
@@ -274,6 +278,8 @@
            ("s-+" . enlarge-window-horizontally)
            ("s-_" . shrink-window-horizontally)
            ("s-^" . enlarge-window)
+           ("s-u" . winner-undo)
+           ("s-U" . winner-redo)
            ("s-B" . zw/side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands

@@ -748,6 +748,13 @@
   :config
   (setq cpu-temperature-update-interval 1))
 
+;; ** winner mode
+(defun zw/winner-remove-dead-frame (&rest args)
+  "Remove dead frames"
+  (setq winner-modified-list (cl-remove-if-not #'frame-live-p winner-modified-list))
+  (setq winner-currents (cl-remove-if-not #'frame-live-p winner-currents)))
+(advice-add 'winner-save-old-configurations :before #'zw/winner-remove-dead-frame)
+
 ;; ** keycast
 (use-package keycast
   :config
@@ -842,6 +849,8 @@
         (,(kbd "s-+") . enlarge-window-horizontally)
         (,(kbd "s-_") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
+        (,(kbd "s-u") . winner-undo)
+        (,(kbd "s-U") . winner-redo)
         ;; side bar
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
         (,(kbd "s-B") . zw/side-window-toggle)
