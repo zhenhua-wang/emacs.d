@@ -124,12 +124,6 @@
 
 ;; ** So long
 (add-hook 'after-init-hook 'global-so-long-mode)
-;; HACK: disable bidi for long lines
-(setq-default bidi-display-reordering nil
-              bidi-inhibit-bpa t
-              long-line-threshold 1000
-              large-hscroll-threshold 1000
-              syntax-wholeline-max 1000)
 
 ;; ** Whitespace
 (dolist (mode '(prog-mode-hook
