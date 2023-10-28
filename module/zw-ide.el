@@ -178,11 +178,11 @@
                                        (+ space) (group (+ "*")))
                                 space))))
       (if zw-outline-mode
-          (progn (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
-                 (setq-local outline-regexp outline-header
+          (progn (setq-local outline-regexp outline-header
                              outline-level 'zw/outline--level
                              outline-minor-mode-use-buttons t
                              font-lock-unfontify-region-function #'zw/outline--unfontify)
+                 (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
                  (outline-minor-mode 1)
                  (outline-hide-sublevels 1)
                  (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
