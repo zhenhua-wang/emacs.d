@@ -128,7 +128,8 @@ at the first function to return non-nil.")
 ;; * Polymode
 (use-package polymode
   :commands polymode-mode
-  :hook (polymode-init-inner . zw/polymode-init-inner)
+  :hook ((polymode-init-host . zw/polymode-init-host)
+         (polymode-init-inner . zw/polymode-init-inner))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
@@ -140,6 +141,8 @@ at the first function to return non-nil.")
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
+  (defun zw/polymode-init-host ()
+    (font-lock-update))
   (defun zw/polymode-init-inner ()
     (buffer-face-mode 0)
     (display-line-numbers-mode 0)
