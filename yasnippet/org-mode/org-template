@@ -6,7 +6,7 @@
 #+SUBTITLE: ${2:subtitle}
 #+AUTHOR: Zhenhua Wang
 #+SETUPFILE: ~/.emacs.d/OrgFiles/LatexTemplates/zw-latex-standard.setup
-#+OPTIONS: num:nil toc:nil
+#+OPTIONS: toc:nil
 #+BIBLIOGRAPHY: ${3:bibliography file}
 
 $0
