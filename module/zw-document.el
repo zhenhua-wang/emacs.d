@@ -45,7 +45,8 @@
 ;; Table of contents
 (use-package toc-org
   :hook ((org-mode . toc-org-mode)
-         (markdown-mode . toc-org-mode)))
+         (markdown-mode . toc-org-mode))
+  :config (setq toc-org-max-depth 1))
 
 ;; ** ox latex
 ;; htmlize.el is needed for exporting colorful codes to html
