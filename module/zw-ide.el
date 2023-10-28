@@ -112,7 +112,7 @@
 ;; ** outline
 (use-package outline
   :hook
-  (prog-mode . zw/outline-setup)
+  (prog-mode . zw-outline-mode)
   :bind
   ((:map outline-minor-mode-map
          ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)
@@ -121,7 +121,6 @@
          ("<remap> <delete-char>" . zw/outline-delete-char)
          ("<remap> <delete-backward-char>" . zw/outline-delete-backward-char)))
   :config
-  (setq outline-minor-mode-use-buttons t)
   (defun zw/outline--level ()
     (length (match-string 2)))
   (defun zw/outline--unfontify (beg end &optional _loud)
@@ -169,20 +168,36 @@
     (save-excursion
       (backward-char)
       (zw/outline-reveal)))
-  (defun zw/outline-setup ()
+  (define-minor-mode zw-outline-mode
+    "Toggle zw-outline mode."
+    :global nil
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
            (outline-header (rx-to-string
                             `(: (group (0+ space)
                                        (+ ,comment-start-symbol)
                                        (+ space) (group (+ "*")))
                                 space))))
-      (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
-      (setq-local outline-regexp outline-header
-                  outline-level 'zw/outline--level
-                  font-lock-unfontify-region-function #'zw/outline--unfontify))
-    (outline-minor-mode 1)
-    (outline-hide-sublevels 1)
-    (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t)))
+      (if zw-outline-mode
+          (progn (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
+                 (setq-local outline-regexp outline-header
+                             outline-level 'zw/outline--level
+                             outline-minor-mode-use-buttons t
+                             font-lock-unfontify-region-function #'zw/outline--unfontify)
+                 (outline-minor-mode 1)
+                 (outline-hide-sublevels 1)
+                 (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
+        (progn
+          ;; unfontify
+          (zw/outline--unfontify (point-min) (point-max))
+          (dolist (o (overlays-in (window-start) (window-end)))
+            (when (overlay-get o 'outline-button)
+              (delete-overlay o)))
+          ;; reset config
+          (setq-local outline-minor-mode-use-buttons nil
+                      font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
+          (font-lock-remove-keywords nil `((,outline-header 1 '(face nil invisible t))))
+          (outline-minor-mode 0)
+          (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))))
 
 (use-package outline-minor-faces
   :after outline
