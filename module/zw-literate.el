@@ -126,6 +126,7 @@ at the first function to return non-nil.")
                (shell-quote-argument buffer-file-name))))))
 
 ;; * Polymode
+;; BUG: revert in inner buffer would lose font-lock
 (use-package polymode
   :commands polymode-mode
   :hook ((polymode-init-host . zw/polymode-init-host)
@@ -148,7 +149,7 @@ at the first function to return non-nil.")
     (display-line-numbers-mode 0)
     (zw-outline-mode 0)
     (setq-local lsp-diagnostics-provider :none))
-  ;; run kill-buffer in master buffer, which solves the font lock issue
+  ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; lsp integration
   (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content))
