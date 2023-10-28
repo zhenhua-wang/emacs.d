@@ -188,7 +188,7 @@
                  (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
         (progn
           ;; unfontify
-          (zw/outline--unfontify (point-min) (point-max))
+          (remove-list-of-text-properties (point-min) (point-max) '(invisible))
           (dolist (o (overlays-in (window-start) (window-end)))
             (when (overlay-get o 'outline-button)
               (delete-overlay o)))
