@@ -128,11 +128,7 @@ at the first function to return non-nil.")
 ;; * Polymode
 (use-package polymode
   :commands polymode-mode
-  :hook (polymode-init-inner . (lambda ()
-                                 (buffer-face-mode 0)
-                                 (display-line-numbers-mode 0)
-                                 (zw-outline-mode 0)
-                                 (setq-local lsp-diagnostics-provider :none)))
+  :hook (polymode-init-inner . zw/polymode-init-inner)
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
@@ -144,6 +140,11 @@ at the first function to return non-nil.")
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
+  (defun zw/polymode-init-inner ()
+    (buffer-face-mode 0)
+    (display-line-numbers-mode 0)
+    (zw-outline-mode 0)
+    (setq-local lsp-diagnostics-provider :none))
   ;; run kill-buffer in master buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; lsp integration
