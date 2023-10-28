@@ -118,14 +118,15 @@
          ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)
          ("<remap> <self-insert-command>" . zw/outline-self-insert-command)
          ("<remap> <newline>" . zw/outline-newline)
-         ("<remap> <delete-char>" . zw/outline-delete-char)))
+         ("<remap> <delete-char>" . zw/outline-delete-char)
+         ("<remap> <delete-backward-char>" . zw/outline-delete-backward-char)))
   :config
   (setq outline-minor-mode-use-buttons t)
   (defun zw/outline--level ()
     (length (match-string 2)))
   (defun zw/outline--unfontify (beg end &optional _loud)
     (let ((font-lock-extra-managed-props
-           (append '(display) font-lock-extra-managed-props)))
+           (append '(invisible) font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)))
   (defun zw/outline-previous-invisible-p ()
     (unless (= (point) 1)
@@ -155,6 +156,13 @@
     (interactive "p")
     (delete-char N)
     (zw/outline-reveal))
+  (defun zw/outline-delete-backward-char (n &optional killflag)
+    (declare (interactive-only delete-char))
+    (interactive "p\nP")
+    (delete-backward-char n killflag)
+    (save-excursion
+      (backward-char)
+      (zw/outline-reveal)))
   (defun zw/outline-backward-delete-char (ARG &optional KILLP)
     (interactive "p\nP")
     (backward-delete-char-untabify ARG KILLP)
@@ -168,7 +176,7 @@
                                        (+ ,comment-start-symbol)
                                        (+ space) (group (+ "*")))
                                 space))))
-      (font-lock-add-keywords nil `((,outline-header 1 '(face nil display ""))))
+      (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
       (setq-local outline-regexp outline-header
                   outline-level 'zw/outline--level
                   font-lock-unfontify-region-function #'zw/outline--unfontify))
