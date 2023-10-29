@@ -260,6 +260,7 @@ shadow-exclude = [
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
   "window_type = 'notification'",
+  "window_type = 'utility'",
   "class_g = 'Plank'"
 ];
 #+end_src

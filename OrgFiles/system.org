@@ -24,11 +24,11 @@ mv emacs.d .emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S libxft libxpm libtiff giflib libxaw
+yay -S libxft libxpm libtiff giflib
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-json --with-xinput2 --without-compress-install --with-x-toolkit=lucid
+./configure --with-json --with-xinput2 --without-compress-install --with-x-toolkit=no
 make
 sudo make install
 #+end_src

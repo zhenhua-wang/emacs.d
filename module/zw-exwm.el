@@ -441,11 +441,11 @@
         (progn
           (setq-local cursor-type (default-value 'cursor-type)
                       mode-line-format (default-value 'mode-line-format))
-          (set-frame-parameter exwm-workspace--current 'alpha 98))
+          (set-frame-parameter exwm-workspace--current 'alpha-background 98))
       (progn
         (setq-local cursor-type nil
                     mode-line-format nil)
-        (set-frame-parameter exwm-workspace--current 'alpha 0)))))
+        (set-frame-parameter exwm-workspace--current 'alpha-background 0)))))
 
 (defun zw/exwm-desktop-window-config ()
   (cond ((or (not (eq (selected-frame) exwm-workspace--current))
