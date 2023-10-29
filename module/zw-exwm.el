@@ -176,7 +176,6 @@
 ;; display buffers
 (defun zw/exwm-display-buffer-p (x)
   (and (not (zw/hidden-buffer-p x))
-       (not (zw/exwm-plot-buffer-p x))
        (with-current-buffer x
          (or (buffer-file-name)
              (eq major-mode 'exwm-mode)
