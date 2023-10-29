@@ -246,6 +246,7 @@ rounded-corners-exclude = [
   "window_type = 'dropdown_menu'",
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
+  "window_type = 'utility'",
   "window_type = 'dock'",
   "window_type = 'desktop'"
 ];
@@ -259,8 +260,8 @@ shadow-exclude = [
   "window_type = 'dropdown_menu'",
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
-  "window_type = 'notification'",
   "window_type = 'utility'",
+  "window_type = 'notification'",
   "class_g = 'Plank'"
 ];
 #+end_src
