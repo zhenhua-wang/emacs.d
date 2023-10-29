@@ -13,9 +13,8 @@
   ;; desktop
   (xcb:+request exwm--connection
       (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
-                     :window (string-to-number
-                              (frame-parameter exwm-workspace--current
-                                               'outer-window-id))
+                     :window (frame-parameter exwm-workspace--current
+                                              'exwm-outer-id)
                      :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)))
   ;; dock
   (xcb:+request exwm--connection
