@@ -240,7 +240,6 @@ blur-method = "dual_kawase";
 blur-strength = 12;
 blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
 # rounded
-round-borders = 1;
 corner-radius = 15;
 rounded-corners-exclude = [
   "window_type = 'dock'",
