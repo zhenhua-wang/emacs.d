@@ -178,24 +178,25 @@
                                        (+ space) (group (+ "*")))
                                 space))))
       (if zw-outline-mode
-          (progn (setq-local outline-regexp outline-header
+          (progn (add-to-invisibility-spec 'zw-outline-star)
+                 (setq-local outline-regexp outline-header
                              outline-level 'zw/outline--level
                              outline-minor-mode-use-buttons t
                              font-lock-unfontify-region-function #'zw/outline--unfontify)
-                 (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible t))))
+                 (font-lock-add-keywords nil `((,outline-header 1 '(face nil invisible zw-outline-star))))
                  (outline-minor-mode 1)
                  (outline-hide-sublevels 1)
                  (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
         (progn
           ;; unfontify
-          (remove-list-of-text-properties (point-min) (point-max) '(invisible))
+          (remove-from-invisibility-spec 'zw-outline-star)
           (dolist (o (overlays-in (window-start) (window-end)))
             (when (overlay-get o 'outline-button)
               (delete-overlay o)))
           ;; reset config
           (setq-local outline-minor-mode-use-buttons nil
                       font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
-          (font-lock-remove-keywords nil `((,outline-header 1 '(face nil invisible t))))
+          (font-lock-remove-keywords nil `((,outline-header 1 '(face nil invisible zw-outline-star))))
           (outline-minor-mode 0)
           (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))))
 
