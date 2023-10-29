@@ -242,6 +242,10 @@ blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
 # rounded
 corner-radius = 12;
 rounded-corners-exclude = [
+  "window_type = 'menu'",
+  "window_type = 'dropdown_menu'",
+  "window_type = 'popup_menu'",
+  "window_type = 'tooltip'",
   "window_type = 'dock'",
   "window_type = 'desktop'"
 ];
