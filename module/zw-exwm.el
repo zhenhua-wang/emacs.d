@@ -8,23 +8,6 @@
 ;; start server for ipc
 (server-start)
 
-;; set ewmh type
-(defun zw/exwm-workspace-set-type ()
-  ;; desktop
-  (xcb:+request exwm--connection
-      (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
-                     :window (frame-parameter exwm-workspace--current
-                                              'exwm-outer-id)
-                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)))
-  ;; dock
-  (xcb:+request exwm--connection
-      (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
-                     :window (frame-parameter exwm-workspace--minibuffer
-                                              'exwm-container)
-                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK)))
-  (xcb:flush exwm--connection))
-(add-hook 'exwm-workspace-switch-hook 'zw/exwm-workspace-set-type)
-
 (setq
  ;; disable conformation to kill processes on Emacs exit
  confirm-kill-processes nil
@@ -44,14 +27,20 @@
  x-no-window-manager t)
 
 ;; * exwm utils
-(defun zw/exwm-get-geometry (id)
-  (let ((reply (xcb:+request-unchecked+reply exwm--connection
+(defun zw/exwm-get-geometry (conn id)
+  (let ((reply (xcb:+request-unchecked+reply conn
                    (make-instance 'xcb:GetGeometry :drawable id))))
     (with-slots (x y width height) reply
       (list (cons 'x x)
             (cons 'y y)
             (cons 'width width)
             (cons 'height height)))))
+
+(defun zw/exwm-set-window-type (conn id type)
+  (xcb:+request conn
+      (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
+                     :window id
+                     :data (vector type))))
 
 ;; * exwm applications
 (defun zw/exwm-run-in-background (command)
@@ -81,6 +70,43 @@
 
 ;; * exwm appearance
 ;; ** window management
+;; *** ewmh window type
+;; set ewmh type
+(defun zw/exwm-workspace-set-type ()
+  ;; desktop
+  (zw/exwm-set-window-type exwm--connection
+                           (frame-parameter exwm-workspace--current
+                                            'exwm-outer-id)
+                           xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)
+  ;; dock
+  (zw/exwm-set-window-type exwm--connection
+                           (frame-parameter exwm-workspace--minibuffer
+                                            'exwm-container)
+                           xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK)
+  (xcb:flush exwm--connection))
+(add-hook 'exwm-workspace-switch-hook 'zw/exwm-workspace-set-type)
+;; save window-type for floating window
+(defvar-local zw/exwm-window-type-float nil)
+(defun zw/exwm-save-window-type ()
+  (setq-local zw/exwm-window-type-float (car exwm-window-type)))
+(add-hook 'exwm-manage-finish-hook 'zw/exwm-save-window-type)
+;; unset float window type
+(defun zw/exwm-unset-float-window-type ()
+  (zw/exwm-set-window-type exwm--connection
+                           exwm--id
+                           xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP))
+(add-hook 'exwm-floating-exit-hook 'zw/exwm-unset-float-window-type)
+;; set float window type
+(defun zw/exwm-set-float-window-type ()
+  (if zw/exwm-window-type-float
+      (zw/exwm-set-window-type exwm--connection
+                               exwm--id
+                               zw/exwm-window-type-float)
+    (zw/exwm-set-window-type exwm--connection
+                             exwm--id
+                             xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL)))
+(add-hook 'exwm-floating-setup-hook 'zw/exwm-set-float-window-type)
+
 ;; *** update title
 (defun zw/exwm-update-title ()
   (if (and exwm-title
@@ -360,6 +386,7 @@
 (defun zw/exwm-toggle-minibuffer ()
   (interactive)
   (let* ((geometry (zw/exwm-get-geometry
+                    exwm--connection
                     (frame-parameter exwm-workspace--minibuffer
                                      'exwm-container)))
          (height (alist-get 'height geometry)))
