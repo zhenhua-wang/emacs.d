@@ -21,7 +21,8 @@
       (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
                      :window (frame-parameter exwm-workspace--minibuffer
                                               'exwm-container)
-                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK))))
+                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK)))
+  (xcb:flush exwm--connection))
 (add-hook 'exwm-workspace-switch-hook 'zw/exwm-workspace-set-type)
 
 (setq
