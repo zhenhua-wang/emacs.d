@@ -239,6 +239,23 @@ glx-no-rebind-pixmap = true;
 blur-method = "dual_kawase";
 blur-strength = 12;
 blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
+# rounded
+round-borders = 1;
+corner-radius = 15;
+rounded-corners-exclude = [
+  "window_type = 'dock'",
+  "window_type = 'desktop'",
+  "class_g = 'Emacs'"
+];
+# shadow
+shadow = true;
+shadow-radius = 12;
+shadow-offset-x = -12;
+shadow-offset-y = -12;
+shadow-exclude = [
+  "class_g = 'Plank'",
+  "class_g = 'Dunst'"
+];
 #+end_src
 
 * Vterm
