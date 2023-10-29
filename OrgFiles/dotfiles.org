@@ -243,8 +243,7 @@ blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
 corner-radius = 12;
 rounded-corners-exclude = [
   "window_type = 'dock'",
-  "window_type = 'desktop'",
-  "class_g = 'Emacs'"
+  "window_type = 'desktop'"
 ];
 # shadow
 shadow = true;
@@ -252,8 +251,8 @@ shadow-radius = 10;
 shadow-offset-x = -10;
 shadow-offset-y = -10;
 shadow-exclude = [
-  "class_g = 'Plank'",
-  "class_g = 'Dunst'"
+  "window_type = 'notification'",
+  "class_g = 'Plank'"
 ];
 #+end_src
 
