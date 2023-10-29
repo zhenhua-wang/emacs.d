@@ -8,6 +8,23 @@
 ;; start server for ipc
 (server-start)
 
+;; set ewmh type
+(defun zw/exwm-workspace-set-type ()
+  ;; desktop
+  (xcb:+request exwm--connection
+      (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
+                     :window (string-to-number
+                              (frame-parameter exwm-workspace--current
+                                               'outer-window-id))
+                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)))
+  ;; dock
+  (xcb:+request exwm--connection
+      (make-instance 'xcb:ewmh:set-_NET_WM_WINDOW_TYPE
+                     :window (frame-parameter exwm-workspace--minibuffer
+                                              'exwm-container)
+                     :data (vector xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK))))
+(add-hook 'exwm-workspace-switch-hook 'zw/exwm-workspace-set-type)
+
 (setq
  ;; disable conformation to kill processes on Emacs exit
  confirm-kill-processes nil
