@@ -31,7 +31,7 @@
 
 ;; * Posframe
 (use-package posframe
-  :if (display-graphic-p)
+  :if (zw/icon-displayable-p)
   :defer t)
 
 ;; * Rain bow delimiters
