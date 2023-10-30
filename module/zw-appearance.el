@@ -2,7 +2,6 @@
 
 ;; * Nerd icon
 (use-package nerd-icons
-  :if (zw/icon-displayable-p)
   :config
   (zw/merge-list-to-list 'nerd-icons/mdicon-alist
                          '(("nf-md-firefox_web_browser" . "󰈹")
@@ -25,7 +24,6 @@
   :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
-  :if (zw/icon-displayable-p)
   :after (marginalia nerd-icons)
   :hook
   (marginalia-mode . nerd-icons-completion-marginalia-setup)
