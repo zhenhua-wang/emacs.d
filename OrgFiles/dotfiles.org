@@ -248,7 +248,8 @@ rounded-corners-exclude = [
   "window_type = 'tooltip'",
   "window_type = 'utility'",
   "window_type = 'dock'",
-  "window_type = 'desktop'"
+  "window_type = 'desktop'",
+  "class_g = 'Emacs' && name = 'posframe'"
 ];
 # shadow
 shadow = true;
