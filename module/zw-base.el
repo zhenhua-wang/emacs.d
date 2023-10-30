@@ -285,7 +285,8 @@
            ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
            :map prog-mode-map
-           ("<tab>" . zw/smart-tab))
+           ("<tab>" . zw/smart-tab)
+           ("TAB" . zw/smart-tab))
 
 ;; * Provide
 (provide 'zw-base)
