@@ -86,10 +86,7 @@
 ;; ** UI
 (dolist (mode '(window-divider-mode
                 blink-cursor-mode
-                ;; fringe (nil is default)
-                fringe-mode
-                ;; right click menu
-                context-menu-mode))
+                fringe-mode))
   (add-hook 'after-init-hook mode))
 
 (setq-default use-dialog-box nil
