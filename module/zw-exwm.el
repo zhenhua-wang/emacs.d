@@ -468,16 +468,37 @@
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
 ;; ** wallpaper
-(defun zw/exwm-set-wallpaper ()
-  (cond
-   ((file-exists-p "~/.cache/emacs/wallpaper.png")
-    (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png" nil 0))
-   ((file-exists-p "~/.cache/emacs/wallpaper.jpg")
-    (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.jpg" nil 0))
-   (t
-    (call-process-shell-command "feh --bg-scale ~/.emacs.d/exwm/wallpaper.png" nil 0))))
+(defvar zw/exwm-wallpaper-type-regexp
+  (rx-to-string
+   '(: "." (eval `(or "jpg" "jpeg" "png")) eos) t))
+(defvar zw/exwm-wallpaper-regexp
+  (concat "wallpaper" zw/exwm-wallpaper-type-regexp))
 
-(zw/exwm-set-wallpaper)
+(defun zw/exwm-show-wallpaper ()
+  (interactive)
+  (let* ((wallpaper (car (directory-files "~/.cache/emacs/" t zw/exwm-wallpaper-regexp))))
+    (call-process-shell-command
+     (concat "feh --bg-scale " (or wallpaper "~/.emacs.d/exwm/wallpaper.png"))
+     nil 0)))
+
+(defun zw/exwm-set-wallpaper (file)
+  (interactive
+   (list (read-file-name "Set desktop background: "
+                         default-directory nil
+                         t nil
+                         (lambda (file-name)
+                           (or (file-directory-p file-name)
+                               (string-match zw/exwm-wallpaper-type-regexp file-name))))))
+  (when file
+    ;; delete old wallpaper
+    (dolist (wallpaper-old (directory-files "~/.cache/emacs/" t zw/exwm-wallpaper-regexp))
+      (delete-file wallpaper-old))
+    ;; set new wallpaper
+    (let ((suffix (car (last (split-string file "\\.")))))
+      (copy-file file (concat "~/.cache/emacs/wallpaper" "." suffix)))
+    (zw/exwm-show-wallpaper)))
+
+(zw/exwm-show-wallpaper)
 
 ;; ** Window divider
 ;; enable divider at right and bottom
@@ -534,7 +555,7 @@
 ;; Set the screen resolution (update this to be the correct resolution for your screen!)
 (require 'exwm-randr)
 (exwm-randr-enable)
-(add-hook 'exwm-randr-screen-change-hook #'zw/exwm-set-wallpaper)
+(add-hook 'exwm-randr-screen-change-hook #'zw/exwm-show-wallpaper)
 
 (use-package emacs-xrandr
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
