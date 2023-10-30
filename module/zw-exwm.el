@@ -464,15 +464,18 @@
 
 (add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
 (with-current-buffer "*scratch*"
+  (display-line-numbers-mode 0)
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
 ;; ** wallpaper
 (defun zw/exwm-set-wallpaper ()
-  (unless (file-exists-p "~/.cache/emacs/wallpaper.png")
-    (copy-file "~/.emacs.d/exwm/wallpaper.png" "~/.cache/emacs/wallpaper.png"))
-  (with-current-buffer "*scratch*"
-    (display-line-numbers-mode 0))
-  (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png") nil 0)
+  (cond
+   ((file-exists-p "~/.cache/emacs/wallpaper.png")
+    (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.png" nil 0))
+   ((file-exists-p "~/.cache/emacs/wallpaper.jpg")
+    (call-process-shell-command "feh --bg-scale ~/.cache/emacs/wallpaper.jpg" nil 0))
+   (t
+    (call-process-shell-command "feh --bg-scale ~/.emacs.d/exwm/wallpaper.png" nil 0))))
 
 (zw/exwm-set-wallpaper)
 
