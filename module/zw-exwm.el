@@ -483,7 +483,7 @@
 
 (defun zw/exwm-set-wallpaper (file)
   (interactive
-   (list (read-file-name "Set desktop background: "
+   (list (read-file-name "Set EXWM wallpaper: "
                          default-directory nil
                          t nil
                          (lambda (file-name)
