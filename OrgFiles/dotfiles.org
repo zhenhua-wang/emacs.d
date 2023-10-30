@@ -246,9 +246,8 @@ rounded-corners-exclude = [
   "window_type = 'dropdown_menu'",
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
-  "window_type = 'utility'",
-  "window_type = 'dock'",
   "window_type = 'desktop'",
+  "window_type = 'dock'",
   "class_g = 'Emacs' && name = 'posframe'"
 ];
 # shadow
@@ -261,8 +260,9 @@ shadow-exclude = [
   "window_type = 'dropdown_menu'",
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
-  "window_type = 'utility'",
+  "window_type = 'desktop'",
   "window_type = 'notification'",
+  "class_g = 'firefox' && argb",
   "class_g = 'Plank'"
 ];
 #+end_src
