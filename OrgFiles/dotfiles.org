@@ -252,9 +252,9 @@ rounded-corners-exclude = [
 ];
 # shadow
 shadow = true;
-shadow-radius = 12;
-shadow-offset-x = -12;
-shadow-offset-y = -12;
+shadow-radius = 10;
+shadow-offset-x = -10;
+shadow-offset-y = -10;
 shadow-exclude = [
   "window_type = 'menu'",
   "window_type = 'dropdown_menu'",
