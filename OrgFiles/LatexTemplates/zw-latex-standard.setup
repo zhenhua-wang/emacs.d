@@ -24,8 +24,6 @@
 #+LATEX_HEADER: \usepackage{hyphenat}
 #+LATEX_HEADER: \usepackage{ragged2e}
 #+LATEX_HEADER: \usepackage{subfig} % Subfigures (not needed in Org I think)
-#+LATEX_HEADER: \usepackage{hyperref} % Links
-#+LATEX_HEADER: \usepackage{listings} % Code highlighting
 % Disables flush alighment on the right side. Personal preference.
 # #+LATEX_HEADER: \RaggedRight
 
