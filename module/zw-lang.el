@@ -111,6 +111,7 @@
   (inferior-ess-mode . zw/inferior-ess-setup)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
+               ("TAB" . zw/smart-tab)
                ("C-c c e" . ess-complete-object-name)
                ("C-c C-c" . zw/ess-send-region-or-block)))
   :config
