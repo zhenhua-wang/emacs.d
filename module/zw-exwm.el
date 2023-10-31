@@ -175,7 +175,11 @@
            char-mode nil
            floating-mode-line nil
            floating-header-line nil)
-          (t floating-header-line nil
+          (t x ,float-x
+             y ,float-y
+             width ,float-width
+             height ,float-height
+             floating-header-line nil
              floating-mode-line nil))))
 
 ;; *** buffer config
