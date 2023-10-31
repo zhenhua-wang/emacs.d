@@ -910,6 +910,7 @@
         ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
         ;; window
+        (,(kbd "s-W") . exwm-floating-toggle-floating)
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "s-m") . (lambda ()
                           (interactive)
