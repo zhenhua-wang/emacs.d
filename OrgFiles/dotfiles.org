@@ -234,9 +234,9 @@ fade-exclude = [
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
   "window_type = 'desktop'",
+  "window_type = 'utility'",
   "window_type = 'dock'",
   "class_g = 'Emacs' && name = 'posframe'",
-  "class_g = 'firefox' && argb",
   "class_g = 'Plank'",
   "class_g = 'Rofi'"
 ];
@@ -276,8 +276,8 @@ shadow-exclude = [
   "window_type = 'popup_menu'",
   "window_type = 'tooltip'",
   "window_type = 'desktop'",
+  "window_type = 'utility'",
   "window_type = 'notification'",
-  "class_g = 'firefox' && argb",
   "class_g = 'Plank'"
 ];
 #+end_src
