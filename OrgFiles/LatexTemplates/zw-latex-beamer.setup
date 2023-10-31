@@ -7,6 +7,16 @@
 # % beamer
 #+LATEX_HEADER: \usetheme{Madrid}
 #+LATEX_HEADER: \usefonttheme{professionalfonts}
+#+LATEX_HEADER: \AtBeginSection[]{
+#+LATEX_HEADER:   \begin{frame}
+#+LATEX_HEADER:   \vfill
+#+LATEX_HEADER:   \centering
+#+LATEX_HEADER:   \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+#+LATEX_HEADER:     \usebeamerfont{title}\insertsectionhead\par%
+#+LATEX_HEADER:   \end{beamercolorbox}
+#+LATEX_HEADER:   \vfill
+#+LATEX_HEADER:   \end{frame}
+#+LATEX_HEADER: }
 
 # % code highlighting https://denbeke.be/blog/programming/syntax-highlighting-in-latex/
 #+LATEX_HEADER: \usepackage{listings}
