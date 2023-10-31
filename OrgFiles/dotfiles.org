@@ -228,9 +228,22 @@ unredir-if-possible = false;
 fading = true;
 fade-in-step = 0.028;
 fade-out-step = 0.03;
-fade-exclude = ["class_g != 'Dunst'"];
+fade-exclude = [
+  "window_type = 'menu'",
+  "window_type = 'dropdown_menu'",
+  "window_type = 'popup_menu'",
+  "window_type = 'tooltip'",
+  "window_type = 'desktop'",
+  "window_type = 'dock'",
+  "class_g = 'Emacs' && name = 'posframe'",
+  "class_g = 'firefox' && argb",
+  "class_g = 'Plank'",
+  "class_g = 'Rofi'"
+];
 # opacity
-opacity-rule = ["90:class_g = 'Polybar'"];
+opacity-rule = [
+  "90:class_g = 'Polybar'"
+];
 # backend
 backend = "glx"
 glx-no-stencil = true;
@@ -238,7 +251,9 @@ glx-no-rebind-pixmap = true;
 # blur: need to set "pseudo-transparency = false" in polybar
 blur-method = "dual_kawase";
 blur-strength = 12;
-blur-background-exclude = ["class_g != 'Polybar' && class_g != 'Rofi'"];
+blur-background-exclude = [
+  "class_g != 'Polybar' && class_g != 'Rofi'"
+];
 # rounded
 corner-radius = 10;
 rounded-corners-exclude = [
