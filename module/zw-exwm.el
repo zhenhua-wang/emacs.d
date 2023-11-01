@@ -111,11 +111,12 @@
 
 ;; *** update title
 (defun zw/exwm-update-title ()
-  (if (and exwm-title
-           (string= (downcase exwm-title)
-                    (downcase exwm-class-name)))
-      (exwm-workspace-rename-buffer exwm-class-name)
-    (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title))))
+  (when exwm-class-name
+    (if (and exwm-title
+             (string= (downcase exwm-title)
+                      (downcase exwm-class-name)))
+        (exwm-workspace-rename-buffer exwm-class-name)
+      (exwm-workspace-rename-buffer (format "%s: %s" exwm-class-name exwm-title)))))
 
 (add-hook 'exwm-update-class-hook #'zw/exwm-update-title)
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
@@ -190,11 +191,12 @@
     "^matplotlib.*$"))
 
 (defun zw/exwm-plot-buffer-p (buffer-or-name)
-  (let ((buffer (get-buffer buffer-or-name)))
-    (cl-some 'identity
-             (cl-map 'list (lambda (y)
-                             (string-match y (buffer-name buffer)))
-                     zw/exwm-plot-buffers))))
+  (when buffer-or-name
+    (let ((buffer (get-buffer buffer-or-name)))
+      (cl-some 'identity
+               (cl-map 'list (lambda (y)
+                               (string-match y (buffer-name buffer)))
+                       zw/exwm-plot-buffers)))))
 
 (dolist (buffer zw/exwm-plot-buffers)
   (add-to-list 'display-buffer-alist
