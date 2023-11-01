@@ -670,6 +670,7 @@
 ;; ** exwm show desktop
 (defun zw/exwm-show-desktop ()
   (interactive)
+  (zw/exwm-floating-hide-all)
   (if (string= (buffer-name) "*scratch*")
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
