@@ -570,9 +570,17 @@
 (defun zw/exwm-switch-to-buffer-advice (&rest args)
   (when exwm--floating-frame
     (select-frame-set-input-focus exwm-workspace--current)))
-(advice-add 'find-file :before 'zw/exwm-switch-to-buffer-advice)
-(advice-add 'switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
-(advice-add 'exwm-workspace-switch-to-buffer :before 'zw/exwm-switch-to-buffer-advice)
+(dolist (func '(find-file
+                switch-to-buffer
+                exwm-workspace-switch-to-buffer
+                vterm multi-vterm
+                zw/dired-sidebar-toggle
+                zw/side-window-toggle
+                magit-status
+                helpful-variable
+                helpful-callable
+                helpful-key))
+  (advice-add func :before 'zw/exwm-switch-to-buffer-advice))
 
 (defun zw/exwm--next-buffer (buffer-list buffer-length index)
   (let* ((buffer (nth index buffer-list)))
