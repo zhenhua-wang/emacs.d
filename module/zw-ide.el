@@ -143,6 +143,7 @@
       (zw/outline-reveal-children) (zw/outline-reveal))
      ;; invisible, no sub
      (t (zw/outline-reveal-children))))
+  ;; FIXME: this conflicts with company auto-complete
   (defun zw/outline-self-insert-command (N &optional C)
     (interactive "p")
     (self-insert-command N C)
