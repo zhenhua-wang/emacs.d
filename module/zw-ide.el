@@ -115,11 +115,10 @@
   (prog-mode . zw-outline-mode)
   :bind
   ((:map outline-minor-mode-map
-         ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)
-         ("<remap> <self-insert-command>" . zw/outline-self-insert-command)
          ("<remap> <newline>" . zw/outline-newline)
          ("<remap> <delete-char>" . zw/outline-delete-char)
-         ("<remap> <delete-backward-char>" . zw/outline-delete-backward-char)))
+         ("<remap> <delete-backward-char>" . zw/outline-delete-backward-char)
+         ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)))
   :config
   (defun zw/outline--level ()
     (length (match-string 2)))
@@ -143,11 +142,6 @@
       (zw/outline-reveal-children) (zw/outline-reveal))
      ;; invisible, no sub
      (t (zw/outline-reveal-children))))
-  ;; FIXME: this conflicts with company auto-complete
-  (defun zw/outline-self-insert-command (N &optional C)
-    (interactive "p")
-    (self-insert-command N C)
-    (zw/outline-reveal))
   (defun zw/outline-newline (&optional ARG INTERACTIVE)
     (interactive "*P\np")
     (newline ARG INTERACTIVE)
@@ -196,6 +190,7 @@
         (font-lock-add-keywords nil zw/outline--font-lock-keywords)
         (outline-minor-mode 1)
         (outline-hide-sublevels 1)
+        (add-hook 'post-self-insert-hook 'zw/outline-reveal nil t)
         (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
        (t
         ;; unfontify
@@ -210,6 +205,7 @@
                     font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
         (font-lock-remove-keywords nil zw/outline--font-lock-keywords)
         (outline-minor-mode 0)
+        (remove-hook 'post-self-insert-hook 'zw/outline-reveal t)
         (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))))
 
 (use-package outline-minor-faces
