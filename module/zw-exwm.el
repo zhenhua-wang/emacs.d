@@ -642,7 +642,7 @@
          (buffer (consult--read buffer-names
                                 :prompt "EXWM switch to buffer: "
                                 :state (consult--exwm-buffer-preview)
-                                :preview-key '(:debounce 0.2 any)
+                                ;; :preview-key '(:debounce 0.2 any)
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
