@@ -179,7 +179,6 @@
            floating-header-line nil)
           (t max-width ,float-width
              max-height ,float-height
-             panel-height ,panel-height
              floating-header-line nil
              floating-mode-line nil))))
 
