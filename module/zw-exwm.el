@@ -190,6 +190,18 @@
     (select-frame-set-input-focus zw/previous-frame)))
 (add-hook 'kill-buffer-hook 'zw/exwm-focus-preview-frame)
 
+(defun zw/exwm-floating-hide ()
+  "Hide the current floating X window and focus previous window."
+  (interactive)
+  (exwm--log)
+  (when (and (derived-mode-p 'exwm-mode)
+             exwm--floating-frame)
+    (exwm-layout--hide exwm--id)
+    (select-frame-set-input-focus
+     (if (frame-live-p zw/previous-frame)
+         zw/previous-frame
+       exwm-workspace--current))))
+
 ;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers
@@ -938,7 +950,7 @@
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "s-m") . (lambda ()
                           (interactive)
-                          (if exwm--floating-frame (exwm-floating-hide) (bury-buffer))))
+                          (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
         (,(kbd "s-+") . enlarge-window-horizontally)
         (,(kbd "s-_") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
