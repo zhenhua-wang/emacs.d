@@ -183,6 +183,13 @@
              floating-header-line nil
              floating-mode-line nil))))
 
+;; focus last frame after closing floating window
+(defun zw/exwm-focus-preview-frame ()
+  (when (and exwm--floating-frame
+             (frame-live-p zw/previous-frame))
+    (select-frame-set-input-focus zw/previous-frame)))
+(add-hook 'kill-buffer-hook 'zw/exwm-focus-preview-frame)
+
 ;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers

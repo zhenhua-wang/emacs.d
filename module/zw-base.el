@@ -48,13 +48,16 @@
     (9 "(") (0 ")")))
 
 ;; keep track active UI
+(defvar zw/previous-frame nil)
 (defvar zw/active-frame nil)
 (defvar zw/active-window nil)
 (defun zw/update-active-ui (&rest arg)
   "Update active UI."
   (let ((frame (selected-frame))
         (window (selected-window)))
-    (unless (minibufferp (window-buffer window))
+    (unless (or (minibufferp (window-buffer window))
+                (eq zw/active-frame frame))
+      (setq zw/previous-frame zw/active-frame)
       (setq zw/active-frame frame))
     (setq zw/active-window (selected-window))))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
