@@ -196,9 +196,11 @@
   (exwm--log)
   (when (and (derived-mode-p 'exwm-mode)
              exwm--floating-frame)
+    (make-frame-invisible exwm--floating-frame)
     (exwm-layout--hide exwm--id)
     (select-frame-set-input-focus
-     (if (frame-live-p zw/previous-frame)
+     (if (and (frame-live-p zw/previous-frame)
+              (frame-visible-p zw/previous-frame))
          zw/previous-frame
        exwm-workspace--current))))
 
