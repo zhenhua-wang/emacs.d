@@ -3,7 +3,7 @@
 ;; * exwm init
 (use-package exwm
   :demand t
-  :straight (:host github :repo "ch11ng/exwm" :files ("*")))
+  :straight (:host github :repo "zhenhua-wang/exwm" :files ("*")))
 
 ;; start server for ipc
 (server-start)
@@ -177,10 +177,8 @@
            char-mode nil
            floating-mode-line nil
            floating-header-line nil)
-          (t x ,float-x
-             y ,float-y
-             width ,float-width
-             height ,float-height
+          (t max-width ,float-width
+             max-height ,float-height
              floating-header-line nil
              floating-mode-line nil))))
 
