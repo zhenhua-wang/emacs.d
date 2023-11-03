@@ -63,6 +63,7 @@
                ("C-<return>" . zw/python-shell-send-line))))
 
 (use-package conda
+  :if (getenv "ANACONDA_HOME")
   :after python
   :config
   (or (cl-loop for dir in (list conda-anaconda-home
