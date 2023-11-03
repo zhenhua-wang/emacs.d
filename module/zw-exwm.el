@@ -106,7 +106,8 @@
     (zw/exwm-set-window-type exwm--connection
                              exwm--id
                              xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL))
-  (xcb:flush exwm--connection))
+  (xcb:flush exwm--connection)
+  (select-frame-set-input-focus exwm--floating-frame))
 (add-hook 'exwm-floating-setup-hook 'zw/exwm-set-float-window-type)
 
 ;; *** update title
