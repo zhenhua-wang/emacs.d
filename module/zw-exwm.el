@@ -621,9 +621,16 @@
       (select-window (get-buffer-window buffer)))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
+;; HACK: updating next-buffer--list when idle for 0.5 sec
+(defvar zw/exwm-next-buffer--list nil)
+(defvar zw/exwm-next-buffer--timer nil)
+(defun zw/exwm-next-buffer--update-list ()
+  (setq zw/exwm-next-buffer--list (zw/exwm-buffer-display-list)))
 (defun zw/exwm-next-buffer ()
   (interactive)
-  (let* ((buffer-list (zw/exwm-buffer-sorted-display-list))
+  (setq zw/exwm-next-buffer--timer
+        (run-with-idle-timer 1 nil 'zw/exwm-next-buffer--update-list))
+  (let* ((buffer-list (or zw/exwm-next-buffer--list (zw/exwm-buffer-display-list)))
          (buffer-length (length buffer-list))
          (current-index (cl-position (current-buffer) buffer-list))
          (next-index (if current-index
