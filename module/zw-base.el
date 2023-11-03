@@ -107,6 +107,9 @@
             (buffer-face-mode)))
 
 ;; ** Line number mode
+(add-hook 'display-line-numbers-mode-hook
+          (lambda ()
+            (setq-local display-line-numbers-width 3)))
 ;; line number mode
 (dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook mode 'display-line-numbers-mode))
