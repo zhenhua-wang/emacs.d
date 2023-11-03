@@ -178,6 +178,10 @@
            floating-mode-line nil
            floating-header-line nil)
           (t floating t
+             tiling-mode-line nil
+             tiling-header-line nil
+             floating-mode-line nil
+             floating-header-line nil
              max-width ,float-width
              max-height ,float-height
              floating-header-line nil
@@ -337,7 +341,6 @@
 
 ;; *** config
 (set-face-attribute 'mode-line nil :box nil)
-(add-hook 'exwm-manage-finish-hook 'zw/toggle-presentation)
 
 ;; ** tab bar
 (unless (executable-find "polybar")
