@@ -20,6 +20,11 @@
     (set dst
          (append (eval dst) src))))
 
+(defun zw/list-same-elements (list1 list2)
+  "Test if LIST1 and LIST2 hold the same values.
+The order of values may be different."
+  (not (cl-set-exclusive-or list1 list2)))
+
 (defun zw/get-face-attr-recur (face attr)
   "Get face background/foreground recursively"
   (let ((face-attr (face-attribute face attr)))

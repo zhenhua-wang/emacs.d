@@ -632,9 +632,19 @@
     (setq zw/exwm-next-buffer--timer nil)))
 (defun zw/exwm-next-buffer ()
   (interactive)
+  ;; update list if any buffer removed/added
+  (unless (zw/list-same-elements zw/exwm-next-buffer--list
+                                 (zw/exwm-buffer-display-list))
+    (zw/exwm-next-buffer--update-list))
+  ;; set timer
   (setq zw/exwm-next-buffer--timer
         (run-with-idle-timer 0.5 nil 'zw/exwm-next-buffer--update-list))
-  (let* ((buffer-list (or zw/exwm-next-buffer--list (zw/exwm-buffer-display-list)))
+  (let* ((buffer-list-old (cl-remove-if-not 'buffer-live-p zw/exwm-next-buffer--list))
+         (buffer-list (if (and buffer-list-old
+                               (zw/list-same-elements zw/exwm-next-buffer--list
+                                                      (zw/exwm-buffer-display-list)))
+                          buffer-list-old
+                        (zw/exwm-buffer-display-list)))
          (buffer-length (length buffer-list))
          (current-index (cl-position (current-buffer) buffer-list))
          (next-index (if current-index
