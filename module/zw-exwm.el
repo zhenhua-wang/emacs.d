@@ -608,6 +608,50 @@
                 helpful-key))
   (advice-add func :before 'zw/exwm-switch-to-buffer-advice))
 
+(defun zw/exwm--next-buffer (buffer-list buffer-length index)
+  (let* ((buffer (nth index buffer-list)))
+    (cond
+     ;; no other invisible buffers
+     ((or (not buffer-list)
+          (and (length= buffer-list 1) (eq (car buffer-list) (current-buffer))))
+      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\""))
+     ;; next buffer is visible
+     ((get-buffer-window buffer)
+      (select-frame-set-input-focus exwm-workspace--current)
+      (select-window (get-buffer-window buffer)))
+     (t (exwm-workspace-switch-to-buffer buffer)))))
+
+;; HACK: updating next-buffer--list when idle for 1 sec
+(defvar zw/exwm-next-buffer--list nil)
+(defvar zw/exwm-next-buffer--timer nil)
+(defun zw/exwm-next-buffer--update-list ()
+  (setq zw/exwm-next-buffer--list (zw/exwm-buffer-display-list))
+  ;; clear timer
+  (when zw/exwm-next-buffer--timer
+    (cancel-timer zw/exwm-next-buffer--timer)
+    (setq zw/exwm-next-buffer--timer nil)))
+(defun zw/exwm-next-buffer ()
+  (interactive)
+  ;; update list if any buffer removed/added
+  (unless (zw/list-same-elements zw/exwm-next-buffer--list
+                                 (zw/exwm-buffer-display-list))
+    (zw/exwm-next-buffer--update-list))
+  ;; set timer
+  (setq zw/exwm-next-buffer--timer
+        (run-with-idle-timer 1 nil 'zw/exwm-next-buffer--update-list))
+  (let* ((buffer-list-old (cl-remove-if-not 'buffer-live-p zw/exwm-next-buffer--list))
+         (buffer-list (if (and buffer-list-old
+                               (zw/list-same-elements zw/exwm-next-buffer--list
+                                                      (zw/exwm-buffer-display-list)))
+                          buffer-list-old
+                        (zw/exwm-buffer-display-list)))
+         (buffer-length (length buffer-list))
+         (current-index (cl-position (current-buffer) buffer-list))
+         (next-index (if current-index
+                         (mod (+ current-index 1) buffer-length)
+                       0)))
+    (zw/exwm--next-buffer buffer-list buffer-length next-index)))
+
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
     (concat (propertize " " 'display `(space :align-to center))
