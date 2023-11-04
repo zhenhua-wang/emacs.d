@@ -672,6 +672,20 @@
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
+;; HACK: switch-to-buffer enter when idle for 0.6 sec
+(defvar zw/exwm-switch-to-buffer--timer nil)
+(defun zw/exwm-switch-to-buffer--enter ()
+  (vertico-directory-enter)
+  ;; clear timer
+  (when zw/exwm-next-buffer--timer
+    (cancel-timer zw/exwm-next-buffer--timer)
+    (setq zw/exwm-next-buffer--timer nil)))
+(defun zw/exwm-switch-to-buffer-enter ()
+  (interactive)
+  (setq zw/exwm-switch-to-buffer--timer
+        (run-with-idle-timer 0.6 nil 'zw/exwm-switch-to-buffer--enter))
+  (zw/exwm-switch-to-buffer))
+
 ;; preview exwm switch buffer
 ;; BUG: lost focus in exwm char-mode
 (defun consult--exwm-buffer-preview ()
@@ -1002,7 +1016,7 @@
                                  (save-some-buffers)
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/launch-app)
-        (,(kbd "s-<tab>") . zw/exwm-next-buffer)
+        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer-enter)
         (,(kbd "s-`") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-M") . magit-status)
