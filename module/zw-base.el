@@ -112,9 +112,8 @@ The order of values may be different."
             (buffer-face-mode)))
 
 ;; ** Line number mode
-(add-hook 'display-line-numbers-mode-hook
-          (lambda ()
-            (setq-local display-line-numbers-width 3)))
+(setq-default display-line-numbers-width 3
+              display-line-numbers-widen t)
 ;; line number mode
 (dolist (mode '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook mode 'display-line-numbers-mode))
