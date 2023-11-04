@@ -931,7 +931,6 @@
         ?\M-:))
 
 ;; ** exwm simulate keys
-;; *** default
 (setq exwm-input-simulation-keys
       `((,(kbd "s-r") . ,(kbd "C-r"))
         (,(kbd "s-f") . ,(kbd "C-f"))
@@ -973,28 +972,9 @@
         (,(kbd "C-S-a") . ,(kbd "S-<home>"))
         (,(kbd "C-S-e") . ,(kbd "S-<end>"))))
 
-;; *** chat
-(add-hook 'exwm-manage-finish-hook
-          (lambda ()
-            (when (and exwm-class-name
-                       (string= exwm-class-name "weixin"))
-              (exwm-input-set-local-simulation-keys
-               (append (remove `(,(kbd "s-w") . ,(kbd "C-w")) exwm-input-simulation-keys)
-                       `((,(kbd "C-w") . ,(kbd "s-m"))
-                         (,(kbd "s-w") . ,(kbd "s-m"))))))))
-
-;; *** no simulate keys
-(add-hook 'exwm-manage-finish-hook
-          (lambda ()
-            (when (and exwm-class-name
-                       (or (string= exwm-class-name "kitty")
-                           (string= exwm-class-name "Emacs")))
-              (exwm-input-set-local-simulation-keys nil))))
-
 ;; ** exwm global keys
 (setq exwm-input-global-keys
-      `(
-        ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+      `(;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
         ;; window
         (,(kbd "s-W") . exwm-floating-toggle-floating)
@@ -1064,10 +1044,6 @@
            ("s-<right>" . windmove-right)
            ("s-<up>" . zw/exwm-window-up)
            ("s-<down>" . zw/exwm-window-down)
-           ;; tab bar
-           ("s-1" . zw/tab-switch)
-           ("s-9" . tab-new)
-           ("s-0" . tab-close)
            :map vertico-map
            ("s-<tab>" . vertico-next)
            ("s-`" . vertico-next))
