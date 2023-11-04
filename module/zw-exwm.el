@@ -621,7 +621,7 @@
       (select-window (get-buffer-window buffer)))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
-;; HACK: updating next-buffer--list when idle for 0.5 sec
+;; HACK: updating next-buffer--list when idle for 1 sec
 (defvar zw/exwm-next-buffer--list nil)
 (defvar zw/exwm-next-buffer--timer nil)
 (defun zw/exwm-next-buffer--update-list ()
@@ -638,7 +638,7 @@
     (zw/exwm-next-buffer--update-list))
   ;; set timer
   (setq zw/exwm-next-buffer--timer
-        (run-with-idle-timer 0.5 nil 'zw/exwm-next-buffer--update-list))
+        (run-with-idle-timer 1 nil 'zw/exwm-next-buffer--update-list))
   (let* ((buffer-list-old (cl-remove-if-not 'buffer-live-p zw/exwm-next-buffer--list))
          (buffer-list (if (and buffer-list-old
                                (zw/list-same-elements zw/exwm-next-buffer--list
