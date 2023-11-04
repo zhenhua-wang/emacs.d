@@ -141,52 +141,49 @@
        (float-header-line (list '(:eval (propertize (zw/tab-bar-tab-name)
                                                     'face 'zw/modeline-process-active))
                                 '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
-                                '(:eval (zw/exwm-float-header-line-rhs)))))
+                                '(:eval (zw/exwm-float-header-line-rhs))))
+       (default-config (list 'floating t
+                             'tiling-mode-line nil
+                             'tiling-header-line nil
+                             'floating-mode-line nil
+                             'floating-header-line nil)))
   (setq exwm-manage-configurations
-        `(((string= "Emacs" exwm-class-name)
-           x ,float-x
-           y ,float-y
-           width ,float-width
-           height ,float-height
-           floating t
-           char-mode t
-           floating-mode-line nil
-           floating-header-line nil)
-          ((and (zw/exwm-plot-buffer-p exwm-class-name)
-                (cl-some 'identity
-                         (cl-mapcar (lambda (buffer)
-                                      (with-current-buffer buffer
-                                        (string= "Emacs" exwm-class-name)))
-                                    (buffer-list))))
-           x ,(- (+ float-x float-width)
-                 (floor (* float-width 0.3)))
-           y ,float-y
-           width ,(floor (* float-width 0.3))
-           height ,(floor (* float-width 0.3))
-           floating t
-           floating-mode-line nil
-           floating-header-line nil)
-          ((string= "kitty" exwm-class-name)
-           floating t
-           char-mode t
-           floating-mode-line nil
-           floating-header-line nil)
-          ((or (string= "vlc" exwm-class-name)
-               (string= "mpv" exwm-class-name)
-               (string= "steam" exwm-class-name))
-           floating t
-           char-mode nil
-           floating-mode-line nil
-           floating-header-line nil)
-          (t floating t
-             tiling-mode-line nil
-             tiling-header-line nil
-             floating-mode-line nil
-             floating-header-line nil
-             max-width ,float-width
-             max-height ,float-height
-             floating-header-line nil
-             floating-mode-line nil))))
+        `(;; plot buffer
+          ,(append `((and (zw/exwm-plot-buffer-p exwm-class-name)
+                          (cl-some 'identity
+                                   (cl-mapcar (lambda (buffer)
+                                                (with-current-buffer buffer
+                                                  (string= "Emacs" exwm-class-name)))
+                                              (buffer-list))))
+                     x ,(- (+ float-x float-width)
+                           (floor (* float-width 0.3)))
+                     y ,float-y
+                     width ,(floor (* float-width 0.3))
+                     height ,(floor (* float-width 0.3)))
+                   default-config)
+          ;; default with fixed geometry
+          ,(append `((string= "Emacs" exwm-class-name)
+                     char-mode t
+                     x ,float-x
+                     y ,float-y
+                     width ,float-width
+                     height ,float-height)
+                   default-config)
+          ;; default with tiling
+          ,(append `((zw/exwm-plot-buffer-p exwm-class-name)
+                     floating nil)
+                   default-config)
+          ;; default with char-mode
+          ,(append `((string= "kitty" exwm-class-name)
+                     char-mode t
+                     max-width ,float-width
+                     max-height ,float-height)
+                   default-config)
+          ;; default
+          ,(append `(t char-mode nil
+                       max-width ,float-width
+                       max-height ,float-height)
+                   default-config))))
 
 ;; focus last frame after closing floating window
 (defun zw/exwm-focus-preview-frame ()
