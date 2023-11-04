@@ -625,11 +625,12 @@
 (defvar zw/exwm-next-buffer--list nil)
 (defvar zw/exwm-next-buffer--timer nil)
 (defun zw/exwm-next-buffer--update-list ()
-  (setq zw/exwm-next-buffer--list (zw/exwm-buffer-display-list))
   ;; clear timer
   (when zw/exwm-next-buffer--timer
     (cancel-timer zw/exwm-next-buffer--timer)
-    (setq zw/exwm-next-buffer--timer nil)))
+    (setq zw/exwm-next-buffer--timer nil))
+  ;; update next-buffer--list
+  (setq zw/exwm-next-buffer--list (zw/exwm-buffer-display-list)))
 (defun zw/exwm-next-buffer ()
   (interactive)
   ;; update list if any buffer removed/added
