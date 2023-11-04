@@ -628,7 +628,8 @@
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
-;; HACK: switch-to-buffer enter when idle for 0.6 sec
+;; HACK: switch-to-buffer enter when idle
+(defvar zw/exwm-switch-to-buffer--idle-sec 0.5)
 (defvar zw/exwm-switch-to-buffer--timer nil)
 (defun zw/exwm-switch-to-buffer--enter ()
   ;; clear timer
@@ -647,7 +648,8 @@
   (if (cl-remove-if (lambda (buf) (eq buf (current-buffer))) (zw/exwm-buffer-display-list))
       (progn
         (setq zw/exwm-switch-to-buffer--timer
-              (run-with-idle-timer 0.7 nil 'zw/exwm-switch-to-buffer--enter))
+              (run-with-idle-timer zw/exwm-switch-to-buffer--idle-sec
+                                   nil 'zw/exwm-switch-to-buffer--enter))
         (zw/exwm-switch-to-buffer))
     (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\"")))
 
