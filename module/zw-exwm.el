@@ -619,7 +619,7 @@
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
 ;; HACK: updating next-buffer--list when idle
-(defvar zw/exwm-next-buffer--idle-time 1)
+(defvar zw/exwm-next-buffer--idle-time 0.7)
 (defvar zw/exwm-next-buffer--list nil)
 (defvar zw/exwm-next-buffer--timer nil)
 (defun zw/exwm-next-buffer--update-list ()
