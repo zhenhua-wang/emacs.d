@@ -682,9 +682,12 @@
     (setq zw/exwm-next-buffer--timer nil)))
 (defun zw/exwm-switch-to-buffer-enter ()
   (interactive)
-  (setq zw/exwm-switch-to-buffer--timer
-        (run-with-idle-timer 0.6 nil 'zw/exwm-switch-to-buffer--enter))
-  (zw/exwm-switch-to-buffer))
+  (if (cl-remove-if (lambda (buf) (eq buf (current-buffer))) (zw/exwm-buffer-display-list))
+      (progn
+        (setq zw/exwm-switch-to-buffer--timer
+              (run-with-idle-timer 0.7 nil 'zw/exwm-switch-to-buffer--enter))
+        (zw/exwm-switch-to-buffer))
+    (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" "\"No other buffers\"")))
 
 ;; preview exwm switch buffer
 ;; BUG: lost focus in exwm char-mode
