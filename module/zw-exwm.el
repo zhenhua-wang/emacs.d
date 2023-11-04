@@ -629,7 +629,7 @@
     (exwm-workspace-switch-to-buffer buffer)))
 
 ;; HACK: switch-to-buffer enter when idle
-(defvar zw/exwm-switch-to-buffer--idle-sec 0.5)
+(defvar zw/exwm-switch-to-buffer--idle-sec 0.7)
 (defvar zw/exwm-switch-to-buffer--timer nil)
 (defun zw/exwm-switch-to-buffer--enter ()
   ;; clear timer
