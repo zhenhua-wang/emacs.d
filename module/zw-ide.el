@@ -186,7 +186,8 @@
                                                       1 '(face nil invisible zw-outline-star)))
                     outline-level 'zw/outline--level
                     outline-minor-mode-use-buttons t
-                    font-lock-unfontify-region-function #'zw/outline--unfontify)
+                    font-lock-unfontify-region-function #'zw/outline--unfontify
+                    outline-isearch-open-invisible-function (lambda (o) (zw/outline-reveal)))
         (font-lock-add-keywords nil zw/outline--font-lock-keywords)
         (outline-minor-mode 1)
         (outline-hide-sublevels 1)
@@ -202,7 +203,8 @@
         (setq-local outline-regexp (default-value 'outline-regexp)
                     outline-level (default-value 'outline-level)
                     outline-minor-mode-use-buttons nil
-                    font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
+                    font-lock-unfontify-region-function #'font-lock-default-unfontify-region
+                    outline-isearch-open-invisible-function #'outline-isearch-open-invisible)
         (font-lock-remove-keywords nil zw/outline--font-lock-keywords)
         (outline-minor-mode 0)
         (remove-hook 'post-self-insert-hook 'zw/outline-reveal t)
