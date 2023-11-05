@@ -233,7 +233,7 @@
 
 ;; * VC
 (use-package magit
-  :bind (("s-M" . magit-status)
+  :bind (("s-G" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo))
   :commands (magit-status magit-get-current-branch)

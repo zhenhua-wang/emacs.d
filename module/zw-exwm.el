@@ -756,6 +756,7 @@
 
 ;; ** auto hide float
 (defun zw/exwm-floating-hide-all ()
+  (interactive)
   (let ((exwm-id-list (mapcar 'car exwm--id-buffer-alist)))
     (dolist (exwm-id exwm-id-list)
       (with-current-buffer (exwm--id->buffer exwm-id)
@@ -982,6 +983,7 @@
         (,(kbd "s-m") . (lambda ()
                           (interactive)
                           (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
+        (,(kbd "s-M") . zw/exwm-floating-hide-all)
         (,(kbd "s-+") . enlarge-window-horizontally)
         (,(kbd "s-_") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
@@ -1008,7 +1010,7 @@
         (,(kbd "s-<tab>") . zw/exwm-next-buffer)
         (,(kbd "s-`") . zw/exwm-switch-to-buffer)
         ;; git
-        (,(kbd "s-M") . magit-status)
+        (,(kbd "s-G") . magit-status)
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
