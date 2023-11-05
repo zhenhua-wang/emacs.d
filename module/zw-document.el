@@ -38,14 +38,6 @@
     (org-overview)
     (org-reveal)))
 
-;; org contrib
-(use-package org-contrib
-  :straight (:host github :repo "emacsmirror/org-contrib")
-  :after org
-  :config
-  (require 'ox-extra)
-  (ox-extras-activate '(ignore-headlines)))
-
 ;; auto tangle
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode))
@@ -55,6 +47,55 @@
   :hook ((org-mode . toc-org-mode)
          (markdown-mode . toc-org-mode))
   :config (setq toc-org-max-depth 1))
+
+;; ** extra
+(with-eval-after-load "org"
+  (defun org-export-ignore-headlines (data backend info)
+    "Remove headlines tagged \"ignore\" retaining contents and promoting children.
+Each headline tagged \"ignore\" will be removed retaining its
+contents and promoting any children headlines to the level of the
+parent."
+    (org-element-map data 'headline
+      (lambda (object)
+        (when (member "ignore" (org-element-property :tags object))
+          (let ((level-top (org-element-property :level object))
+                level-diff)
+            (mapc (lambda (el)
+                    ;; recursively promote all nested headlines
+                    (org-element-map el 'headline
+                      (lambda (el)
+                        (when (equal 'headline (org-element-type el))
+                          (unless level-diff
+                            (setq level-diff (- (org-element-property :level el)
+                                                level-top)))
+                          (org-element-put-property el
+                                                    :level (- (org-element-property :level el)
+                                                              level-diff)))))
+                    ;; insert back into parse tree
+                    (org-element-insert-before el object))
+                  (org-element-contents object)))
+          (org-element-extract-element object)))
+      info nil)
+    (org-extra--merge-sections data backend info)
+    data)
+  (defun org-extra--merge-sections (data _backend info)
+    (org-element-map data 'headline
+      (lambda (hl)
+        (let ((sections
+               (cl-loop
+                for el in (org-element-map (org-element-contents hl)
+                              '(headline section) #'identity info)
+                until (eq (org-element-type el) 'headline)
+                collect el)))
+          (when (and sections
+                     (> (length sections) 1))
+            (apply #'org-element-adopt-elements
+                   (car sections)
+                   (cl-mapcan (lambda (s) (org-element-contents s))
+                              (cdr sections)))
+            (mapc #'org-element-extract-element (cdr sections)))))
+      info))
+  (add-hook 'org-export-filter-parse-tree-functions 'org-export-ignore-headlines))
 
 ;; ** ox latex
 ;; htmlize.el is needed for exporting colorful codes to html
