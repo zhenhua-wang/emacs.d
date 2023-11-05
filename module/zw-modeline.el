@@ -177,7 +177,6 @@
   (cond
    ((member major-mode '(org-agenda-mode
                          image-mode
-                         eaf-mode
                          vterm-mode
                          exwm-mode))
     "")

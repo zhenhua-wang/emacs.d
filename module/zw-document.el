@@ -49,7 +49,7 @@
   :config (setq toc-org-max-depth 1))
 
 ;; ** extra
-(with-eval-after-load "org"
+(with-eval-after-load "ox"
   (defun org-export-ignore-headlines (data backend info)
     "Remove headlines tagged \"ignore\" retaining contents and promoting children.
 Each headline tagged \"ignore\" will be removed retaining its
