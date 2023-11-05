@@ -38,6 +38,14 @@
     (org-overview)
     (org-reveal)))
 
+;; org contrib
+(use-package org-contrib
+  :straight (:host github :repo "emacsmirror/org-contrib")
+  :after org
+  :config
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines)))
+
 ;; auto tangle
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode))
