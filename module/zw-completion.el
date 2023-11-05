@@ -102,7 +102,6 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("M-y" . consult-yank-pop)
          ("<help> a" . consult-apropos)
          ("s-f" . consult-line)
-         ("s-F" . zw/consult-line-multi)
          ;; M-g bindings (goto-map)
          ("M-g g" . consult-goto-line)
          ("M-g o" . consult-outline)
