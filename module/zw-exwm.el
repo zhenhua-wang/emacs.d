@@ -375,7 +375,7 @@
     (let* ((display-frame (if (frame-live-p zw/active-frame) zw/active-frame exwm-workspace--current))
            (label (buffer-name (window-buffer (frame-selected-window display-frame))))
            (label-max 50)
-           (label-ellipsis ""))
+           (label-ellipsis "..."))
       (if (> (length label) label-max)
           (truncate-string-to-width
            label label-max nil nil label-ellipsis)
