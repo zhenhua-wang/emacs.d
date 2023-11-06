@@ -131,7 +131,8 @@
                       'face 'zw/modeline-process-active)
           " "
           (propertize (zw/exwm-modeline-float-hide)
-                      'face 'zw/modeline-process-active)))
+                      'face 'zw/modeline-process-active)
+          " "))
 
 (let* ((panel-height (if (executable-find "polybar") (line-pixel-height) 0))
        (float-width (floor (/ (frame-pixel-width) 1.1)))
@@ -289,7 +290,7 @@
 ;; ** modeline
 ;; *** hide float window
 (defun zw/exwm-modeline-float-hide ()
-  (propertize "[-]"
+  (propertize "▼"
               'help-echo "mouse-1: Hide floating window"
               'mouse-face 'mode-line-highlight
               'local-map (let ((map (make-sparse-keymap)))
