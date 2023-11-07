@@ -784,8 +784,6 @@
       (advice-add 'exwm-input--update-focus :before 'zw/exwm-hide-float)
     (advice-remove 'exwm-input--update-focus 'zw/exwm-hide-float)))
 
-(exwm-float-auto-hide-mode 1)
-
 ;; ** dunst
 (defun zw/exwm-dunst-send-message (options summary body)
   (when (executable-find "dunst")
