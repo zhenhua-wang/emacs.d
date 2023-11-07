@@ -179,6 +179,12 @@
                      max-width ,float-width
                      max-height ,float-height)
                    default-config)
+          ;; floating
+          ,(append `((string= "zoom" exwm-class-name)
+                     floating t
+                     max-width ,float-width
+                     max-height ,float-height)
+                   default-config)
           ;; default
           ,(append `(t max-width ,float-width
                        max-height ,float-height)
