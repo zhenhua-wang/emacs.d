@@ -144,8 +144,7 @@
                                                     'face 'zw/modeline-process-active))
                                 '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
                                 '(:eval (zw/exwm-float-header-line-rhs))))
-       (default-config (list 'floating t
-                             'tiling-mode-line nil
+       (default-config (list 'tiling-mode-line nil
                              'tiling-header-line nil
                              'floating-mode-line nil
                              'floating-header-line nil)))
@@ -157,6 +156,7 @@
                                                 (with-current-buffer buffer
                                                   (string= "Emacs" exwm-class-name)))
                                               (buffer-list))))
+                     floating t
                      x ,(- (+ float-x float-width)
                            (floor (* float-width 0.3)))
                      y ,float-y
@@ -165,6 +165,7 @@
                    default-config)
           ;; default with fixed geometry
           ,(append `((string= "Emacs" exwm-class-name)
+                     floating t
                      char-mode t
                      x ,float-x
                      y ,float-y
@@ -177,6 +178,7 @@
                    default-config)
           ;; default with char-mode
           ,(append `((string= "kitty" exwm-class-name)
+                     floating t
                      char-mode t
                      max-width ,float-width
                      max-height ,float-height)
