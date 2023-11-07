@@ -163,7 +163,7 @@
                      width ,(floor (* float-width 0.3))
                      height ,(floor (* float-width 0.3)))
                    default-config)
-          ;; default with fixed geometry
+          ;; floating fixed geometry
           ,(append `((string= "Emacs" exwm-class-name)
                      floating t
                      char-mode t
@@ -172,11 +172,7 @@
                      width ,float-width
                      height ,float-height)
                    default-config)
-          ;; default with tiling
-          ,(append `((zw/exwm-plot-buffer-p exwm-class-name)
-                     floating nil)
-                   default-config)
-          ;; default with char-mode
+          ;; floating char-mode
           ,(append `((string= "kitty" exwm-class-name)
                      floating t
                      char-mode t
@@ -184,8 +180,7 @@
                      max-height ,float-height)
                    default-config)
           ;; default
-          ,(append `(t char-mode nil
-                       max-width ,float-width
+          ,(append `(t max-width ,float-width
                        max-height ,float-height)
                    default-config))))
 
