@@ -592,7 +592,7 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
-(defun zw/exwm-switch-to-buffer-advice (&rest args)
+(defun zw/exwm-floating-function-advice (&rest args)
   (when exwm--floating-frame
     (select-frame-set-input-focus exwm-workspace--current)))
 (dolist (func '(find-file
@@ -605,7 +605,15 @@
                 helpful-variable
                 helpful-callable
                 helpful-key))
-  (advice-add func :before 'zw/exwm-switch-to-buffer-advice))
+  (advice-add func :before 'zw/exwm-floating-function-advice))
+
+(defun zw/exwm-floating-disable-function-advice (func &rest args)
+  (if exwm--floating-frame
+      (message "This command is disabled in floating window")
+    (apply func args)))
+(dolist (func '(split-window-below
+                split-window-right))
+  (advice-add func :around 'zw/exwm-floating-disable-function-advice))
 
 (defun zw/exwm--next-buffer (buffer-list buffer-length index)
   (let* ((buffer (nth index buffer-list)))
