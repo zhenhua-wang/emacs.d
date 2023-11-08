@@ -211,6 +211,12 @@ yay -S nvidia-settings
 
 click on the ~Advanced~ button that is available on the ~X Server Display Configuration~ menu option. Select either ~Force Full Composition Pipeline~ and click on Apply. Save to X configuration file.
 
+*** Repare fire system with Fsck
+https://linuxize.com/post/fsck-command-in-linux/
+#+begin_src sh
+sudo fsck -p /dev/sda1
+#+end_src
+
 * MacOS
 ** Homebrew
 #+begin_src shell
