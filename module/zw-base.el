@@ -69,7 +69,8 @@ The order of values may be different."
 
 ;; * Config
 (setq-default default-directory (concat (getenv "HOME") "/")
-              confirm-kill-emacs 'yes-or-no-p)
+              confirm-kill-emacs 'yes-or-no-p
+              large-file-warning-threshold nil)
 
 ;; default coding
 (set-default-coding-systems 'utf-8)
