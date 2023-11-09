@@ -96,7 +96,7 @@
                            exwm--id
                            xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)
   (xcb:flush exwm--connection))
-(add-hook 'exwm-floating-exit-hook 'zw/exwm-unset-float-window-type)
+;; (add-hook 'exwm-floating-exit-hook 'zw/exwm-unset-float-window-type)
 ;; set float window type
 (defun zw/exwm-set-float-window-type ()
   (if zw/exwm-window-type-float
@@ -108,7 +108,7 @@
                              xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL))
   (xcb:flush exwm--connection)
   (select-frame-set-input-focus exwm--floating-frame))
-(add-hook 'exwm-floating-setup-hook 'zw/exwm-set-float-window-type)
+;; (add-hook 'exwm-floating-setup-hook 'zw/exwm-set-float-window-type)
 
 ;; *** update title
 (defun zw/exwm-update-title ()
