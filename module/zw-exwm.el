@@ -157,7 +157,8 @@
                    default-config)
           ;; floating
           ,(append `((member exwm-class-name '("mpv"
-                                               "zoom"))
+                                               "zoom"
+                                               "steam"))
                      floating t
                      max-width ,float-width
                      max-height ,float-height)
