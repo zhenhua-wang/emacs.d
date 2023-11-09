@@ -167,6 +167,10 @@
                        max-height ,float-height)
                    default-config))))
 
+(defun zw/exwm-floating-setup-hook ()
+  (select-frame-set-input-focus exwm--floating-frame))
+(add-hook 'exwm-floating-setup-hook 'zw/exwm-floating-setup-hook)
+
 ;; focus last frame after closing floating window
 (defun zw/exwm-focus-preview-frame ()
   (when (and exwm--floating-frame
