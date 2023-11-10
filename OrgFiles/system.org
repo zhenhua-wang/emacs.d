@@ -69,7 +69,7 @@ yay -S plank plank-theme-bigsur
 # dconf dump /net/launchpad/plank/docks/ > docks.ini
 cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 # misc
-yay -S firefox kitty aspell aspell-en htop neofetch obs-studio tumbler thunar
+yay -S firefox kitty aspell aspell-en htop neofetch obs-studio thunar tumbler ffmpegthumbnailer
 # media
 yay -S mpv yt-dlp streamlink
 # laptop power management
