@@ -24,7 +24,7 @@ mv emacs.d .emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S libxft libxpm libtiff giflib
+yay -S libxft libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
@@ -68,10 +68,8 @@ yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 yay -S plank plank-theme-bigsur
 # dconf dump /net/launchpad/plank/docks/ > docks.ini
 cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
-# misc
-yay -S firefox kitty aspell aspell-en htop neofetch obs-studio thunar tumbler ffmpegthumbnailer
-# media
-yay -S mpv yt-dlp streamlink
+# essential desktop applications
+yay -S firefox kitty htop neofetch obs-studio thunar tumbler ffmpegthumbnailer mpv yt-dlp streamlink file-roller
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service

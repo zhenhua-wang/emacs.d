@@ -158,7 +158,8 @@
           ;; floating
           ,(append `((member exwm-class-name '("mpv"
                                                "zoom"
-                                               "steam"))
+                                               "steam"
+                                               "File-roller"))
                      floating t
                      max-width ,float-width
                      max-height ,float-height)
