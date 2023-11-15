@@ -1001,8 +1001,7 @@
                                  (save-some-buffers)
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/launch-app)
-        (,(kbd "s-<tab>") . zw/exwm-next-buffer)
-        (,(kbd "s-`") . zw/exwm-switch-to-buffer)
+        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         ;; git
         (,(kbd "s-G") . magit-status)
         ;; vterm
