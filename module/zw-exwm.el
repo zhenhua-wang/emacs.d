@@ -155,17 +155,16 @@
                      max-width ,float-width
                      max-height ,float-height)
                    default-config)
-          ;; floating
-          ,(append `((member exwm-class-name '("mpv"
-                                               "zoom"
-                                               "steam"
-                                               "File-roller"))
-                     floating t
-                     max-width ,float-width
-                     max-height ,float-height)
+          ;; tiling
+          ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
+                         (and (eq (car exwm-window-type)
+                                  xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL)
+                              (member exwm-class-name '("firefox"))))
+                     floating nil)
                    default-config)
           ;; default
-          ,(append `(t max-width ,float-width
+          ,(append `(t floating t
+                       max-width ,float-width
                        max-height ,float-height)
                    default-config))))
 
