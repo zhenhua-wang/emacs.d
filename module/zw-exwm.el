@@ -656,7 +656,8 @@
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
   (let* ((buffers (cl-remove-if
-                   (lambda (x) (eq (current-buffer) x))
+                   (lambda (x) (or (eq (current-buffer) x)
+                                   (zw/exwm-plot-buffer-p x)))
                    (zw/exwm-buffer-display-list)))
          (buffer-names (cl-map 'list 'buffer-name buffers))
          (completion-extra-properties '(:annotation-function zw/exwm-switch-to-buffer-annotation))
