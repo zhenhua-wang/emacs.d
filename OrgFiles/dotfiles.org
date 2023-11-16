@@ -1061,7 +1061,7 @@ padding-right = 1
 separator = " "
 
 modules-left = exwm-workspace emacs-buffer-name
-modules-right = powermenu temperature date battery
+modules-right = powermenu wireless-network temperature date battery
 
 [module/exwm-workspace]
 type = custom/ipc
@@ -1113,6 +1113,12 @@ type = internal/temperature
 interval = 1
 thermal-zone = ${env:EXWM_BAR_TEMP}
 label = "%temperature-c%"
+
+[module/wireless-network]
+type = internal/network
+interface-type = wireless
+label-connected = "%netspeed%"
+format-connected = <label-connected>
 
 [module/powermenu]
 type = custom/text
