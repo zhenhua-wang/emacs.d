@@ -177,7 +177,7 @@ https://connect.mozilla.org/t5/discussions/ctrl-or-cmd-trackpad-or-mouse-wheel-o
 Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
 #+begin_src sh
 # create python environment
-conda create --name tf_gpu python=3.9
+conda create --name tf_gpu python=3.10
 conda activate tf_gpu
 # GPU setup
 # check if driver has installed
@@ -190,7 +190,7 @@ mkdir -p $CONDA_PREFIX/etc/conda/activate.d
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 # install tensorflow
 pip install --upgrade pip
-pip install tensorflow
+pip install "tensorflow==2.11.0"
 # verify install
 python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
