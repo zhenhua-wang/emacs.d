@@ -63,8 +63,6 @@
                ("C-<return>" . zw/python-shell-send-line))))
 
 (use-package conda
-  :if (getenv "ANACONDA_HOME")
-  :after python
   :config
   (or (cl-loop for dir in (list conda-anaconda-home
                                 "~/.anaconda"
@@ -86,7 +84,6 @@
       (message "Cannot find Anaconda installation"))
   ;; update conda environment
   (defun zw/conda-env-update ()
-    (interactive)
     (when (executable-find "ipython")
       (setq python-shell-interpreter "ipython"
             python-shell-interpreter-args
@@ -95,8 +92,16 @@
                    "ipython"))
     (if (and (featurep 'lsp-mode) lsp-mode)
         (lsp-restart-workspace)))
-  (advice-add #'conda-env-activate :after #'zw/conda-env-update)
-  (advice-add #'conda-env-deactivate :after #'zw/conda-env-update))
+  (defun zw/conda-set-env-vars ()
+    (zw/conda-env-update)
+    ;; HACK: set LD_LIBRARY_PATH after conda activate
+    (setenv "LD_LIBRARY_PATH"
+            (concat ":" (getenv "CONDA_PREFIX") "/lib/")))
+  (defun zw/conda-unset-env-vars ()
+    (zw/conda-env-update)
+    (setenv "LD_LIBRARY_PATH"))
+  (add-hook 'conda-postactivate-hook 'zw/conda-set-env-vars)
+  (add-hook 'conda-postdeactivate-hook 'zw/conda-unset-env-vars))
 
 ;; * R
 (use-package ess
