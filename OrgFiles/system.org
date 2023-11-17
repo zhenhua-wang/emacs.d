@@ -174,7 +174,7 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 https://connect.mozilla.org/t5/discussions/ctrl-or-cmd-trackpad-or-mouse-wheel-on-firefox-109-macos/m-p/23108
 
 *** GPU and Tensorflow
-Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily)
+Make sure that the nvidia driver is the proprietary NVIDIA driver (Manjaro can install this easily). ~Unfortunately~, emacs cannot see cuda. You need to run tensorflow scripts from terminal.
 #+begin_src sh
 # create python environment
 conda create --name=tf_gpu python=3.9
