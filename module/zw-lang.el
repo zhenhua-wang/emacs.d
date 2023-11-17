@@ -84,11 +84,6 @@
                return (setq conda-anaconda-home (expand-file-name dir)
                             conda-env-home-directory (expand-file-name dir)))
       (message "Cannot find Anaconda installation"))
-  ;; add to modeline
-  (add-to-list 'mode-line-misc-info
-               '(conda-env-current-name
-                 ("[CONDA:" conda-env-current-name "]"))
-               'append)
   ;; update conda environment
   (defun zw/conda-env-update ()
     (interactive)
