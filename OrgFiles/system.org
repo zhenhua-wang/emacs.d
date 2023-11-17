@@ -191,7 +191,7 @@ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFI
 # install tensorflow
 pip install --upgrade pip
 python3 -m pip install tensorflow==2.10
-pip install "tensorflow-probability==0.19.0"
+pip install "tensorflow-probability==0.18.0"
 # verify install
 python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
