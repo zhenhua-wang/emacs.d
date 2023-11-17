@@ -32,10 +32,9 @@
   :if (or (eq system-type 'darwin)
           (eq system-type 'gnu/linux)
           (daemonp))
-  :hook
-  (after-init . exec-path-from-shell-initialize)
   :init
-  (setq exec-path-from-shell-check-startup-files nil))
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
 
 ;; * Provide
 (provide 'zw-startup)

@@ -64,7 +64,6 @@
 
 (use-package conda
   :if (executable-find "conda")
-  :after exec-path-from-shell
   :config
   (or (cl-loop for dir in (list conda-anaconda-home
                                 "~/.anaconda"
