@@ -15,7 +15,6 @@
    ((python-shell-get-process)
     (python-shell-send-string code-string))
    (t
-    (setq-local python-shell-setup-codes python-shell-eval-setup-code)
     (let* ((process (save-selected-window
                       (run-python (python-shell-parse-command)
                                   (when (project-current) 'project) 'show))))
