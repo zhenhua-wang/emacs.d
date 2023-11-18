@@ -11,17 +11,17 @@
 
 ;; * Python
 (defun zw/python-start-shell-before-send-string (code-string)
-  (if (python-shell-get-process)
-      (python-shell-send-string code-string)
-    (progn
-      (setq-local python-shell-setup-codes nil)
-      (let* ((python-shell-setup-codes (list code-string))
-             (process (or (python-shell-get-process)
-                          (run-python (python-shell-parse-command)
-                                      (when (project-current) 'project) nil))))
-        (save-selected-window
-          (switch-to-buffer-other-window
-           (process-buffer process))))))
+  (cond
+   ((python-shell-get-process)
+    (python-shell-send-string code-string))
+   (t
+    (setq-local python-shell-setup-codes nil)
+    (let* ((process (save-selected-window
+                      (run-python (python-shell-parse-command)
+                                  (when (project-current) 'project) 'show)))
+           (code (concat code-string "\n")))
+      (process-send-string process code))))
+  ;; deactivate mark after idle
   (sit-for 0.1)
   (goto-char (region-end))
   (deactivate-mark))
