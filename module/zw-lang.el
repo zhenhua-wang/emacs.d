@@ -15,12 +15,13 @@
    ((python-shell-get-process)
     (python-shell-send-string code-string))
    (t
-    (setq-local python-shell-setup-codes nil)
+    (setq-local python-shell-setup-codes python-shell-eval-setup-code)
     (let* ((process (save-selected-window
                       (run-python (python-shell-parse-command)
-                                  (when (project-current) 'project) 'show)))
-           (code (concat code-string "\n")))
-      (process-send-string process code))))
+                                  (when (project-current) 'project) 'show))))
+      (process-send-string process (concat python-shell-eval-setup-code "\n"))
+      (process-send-string process (concat python-shell-eval-file-setup-code "\n"))
+      (process-send-string process (concat code-string "\n")))))
   ;; deactivate mark after idle
   (sit-for 0.1)
   (goto-char (region-end))
