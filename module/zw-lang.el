@@ -16,8 +16,9 @@
     (progn
       (setq-local python-shell-setup-codes nil)
       (let* ((python-shell-setup-codes (list code-string))
-             (process (python-shell-get-or-create-process
-                       (python-shell-parse-command) python-shell-dedicated)))
+             (process (or (python-shell-get-process)
+                          (run-python (python-shell-parse-command)
+                                      python-shell-dedicated nil))))
         (save-selected-window
           (switch-to-buffer-other-window
            (process-buffer process))))))
