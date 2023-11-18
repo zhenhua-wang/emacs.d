@@ -47,8 +47,7 @@
 
 (defun zw/python-shell-send-buffer ()
   (interactive)
-  (save-excursion
-    (zw/python-start-shell-before-send-string (buffer-string))))
+  (zw/python-start-shell-before-send-string (substring-no-properties (buffer-string))))
 
 (defun zw/python-shell-send-line ()
   (interactive)
