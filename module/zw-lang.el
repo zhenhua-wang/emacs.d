@@ -17,7 +17,7 @@
       (setq-local python-shell-setup-codes nil)
       (let* ((python-shell-setup-codes (list code-string))
              (process (python-shell-get-or-create-process
-                       (python-shell-parse-command))))
+                       (python-shell-parse-command) python-shell-dedicated)))
         (save-selected-window
           (switch-to-buffer-other-window
            (process-buffer process))))))
@@ -60,7 +60,8 @@
   :bind ((:map python-mode-map
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
-               ("C-<return>" . zw/python-shell-send-line))))
+               ("C-<return>" . zw/python-shell-send-line)))
+  :config (setq python-shell-dedicated 'project))
 
 (use-package conda
   :if (executable-find "conda")
