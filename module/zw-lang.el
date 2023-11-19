@@ -52,7 +52,8 @@
 
 (defun zw/python-shell-send-buffer ()
   (interactive)
-  (zw/python-start-shell-before-send-string (substring-no-properties (buffer-string))))
+  (zw/python-start-shell-before-send-string
+   (buffer-substring-no-properties (point-min) (point-max))))
 
 (defun zw/python-shell-send-line ()
   (interactive)
