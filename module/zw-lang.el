@@ -18,8 +18,13 @@
     (let* ((process (save-selected-window
                       (run-python (python-shell-parse-command)
                                   (when (project-current) 'project) 'show))))
+      ;; setup REPL
       (process-send-string process (concat python-shell-eval-setup-code "\n"))
       (process-send-string process (concat python-shell-eval-file-setup-code "\n"))
+      (with-current-buffer (current-buffer)
+        (let ((inhibit-quit nil))
+          (run-hooks 'python-shell-first-prompt-hook)))
+      ;; send code-string
       (process-send-string process (concat code-string "\n")))))
   ;; deactivate mark after idle
   (sit-for 0.1)
