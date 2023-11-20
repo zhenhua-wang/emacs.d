@@ -28,7 +28,7 @@ yay -S libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-json --with-xinput2 --without-compress-install --with-x-toolkit=no
+./configure --with-json --with-xinput2 --without-compress-install --with-cairo --with-x-toolkit=no
 make
 sudo make install
 #+end_src
