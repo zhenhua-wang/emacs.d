@@ -24,7 +24,7 @@ mv emacs.d .emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S libxft libxpm libtiff giflib aspell aspell-en
+yay -S libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
