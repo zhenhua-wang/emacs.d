@@ -69,7 +69,7 @@ yay -S plank plank-theme-bigsur
 # dconf dump /net/launchpad/plank/docks/ > docks.ini
 cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 # essential desktop applications
-yay -S firefox kitty htop neofetch obs-studio thunar tumbler ffmpegthumbnailer mpv yt-dlp streamlink file-roller
+yay -S firefox kitty htop neofetch obs-studio thunar tumbler ffmpegthumbnailer mpv yt-dlp streamlink file-roller libreoffice-still
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
