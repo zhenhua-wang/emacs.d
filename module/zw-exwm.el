@@ -899,7 +899,10 @@
   :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
   :hook (exwm-init . cpu-temperature-mode)
   :config
-  (setq cpu-temperature-update-interval 1))
+  (setq cpu-temperature-update-interval 1)
+  (unless cpu-temperature--thermal-zone
+    (setq cpu-temperature-thermal-zone-type "acpitz")
+    (cpu-temperature-set-thermal-zone)))
 
 ;; ** winner mode
 (defun zw/winner-remove-dead-frame (&rest args)
