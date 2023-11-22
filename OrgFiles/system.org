@@ -10,10 +10,6 @@ sudo pacman -S --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
-# x11
-yay -S sddm xorg-xrdb xorg-xrandr
-sudo systemctl enable sddm.service
-sudo systemctl enable bluetooth.service
 #+end_src
 
 ** Emacs
@@ -35,6 +31,9 @@ sudo make install
 
 ** Exwm
 #+begin_src sh
+# x11
+yay -S sddm xorg-xrdb xorg-xrandr qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
+sudo systemctl enable sddm.service
 # required
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi rofi-calc flameshot
 # optional
@@ -44,7 +43,8 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-keyring gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
+yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
+sudo systemctl enable gdm.service -f
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -206,6 +206,8 @@ yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
 
 ** Other Applications
 #+begin_src shell
+# service
+sudo systemctl enable bluetooth.service
 # statistics
 yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
 # zsh
@@ -215,8 +217,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
-# SDDM theme
-yay -S qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 # application dock
 yay -S plank plank-theme-bigsur
 # dconf dump /net/launchpad/plank/docks/ > docks.ini
