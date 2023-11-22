@@ -86,7 +86,7 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['terminate:ctrl_alt_
 # keymaps
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Super>Tab']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>Space']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>space']"
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Shift><Super>d']"
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "disabled"
 gsettings set org.gnome.desktop.wm.keybindings maximize "[]"
