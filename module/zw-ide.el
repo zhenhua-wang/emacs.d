@@ -11,6 +11,7 @@
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
+        lsp-keymap-prefix nil
         ;; modeline
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable nil
