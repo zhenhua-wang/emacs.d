@@ -44,7 +44,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy
 # symbolic link rime
 ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 #+end_src
