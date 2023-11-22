@@ -44,7 +44,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy arc-gtk-theme xcursor-breeze
 # symbolic link rime
 ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 #+end_src
@@ -65,6 +65,9 @@ Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
 #+begin_src sh
 gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
 # touchpad
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
