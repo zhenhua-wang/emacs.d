@@ -1128,6 +1128,34 @@ content = ""
 click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
+* Keyd
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/keyd/default.conf")
+#+begin_src conf
+[ids]
+,*
+
+[main]
+leftalt = layer(meta_mac)
+leftmeta = layer(alt)
+capslock = layer(control)
+
+[meta_mac:M]
+1 = A-1
+2 = A-2
+3 = A-3
+4 = A-4
+5 = A-5
+6 = A-6
+7 = A-7
+8 = A-8
+9 = A-9
+c = C-insert
+v = S-insert
+x = S-delete
+t = C-t
+w = C-w
+#+end_src
+
 * Local variables
 Add the following expressions to ~safe-local-eval-forms~.
 # local variables:
