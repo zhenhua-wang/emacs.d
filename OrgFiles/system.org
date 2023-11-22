@@ -48,6 +48,8 @@ yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
+# usermod -aG keyd zhenhua
+# keyd-application-mapper
 # symbolic link rime
 ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 #+end_src

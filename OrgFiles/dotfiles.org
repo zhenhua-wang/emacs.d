@@ -1149,6 +1149,7 @@ click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
 * Keyd
+** System
 #+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/keyd/default.conf")
 #+begin_src conf
 [ids]
@@ -1177,6 +1178,15 @@ Z = C-S-z
 backspace = macro(S-home delete)
 t = C-t
 w = C-w
+#+end_src
+
+** Application
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
+#+begin_src conf
+[emacs]
+leftalt = layer(meta)
+leftmeta = layer(alt)
+capslock = layer(control)
 #+end_src
 
 * Local variables
