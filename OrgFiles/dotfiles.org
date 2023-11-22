@@ -93,9 +93,9 @@ confirm_os_window_close 1
 hide_window_decorations yes
 linux_display_server x11
 # keymap
-map cmd+c       copy_to_clipboard
-map cmd+v       paste_from_clipboard
 map ctrl+backspace send_text all \x17
+map cmd+c copy_to_clipboard
+map cmd+v paste_from_clipboard
 map cmd+t new_tab
 map cmd+w close_tab
 map cmd+q close_os_window
@@ -108,6 +108,19 @@ map cmd+6 goto_tab 6
 map cmd+7 goto_tab 7
 map cmd+8 goto_tab 8
 map cmd+9 goto_tab 9
+map ctrl+insert copy_to_clipboard
+map shift-insert paste_from_clipboard
+map ctrl+t new_tab
+map ctrl+w close_tab
+map alt+1 goto_tab 1
+map alt+2 goto_tab 2
+map alt+3 goto_tab 3
+map alt+4 goto_tab 4
+map alt+5 goto_tab 5
+map alt+6 goto_tab 6
+map alt+7 goto_tab 7
+map alt+8 goto_tab 8
+map alt+9 goto_tab 9
 # tab bar
 tab_separator ""
 tab_title_template "{index}: {title}"
