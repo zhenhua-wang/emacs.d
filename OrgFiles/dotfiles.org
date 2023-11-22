@@ -429,6 +429,13 @@ ForceWaylandDPI=0
 EnableFractionalScale=True
 #+end_src
 
+* IBus
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/ibus/rime/build/ibus_rime.yaml")
+#+begin_src conf
+style:
+  horizontal: true
+#+end_src
+
 * Rime
 ** Main
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/fcitx5/rime/default.custom.yaml")
