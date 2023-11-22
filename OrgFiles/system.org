@@ -68,6 +68,9 @@ gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
 gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
+# window
+gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 # touchpad
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
