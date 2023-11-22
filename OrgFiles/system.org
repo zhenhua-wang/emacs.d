@@ -44,7 +44,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy arc-gtk-theme xcursor-breeze
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy arc-gtk-theme xcursor-breeze nautilus
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
