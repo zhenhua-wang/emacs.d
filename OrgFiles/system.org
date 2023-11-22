@@ -44,7 +44,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy arc-gtk-theme xcursor-breeze nautilus
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -71,7 +71,7 @@ Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
 gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
 gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
 # window
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
