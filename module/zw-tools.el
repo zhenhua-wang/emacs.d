@@ -336,6 +336,7 @@ i.e. windows tiled side-by-side."
   "quick-kill-process"
   (interactive)
   (require 'proced)
+  (require 'map)
   (let* ((pid-width 5)
          (comm-width 25)
          (user-width 10)
