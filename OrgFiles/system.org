@@ -43,7 +43,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
+yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access eog ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
 sudo systemctl enable gdm.service -f
 # keyd
 yay -S keyd
