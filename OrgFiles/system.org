@@ -74,6 +74,7 @@ gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
 # window
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+gsettings set org.gnome.mutter attach-modal-dialogs false
 # touchpad
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
