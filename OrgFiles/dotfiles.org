@@ -1159,6 +1159,8 @@ capslock = layer(control)
 c = C-insert
 v = S-insert
 x = S-delete
+z = C-z
+Z = C-S-z
 t = C-t
 w = C-w
 #+end_src
