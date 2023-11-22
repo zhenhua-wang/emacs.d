@@ -44,7 +44,9 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell ibus-rime
+# symbolic link rime
+ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 #+end_src
 
 *** tricks
@@ -67,6 +69,11 @@ gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
+# input
+gsettings set org.gnome.desktop.input-sources sources "[('ibus', 'rime'), ('xkb', 'us')]"
+# extension
+gnome-extensions enable blur-my-shell@aunetx
+gnome-extensions enable dash-to-dock@micxgx.gmail.com
 #+end_src
 
 **** keymaps
