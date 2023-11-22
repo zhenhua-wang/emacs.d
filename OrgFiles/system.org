@@ -80,6 +80,7 @@ gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 # input
 gsettings set org.gnome.desktop.input-sources sources "[('ibus', 'rime'), ('xkb', 'us')]"
 # extension
+gsettings set org.gnome.shell disable-user-extensions false
 gnome-extensions enable blur-my-shell@aunetx
 gnome-extensions enable dash-to-dock@micxgx.gmail.com
 gnome-extensions enable freon@UshakovVasilii_Github.yahoo.com
