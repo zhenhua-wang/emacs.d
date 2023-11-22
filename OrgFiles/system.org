@@ -44,7 +44,7 @@ yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
 ** Gnome
 *** install
 #+begin_src sh
-yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
+yay -S gnome-shell gnome-control-center gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access ibus-rime iio-sensor-proxy nautilus gnome-themes-extra xcursor-breeze
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -89,6 +89,7 @@ gnome-extensions enable blur-my-shell@aunetx
 gnome-extensions enable dash-to-dock@micxgx.gmail.com
 gnome-extensions enable freon@UshakovVasilii_Github.yahoo.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+gnome-extensions enable hide-universal-access@akiirui.github.io
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
@@ -97,6 +98,8 @@ gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'fir
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
+# freon
+gsettings set org.gnome.shell.extensions.freon show-icon-on-panel false
 #+end_src
 
 **** keymaps
