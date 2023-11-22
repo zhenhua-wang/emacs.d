@@ -256,6 +256,7 @@ The order of values may be different."
            ("<C-tab>" . completion-at-point)
            ;; editing
            ("s-<backspace>" . (lambda () (interactive) (kill-line 0)))
+           ("S-<home> <delete>" . (lambda () (interactive) (kill-line 0)))
            ("s-z" . undo)
            ("s-x" . kill-region)
            ("s-c" . kill-ring-save)

@@ -1161,6 +1161,7 @@ v = S-insert
 x = S-delete
 z = C-z
 Z = C-S-z
+backspace = macro(S-home delete)
 t = C-t
 w = C-w
 #+end_src
