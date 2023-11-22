@@ -100,6 +100,7 @@ gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
 # freon
 gsettings set org.gnome.shell.extensions.freon show-icon-on-panel false
+gsettings set org.gnome.shell.extensions.freon panel-box-index 1
 #+end_src
 
 **** keymaps
