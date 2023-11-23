@@ -1177,7 +1177,7 @@ z = C-z
 Z = C-S-z
 backspace = macro(S-home delete)
 t = C-t
-w = C-w
+w = C-f4
 #+end_src
 
 ** Application

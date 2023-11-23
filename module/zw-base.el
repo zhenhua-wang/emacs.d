@@ -272,6 +272,7 @@ The order of values may be different."
            ("s-=" . text-scale-increase)
            ("s--" . text-scale-decrease)
            ;; window operations
+           ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
            ("s-t" . zw/split-window-sensibly-prefer-horizontal)
            ("s-<left>" . windmove-left)
