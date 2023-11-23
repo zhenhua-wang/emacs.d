@@ -37,7 +37,10 @@ sudo systemctl enable sddm.service
 # required
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi rofi-calc flameshot
 # optional
-yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze
+yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze thunar tumbler ffmpegthumbnailer plank plank-theme-bigsur
+# application dock
+# dconf dump /net/launchpad/plank/docks/ > docks.ini
+cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 #+end_src
 
 ** Gnome
@@ -219,12 +222,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
-# application dock
-yay -S plank plank-theme-bigsur
-# dconf dump /net/launchpad/plank/docks/ > docks.ini
-cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 # essential desktop applications
-yay -S firefox kitty htop neofetch obs-studio mpv yt-dlp streamlink file-roller libreoffice-still thunar tumbler ffmpegthumbnailer
+yay -S firefox kitty htop neofetch obs-studio mpv yt-dlp streamlink file-roller libreoffice-still
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
