@@ -99,7 +99,7 @@ gnome-extensions enable hide-universal-access@akiirui.github.io
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell favorite-apps "'org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Logs.desktop', 'mpv.desktop', 'Zoom.desktop', 'com.obsproject.Studio.desktop', 'libreoffice-startcenter.desktop', 'emacs.desktop'"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Snapshot.desktop', 'org.gnome.Logs.desktop', 'mpv.desktop', 'Zoom.desktop', 'com.obsproject.Studio.desktop', 'libreoffice-startcenter.desktop', 'emacs.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
