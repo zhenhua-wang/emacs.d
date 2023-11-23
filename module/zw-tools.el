@@ -204,7 +204,7 @@
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
-                           ('gnu/linux "xdg-open")
+                           ('gnu/linux "setsid -w xdg-open")
                            (_ "open"))
   "Shell command used to open in external apps.")
 
