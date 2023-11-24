@@ -50,7 +50,7 @@ cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-logs gnome-disk-utility impression
+yay -S gnome-themes-extra gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-logs gnome-disk-utility baobab impression
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -99,7 +99,7 @@ gnome-extensions enable hide-universal-access@akiirui.github.io
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Logs.desktop', 'org.gnome.DiskUtility.desktop', 'emacs.desktop', 'libreoffice-startcenter.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'Zoom.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Logs.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'emacs.desktop', 'libreoffice-startcenter.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'Zoom.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
