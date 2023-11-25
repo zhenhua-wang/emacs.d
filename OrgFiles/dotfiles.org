@@ -1189,6 +1189,14 @@ leftmeta = layer(alt)
 capslock = layer(control)
 #+end_src
 
+* Gnome
+** Run or raise
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
+#+begin_src conf
+AudioMedia,kitty,,
+<Super>AudioMedia,emacs,,
+#+end_src
+
 * Local variables
 Add the following expressions to ~safe-local-eval-forms~.
 # local variables:
