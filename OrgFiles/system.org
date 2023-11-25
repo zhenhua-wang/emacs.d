@@ -112,6 +112,7 @@ gsettings set org.gnome.shell.extensions.freon panel-box-index 1
 **** keymaps
 #+begin_src sh
 # keys
+gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Super>Return']"
 gsettings set org.gnome.mutter overlay-key "Super_R"
 gsettings set org.gnome.desktop.input-sources xkb-options "['terminate:ctrl_alt_bksp']"
 # keymaps
