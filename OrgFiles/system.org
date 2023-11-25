@@ -58,6 +58,9 @@ sudo systemctl enable keyd && sudo systemctl start keyd
 # keyd-application-mapper
 # symbolic link rime
 ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
+# printing service
+yay -S cups
+sudo systemctl enable cups
 #+end_src
 
 *** tricks
