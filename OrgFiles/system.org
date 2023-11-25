@@ -200,7 +200,6 @@ gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-8 "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-9 "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock shortcut "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock shortcut-text "[]"
-gsettings set org.gnome.settings-daemon.plugins.media-keys media-static "[]"
 #+end_src
 
 ** Driver
