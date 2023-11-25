@@ -50,7 +50,7 @@ cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-logs gnome-disk-utility baobab impression
+yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-logs gnome-disk-utility baobab impression gdm-settings
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
