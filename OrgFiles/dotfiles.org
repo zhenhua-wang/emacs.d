@@ -1193,7 +1193,8 @@ capslock = layer(control)
 ** Run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
-<Super>delete,emacs,emacs,
+<Ctrl><Super>e,emacs,emacs,
+<Ctrl><Super>k,kitty,kitty,
 #+end_src
 
 * Local variables
