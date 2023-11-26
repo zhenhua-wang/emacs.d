@@ -50,7 +50,7 @@ cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-logs gnome-disk-utility baobab impression fragments gdm-settings foliate
+yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-logs gnome-disk-utility baobab impression fragments gdm-settings foliate
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -100,6 +100,7 @@ gnome-extensions enable dash-to-dock@micxgx.gmail.com
 gnome-extensions enable freon@UshakovVasilii_Github.yahoo.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable hide-universal-access@akiirui.github.io
+gnome-extensions enable caffeine@patapon.info
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
@@ -111,6 +112,8 @@ gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
 # freon
 gsettings set org.gnome.shell.extensions.freon show-icon-on-panel false
 gsettings set org.gnome.shell.extensions.freon panel-box-index 1
+# caffeine
+gsettings set org.gnome.shell.extensions.caffeine restore-state true
 #+end_src
 
 **** keymaps
