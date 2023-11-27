@@ -52,7 +52,7 @@ sudo systemctl enable gdm.service -f
 # extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-freon iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-logs gnome-disk-utility baobab impression fragments gdm-settings foliate
 # keyd
-yay -S keyd
+yay -S keyd && sudo rm /etc/keyd/default.conf
 sudo systemctl enable keyd && sudo systemctl start keyd
 # usermod -aG keyd zhenhua
 # keyd-application-mapper
