@@ -215,6 +215,10 @@
   :after outline
   :hook (outline-minor-mode . outline-minor-faces-mode))
 
+;; * Indent guide
+(use-package indent-guide
+  :hook (python-mode . indent-guide-mode))
+
 ;; * Fast comment
 (use-package evil-nerd-commenter
   :bind (("s-;" . evilnc-comment-or-uncomment-lines)))
