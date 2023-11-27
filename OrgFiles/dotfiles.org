@@ -1150,7 +1150,7 @@ click-left = ~/.config/rofi/powermenu.sh
 
 * Keyd
 ** System
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/keyd/default.conf")
+#+HEADER: :tangle (zw/org-babel-tangle-linux (zw/org-babel-tangle-not-exist "/sudo::/etc/keyd/default.conf"))
 #+begin_src conf
 [ids]
 ,*
