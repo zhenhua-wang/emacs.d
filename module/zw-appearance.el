@@ -94,6 +94,10 @@
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 
+;; * Indent guide
+(use-package indent-guide
+  :hook (python-mode . indent-guide-mode))
+
 ;; * Window placement
 ;; window split
 (setq split-width-threshold  80
