@@ -70,7 +70,17 @@
   :config (setq python-shell-dedicated 'project))
 
 (use-package conda
-  :if (executable-find "conda")
+  :commands conda-env-activate
+  :init
+  (defvar zw/conda-path '("/opt/anaconda/bin"
+                          "/opt/miniconda3/bin"))
+  (defvar zw/conda-executable-path nil)
+  (dolist (conda-path zw/conda-path)
+    (let ((conda-exec (concat conda-path "/conda")))
+      (when (file-exists-p conda-exec)
+        (setenv "PATH" (concat conda-path ":"
+                               (getenv "PATH")))
+        (setq conda--executable-path conda-exec))))
   :config
   (or (cl-loop for dir in (list conda-anaconda-home
                                 "~/.anaconda"
