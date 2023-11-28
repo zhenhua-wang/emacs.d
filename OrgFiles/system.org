@@ -104,7 +104,7 @@ gnome-extensions enable caffeine@patapon.info
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Logs.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'emacs.desktop', 'libreoffice-startcenter.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'de.haeckerfelix.Fragments.desktop', 'Zoom.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'kitty.desktop', 'org.gnome.Logs.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'emacs.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'de.haeckerfelix.Fragments.desktop', 'Zoom.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
@@ -234,7 +234,7 @@ git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 # essential desktop applications
-yay -S firefox kitty htop neofetch obs-studio mpv yt-dlp streamlink file-roller libreoffice-still
+yay -S firefox kitty htop neofetch obs-studio mpv yt-dlp streamlink file-roller onlyoffice-bin
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
