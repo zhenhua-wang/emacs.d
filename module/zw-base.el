@@ -267,6 +267,7 @@ The order of values may be different."
            ;; term/shell
            ("s-e" . vterm)
            ;; buffer operations
+           ("C-<f5>" . revert-buffer-quick)
            ("s-r" . revert-buffer-quick)
            ("s-q" . kill-current-buffer)
            ("s-=" . text-scale-increase)
