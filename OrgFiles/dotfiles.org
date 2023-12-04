@@ -463,7 +463,6 @@ patch:
     caption: "〔方案选单〕"
     hotkeys:
       - Control+grave
-      - F4
   ascii_composer:
     good_old_caps_lock: true
     switch_key:
