@@ -210,6 +210,8 @@ gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-8 "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-9 "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock shortcut "[]"
 gsettings set org.gnome.shell.extensions.dash-to-dock shortcut-text "[]"
+gsettings set org.freedesktop.ibus.general.hotkey triggers "[]"
+gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
 #+end_src
 
 ** Driver
