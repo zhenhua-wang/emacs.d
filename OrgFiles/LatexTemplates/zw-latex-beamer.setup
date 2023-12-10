@@ -3,6 +3,8 @@
 #+LATEX_HEADER: \usepackage{mathtools}
 #+LATEX_HEADER: \usepackage{amsmath,amssymb,amsfonts}
 #+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{algorithm}
+#+LATEX_HEADER: \usepackage[noend]{algpseudocode}
 
 # % beamer
 #+LATEX_HEADER: \usetheme{Madrid}

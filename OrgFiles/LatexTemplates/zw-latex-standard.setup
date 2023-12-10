@@ -8,6 +8,8 @@
 #+LATEX_HEADER: \usepackage{amsmath, amsthm, amssymb}
 #+LATEX_HEADER: \usepackage[table, xcdraw]{xcolor}
 #+LATEX_HEADER: \usepackage{siunitx, booktabs}
+#+LATEX_HEADER: \usepackage{algorithm}
+#+LATEX_HEADER: \usepackage[noend]{algpseudocode}
 
 % Colorizing links in a nicer way.
 #+LATEX_HEADER: \definecolor{bblue}{HTML}{0645AD}
