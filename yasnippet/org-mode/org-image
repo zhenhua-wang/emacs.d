@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: image
+# key: <img
+# --
+
+#+attr_latex: :width 300px
+[[$0]]
