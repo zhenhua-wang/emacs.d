@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: insert r code chunk and export output only
+# name: markdown insert r code chunk and export output only
 # key: <ro
 # --
 
