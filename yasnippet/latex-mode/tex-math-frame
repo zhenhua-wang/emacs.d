@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: frame for beamer slides
+# name: latex frame for beamer slides
 # key: <frame
 # --
 \begin{frame}{${1:slides-title}}
