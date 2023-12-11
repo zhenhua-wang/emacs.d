@@ -116,6 +116,8 @@ gsettings set org.gnome.shell.extensions.freon show-icon-on-panel false
 gsettings set org.gnome.shell.extensions.freon panel-box-index 1
 # caffeine
 gsettings set org.gnome.shell.extensions.caffeine restore-state true
+# default app
+gio mime inode/directory org.gnome.Nautilus.desktop
 #+end_src
 
 **** keymaps
