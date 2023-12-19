@@ -63,6 +63,10 @@ yay -S cups
 sudo systemctl enable cups
 #+end_src
 
+*** Extensions
+https://extensions.gnome.org/extension/1336/run-or-raise/
+https://extensions.gnome.org/extension/4998/legacy-gtk3-theme-scheme-auto-switcher/
+
 *** tricks
 **** firefox force wayland
 Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
