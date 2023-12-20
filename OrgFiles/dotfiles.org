@@ -1184,6 +1184,7 @@ r = C-f5
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
 #+begin_src conf
 [emacs]
+
 leftalt = layer(meta)
 leftmeta = layer(alt)
 capslock = layer(control)
