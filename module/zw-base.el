@@ -299,6 +299,7 @@ The order of values may be different."
            ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
            ("s-v" . isearch-yank-kill)
+           ("S-<insert>" . isearch-yank-kill)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab)
            ("TAB" . zw/smart-tab))
