@@ -50,7 +50,7 @@ cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-freon iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect
+yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -105,7 +105,7 @@ gsettings set org.gnome.desktop.input-sources sources "[('ibus', 'rime'), ('xkb'
 gsettings set org.gnome.shell disable-user-extensions false
 gnome-extensions enable blur-my-shell@aunetx
 gnome-extensions enable dash-to-dock@micxgx.gmail.com
-gnome-extensions enable freon@UshakovVasilii_Github.yahoo.com
+gnome-extensions enable Vitals@CoreCoding.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable hide-universal-access@akiirui.github.io
 gnome-extensions enable caffeine@patapon.info
@@ -117,9 +117,10 @@ gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'fir
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
-# freon
-gsettings set org.gnome.shell.extensions.freon show-icon-on-panel false
-gsettings set org.gnome.shell.extensions.freon panel-box-index 1
+# vitals
+gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
+gsettings set org.gnome.shell.extensions.vitals hide-icons true
+gsettings set org.gnome.shell.extensions.vitals fixed-widths true
 # caffeine
 gsettings set org.gnome.shell.extensions.caffeine restore-state true
 # default app
