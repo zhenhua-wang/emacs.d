@@ -142,7 +142,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package consult-yasnippet
   :commands consult-yasnippet)
 (use-package consult-dir
-  :commands consult-dir
+  :commands consult-dir zw/consult-dir-tramp-ssh
   :config
   (defun zw/consult-dir-tramp-ssh ()
     (interactive)
