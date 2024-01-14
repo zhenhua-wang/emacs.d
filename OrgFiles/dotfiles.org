@@ -111,7 +111,7 @@ map cmd+9 goto_tab 9
 map ctrl+insert copy_to_clipboard
 map shift+insert paste_from_clipboard
 map ctrl+t new_tab
-map ctrl+w close_tab
+map ctrl+f4 close_tab
 map alt+1 goto_tab 1
 map alt+2 goto_tab 2
 map alt+3 goto_tab 3
