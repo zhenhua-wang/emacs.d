@@ -142,7 +142,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :commands consult-yasnippet)
 (use-package consult-dir
   :commands consult-dir
-  :config (add-to-list 'consult-dir-sources 'consult-dir--source-tramp-ssh t))
+  :config
+  (setq consult-dir-sources '(consult-dir--source-bookmark
+                              consult-dir--source-default
+                              consult-dir--source-project
+                              consult-dir--source-tramp-ssh
+                              consult-dir--source-tramp-local)))
 (use-package consult-flyspell
   :commands consult-flyspell)
 
