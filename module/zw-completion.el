@@ -97,6 +97,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
          ("C-x C-d" . consult-dir)
+         ("C-x C-t" . zw/consult-dir-tramp-ssh)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)
          ("<help> a" . consult-apropos)
@@ -143,11 +144,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
 (use-package consult-dir
   :commands consult-dir
   :config
-  (setq consult-dir-sources '(consult-dir--source-bookmark
-                              consult-dir--source-default
-                              consult-dir--source-project
-                              consult-dir--source-tramp-ssh
-                              consult-dir--source-tramp-local)))
+  (defun zw/consult-dir-tramp-ssh ()
+    (interactive)
+    (let ((consult-dir-sources '(consult-dir--source-tramp-ssh)))
+      (consult-dir))))
 (use-package consult-flyspell
   :commands consult-flyspell)
 
