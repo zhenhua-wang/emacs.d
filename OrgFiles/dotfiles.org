@@ -89,7 +89,7 @@ bold_font        Noto Sans Mono Bold
 italic_font      Noto Sans Mono Italic
 bold_italic_font Noto Sans Mono Bold Italic
 font_size        15.0
-term xterm-256color
+term xterm-256color # fix ssh
 confirm_os_window_close 1
 hide_window_decorations yes
 linux_display_server x11
