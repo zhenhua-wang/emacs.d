@@ -1181,13 +1181,11 @@ r = C-f5
 #+end_src
 
 ** Application
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
+#+HEADER: :tangle (zw/org-babel-tangle-linux (zw/org-babel-tangle-not-exist "~/.config/keyd/app.conf"))
 #+begin_src conf
 [emacs]
 
 leftalt = layer(meta)
-leftmeta = layer(alt)
-capslock = layer(control)
 #+end_src
 
 * Gnome
