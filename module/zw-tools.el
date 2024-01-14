@@ -97,15 +97,6 @@
   (setq dired-subtree-use-backgrounds nil))
 
 ;; ** dired side bar
-(defun zw/dired-sidebar--modeline-major-mode ()
-  "Sidebar modeline major mode."
-  (propertize "Sidebar " 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
-                                                     'zw/modeline-default-inactive)))
-
-(defun zw/dired-sidebar--modeline-rhs ()
-  (concat
-   (zw/dired-sidebar--modeline-major-mode)))
-
 (defun zw/dired-sidebar--modeline-name ()
   "Sidebar modeline name."
   (let* ((dir (dired-current-directory))
@@ -118,9 +109,7 @@
   (list "%e" " "
         '(:eval (zw/dired-sidebar--modeline-name))
         '(:eval (zw/modeline-line-column))
-        '(:eval (zw/modeline-remote))
-        '(:eval (zw/modeline-middle-space (zw/dired-sidebar--modeline-rhs)))
-        '(:eval (zw/dired-sidebar--modeline-rhs))))
+        '(:eval (zw/modeline-remote))))
 
 (defun zw/dired-siderbar-display (buffer)
   ;; bury current dired buffer when it has the same root as sidebar
