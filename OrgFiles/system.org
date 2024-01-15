@@ -81,7 +81,6 @@ Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
 *** config
 **** main
 #+begin_src sh
-gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
