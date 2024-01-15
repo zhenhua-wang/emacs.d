@@ -1156,11 +1156,21 @@ click-left = ~/.config/rofi/powermenu.sh
 ,*
 
 [main]
-leftalt = layer(meta_mac)
-leftmeta = layer(alt)
-capslock = layer(control)
+leftalt = layer(meta_zw)
+leftmeta = layer(alt_zw)
+capslock = layer(control_zw)
 
-[meta_mac:M]
+[meta_zw:M]
+# command
+r = C-f5
+f = C-f
+- = C--
+= = C-=
+p = C-p
+# tab
+t = C-t
+T = C-S-t
+w = C-f4
 1 = A-1
 2 = A-2
 3 = A-3
@@ -1170,32 +1180,45 @@ capslock = layer(control)
 7 = A-7
 8 = A-8
 9 = A-9
-c = C-insert
-v = S-insert
-x = S-delete
+# edit
+backspace = macro(S-home delete)
+a = C-a
+s = C-s
 z = C-z
 Z = C-S-z
-backspace = macro(S-home delete)
-t = C-t
-w = C-f4
-r = C-f5
+x = S-delete
+c = C-insert
+v = S-insert
+
+[alt_zw:A]
+v = prior
+< = C-home
+> = C-end
+
+[control_zw:C]
+v = next
+a = home
+e = end
+S-a = S-home
+S-e = S-end
 #+end_src
 
 ** Application
 #+HEADER: :tangle (zw/org-babel-tangle-linux (zw/org-babel-tangle-not-exist "~/.config/keyd/app.conf"))
 #+begin_src conf
 [emacs]
-
 leftalt = layer(meta)
+leftmeta = layer(alt)
+capslock = layer(control)
 #+end_src
 
 * Gnome
 ** Run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
+<Super>end,emacs,emacs,
 <Ctrl><Super>e,emacs,emacs,
 <Ctrl><Super>k,kitty,kitty,
-<Ctrl><Super>f,firefox,firefox,
 #+end_src
 
 * Local variables

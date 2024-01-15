@@ -962,11 +962,11 @@
         (,(kbd "C-y") . ,(kbd "C-v"))
         ;; navigation
         (,(kbd "M-v") . [prior])
+        (,(kbd "M-<") . ,(kbd "C-<home>"))
+        (,(kbd "M->") . ,(kbd "C-<end>"))
         (,(kbd "C-v") . [next])
         (,(kbd "C-a") . ,(kbd "<home>"))
         (,(kbd "C-e") . ,(kbd "<end>"))
-        (,(kbd "M-<") . ,(kbd "C-<home>"))
-        (,(kbd "M->") . ,(kbd "C-<end>"))
         (,(kbd "C-S-a") . ,(kbd "S-<home>"))
         (,(kbd "C-S-e") . ,(kbd "S-<end>"))))
 
