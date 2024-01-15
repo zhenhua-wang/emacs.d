@@ -246,7 +246,7 @@ git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 # essential desktop applications
-yay -S firefox kitty neofetch obs-studio mpv yt-dlp streamlink file-roller foliate fragments impression
+yay -S firefox kitty neofetch obs-studio mpv yt-dlp streamlink file-roller foliate fragments impression warp
 # laptop power management
 yay -S tlp tlp-rdw
 sudo systemctl enable tlp.service NetworkManager-dispatcher.service
