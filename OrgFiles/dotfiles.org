@@ -1209,6 +1209,11 @@ S-e = S-end
 leftalt = layer(meta)
 leftmeta = layer(alt)
 capslock = layer(control)
+
+[kitty]
+leftalt = layer(meta)
+leftmeta = layer(alt)
+capslock = layer(control)
 #+end_src
 
 * Gnome
