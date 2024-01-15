@@ -1162,6 +1162,7 @@ capslock = layer(control_zw)
 [meta_zw:M]
 # command
 r = C-f5
+q = C-q
 f = C-f
 - = C--
 = = C-=
@@ -1198,8 +1199,10 @@ v = prior
 v = next
 a = home
 e = end
-S-a = S-home
-S-e = S-end
+
+[control_zw+meta_zw]
+e = M-C-e
+f = M-C-f
 #+end_src
 
 ** Application
@@ -1220,9 +1223,9 @@ capslock = layer(control)
 ** Run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
-<Super>end,emacs,emacs,
 <Ctrl><Super>e,emacs,emacs,
 <Ctrl><Super>k,kitty,kitty,
+<Ctrl><Super>f,firefox,firefox,
 #+end_src
 
 * Local variables
