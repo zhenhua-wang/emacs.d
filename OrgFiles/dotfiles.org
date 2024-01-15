@@ -1191,14 +1191,16 @@ c = C-insert
 v = S-insert
 
 [alt_zw:A]
-v = prior
-< = C-home
-> = C-end
+v = pageup
 
 [control_zw:C]
-v = next
+v = pagedown
 a = home
 e = end
+
+[alt_zw+shift]
+, = C-home
+. = C-end
 
 [control_zw+meta_zw]
 e = M-C-e
