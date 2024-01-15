@@ -398,6 +398,9 @@ sudo fsck -p /dev/sda1
 2. Set Gateway
 3. Set User Agent to ~AnyConnect Linux~
 
+*** Nuphy Air75 Fn keys in win mode
+~echo 'options hid_apple fnmode=0' | sudo tee -a /etc/modprobe.d/hid_apple.conf~
+
 * MacOS
 ** Homebrew
 #+begin_src shell
