@@ -141,6 +141,7 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>spac
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Shift><Super>d']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Shift><Super>f']"
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "disabled"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Control>q']"
 gsettings set org.gnome.desktop.wm.keybindings maximize "[]"
 gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>m']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-down "[]"
