@@ -345,12 +345,15 @@
   (when flymake-mode
     (concat
      (format-mode-line flymake-mode-line-title)
-     "["
-     (format-mode-line
-      (append (flymake--mode-line-counter :error)
-              (flymake--mode-line-counter :warning)
-              (flymake--mode-line-counter :note)))
-     "]"
+     " "
+     (propertize (substring-no-properties
+                  (format-mode-line (flymake--mode-line-counter :error)))
+                 'face (zw/modeline-set-face 'flymake-error-echo 'zw/modeline-default-inactive)
+                 'help-echo "Flymake errors")
+     (propertize (substring-no-properties
+                  (format-mode-line (flymake--mode-line-counter :warning)))
+                 'face (zw/modeline-set-face 'flymake-warning-echo 'zw/modeline-default-inactive)
+                 'help-echo "Flymake warnings")
      zw/modeline-separator)))
 
 ;; ** middle space
@@ -365,8 +368,6 @@
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
-   ;; flymake
-   (zw/modeline-flymake)
    ;; input method
    (zw/modeline-input-method)
    ;; process
@@ -397,6 +398,7 @@
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
   '(:eval (zw/modeline-remote))
+  '(:eval (zw/modeline-flymake))
   ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   '(:eval (zw/modeline-rhs))))
