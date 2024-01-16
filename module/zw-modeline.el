@@ -356,11 +356,11 @@
      " "
      (propertize (substring-no-properties
                   (format-mode-line (flymake--mode-line-counter :error)))
-                 'face (zw/modeline-set-face 'flymake-error-echo 'zw/modeline-default-inactive)
+                 'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive)
                  'help-echo "Flymake errors")
      (propertize (substring-no-properties
                   (format-mode-line (flymake--mode-line-counter :warning)))
-                 'face (zw/modeline-set-face 'flymake-warning-echo 'zw/modeline-default-inactive)
+                 'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)
                  'help-echo "Flymake warnings")
      zw/modeline-separator)))
 
