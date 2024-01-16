@@ -344,7 +344,8 @@
 (defun zw/modeline-flymake ()
   (when flymake-mode
     (concat
-     (format-mode-line flymake-mode-line-title)
+     (propertize (format-mode-line flymake-mode-line-title)
+                 'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
      " "
      (propertize (substring-no-properties
                   (format-mode-line (flymake--mode-line-counter :error)))
