@@ -340,6 +340,19 @@
                           'face (zw/modeline-set-face 'zw/modeline-input-method-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
+;; ** Flymake
+(defun zw/modeline-flymake ()
+  (when flymake-mode
+    (concat
+     (format-mode-line flymake-mode-line-title)
+     "["
+     (format-mode-line
+      (append (flymake--mode-line-counter :error)
+              (flymake--mode-line-counter :warning)
+              (flymake--mode-line-counter :note)))
+     "]"
+     zw/modeline-separator)))
+
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
   (let* ((middle-space (string-pixel-width rhs)))
@@ -352,6 +365,8 @@
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
+   ;; flymake
+   (zw/modeline-flymake)
    ;; input method
    (zw/modeline-input-method)
    ;; process
