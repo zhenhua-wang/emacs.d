@@ -140,11 +140,13 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
+     " "
      (propertize file-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
+     " "
      zw/modeline-separator)))
 
 ;; ** text scale
