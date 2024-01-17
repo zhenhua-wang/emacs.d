@@ -36,6 +36,7 @@
 (require 'zw-appearance)
 (require 'zw-theme)
 (require 'zw-modeline)
+(require 'zw-tab-bar)
 ;; tools
 (require 'zw-tools)
 (require 'zw-editor)
