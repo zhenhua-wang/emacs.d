@@ -112,7 +112,7 @@
      `(zw/modeline-remote-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
 
      ;; tab-bar
-     `(tab-bar ((t (:height ,tab-bar-height :foreground ,(face-foreground 'default) :weight regular))))
+     `(tab-bar ((t (:foreground ,(face-foreground 'default) :background ,(face-background 'mode-line) :height ,tab-bar-height :weight regular))))
      `(zw/tab-bar-default-selected ((t (:inherit tab-bar))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))

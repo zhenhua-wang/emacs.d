@@ -56,7 +56,7 @@
 ;; ** menu bar
 (defun zw/tab-bar-format-menu-bar ()
   "Produce the Menu button for the tab bar that shows the menu bar."
-  `((menu-bar menu-item (propertize "☰"
+  `((menu-bar menu-item (propertize ""
                                     'face 'zw/tab-bar-menu-bar
                                     'pointer 'hand)
               tab-bar-menu-bar :help "Menu Bar")))
