@@ -101,7 +101,7 @@
      '(vc-removed-state ((t (:foreground "#E94560"))))
 
      ;; modeline
-     `(mode-line ((t (:height ,modeline-height :foreground ,(face-foreground 'default) :box ,(when modeline-3d-p '(:line-width 1 :style released-button))))))
+     `(mode-line ((t (:height ,modeline-height :box ,(when modeline-3d-p '(:line-width 1 :style released-button))))))
      `(mode-line-inactive ((t (:inherit mode-line :foreground ,(face-foreground 'font-lock-comment-face)))))
      `(mode-line-highlight ((t (:inherit mode-line :foreground ,modeline-highlight-fg :background ,modeline-highlight-bg))))
      `(zw/modeline-default-active ((t (:height ,modeline-height :foreground ,(face-foreground 'mode-line)))))
