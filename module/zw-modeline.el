@@ -257,9 +257,13 @@
 
 ;; ** remote
 (defun zw/modeline-remote ()
-  (when (file-remote-p default-directory)
+  (if (file-remote-p default-directory)
+      (concat
+       (propertize (concat "  " (file-remote-p default-directory 'host) " ")
+                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
+       zw/modeline-separator)
     (concat
-     (propertize (concat " Remote: " (file-remote-p default-directory 'host) " ")
+     (propertize "  "
                  'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
@@ -400,16 +404,14 @@
  mode-line-format
  (list
   "%e"
-  " "
   ;; left
-  '(:eval (zw/modeline-tab-index))
+  '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-line-column))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
-  '(:eval (zw/modeline-remote))
   ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   '(:eval (zw/modeline-rhs))))
@@ -422,24 +424,15 @@
               (setq-local mode-line-format
                           (list
                            "%e"
-                           " "
-                           '(:eval (zw/modeline-tab-index))
-                           ;; the buffer name
+                           '(:eval (zw/modeline-remote))
                            '(:eval (propertize
                                     (zw/modeline-buffer-name 30 "...")
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                                 'zw/modeline-default-inactive)))
-                           ;; text scale amount
                            '(:eval (zw/modeline-text-scale))
-                           ;; mark active
                            '(:eval (zw/modeline-mark-active))
-                           ;; record kmacro
                            '(:eval (zw/modeline-kmacro-recording))
-                           ;; is remote file?
-                           '(:eval (zw/modeline-remote))
-                           ;; add modeline process
                            '(:eval (zw/modeline-process))
-                           ;; env
                            '(:eval (zw/modeline-env)))))))
 
 ;; * Provide

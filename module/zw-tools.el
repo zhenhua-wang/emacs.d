@@ -106,10 +106,10 @@
                                             'zw/modeline-default-inactive))))
 
 (defun zw/dired-sidebar--modeline-format ()
-  (list "%e" " "
+  (list "%e"
+        '(:eval (zw/modeline-remote))
         '(:eval (zw/dired-sidebar--modeline-name))
-        '(:eval (zw/modeline-line-column))
-        '(:eval (zw/modeline-remote))))
+        '(:eval (zw/modeline-line-column))))
 
 (defun zw/dired-siderbar-display (buffer)
   ;; bury current dired buffer when it has the same root as sidebar
