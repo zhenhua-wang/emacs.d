@@ -20,6 +20,7 @@
          (block-bg (alist-get 'block-bg theme-params))
          (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
+         (modeline-highlight-inactive-bg (alist-get 'modeline-highlight-inactive-bg theme-params))
          (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
          (region (alist-get 'region theme-params)))
 
@@ -108,6 +109,7 @@
      `(zw/modeline-highlight-foreground-active ((t (:height ,modeline-height))))
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-buffer-name-active)))))
      `(zw/modeline-major-mode-active ((t (:inherit mode-line :foreground ,modeline-highlight-bg :bold t))))
+     `(zw/modeline-remote-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
 
      ;; tab-bar
      `(tab-bar ((t (:height ,tab-bar-height :foreground ,(face-foreground 'default) :weight regular))))
@@ -154,11 +156,13 @@
                               ;; (modeline-highlight-fg . "#ffffff")
                               (modeline-highlight-bg . ,(face-background 'highlight))
                               (modeline-highlight-fg . ,(face-foreground 'highlight))
+                              (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive) 0.05))
                               (modeline-3d-p . nil)
                               (region . ,(doom-darken (face-background 'default) 0.2))))
         (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
                              (modeline-highlight-bg . ,(face-background 'highlight))
                              (modeline-highlight-fg . ,(face-foreground 'highlight))
+                             (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive) 0.05))
                              (modeline-3d-p . nil)
                              (region . ,(doom-lighten (face-background 'default) 0.2)))))
     (pcase (frame-parameter nil 'background-mode)

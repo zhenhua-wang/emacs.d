@@ -83,6 +83,11 @@
   "Remote file face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-remote-inactive
+  '((t (:inherit zw/modeline-default-inactive)))
+  "Remote file face for inactive modeline"
+  :group 'zw/modeline-inactive)
+
 (defface zw/modeline-env-active
   '((t (:inherit zw/modeline-default-active :bold t)))
   "Environment face for active modeline"
@@ -260,11 +265,11 @@
   (if (file-remote-p default-directory)
       (concat
        (propertize (concat "  " (file-remote-p default-directory 'host) " ")
-                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
+                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
        zw/modeline-separator)
     (concat
      (propertize "  "
-                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-default-inactive))
+                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
      zw/modeline-separator)))
 
 ;; ** env
