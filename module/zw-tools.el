@@ -269,9 +269,9 @@
   "update zw/emacs and tangle dotfiles"
   (interactive)
   (require 'org)
-  (shell-command "cd ~/.emacs.d && git pull")
-  (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
-  (message "Emacs updated & dotfiles tangled!"))
+  (let ((msg (string-trim (shell-command-to-string "cd ~/.emacs.d && git pull"))))
+    (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
+    (message (concat "emacs update:\n " msg))))
 
 (defun zw/show-info ()
   "show buffer info"
