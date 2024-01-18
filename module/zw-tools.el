@@ -405,8 +405,8 @@ i.e. windows tiled side-by-side."
                      (concat (getenv "HOME")
                              "/Library/Fonts/")))))
     (dolist (font (directory-files-recursively "~/.emacs.d/fonts" ""))
-      (copy-file font font-dest t)))
-  (nerd-icons-install-fonts))
+      (copy-file font font-dest t))
+    (async-shell-command "fc-cache -fv")))
 
 ;; * Provide
 (provide 'zw-tools)
