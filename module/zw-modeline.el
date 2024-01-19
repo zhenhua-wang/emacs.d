@@ -33,6 +33,11 @@
   "Highlight background face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-highlight-background-inactive
+  '((t (:inherit zw/modeline-default-inactive)))
+  "Highlight background face for inactive modeline"
+  :group 'zw/modeline-inactive)
+
 (defface zw/modeline-buffer-name-active
   '((t (:inherit zw/modeline-default-active :bold t)))
   "buffer name face for active modeline"
@@ -84,7 +89,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-remote-inactive
-  '((t (:inherit zw/modeline-default-inactive)))
+  '((t (:inherit zw/modeline-highlight-background-inactive)))
   "Remote file face for inactive modeline"
   :group 'zw/modeline-inactive)
 
@@ -127,12 +132,35 @@
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
-;; ** padded space
-(defvar zw/modeline-space-high
-  (propertize " " 'display '(height 1)))
+;; ** begin
+(defun zw/modeline-begin ()
+  (if (image-type-available-p 'pbm)
+      (let ((color (if (zw/modeline-window-active-p)
+                       (face-background 'mode-line-highlight)
+                     (face-background 'zw/modeline-highlight-background-inactive)))
+            (width (string-pixel-width " "))
+            (height 50))
+        (propertize
+         " " 'display
+         (ignore-errors
+           (create-image
+            (concat (format "P1\n%i %i\n" width height)
+                    (make-string (* width height) ?1)
+                    "\n")
+            'pbm t :scale 1 :foreground color :ascent 'center))))
+    " "))
 
-(defvar zw/modeline-space-low
-  (propertize " " 'display '(raise -0.2)))
+;; ** remote
+(defun zw/modeline-remote ()
+  (if (file-remote-p default-directory)
+      (concat
+       (propertize (concat " " (file-remote-p default-directory 'host) " ")
+                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+       zw/modeline-separator)
+    (concat
+     (propertize " "
+                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+     zw/modeline-separator)))
 
 ;; ** tab index
 (defun zw/modeline-tab-index ()
@@ -157,13 +185,13 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     zw/modeline-space-low
+     " "
      (propertize file-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-buffer-name-active 'zw/modeline-default-inactive))
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
-     zw/modeline-space-high
+     " "
      zw/modeline-separator)))
 
 ;; ** text scale
@@ -263,18 +291,6 @@
     (concat
      (propertize " kmacro "
                  'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive))
-     zw/modeline-separator)))
-
-;; ** remote
-(defun zw/modeline-remote ()
-  (if (file-remote-p default-directory)
-      (concat
-       (propertize (concat "  " (file-remote-p default-directory 'host) " ")
-                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-       zw/modeline-separator)
-    (concat
-     (propertize "  "
-                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
      zw/modeline-separator)))
 
 ;; ** env
@@ -384,7 +400,7 @@
 ;; ** keycast
 (defun zw/modeline-keycast ()
   (when (and zw/modeline-keycast-mode
-             (eq (selected-window) zw/active-window))
+             (zw/modeline-window-active-p))
     (concat (propertize
              (concat " "(key-description keycast--this-command-keys) " ")
              'face 'keycast-key)
@@ -433,6 +449,7 @@
  mode-line-format
  (list
   "%e"
+  '(:eval (zw/modeline-begin))
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
@@ -453,6 +470,7 @@
               (setq-local mode-line-format
                           (list
                            "%e"
+                           '(:eval (zw/modeline-begin))
                            '(:eval (zw/modeline-remote))
                            '(:eval (propertize
                                     (zw/modeline-buffer-name 30 "...")

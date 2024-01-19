@@ -109,7 +109,7 @@
      `(zw/modeline-highlight-foreground-active ((t (:height ,modeline-height))))
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-buffer-name-active)))))
      `(zw/modeline-major-mode-active ((t (:inherit mode-line :foreground ,modeline-highlight-bg :bold t))))
-     `(zw/modeline-remote-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
+     `(zw/modeline-highlight-background-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
 
      ;; tab-bar
      `(tab-bar ((t (:foreground ,(face-foreground 'default) :height ,tab-bar-height :weight regular))))
