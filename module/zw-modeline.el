@@ -127,6 +127,13 @@
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
+;; ** padded space
+(defvar zw/modeline-space-high
+  (propertize " " 'display '(height 1)))
+
+(defvar zw/modeline-space-low
+  (propertize " " 'display '(raise -0.1)))
+
 ;; ** tab index
 (defun zw/modeline-tab-index ()
   (when (length> (tab-bar-tabs) 1)
@@ -150,13 +157,13 @@
                               file-name zw/modeline-buffer-name-max nil nil
                               zw/modeline-buffer-name-ellipse))))
     (concat
-     " "
+     zw/modeline-space-low
      (propertize file-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-buffer-name-active 'zw/modeline-default-inactive))
                  'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
-     " "
+     zw/modeline-space-high
      zw/modeline-separator)))
 
 ;; ** text scale

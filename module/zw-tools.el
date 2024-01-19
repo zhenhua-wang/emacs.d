@@ -101,7 +101,8 @@
   "Sidebar modeline name."
   (let* ((dir (dired-current-directory))
          (name (car (last (split-string dir "/") 2))))
-    (propertize (concat " " name " " zw/modeline-separator)
+    (propertize (concat zw/modeline-space-low name zw/modeline-space-high
+                        zw/modeline-separator)
                 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                             'zw/modeline-default-inactive))))
 
