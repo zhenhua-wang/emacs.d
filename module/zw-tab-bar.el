@@ -128,6 +128,12 @@
   `((current-tab menu-item ,(zw/tab-bar-tab-name)
                  :help "File path")))
 
+;; ** env
+(defun zw/tab-bar-env ()
+  (when (and (featurep 'conda) conda-env-current-name)
+    (propertize (upcase conda-env-current-name)
+                'face 'zw/modeline-env-active)))
+
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
   "Update battery status."
@@ -365,7 +371,9 @@
                        tab-bar-format-menu-bar
                        tab-bar-separator
                        ;; zw/tab-bar-format-file-path
-                       tab-bar-format-align-right))
+                       tab-bar-format-align-right
+                       zw/tab-bar-env
+                       zw/tab-bar-begin))
 (tab-bar-mode)
 
 ;; ** time

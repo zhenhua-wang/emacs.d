@@ -438,7 +438,6 @@
    (zw/modeline-input-method)
    (zw/modeline-process)
    (zw/modeline-vc)
-   (zw/modeline-env)
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
@@ -481,8 +480,7 @@
                            '(:eval (zw/modeline-count-region))
                            '(:eval (zw/modeline-mark-active))
                            '(:eval (zw/modeline-kmacro-recording))
-                           '(:eval (zw/modeline-process))
-                           '(:eval (zw/modeline-env)))))))
+                           '(:eval (zw/modeline-process)))))))
 
 ;; * Provide
 (provide 'zw-modeline)
