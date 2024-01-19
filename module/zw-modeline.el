@@ -356,7 +356,7 @@
                           'face (zw/modeline-set-face 'zw/modeline-input-method-active 'zw/modeline-default-inactive))
               zw/modeline-separator))))
 
-;; ** Flymake
+;; ** flymake
 (defun zw/modeline-flymake ()
   (when flymake-mode
     (concat
@@ -376,18 +376,41 @@
                              'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
 
+;; ** keycast
+(defun zw/modeline-keycast ()
+  (when zw/modeline-keycast-mode
+    (concat (propertize
+             (concat " "(key-description keycast--this-command-keys) " ")
+             'face 'keycast-key)
+            " "
+            (propertize
+             (symbol-name keycast--this-command-desc)
+             'face 'keycast-command)
+            zw/modeline-separator)))
+
+(define-minor-mode zw/modeline-keycast-mode
+  "zw/modeline-keycast-mode."
+  :global t
+  (if zw/modeline-keycast-mode
+      (progn (use-package keycast)
+             (add-hook 'post-command-hook #'keycast--update)
+             (add-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit))
+    (progn (remove-hook 'post-command-hook #'keycast--update)
+           (remove-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit))))
+
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
   (let* ((middle-space (string-pixel-width rhs)))
     (propertize
      " "
-     'display `((space :align-to
-                       (- (+ right right-fringe right-margin)
-                          (,middle-space)))))))
+     'display
+     `((space :align-to (- (+ right right-fringe right-margin) (,middle-space)))))))
 
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
+   ;;keycast
+   (zw/modeline-keycast)
    ;; input method
    (zw/modeline-input-method)
    ;; process
