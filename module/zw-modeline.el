@@ -229,7 +229,7 @@
                                             'zw/modeline-default-inactive)))
    (t
     (concat
-     (propertize "%p "
+     (propertize "%l:%c %p "
                  'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                              'zw/modeline-default-inactive))
      (zw/modeline-count-region)))))
@@ -419,21 +419,14 @@
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
-   ;;keycast
    (zw/modeline-keycast)
-   ;; input method
    (zw/modeline-input-method)
-   ;; process
    (zw/modeline-process)
-   ;; version control
    (zw/modeline-vc)
-   ;; env
    (zw/modeline-env)
-   ;; lsp
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
-   ;; major mode
    (zw/modeline-major-mode)))
 
 ;; * Config
@@ -446,7 +439,6 @@
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-text-scale))
-  '(:eval (zw/modeline-line-column))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
