@@ -82,6 +82,7 @@
                                (getenv "PATH")))
         (setq conda--executable-path conda-exec))))
   :config
+  (setq conda-message-on-environment-switch nil)
   (or (cl-loop for dir in (list conda-anaconda-home
                                 "~/.anaconda"
                                 "~/.miniconda"
@@ -115,9 +116,10 @@
     ;; HACK: set LD_LIBRARY_PATH after conda activate
     (setenv "LD_LIBRARY_PATH"
             (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
-    (message "In case of any error, you might want to install in your env:
+    (message "Switched to conda environment: %s\n
+In case of any error, you might want to install in your env:
 conda install -c conda-forge ncurses
-conda install -c conda-forge gcc=12.1.0"))
+conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-current-name)))
   (defun zw/conda-postdeactivate ()
     (zw/conda-env-update)
     (setenv "LD_LIBRARY_PATH"))
