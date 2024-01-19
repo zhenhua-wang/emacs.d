@@ -22,6 +22,7 @@
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
          (modeline-highlight-inactive-bg (alist-get 'modeline-highlight-inactive-bg theme-params))
          (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
+         (tab-bar-box (alist-get 'tab-bar-box theme-params))
          (region (alist-get 'region theme-params)))
 
     ;; default fonts
@@ -112,7 +113,7 @@
      `(zw/modeline-highlight-background-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
 
      ;; tab-bar
-     `(tab-bar ((t (:foreground ,(face-foreground 'default) :height ,tab-bar-height :weight regular :box ,(face-background 'mode-line)))))
+     `(tab-bar ((t (:foreground ,(face-foreground 'default) :height ,tab-bar-height :weight regular :box ,tab-bar-box))))
      `(zw/tab-bar-default-selected ((t (:inherit tab-bar))))
      `(zw/tab-bar-menu-bar ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
@@ -158,12 +159,14 @@
                               (modeline-highlight-fg . ,(face-foreground 'highlight))
                               (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive) 0.05))
                               (modeline-3d-p . nil)
+                              (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))
                               (region . ,(doom-darken (face-background 'default) 0.2))))
         (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
                              (modeline-highlight-bg . ,(face-background 'highlight))
                              (modeline-highlight-fg . ,(face-foreground 'highlight))
                              (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive) 0.05))
                              (modeline-3d-p . nil)
+                             (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05))
                              (region . ,(doom-lighten (face-background 'default) 0.2)))))
     (pcase (frame-parameter nil 'background-mode)
       ('light (zw/theme--set-theme light-theme-params))
