@@ -436,8 +436,8 @@
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
-  '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-flymake))
+  '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
@@ -459,6 +459,7 @@
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                                 'zw/modeline-default-inactive)))
                            '(:eval (zw/modeline-text-scale))
+                           '(:eval (zw/modeline-count-region))
                            '(:eval (zw/modeline-mark-active))
                            '(:eval (zw/modeline-kmacro-recording))
                            '(:eval (zw/modeline-process))
