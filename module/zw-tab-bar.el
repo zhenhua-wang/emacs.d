@@ -132,7 +132,7 @@
 (defun zw/tab-bar-env ()
   (let ((env (zw/modeline-env)))
     (when env
-      (propertize (string-trim env)
+      (propertize (concat " " env)
                   'face 'zw/modeline-env-active))))
 
 ;; ** battery
