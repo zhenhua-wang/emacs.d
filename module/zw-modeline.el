@@ -380,7 +380,7 @@
 
 ;; ** flymake
 (defun zw/modeline-flymake ()
-  (when flymake-mode
+  (when (and (featurep 'flymake) flymake-mode)
     (concat
      (propertize (format-mode-line flymake-mode-line-title)
                  'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
