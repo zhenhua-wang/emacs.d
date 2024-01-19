@@ -130,9 +130,10 @@
 
 ;; ** env
 (defun zw/tab-bar-env ()
-  (when (and (featurep 'conda) conda-env-current-name)
-    (propertize (upcase conda-env-current-name)
-                'face 'zw/modeline-env-active)))
+  (let ((env (zw/modeline-env)))
+    (when env
+      (propertize (string-trim env)
+                  'face 'zw/modeline-env-active))))
 
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
