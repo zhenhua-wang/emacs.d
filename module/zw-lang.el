@@ -110,16 +110,19 @@
                    "ipython"))
     (if (and (featurep 'lsp-mode) lsp-mode)
         (lsp-restart-workspace)))
-  (defun zw/conda-set-env-vars ()
+  (defun zw/conda-postactivate ()
     (zw/conda-env-update)
     ;; HACK: set LD_LIBRARY_PATH after conda activate
     (setenv "LD_LIBRARY_PATH"
-            (concat ":" (getenv "CONDA_PREFIX") "/lib/")))
-  (defun zw/conda-unset-env-vars ()
+            (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
+    (message "In case of any error, you might want to install:
+conda install -c conda-forge ncurses
+conda install -c conda-forge gcc=12.1.0"))
+  (defun zw/conda-postdeactivate ()
     (zw/conda-env-update)
     (setenv "LD_LIBRARY_PATH"))
-  (add-hook 'conda-postactivate-hook 'zw/conda-set-env-vars)
-  (add-hook 'conda-postdeactivate-hook 'zw/conda-unset-env-vars))
+  (add-hook 'conda-postactivate-hook 'zw/conda-postactivate)
+  (add-hook 'conda-postdeactivate-hook 'zw/conda-postdeactivate))
 
 ;; * R
 (use-package ess
