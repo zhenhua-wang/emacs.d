@@ -53,6 +53,12 @@
   "Replacing string for long path name or file name")
 
 ;; * Module
+;; ** begin
+(defun zw/tab-bar-begin ()
+  (let ((height (floor
+                 (* (face-attribute 'tab-bar :height) 1.2))))
+    (propertize " " 'face `(:height ,height))))
+
 ;; ** tab name
 (defun zw/tab-bar-tab-name ()
   (let* ((buffer-file-p (buffer-file-name (window-buffer (minibuffer-selected-window))))
@@ -355,7 +361,7 @@
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
       tab-bar-separator " "
-      tab-bar-format '(tab-bar-separator
+      tab-bar-format '(zw/tab-bar-begin
                        tab-bar-format-menu-bar
                        tab-bar-separator
                        zw/tab-bar-format-file-path
