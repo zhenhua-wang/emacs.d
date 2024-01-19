@@ -228,11 +228,9 @@
                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                             'zw/modeline-default-inactive)))
    (t
-    (concat
-     (propertize "%l:%c %p "
-                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                             'zw/modeline-default-inactive))
-     (zw/modeline-count-region)))))
+    (propertize "%l:%c %p "
+                'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                            'zw/modeline-default-inactive)))))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
@@ -440,6 +438,7 @@
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-flymake))
+  '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
   ;; right
