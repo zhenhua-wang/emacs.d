@@ -364,7 +364,7 @@
       tab-bar-format '(zw/tab-bar-begin
                        tab-bar-format-menu-bar
                        tab-bar-separator
-                       zw/tab-bar-format-file-path
+                       ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
 (tab-bar-mode)
 
