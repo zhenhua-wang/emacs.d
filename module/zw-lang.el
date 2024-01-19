@@ -115,7 +115,7 @@
     ;; HACK: set LD_LIBRARY_PATH after conda activate
     (setenv "LD_LIBRARY_PATH"
             (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
-    (message "In case of any error, you might want to install:
+    (message "In case of any error, you might want to install in your env:
 conda install -c conda-forge ncurses
 conda install -c conda-forge gcc=12.1.0"))
   (defun zw/conda-postdeactivate ()
