@@ -385,7 +385,8 @@
 
 ;; ** keycast
 (defun zw/modeline-keycast ()
-  (when zw/modeline-keycast-mode
+  (when (and zw/modeline-keycast-mode
+             (eq (selected-window) zw/active-window))
     (concat (propertize
              (concat " "(key-description keycast--this-command-keys) " ")
              'face 'keycast-key)
