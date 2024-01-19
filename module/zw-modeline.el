@@ -132,7 +132,7 @@
   (propertize " " 'display '(height 1)))
 
 (defvar zw/modeline-space-low
-  (propertize " " 'display '(raise -0.1)))
+  (propertize " " 'display '(raise -0.2)))
 
 ;; ** tab index
 (defun zw/modeline-tab-index ()
