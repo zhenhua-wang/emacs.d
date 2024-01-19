@@ -134,7 +134,8 @@
 
 ;; ** begin
 (defun zw/modeline-begin ()
-  (if (image-type-available-p 'pbm)
+  (if (and (display-graphic-p)
+           (image-type-available-p 'pbm))
       (let ((color (if (zw/modeline-window-active-p)
                        (face-background 'mode-line-highlight)
                      (face-background 'zw/modeline-highlight-background-inactive)))
@@ -148,19 +149,18 @@
                     (make-string (* width height) ?1)
                     "\n")
             'pbm t :scale 1 :foreground color :ascent 'center))))
-    " "))
+    (propertize
+     " " 'face (zw/modeline-set-face 'zw/modeline-highlight-background-active
+                                     'zw/modeline-highlight-background-inactive))))
 
 ;; ** remote
 (defun zw/modeline-remote ()
-  (if (file-remote-p default-directory)
-      (concat
-       (propertize (concat " " (file-remote-p default-directory 'host) " ")
-                   'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-       zw/modeline-separator)
-    (concat
-     (propertize " "
-                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-     zw/modeline-separator)))
+  (concat
+   (propertize (if (file-remote-p default-directory)
+                   (concat " " (file-remote-p default-directory 'host) " ")
+                 " ")
+               'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+   zw/modeline-separator))
 
 ;; ** tab index
 (defun zw/modeline-tab-index ()
