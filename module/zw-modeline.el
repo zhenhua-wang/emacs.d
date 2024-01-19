@@ -407,7 +407,9 @@
 
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
-  (let* ((middle-space (string-pixel-width rhs)))
+  (let ((middle-space (progn
+                        (add-face-text-property 0 (length rhs) 'mode-line t rhs)
+                        (string-pixel-width rhs))))
     (propertize
      " "
      'display
