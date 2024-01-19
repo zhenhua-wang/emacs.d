@@ -211,7 +211,7 @@
 
 ;; ** count region
 (defun zw/modeline-count-region ()
-  (when (region-active-p)
+  (when (and (region-active-p) (zw/modeline-window-active-p))
     (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
       (concat
        (propertize
@@ -279,7 +279,7 @@
 
 ;; ** mark active
 (defun zw/modeline-mark-active ()
-  (when mark-active
+  (when (and mark-active (zw/modeline-window-active-p))
     (concat
      (propertize " Mark "
                  'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
