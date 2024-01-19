@@ -108,7 +108,7 @@
      `(zw/modeline-default-inactive ((t (:height ,modeline-height :foreground ,(face-foreground 'font-lock-comment-face)))))
      `(zw/modeline-highlight-foreground-active ((t (:height ,modeline-height))))
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-buffer-name-active)))))
-     `(zw/modeline-major-mode-active ((t (:inherit mode-line :foreground ,modeline-highlight-bg :bold t))))
+     `(zw/modeline-major-mode-active ((t (:foreground ,modeline-highlight-bg :bold t))))
      `(zw/modeline-highlight-background-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
 
      ;; tab-bar

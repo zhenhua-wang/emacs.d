@@ -140,7 +140,8 @@
                        (face-background 'mode-line-highlight)
                      (face-background 'zw/modeline-highlight-background-inactive)))
             (width (string-pixel-width " "))
-            (height 50))
+            (height (floor (* (string-pixel-width " ")
+                              2.5))))
         (propertize
          " " 'display
          (ignore-errors
