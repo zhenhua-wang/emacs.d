@@ -232,6 +232,10 @@
   :config
   (setq which-key-idle-delay 0.3))
 
+;; * keycast
+(use-package keycast
+  :commands (keycast-tab-bar-mode))
+
 ;; * Web search
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")

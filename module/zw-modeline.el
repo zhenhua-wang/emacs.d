@@ -401,29 +401,6 @@
                              'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
 
-;; ** keycast
-(defun zw/modeline-keycast ()
-  (when (and zw/modeline-keycast-mode
-             (zw/modeline-window-active-p))
-    (concat (propertize
-             (concat " "(key-description keycast--this-command-keys) " ")
-             'face 'keycast-key)
-            " "
-            (propertize
-             (symbol-name keycast--this-command-desc)
-             'face 'keycast-command)
-            zw/modeline-separator)))
-
-(define-minor-mode zw/modeline-keycast-mode
-  "zw/modeline-keycast-mode."
-  :global t
-  (if zw/modeline-keycast-mode
-      (progn (use-package keycast)
-             (add-hook 'post-command-hook #'keycast--update)
-             (add-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit))
-    (progn (remove-hook 'post-command-hook #'keycast--update)
-           (remove-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit))))
-
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
   (let ((middle-space (progn
@@ -437,7 +414,6 @@
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
   (concat
-   (zw/modeline-keycast)
    (zw/modeline-input-method)
    (zw/modeline-process)
    (zw/modeline-vc)
