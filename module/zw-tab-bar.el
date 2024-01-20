@@ -55,10 +55,7 @@
 ;; * Module
 ;; ** begin
 (defun zw/tab-bar-begin ()
-  (propertize " " 'face '(:height 1.2)))
-
-(defun zw/tab-bar-begin2 ()
-  (propertize " " 'display '(raise -0.2)))
+  (propertize " " 'face '(:height 1.2) 'display '(raise -0.2)))
 
 ;; ** tab name
 (defun zw/tab-bar-tab-name ()
@@ -371,7 +368,7 @@
       tab-bar-separator " "
       tab-bar-format '(zw/tab-bar-begin
                        tab-bar-format-menu-bar
-                       zw/tab-bar-begin2
+                       zw/tab-bar-separator
                        zw/tab-bar-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
