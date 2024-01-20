@@ -234,7 +234,7 @@
 
 ;; * keycast
 (use-package keycast
-  :commands keycast-tab-bar-mode)
+  :bind ("s-k" . keycast-tab-bar-mode))
 
 ;; * Web search
 (use-package emacs-websearch
