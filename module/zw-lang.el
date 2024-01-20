@@ -148,8 +148,8 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
     (setq-local comint-use-prompt-regexp nil)
     (setq-local inhibit-field-text-motion nil)
     ;; setup modeline
-    (setq-local mode-line-process
-                '(:eval (concat ":run" (nth ess--busy-count ess-busy-strings)))))
+    (setq-local zw/modeline--process
+                '(:eval (nth ess--busy-count ess-busy-strings))))
   (defun zw/ess-indent ()
     (setq-local indent-line-function #'ess-r-indent-line))
   (defun zw/ess-send-region-or-block ()

@@ -363,8 +363,10 @@
           zw/modeline-separator))
 
 ;; ** process
+(defvar zw/modeline--process nil)
+
 (defun zw/modeline-process ()
-  (let ((process (string-trim (format-mode-line mode-line-process))))
+  (let ((process (string-trim (format-mode-line zw/modeline--process))))
     (when (not (length= process 0))
       (concat (propertize process
                           'face (zw/modeline-set-face 'zw/modeline-process-active 'zw/modeline-default-inactive))
