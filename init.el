@@ -48,3 +48,10 @@
 ;; document
 (require 'zw-document)
 (require 'zw-literate)
+
+;; custom config
+(setq zw/user-config
+      (expand-file-name "zw-user-config.el" user-emacs-directory))
+(when (not (file-exists-p zw/user-config))
+  (with-temp-buffer (write-file zw/user-config)))
+(load zw/user-config)
