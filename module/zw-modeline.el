@@ -54,7 +54,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-line-column-active
-  '((t (:inherit zw/modeline-highlight-foreground-active)))
+  '((t (:inherit zw/modeline-default-active)))
   "Line-column face for active modeline"
   :group 'zw/modeline-active)
 
@@ -109,7 +109,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-process-active
-  '((t (:inherit zw/modeline-highlight-foreground-active :bold t)))
+  '((t (:inherit zw/modeline-default-active :bold t)))
   "Process face for active modeline"
   :group 'zw/modeline-active)
 
