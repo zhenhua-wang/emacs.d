@@ -55,3 +55,6 @@
 (when (not (file-exists-p zw/user-config))
   (with-temp-buffer (write-file zw/user-config)))
 (load zw/user-config)
+(defun zw/open-user-config ()
+  (interactive)
+  (find-file zw/user-config))
