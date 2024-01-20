@@ -144,9 +144,7 @@
                   (make-string (* width height) ?1)
                   "\n")
           'pbm t :scale 1 :foreground color :ascent 'center)))
-    (propertize
-     " " 'face (zw/modeline-set-face `(:background ,color)
-                                     'zw/modeline-highlight-background-inactive))))
+    (propertize " " 'face `(:background ,color))))
 
 (defun zw/modeline-begin ()
   (let ((color (if (zw/modeline-window-active-p)
