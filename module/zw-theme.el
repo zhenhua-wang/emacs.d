@@ -172,7 +172,7 @@
 
 ;; * load theme
 (setq zw/theme-selector
-      (expand-file-name "emacs-select-theme.el" user-emacs-directory))
+      (expand-file-name "zw-select-theme.el" user-emacs-directory))
 (when (not (file-exists-p zw/theme-selector))
   (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
 (load zw/theme-selector)
