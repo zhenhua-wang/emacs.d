@@ -133,26 +133,29 @@
   (propertize " " 'face 'zw/modeline-default-active))
 
 ;; ** begin
-(defun zw/modeline-begin ()
+(defun zw/modeline--begin (color width height)
   (if (and (display-graphic-p)
            (image-type-available-p 'pbm))
-      (let ((color (if (zw/modeline-window-active-p)
-                       (face-background 'mode-line-highlight)
-                     (face-background 'zw/modeline-highlight-background-inactive)))
-            (width (string-pixel-width " "))
-            (height (floor (* (string-pixel-width " ")
-                              2.7))))
-        (propertize
-         " " 'display
-         (ignore-errors
-           (create-image
-            (concat (format "P1\n%i %i\n" width height)
-                    (make-string (* width height) ?1)
-                    "\n")
-            'pbm t :scale 1 :foreground color :ascent 'center))))
+      (propertize
+       " " 'display
+       (ignore-errors
+         (create-image
+          (concat (format "P1\n%i %i\n" width height)
+                  (make-string (* width height) ?1)
+                  "\n")
+          'pbm t :scale 1 :foreground color :ascent 'center)))
     (propertize
-     " " 'face (zw/modeline-set-face 'zw/modeline-highlight-background-active
+     " " 'face (zw/modeline-set-face `(:background ,color)
                                      'zw/modeline-highlight-background-inactive))))
+
+(defun zw/modeline-begin ()
+  (let ((color (if (zw/modeline-window-active-p)
+                   (face-background 'mode-line-highlight)
+                 (face-background 'zw/modeline-highlight-background-inactive)))
+        (width (string-pixel-width " "))
+        (height (floor (* (string-pixel-width " ")
+                          2.7))))
+    (zw/modeline--begin color width height)))
 
 ;; ** remote
 (defun zw/modeline-remote ()
