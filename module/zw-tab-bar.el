@@ -55,7 +55,7 @@
 ;; * Module
 ;; ** begin
 (defun zw/tab-bar-begin ()
-  (propertize " " 'face '(:height 1.2) 'display '(raise -0.2)))
+  (propertize " " 'face '(:height 1.2) 'display '(raise -0.1)))
 
 ;; ** tab name
 (defun zw/tab-bar-tab-name ()
