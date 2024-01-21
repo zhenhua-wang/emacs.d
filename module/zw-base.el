@@ -66,7 +66,7 @@ The order of values may be different."
       (setq zw/previous-frame zw/active-frame)
       (setq zw/active-frame frame))
     (setq zw/previous-window zw/active-window)
-    (setq zw/active-window (selected-window))))
+    (setq zw/active-window window)))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
 ;; * Config
