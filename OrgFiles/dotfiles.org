@@ -298,7 +298,7 @@ shadow-exclude = [
 #+end_src
 
 * Vterm
-#+HEADER: :tangle "~/.cache/emacs/vterm_conf.sh"
+#+HEADER: :tangle (zw/org-babel-tangle-linux (expand-file-name "vterm_conf.sh" user-emacs-directory))
 #+begin_src sh
 # vterm working directory tracking
 function vterm_printf() {
