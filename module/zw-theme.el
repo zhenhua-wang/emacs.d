@@ -5,8 +5,7 @@
   :defer t
   :config
   (setq doom-themes-enable-bold t
-        doom-themes-enable-italic nil)
-  (doom-themes-visual-bell-config))
+        doom-themes-enable-italic nil))
 
 ;; * zw theme
 (defun zw/theme--set-theme (theme-params)

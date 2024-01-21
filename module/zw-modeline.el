@@ -468,5 +468,21 @@
                            '(:eval (zw/modeline-kmacro-recording))
                            '(:eval (zw/modeline-process)))))))
 
+;; ** ring bell
+(defun zw/modeline-ring-bell ()
+  (let* ((orig-fg (face-background 'mode-line))
+         (buf (current-buffer)))
+    (set-face-background 'mode-line (face-foreground 'error))
+    (force-mode-line-update)
+    (run-with-timer 0.15 nil
+                    (lambda (fg)
+                      (with-current-buffer buf
+                        (set-face-background 'mode-line fg)
+                        (force-mode-line-update)))
+                    orig-fg)))
+
+(setq ring-bell-function 'zw/modeline-ring-bell
+      visible-bell t)
+
 ;; * Provide
 (provide 'zw-modeline)
