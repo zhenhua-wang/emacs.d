@@ -396,15 +396,27 @@
      (let* ((errors (format-mode-line (flymake--mode-line-counter :error)))
             (warnings (format-mode-line (flymake--mode-line-counter :warning)))
             (num-errors (string-to-number errors))
-            (num-warnings (string-to-number warnings)))
+            (num-warnings (string-to-number warnings))
+            (keymap (let ((map (make-sparse-keymap)))
+                      (define-key map (vector 'mode-line 'mouse-1) 'flymake-start)
+                      map)))
        (if (and (= num-errors 0) (= num-warnings 0))
-           (propertize "" 'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive))
-         (concat (propertize (concat "" (zw/modeline-separator-thin)
-                                     errors)
-                             'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive))
-                 (propertize (concat (zw/modeline-separator-thin) "" (zw/modeline-separator-thin)
-                                     (string-trim warnings))
-                             'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)))))
+           (propertize "" 'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
+                       'mouse-face 'highlight
+                       'keymap keymap)
+         (concat (propertize "" 'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive)
+                             'mouse-face 'highlight
+                             'keymap keymap)
+                 (zw/modeline-separator-thin)
+                 (propertize errors 'face (zw/modeline-set-face 'zw/modeline-default-active
+                                                                'zw/modeline-default-inactive))
+                 (zw/modeline-separator-thin)
+                 (propertize "" 'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)
+                             'mouse-face 'highlight
+                             'keymap keymap)
+                 (zw/modeline-separator-thin)
+                 (propertize (string-trim warnings) 'face (zw/modeline-set-face 'zw/modeline-default-active
+                                                                                'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
 
 ;; ** middle space
