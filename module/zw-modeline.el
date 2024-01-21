@@ -469,17 +469,18 @@
                            '(:eval (zw/modeline-process)))))))
 
 ;; ** ring bell
+(defvar zw/modeline-bg (face-background 'mode-line))
+
 (defun zw/modeline-ring-bell ()
-  (let* ((orig-fg (face-background 'mode-line))
-         (buf (current-buffer)))
+  (let* ((buf (current-buffer)))
     (set-face-background 'mode-line (face-foreground 'error))
     (force-mode-line-update)
     (run-with-timer 0.15 nil
-                    (lambda (fg)
+                    (lambda (bg)
                       (with-current-buffer buf
-                        (set-face-background 'mode-line fg)
+                        (set-face-background 'mode-line bg)
                         (force-mode-line-update)))
-                    orig-fg)))
+                    zw/modeline-bg)))
 
 (setq ring-bell-function 'zw/modeline-ring-bell
       visible-bell t)

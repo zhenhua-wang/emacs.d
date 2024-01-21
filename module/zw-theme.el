@@ -183,6 +183,7 @@
  #'consult-theme
  :after (lambda (arg)
           (zw/theme-set-theme)
+          (setq zw/modeline-bg (face-background 'mode-line))
           (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
                         nil zw/theme-selector)))
 
