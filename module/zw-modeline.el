@@ -398,8 +398,7 @@
             (num-errors (string-to-number errors))
             (num-warnings (string-to-number warnings)))
        (if (and (= num-errors 0) (= num-warnings 0))
-           (propertize ""
-                       'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive))
+           (propertize "" 'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive))
          (concat (propertize (concat "" (zw/modeline-separator-thin)
                                      errors)
                              'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive))
