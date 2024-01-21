@@ -128,10 +128,6 @@
     inactive-face))
 
 ;; * Module
-;; ** seperator
-(defvar zw/modeline-separator
-  (propertize " " 'face 'zw/modeline-default-active))
-
 ;; ** begin
 (defun zw/modeline--begin (color width height)
   (if (and (display-graphic-p)
@@ -153,6 +149,18 @@
         (width (string-pixel-width " "))
         (height (floor (* (string-pixel-width " ")
                           2.7))))
+    (zw/modeline--begin color width height)))
+
+;; ** seperator
+(defvar zw/modeline-separator
+  (propertize " " 'face 'zw/modeline-default-active))
+
+(defun zw/modeline-separator-half ()
+  (let ((color (if (zw/modeline-window-active-p)
+                   (face-background 'mode-line)
+                 (face-background 'mode-line-inactive)))
+        (width (floor (/ (string-pixel-width " ") 4)))
+        (height (string-pixel-width " ")))
     (zw/modeline--begin color width height)))
 
 ;; ** remote
@@ -385,9 +393,6 @@
 (defun zw/modeline-flymake ()
   (when (and (featurep 'flymake) flymake-mode)
     (concat
-     (propertize (format-mode-line flymake-mode-line-title)
-                 'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
-     " "
      (let* ((errors (format-mode-line (flymake--mode-line-counter :error)))
             (warnings (format-mode-line (flymake--mode-line-counter :warning)))
             (num-errors (string-to-number errors))
@@ -395,9 +400,11 @@
        (if (and (= num-errors 0) (= num-warnings 0))
            (propertize ""
                        'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive))
-         (concat (propertize errors
+         (concat (propertize (concat "" (zw/modeline-separator-half)
+                                     errors)
                              'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive))
-                 (propertize warnings
+                 (propertize (concat (zw/modeline-separator-half) "" (zw/modeline-separator-half)
+                                     (string-trim warnings))
                              'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
 
