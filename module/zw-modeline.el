@@ -120,9 +120,7 @@
 
 (defun zw/modeline-window-active-p ()
   (let* ((window (get-buffer-window (current-buffer))))
-    (eq window (if (minibuffer-window-active-p (minibuffer-window))
-                   zw/previous-window
-                 zw/active-window))))
+    (eq window zw/active-window-non-minibufer)))
 
 (defun zw/modeline-set-face (active-face inactive-face)
   (if (zw/modeline-window-active-p)
