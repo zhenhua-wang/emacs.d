@@ -1222,7 +1222,154 @@ capslock = layer(control)
 #+end_src
 
 * Gnome
-** Run or raise
+** Config
+#+HEADER: :tangle (zw/org-babel-tangle-linux (expand-file-name "zw-gnome-config.sh" user-emacs-directory))
+#+begin_src conf
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
+gsettings set org.gnome.desktop.interface clock-show-weekday true
+gsettings set org.gnome.desktop.interface enable-hot-corners false
+gsettings set org.gnome.desktop.privacy remember-recent-files false
+gsettings set org.gnome.system.location enabled true
+gsettings set org.gnome.desktop.datetime automatic-timezone true
+# window
+gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+gsettings set org.gnome.mutter attach-modal-dialogs false
+# touchpad
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.peripherals.touchpad tap-and-drag false
+# input
+gsettings set org.gnome.desktop.input-sources sources "[('ibus', 'rime'), ('xkb', 'us')]"
+# extension
+gsettings set org.gnome.shell disable-user-extensions false
+gnome-extensions enable blur-my-shell@aunetx
+gnome-extensions enable dash-to-dock@micxgx.gmail.com
+gnome-extensions enable Vitals@CoreCoding.com
+gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+gnome-extensions enable hide-universal-access@akiirui.github.io
+gnome-extensions enable caffeine@patapon.info
+# dash to dock
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
+gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'gnome-system-monitor.desktop', 'org.gnome.baobab.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop', 'Zoom.desktop']"
+# blur my shell
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
+# vitals
+gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
+gsettings set org.gnome.shell.extensions.vitals hide-icons true
+gsettings set org.gnome.shell.extensions.vitals fixed-widths true
+# caffeine
+gsettings set org.gnome.shell.extensions.caffeine restore-state true
+# default app
+gio mime inode/directory org.gnome.Nautilus.desktop
+#+end_src
+
+** Keymap
+#+HEADER: :tangle (zw/org-babel-tangle-linux (expand-file-name "zw-gnome-keymap.sh" user-emacs-directory))
+#+begin_src conf
+# keys
+gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Super>Return']"
+gsettings set org.gnome.mutter overlay-key "Super_R"
+gsettings set org.gnome.desktop.input-sources xkb-options "['terminate:ctrl_alt_bksp']"
+# keymaps
+gsettings set org.gnome.desktop.wm.keybindings switch-group "['<Super>grave']"
+gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "['<Shift><Super>grave']"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Super>Tab']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>space']"
+gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Shift><Super>d']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Shift><Super>f']"
+gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "disabled"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Control>q']"
+gsettings set org.gnome.desktop.wm.keybindings maximize "[]"
+gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>m']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-down "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-left "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-right "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-up "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-last "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "[]"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-group "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-last "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "[]"
+gsettings set org.gnome.desktop.wm.keybindings unmaximize "[]"
+gsettings set org.gnome.mutter.keybindings cancel-input-capture "[]"
+gsettings set org.gnome.mutter.keybindings switch-monitor "[]"
+gsettings set org.gnome.mutter.keybindings toggle-tiled-left "[]"
+gsettings set org.gnome.mutter.keybindings toggle-tiled-right "[]"
+gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys help "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys rotate-video-lock-static "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys screenreader "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys touchpad-toggle-static "[]"
+gsettings set org.gnome.shell.keybindings focus-active-notification "[]"
+gsettings set org.gnome.shell.keybindings shift-overview-down "[]"
+gsettings set org.gnome.shell.keybindings shift-overview-up "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-1 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-2 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-3 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-4 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-5 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-6 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-7 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-8 "[]"
+gsettings set org.gnome.shell.keybindings switch-to-application-9 "[]"
+gsettings set org.gnome.shell.keybindings toggle-application-view "[]"
+gsettings set org.gnome.shell.keybindings toggle-message-tray "[]"
+gsettings set org.gnome.shell.keybindings toggle-quick-settings "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-1 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-10 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-2 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-3 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-4 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-5 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-6 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-7 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-8 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-ctrl-hotkey-9 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-1 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-10 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-2 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-3 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-4 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-5 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-6 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-7 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-8 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-9 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-1 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-10 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-2 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-3 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-4 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-5 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-6 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-7 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-8 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock app-shift-hotkey-9 "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock shortcut "[]"
+gsettings set org.gnome.shell.extensions.dash-to-dock shortcut-text "[]"
+gsettings set org.freedesktop.ibus.general.hotkey triggers "[]"
+gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
+#+end_src
+
+** Extension
+*** run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
 <Ctrl><Super>e,emacs,emacs,
