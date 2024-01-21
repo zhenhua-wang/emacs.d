@@ -54,6 +54,7 @@ The order of values may be different."
 
 ;; keep track active UI
 (defvar zw/previous-frame nil)
+(defvar zw/previous-window nil)
 (defvar zw/active-frame nil)
 (defvar zw/active-window nil)
 (defun zw/update-active-ui (&rest arg)
@@ -64,6 +65,7 @@ The order of values may be different."
                 (eq zw/active-frame frame))
       (setq zw/previous-frame zw/active-frame)
       (setq zw/active-frame frame))
+    (setq zw/previous-window zw/active-window)
     (setq zw/active-window (selected-window))))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
