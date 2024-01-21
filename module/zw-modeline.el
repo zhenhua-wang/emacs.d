@@ -155,7 +155,7 @@
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
-(defun zw/modeline-separator-half ()
+(defun zw/modeline-separator-thin ()
   (let ((color (if (zw/modeline-window-active-p)
                    (face-background 'mode-line)
                  (face-background 'mode-line-inactive)))
@@ -400,10 +400,10 @@
        (if (and (= num-errors 0) (= num-warnings 0))
            (propertize ""
                        'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive))
-         (concat (propertize (concat "" (zw/modeline-separator-half)
+         (concat (propertize (concat "" (zw/modeline-separator-thin)
                                      errors)
                              'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive))
-                 (propertize (concat (zw/modeline-separator-half) "" (zw/modeline-separator-half)
+                 (propertize (concat (zw/modeline-separator-thin) "" (zw/modeline-separator-thin)
                                      (string-trim warnings))
                              'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
