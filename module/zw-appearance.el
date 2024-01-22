@@ -111,20 +111,8 @@
   (centaur-tabs-headline-match)
   (defun centaur-tabs-buffer-groups ()
     (list
-     (cond
-      ((or (string-equal "*" (substring (buffer-name) 0 1))
-           (memq major-mode '(magit-process-mode
-                              magit-status-mode
-                              magit-diff-mode
-                              magit-log-mode
-                              magit-file-mode
-                              magit-blob-mode
-                              magit-blame-mode)))
-       "Emacs")
-      (buffer-file-name
-       "File")
-      (t
-       (centaur-tabs-get-group-name (current-buffer))))))
+     (cond (buffer-file-name "File")
+           (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; set tab switch keys
   (defun zw/centuar-tabs-select (index)
     (interactive)
