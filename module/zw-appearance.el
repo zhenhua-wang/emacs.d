@@ -105,7 +105,8 @@
         centaur-tabs-set-bar 'under
         x-underline-at-descent-line t
         centaur-tabs-set-icons t
-        centaur-tabs-show-new-tab-button nil)
+        centaur-tabs-show-new-tab-button nil
+        centaur-tabs-left-edge-margin nil)
   :config
   (defun centaur-tabs-buffer-groups ()
     (list
