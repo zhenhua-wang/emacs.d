@@ -147,14 +147,14 @@
   (defun centaur-tabs-buffer-groups ()
     (list
      (cond (buffer-file-name "File")
-           ((zw/centaur-tabs-group-emacs) "Emacs")
+           ;; ((zw/centaur-tabs-group-emacs) "Emacs")
            ((zw/centaur-tabs-group-docs) "Docs")
            (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; disable centaur-tabs in non-files
   (defun zw/centaur-tabs-hide ()
     (when (and centaur-tabs-mode
                (not buffer-file-name)
-               (not (zw/centaur-tabs-group-emacs))
+               ;; (not (zw/centaur-tabs-group-emacs))
                (not (zw/centaur-tabs-group-docs)))
       (centaur-tabs-local-mode 1)))
   (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
