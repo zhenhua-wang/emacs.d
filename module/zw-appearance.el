@@ -141,13 +141,17 @@
   ;; tabs group
   (defun zw/centaur-tabs-group-docs ()
     (memq major-mode '(helpful-mode
-                       help-mode)))
+                       help-mode
+                       ess-r-help-mode)))
   (defun centaur-tabs-buffer-groups ()
     (list
      (cond (buffer-file-name "File")
            ((zw/centaur-tabs-group-docs) "Docs")
            (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; disable centaur-tabs in non-files
+  (setq centaur-tabs-excluded-prefixes '("*epc" "*helm" "*Helm" " *which" "*Compile-Log*" "*lsp" "*LSP"
+                                         "*company" "*Flycheck" "*Ediff" "*ediff" "*tramp" " *Mini"
+                                         "*straight" " *temp"))
   (defun zw/centaur-tabs-hide ()
     (when (and centaur-tabs-mode
                (not buffer-file-name)
@@ -182,10 +186,11 @@
 (setq display-buffer-alist
       '(;; largest window
         ("\\.\\(?:pdf\\)\\'"
-         (display-buffer-reuse-window
+         (display-buffer-reuse-mode-window
           zw/display-buffer-in-largest-window))
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
-         (zw/display-buffer-in-largest-window))
+         (display-buffer-reuse-mode-window
+          zw/display-buffer-in-largest-window))
         ;; top side window
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
