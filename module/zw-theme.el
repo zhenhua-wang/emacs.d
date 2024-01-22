@@ -183,7 +183,7 @@
 (zw/theme-set-theme)
 (add-hook 'server-after-make-frame-hook 'zw/theme-set-theme)
 (advice-add
- #'consult-theme
+ #'load-theme
  :after (lambda (arg)
           (zw/theme-set-theme)
           (setq zw/modeline-bg (face-background 'mode-line))

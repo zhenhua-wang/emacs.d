@@ -128,9 +128,9 @@
                             (number-sequence 0 9)))
     (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
   ;; fix issue when switching theme
-  (advice-add 'consult-theme :after (lambda (arg)
-                                      (centaur-tabs-init-tabsets-store)
-                                      (run-hooks 'centaur-tabs-mode-hook)))
+  (advice-add 'load-theme :after (lambda (arg)
+                                   (centaur-tabs-init-tabsets-store)
+                                   (run-hooks 'centaur-tabs-mode-hook)))
   ;; disable centuar-tabs in non-files
   (dolist (mode '(magit-mode-hook))
     (add-hook mode 'centaur-tabs-local-mode))
