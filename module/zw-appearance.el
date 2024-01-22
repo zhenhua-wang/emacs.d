@@ -138,10 +138,11 @@
                                       (centaur-tabs-init-tabsets-store)
                                       (run-hooks 'centaur-tabs-mode-hook)))
   ;; disable centaur-tabs in non-files
-  (advice-add 'get-buffer-create :after
-              (lambda (&rest args)
-                (when (and centaur-tabs-mode (not buffer-file-name))
-                  (centaur-tabs-local-mode 1))))
+  (defun zw/centaur-tabs-hide ()
+    (when (and centaur-tabs-mode (not buffer-file-name))
+      (centaur-tabs-local-mode 1)))
+  (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
+  (add-hook 'buffer-list-update-hook 'zw/centaur-tabs-hide)
   ;; centaur-tabs init
   (add-hook 'centaur-tabs-mode-hook
             (lambda ()
