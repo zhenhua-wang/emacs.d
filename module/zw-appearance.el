@@ -103,10 +103,15 @@
   :init
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
-        x-underline-at-descent-line t
-        centaur-tabs-set-icons t
+        x-underline-at-detscent-line t
         centaur-tabs-show-new-tab-button nil
-        centaur-tabs-left-edge-margin nil)
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker "•"
+        centaur-tabs-set-icons t
+        centaur-tabs-icon-type 'nerd-icons
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-left-edge-margin nil
+        centaur-tabs-cycle-scope 'tabs)
   :config
   (defun centaur-tabs-buffer-groups ()
     (list
