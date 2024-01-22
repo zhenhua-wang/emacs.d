@@ -100,18 +100,11 @@
 
 ;; * Centuar tabs
 (use-package centaur-tabs
-  :hook ((org-agenda-mode . centaur-tabs-local-mode)
-         (dired-mode . centaur-tabs-local-mode)
-         (vterm-mode . centaur-tabs-local-mode)
-         (inferior-ess-mode . centaur-tabs-local-mode)
-         (inferior-python-mode . centaur-tabs-local-mode))
   :init
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
         x-underline-at-descent-line t
-        centaur-tabs-height 12
         centaur-tabs-set-icons t
-        centaur-tabs-label-fixed-length 8
         centaur-tabs-show-new-tab-button nil)
   :config
   (centaur-tabs-change-fonts (face-attribute 'default :font)
@@ -133,6 +126,7 @@
        "File")
       (t
        (centaur-tabs-get-group-name (current-buffer))))))
+  ;; set tab switch keys
   (defun zw/centuar-tabs-select (index)
     (interactive)
     (let* ((visible-tabs (centaur-tabs-view (centaur-tabs-current-tabset t)))
@@ -141,14 +135,18 @@
       (if (> index n-visible-tabs)
           (message "Tab %s does not exist" index)
         (centaur-tabs-buffer-select-tab selected-tabs))))
-  ;; set tab switch keys
   (dolist (key-func (mapcar (lambda (i)
                               `(,(kbd (format "s-%d" i)) .
                                 (lambda ()
                                   (interactive)
                                   (zw/centuar-tabs-select ,i))))
                             (number-sequence 0 9)))
-    (define-key centaur-tabs-mode-map (car key-func) (cdr key-func))))
+    (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
+  ;; disable centuar-tabs in non-files
+  (add-hook 'window-configuration-change-hook
+            (lambda ()
+              (unless buffer-file-name
+                (centaur-tabs-local-mode 1)))))
 
 ;; * Window placement
 ;; window split
