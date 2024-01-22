@@ -98,6 +98,42 @@
 (use-package indent-guide
   :hook (python-mode . indent-guide-mode))
 
+;; * Centuar tabs
+(use-package centaur-tabs
+  :hook ((org-agenda-mode . centaur-tabs-local-mode)
+         (dired-mode . centaur-tabs-local-mode)
+         (vterm-mode . centaur-tabs-local-mode)
+         (inferior-ess-mode . centaur-tabs-local-mode)
+         (inferior-python-mode . centaur-tabs-local-mode))
+  :init
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-set-bar 'under
+        x-underline-at-descent-line t
+        centaur-tabs-height 12
+        centaur-tabs-set-icons t
+        centaur-tabs-label-fixed-length 8
+        centaur-tabs-show-new-tab-button nil)
+  :config
+  (centaur-tabs-change-fonts (face-attribute 'default :font)
+                             (face-attribute 'tab-bar :height))
+  (centaur-tabs-headline-match)
+  (defun zw/centuar-tabs-select (index)
+    (interactive)
+    (let* ((visible-tabs (centaur-tabs-view (centaur-tabs-current-tabset t)))
+           (n-visible-tabs (length visible-tabs))
+           (selected-tabs (nth (- index 1) visible-tabs)))
+      (if (> index n-visible-tabs)
+          (message "Tab %s does not exist" index)
+        (centaur-tabs-buffer-select-tab selected-tabs))))
+  ;; set tab switch keys
+  (dolist (key-func (mapcar (lambda (i)
+                              `(,(kbd (format "s-%d" i)) .
+                                (lambda ()
+                                  (interactive)
+                                  (zw/centuar-tabs-select ,i))))
+                            (number-sequence 0 9)))
+    (define-key centaur-tabs-mode-map (car key-func) (cdr key-func))))
+
 ;; * Window placement
 ;; window split
 (setq split-width-threshold  80
