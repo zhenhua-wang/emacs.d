@@ -117,6 +117,22 @@
   (centaur-tabs-change-fonts (face-attribute 'default :font)
                              (face-attribute 'tab-bar :height))
   (centaur-tabs-headline-match)
+  (defun centaur-tabs-buffer-groups ()
+    (list
+     (cond
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+           (memq major-mode '(magit-process-mode
+                              magit-status-mode
+                              magit-diff-mode
+                              magit-log-mode
+                              magit-file-mode
+                              magit-blob-mode
+                              magit-blame-mode)))
+       "Emacs")
+      (buffer-file-name
+       "File")
+      (t
+       (centaur-tabs-get-group-name (current-buffer))))))
   (defun zw/centuar-tabs-select (index)
     (interactive)
     (let* ((visible-tabs (centaur-tabs-view (centaur-tabs-current-tabset t)))
