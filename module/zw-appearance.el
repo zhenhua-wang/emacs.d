@@ -142,6 +142,7 @@
                             (number-sequence 0 9)))
     (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
   ;; disable centuar-tabs in non-files
+  (add-hook 'magit-mode-hook 'centaur-tabs-local-mode)
   (add-hook 'window-configuration-change-hook
             (lambda ()
               (unless buffer-file-name
