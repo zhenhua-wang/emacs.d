@@ -113,6 +113,15 @@
         centaur-tabs-left-edge-margin nil
         centaur-tabs-cycle-scope 'tabs)
   :config
+  ;; centaur-tabs init
+  (add-hook 'centaur-tabs-mode-hook
+            (lambda ()
+              (centaur-tabs-change-fonts (face-attribute 'default :font)
+                                         (face-attribute 'tab-bar :height))))
+  ;; fix issue when switching theme
+  (advice-add 'consult-theme :after (lambda (arg)
+                                      (centaur-tabs-init-tabsets-store)
+                                      (run-hooks 'centaur-tabs-mode-hook)))
   ;; set tab switch keys
   (defun zw/centaur-tabs-select (index)
     (interactive)
@@ -129,10 +138,6 @@
                                   (zw/centaur-tabs-select ,i))))
                             (number-sequence 0 9)))
     (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
-  ;; fix issue when switching theme
-  (advice-add 'consult-theme :after (lambda (arg)
-                                      (centaur-tabs-init-tabsets-store)
-                                      (run-hooks 'centaur-tabs-mode-hook)))
   ;; tabs group
   (defun zw/centaur-tabs-group-emacs ()
     (string-equal "*" (substring (buffer-name) 0 1)))
@@ -153,13 +158,7 @@
                (not (zw/centaur-tabs-group-docs)))
       (centaur-tabs-local-mode 1)))
   (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
-  (add-hook 'buffer-list-update-hook 'zw/centaur-tabs-hide)
-  ;; centaur-tabs init
-  (add-hook 'centaur-tabs-mode-hook
-            (lambda ()
-              (centaur-tabs-change-fonts (face-attribute 'default :font)
-                                         (face-attribute 'tab-bar :height))
-              (centaur-tabs-headline-match))))
+  (add-hook 'buffer-list-update-hook 'zw/centaur-tabs-hide))
 
 ;; * Window placement
 ;; window split
