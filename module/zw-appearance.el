@@ -98,7 +98,7 @@
 (use-package indent-guide
   :hook (python-mode . indent-guide-mode))
 
-;; * Centuar tabs
+;; * Centaur tabs
 (use-package centaur-tabs
   :init
   (setq centaur-tabs-style "bar"
@@ -112,7 +112,7 @@
      (cond (buffer-file-name "File")
            (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; set tab switch keys
-  (defun zw/centuar-tabs-select (index)
+  (defun zw/centaur-tabs-select (index)
     (interactive)
     (let* ((visible-tabs (centaur-tabs-view (centaur-tabs-current-tabset t)))
            (n-visible-tabs (length visible-tabs))
@@ -124,14 +124,14 @@
                               `(,(kbd (format "s-%d" i)) .
                                 (lambda ()
                                   (interactive)
-                                  (zw/centuar-tabs-select ,i))))
+                                  (zw/centaur-tabs-select ,i))))
                             (number-sequence 0 9)))
     (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
   ;; fix issue when switching theme
   (advice-add 'consult-theme :after (lambda (arg)
                                       (centaur-tabs-init-tabsets-store)
                                       (run-hooks 'centaur-tabs-mode-hook)))
-  ;; disable centuar-tabs in non-files
+  ;; disable centaur-tabs in non-files
   (advice-add 'get-buffer-create :after
               (lambda (&rest args)
                 (when (and centaur-tabs-mode (not buffer-file-name))
