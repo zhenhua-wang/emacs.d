@@ -103,7 +103,6 @@
   :init
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
-        x-underline-at-descent-line t
         centaur-tabs-set-icons t
         centaur-tabs-show-new-tab-button nil)
   :config
