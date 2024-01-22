@@ -113,10 +113,6 @@
         centaur-tabs-left-edge-margin nil
         centaur-tabs-cycle-scope 'tabs)
   :config
-  (defun centaur-tabs-buffer-groups ()
-    (list
-     (cond (buffer-file-name "File")
-           (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; set tab switch keys
   (defun zw/centaur-tabs-select (index)
     (interactive)
@@ -137,9 +133,24 @@
   (advice-add 'consult-theme :after (lambda (arg)
                                       (centaur-tabs-init-tabsets-store)
                                       (run-hooks 'centaur-tabs-mode-hook)))
+  ;; tabs group
+  (defun zw/centaur-tabs-group-emacs ()
+    (string-equal "*" (substring (buffer-name) 0 1)))
+  (defun zw/centaur-tabs-group-docs ()
+    (memq major-mode '(helpful-mode
+                       help-mode)))
+  (defun centaur-tabs-buffer-groups ()
+    (list
+     (cond (buffer-file-name "File")
+           ((zw/centaur-tabs-group-emacs) "Emacs")
+           ((zw/centaur-tabs-group-docs) "Docs")
+           (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; disable centaur-tabs in non-files
   (defun zw/centaur-tabs-hide ()
-    (when (and centaur-tabs-mode (not buffer-file-name))
+    (when (and centaur-tabs-mode
+               (not buffer-file-name)
+               (not (zw/centaur-tabs-group-emacs))
+               (not (zw/centaur-tabs-group-docs)))
       (centaur-tabs-local-mode 1)))
   (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
   (add-hook 'buffer-list-update-hook 'zw/centaur-tabs-hide)
