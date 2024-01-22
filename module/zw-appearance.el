@@ -107,9 +107,6 @@
         centaur-tabs-set-icons t
         centaur-tabs-show-new-tab-button nil)
   :config
-  (centaur-tabs-change-fonts (face-attribute 'default :font)
-                             (face-attribute 'tab-bar :height))
-  (centaur-tabs-headline-match)
   (defun centaur-tabs-buffer-groups ()
     (list
      (cond (buffer-file-name "File")
@@ -136,7 +133,13 @@
   (add-hook 'window-configuration-change-hook
             (lambda ()
               (unless buffer-file-name
-                (centaur-tabs-local-mode 1)))))
+                (centaur-tabs-local-mode 1))))
+  ;; centaur-tabs init
+  (add-hook 'centaur-tabs-mode-hook
+            (lambda ()
+              (centaur-tabs-change-fonts (face-attribute 'default :font)
+                                         (face-attribute 'tab-bar :height))
+              (centaur-tabs-headline-match))))
 
 ;; * Window placement
 ;; window split
