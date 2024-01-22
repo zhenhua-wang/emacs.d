@@ -139,22 +139,18 @@
                             (number-sequence 0 9)))
     (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
   ;; tabs group
-  (defun zw/centaur-tabs-group-emacs ()
-    (string-equal "*" (substring (buffer-name) 0 1)))
   (defun zw/centaur-tabs-group-docs ()
     (memq major-mode '(helpful-mode
                        help-mode)))
   (defun centaur-tabs-buffer-groups ()
     (list
      (cond (buffer-file-name "File")
-           ;; ((zw/centaur-tabs-group-emacs) "Emacs")
            ((zw/centaur-tabs-group-docs) "Docs")
            (t (centaur-tabs-get-group-name (current-buffer))))))
   ;; disable centaur-tabs in non-files
   (defun zw/centaur-tabs-hide ()
     (when (and centaur-tabs-mode
                (not buffer-file-name)
-               ;; (not (zw/centaur-tabs-group-emacs))
                (not (zw/centaur-tabs-group-docs)))
       (centaur-tabs-local-mode 1)))
   (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
