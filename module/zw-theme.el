@@ -119,6 +119,9 @@
      `(zw/tab-bar-tab-battery-load-low ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning) :bold t))))
      `(zw/tab-bar-tab-battery-load-critical ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error) :bold t))))
 
+     ;; tab-line
+     `(tab-line ((t (:background ,(face-background 'tab-bar nil 'default) :underline ,tab-bar-box))))
+
      ;; key-cast
      `(keycast-key ((t (:height ,tab-bar-height))))
      `(keycast-command ((t (:height ,tab-bar-height))))
