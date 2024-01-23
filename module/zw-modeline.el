@@ -118,12 +118,8 @@
   "Input method face for active modeline"
   :group 'zw/modeline-active)
 
-(defun zw/modeline-window-active-p ()
-  (let* ((window (get-buffer-window (current-buffer))))
-    (eq window zw/active-window-non-minibufer)))
-
 (defun zw/modeline-set-face (active-face inactive-face)
-  (if (zw/modeline-window-active-p)
+  (if (mode-line-window-selected-p)
       active-face
     inactive-face))
 
@@ -143,7 +139,7 @@
     (propertize " " 'face `(:background ,color))))
 
 (defun zw/modeline-begin ()
-  (let ((color (if (zw/modeline-window-active-p)
+  (let ((color (if (mode-line-window-selected-p)
                    (face-background 'mode-line-highlight)
                  (face-background 'zw/modeline-highlight-background-inactive)))
         (width (string-pixel-width " "))
@@ -156,7 +152,7 @@
   (propertize " " 'face 'zw/modeline-default-active))
 
 (defun zw/modeline-separator-thin ()
-  (let ((color (if (zw/modeline-window-active-p)
+  (let ((color (if (mode-line-window-selected-p)
                    (face-background 'mode-line)
                  (face-background 'mode-line-inactive)))
         (width (floor (/ (string-pixel-width " ") 4)))
@@ -220,7 +216,7 @@
 
 ;; ** count region
 (defun zw/modeline-count-region ()
-  (when (and (region-active-p) (zw/modeline-window-active-p))
+  (when (and (region-active-p) (mode-line-window-selected-p))
     (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
       (concat
        (propertize
@@ -288,7 +284,7 @@
 
 ;; ** mark active
 (defun zw/modeline-mark-active ()
-  (when (and mark-active (zw/modeline-window-active-p))
+  (when (and mark-active (mode-line-window-selected-p))
     (concat
      (propertize " Mark "
                  'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
