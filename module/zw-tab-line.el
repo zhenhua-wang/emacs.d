@@ -51,30 +51,10 @@
                 (append (reverse prev-buffers)
                         (list buffer)
                         next-buffers))))
+(advice-add 'tab-line-tabs-window-buffers :override
+            'zw/tab-line-tabs-window-buffers)
 
 ;; ** select tab
-(defun zw/tab-line-select-tab-buffer (buffer &optional window)
-  "Rewrite the default tab-line-select-tab-buffer to use 'zw/tab-line-tabs-window-buffers'."
-  (let* ((window-buffer (window-buffer window))
-         (next-buffers (seq-remove (lambda (b) (eq b window-buffer))
-                                   (window-next-buffers window)))
-         (prev-buffers (seq-remove (lambda (b) (eq b window-buffer))
-                                   (mapcar #'car (window-prev-buffers window))))
-         ;; Remove next-buffers from prev-buffers
-         (prev-buffers (seq-difference prev-buffers next-buffers)))
-    (cond
-     ((and (eq tab-line-tabs-function #'zw/tab-line-tabs-window-buffers)
-           (memq buffer next-buffers))
-      (dotimes (_ (1+ (seq-position next-buffers buffer)))
-        (switch-to-next-buffer window)))
-     ((and (eq tab-line-tabs-function #'zw/tab-line-tabs-window-buffers)
-           (memq buffer prev-buffers))
-      (dotimes (_ (1+ (seq-position prev-buffers buffer)))
-        (switch-to-prev-buffer window)))
-     (t
-      (with-selected-window window
-        (switch-to-buffer buffer))))))
-
 (defun zw/tab-line-select (index)
   (interactive)
   (let* ((visible-tabs (zw/tab-line-tabs-window-buffers))
@@ -83,7 +63,7 @@
     (unless (eq (current-buffer) selected-buffer)
       (if (> index n-visible-tabs)
           (message "Tab %s does not exist" index)
-        (zw/tab-line-select-tab-buffer selected-buffer)))))
+        (tab-line-select-tab-buffer selected-buffer)))))
 
 ;; * keymap
 (dolist (key-func (mapcar (lambda (i)
@@ -96,7 +76,7 @@
 
 ;; * Config
 (setq tab-line-tab-name-function #'zw/tab-line-tab-name
-      tab-line-tabs-function #'zw/tab-line-tabs-window-buffers
+      tab-line-tabs-function #'tab-line-tabs-window-buffers
       tab-line-new-button-show nil
       tab-line-close-button-show t
       tab-line-close-button "× "
