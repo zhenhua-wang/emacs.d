@@ -51,7 +51,7 @@
     (unless (eq (current-buffer) selected-buffer)
       (if (> index n-visible-tabs)
           (message "Tab %s does not exist" index)
-        (tab-line-select-tab-buffer selected-buffer)))))
+        (switch-to-buffer selected-buffer)))))
 
 ;; * keymap
 (dolist (key-func (mapcar (lambda (i)
