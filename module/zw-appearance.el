@@ -98,6 +98,69 @@
 (use-package indent-guide
   :hook (python-mode . indent-guide-mode))
 
+;; * Centaur tabs
+(use-package centaur-tabs
+  :hook (after-init . centaur-tabs-mode)
+  :init
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-set-bar 'under
+        x-underline-at-descent-line t
+        centaur-tabs-show-new-tab-button nil
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker "•"
+        centaur-tabs-set-icons t
+        centaur-tabs-icon-type 'nerd-icons
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-left-edge-margin nil
+        centaur-tabs-cycle-scope 'tabs)
+  :config
+  ;; centaur-tabs init
+  (add-hook 'centaur-tabs-mode-hook
+            (lambda ()
+              (centaur-tabs-change-fonts (face-attribute 'default :font)
+                                         (face-attribute 'tab-bar :height))))
+  ;; fix issue when switching theme
+  (advice-add 'consult-theme :after (lambda (arg)
+                                      (centaur-tabs-init-tabsets-store)
+                                      (run-hooks 'centaur-tabs-mode-hook)))
+  ;; set tab switch keys
+  (defun zw/centaur-tabs-select (index)
+    (interactive)
+    (let* ((visible-tabs (centaur-tabs-view (centaur-tabs-current-tabset t)))
+           (n-visible-tabs (length visible-tabs))
+           (selected-tabs (nth (- index 1) visible-tabs)))
+      (if (> index n-visible-tabs)
+          (message "Tab %s does not exist" index)
+        (centaur-tabs-buffer-select-tab selected-tabs))))
+  (dolist (key-func (mapcar (lambda (i)
+                              `(,(kbd (format "s-%d" i)) .
+                                (lambda ()
+                                  (interactive)
+                                  (zw/centaur-tabs-select ,i))))
+                            (number-sequence 0 9)))
+    (define-key centaur-tabs-mode-map (car key-func) (cdr key-func)))
+  ;; tabs group
+  (defun zw/centaur-tabs-group-docs ()
+    (memq major-mode '(helpful-mode
+                       help-mode
+                       ess-r-help-mode)))
+  (defun centaur-tabs-buffer-groups ()
+    (list
+     (cond (buffer-file-name "File")
+           ((zw/centaur-tabs-group-docs) "Docs")
+           (t (centaur-tabs-get-group-name (current-buffer))))))
+  ;; disable centaur-tabs in non-files
+  (setq centaur-tabs-excluded-prefixes '("*epc" "*helm" "*Helm" " *which" "*Compile-Log*" "*lsp" "*LSP"
+                                         "*company" "*Flycheck" "*Ediff" "*ediff" "*tramp" " *Mini"
+                                         "*straight" " *temp"))
+  (defun zw/centaur-tabs-hide ()
+    (when (and centaur-tabs-mode
+               (not buffer-file-name)
+               (not (zw/centaur-tabs-group-docs)))
+      (centaur-tabs-local-mode 1)))
+  (add-hook 'after-change-major-mode-hook 'zw/centaur-tabs-hide)
+  (add-hook 'buffer-list-update-hook 'zw/centaur-tabs-hide))
+
 ;; * Window placement
 ;; window split
 (setq split-width-threshold  80
