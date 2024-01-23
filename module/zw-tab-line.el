@@ -34,30 +34,18 @@
   (and (not buffer-file-name)
        (not (zw/tab-line-group-docs))))
 
-(defun zw/tab-line-tabs-window-buffers ()
-  "Rewrite 'tab-line-tabs-window-buffers' to hide boring buffers."
-  (let* ((window (selected-window))
-         (buffer (window-buffer window))
-         (next-buffers (seq-remove (lambda (b) (eq b buffer))
-                                   (window-next-buffers window)))
-         (next-buffers (seq-filter #'buffer-live-p next-buffers))
-         (prev-buffers (seq-remove (lambda (b) (eq b buffer))
-                                   (mapcar #'car (window-prev-buffers window))))
-         (prev-buffers (seq-filter #'buffer-live-p prev-buffers))
-         ;; Remove next-buffers from prev-buffers
-         (prev-buffers (seq-difference prev-buffers next-buffers)))
-    (seq-remove (lambda (b) (with-current-buffer b
-                              (zw/tab-line-hide-buffers)))
-                (append (reverse prev-buffers)
-                        (list buffer)
-                        next-buffers))))
-(advice-add 'tab-line-tabs-window-buffers :override
+(defun zw/tab-line-tabs-window-buffers (orig-fun &rest args)
+  "Advice 'tab-line-tabs-window-buffers' to filter boring buffers."
+  (seq-remove (lambda (b) (with-current-buffer b
+                            (zw/tab-line-hide-buffers)))
+              (apply orig-fun args)))
+(advice-add 'tab-line-tabs-window-buffers :around
             'zw/tab-line-tabs-window-buffers)
 
 ;; ** select tab
 (defun zw/tab-line-select (index)
   (interactive)
-  (let* ((visible-tabs (zw/tab-line-tabs-window-buffers))
+  (let* ((visible-tabs (tab-line-tabs-window-buffers))
          (n-visible-tabs (length visible-tabs))
          (selected-buffer (nth (- index 1) visible-tabs)))
     (unless (eq (current-buffer) selected-buffer)
