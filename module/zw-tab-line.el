@@ -34,6 +34,34 @@
           (message "Tab %s does not exist" index)
         (tab-line-select-tab-buffer selected-buffer)))))
 
+;; ** group
+(defun zw/tab-line-group-docs ()
+  (memq major-mode '(helpful-mode
+                     help-mode
+                     ess-r-help-mode)))
+
+;; ** tabs function
+(defun zw/tab-line-hide-buffers ()
+  (and (not buffer-file-name)
+       (not (zw/tab-line-group-docs))))
+
+(defun tab-line-tabs-window-buffers ()
+  (let* ((window (selected-window))
+         (buffer (window-buffer window))
+         (next-buffers (seq-remove (lambda (b) (eq b buffer))
+                                   (window-next-buffers window)))
+         (next-buffers (seq-filter #'buffer-live-p next-buffers))
+         (prev-buffers (seq-remove (lambda (b) (eq b buffer))
+                                   (mapcar #'car (window-prev-buffers window))))
+         (prev-buffers (seq-filter #'buffer-live-p prev-buffers))
+         ;; Remove next-buffers from prev-buffers
+         (prev-buffers (seq-difference prev-buffers next-buffers)))
+    (seq-remove (lambda (b) (with-current-buffer b
+                              (zw/tab-line-hide-buffers)))
+                (append (reverse prev-buffers)
+                        (list buffer)
+                        next-buffers))))
+
 ;; * keymap
 (dolist (key-func (mapcar (lambda (i)
                             `(,(kbd (format "s-%d" i)) .
@@ -45,6 +73,7 @@
 
 ;; * Config
 (setq tab-line-tab-name-function #'zw/tab-line-tab-name
+      tab-line-tabs-function #'tab-line-tabs-window-buffers
       tab-line-new-button-show nil
       tab-line-close-button-show t
       tab-line-close-button "× "
@@ -52,19 +81,12 @@
       x-underline-at-descent-line t)
 (add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
 
-;; * Group
-(defun zw/tab-line-group-docs ()
-  (memq major-mode '(helpful-mode
-                     help-mode
-                     ess-r-help-mode)))
-
 ;; * enable
 (add-hook 'after-init-hook 'global-tab-line-mode)
 (defun zw/tab-line-hide ()
   (when (and (featurep 'tab-line)
 	     tab-line-mode
-             (not buffer-file-name)
-             (not (zw/tab-line-group-docs)))
+             (zw/tab-line-hide-buffers))
     (tab-line-mode -1)))
 (add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
 (add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
