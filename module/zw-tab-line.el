@@ -59,9 +59,15 @@
                      ess-r-help-mode)))
 
 ;; * enable
-(add-hook 'find-file-hook 'tab-line-mode)
-(with-eval-after-load "polymode"
-  (add-hook 'polymode-init-inner-hook 'tab-line-mode))
+(add-hook 'after-init-hook 'global-tab-line-mode)
+(defun zw/tab-line-hide ()
+  (when (and (featurep 'tab-line)
+	     tab-line-mode
+             (not buffer-file-name)
+             (not (zw/tab-line-group-docs)))
+    (tab-line-mode -1)))
+(add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
+(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
 
 ;; * Provide
 (provide 'zw-tab-line)
