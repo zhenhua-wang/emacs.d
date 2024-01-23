@@ -100,7 +100,6 @@
 
 ;; * Centaur tabs
 (use-package centaur-tabs
-  :hook (after-init . centaur-tabs-mode)
   :init
   (setq centaur-tabs-style "bar"
         centaur-tabs-set-bar 'under
