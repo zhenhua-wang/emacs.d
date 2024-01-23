@@ -26,7 +26,7 @@
 ;; ** select tab
 (defun zw/tab-line-select (index)
   (interactive)
-  (let* ((visible-tabs (tab-line-tabs-window-buffers))
+  (let* ((visible-tabs (zw/tab-line-tabs-window-buffers))
          (n-visible-tabs (length visible-tabs))
          (selected-buffer (nth (- index 1) visible-tabs)))
     (unless (eq (current-buffer) selected-buffer)
@@ -45,7 +45,7 @@
   (and (not buffer-file-name)
        (not (zw/tab-line-group-docs))))
 
-(defun tab-line-tabs-window-buffers ()
+(defun zw/tab-line-tabs-window-buffers ()
   (let* ((window (selected-window))
          (buffer (window-buffer window))
          (next-buffers (seq-remove (lambda (b) (eq b buffer))
@@ -73,7 +73,7 @@
 
 ;; * Config
 (setq tab-line-tab-name-function #'zw/tab-line-tab-name
-      tab-line-tabs-function #'tab-line-tabs-window-buffers
+      tab-line-tabs-function #'zw/tab-line-tabs-window-buffers
       tab-line-new-button-show nil
       tab-line-close-button-show t
       tab-line-close-button "× "
