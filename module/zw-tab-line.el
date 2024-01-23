@@ -29,7 +29,7 @@
                      help-mode
                      ess-r-help-mode)))
 
-;; ** tabs function
+;; ** visible tabs
 (defun zw/tab-line-hide-buffers ()
   (and (not buffer-file-name)
        (not (zw/tab-line-group-docs))))
