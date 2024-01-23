@@ -45,7 +45,7 @@
 ;; ** select tab
 (defun zw/tab-line-select (index)
   (interactive)
-  (let* ((visible-tabs (tab-line-tabs-window-buffers))
+  (let* ((visible-tabs (funcall tab-line-tabs-function))
          (n-visible-tabs (length visible-tabs))
          (selected-buffer (nth (- index 1) visible-tabs)))
     (unless (eq (current-buffer) selected-buffer)
