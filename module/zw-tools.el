@@ -173,25 +173,24 @@
                           (cl-subseq dirs 0 loc) "/"))
                        locs))
          (pairs (cl-mapcar 'cons dirs parent-dirs))
+         (create-keymap (lambda (dir)
+                          (let ((map (make-sparse-keymap)))
+                            (define-key map [mouse-1]
+                                        (lambda (event)
+                                          (interactive "e")
+                                          (dired dir)
+                                          (zw/dired-sidebar-enable (current-buffer))))
+                            map)))
          (dirs (cl-mapcar
                 (lambda (pair)
-                  (propertize
-                   (car pair) 'keymap
-                   (let ((map (make-sparse-keymap)))
-                     (define-key map [mouse-1]
-                                 (lambda (event)
-                                   (interactive "e")
-                                   (dired (cdr pair))
-                                   (zw/dired-sidebar-enable (current-buffer))))
-                     map)
-                   ))
+                  (propertize (car pair) 'keymap (funcall create-keymap (cdr pair))))
                 pairs)))
     (concat (nerd-icons-sucicon
              "nf-custom-folder_open"
              :height 0.9
              :v-adjust 0.13)
             " "
-            (when (string-empty-p (car dirs)) "/")
+            (when (string-empty-p (car dirs)) (propertize "/" 'keymap (funcall create-keymap "/")))
             (when (cl-remove-if 'string-empty-p dirs)
               (string-join dirs (nerd-icons-faicon
                                  "nf-fa-caret_right"
