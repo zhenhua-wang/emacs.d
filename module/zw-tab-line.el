@@ -78,14 +78,13 @@
 (defun zw/tab-line-init-appearence ()
   (set-face-attribute 'tab-line-tab-current nil
                       :underline (face-background 'highlight))
-  (dolist (face '(tab-line-tab
+  (dolist (face '(tab-line
+                  tab-line-tab
                   tab-line-tab-current
 		  tab-line-tab-inactive))
     (set-face-attribute face nil
                         :family (face-attribute 'default :font)
-                        :height (face-attribute 'tab-bar :height)))
-  (set-face-attribute 'tab-line nil
-                      :height (floor (* (face-attribute 'tab-bar :height) 1.2))))
+                        :height (floor (* (face-attribute 'tab-bar :height) 1.1)))))
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
