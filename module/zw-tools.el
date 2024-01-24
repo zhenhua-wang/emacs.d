@@ -190,8 +190,11 @@
         ;; close sidebar
         (quit-window) (display-buffer buffer)
         (set-window-dedicated-p (get-buffer-window buffer) nil)
-        (remove-hook 'dired-after-readin-hook
-                     'zw/dired-sidebar-folder-indicator :local)))))
+        (with-current-buffer (get-buffer dir)
+          (remove-hook 'dired-after-readin-hook
+                       'zw/dired-sidebar-folder-indicator :local)
+          ;; refresh display
+          (dired-revert))))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
