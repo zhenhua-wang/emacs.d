@@ -53,15 +53,14 @@
                      ess-r-help-mode)))
 
 (defun zw/tab-line-hide-buffers ()
-  (and (not buffer-file-name)
-       (not (zw/tab-line-group-docs))))
+  (not (zw/tab-line-buffer-group (current-buffer))))
 
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
   (with-current-buffer buffer
     (cond (buffer-file-name "File")
           ((zw/tab-line-group-docs) "Doc")
-          (t "Other"))))
+          (t nil))))
 
 (defun zw/tab-line-buffer-group-buffers ()
   (let* ((buffers (funcall tab-line-tabs-buffer-list-function))
@@ -114,10 +113,10 @@
                                 :underline (face-attribute 'tab-line-tab :underline)))
                       'tab-line-tab-inactive))
          (space-face (if selected-p
-                   (if (mode-line-window-selected-p)
-                       'tab-line-tab-current
-                     'tab-line-tab)
-                 'tab-line-tab-inactive)))
+                         (if (mode-line-window-selected-p)
+                             'tab-line-tab-current
+                           'tab-line-tab)
+                       'tab-line-tab-inactive)))
     (concat (propertize " " 'face space-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
