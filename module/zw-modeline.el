@@ -142,7 +142,7 @@
   (let ((color (if (mode-line-window-selected-p)
                    (face-background 'mode-line-highlight)
                  (face-background 'zw/modeline-highlight-background-inactive)))
-        (width (string-pixel-width " "))
+        (width (string-pixel-width (propertize " " 'face 'mode-line)))
         (height (floor (* (string-pixel-width " ")
                           2.7))))
     (zw/modeline--begin color width height)))
