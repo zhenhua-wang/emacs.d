@@ -71,6 +71,11 @@
         dired-omit-verbose nil)
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"))
+  (defun zw/dired-directory-empty-p ()
+    (= (length (directory-files
+                (dired-get-filename) nil
+                directory-files-no-dot-files-regexp))
+       0))
   (defun zw/dired-setup ()
     (visual-line-mode 0)
     (add-hook 'post-command-hook #'force-mode-line-update nil t)))
@@ -82,15 +87,14 @@
    (dirvish-directory-view-mode . diredfl-mode)))
 
 (use-package dired-subtree
-  :commands (dired-subtree-toggle dired-subtree--dired-line-is-directory-or-link-p)
+  :commands (dired-subtree-toggle
+             dired-subtree--dired-line-is-directory-or-link-p
+             dired-subtree--is-expanded-p)
   :init
   (defun zw/dired-subtree-toggle ()
     (interactive)
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
-               (> (length (directory-files
-                           (dired-get-filename) nil
-                           directory-files-no-dot-files-regexp))
-                  0))
+               (not (zw/dired-directory-empty-p)))
       (dired-subtree-toggle)
       (revert-buffer)))
   :config
@@ -112,6 +116,37 @@
         '(:eval (zw/modeline-remote))
         '(:eval (zw/dired-sidebar--modeline-name))
         '(:eval (zw/modeline-line-column))))
+
+(defun zw/dired-sidebar-folder-indicator ()
+  "Display the icons of files in a dired buffer."
+  (interactive)
+  (let* ((inhibit-read-only t)
+         (icon-face '(:inherit dired-ignored :underline nil :background unspecified))
+         (collapsible-icon (nerd-icons-octicon
+                            "nf-oct-chevron_down"
+                            :height 0.6
+                            :v-adjust 0.1
+                            :face icon-face))
+         (expandable-icon (nerd-icons-octicon
+                           "nf-oct-chevron_right"
+                           :height 0.6
+                           :v-adjust 0.1
+                           :face icon-face)))
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (when (dired-move-to-filename nil)
+          (dired-move-to-filename)
+          (let ((file (dired-get-filename 'verbatim t)))
+            (unless (member file '("." ".."))
+              (let ((filename (dired-get-filename nil t)))
+                (if (and (file-directory-p filename)
+                         (not (zw/dired-directory-empty-p)))
+                    (if (dired-subtree--is-expanded-p)
+                        (insert (concat collapsible-icon " "))
+                      (insert (concat expandable-icon " ")))
+                  (insert "  "))))))
+        (forward-line 1)))))
 
 (defun zw/dired-siderbar-display (buffer)
   ;; bury current dired buffer when it has the same root as sidebar
@@ -135,7 +170,11 @@
         (rename-buffer name)
         (setq-local mode-line-format (zw/dired-sidebar--modeline-format))
         (zw/dired-siderbar-display buffer)
-        (set-window-dedicated-p (get-buffer-window buffer) t)))))
+        (set-window-dedicated-p (get-buffer-window buffer) t)
+        (add-hook 'dired-after-readin-hook
+                  'zw/dired-sidebar-folder-indicator :append :local)
+        ;; refresh display
+        (dired-revert)))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (interactive)
@@ -148,7 +187,11 @@
         (setq-local mode-line-format (default-value 'mode-line-format))
         ;; close sidebar
         (quit-window) (display-buffer buffer)
-        (set-window-dedicated-p (get-buffer-window buffer) nil)))))
+        (set-window-dedicated-p (get-buffer-window buffer) nil)
+        (add-hook 'dired-after-readin-hook
+                  'zw/dired-sidebar-folder-indicator :local)
+        ;; refresh display
+        (dired-revert)))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
