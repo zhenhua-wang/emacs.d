@@ -125,6 +125,7 @@
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
             tab-string)))
+
 (advice-add 'tab-line-tab-name-format-default :around
             'zw/tab-line-tab-name-format)
 
