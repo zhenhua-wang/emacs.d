@@ -5,13 +5,12 @@
 (defvar zw/tab-line-group--hash-table (make-hash-table))
 
 (defun zw/tab-line-group-add-buffer (buffer)
-  (let* ((group (zw/tab-line-buffer-group buffer))
-         (group-buffers (gethash group zw/tab-line-group--hash-table)))
-    (add-to-list 'group-buffers buffer 'append)
-    (puthash group
-             ;; clear dead buffers
-             (seq-filter 'buffer-live-p group-buffers)
-             zw/tab-line-group--hash-table)))
+  (when (buffer-live-p buffer)
+    (let* ((group (zw/tab-line-buffer-group buffer))
+           (group-buffers (gethash group zw/tab-line-group--hash-table)))
+      (add-to-list 'group-buffers buffer 'append)
+      (puthash group group-buffers
+               zw/tab-line-group--hash-table))))
 
 (defun zw/tab-line-group-add-current-buffer ()
   (zw/tab-line-group-add-buffer (current-buffer)))
@@ -23,11 +22,32 @@
              (remove buffer group-buffers)
              zw/tab-line-group--hash-table)))
 
-(defun zw/tab-line-group-remove-current-buffer ()
-  (zw/tab-line-group-remove-buffer (current-buffer)))
-
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
-(add-hook 'kill-buffer-hook 'zw/tab-line-group-remove-current-buffer)
+
+(with-eval-after-load "polymode"
+  (defun zw/tab-line-remove-polymode-inner (base-buffer)
+    (cl-map 'list
+            'zw/tab-line-group-remove-buffer
+            (zw/indirect-buffers base-buffer)))
+  (defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
+    (let* ((group (zw/tab-line-buffer-group new-buffer))
+           (group-buffers (gethash group zw/tab-line-group--hash-table)))
+      (puthash group (zw/insert-after group-buffers after-buffer new-buffer)
+               zw/tab-line-group--hash-table)))
+  (add-hook 'polymode-after-switch-buffer-hook
+            (lambda (old-buffer new-buffer)
+              (zw/tab-line-group-remove-buffer new-buffer)
+              (zw/tab-line-group-add-buffer-after old-buffer new-buffer)
+              (zw/tab-line-group-remove-buffer old-buffer)))
+  (add-hook 'polymode-init-inner-hook
+            (lambda ()
+              (zw/tab-line-remove-polymode-inner (buffer-base-buffer)))))
+
+;;;; group type
+(defun zw/tab-line-group-docs ()
+  (memq major-mode '(helpful-mode
+                     help-mode
+                     ess-r-help-mode)))
 
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
@@ -42,7 +62,9 @@
                                             (zw/tab-line-hide-buffers)))
                               buffers))
          (group (zw/tab-line-buffer-group (current-buffer))))
-    (gethash group zw/tab-line-group--hash-table)))
+    (seq-filter 'buffer-live-p
+                ;; clear dead buffers
+                (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
 (defun zw/tab-line-init-appearence ()
@@ -66,12 +88,6 @@
     (format " %s %s "
             (nerd-icons-icon-for-mode major-mode)
             (buffer-name buffer))))
-
-;; ** group
-(defun zw/tab-line-group-docs ()
-  (memq major-mode '(helpful-mode
-                     help-mode
-                     ess-r-help-mode)))
 
 ;; ** visible tabs
 (defun zw/tab-line-hide-buffers ()

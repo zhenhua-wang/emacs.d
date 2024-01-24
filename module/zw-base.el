@@ -52,6 +52,22 @@ The order of values may be different."
     (5 "%") (6 "^") (7 "&") (8 "*")
     (9 "(") (0 ")")))
 
+(defun zw/indirect-buffers (base-buffer)
+  "List all indirect buffers of BASE-BUFFER."
+  (when base-buffer
+    (cl-remove-if-not
+     (lambda (buffer)
+       (with-current-buffer buffer
+         (eq (buffer-base-buffer) base-buffer)))
+     (buffer-list))))
+
+(defun zw/insert-after (list after-item new-item)
+  "Insert NEW-ITEM into LIST after the first occurrence of AFTER-ITEM."
+  (let ((pos (cl-position after-item list)))
+    (if pos
+        (append (cl-subseq list 0 (1+ pos)) (list new-item) (cl-subseq list (1+ pos)))
+      (throw 'not-found "after-item not found in list"))))
+
 ;; keep track active UI
 (defvar zw/previous-frame nil)
 (defvar zw/active-frame nil)
