@@ -49,6 +49,10 @@
                      help-mode
                      ess-r-help-mode)))
 
+(defun zw/tab-line-hide-buffers ()
+  (and (not buffer-file-name)
+       (not (zw/tab-line-group-docs))))
+
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
   (with-current-buffer buffer
@@ -88,19 +92,6 @@
     (format " %s %s "
             (nerd-icons-icon-for-mode major-mode)
             (buffer-name buffer))))
-
-;; ** visible tabs
-(defun zw/tab-line-hide-buffers ()
-  (and (not buffer-file-name)
-       (not (zw/tab-line-group-docs))))
-
-(defun zw/tab-line-tabs-window-buffers (orig-fun &rest args)
-  "Advice 'tab-line-tabs-window-buffers' to filter boring buffers."
-  (seq-remove (lambda (b) (with-current-buffer b
-                            (zw/tab-line-hide-buffers)))
-              (apply orig-fun args)))
-(advice-add 'tab-line-tabs-window-buffers :around
-            'zw/tab-line-tabs-window-buffers)
 
 ;; ** select tab
 (defun zw/tab-line-select (index)
