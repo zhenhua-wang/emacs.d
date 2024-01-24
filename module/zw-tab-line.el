@@ -71,6 +71,7 @@
                 (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
+;; ** font
 (defun zw/tab-line-init-appearence ()
   (set-face-attribute 'tab-line-tab-current nil
                       :underline (face-background 'highlight))
@@ -84,8 +85,6 @@
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
                                     (zw/tab-line-init-appearence)))
-
-;; * Module
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (with-current-buffer buffer
@@ -93,6 +92,7 @@
             (nerd-icons-icon-for-mode major-mode)
             (buffer-name buffer))))
 
+;; * keymap
 ;; ** select tab
 (defun zw/tab-line-select (index)
   (interactive)
@@ -104,7 +104,6 @@
           (message "Tab %s does not exist" index)
         (switch-to-buffer selected-buffer)))))
 
-;; * keymap
 (dolist (key-func (mapcar (lambda (i)
                             `(,(kbd (format "s-%d" i)) .
                               (lambda ()
