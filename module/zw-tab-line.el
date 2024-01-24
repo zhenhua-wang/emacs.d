@@ -91,10 +91,40 @@
                                     (zw/tab-line-init-appearence)))
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
-  (with-current-buffer buffer
-    (format " %s %s "
-            (nerd-icons-icon-for-mode major-mode)
-            (buffer-name buffer))))
+  (format " %s " (buffer-name buffer)))
+
+(defun zw/tab-line-tab-name-format (orig-fun &rest args)
+  (let* ((tab-string (apply orig-fun args))
+         (buffer-name (string-trim (replace-regexp-in-string
+                                    tab-line-close-button "" tab-string)))
+         (buffer (get-buffer buffer-name))
+         (selected-p (eq buffer (window-buffer)))
+         (icon (with-current-buffer buffer
+                 (nerd-icons-icon-for-mode major-mode)))
+         (icon-face-raw (get-text-property 0 'face icon))
+         (icon-face (if selected-p
+                        (if (mode-line-window-selected-p)
+                            (list :inherit icon-face-raw
+                                  :background (face-background 'tab-line-tab-current)
+                                  :underline (face-attribute 'tab-line-tab-current :underline))
+                          (list :inherit icon-face-raw
+                                :background (face-background 'tab-line-tab)
+                                :underline (face-attribute 'tab-line-tab :underline)))
+                      'tab-line-tab-inactive))
+         (face (if selected-p
+                   (if (mode-line-window-selected-p)
+                       'tab-line-tab-current
+                     'tab-line-tab)
+                 'tab-line-tab-inactive)))
+    (concat (propertize " " 'face face
+                        'keymap tab-line-tab-map
+                        'mouse-face 'tab-line-highlight)
+            (propertize icon 'face icon-face
+                        'keymap tab-line-tab-map
+                        'mouse-face 'tab-line-highlight)
+            tab-string)))
+(advice-add 'tab-line-tab-name-format-default :around
+            'zw/tab-line-tab-name-format)
 
 ;; * keymap
 ;; ** select tab
