@@ -55,6 +55,7 @@
                ("s-b" . zw/dired-sidebar-toggle))
 
          (:map dired-mode-map
+               ("s-f" . isearch-forward)
                ("<tab>" . zw/dired-subtree-toggle)
                ("q" . zw/kill-bufer-quit-window)))
   :init
