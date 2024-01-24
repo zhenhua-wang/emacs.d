@@ -161,6 +161,40 @@
             (preserve-size . (t . nil))))
   (select-window (get-buffer-window buffer)))
 
+(defun zw/dired-sidebar-header-line-display ()
+  (let* ((full-path (match-string 1))
+         (dirs (split-string
+                (substring-no-properties full-path 1 -1) "/"))
+         (locs (number-sequence 1 (length dirs)))
+         (parent-dirs (cl-mapcar
+                       (lambda (loc)
+                         (concat "/" (string-join
+                                      (cl-subseq dirs 0 loc) "/")))
+                       locs))
+         (pairs (cl-mapcar 'cons dirs parent-dirs))
+         (dirs (cl-mapcar
+                (lambda (pair)
+                  (propertize
+                   (car pair) 'keymap
+                   (let ((map (make-sparse-keymap)))
+                     (define-key map [mouse-1]
+                                 (lambda (event)
+                                   (interactive "e")
+                                   (dired (cdr pair))
+                                   (zw/dired-sidebar-enable (current-buffer))))
+                     map)
+                   ))
+                pairs)))
+    (concat (nerd-icons-faicon
+             "nf-fa-home"
+             :height 0.9
+             :v-adjust 0.13)
+            " "
+            (string-join dirs (nerd-icons-faicon
+                               "nf-fa-caret_right"
+                               :height 0.9
+                               :v-adjust 0.13)))))
+
 (defvar zw/dired-sidebar--font-lock-keywords
   `((,(rx-to-string
        `(: line-start
@@ -168,18 +202,7 @@
            (group "/" (+ anychar) ":")
            (0+ space)
            line-end))
-     1 `(face nil display
-              ,(concat (nerd-icons-faicon
-                        "nf-fa-home"
-                        :height 0.9
-                        :v-adjust 0.13)
-                       " "
-                       (string-join (split-string
-                                     (substring (match-string 1) 1 -1) "/")
-                                    (nerd-icons-faicon
-                                     "nf-fa-caret_right"
-                                     :height 0.9
-                                     :v-adjust 0.13)))))))
+     1 `(face nil display ,(zw/dired-sidebar-header-line-display)))))
 
 (defun zw/dired-sidebar-enable (buffer)
   (interactive)
