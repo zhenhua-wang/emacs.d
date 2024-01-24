@@ -128,6 +128,21 @@
 (advice-add 'tab-line-tab-name-format-default :around
             'zw/tab-line-tab-name-format)
 
+;; ** bar
+(defun zw/tab-line-begin ()
+  (let ((color (face-background 'tab-line))
+        (width 1)
+        (height (floor (* (string-pixel-width " ")
+                          2.5))))
+    (zw/modeline--begin color width height)))
+
+(defun zw/tab-line-format-template (orig-fun &rest args)
+  (let ((strings (apply orig-fun args)))
+    (append `(,(zw/tab-line-begin)) strings)))
+
+(advice-add 'tab-line-format-template :around
+            'zw/tab-line-format-template)
+
 ;; * keymap
 ;; ** select tab
 (defun zw/tab-line-select (index)
