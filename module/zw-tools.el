@@ -141,7 +141,9 @@
             (unless (member file '("." ".."))
               (let ((filename (dired-get-filename nil t)))
                 (if (and (file-directory-p filename)
-                         (not (zw/dired-directory-empty-p)))
+                         ;; ignore folders without permission
+                         (not (ignore-errors
+                                (zw/dired-directory-empty-p))))
                     (if (dired-subtree--is-expanded-p)
                         (insert (concat collapsible-icon " "))
                       (insert (concat expandable-icon " ")))
