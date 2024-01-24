@@ -6,7 +6,7 @@
 
 (defun zw/tab-line-group-add-buffer (buffer)
   (when (and (buffer-live-p buffer)
-             (not (zw/tab-line-hide-buffers)))
+             (not (zw/tab-line-buffer-group-visible)))
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table)))
       (add-to-list 'group-buffers buffer 'append)
@@ -46,26 +46,24 @@
             (lambda ()
               (zw/tab-line-remove-polymode-inner (buffer-base-buffer)))))
 
-;;;; group type
-(defun zw/tab-line-group-docs ()
-  (memq major-mode '(helpful-mode
-                     help-mode
-                     ess-r-help-mode)))
-
-(defun zw/tab-line-hide-buffers ()
-  (not (zw/tab-line-buffer-group (current-buffer))))
-
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
   (with-current-buffer buffer
-    (cond (buffer-file-name "File")
-          ((zw/tab-line-group-docs) "Doc")
+    (cond (buffer-file-name
+           "File")
+          ((memq major-mode '(helpful-mode
+                              help-mode
+                              ess-r-help-mode))
+           "Doc")
           (t nil))))
+
+(defun zw/tab-line-buffer-group-visible ()
+  (not (zw/tab-line-buffer-group (current-buffer))))
 
 (defun zw/tab-line-buffer-group-buffers ()
   (let* ((buffers (funcall tab-line-tabs-buffer-list-function))
          (buffers (cl-remove-if (lambda (b) (with-current-buffer b
-                                              (zw/tab-line-hide-buffers)))
+                                              (zw/tab-line-buffer-group-visible)))
                                 buffers))
          (group (zw/tab-line-buffer-group (current-buffer))))
     ;; clear dead buffers
@@ -178,7 +176,7 @@
 (defun zw/tab-line-hide ()
   (when (and (featurep 'tab-line)
 	     tab-line-mode
-             (zw/tab-line-hide-buffers))
+             (zw/tab-line-buffer-group-visible))
     (tab-line-mode -1)))
 (add-hook 'window-configuration-change-hook 'zw/tab-line-hide)
 (add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
