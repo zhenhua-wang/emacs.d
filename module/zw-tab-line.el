@@ -84,7 +84,7 @@
 		  tab-line-tab-inactive))
     (set-face-attribute face nil
                         :family (face-attribute 'default :font)
-                        :height (floor (* (face-attribute 'tab-bar :height) 1.1)))))
+                        :height (face-attribute 'tab-bar :height))))
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
@@ -113,12 +113,12 @@
                                 :background (face-background 'tab-line-tab)
                                 :underline (face-attribute 'tab-line-tab :underline)))
                       'tab-line-tab-inactive))
-         (face (if selected-p
+         (space-face (if selected-p
                    (if (mode-line-window-selected-p)
                        'tab-line-tab-current
                      'tab-line-tab)
                  'tab-line-tab-inactive)))
-    (concat (propertize " " 'face face
+    (concat (propertize " " 'face space-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
             (propertize icon 'face icon-face
