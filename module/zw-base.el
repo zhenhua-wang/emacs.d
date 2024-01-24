@@ -220,7 +220,8 @@ The order of values may be different."
 
 ;; ** Isearch
 (setq isearch-lazy-count t
-      lazy-count-prefix-format "%s/%s ")
+      lazy-count-prefix-format "%s/%s "
+      isearch-wrap-pause 'no)
 
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
