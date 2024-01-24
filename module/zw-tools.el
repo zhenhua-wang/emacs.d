@@ -161,6 +161,26 @@
             (preserve-size . (t . nil))))
   (select-window (get-buffer-window buffer)))
 
+(defvar zw/dired-sidebar--font-lock-keywords
+  `((,(rx-to-string
+       `(: line-start
+           (0+ space)
+           (group "/" (+ anychar) ":")
+           (0+ space)
+           line-end))
+     1 `(face nil display
+              ,(concat (nerd-icons-faicon
+                        "nf-fa-home"
+                        :height 0.9
+                        :v-adjust 0.13)
+                       " "
+                       (string-join (split-string
+                                     (substring (match-string 1) 1 -1) "/")
+                                    (nerd-icons-faicon
+                                     "nf-fa-caret_right"
+                                     :height 0.9
+                                     :v-adjust 0.13)))))))
+
 (defun zw/dired-sidebar-enable (buffer)
   (interactive)
   (with-current-buffer buffer
@@ -175,6 +195,8 @@
         (set-window-dedicated-p (get-buffer-window buffer) t)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-folder-indicator :append :local)
+        (add-to-list 'font-lock-extra-managed-props 'display t t)
+        (font-lock-add-keywords nil zw/dired-sidebar--font-lock-keywords)
         ;; refresh display
         (dired-revert)))))
 
@@ -193,6 +215,8 @@
         (with-current-buffer (get-buffer dir)
           (remove-hook 'dired-after-readin-hook
                        'zw/dired-sidebar-folder-indicator :local)
+          (delete 'display font-lock-extra-managed-props)
+          (font-lock-remove-keywords nil zw/dired-sidebar--font-lock-keywords)
           ;; refresh display
           (dired-revert))))))
 
