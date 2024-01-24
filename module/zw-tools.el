@@ -162,14 +162,14 @@
   (select-window (get-buffer-window buffer)))
 
 (defun zw/dired-sidebar-header-line-display ()
-  (let* ((full-path (match-string 1))
+  (let* ((abbrev-path (abbreviate-file-name (match-string 1)))
          (dirs (split-string
-                (substring-no-properties full-path 1 -1) "/"))
+                (substring-no-properties abbrev-path 0 -1) "/"))
          (locs (number-sequence 1 (length dirs)))
          (parent-dirs (cl-mapcar
                        (lambda (loc)
-                         (concat "/" (string-join
-                                      (cl-subseq dirs 0 loc) "/")))
+                         (string-join
+                          (cl-subseq dirs 0 loc) "/"))
                        locs))
          (pairs (cl-mapcar 'cons dirs parent-dirs))
          (dirs (cl-mapcar
