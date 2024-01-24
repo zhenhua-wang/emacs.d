@@ -197,6 +197,30 @@
                                  :height 0.9
                                  :v-adjust 0.13))))))
 
+(defun zw/dired-sidebar-header-line-highlight ()
+  "Add header line overlay."
+  (save-excursion
+    (let* ((beg (point-min))
+           (end (progn
+                  (beginning-of-buffer)
+                  (+ 1 (line-end-position))))
+           (overlay-highlight (make-overlay beg end)))
+      (overlay-put overlay-highlight
+                   'face (list :background (face-background 'mode-line)
+                               :box (face-attribute 'tab-bar :box)
+                               :extend t))
+      (overlay-put overlay-highlight 'line-highlight-overlay-marker t)
+      ;; fringe
+      (define-fringe-bitmap 'zw/dired-sidebar-header-line-fringe
+        [#b00000000]
+        nil nil 'center)
+      (overlay-put overlay-highlight
+                   'before-string
+                   (propertize
+                    "x" 'display
+                    `(left-fringe zw/dired-sidebar-header-line-fringe
+                                  mode-line))))))
+
 (defvar zw/dired-sidebar--font-lock-keywords
   `((,(rx-to-string
        `(: line-start
@@ -222,6 +246,12 @@
                   'zw/dired-sidebar-folder-indicator :append :local)
         (add-to-list 'font-lock-extra-managed-props 'display)
         (font-lock-add-keywords nil zw/dired-sidebar--font-lock-keywords)
+        (setq-local buffer-face-mode-face (list :background (face-background 'tab-bar)))
+        (buffer-face-mode 1)
+        (add-hook 'dired-after-readin-hook
+                  'zw/dired-sidebar-header-line-highlight :append :local)
+        (setq-local right-fringe-width 0)
+        (set-window-buffer (get-buffer-window buffer) buffer)
         ;; refresh display
         (dired-revert)))))
 
@@ -237,13 +267,22 @@
         ;; close sidebar
         (quit-window) (display-buffer buffer)
         (set-window-dedicated-p (get-buffer-window buffer) nil)
-        (with-current-buffer (get-buffer dir)
-          (remove-hook 'dired-after-readin-hook
-                       'zw/dired-sidebar-folder-indicator :local)
-          (delete 'display font-lock-extra-managed-props)
-          (font-lock-remove-keywords nil zw/dired-sidebar--font-lock-keywords)
-          ;; refresh display
-          (dired-revert))))))
+        (let ((new-buffer (get-buffer dir)))
+          (with-current-buffer new-buffer
+            (remove-hook 'dired-after-readin-hook
+                         'zw/dired-sidebar-folder-indicator :local)
+            (delete 'display font-lock-extra-managed-props)
+            (font-lock-remove-keywords nil zw/dired-sidebar--font-lock-keywords)
+            (buffer-face-mode -1)
+            ;; remove overlays
+            (remove-hook 'dired-after-readin-hook
+                         'zw/dired-sidebar-header-line-highlight :local)
+            (remove-overlays (point-min) (point-max))
+            ;; set fringe
+            (setq-local right-fringe-width nil)
+            (set-window-buffer (get-buffer-window new-buffer) new-buffer)
+            ;; refresh display
+            (dired-revert)))))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
