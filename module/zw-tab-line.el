@@ -5,7 +5,8 @@
 (defvar zw/tab-line-group--hash-table (make-hash-table))
 
 (defun zw/tab-line-group-add-buffer (buffer)
-  (when (buffer-live-p buffer)
+  (when (and (buffer-live-p buffer)
+             (not (zw/tab-line-hide-buffers)))
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table)))
       (add-to-list 'group-buffers buffer 'append)
@@ -129,6 +130,7 @@
 	     tab-line-mode
              (zw/tab-line-hide-buffers))
     (tab-line-mode -1)))
+(add-hook 'window-configuration-change-hook 'zw/tab-line-hide)
 (add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
 (add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
 
