@@ -10,7 +10,9 @@
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table)))
       (add-to-list 'group-buffers buffer 'append)
-      (puthash group group-buffers
+      (puthash group
+               ;; clear dead buffers
+               (cl-remove-if-not 'buffer-live-p group-buffers)
                zw/tab-line-group--hash-table))))
 
 (defun zw/tab-line-group-add-current-buffer ()
@@ -67,8 +69,8 @@
                                               (zw/tab-line-hide-buffers)))
                                 buffers))
          (group (zw/tab-line-buffer-group (current-buffer))))
+    ;; clear dead buffers
     (cl-remove-if-not 'buffer-live-p
-                      ;; clear dead buffers
                       (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
