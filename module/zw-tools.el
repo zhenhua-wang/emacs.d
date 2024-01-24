@@ -204,22 +204,13 @@
            (end (progn
                   (beginning-of-buffer)
                   (+ 1 (line-end-position))))
-           (overlay-highlight (make-overlay beg end)))
-      (overlay-put overlay-highlight
-                   'face (list :background (face-background 'mode-line)
-                               :box (face-attribute 'tab-bar :box)
-                               :extend t))
-      (overlay-put overlay-highlight 'line-highlight-overlay-marker t)
-      ;; fringe
-      (define-fringe-bitmap 'zw/dired-sidebar-header-line-fringe
-        [#b00000000]
-        nil nil 'center)
-      (overlay-put overlay-highlight
-                   'before-string
-                   (propertize
-                    "x" 'display
-                    `(left-fringe zw/dired-sidebar-header-line-fringe
-                                  mode-line))))))
+           (overlay-highlight (make-overlay beg end))
+           (face (list :inherit 'mode-line
+                       :height (face-attribute 'default :height)
+                       :box (face-attribute 'tab-bar :box)
+                       :extend t)))
+      (overlay-put overlay-highlight 'face face)
+      (overlay-put overlay-highlight 'line-highlight-overlay-marker t))))
 
 (defvar zw/dired-sidebar--font-lock-keywords
   `((,(rx-to-string
@@ -246,12 +237,13 @@
                   'zw/dired-sidebar-folder-indicator :append :local)
         (add-to-list 'font-lock-extra-managed-props 'display)
         (font-lock-add-keywords nil zw/dired-sidebar--font-lock-keywords)
-        (setq-local buffer-face-mode-face (list :background (face-background 'tab-bar)))
+        (setq-local buffer-face-mode-face (list :inherit 'tab-bar
+                                                :height (face-attribute 'default :height)
+                                                :box nil))
         (buffer-face-mode 1)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-header-line-highlight :append :local)
-        (setq-local right-fringe-width 0
-                    left-margin-width nil)
+        (setq-local right-fringe-width 0)
         (set-window-buffer (get-buffer-window buffer) buffer)
         ;; refresh display
         (dired-revert)))))
@@ -278,10 +270,8 @@
             ;; remove overlays
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-header-line-highlight :local)
-            (remove-overlays (point-min) (point-max))
             ;; set fringe
-            (setq-local right-fringe-width nil
-                        left-margin-width (default-value 'left-margin-width))
+            (setq-local right-fringe-width nil)
             (set-window-buffer (get-buffer-window new-buffer) new-buffer)
             ;; refresh display
             (dired-revert)))))))
