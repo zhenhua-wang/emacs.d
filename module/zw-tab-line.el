@@ -19,7 +19,7 @@
   (let* ((group (zw/tab-line-buffer-group buffer))
          (group-buffers (gethash group zw/tab-line-group--hash-table)))
     (puthash group
-             (remove buffer group-buffers)
+             (cl-remove buffer group-buffers)
              zw/tab-line-group--hash-table)))
 
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
