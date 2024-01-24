@@ -250,7 +250,8 @@
         (buffer-face-mode 1)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-header-line-highlight :append :local)
-        (setq-local right-fringe-width 0)
+        (setq-local right-fringe-width 0
+                    left-margin-width nil)
         (set-window-buffer (get-buffer-window buffer) buffer)
         ;; refresh display
         (dired-revert)))))
@@ -279,7 +280,8 @@
                          'zw/dired-sidebar-header-line-highlight :local)
             (remove-overlays (point-min) (point-max))
             ;; set fringe
-            (setq-local right-fringe-width nil)
+            (setq-local right-fringe-width nil
+                        left-margin-width (default-value 'left-margin-width))
             (set-window-buffer (get-buffer-window new-buffer) new-buffer)
             ;; refresh display
             (dired-revert)))))))
