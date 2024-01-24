@@ -191,16 +191,18 @@
              :height 0.9
              :v-adjust 0.13)
             " "
-            (string-join dirs (nerd-icons-faicon
-                               "nf-fa-caret_right"
-                               :height 0.9
-                               :v-adjust 0.13)))))
+            (when (string-empty-p (car dirs)) "/")
+            (when (cl-remove-if 'string-empty-p dirs)
+              (string-join dirs (nerd-icons-faicon
+                                 "nf-fa-caret_right"
+                                 :height 0.9
+                                 :v-adjust 0.13))))))
 
 (defvar zw/dired-sidebar--font-lock-keywords
   `((,(rx-to-string
        `(: line-start
            (0+ space)
-           (group "/" (+ anychar) ":")
+           (group "/" (0+ anychar) ":")
            (0+ space)
            line-end))
      1 `(face nil display ,(zw/dired-sidebar-header-line-display)))))
