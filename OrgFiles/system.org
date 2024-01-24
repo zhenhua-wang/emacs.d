@@ -50,7 +50,7 @@ cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect gnome-system-monitor
+yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect mission-center
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
