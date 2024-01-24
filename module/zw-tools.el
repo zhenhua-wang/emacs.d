@@ -195,7 +195,7 @@
         (set-window-dedicated-p (get-buffer-window buffer) t)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-folder-indicator :append :local)
-        (add-to-list 'font-lock-extra-managed-props 'display t t)
+        (add-to-list 'font-lock-extra-managed-props 'display)
         (font-lock-add-keywords nil zw/dired-sidebar--font-lock-keywords)
         ;; refresh display
         (dired-revert)))))
