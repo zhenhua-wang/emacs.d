@@ -185,8 +185,8 @@
                      map)
                    ))
                 pairs)))
-    (concat (nerd-icons-faicon
-             "nf-fa-home"
+    (concat (nerd-icons-sucicon
+             "nf-custom-folder_open"
              :height 0.9
              :v-adjust 0.13)
             " "
