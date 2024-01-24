@@ -161,12 +161,16 @@
 
 ;; ** remote
 (defun zw/modeline-remote ()
-  (concat
-   (propertize (if (file-remote-p default-directory)
-                   (concat " " (file-remote-p default-directory 'host) " ")
-                 " ")
-               'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-   zw/modeline-separator))
+  (let ((icon (nerd-icons-codicon
+               "nf-cod-remote"
+               :height 1
+               :v-adjust 0.05)))
+    (concat
+     (propertize (if (file-remote-p default-directory)
+                     (concat icon " " (file-remote-p default-directory 'host) " ")
+                   (concat icon " "))
+                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+     zw/modeline-separator)))
 
 ;; ** tab index
 (defun zw/modeline-tab-index ()
@@ -397,17 +401,29 @@
                       (define-key map (vector 'mode-line 'mouse-1) 'flymake-start)
                       map)))
        (if (and (= num-errors 0) (= num-warnings 0))
-           (propertize "" 'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
+           (propertize (nerd-icons-octicon
+                        "nf-oct-check"
+                        :height 1
+                        :v-adjust 0.05)
+                       'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
                        'mouse-face 'highlight
                        'keymap keymap)
-         (concat (propertize "" 'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive)
+         (concat (propertize (nerd-icons-octicon
+                              "nf-oct-x_circle"
+                              :height 1
+                              :v-adjust 0.05)
+                             'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive)
                              'mouse-face 'highlight
                              'keymap keymap)
                  (zw/modeline-separator-thin)
                  (propertize errors 'face (zw/modeline-set-face 'zw/modeline-default-active
                                                                 'zw/modeline-default-inactive))
                  (zw/modeline-separator-thin)
-                 (propertize "" 'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)
+                 (propertize (nerd-icons-codicon
+                              "nf-cod-warning"
+                              :height 1
+                              :v-adjust 0.05)
+                             'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)
                              'mouse-face 'highlight
                              'keymap keymap)
                  (zw/modeline-separator-thin)
