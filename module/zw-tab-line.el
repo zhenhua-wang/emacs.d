@@ -78,10 +78,11 @@
 (defun zw/tab-line-init-appearence ()
   (set-face-attribute 'tab-line-tab-current nil
                       :underline (face-background 'highlight))
-  (dolist (centaur-face '(tab-line-tab
-                          tab-line-tab-current
-			  tab-line-tab-inactive))
-    (set-face-attribute centaur-face nil
+  (dolist (face '(tab-line
+                  tab-line-tab
+                  tab-line-tab-current
+		  tab-line-tab-inactive))
+    (set-face-attribute face nil
                         :family (face-attribute 'default :font)
                         :height (face-attribute 'tab-bar :height))))
 
