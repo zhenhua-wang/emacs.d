@@ -62,13 +62,13 @@
 
 (defun zw/tab-line-buffer-group-buffers ()
   (let* ((buffers (funcall tab-line-tabs-buffer-list-function))
-         (buffers (seq-remove (lambda (b) (with-current-buffer b
-                                            (zw/tab-line-hide-buffers)))
-                              buffers))
+         (buffers (cl-remove-if (lambda (b) (with-current-buffer b
+                                              (zw/tab-line-hide-buffers)))
+                                buffers))
          (group (zw/tab-line-buffer-group (current-buffer))))
-    (seq-filter 'buffer-live-p
-                ;; clear dead buffers
-                (gethash group zw/tab-line-group--hash-table))))
+    (cl-remove-if-not 'buffer-live-p
+                      ;; clear dead buffers
+                      (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
 ;; ** font
