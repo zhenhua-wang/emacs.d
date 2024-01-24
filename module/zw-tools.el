@@ -125,12 +125,12 @@
          (collapsible-icon (nerd-icons-octicon
                             "nf-oct-chevron_down"
                             :height 0.6
-                            :v-adjust 0.1
+                            :v-adjust 0.3
                             :face icon-face))
          (expandable-icon (nerd-icons-octicon
                            "nf-oct-chevron_right"
                            :height 0.6
-                           :v-adjust 0.1
+                           :v-adjust 0.3
                            :face icon-face)))
     (save-excursion
       (goto-char (point-min))
