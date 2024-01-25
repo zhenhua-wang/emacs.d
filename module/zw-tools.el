@@ -163,7 +163,7 @@
   (select-window (get-buffer-window buffer)))
 
 (defun zw/dired-sidebar-header-line-begin ()
-  (let ((color (face-background 'mode-line))
+  (let ((color (face-background 'header-line))
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
