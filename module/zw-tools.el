@@ -301,7 +301,7 @@
   (interactive "e")
   (let (pos)
     (save-excursion
-      (setq pos (posn-point (event-end event)))
+      (setq pos (posn-point (event-start event)))
       (let ((click-func (get-text-property pos 'click-func)))
         (if click-func
             (funcall click-func)
