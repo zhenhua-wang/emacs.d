@@ -85,7 +85,8 @@
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
-                                    (zw/tab-line-init-appearence)))
+                                    (zw/tab-line-init-appearence)
+                                    (tab-line-format)))
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (format " %s " (buffer-name buffer)))
