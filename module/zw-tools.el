@@ -170,7 +170,7 @@
     (zw/modeline--begin color width height)))
 
 (defun zw/dired-sidebar-header-line-format ()
-  (let* ((abbrev-path (abbreviate-file-name (dired-current-directory)))
+  (let* ((abbrev-path (abbreviate-file-name default-directory))
          (dirs (split-string abbrev-path "/"))
          (locs (number-sequence 1 (length dirs)))
          (parent-dirs (cl-mapcar
@@ -200,7 +200,8 @@
              :v-adjust 0.13)
             " "
             (when (string-empty-p (car dirs))
-              (propertize "/" 'keymap (funcall create-keymap "/")))
+              (propertize "/" 'keymap (funcall create-keymap "/")
+                          'mouse-face 'highlight))
             (when (cl-remove-if 'string-empty-p dirs)
               (string-join dirs (nerd-icons-faicon
                                  "nf-fa-caret_right"
