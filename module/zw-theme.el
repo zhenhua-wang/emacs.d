@@ -123,6 +123,9 @@
      ;; tab-line
      `(tab-line ((t (:background ,(face-background 'tab-bar nil 'default) :underline ,tab-bar-box))))
 
+     ;; header-line
+     `(header-line ((t (:background ,(face-background 'mode-line) :underline ,tab-bar-box))))
+
      ;; key-cast
      `(keycast-key ((t (:height ,tab-bar-height))))
      `(keycast-command ((t (:height ,tab-bar-height))))
