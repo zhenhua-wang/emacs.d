@@ -170,7 +170,8 @@
     (zw/modeline--begin color width height)))
 
 (defun zw/dired-sidebar-header-line-format ()
-  (let* ((abbrev-path (abbreviate-file-name default-directory))
+  (let* ((abbrev-path (substring-no-properties
+                       (abbreviate-file-name default-directory) 0 -1))
          (dirs (split-string abbrev-path "/"))
          (locs (number-sequence 1 (length dirs)))
          (parent-dirs (cl-mapcar
