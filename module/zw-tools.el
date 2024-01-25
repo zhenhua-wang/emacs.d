@@ -123,16 +123,26 @@
   (interactive)
   (let* ((inhibit-read-only t)
          (icon-face '(:inherit dired-ignored :underline nil :background unspecified))
-         (collapsible-icon (nerd-icons-octicon
-                            "nf-oct-chevron_down"
+         (click-func (lambda ()
+                       (dired-subtree-toggle)))
+         (collapsible-icon (propertize
+                            (nerd-icons-octicon
+                             "nf-oct-chevron_down"
+                             :height 0.6
+                             :v-adjust 0.3
+                             :face icon-face)
+                            'click-func click-func
+                            'mouse-face 'highlight
+                            'help-echo "mouse-2: Toggle subdirectory"))
+         (expandable-icon (propertize
+                           (nerd-icons-octicon
+                            "nf-oct-chevron_right"
                             :height 0.6
                             :v-adjust 0.3
-                            :face icon-face))
-         (expandable-icon (nerd-icons-octicon
-                           "nf-oct-chevron_right"
-                           :height 0.6
-                           :v-adjust 0.3
-                           :face icon-face)))
+                            :face icon-face)
+                           'click-func click-func
+                           'mouse-face 'highlight
+                           'help-echo "mouse-2: Toggle subdirectory")))
     (save-excursion
       (goto-char (point-min))
       (while (not (eobp))
@@ -289,7 +299,13 @@
 
 (defun zw/dired-sidebar-mouse-find-file (event)
   (interactive "e")
-  (dired-mouse-find-file event)
+  (let (pos)
+    (save-excursion
+      (setq pos (posn-point (event-end event)))
+      (let ((click-func (get-text-property pos 'click-func)))
+        (if click-func
+            (funcall click-func)
+          (dired-mouse-find-file event)))))
   (zw/dired-sidebar-enable (current-buffer)))
 
 (defun zw/dired-sidebar-up-directory ()
