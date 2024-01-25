@@ -162,10 +162,16 @@
             (preserve-size . (t . nil))))
   (select-window (get-buffer-window buffer)))
 
-(defun zw/dired-sidebar-header-line-display ()
-  (let* ((abbrev-path (abbreviate-file-name (match-string 1)))
-         (dirs (split-string
-                (substring-no-properties abbrev-path 0 -1) "/"))
+(defun zw/dired-sidebar-header-line-begin ()
+  (let ((color (face-background 'mode-line))
+        (width 1)
+        (height (floor (* (string-pixel-width " ")
+                          2.5))))
+    (zw/modeline--begin color width height)))
+
+(defun zw/dired-sidebar-header-line-format ()
+  (let* ((abbrev-path (abbreviate-file-name (dired-current-directory)))
+         (dirs (split-string abbrev-path "/"))
          (locs (number-sequence 1 (length dirs)))
          (parent-dirs (cl-mapcar
                        (lambda (loc)
@@ -175,51 +181,45 @@
          (pairs (cl-mapcar 'cons dirs parent-dirs))
          (create-keymap (lambda (dir)
                           (let ((map (make-sparse-keymap)))
-                            (define-key map [mouse-1]
-                                        (lambda (event)
-                                          (interactive "e")
+                            (define-key map [header-line mouse-2]
+                                        (lambda ()
+                                          (interactive)
                                           (dired dir)
                                           (zw/dired-sidebar-enable (current-buffer))))
                             map)))
          (dirs (cl-mapcar
                 (lambda (pair)
-                  (propertize (car pair) 'keymap (funcall create-keymap (cdr pair))))
+                  (propertize (car pair)
+                              'keymap (funcall create-keymap (cdr pair))
+                              'mouse-face 'highlight))
                 pairs)))
-    (concat (nerd-icons-sucicon
+    (concat (zw/dired-sidebar-header-line-begin)
+            (nerd-icons-sucicon
              "nf-custom-folder_open"
              :height 0.9
              :v-adjust 0.13)
             " "
-            (when (string-empty-p (car dirs)) (propertize "/" 'keymap (funcall create-keymap "/")))
+            (when (string-empty-p (car dirs))
+              (propertize "/" 'keymap (funcall create-keymap "/")))
             (when (cl-remove-if 'string-empty-p dirs)
               (string-join dirs (nerd-icons-faicon
                                  "nf-fa-caret_right"
                                  :height 0.9
                                  :v-adjust 0.13))))))
 
-(defun zw/dired-sidebar-header-line-highlight ()
-  "Add header line overlay."
+(defun zw/dired-sidebar-format-header-line ()
+  (setq-local
+   header-line-format
+   (list "%e" "   " '(:eval (zw/dired-sidebar-header-line-format)))))
+
+(defun zw/dired-sidebar-hide-information-line ()
   (save-excursion
     (let* ((beg (point-min))
            (end (progn
                   (beginning-of-buffer)
                   (+ 1 (line-end-position))))
-           (overlay-highlight (make-overlay beg end))
-           (face (list :inherit 'mode-line
-                       :height (face-attribute 'default :height)
-                       :box (face-attribute 'tab-bar :box)
-                       :extend t)))
-      (overlay-put overlay-highlight 'face face)
-      (overlay-put overlay-highlight 'line-highlight-overlay-marker t))))
-
-(defvar zw/dired-sidebar--font-lock-keywords
-  `((,(rx-to-string
-       `(: line-start
-           (0+ space)
-           (group "/" (0+ anychar) ":")
-           (0+ space)
-           line-end))
-     1 `(face nil display ,(zw/dired-sidebar-header-line-display)))))
+           (overlay-highlight (make-overlay beg end)))
+      (overlay-put overlay-highlight 'invisible t))))
 
 (defun zw/dired-sidebar-enable (buffer)
   (interactive)
@@ -235,16 +235,13 @@
         (set-window-dedicated-p (get-buffer-window buffer) t)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-folder-indicator :append :local)
-        (add-to-list 'font-lock-extra-managed-props 'display)
-        (font-lock-add-keywords nil zw/dired-sidebar--font-lock-keywords)
         (setq-local buffer-face-mode-face (list :inherit 'tab-bar
                                                 :height (face-attribute 'default :height)
                                                 :box nil))
         (buffer-face-mode 1)
         (add-hook 'dired-after-readin-hook
-                  'zw/dired-sidebar-header-line-highlight :append :local)
-        (setq-local right-fringe-width 0)
-        (set-window-buffer (get-buffer-window buffer) buffer)
+                  'zw/dired-sidebar-hide-information-line :append :local)
+        (zw/dired-sidebar-format-header-line)
         ;; refresh display
         (dired-revert)))))
 
@@ -264,15 +261,11 @@
           (with-current-buffer new-buffer
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-folder-indicator :local)
-            (delete 'display font-lock-extra-managed-props)
-            (font-lock-remove-keywords nil zw/dired-sidebar--font-lock-keywords)
             (buffer-face-mode -1)
-            ;; remove overlays
+            ;; remove header line
             (remove-hook 'dired-after-readin-hook
-                         'zw/dired-sidebar-header-line-highlight :local)
-            ;; set fringe
-            (setq-local right-fringe-width nil)
-            (set-window-buffer (get-buffer-window new-buffer) new-buffer)
+                         'zw/dired-sidebar-hide-information-line :local)
+            (setq-local header-line-format (default-value 'header-line-format))
             ;; refresh display
             (dired-revert)))))))
 
