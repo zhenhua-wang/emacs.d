@@ -153,8 +153,8 @@
                   ,(propertize
                     (nerd-icons-octicon
                      "nf-oct-sidebar_collapse"
-                     :height 0.8
-                     :v-adjust 0.15)
+                     :height 0.75
+                     :v-adjust 0.2)
                     'mouse-face 'highlight)
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
 
