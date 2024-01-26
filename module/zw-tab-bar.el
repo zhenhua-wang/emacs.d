@@ -172,9 +172,9 @@
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
                  ,(concat " " (propertize
-                               (nerd-icons-octicon
-                                "nf-oct-terminal"
-                                :height 0.85
+                               (nerd-icons-codicon
+                                "nf-cod-terminal_tmux"
+                                :height 0.8
                                 :v-adjust 0.15)
                                'mouse-face 'highlight))
                  zw/tab-bar--open-repl :help "Open REPL side window")))
