@@ -174,7 +174,7 @@
                  ,(concat " " (propertize
                                (nerd-icons-codicon
                                 "nf-cod-terminal_tmux"
-                                :height 0.8
+                                :height 0.78
                                 :v-adjust 0.15)
                                'mouse-face 'highlight))
                  zw/tab-bar--open-repl :help "Open REPL side window")))
