@@ -151,10 +151,10 @@
 (defun zw/tab-bar-format-dired ()
   `((dired-button menu-item
                   ,(propertize
-                    (nerd-icons-mdicon
-                     "nf-md-dock_left"
-                     :height 0.9
-                     :v-adjust 0.12)
+                    (nerd-icons-octicon
+                     "nf-oct-sidebar_collapse"
+                     :height 0.8
+                     :v-adjust 0.15)
                     'mouse-face 'highlight)
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
 
@@ -175,12 +175,12 @@
 
 (defun zw/tab-bar-format-vterm ()
   `((vterm-button menu-item
-                  ,(concat " " (propertize
-                                (nerd-icons-octicon
-                                 "nf-oct-terminal"
-                                 :height 0.8
-                                 :v-adjust 0.15)
-                                'mouse-face 'highlight))
+                  ,(propertize
+                    (nerd-icons-octicon
+                     "nf-oct-terminal"
+                     :height 0.8
+                     :v-adjust 0.15)
+                    'mouse-face 'highlight)
                   zw/tab-bar--open-vterm :help "Open vterm")))
 
 ;; ** repl
@@ -196,12 +196,12 @@
 
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
-                 ,(concat " " (propertize
-                               (nerd-icons-octicon
-                                "nf-oct-code"
-                                :height 0.9
-                                :v-adjust 0.1)
-                               'mouse-face 'highlight))
+                 ,(propertize
+                   (nerd-icons-octicon
+                    "nf-oct-code"
+                    :height 0.9
+                    :v-adjust 0.1)
+                   'mouse-face 'highlight)
                  zw/tab-bar--open-repl :help "Open REPL side window")))
 
 ;; ** battery
@@ -440,11 +440,11 @@
       tab-bar-format '(zw/tab-bar-begin
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
-                       zw/tab-bar-separator
+                       tab-bar-separator
                        zw/tab-bar-format-vterm
-                       zw/tab-bar-separator
+                       tab-bar-separator
                        zw/tab-bar-format-repl
-                       zw/tab-bar-separator
+                       tab-bar-separator
                        zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
