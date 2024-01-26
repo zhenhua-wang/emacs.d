@@ -1,7 +1,9 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * LSP
-(setq-default read-process-output-max (* 1024 1024))
+(setenv "LSP_USE_PLISTS" "true")
+(setq-default read-process-output-max (* 1024 1024)
+              lsp-use-plists t)
 (use-package lsp-mode
   :commands (lsp-deferred)
   :hook
@@ -49,14 +51,14 @@
     (-let* ((win-width (frame-width))
             (lsp-ui-peek-list-width (/ (frame-width) 2))
             (string (-some--> (-zip-fill "" src1 src2)
-                      (--map (lsp-ui-peek--adjust win-width it) it)
-                      (-map-indexed 'lsp-ui-peek--make-line it)
-                      (-concat it (lsp-ui-peek--make-footer)))))
-      (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
-      (posframe-show lsp-ui-peek--buffer
-                     :string (mapconcat 'identity string "")
-                     :min-width (frame-width)
-                     :poshandler #'posframe-poshandler-frame-center)))
+                              (--map (lsp-ui-peek--adjust win-width it) it)
+                              (-map-indexed 'lsp-ui-peek--make-line it)
+                              (-concat it (lsp-ui-peek--make-footer)))))
+           (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
+           (posframe-show lsp-ui-peek--buffer
+                          :string (mapconcat 'identity string "")
+                          :min-width (frame-width)
+                          :poshandler #'posframe-poshandler-frame-center)))
   (defun lsp-ui-peek--peek-destroy ()
     (when (bufferp lsp-ui-peek--buffer)
       (posframe-delete lsp-ui-peek--buffer))
