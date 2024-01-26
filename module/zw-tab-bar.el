@@ -153,8 +153,8 @@
                   ,(concat " " (propertize
                                 (nerd-icons-codicon
                                  "nf-cod-folder"
-                                 :height 0.85
-                                 :v-adjust 0.15)
+                                 :height 0.8
+                                 :v-adjust 0.18)
                                 'mouse-face 'highlight))
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
 
