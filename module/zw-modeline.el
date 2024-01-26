@@ -94,7 +94,7 @@
   :group 'zw/modeline-inactive)
 
 (defface zw/modeline-env-active
-  '((t (:inherit zw/modeline-default-active :bold t)))
+  '((t (:inherit zw/modeline-default-active)))
   "Environment face for active modeline"
   :group 'zw/modeline-active)
 

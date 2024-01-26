@@ -130,8 +130,7 @@
 (defun zw/tab-bar-format-env ()
   (let ((env (zw/modeline-env)))
     (when env
-      (propertize (concat " " env)
-                  'face 'zw/modeline-env-active))))
+      (propertize env 'face 'zw/modeline-env-active))))
 
 ;; ** dired
 (defun zw/tab-bar--open-dired (event)
