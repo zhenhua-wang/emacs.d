@@ -150,13 +150,38 @@
 
 (defun zw/tab-bar-format-dired ()
   `((dired-button menu-item
-                  ,(concat " " (propertize
-                                (nerd-icons-codicon
-                                 "nf-cod-folder"
-                                 :height 0.8
-                                 :v-adjust 0.18)
-                                'mouse-face 'highlight))
+                  ,(propertize
+                    (nerd-icons-mdicon
+                     "nf-md-dock_left"
+                     :height 0.95
+                     :v-adjust 0.12)
+                    'mouse-face 'highlight)
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
+
+;; ** vterm
+(defun zw/tab-bar--open-vterm (event)
+  (interactive "e")
+  (let ((sidebar-window (cl-remove-if-not
+                         (lambda (window)
+                           (with-selected-window window
+                             (and (window-buffer window)
+                                  (featurep 'vterm)
+                                  (eq major-mode 'vterm-mode))))
+                         (window-list))))
+    (if sidebar-window
+        (with-selected-window (car sidebar-window)
+          (quit-window))
+      (vterm))))
+
+(defun zw/tab-bar-format-vterm ()
+  `((vterm-button menu-item
+                  ,(concat " " (propertize
+                                (nerd-icons-octicon
+                                 "nf-oct-terminal"
+                                 :height 0.85
+                                 :v-adjust 0.15)
+                                'mouse-face 'highlight))
+                  zw/tab-bar--open-vterm :help "Open vterm")))
 
 ;; ** repl
 (defun zw/tab-bar--open-repl (event)
@@ -172,8 +197,8 @@
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
                  ,(concat " " (propertize
-                               (nerd-icons-codicon
-                                "nf-cod-code"
+                               (nerd-icons-octicon
+                                "nf-oct-code"
                                 :height 0.9
                                 :v-adjust 0.1)
                                'mouse-face 'highlight))
@@ -413,9 +438,10 @@
       tab-bar-close-button-show nil
       tab-bar-separator " "
       tab-bar-format '(zw/tab-bar-begin
-                       tab-bar-format-menu-bar
-                       zw/tab-bar-separator
+                       ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
+                       zw/tab-bar-separator
+                       zw/tab-bar-format-vterm
                        zw/tab-bar-separator
                        zw/tab-bar-format-repl
                        zw/tab-bar-separator
