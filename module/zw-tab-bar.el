@@ -145,7 +145,7 @@
     (if sidebar-window
         (with-selected-window (car sidebar-window)
           (kill-buffer (current-buffer)))
-      (let* ((buffer (dired-noselect default-directory)))
+      (let ((buffer (dired-noselect default-directory)))
         (zw/dired-sidebar-enable buffer)))))
 
 (defun zw/tab-bar-format-dired ()
@@ -161,7 +161,13 @@
 ;; ** repl
 (defun zw/tab-bar--open-repl (event)
   (interactive "e")
-  (zw/side-window-toggle))
+  (let ((repl-buffer (cl-remove-if-not (lambda (buffer)
+                                         (get-buffer-window buffer))
+                                       zw/side-window--buffer-opened)))
+    (if repl-buffer
+        (with-selected-window (get-buffer-window (car repl-buffer))
+          (quit-window))
+      (zw/side-window-toggle))))
 
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
