@@ -151,9 +151,9 @@
 (defun zw/tab-bar-format-dired ()
   `((dired-button menu-item
                   ,(concat " " (propertize
-                                (nerd-icons-codicon
-                                 "nf-cod-folder"
-                                 :height 0.85
+                                (nerd-icons-mdicon
+                                 "nf-md-dock_left"
+                                 :height 0.9
                                  :v-adjust 0.15)
                                 'mouse-face 'highlight))
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
@@ -172,9 +172,9 @@
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
                  ,(concat " " (propertize
-                               (nerd-icons-codicon
-                                "nf-cod-terminal_tmux"
-                                :height 0.78
+                               (nerd-icons-mdicon
+                                "nf-md-dock_right"
+                                :height 0.9
                                 :v-adjust 0.15)
                                'mouse-face 'highlight))
                  zw/tab-bar--open-repl :help "Open REPL side window")))
