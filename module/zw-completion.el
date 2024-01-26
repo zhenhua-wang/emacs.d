@@ -60,7 +60,8 @@
       (setq-local cursor-in-non-selected-windows 'bar)))
   (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
-        vertico-posframe-width (frame-width)))
+        vertico-posframe-width (/ (display-pixel-width)
+                                  (frame-char-width))))
 
 ;; * Marginalia
 (use-package marginalia
