@@ -151,10 +151,10 @@
 (defun zw/tab-bar-format-dired ()
   `((dired-button menu-item
                   ,(propertize
-                    (nerd-icons-octicon
-                     "nf-oct-sidebar_collapse"
-                     :height 0.75
-                     :v-adjust 0.2)
+                    (nerd-icons-codicon
+                     "nf-cod-folder"
+                     :height 0.85
+                     :v-adjust 0.15)
                     'mouse-face 'highlight)
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
 
@@ -176,9 +176,9 @@
 (defun zw/tab-bar-format-vterm ()
   `((vterm-button menu-item
                   ,(propertize
-                    (nerd-icons-octicon
-                     "nf-oct-terminal"
-                     :height 0.8
+                    (nerd-icons-codicon
+                     "nf-cod-terminal_powershell"
+                     :height 0.85
                      :v-adjust 0.15)
                     'mouse-face 'highlight)
                   zw/tab-bar--open-vterm :help "Open vterm")))
@@ -197,10 +197,10 @@
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
                  ,(propertize
-                   (nerd-icons-octicon
-                    "nf-oct-code"
+                   (nerd-icons-codicon
+                    "nf-cod-code"
                     :height 0.9
-                    :v-adjust 0.1)
+                    :v-adjust 0.15)
                    'mouse-face 'highlight)
                  zw/tab-bar--open-repl :help "Open REPL side window")))
 
