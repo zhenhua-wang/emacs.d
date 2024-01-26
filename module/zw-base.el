@@ -244,9 +244,6 @@ The order of values may be different."
 ;; ** Delete selection
 (add-hook 'after-init-hook 'delete-selection-mode)
 
-;; * Disabled
-(add-hook 'after-init-hook (lambda () (global-eldoc-mode -1)))
-
 ;; * Keymap
 ;; modifiers
 (pcase system-type
@@ -311,6 +308,7 @@ The order of values may be different."
            ("s-i" . zw/show-info)
            ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
+           ("s-d" . eldoc)
            ("s-\\" . toggle-input-method)
            ;; minibuffer
            :map minibuffer-mode-map
