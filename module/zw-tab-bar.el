@@ -153,7 +153,7 @@
                   ,(propertize
                     (nerd-icons-mdicon
                      "nf-md-dock_left"
-                     :height 0.95
+                     :height 0.9
                      :v-adjust 0.12)
                     'mouse-face 'highlight)
                   zw/tab-bar--open-dired :help "Open dired in current directory")))
@@ -178,7 +178,7 @@
                   ,(concat " " (propertize
                                 (nerd-icons-octicon
                                  "nf-oct-terminal"
-                                 :height 0.85
+                                 :height 0.8
                                  :v-adjust 0.15)
                                 'mouse-face 'highlight))
                   zw/tab-bar--open-vterm :help "Open vterm")))
