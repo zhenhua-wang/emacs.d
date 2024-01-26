@@ -127,11 +127,51 @@
                  :help "File path")))
 
 ;; ** env
-(defun zw/tab-bar-env ()
+(defun zw/tab-bar-format-env ()
   (let ((env (zw/modeline-env)))
     (when env
       (propertize (concat " " env)
                   'face 'zw/modeline-env-active))))
+
+;; ** dired
+(defun zw/tab-bar--open-dired (event)
+  (interactive "e")
+  (let ((sidebar-window (cl-remove-if-not
+                         (lambda (window)
+                           (with-selected-window window
+                             (and (window-buffer window)
+                                  zw-dired-sidebar-mode)))
+                         (window-list))))
+    (if sidebar-window
+        (with-selected-window (car sidebar-window)
+          (kill-buffer (current-buffer)))
+      (let* ((buffer (dired-noselect default-directory)))
+        (zw/dired-sidebar-enable buffer)))))
+
+(defun zw/tab-bar-format-dired ()
+  `((dired-button menu-item
+                  ,(concat " " (propertize
+                                (nerd-icons-codicon
+                                 "nf-cod-folder"
+                                 :height 0.85
+                                 :v-adjust 0.15)
+                                'mouse-face 'highlight))
+                  zw/tab-bar--open-dired :help "Open dired in current directory")))
+
+;; ** repl
+(defun zw/tab-bar--open-repl (event)
+  (interactive "e")
+  (zw/side-window-toggle))
+
+(defun zw/tab-bar-format-repl ()
+  `((repl-button menu-item
+                 ,(concat " " (propertize
+                               (nerd-icons-octicon
+                                "nf-oct-terminal"
+                                :height 0.85
+                                :v-adjust 0.15)
+                               'mouse-face 'highlight))
+                 zw/tab-bar--open-repl :help "Open REPL side window")))
 
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
@@ -369,7 +409,11 @@
       tab-bar-format '(zw/tab-bar-begin
                        tab-bar-format-menu-bar
                        zw/tab-bar-separator
-                       zw/tab-bar-env
+                       zw/tab-bar-format-dired
+                       zw/tab-bar-separator
+                       zw/tab-bar-format-repl
+                       zw/tab-bar-separator
+                       zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
 (tab-bar-mode)
