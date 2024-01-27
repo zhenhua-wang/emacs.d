@@ -74,6 +74,7 @@
 
 ;; ** eglot
 (use-package eglot
+  :straight (:type built-in)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-h" . display-local-help)
