@@ -62,10 +62,11 @@
     (zw/python-start-shell-before-send-string
      (buffer-substring-no-properties beg end))))
 
+(defvar python-shell-interpreter nil)
 (defun zw/run-python-in-path (path)
-  (interactive (list (read-string "Specify Python path:"
+  (interactive (list (read-string "Specify Python path: "
                                   "python")))
-  (with-suppressed-warnings ((python-shell-interpreter path))
+  (let ((python-shell-interpreter path))
     (display-buffer
      (process-buffer (run-python)))))
 
@@ -172,7 +173,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
   (defun zw/run-R-in-path (path)
-    (interactive (list (read-string "Specify R path:"
+    (interactive (list (read-string "Specify R path: "
                                     "R")))
     (let ((inferior-ess-r-program path))
       (call-interactively 'R)))
