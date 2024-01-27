@@ -110,7 +110,9 @@
       (add-to-list 'python-shell-completion-native-disabled-interpreters
                    "ipython"))
     (if (and (featurep 'lsp-mode) lsp-mode)
-        (lsp-restart-workspace)))
+        (lsp-restart-workspace))
+    (if (and (featurep 'eglot) eglot--managed-mode)
+        (eglot-reconnect)))
   (defun zw/conda-postactivate ()
     (zw/conda-env-update)
     ;; HACK: set LD_LIBRARY_PATH after conda activate
