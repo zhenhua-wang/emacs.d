@@ -63,8 +63,9 @@
      (buffer-substring-no-properties beg end))))
 
 (defun zw/run-python-in-path (path)
-  (interactive "sSpecify Python path:")
-  (let ((python-shell-interpreter path))
+  (interactive (list (read-string "Specify Python path:"
+                                  "python")))
+  (with-suppressed-warnings ((python-shell-interpreter path))
     (display-buffer
      (process-buffer (run-python)))))
 
@@ -138,7 +139,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
 ;; * R
 (use-package ess
   :defer t
-  :commands R
+  :commands (R zw/run-R-in-path)
   :hook
   (ess-mode . zw/ess-setup)
   (inferior-ess-mode . zw/inferior-ess-setup)
@@ -171,7 +172,8 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
   (defun zw/run-R-in-path (path)
-    (interactive "sSpecify R path:")
+    (interactive (list (read-string "Specify R path:"
+                                    "R")))
     (let ((inferior-ess-r-program path))
       (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe
