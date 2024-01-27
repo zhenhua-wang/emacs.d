@@ -62,6 +62,12 @@
     (zw/python-start-shell-before-send-string
      (buffer-substring-no-properties beg end))))
 
+(defun zw/run-python-in-path (path)
+  (interactive "sSpecify Python path:")
+  (let ((python-shell-interpreter path))
+    (display-buffer
+     (process-buffer (run-python)))))
+
 (use-package python
   :bind ((:map python-mode-map
                ("C-c C-c" . zw/python-shell-send-region-or-block)
@@ -164,6 +170,10 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
           (goto-char end))
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
+  (defun zw/run-R-in-path (path)
+    (interactive "sSpecify R path:")
+    (let ((inferior-ess-r-program path))
+      (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
