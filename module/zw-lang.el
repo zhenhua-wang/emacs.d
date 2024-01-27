@@ -62,7 +62,7 @@
     (zw/python-start-shell-before-send-string
      (buffer-substring-no-properties beg end))))
 
-(defvar python-shell-interpreter nil)
+(defvar python-shell-interpreter)
 (defun zw/run-python-in-path (path)
   (interactive (list (read-string "Specify Python path: "
                                   "python")))
