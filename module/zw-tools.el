@@ -385,6 +385,10 @@
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
 
+;; * Code patch psearch
+(use-package psearch
+  :straight (:host github :repo "twlz0ne/psearch.el"))
+
 ;; * Custom tools
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
