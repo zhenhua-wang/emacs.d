@@ -6,7 +6,7 @@
 
 (defun zw/tab-line-group-add-buffer (buffer)
   (when (and (buffer-live-p buffer)
-             (not (zw/tab-line-buffer-group-visible)))
+             (zw/tab-line-buffer-group-visible))
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table)))
       (add-to-list 'group-buffers buffer 'append)
@@ -58,17 +58,16 @@
           (t nil))))
 
 (defun zw/tab-line-buffer-group-visible ()
-  (not (zw/tab-line-buffer-group (current-buffer))))
+  (zw/tab-line-buffer-group (current-buffer)))
 
 (defun zw/tab-line-buffer-group-buffers ()
-  (let* ((buffers (funcall tab-line-tabs-buffer-list-function))
-         (buffers (cl-remove-if (lambda (b) (with-current-buffer b
-                                              (zw/tab-line-buffer-group-visible)))
-                                buffers))
-         (group (zw/tab-line-buffer-group (current-buffer))))
-    ;; clear dead buffers
-    (cl-remove-if-not 'buffer-live-p
-                      (gethash group zw/tab-line-group--hash-table))))
+  (let* ((group (zw/tab-line-buffer-group (current-buffer))))
+    ;; clear dead buffers and invisible buffers
+    (cl-remove-if (lambda (buffer)
+                    (or (not (buffer-live-p buffer))
+                        (with-current-buffer buffer
+                          (string-equal " " (substring (buffer-name) 0 1)))))
+                  (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
 ;; ** font
@@ -177,7 +176,7 @@
 (defun zw/tab-line-hide ()
   (when (and (featurep 'tab-line)
 	     tab-line-mode
-             (zw/tab-line-buffer-group-visible))
+             (not (zw/tab-line-buffer-group-visible)))
     (tab-line-mode -1)))
 (add-hook 'window-configuration-change-hook 'zw/tab-line-hide)
 (add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
