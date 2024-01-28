@@ -105,7 +105,7 @@
       split-window-preferred-function 'split-window-sensibly)
 
 (defun zw/display-buffer-in-largest-window (buffer alist)
-  (let ((largest-window (get-largest-window (selected-frame) t)))
+  (let ((largest-window (get-largest-window (selected-frame) nil)))
     (window--display-buffer buffer largest-window 'reuse alist)))
 
 ;; default buffer placement rules
