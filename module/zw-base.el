@@ -12,7 +12,7 @@
   "Return non-nil if current window is a side window."
   (window-parameter (get-buffer-window) 'window-side))
 
-(defun zw/merge-symbol-lists (dst src &optional prepend)
+(defun zw/merge-list-symbols (dst src &optional prepend)
   "Merge lists, possibly symbols."
   (if prepend
       (set dst
