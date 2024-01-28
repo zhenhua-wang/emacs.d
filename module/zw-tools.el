@@ -385,7 +385,10 @@
   (interactive)
   (let ((current-buffer-name (buffer-name (current-buffer))))
     (if (window-parameter (get-buffer-window) 'window-side)
-        (progn (select-window (window-main-window))
+        (progn (select-window
+                (get-window-with-predicate
+                 (lambda (window)
+                   (not (window-parameter window 'window-side)))))
                (delete-other-windows)
                (switch-to-buffer current-buffer-name))
       (delete-other-windows))))
