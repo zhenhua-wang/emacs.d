@@ -10,7 +10,7 @@
         org-confirm-babel-evaluate nil
         org-src-tab-acts-natively t)
   ;; declare babel safe expression
-  (zw/merge-list-to-list
+  (zw/merge-symbol-lists
    'safe-local-eval-forms
    '((defun zw/org-babel-tangle-linux (path)
        (if (eq system-type 'gnu/linux) path "no"))

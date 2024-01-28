@@ -12,13 +12,15 @@
   "Return non-nil if current window is a side window."
   (window-parameter (get-buffer-window) 'window-side))
 
-(defun zw/merge-list-to-list (dst src &optional prepend)
-  "Merges content of the 2nd list with the 1st one"
+(defun zw/merge-symbol-lists (dst src &optional prepend)
+  "Merge lists, possibly symbols."
   (if prepend
       (set dst
-           (append src (eval dst)))
+           (append (if (symbolp src) (eval src) src)
+                   (if (symbolp dst) (eval dst) dst)))
     (set dst
-         (append (eval dst) src))))
+         (append (if (symbolp dst) (eval dst) dst)
+                 (if (symbolp src) (eval src) src)))))
 
 (defun zw/list-same-elements (list1 list2)
   "Test if LIST1 and LIST2 hold the same values.
