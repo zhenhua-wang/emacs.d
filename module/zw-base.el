@@ -169,6 +169,18 @@ The order of values may be different."
 (add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
 
 ;; * Tool
+;; ** Tramp
+(setq tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
+      tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory))
+(with-eval-after-load "tramp"
+  (setq password-cache-expiry nil
+        remote-file-name-inhibit-cache nil
+        vc-ignore-dir-regexp (format "\\(%s\\)\\|\\(%s\\)"
+                                     vc-ignore-dir-regexp
+                                     tramp-file-name-regexp))
+  ;; respect the PATH variable on the remote machine
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 ;; ** Comint
 ;; Make processes’ outputs read-only.
 (setq comint-prompt-read-only t

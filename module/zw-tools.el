@@ -1,27 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-;; * Tramp
-;; Set default connection mode to SSH
-(setq tramp-default-method "ssh")
-(setq tramp-auto-save-directory
-      (expand-file-name "tramp-auto-save" user-emacs-directory))
-(setq tramp-persistency-file-name
-      (expand-file-name "tramp-connection-history" user-emacs-directory))
-(setq password-cache-expiry nil)
-(setq remote-file-name-inhibit-cache nil)
-(setq tramp-use-ssh-controlmaster-options nil)
-(setq vc-ignore-dir-regexp
-      (format "\\(%s\\)\\|\\(%s\\)"
-              vc-ignore-dir-regexp
-              tramp-file-name-regexp))
-(with-eval-after-load "tramp"
-  (customize-set-variable 'tramp-ssh-controlmaster-options
-                          (concat
-                           "-o ControlPath=/tmp/ssh-tramp-%%r@%%h:%%p "
-                           "-o ControlMaster=auto -o ControlPersist=yes"))
-  ;; respect the PATH variable on the remote machine
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
-
 ;; * Vterm
 (use-package vterm
   :bind ((:map vterm-copy-mode-map
