@@ -167,6 +167,11 @@
 (defcustom zw/side-window-buffer-regex nil
   "List of name regex of buffer displayed in side window.")
 
+;; make REPL window dedicated
+(dolist (repl zw/side-window-buffer-mode)
+  (let ((repl-hook (make-symbol (format "%s-hook" (symbol-name repl)))))
+    (add-hook repl-hook (lambda () (set-window-dedicated-p (selected-window) t)))))
+
 (defvar zw/side-window--buffer-opened nil)
 
 (defun zw/side-window--update ()
