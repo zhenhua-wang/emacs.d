@@ -55,6 +55,9 @@
                               help-mode
                               ess-r-help-mode))
            "Doc")
+          ((memq major-mode '(inferior-ess-r-mode
+                              inferior-python-mode))
+           "REPL")
           (t nil))))
 
 (defun zw/tab-line-buffer-group-visible ()
@@ -151,7 +154,10 @@
     (unless (eq (current-buffer) selected-buffer)
       (if (> index n-visible-tabs)
           (message "Tab %s does not exist" index)
-        (switch-to-buffer selected-buffer)))))
+        (let* ((selected-window (selected-window))
+               (window-dedicated-p (window-dedicated-p selected-window)))
+          (switch-to-buffer selected-buffer)
+          (set-window-dedicated-p selected-window window-dedicated-p))))))
 
 (dolist (key-func (mapcar (lambda (i)
                             `(,(kbd (format "s-%d" i)) .
