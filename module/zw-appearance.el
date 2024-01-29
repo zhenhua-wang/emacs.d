@@ -133,13 +133,11 @@
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
-         (window-width . 0.5)
          (side . top)
          (slot . -1))
         ("\\*\\(polymode export\\|compilation\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
-         (window-width . 0.5)
          (side . top)
          (slot . 1))
         ;; right side window
