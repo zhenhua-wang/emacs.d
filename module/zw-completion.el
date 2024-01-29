@@ -23,9 +23,7 @@
                ("RET" . vertico-directory-enter)
                ("M-RET" . vertico-exit-input)
                ("DEL" . vertico-directory-delete-char)
-               ("M-DEL" . vertico-directory-delete-word))
-         (:map vertico-multiform-map
-               ("M-p" . nil)))
+               ("M-DEL" . vertico-directory-delete-word)))
   :init
   (setq vertico-resize nil
         vertico-scroll-margin 0
@@ -55,6 +53,8 @@
 (use-package vertico-posframe
   :if (zw/icon-displayable-p)
   :hook (vertico-mode . vertico-posframe-mode)
+  :bind (:map vertico-multiform-map
+              ("M-p" . nil))
   :config
   (defun vertico-posframe-set-cursor (&rest args)
     (with-current-buffer vertico-posframe--buffer
