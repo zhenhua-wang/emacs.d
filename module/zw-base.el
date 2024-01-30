@@ -168,6 +168,103 @@ The order of values may be different."
       show-paren-context-when-offscreen 'child-frame)
 (add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
 
+;; ** Window placement
+;; window split
+(setq split-width-threshold  80
+      split-height-threshold 80
+      split-window-preferred-function 'split-window-sensibly)
+
+(defun zw/display-buffer-in-largest-window (buffer alist)
+  (let ((largest-window (get-largest-window (selected-frame) nil)))
+    (window--display-buffer buffer largest-window 'reuse alist)))
+
+;; default buffer placement rules
+(setq display-buffer-base-action '((display-buffer--maybe-same-window
+                                    zw/display-buffer-in-largest-window)))
+
+;; popup buffers
+(dolist (mode '(magit-mode-hook
+                git-commit-setup-hook))
+  (add-hook mode
+            (lambda () (setq-local display-buffer-base-action
+                                   '((display-buffer--maybe-same-window
+                                      display-buffer--maybe-pop-up-frame-or-window))))))
+
+;; buffer placement rules
+(setq display-buffer-alist
+      '(;; largest window
+        ("\\.\\(?:pdf\\)\\'"
+         (display-buffer-reuse-mode-window
+          zw/display-buffer-in-largest-window))
+        ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
+         (display-buffer-reuse-mode-window
+          zw/display-buffer-in-largest-window))
+        ;; top side window
+        ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . -1))
+        ("\\*\\(polymode export\\|compilation\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . top)
+         (slot . 1))
+        ;; right side window
+        ("\\*\\(R\\|Python\\).*"
+         (display-buffer-in-side-window)
+         (window-width . 0.3)
+         (side . right)
+         (slot . 1)
+         (dedicated . t))
+        ;; bottom side buffer
+        ("\\*.*\\(e?shell\\|v?term\\).*"
+         (display-buffer-in-side-window)
+         (window-height . 0.2)
+         (side . bottom)
+         (dedicated . t))
+        ;; below current window
+        ("\\*Calendar.*"
+         (display-buffer-reuse-mode-window display-buffer-below-selected)
+         (window-height . shrink-window-if-larger-than-buffer))))
+
+;; ** Side window
+(defcustom zw/side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
+  "List of modes of buffer displayed in side window.")
+
+(defcustom zw/side-window-buffer-regex nil
+  "List of name regex of buffer displayed in side window.")
+
+(defvar zw/side-window--buffer-opened nil)
+
+(defun zw/side-window--update ()
+  (setq zw/side-window--buffer-opened nil)
+  (let* ((buffers (buffer-list)))
+    (dolist (buffer buffers)
+      (with-current-buffer buffer
+        (if (or (member major-mode zw/side-window-buffer-mode)
+                (cl-some (lambda (regex)
+                           (string-match-p regex (buffer-name buffer)))
+                         zw/side-window-buffer-regex))
+            (add-to-list 'zw/side-window--buffer-opened buffer))))))
+
+(defun zw/side-window-toggle ()
+  "Toggle side windows."
+  (interactive)
+  (zw/side-window--update)
+  (if zw/side-window--buffer-opened
+      (if (cl-some (lambda (buffer) (get-buffer-window buffer))
+                   zw/side-window--buffer-opened)
+          (dolist (buffer zw/side-window--buffer-opened)
+            (let ((buffer-window (get-buffer-window buffer)))
+              (when buffer-window
+                (if  (eq buffer-window (window-main-window))
+                    (previous-buffer)
+                  (delete-window buffer-window)))))
+        (dolist (buffer zw/side-window--buffer-opened)
+          (display-buffer buffer)))
+    (message "No buffer in side window.")))
+
 ;; * Tool
 ;; ** Tramp
 (setq tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
@@ -240,6 +337,175 @@ The order of values may be different."
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
 (setq winner-dont-bind-my-keys t)
+
+;; ** Custom tools
+(defun zw/quit-window-kill-bufer ()
+  "Quit window then kill buffer."
+  (interactive)
+  (quit-window 'kill))
+
+(defun zw/kill-bufer-quit-window ()
+  "Kill buffer then quit window."
+  (interactive)
+  (if (one-window-p)
+      (kill-buffer)
+    (kill-buffer-and-window)))
+
+(defun zw/maximize-window ()
+  "maximize window (also works for side windows)."
+  (interactive)
+  (let ((current-buffer-name (buffer-name (current-buffer))))
+    (if (window-parameter (get-buffer-window) 'window-side)
+        (progn (select-window
+                (get-window-with-predicate
+                 (lambda (window)
+                   (not (window-parameter window 'window-side)))))
+               (delete-other-windows)
+               (switch-to-buffer current-buffer-name))
+      (delete-other-windows))))
+
+(defun zw/update-emacs-tangle-dotfiles ()
+  "update zw/emacs and tangle dotfiles"
+  (interactive)
+  (require 'org)
+  (let ((msg (string-trim (shell-command-to-string "cd ~/.emacs.d && git pull"))))
+    (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
+    (message (concat "emacs update:\n " msg))))
+
+(defun zw/show-info ()
+  "show buffer info"
+  (interactive)
+  (message (if buffer-file-name
+               (concat "File: "
+                       (buffer-file-name)
+                       ", Encoding:"
+                       (zw/modeline-encoding))
+             (concat "Buffer: "
+                     (buffer-name)
+                     ", Encoding:"
+                     (zw/modeline-encoding)))))
+
+;; set preference to horizontal split
+(defun zw/split-window-sensibly-prefer-horizontal (&optional window)
+  "Based on split-window-sensibly, but designed to prefer a horizontal split,
+i.e. windows tiled side-by-side."
+  (interactive)
+  (let ((window (or window (selected-window))))
+    (or (and (window-splittable-p window t)
+             ;; Split window horizontally
+             (with-selected-window window
+               (split-window-right)))
+        (and (window-splittable-p window)
+             ;; Split window vertically
+             (with-selected-window window
+               (split-window-below)))
+        (and
+         (let ((frame (window-frame window)))
+           (or
+            (eq window (frame-root-window frame))
+            (catch 'done
+              (walk-window-tree (lambda (w)
+                                  (unless (or (eq w window)
+                                              (window-dedicated-p w))
+                                    (throw 'done nil)))
+                                frame)
+              t)))
+         (not (window-minibuffer-p window))
+         (let ((split-width-threshold 0))
+           (when (window-splittable-p window t)
+             (with-selected-window window
+               (split-window-right)))))))
+  ;; switch to scratch buffer after creating new window
+  (other-window 1 nil)
+  (switch-to-buffer "*scratch*"))
+
+;; https://xenodium.com/emacs-quick-kill-process/
+(defun zw/quick-kill-process ()
+  "quick-kill-process"
+  (interactive)
+  (require 'proced)
+  (require 'map)
+  (let* ((pid-width 5)
+         (comm-width 25)
+         (user-width 10)
+         (processes (proced-process-attributes))
+         (candidates
+          (mapcar (lambda (attributes)
+                    (let* ((process (cdr attributes))
+                           (pid (format (format "%%%ds" pid-width) (map-elt process 'pid)))
+                           (user (format (format "%%-%ds" user-width)
+                                         (truncate-string-to-width
+                                          (map-elt process 'user) user-width nil nil t)))
+                           (comm (format (format "%%-%ds" comm-width)
+                                         (truncate-string-to-width
+                                          (map-elt process 'comm) comm-width nil nil t)))
+                           (args-width (- (window-width) (+ pid-width user-width comm-width 3)))
+                           (args (map-elt process 'args)))
+                      (cons (if args
+                                (format "%s %s %s %s" pid user comm (truncate-string-to-width args args-width nil nil t))
+                              (format "%s %s %s" pid user comm))
+                            process)))
+                  processes))
+         (selection (map-elt candidates
+                             (completing-read "kill process: "
+                                              (cl-sort
+                                               candidates
+                                               (lambda (p1 p2)
+                                                 (string-lessp (nth 2 (split-string (string-trim (car p1))))
+                                                               (nth 2 (split-string (string-trim (car p2)))))))
+                                              nil t)))
+         (prompt-title (format "%s %s %s"
+                               (map-elt selection 'pid)
+                               (map-elt selection 'user)
+                               (map-elt selection 'comm))))
+    (when (y-or-n-p (format "Kill? %s" prompt-title))
+      (if (eq (signal-process (map-elt selection 'pid) 9) 0)
+          (message "killed: %s" prompt-title)
+        (message "error: could not kill %s" prompt-title)))))
+
+(defvar-local zw/presentation-on nil)
+(defun zw/toggle-presentation ()
+  "Toggle presentation"
+  (interactive)
+  (if zw/presentation-on
+      (progn
+        (setq-local mode-line-format (default-value 'mode-line-format)
+                    zw/presentation-on nil))
+    (progn
+      (setq-local mode-line-format nil
+                  zw/presentation-on t)))
+  (when (eq major-mode 'pdf-view-mode)
+    (pdf-view-fit-page-to-window))
+  (force-mode-line-update)
+  (redraw-display))
+
+(defun zw/smart-tab ()
+  "Tab indent or toggle hide show or toggle outline"
+  (interactive)
+  (cond
+   ((and outline-minor-mode
+         (or (outline-on-heading-p)
+             (outline-invisible-p)))
+    (outline-toggle-children))
+   ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
+   (t (indent-for-tab-command))))
+
+(defun zw/install-fonts ()
+  "Install required fonts."
+  (interactive)
+  (let ((font-dest (cond
+                    ;; Default Linux install directories
+                    ((member system-type '(gnu gnu/linux gnu/kfreebsd))
+                     (concat (or (getenv "XDG_DATA_HOME")
+                                 (concat (getenv "HOME") "/.local/share"))
+                             "/fonts/"))
+                    ;; Default MacOS install directory
+                    ((eq system-type 'darwin)
+                     (concat (getenv "HOME")
+                             "/Library/Fonts/")))))
+    (dolist (font (directory-files-recursively "~/.emacs.d/fonts" ""))
+      (copy-file font font-dest t))
+    (async-shell-command "fc-cache -fv")))
 
 ;; * Editor
 ;; ** Copy
