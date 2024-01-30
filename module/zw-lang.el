@@ -4,14 +4,28 @@
 (defvar zw/lang-env-path '("~/.conda/envs"))
 
 (defun zw/lang-repl-path (exec)
-  (append (list exec)
-          (apply #'append
-                 (cl-mapcar
-                  (lambda (dir)
-                    (cl-mapcar (lambda (path)
-                                 (concat path "/bin/" exec))
-                               (directory-files dir t "^[^.]")))
-                  zw/lang-env-path))))
+  (let* ((tramp-env-prefix (when (file-remote-p default-directory)
+                             (let ((vec (tramp-dissect-file-name default-directory)))
+                               (tramp-make-tramp-file-name
+                                (tramp-file-name-method vec)
+                                (tramp-file-name-user vec)
+                                (tramp-file-name-domain vec)
+                                (tramp-file-name-host vec)))))
+         (lang-env-path (cl-mapcar (lambda (path)
+                                     (concat tramp-env-prefix path))
+                                   zw/lang-env-path)))
+    (append (list exec)
+            (apply #'append
+                   (cl-mapcar
+                    (lambda (dir)
+                      (cl-mapcar (lambda (path)
+                                   (concat (if tramp-env-prefix
+                                               (replace-regexp-in-string tramp-env-prefix "" path)
+                                             path)
+                                           "/bin/" exec))
+                                 (ignore-errors
+                                   (directory-files dir t "^[^.]"))))
+                    lang-env-path)))))
 
 ;; * C/C++
 (use-package cc-mode
