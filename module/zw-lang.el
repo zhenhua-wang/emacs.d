@@ -35,6 +35,15 @@
                                     (directory-files (car dir) t "^[^.]"))))
                      lang-env-path))))))
 
+(defun zw/lang-run-repl-in-path ()
+  (interactive)
+  (pcase major-mode
+    ('ess-r-mode (call-interactively 'zw/run-R-in-path))
+    ('python-mode (call-interactively 'zw/run-python-in-path))
+    (_ (message "No REPL is registered with current buffer"))))
+
+(define-key global-map (kbd "s-p") 'zw/lang-run-repl-in-path)
+
 ;; * C/C++
 (use-package cc-mode
   :bind ((:map c-mode-base-map
