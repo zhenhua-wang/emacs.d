@@ -1,7 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Common
-(defvar zw/lang-env-path '("~/.conda/envs"))
+(defvar zw/lang-env-path '(("~/.conda/envs/" . "bin/"))
+  "Environment path should be formated as (env-dir . exec-dir).")
 
 (defun zw/lang-repl-path (exec)
   (let* ((tramp-env-prefix (when (file-remote-p default-directory)
@@ -12,20 +13,27 @@
                                 (tramp-file-name-domain vec)
                                 (tramp-file-name-host vec)))))
          (lang-env-path (cl-mapcar (lambda (path)
-                                     (concat tramp-env-prefix path))
+                                     (cons (concat tramp-env-prefix (car path))
+                                           (cdr path)))
                                    zw/lang-env-path)))
     (append (list exec)
-            (apply #'append
-                   (cl-mapcar
-                    (lambda (dir)
-                      (cl-mapcar (lambda (path)
-                                   (concat (if tramp-env-prefix
-                                               (replace-regexp-in-string tramp-env-prefix "" path)
-                                             path)
-                                           "/bin/" exec))
-                                 (ignore-errors
-                                   (directory-files dir t "^[^.]"))))
-                    lang-env-path)))))
+            (cl-remove-if-not
+             (lambda (full-path)
+               (file-exists-p (concat tramp-env-prefix full-path)))
+             (apply #'append
+                    (cl-mapcar
+                     (lambda (dir)
+                       (cl-mapcar (lambda (path)
+                                    (expand-file-name
+                                     exec
+                                     (expand-file-name
+                                      (cdr dir)
+                                      (if tramp-env-prefix
+                                          (replace-regexp-in-string tramp-env-prefix "" path)
+                                        path))))
+                                  (ignore-errors
+                                    (directory-files (car dir) t "^[^.]"))))
+                     lang-env-path))))))
 
 ;; * C/C++
 (use-package cc-mode
