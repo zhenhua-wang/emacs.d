@@ -1,5 +1,18 @@
 ;; -*- lexical-binding: t -*-
 
+;; * Common
+(defvar zw/lang-env-path '("~/.conda/envs"))
+
+(defun zw/lang-repl-path (exec)
+  (append (list exec)
+          (apply #'append
+                 (cl-mapcar
+                  (lambda (dir)
+                    (cl-mapcar (lambda (path)
+                                 (concat path "/bin/" exec))
+                               (directory-files dir t "^[^.]")))
+                  zw/lang-env-path))))
+
 ;; * C/C++
 (use-package cc-mode
   :bind ((:map c-mode-base-map
@@ -64,8 +77,8 @@
 
 (defvar python-shell-interpreter)
 (defun zw/run-python-in-path (path)
-  (interactive (list (read-string "Specify Python path: "
-                                  "python")))
+  (interactive (list (completing-read "Specify Python path: "
+                                      (zw/lang-repl-path "python"))))
   (let ((python-shell-interpreter path))
     (display-buffer
      (process-buffer (run-python)))))
@@ -173,8 +186,8 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
   (defun zw/run-R-in-path (path)
-    (interactive (list (read-string "Specify R path: "
-                                    "R")))
+    (interactive (list (completing-read "Specify R path: "
+                                        (zw/lang-repl-path "R"))))
     (let ((inferior-ess-r-program path))
       (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe
