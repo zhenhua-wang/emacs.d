@@ -94,6 +94,12 @@
         (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
                          '`(zw/buffer-content (point-min) (point-max)))))))
 
+;; * Dape
+(use-package dape
+  :commands (dape dape-breakpoint-toggle)
+  :config
+  (setq dape-buffer-window-arrangement 'right))
+
 ;; * Eldoc
 (use-package eldoc-box
   :bind (([remap eldoc] . eldoc-box-help-at-point))
