@@ -98,7 +98,11 @@
 (use-package dape
   :commands (dape dape-breakpoint-toggle)
   :config
-  (setq dape-buffer-window-arrangement 'right))
+  (setq dape-buffer-window-arrangement 'right)
+  ;; Save buffers on startup, useful for interpreted languages
+  (add-hook 'dape-on-start-hooks
+            (defun dape--save-on-start ()
+              (save-some-buffers t t))))
 
 ;; * Eldoc
 (use-package eldoc-box
