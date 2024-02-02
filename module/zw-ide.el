@@ -123,7 +123,8 @@
             (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
       ;; add new 'current-config'
       (add-to-list 'dape-configs `(current-config ,@current-config))
-      (dape current-config))))
+      ;; (dape current-config)
+      (call-interactively 'dape))))
 
 ;; * Eldoc
 (use-package eldoc-box
