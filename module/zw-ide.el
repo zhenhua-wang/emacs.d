@@ -112,8 +112,12 @@
                                    (member major-mode (plist-get (cdr config) 'modes)))
                                  dape-configs)))
            (config-command path)
-           (dape-configs (list `(current-config
-                                 ,@(plist-put current-config 'command path)))))
+           (current-config `(current-config ,@(plist-put current-config 'command path))))
+      ;; remove previous 'current-config'
+      (setq dape-configs
+            (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
+      ;; add new 'current-config'
+      (add-to-list 'dape-configs current-config)
       (call-interactively 'dape))))
 
 ;; * Eldoc
