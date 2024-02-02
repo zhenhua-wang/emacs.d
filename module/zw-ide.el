@@ -120,7 +120,7 @@
       (plist-put current-config ':program (dape-buffer-default))
       ;; set tramp
       (when (file-remote-p default-directory)
-        (setq current-config (dape-config-tramp current-config)))
+        (setq current-config (dape-config-autoport (dape-config-tramp current-config))))
       ;; remove previous 'current-config'
       (setq dape-configs
             (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
