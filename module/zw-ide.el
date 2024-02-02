@@ -55,14 +55,14 @@
     (-let* ((win-width (frame-width))
             (lsp-ui-peek-list-width (/ (frame-width) 2))
             (string (-some--> (-zip-fill "" src1 src2)
-                              (--map (lsp-ui-peek--adjust win-width it) it)
-                              (-map-indexed 'lsp-ui-peek--make-line it)
-                              (-concat it (lsp-ui-peek--make-footer)))))
-           (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
-           (posframe-show lsp-ui-peek--buffer
-                          :string (mapconcat 'identity string "")
-                          :min-width (frame-width)
-                          :poshandler #'posframe-poshandler-frame-center)))
+                      (--map (lsp-ui-peek--adjust win-width it) it)
+                      (-map-indexed 'lsp-ui-peek--make-line it)
+                      (-concat it (lsp-ui-peek--make-footer)))))
+      (setq lsp-ui-peek--buffer (get-buffer-create " *lsp-peek--buffer*"))
+      (posframe-show lsp-ui-peek--buffer
+                     :string (mapconcat 'identity string "")
+                     :min-width (frame-width)
+                     :poshandler #'posframe-poshandler-frame-center)))
   (defun lsp-ui-peek--peek-destroy ()
     (when (bufferp lsp-ui-peek--buffer)
       (posframe-delete lsp-ui-peek--buffer))
@@ -112,15 +112,17 @@
                                    (member major-mode (plist-get (cdr config) 'modes)))
                                  dape-configs)))
            (config-command path))
+      ;; set 'current-config' command path
       (plist-put current-config 'command path)
-      (plist-put current-config 'command-cwd 'dape-command-cwd)
-      (setq current-config `(current-config ,@current-config))
+      (plist-put current-config 'command-cwd (dape-command-cwd))
+      (plist-put current-config ':cwd (dape-cwd))
+      (plist-put current-config ':program (dape-buffer-default))
       ;; remove previous 'current-config'
       (setq dape-configs
             (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
       ;; add new 'current-config'
-      (add-to-list 'dape-configs current-config)
-      (call-interactively 'dape))))
+      (add-to-list 'dape-configs `(current-config ,@current-config))
+      (dape current-config))))
 
 ;; * Eldoc
 (use-package eldoc-box
