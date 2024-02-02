@@ -1186,9 +1186,9 @@ a = C-a
 s = C-s
 z = C-z
 Z = C-S-z
-x = S-delete
-c = C-insert
-v = S-insert
+x = C-x
+c = C-c
+v = C-v
 
 [alt_zw:A]
 v = pageup
