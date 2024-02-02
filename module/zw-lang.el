@@ -4,8 +4,13 @@
 (defvar zw/lang-env-path '(("~/.conda/envs/" . "bin/"))
   "Environment path should be formated as (env-dir . exec-dir).")
 
-(defun zw/lang-repl-path (exec)
-  (let* ((tramp-env-prefix (when (file-remote-p default-directory)
+(defvar zw/lang-exec-alist '((python-mode . "python")
+                             (ess-r-mode . "R")))
+
+(defun zw/lang-repl-path (&optional keep-tramp-prefix)
+  (let* ((exec (or (cdr (assq major-mode zw/lang-exec-alist))
+                   (read-string "No exec is registered with current major mode.\nEnter manually: ")))
+         (tramp-env-prefix (when (file-remote-p default-directory)
                              (let ((vec (tramp-dissect-file-name default-directory)))
                                (tramp-make-tramp-file-name
                                 (tramp-file-name-method vec)
@@ -19,7 +24,7 @@
     (append (list exec)
             (cl-remove-if-not
              (lambda (full-path)
-               (file-exists-p (concat tramp-env-prefix full-path)))
+               (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
              (apply #'append
                     (cl-mapcar
                      (lambda (dir)
@@ -28,7 +33,8 @@
                                      exec
                                      (expand-file-name
                                       (cdr dir)
-                                      (if tramp-env-prefix
+                                      (if (and tramp-env-prefix
+                                               (not keep-tramp-prefix))
                                           (replace-regexp-in-string tramp-env-prefix "" path)
                                         path))))
                                   (ignore-errors
@@ -109,7 +115,7 @@
 (defvar python-shell-interpreter)
 (defun zw/run-python-in-path (path)
   (interactive (list (completing-read "Specify Python path: "
-                                      (zw/lang-repl-path "python"))))
+                                      (zw/lang-repl-path))))
   (let ((python-shell-interpreter path))
     (display-buffer
      (process-buffer (run-python)))))
@@ -218,7 +224,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
              (forward-paragraph))))
   (defun zw/run-R-in-path (path)
     (interactive (list (completing-read "Specify R path: "
-                                        (zw/lang-repl-path "R"))))
+                                        (zw/lang-repl-path))))
     (let ((inferior-ess-r-program path))
       (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe

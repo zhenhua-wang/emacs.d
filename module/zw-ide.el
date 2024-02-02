@@ -96,13 +96,25 @@
 
 ;; * Dape
 (use-package dape
-  :commands (dape dape-breakpoint-toggle)
+  :commands (zw/dape-in-path dape dape-breakpoint-toggle)
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
   (add-hook 'dape-on-start-hooks
             (defun dape--save-on-start ()
-              (save-some-buffers t t))))
+              (save-some-buffers t t)))
+  ;; run dape in selected path
+  (defun zw/dape-in-path (path)
+    (interactive (list (completing-read "Specify command path: "
+                                        (zw/lang-repl-path t))))
+    (let* ((current-config (cdr (cl-find-if
+                                 (lambda (config)
+                                   (member major-mode (plist-get (cdr config) 'modes)))
+                                 dape-configs)))
+           (config-command path)
+           (dape-configs (list `(current-config
+                                 ,@(plist-put current-config 'command path)))))
+      (call-interactively 'dape))))
 
 ;; * Eldoc
 (use-package eldoc-box
