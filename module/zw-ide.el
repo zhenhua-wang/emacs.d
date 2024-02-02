@@ -106,7 +106,7 @@
   ;; run dape in selected path
   (defun zw/dape-in-path (path)
     (interactive (list (completing-read "Specify command path: "
-                                        (zw/lang-repl-path t))))
+                                        (zw/lang-repl-path))))
     (let* ((current-config (cdr (cl-find-if
                                  (lambda (config)
                                    (and (not (eq (car config) 'current-config))
@@ -118,6 +118,9 @@
       (plist-put current-config 'command-cwd (dape-command-cwd))
       (plist-put current-config ':cwd (dape-cwd))
       (plist-put current-config ':program (dape-buffer-default))
+      ;; set tramp
+      (when (file-remote-p default-directory)
+        (setq current-config (dape-config-tramp current-config)))
       ;; remove previous 'current-config'
       (setq dape-configs
             (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
