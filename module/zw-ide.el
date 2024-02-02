@@ -106,12 +106,13 @@
   ;; run dape in selected path
   (defun zw/dape-in-path (path)
     (interactive (list (completing-read "Specify command path: "
-                                        (zw/lang-repl-path))))
+                                        (zw/lang-repl-path t))))
     (let* ((current-config (cdr (cl-find-if
                                  (lambda (config)
-                                   (member major-mode (plist-get (cdr config) 'modes)))
+                                   (and (not (eq (car config) 'current-config))
+                                        (member major-mode (plist-get (cdr config) 'modes))))
                                  dape-configs)))
-           (config-command path))
+           (current-config (copy-tree current-config t)))
       ;; set 'current-config' command path
       (plist-put current-config 'command path)
       (plist-put current-config 'command-cwd (dape-command-cwd))
