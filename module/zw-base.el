@@ -373,19 +373,6 @@ The order of values may be different."
     (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
     (message (concat "emacs update:\n " msg))))
 
-(defun zw/show-info ()
-  "show buffer info"
-  (interactive)
-  (message (if buffer-file-name
-               (concat "File: "
-                       (buffer-file-name)
-                       ", Encoding:"
-                       (zw/modeline-encoding))
-             (concat "Buffer: "
-                     (buffer-name)
-                     ", Encoding:"
-                     (zw/modeline-encoding)))))
-
 ;; set preference to horizontal split
 (defun zw/split-window-sensibly-prefer-horizontal (&optional window)
   "Based on split-window-sensibly, but designed to prefer a horizontal split,
