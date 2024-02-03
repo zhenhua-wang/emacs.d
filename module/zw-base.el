@@ -307,9 +307,10 @@ The order of values may be different."
 
 ;; ** Scroll
 (setq scroll-step 0
-      scroll-margin 1
-      scroll-conservatively 101
+      scroll-margin 0
+      scroll-conservatively 97
       scroll-preserve-screen-position t
+      make-cursor-line-fully-visible nil
       mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
       mouse-wheel-scroll-amount-horizontal 2
       mouse-wheel-progressive-speed nil
