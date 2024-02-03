@@ -11,11 +11,15 @@
                ("<escape>" . nil)
                ("<f5>" . nil)))
   :config
-  (setq vterm-kill-buffer-on-exit t
-        vterm-always-compile-module t)
+  (setq vterm-shell "/usr/bin/zsh"
+        vterm-kill-buffer-on-exit t
+        vterm-always-compile-module t
+        vterm-tramp-shells '(("ssh" "/usr/bin/bash")
+                             ("docker" "/bin/sh")))
   (add-hook 'vterm-mode-hook
             (lambda ()
-              (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n"))))
+              (unless (file-remote-p default-directory)
+                (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n")))))
 
 (use-package multi-vterm
   :commands (multi-vterm)
