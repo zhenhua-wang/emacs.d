@@ -33,8 +33,8 @@
 (require 'zw-startup)
 (require 'zw-base)
 ;; appearance
-(require 'zw-appearance)
 (require 'zw-theme)
+(require 'zw-appearance)
 (require 'zw-modeline)
 (require 'zw-tab-bar)
 (require 'zw-tab-line)
