@@ -169,11 +169,6 @@ The order of values may be different."
 (add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
 
 ;; ** Window placement
-;; window split
-(setq split-width-threshold  80
-      split-height-threshold 80
-      split-window-preferred-function 'split-window-sensibly)
-
 (defun zw/display-buffer-in-largest-window (buffer alist)
   (let ((largest-window (get-largest-window (selected-frame) nil)))
     (window--display-buffer buffer largest-window 'reuse alist)))
