@@ -233,15 +233,15 @@ The order of values may be different."
 (defvar zw/side-window--buffer-opened nil)
 
 (defun zw/side-window--update ()
-  (setq zw/side-window--buffer-opened nil)
-  (let* ((buffers (buffer-list)))
-    (dolist (buffer buffers)
-      (with-current-buffer buffer
-        (if (or (member major-mode zw/side-window-buffer-mode)
-                (cl-some (lambda (regex)
-                           (string-match-p regex (buffer-name buffer)))
-                         zw/side-window-buffer-regex))
-            (add-to-list 'zw/side-window--buffer-opened buffer))))))
+  (setq zw/side-window--buffer-opened
+        (cl-remove-if-not
+         (lambda (buffer)
+           (with-current-buffer buffer
+             (or (member major-mode zw/side-window-buffer-mode)
+                 (cl-some (lambda (regex)
+                            (string-match-p regex (buffer-name buffer)))
+                          zw/side-window-buffer-regex))))
+         (buffer-list))))
 
 (defun zw/side-window-toggle ()
   "Toggle side windows."
@@ -256,8 +256,7 @@ The order of values may be different."
                 (if  (eq buffer-window (window-main-window))
                     (previous-buffer)
                   (delete-window buffer-window)))))
-        (dolist (buffer zw/side-window--buffer-opened)
-          (display-buffer buffer)))
+        (cl-mapcar 'display-buffer zw/side-window--buffer-opened))
     (message "No buffer in side window.")))
 
 ;; * Tool
