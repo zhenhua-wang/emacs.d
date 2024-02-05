@@ -10,10 +10,8 @@
 ;; * zw theme
 (defun zw/theme--set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (fixed-font             `(:font "JetBrains Mono"))
-         (fixed-font-height       150)
-         (variable-font          `(:font "EB Garamond"))
-         (variable-font-height    200)
+         (fixed-font             `(:font "JetBrains Mono" :height 150))
+         (variable-font          `(:font "EB Garamond" :weight SemiBold :height 200))
          (modeline-height         130)
          (tab-bar-height          120)
          (block-bg (alist-get 'block-bg theme-params))
@@ -36,21 +34,21 @@
     (custom-theme-set-faces
      'user
      ;; fonts
-     `(fixed-pitch ((t (,@fixed-font :height ,fixed-font-height))))
-     `(variable-pitch ((t (,@variable-font :height ,variable-font-height))))
+     `(fixed-pitch ((t (,@fixed-font))))
+     `(variable-pitch ((t (,@variable-font))))
 
      ;; child frame
      `(child-frame-border ((t (:background ,(face-background 'highlight)))))
 
      ;; org
-     `(org-level-8 ((t (:inherit outline-8 ,@variable-font :weight SemiBold))))
-     `(org-level-7 ((t (:inherit outline-7 ,@variable-font :weight SemiBold))))
-     `(org-level-6 ((t (:inherit outline-6 ,@variable-font :weight SemiBold))))
-     `(org-level-5 ((t (:inherit outline-5 ,@variable-font :weight SemiBold))))
-     `(org-level-4 ((t (:inherit outline-4 ,@variable-font :weight SemiBold :height 1.25))))
-     `(org-level-3 ((t (:inherit outline-3 ,@variable-font :weight SemiBold :height 1.25))))
-     `(org-level-2 ((t (:inherit outline-2 ,@variable-font :weight SemiBold :height 1.25))))
-     `(org-level-1 ((t (:inherit outline-1 ,@variable-font :weight SemiBold :height 1.5))))
+     `(org-level-8 ((t (:inherit outline-8 ,@variable-font))))
+     `(org-level-7 ((t (:inherit outline-7 ,@variable-font))))
+     `(org-level-6 ((t (:inherit outline-6 ,@variable-font))))
+     `(org-level-5 ((t (:inherit outline-5 ,@variable-font))))
+     `(org-level-4 ((t (:inherit outline-4 ,@variable-font :height 1.25))))
+     `(org-level-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
+     `(org-level-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
+     `(org-level-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
      `(org-document-title ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
      ;; setup fixed pitch fonts
      `(org-ellipsis ((t (:inherit fixed-pitch))))
@@ -72,28 +70,18 @@
      `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-bg :box ,(face-foreground 'default)))))
 
      ;; markdown
-     `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font :weight SemiBold))))
-     `(markdown-header-face-5 ((t (:inherit outline-5 ,@variable-font :weight SemiBold))))
-     `(markdown-header-face-4 ((t (:inherit outline-4 ,@variable-font :weight SemiBold :height 1.25))))
-     `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :weight SemiBold :height 1.25))))
-     `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :weight SemiBold :height 1.25))))
-     `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :weight SemiBold :height 1.5))))
+     `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font))))
+     `(markdown-header-face-5 ((t (:inherit outline-5 ,@variable-font))))
+     `(markdown-header-face-4 ((t (:inherit outline-4 ,@variable-font :height 1.25))))
+     `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
+     `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
+     `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
      `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
      `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
      `(markdown-code-face ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(markdown-markup-face ((t (:inherit (font-lock-comment-face fixed-pitch) :foreground unspecified :slant normal))))
-
-     ;; vterm
-     `(vterm-color-black ((t (:foreground "#3B4252" :background "#3B4252"))))
-     `(vterm-color-red ((t (:foreground "#B25068" :background "#B25068"))))
-     `(vterm-color-green ((t (:foreground "#2EB086" :background "#2EB086"))))
-     `(vterm-color-yellow ((t (:foreground "#F4E06D" :background "#F4E06D"))))
-     `(vterm-color-blue ((t (:foreground "#47B5FF" :background "#47B5FF"))))
-     `(vterm-color-magenta ((t (:foreground "#FF869E" :background "#FF869E"))))
-     `(vterm-color-cyan ((t (:foreground "#4CACBC" :background "#4CACBC"))))
-     `(vterm-color-white ((t (:foreground "#E5E9F0" :background "#E5E9F0"))))
 
      ;; vc
      '(vc-edited-state ((t (:foreground "#FF9F29"))))
@@ -148,7 +136,7 @@
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-font :height ,fixed-font-height))))
+     `(company-tooltip ((t (:inherit tooltip ,@fixed-font))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
