@@ -42,7 +42,6 @@
 (require 'zw-tools)
 (require 'zw-editor)
 (require 'zw-completion)
-(require 'zw-company)
 ;; development
 (require 'zw-ide)
 (require 'zw-lang)
