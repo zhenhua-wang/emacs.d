@@ -18,9 +18,7 @@
          (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
          (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
          (modeline-highlight-inactive-bg (alist-get 'modeline-highlight-inactive-bg theme-params))
-         (modeline-3d-p (alist-get 'modeline-3d-p theme-params))
-         (tab-bar-box (alist-get 'tab-bar-box theme-params))
-         (region (alist-get 'region theme-params)))
+         (tab-bar-box (alist-get 'tab-bar-box theme-params)))
 
     ;; default fonts
     (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
@@ -89,7 +87,7 @@
      '(vc-removed-state ((t (:foreground "#E94560"))))
 
      ;; modeline
-     `(mode-line ((t (:height ,modeline-height :box ,(when modeline-3d-p '(:line-width 1 :style released-button))))))
+     `(mode-line ((t (:height ,modeline-height))))
      `(mode-line-inactive ((t (:inherit mode-line :foreground ,(face-foreground 'font-lock-comment-face)))))
      `(mode-line-highlight ((t (:inherit mode-line :foreground ,modeline-highlight-fg :background ,modeline-highlight-bg))))
      `(zw/modeline-default-active ((t (:height ,modeline-height :foreground ,(face-foreground 'mode-line)))))
@@ -121,9 +119,6 @@
      ;; show paren
      `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
 
-     ;; region
-     `(region ((t (:background ,region))))
-
      ;; diff-hl
      `(diff-hl-change ((t (:foreground "black" :background "#FF9F29"))))
      `(diff-hl-insert ((t (:foreground "black" :background "#3CCF4E"))))
@@ -145,21 +140,15 @@
 
 (defun zw/theme-set-theme ()
   (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
-                              ;; (modeline-highlight-bg . "#0000c0")
-                              ;; (modeline-highlight-fg . "#ffffff")
                               (modeline-highlight-bg . ,(face-background 'highlight))
                               (modeline-highlight-fg . ,(face-foreground 'highlight))
                               (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive) 0.05))
-                              (modeline-3d-p . nil)
-                              (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))
-                              (region . ,(doom-darken (face-background 'default) 0.2))))
+                              (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))))
         (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
                              (modeline-highlight-bg . ,(face-background 'highlight))
                              (modeline-highlight-fg . ,(face-foreground 'highlight))
                              (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive) 0.05))
-                             (modeline-3d-p . nil)
-                             (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05))
-                             (region . ,(doom-lighten (face-background 'default) 0.2)))))
+                             (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05)))))
     (pcase (frame-parameter nil 'background-mode)
       ('light (zw/theme--set-theme light-theme-params))
       ('dark (zw/theme--set-theme dark-theme-params)))))
