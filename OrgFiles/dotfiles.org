@@ -1170,7 +1170,7 @@ p = C-p
 # tab
 t = C-t
 T = C-S-t
-w = C-f4
+w = C-w
 1 = A-1
 2 = A-2
 3 = A-3
