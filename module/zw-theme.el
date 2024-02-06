@@ -47,7 +47,7 @@
      `(org-level-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
      `(org-level-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
      `(org-level-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
-     `(org-document-title ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
+     `(org-document-title ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 2.0 :underline t))))
      ;; setup fixed pitch fonts
      `(org-ellipsis ((t (:inherit fixed-pitch))))
      `(org-meta-line ((t (:inherit (shadow fixed-pitch)))))
@@ -74,7 +74,7 @@
      `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
      `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
      `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
-     `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
+     `(markdown-metadata-value-face ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 2.0 :underline t))))
      `(markdown-metadata-key-face ((t (:inherit (thin fixed-pitch) :height 0.8))))
      `(markdown-header-delimiter-face ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
      `(markdown-language-info-face ((t (:inherit (font-lock-comment-face fixed-pitch)))))
