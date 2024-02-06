@@ -496,18 +496,30 @@
                            '(:eval (zw/modeline-process)))))))
 
 ;; ** ring bell
+(defvar zw/modeline--ring-bell-timer nil)
+
 (defun zw/modeline-ring-bell ()
   (let* ((buf (current-buffer))
-         (bell-color (face-foreground 'error))
-         (cookie (face-remap-add-relative 'mode-line :background bell-color)))
+         (bell-color (face-foreground 'error)))
+    ;; clear timer
+    (when zw/modeline--ring-bell-timer
+      (cancel-timer zw/modeline--ring-bell-timer)
+      (setq zw/modeline--ring-bell-timer nil))
+    ;; ring bell
+    (face-remap-add-relative 'mode-line :background bell-color)
     (set-face-background 'zw/modeline-separator-active bell-color)
     (force-mode-line-update)
-    (run-with-timer 0.15 nil
-                    (lambda ()
-                      (with-current-buffer buf
-                        (face-remap-remove-relative cookie)
-                        (set-face-background 'zw/modeline-separator-active (face-background 'mode-line))
-                        (force-mode-line-update))))))
+    ;; set timer
+    (setq zw/modeline--ring-bell-timer
+          (run-with-timer 0.15 nil
+                          (lambda ()
+                            (with-current-buffer buf
+                              (setq face-remapping-alist
+                                    (cl-remove-if (lambda (cookie)
+                                                    (eq (car cookie) 'mode-line))
+                                                  face-remapping-alist))
+                              (set-face-background 'zw/modeline-separator-active (face-background 'mode-line))
+                              (force-mode-line-update)))))))
 
 (setq ring-bell-function 'zw/modeline-ring-bell
       visible-bell t)

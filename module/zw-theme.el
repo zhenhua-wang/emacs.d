@@ -95,6 +95,7 @@
      `(zw/modeline-modified-active ((t (:inherit (warning zw/modeline-buffer-name-active)))))
      `(zw/modeline-highlight-foreground-active ((t (:foreground ,(face-background 'highlight)))))
      `(zw/modeline-highlight-background-inactive ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
+     `(zw/modeline-separator-active ((t :background ,(face-background 'mode-line))))
 
      ;; tab-bar
      `(tab-bar ((t (:foreground ,(face-foreground 'default) :height ,tab-bar-height :weight regular :box ,tab-bar-box))))
