@@ -118,6 +118,10 @@
   "Input method face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-separator-active `((t :background ,(face-background 'mode-line)))
+  "Modeline separator active face."
+  :group 'zw/modeline)
+
 (defun zw/modeline-set-face (active-face inactive-face)
   (if (mode-line-window-selected-p)
       active-face
@@ -148,16 +152,12 @@
     (zw/modeline--begin color width height)))
 
 ;; ** seperator
-(defface zw/modeline-separator-thin-active `((t :background ,(face-background 'mode-line)))
-  "Modeline thin separator active face."
-  :group 'zw/modeline)
-
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
 (defun zw/modeline-separator-thin ()
   (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'zw/modeline-separator-thin-active)
+                   (face-background 'zw/modeline-separator-active)
                  (face-background 'mode-line-inactive)))
         (width (floor (/ (string-pixel-width " ") 4)))
         (height (string-pixel-width " ")))
@@ -500,13 +500,13 @@
   (let* ((buf (current-buffer))
          (bell-color (face-foreground 'error))
          (cookie (face-remap-add-relative 'mode-line :background bell-color)))
-    (set-face-background 'zw/modeline-separator-thin-active bell-color)
+    (set-face-background 'zw/modeline-separator-active bell-color)
     (force-mode-line-update)
     (run-with-timer 0.15 nil
                     (lambda ()
                       (with-current-buffer buf
                         (face-remap-remove-relative cookie)
-                        (set-face-background 'zw/modeline-separator-thin-active (face-background 'mode-line))
+                        (set-face-background 'zw/modeline-separator-active (face-background 'mode-line))
                         (force-mode-line-update))))))
 
 (setq ring-bell-function 'zw/modeline-ring-bell
