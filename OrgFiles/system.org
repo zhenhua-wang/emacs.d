@@ -157,9 +157,8 @@ Host vm-server
 
 - enable ssh on server
 #+begin_example
-sudo apt-get install openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
+yay -S openssh
+sudo systemctl start sshd
 #+end_example
 
 *** KDE
