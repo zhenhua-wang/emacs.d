@@ -163,9 +163,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
-               ("C-M-i" . company-complete)
-               ("C-<tab>" . company-dabbrev)
-               ("C-M-/" . company-dabbrev))
+               ("C-<tab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
@@ -196,12 +194,18 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '(company-files
                                  company-capf
-                                 company-yasnippet
-                                 company-ispell))
+                                 company-yasnippet))
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
-        company-transformers))
+        company-transformers)
+  ;; start dabbrev with ispell
+  (defun company-dabbrev-ispell ()
+    (interactive)
+    (let* ((prefix (company-grab-symbol))
+           (company-backends '((company-dabbrev :with company-ispell))))
+      (unless (string= prefix "")
+        (call-interactively 'company-manual-begin)))))
 
 (use-package company-prescient
   :hook
