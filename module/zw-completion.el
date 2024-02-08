@@ -163,7 +163,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
-               ("C-<tab>" . company-dabbrev-ispell))
+               ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
