@@ -8,9 +8,9 @@
          ("C-g" . 'copilot-clear-overlay)
          ("M-p" . 'copilot-previous-completion)
          ("M-n" . 'copilot-next-completion)
-         ("<tab>" . 'copilot-accept-completion)
-         ("<right>" . 'copilot-accept-completion-by-word)
-         ("<down>" . 'copilot-accept-completion-by-line))
+         ("M-<iso-lefttab>" . 'copilot-accept-completion)
+         ("M-<right>" . 'copilot-accept-completion-by-word)
+         ("M-<down>" . 'copilot-accept-completion-by-line))
   :config
   (add-to-list 'copilot-disable-predicates #'company--active-p)
   (add-to-list 'copilot-disable-display-predicates #'company--active-p)
