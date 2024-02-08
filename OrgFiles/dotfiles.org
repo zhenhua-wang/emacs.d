@@ -1167,6 +1167,7 @@ f = C-f
 - = C--
 = = C-=
 p = C-p
+\ = C-\
 # tab
 t = C-t
 T = C-S-t
