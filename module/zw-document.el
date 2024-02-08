@@ -239,14 +239,19 @@
         reftex-toc-split-windows-horizontally t))
 
 ;; * Spell checker
+(use-package ispell
+  :straight (:type built-in)
+  :init
+  (setq ispell-program-name "aspell"
+        ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
+        ispell-alternate-dictionary (file-truename "~/.emacs.d/OrgFiles/english-words.txt")))
+
 (use-package flyspell
   :straight (:type built-in)
   :hook (((text-mode outline-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :init (setq flyspell-issue-message-flag nil
-              flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)
-              ispell-program-name "aspell"
-              ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
+              flyspell-prog-text-faces '(font-lock-comment-face font-lock-doc-face)))
 
 (use-package flyspell-correct
   :after flyspell

@@ -177,6 +177,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               company-selection-wrap-around t
               company-minimum-prefix-length 1
               company-abort-on-unique-match nil
+              company-abort-manual-when-too-short t
               company-icon-size '(auto-scale . 20)
               company-icon-margin 2
               company-tooltip-limit 14
@@ -195,7 +196,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '(company-files
                                  company-capf
-                                 company-yasnippet))
+                                 company-yasnippet
+                                 company-ispell))
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
