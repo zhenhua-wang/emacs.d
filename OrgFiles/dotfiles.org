@@ -1199,6 +1199,9 @@ v = pagedown
 a = home
 e = end
 
+[meta_normal:M]
+\ = C-\
+
 [alt_zw+shift]
 , = C-home
 . = C-end
@@ -1212,12 +1215,12 @@ f = M-C-f
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
 #+begin_src conf
 [emacs]
-leftalt = layer(meta)
+leftalt = layer(meta_normal)
 leftmeta = layer(alt)
 capslock = layer(control)
 
 [kitty]
-leftalt = layer(meta)
+leftalt = layer(meta_normal)
 leftmeta = layer(alt)
 capslock = layer(control)
 #+end_src
