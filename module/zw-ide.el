@@ -40,7 +40,12 @@
 (use-package lsp-ui
   :commands (lsp-ui-imenu)
   :hook ((lsp-mode . lsp-ui-mode)
-         (lsp-ui-imenu-mode . (lambda () (visual-line-mode -1))))
+         (lsp-ui-imenu-mode . (lambda () (visual-line-mode -1)
+                                (setq-local buffer-face-mode-face
+                                            (list :inherit 'tab-bar
+                                                  :height (face-attribute 'default :height)
+                                                  :box nil))
+                                (buffer-face-mode 1))))
   :bind ((("C-s-b" . lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
                ("C-s-b" . kill-buffer-and-window))
