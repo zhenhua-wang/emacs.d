@@ -39,7 +39,8 @@
 
 (use-package lsp-ui
   :commands (lsp-ui-imenu)
-  :hook (lsp-mode . lsp-ui-mode)
+  :hook ((lsp-mode . lsp-ui-mode)
+         (lsp-ui-imenu-mode . (lambda () (visual-line-mode -1))))
   :bind ((:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))

@@ -149,7 +149,7 @@
     (bury-buffer))
   ;; display sidebar
   (display-buffer-in-side-window
-   buffer `((side . left) (slot . 0)
+   buffer `((side . left) (slot . -99)
             (window-width . 0.2)
             (preserve-size . (t . nil))))
   (select-window (get-buffer-window buffer)))
