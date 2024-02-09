@@ -63,11 +63,14 @@ The order of values may be different."
          (eq (buffer-base-buffer) base-buffer)))
      (buffer-list))))
 
-(defun zw/insert-after (list after-item new-item)
+(defun zw/insert-after (list after-item new-item &optional replace)
   "Insert NEW-ITEM into LIST after the first occurrence of AFTER-ITEM."
   (let ((pos (cl-position after-item list)))
     (if pos
-        (append (cl-subseq list 0 (1+ pos)) (list new-item) (cl-subseq list (1+ pos)))
+        (append (cl-subseq list 0 pos)
+                (unless replace (list after-item))
+                (list new-item)
+                (cl-subseq list (1+ pos)))
       (throw 'not-found "after-item not found in list"))))
 
 ;; keep track active UI
