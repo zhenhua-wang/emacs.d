@@ -38,13 +38,16 @@
       (lsp-deferred))))
 
 (use-package lsp-ui
+  :commands (lsp-ui-imenu)
   :hook (lsp-mode . lsp-ui-mode)
   :bind ((:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
          (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-toggle)))
-  :init (setq lsp-ui-imenu-enable nil
+  :init (setq lsp-ui-imenu-enable t
+              lsp-ui-imenu-buffer-position 'left
+              lsp-ui-imenu-buffer-name "imenu"
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
               lsp-ui-doc-position 'at-point
@@ -70,7 +73,13 @@
           lsp-ui-peek--last-xref nil)
     (set-window-start (get-buffer-window) lsp-ui-peek--win-start))
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
-  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy))
+  (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy)
+  ;; lsp-ui-imenu
+  (setq lsp-ui-imenu--custom-mode-line-format
+        (list "%e"
+              '(:eval (zw/modeline-begin))
+              '(:eval (zw/modeline-remote))
+              '(:eval (zw/modeline-buffer-name 30 "...")))))
 
 ;; ** eglot
 (use-package eglot
