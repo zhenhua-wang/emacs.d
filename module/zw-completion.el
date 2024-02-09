@@ -162,7 +162,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   (company-mode . yas-minor-mode)
   (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
-               ("M-<tab>" . company-manual-begin)
+               ("M-<tab>" . company-other-backend)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
@@ -194,7 +194,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '(company-files
                                  company-capf
-                                 company-yasnippet))
+                                 company-yasnippet
+                                 (company-dabbrev :with company-ispell)))
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
