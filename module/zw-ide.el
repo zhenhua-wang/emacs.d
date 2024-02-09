@@ -41,7 +41,10 @@
   :commands (lsp-ui-imenu)
   :hook ((lsp-mode . lsp-ui-mode)
          (lsp-ui-imenu-mode . (lambda () (visual-line-mode -1))))
-  :bind ((:map lsp-ui-mode-map
+  :bind ((("C-s-b" . lsp-ui-imenu))
+         (:map lsp-ui-imenu-mode-map
+               ("C-s-b" . kill-buffer-and-window))
+         (:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
          (:map lsp-ui-doc-mode-map
