@@ -40,15 +40,11 @@
 (use-package lsp-ui
   :commands (lsp-ui-imenu)
   :hook ((lsp-mode . lsp-ui-mode)
-         (lsp-ui-imenu-mode . (lambda () (visual-line-mode -1)
-                                (setq-local buffer-face-mode-face
-                                            (list :inherit 'tab-bar
-                                                  :height (face-attribute 'default :height)
-                                                  :box nil))
-                                (buffer-face-mode 1))))
+         (lsp-ui-imenu-mode . zw/lsp-ui-init))
   :bind ((("C-s-b" . lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
-               ("C-s-b" . kill-buffer-and-window))
+               ("C-s-b" . kill-buffer-and-window)
+               ("<return>" . lsp-ui-imenu--visit))
          (:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
@@ -88,7 +84,14 @@
         (list "%e"
               '(:eval (zw/modeline-begin))
               '(:eval (zw/modeline-remote))
-              '(:eval (zw/modeline-buffer-name 30 "...")))))
+              '(:eval (zw/modeline-buffer-name 30 "..."))))
+  (defun zw/lsp-ui-init ()
+    (visual-line-mode -1)
+    (setq-local buffer-face-mode-face
+                (list :inherit 'tab-bar
+                      :height (face-attribute 'default :height)
+                      :box nil))
+    (buffer-face-mode 1)))
 
 ;; ** eglot
 (use-package eglot
