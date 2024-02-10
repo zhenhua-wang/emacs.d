@@ -576,7 +576,7 @@ i.e. windows tiled side-by-side."
            ("s-B" . zw/side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands
-           ("s-i" . zw/show-info)
+           ("s-i" . imenu)
            ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
