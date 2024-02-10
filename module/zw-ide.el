@@ -44,7 +44,8 @@
   :bind ((("C-s-b" . zw/lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
                ("C-s-b" . kill-buffer-and-window)
-               ("<return>" . lsp-ui-imenu--visit))
+               ("<return>" . lsp-ui-imenu--visit)
+               ("s-f" . isearch-forward))
          (:map lsp-ui-mode-map
                ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
                ([remap xref-find-references] . lsp-ui-peek-find-references))
