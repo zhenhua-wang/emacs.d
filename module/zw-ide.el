@@ -40,8 +40,8 @@
 (use-package lsp-ui
   :commands (lsp-ui-imenu)
   :hook ((lsp-mode . lsp-ui-mode)
-         (lsp-ui-imenu-mode . zw/lsp-ui-init))
-  :bind ((("C-s-b" . lsp-ui-imenu))
+         (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
+  :bind ((("C-s-b" . zw/lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
                ("C-s-b" . kill-buffer-and-window)
                ("<return>" . lsp-ui-imenu--visit))
@@ -53,6 +53,8 @@
   :init (setq lsp-ui-imenu-enable t
               lsp-ui-imenu-buffer-position 'left
               lsp-ui-imenu-buffer-name "imenu"
+              lsp-ui-imenu-window-width 0.3
+              lsp-ui-imenu-window-fix-width t
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
               lsp-ui-doc-position 'at-point
@@ -85,13 +87,17 @@
               '(:eval (zw/modeline-begin))
               '(:eval (zw/modeline-remote))
               '(:eval (zw/modeline-buffer-name 30 "..."))))
-  (defun zw/lsp-ui-init ()
+  (defun zw/lsp-ui-imenu-init ()
     (visual-line-mode -1)
     (setq-local buffer-face-mode-face
                 (list :inherit 'tab-bar
                       :height (face-attribute 'default :height)
                       :box nil))
-    (buffer-face-mode 1)))
+    (buffer-face-mode 1))
+  (defun zw/lsp-ui-imenu ()
+    (interactive)
+    (ignore-errors
+      (lsp-ui-imenu))))
 
 ;; ** eglot
 (use-package eglot
