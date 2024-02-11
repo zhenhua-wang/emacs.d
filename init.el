@@ -27,6 +27,7 @@
 
 ;; Load path for manually installed packages
 (push "~/.emacs.d/module" load-path)
+(push "~/.emacs.d/experimental" load-path)
 
 ;; base
 (require 'zw-package)
