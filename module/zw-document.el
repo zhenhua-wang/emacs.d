@@ -62,7 +62,7 @@
   (require 'ox-beamer)
   (pcase system-type
     ((or 'gnu/linux 'windows-nt 'cygwin)
-     (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.4)))
+     (setq org-format-latex-options (plist-put org-format-latex-options :scale 1)))
     ('darwin
      (progn
        (setq org-format-latex-options (plist-put org-format-latex-options :scale 2))
