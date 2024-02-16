@@ -99,8 +99,10 @@
                                     tab-line-close-button "" tab-string)))
          (buffer (get-buffer buffer-name))
          (selected-p (eq buffer (window-buffer)))
-         (icon (with-current-buffer buffer
-                 (nerd-icons-icon-for-mode major-mode)))
+         (icon (if (buffer-file-name buffer)
+                   (nerd-icons-icon-for-file (buffer-file-name buffer))
+                 (with-current-buffer buffer
+                   (nerd-icons-icon-for-mode major-mode))))
          (icon-face-raw (get-text-property 0 'face icon))
          (icon-face (if selected-p
                         (if (mode-line-window-selected-p)
