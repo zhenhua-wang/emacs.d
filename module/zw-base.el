@@ -376,12 +376,12 @@ The order of values may be different."
     (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
     (message (concat "emacs update:\n " msg))))
 
-;; toggle scratch buffer
-(defun zw/toggle-scratch ()
+;; show scratch buffer in new window
+(defun zw/new-window ()
   (interactive)
-  (if (string= (buffer-name) "*scratch*")
-      (switch-to-buffer nil)
-    (switch-to-buffer "*scratch*")))
+  (split-window-right)
+  (other-window 1 nil)
+  (switch-to-buffer "*scratch*"))
 
 ;; https://xenodium.com/emacs-quick-kill-process/
 (defun zw/quick-kill-process ()
@@ -536,7 +536,7 @@ The order of values may be different."
            ;; window operations
            ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
-           ("s-t" . split-window-right)
+           ("s-t" . zw/new-window)
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
