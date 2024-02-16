@@ -376,39 +376,12 @@ The order of values may be different."
     (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
     (message (concat "emacs update:\n " msg))))
 
-;; set preference to horizontal split
-(defun zw/split-window-sensibly-prefer-horizontal (&optional window)
-  "Based on split-window-sensibly, but designed to prefer a horizontal split,
-i.e. windows tiled side-by-side."
+;; toggle scratch buffer
+(defun zw/toggle-scratch ()
   (interactive)
-  (let ((window (or window (selected-window))))
-    (or (and (window-splittable-p window t)
-             ;; Split window horizontally
-             (with-selected-window window
-               (split-window-right)))
-        (and (window-splittable-p window)
-             ;; Split window vertically
-             (with-selected-window window
-               (split-window-below)))
-        (and
-         (let ((frame (window-frame window)))
-           (or
-            (eq window (frame-root-window frame))
-            (catch 'done
-              (walk-window-tree (lambda (w)
-                                  (unless (or (eq w window)
-                                              (window-dedicated-p w))
-                                    (throw 'done nil)))
-                                frame)
-              t)))
-         (not (window-minibuffer-p window))
-         (let ((split-width-threshold 0))
-           (when (window-splittable-p window t)
-             (with-selected-window window
-               (split-window-right)))))))
-  ;; switch to scratch buffer after creating new window
-  (other-window 1 nil)
-  (switch-to-buffer "*scratch*"))
+  (if (string= (buffer-name) "*scratch*")
+      (switch-to-buffer nil)
+    (switch-to-buffer "*scratch*")))
 
 ;; https://xenodium.com/emacs-quick-kill-process/
 (defun zw/quick-kill-process ()
@@ -563,7 +536,7 @@ i.e. windows tiled side-by-side."
            ;; window operations
            ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
-           ("s-t" . zw/split-window-sensibly-prefer-horizontal)
+           ("s-t" . split-window-right)
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
