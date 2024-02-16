@@ -10,8 +10,8 @@
 ;; * zw theme
 (defun zw/theme--set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (fixed-font             `(:font "JetBrains Mono" :height 150))
-         (variable-font          `(:font "EB Garamond" :weight SemiBold :height 200))
+         (fixed-font             `(:font "JetBrains Mono"))
+         (variable-font          `(:font "EB Garamond" :weight SemiBold))
          (modeline-height         130)
          (tab-bar-height          120)
          (block-bg (alist-get 'block-bg theme-params))
