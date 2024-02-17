@@ -178,41 +178,41 @@
      `(markdown-code-face
        ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(markdown-markup-face
-       ((t (:inherit (font-lock-comment-face fixed-pitch) :foreground unspecified :slant normal))))))
+       ((t (:inherit (font-lock-comment-face fixed-pitch) :foreground unspecified :slant normal)))))))
 
-    ;; * Load theme
-  (defun zw/theme-set-theme ()
-    (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
-                                (modeline-highlight-bg . ,(face-background 'highlight))
-                                (modeline-highlight-fg . ,(face-foreground 'highlight))
-                                (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive)
-                                                                                0.05))
-                                (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))))
-          (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
-                               (modeline-highlight-bg . ,(face-background 'highlight))
-                               (modeline-highlight-fg . ,(face-foreground 'highlight))
-                               (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive)
-                                                                                0.05))
-                               (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05)))))
-      (pcase (frame-parameter nil 'background-mode)
-        ('light (zw/theme--set-theme light-theme-params))
-        ('dark (zw/theme--set-theme dark-theme-params)))))
+;; * Load theme
+(defun zw/theme-set-theme ()
+  (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
+                              (modeline-highlight-bg . ,(face-background 'highlight))
+                              (modeline-highlight-fg . ,(face-foreground 'highlight))
+                              (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive)
+                                                                              0.05))
+                              (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))))
+        (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
+                             (modeline-highlight-bg . ,(face-background 'highlight))
+                             (modeline-highlight-fg . ,(face-foreground 'highlight))
+                             (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive)
+                                                                              0.05))
+                             (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05)))))
+    (pcase (frame-parameter nil 'background-mode)
+      ('light (zw/theme--set-theme light-theme-params))
+      ('dark (zw/theme--set-theme dark-theme-params)))))
 
-  ;; temporary theme selector
-  (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
-  (when (not (file-exists-p zw/theme-selector))
-    (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
-  (load zw/theme-selector)
+;; temporary theme selector
+(defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
+(when (not (file-exists-p zw/theme-selector))
+  (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
+(load zw/theme-selector)
 
-  ;; load custom faces
-  (zw/theme-set-theme)
-  (add-hook 'server-after-make-frame-hook 'zw/theme-set-theme)
-  (advice-add #'consult-theme
-              :after (lambda (arg)
-                       (zw/theme-set-theme)
-                       (setq zw/modeline-bg (face-background 'mode-line))
-                       (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
-                                     nil zw/theme-selector)))
+;; load custom faces
+(zw/theme-set-theme)
+(add-hook 'server-after-make-frame-hook 'zw/theme-set-theme)
+(advice-add #'consult-theme
+            :after (lambda (arg)
+                     (zw/theme-set-theme)
+                     (setq zw/modeline-bg (face-background 'mode-line))
+                     (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
+                                   nil zw/theme-selector)))
 
-    ;; * Provide
-  (provide 'zw-theme)
+;; * Provide
+(provide 'zw-theme)
