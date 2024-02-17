@@ -320,15 +320,20 @@
 (defun zw/modeline-vc ()
   (when vc-mode
     (let* ((backend (vc-backend buffer-file-name))
-           (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
-      (concat
-       (propertize (concat vc-info)
-                   'face (if (vc-up-to-date-p (buffer-file-name (current-buffer)))
-                             (zw/modeline-set-face 'zw/modeline-vc-active
-                                                   'zw/modeline-default-inactive)
-                           (zw/modeline-set-face 'zw/modeline-vc-modified-active
-                                                 'zw/modeline-default-inactive)))
-       zw/modeline-separator))))
+           (state (vc-state buffer-file-name backend))
+           (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2)))
+           (icon-face (cond ((eq state 'up-to-date)
+                             '(zw/modeline-vc-active . "nf-dev-git_branch"))
+                            (t
+                             '(zw/modeline-vc-modified-active . "nf-dev-git_compare")))))
+      (concat (propertize (concat (nerd-icons-devicon (cdr icon-face)
+                                                      :height 1
+                                                      :v-adjust 0.05)
+                                  (zw/modeline-separator-thin)
+                                  vc-info)
+                          'face (zw/modeline-set-face (car icon-face)
+                                                      'zw/modeline-default-inactive))
+              zw/modeline-separator))))
 
 ;; ** LSP
 (defun zw/modeline-lsp-bridge ()
