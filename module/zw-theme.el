@@ -59,13 +59,13 @@
      `(org-checkbox ((t (:inherit 'fixed-pitch))))
      `(org-property-value ((t (:inherit fixed-pitch))))
      `(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-     `(org-document-info ((t (:foreground "dark orange"))))
+     `(org-document-info ((t (:foreground ,base-font-color))))
      `(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
      `(org-block ((t (:inherit fixed-pitch :background ,block-bg))))
      `(org-block-begin-line ((t (:inherit 'fixed-pitch :background ,block-bg :bold t :italic t :underline t :extend t))))
      `(org-block-end-line ((t (:background ,block-bg :bold t :italic t :extend t))))
      `(org-code ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
-     `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-bg :box ,(face-foreground 'default)))))
+     `(org-verbatim ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
 
      ;; markdown
      `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font))))
