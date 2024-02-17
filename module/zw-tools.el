@@ -161,6 +161,7 @@
                           2.5))))
     (zw/modeline--begin color width height)))
 
+(defvar zw/dired-sidebar-header-line-beg 0)
 (defun zw/dired-sidebar-header-line-format ()
   (let* ((abbrev-path (substring-no-properties
                        (abbreviate-file-name default-directory) 0 -1))
@@ -185,21 +186,45 @@
                   (propertize (car pair)
                               'keymap (funcall create-keymap (cdr pair))
                               'mouse-face 'highlight))
-                pairs)))
-    (concat (zw/dired-sidebar-header-line-begin)
-            (nerd-icons-sucicon
-             "nf-custom-folder_open"
-             :height 0.9
-             :v-adjust 0.13)
-            " "
-            (when (string-empty-p (car dirs))
-              (propertize "/" 'keymap (funcall create-keymap "/")
-                          'mouse-face 'highlight))
-            (when (cl-remove-if 'string-empty-p dirs)
-              (string-join dirs (nerd-icons-faicon
-                                 "nf-fa-caret_right"
+                pairs))
+         (format (concat (when (string-empty-p (car dirs))
+                           (propertize "/" 'keymap (funcall create-keymap "/")
+                                       'mouse-face 'highlight))
+                         (when (cl-remove-if 'string-empty-p dirs)
+                           (string-join dirs (nerd-icons-faicon
+                                              "nf-fa-caret_right"
+                                              :height 0.9
+                                              :v-adjust 0.13)))))
+         (format-width (length format))
+         (format-prefix (concat (zw/dired-sidebar-header-line-begin)
+                                (nerd-icons-sucicon
+                                 "nf-custom-folder_open"
                                  :height 0.9
-                                 :v-adjust 0.13))))))
+                                 :v-adjust 0.13)
+                                " "))
+         (format-prefix-width (length format-prefix))
+         (window-width (- (window-width) format-prefix-width)))
+    (concat
+     format-prefix
+     (substring
+      format
+      (cond ((or (< zw/dired-sidebar-header-line-beg 0)
+                 (< format-width window-width))
+             0)
+            ((> zw/dired-sidebar-header-line-beg
+                (- format-width window-width))
+             (- format-width window-width))
+            (t zw/dired-sidebar-header-line-beg))))))
+
+(defun zw/dired-sidebar-header-line-wheel-right-action ()
+  (interactive)
+  (setq zw/dired-sidebar-header-line-beg
+        (- zw/dired-sidebar-header-line-beg 1)))
+
+(defun zw/dired-sidebar-header-line-wheel-left-action ()
+  (interactive)
+  (setq zw/dired-sidebar-header-line-beg
+        (+ zw/dired-sidebar-header-line-beg 1)))
 
 (defun zw/dired-sidebar-format-header-line ()
   (setq-local
@@ -237,7 +262,9 @@
                   'zw/dired-sidebar-hide-information-line :append :local)
         (zw/dired-sidebar-format-header-line)
         ;; refresh display
-        (dired-revert)))))
+        (dired-revert)
+        ;; display header line from beginning
+        (setq zw/dired-sidebar-header-line-beg 0)))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (interactive)
@@ -310,7 +337,11 @@
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
-    (,(kbd "C-x 1") . zw/dired-sidebar-maximize)))
+    (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
+    (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-left-action)
+    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)
+    (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-left-action)
+    (,(kbd "<header-line> <triple-wheel-down>") . zw/dired-sidebar-header-line-wheel-right-action)))
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
