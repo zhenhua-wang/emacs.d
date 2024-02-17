@@ -324,7 +324,9 @@ The order of values may be different."
   (setq touch-screen-precision-scroll t)
   (bind-keys :map pixel-scroll-precision-mode-map
              ("<prior>" . nil)
-             ("<next>" . nil)))
+             ("<next>" . nil)
+             ("<header-line> <wheel-up>" . nil)
+             ("<header-line> <wheel-down>" . nil)))
 
 ;; ** Save place
 (add-hook 'after-init-hook 'save-place-mode)
@@ -337,6 +339,12 @@ The order of values may be different."
 (setq isearch-lazy-count t
       lazy-count-prefix-format "%s/%s "
       isearch-wrap-pause 'no)
+
+(bind-keys :map isearch-mode-map
+           ([remap isearch-delete-char] . isearch-del-char)
+           ("s-f" . isearch-repeat-forward)
+           ("s-v" . isearch-yank-kill)
+           ("S-<insert>" . isearch-yank-kill))
 
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
@@ -513,6 +521,9 @@ The order of values may be different."
            ("C-<mouse-5>" . nil)
            ("C-<wheel-down>" . nil)
            ("C-<wheel-up>" . nil)
+           ;; disable header line mouse scroll
+           ("<header-line> <wheel-up>" . nil)
+           ("<header-line> <wheel-down>" . nil)
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
@@ -554,14 +565,8 @@ The order of values may be different."
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
            ("s-\\" . toggle-input-method)
-           ;; minibuffer
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
-           :map isearch-mode-map
-           ([remap isearch-delete-char] . isearch-del-char)
-           ("s-f" . isearch-repeat-forward)
-           ("s-v" . isearch-yank-kill)
-           ("S-<insert>" . isearch-yank-kill)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab)
            ("TAB" . zw/smart-tab))
