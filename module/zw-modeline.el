@@ -455,10 +455,10 @@
   (concat
    (zw/modeline-input-method)
    (zw/modeline-process)
-   (zw/modeline-vc)
    (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
+   (zw/modeline-vc)
    (zw/modeline-major-mode)))
 
 ;; * Config
