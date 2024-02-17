@@ -1,11 +1,11 @@
+cd ~
 # yay
 sudo pacman -S --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
-cd yay && makepkg -si && cd
+cd ~/yay && makepkg -si && cd ~
 
 # zw-emacs
-git clone https://github.com/zhenhua-wang/emacs.d.git
-mv emacs.d .emacs.d
+mv ~/emacs.d ~/.emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 
