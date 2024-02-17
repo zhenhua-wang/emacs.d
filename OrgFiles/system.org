@@ -58,9 +58,6 @@ sudo systemctl enable keyd && sudo systemctl start keyd
 # keyd-application-mapper
 # symbolic link rime
 ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
-# printing service
-yay -S cups
-sudo systemctl enable cups
 #+end_src
 
 *** Extensions
@@ -92,6 +89,8 @@ yay -S linux-headers dkms rtl88x2bu-dkms-git nvidia-dkms
 ** Other Applications
 #+begin_src shell
 # service
+yay -S cups
+sudo systemctl enable cups
 sudo systemctl enable bluetooth.service
 # statistics
 yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
