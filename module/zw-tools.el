@@ -154,12 +154,17 @@
             (preserve-size . (t . nil))))
   (select-window (get-buffer-window buffer)))
 
-(defun zw/dired-sidebar-header-line-begin ()
+(defun zw/dired-sidebar-header-line-prefix ()
   (let ((color (face-background 'header-line))
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
-    (zw/modeline--begin color width height)))
+    (concat (zw/modeline--begin color width height)
+            (nerd-icons-sucicon
+             "nf-custom-folder_open"
+             :height 0.9
+             :v-adjust 0.13)
+            " ")))
 
 (defvar zw/dired-sidebar-header-line-beg 0)
 (defun zw/dired-sidebar-header-line-format ()
@@ -196,12 +201,7 @@
                                               :height 0.9
                                               :v-adjust 0.13)))))
          (format-width (length format))
-         (format-prefix (concat (zw/dired-sidebar-header-line-begin)
-                                (nerd-icons-sucicon
-                                 "nf-custom-folder_open"
-                                 :height 0.9
-                                 :v-adjust 0.13)
-                                " "))
+         (format-prefix (zw/dired-sidebar-header-line-prefix))
          (format-prefix-width (length format-prefix))
          (window-width (- (window-width) format-prefix-width)))
     (concat
@@ -218,13 +218,17 @@
 
 (defun zw/dired-sidebar-header-line-wheel-right-action ()
   (interactive)
-  (setq zw/dired-sidebar-header-line-beg
-        (- zw/dired-sidebar-header-line-beg 1)))
+  (when (> zw/dired-sidebar-header-line-beg 0)
+    (setq zw/dired-sidebar-header-line-beg
+          (- zw/dired-sidebar-header-line-beg 1))))
 
 (defun zw/dired-sidebar-header-line-wheel-left-action ()
   (interactive)
-  (setq zw/dired-sidebar-header-line-beg
-        (+ zw/dired-sidebar-header-line-beg 1)))
+  (when (> (- (length (format-mode-line header-line-format))
+              (length (zw/dired-sidebar-header-line-prefix)))
+           (window-width))
+    (setq zw/dired-sidebar-header-line-beg
+          (+ zw/dired-sidebar-header-line-beg 1))))
 
 (defun zw/dired-sidebar-format-header-line ()
   (setq-local
@@ -339,7 +343,9 @@
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
     (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-left-action)
-    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)))
+    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)
+    (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-left-action)
+    (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-right-action)))
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
