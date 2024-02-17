@@ -350,6 +350,8 @@
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
     (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-backward-action)
+    (,(kbd "<header-line> <triple-wheel-down>") . zw/dired-sidebar-header-line-wheel-forward-action)
+    (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-backward-action)
     (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action)))
 
