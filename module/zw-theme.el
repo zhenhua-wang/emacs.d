@@ -96,7 +96,7 @@
      `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
-     `(show-paren-match ((t (:background ,(face-foreground 'error) :foreground "black" :weight extra-bold))))
+     `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
 
      ;; diredfl
      `(diredfl-dir-name ((t (:bold t))))
