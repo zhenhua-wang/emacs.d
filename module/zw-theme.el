@@ -145,7 +145,7 @@
      `(org-tag
        ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
      `(org-document-info
-       ((t (:foreground ,base-font-color))))
+       ((t (:inherit fixed-pitch :foreground "dark orange"))))
      `(org-document-info-keyword
        ((t (:inherit (shadow fixed-pitch)))))
      `(org-block
