@@ -351,6 +351,9 @@ The order of values may be different."
 (setq winner-dont-bind-my-keys t)
 
 ;; ** Custom tools
+(defun zw/dumb-function ()
+  (interactive))
+
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
   (interactive)
@@ -522,8 +525,8 @@ The order of values may be different."
            ("C-<wheel-down>" . nil)
            ("C-<wheel-up>" . nil)
            ;; disable header line mouse scroll
-           ("<header-line> <wheel-up>" . nil)
-           ("<header-line> <wheel-down>" . nil)
+           ("<header-line> <wheel-up>" . zw/dumb-function)
+           ("<header-line> <wheel-down>" . zw/dumb-function)
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
