@@ -339,9 +339,7 @@
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
     (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-left-action)
-    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)
-    (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-left-action)
-    (,(kbd "<header-line> <triple-wheel-down>") . zw/dired-sidebar-header-line-wheel-right-action)))
+    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)))
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
