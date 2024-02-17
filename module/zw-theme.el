@@ -180,6 +180,7 @@
      `(markdown-code-face
        ((t (:inherit fixed-pitch :background ,block-bg :extend t)))))))
 
+;; * load theme
 (defun zw/theme-set-theme ()
   (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
                               (modeline-highlight-bg . ,(face-background 'highlight))
@@ -197,7 +198,7 @@
       ('light (zw/theme--set-theme light-theme-params))
       ('dark (zw/theme--set-theme dark-theme-params)))))
 
-;; * load theme
+;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
 (when (not (file-exists-p zw/theme-selector))
   (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
