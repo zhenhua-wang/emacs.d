@@ -216,13 +216,13 @@
              (- format-width window-width))
             (t zw/dired-sidebar-header-line-beg))))))
 
-(defun zw/dired-sidebar-header-line-wheel-right-action ()
+(defun zw/dired-sidebar-header-line-wheel-backward-action ()
   (interactive)
   (when (> zw/dired-sidebar-header-line-beg 0)
     (setq zw/dired-sidebar-header-line-beg
           (- zw/dired-sidebar-header-line-beg 1))))
 
-(defun zw/dired-sidebar-header-line-wheel-left-action ()
+(defun zw/dired-sidebar-header-line-wheel-forward-action ()
   (interactive)
   (when (> (- (length (format-mode-line header-line-format))
               (length (zw/dired-sidebar-header-line-prefix)))
@@ -342,10 +342,10 @@
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
     (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
-    (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-left-action)
-    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-right-action)
-    (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-left-action)
-    (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-right-action)))
+    (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-forward-action)
+    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-backward-action)
+    (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
+    (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action)))
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
