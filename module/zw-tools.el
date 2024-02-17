@@ -166,8 +166,7 @@
              :v-adjust 0.13)
             " ")))
 
-(defvar zw/dired-sidebar-header-line-beg 0)
-(defun zw/dired-sidebar-header-line-format ()
+(defun zw/dired-sidebar-header-line-main ()
   (let* ((abbrev-path (substring-no-properties
                        (abbreviate-file-name default-directory) 0 -1))
          (dirs (split-string abbrev-path "/"))
@@ -191,15 +190,19 @@
                   (propertize (car pair)
                               'keymap (funcall create-keymap (cdr pair))
                               'mouse-face 'highlight))
-                pairs))
-         (format (concat (when (string-empty-p (car dirs))
-                           (propertize "/" 'keymap (funcall create-keymap "/")
-                                       'mouse-face 'highlight))
-                         (when (cl-remove-if 'string-empty-p dirs)
-                           (string-join dirs (nerd-icons-faicon
-                                              "nf-fa-caret_right"
-                                              :height 0.9
-                                              :v-adjust 0.13)))))
+                pairs)))
+    (concat (when (string-empty-p (car dirs))
+              (propertize "/" 'keymap (funcall create-keymap "/")
+                          'mouse-face 'highlight))
+            (when (cl-remove-if 'string-empty-p dirs)
+              (string-join dirs (nerd-icons-faicon
+                                 "nf-fa-caret_right"
+                                 :height 0.9
+                                 :v-adjust 0.13))))))
+
+(defvar zw/dired-sidebar-header-line-beg 0)
+(defun zw/dired-sidebar-header-line-format ()
+  (let* ((format (zw/dired-sidebar-header-line-main))
          (format-width (length format))
          (format-prefix (zw/dired-sidebar-header-line-prefix))
          (format-prefix-width (length format-prefix))
@@ -268,7 +271,10 @@
         ;; refresh display
         (dired-revert)
         ;; display header line from beginning
-        (setq zw/dired-sidebar-header-line-beg 0)))))
+        (setq zw/dired-sidebar-header-line-beg
+              (- (+ (length (zw/dired-sidebar-header-line-main))
+                    (length (zw/dired-sidebar-header-line-prefix)))
+                 (window-width)))))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (interactive)
