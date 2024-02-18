@@ -73,7 +73,7 @@
                   (gethash group zw/tab-line-group--hash-table))))
 
 ;; * Appearence
-;; ** font
+;; ** face
 (defun zw/tab-line-init-appearence ()
   (set-face-attribute 'tab-line-tab-current nil
                       :underline (face-background 'highlight))
