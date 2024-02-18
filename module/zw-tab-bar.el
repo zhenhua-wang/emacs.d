@@ -217,7 +217,7 @@
               'face 'warning))
 
 (defun zw/tab-bar-quit ()
-  (propertize (concat " " (nerd-icons-codicon "nf-cod-stop_circle") " ")
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_disconnect") " ")
               'face 'error))
 
 (defun zw/tab-bar-rerun ()
