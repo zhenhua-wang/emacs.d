@@ -1,5 +1,3 @@
-gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
 gsettings set org.gnome.desktop.interface cursor-theme "Breeze"
 gsettings set org.gnome.desktop.interface clock-show-weekday true
@@ -28,7 +26,7 @@ gnome-extensions enable caffeine@patapon.info
 # dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop', 'Zoom.desktop', 'discord.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'mpv.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
