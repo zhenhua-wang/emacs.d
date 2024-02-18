@@ -125,6 +125,7 @@
 ;; * Dape
 (use-package dape
   :commands (zw/dape-in-path dape dape-breakpoint-toggle)
+  :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle))
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
