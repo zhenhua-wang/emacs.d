@@ -33,4 +33,4 @@ git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 # essential desktop applications
-yay -S firefox kitty htop neofetch obs-studio mpv celluloid yt-dlp streamlink file-roller foliate fragments impression warp exfat-utils
+yay -S firefox kitty htop neofetch obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils foliate fragments impression warp
