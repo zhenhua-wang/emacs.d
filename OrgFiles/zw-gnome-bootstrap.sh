@@ -18,7 +18,7 @@ sudo systemctl enable gdm.service -f
 # extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect evince
 # keyd
-yay -S keyd
+yay -S keyd-git
 sudo systemctl enable keyd && sudo systemctl start keyd
 
 # bluetooth
