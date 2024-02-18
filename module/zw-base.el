@@ -558,6 +558,7 @@ The order of values may be different."
            ("s-+" . enlarge-window-horizontally)
            ("s-_" . shrink-window-horizontally)
            ("s-^" . enlarge-window)
+           ("s-T" . winner-undo)
            ("s-u" . winner-undo)
            ("s-U" . winner-redo)
            ("s-B" . zw/side-window-toggle)
