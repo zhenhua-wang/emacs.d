@@ -124,7 +124,7 @@
 
 ;; * Dape
 (use-package dape
-  :commands (zw/dape-in-path dape dape-breakpoint-toggle)
+  :commands (zw/dape zw/dape-in-path dape dape-breakpoint-toggle)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle))
   :config
   (setq dape-buffer-window-arrangement 'right)
@@ -155,7 +155,13 @@
             (cl-remove-if (lambda (config) (eq (car config) 'current-config)) dape-configs))
       ;; add new 'current-config'
       (add-to-list 'dape-configs `(current-config ,@current-config))
-      (dape current-config))))
+      (dape current-config)))
+  (defun zw/dape ()
+    (interactive)
+    (let ((path (cdr (assq major-mode zw/lang-exec-alist))))
+      (if path
+          (zw/dape-in-path path)
+        (message "No dape path found for %s" major-mode)))))
 
 ;; * Eldoc
 (use-package eldoc-box

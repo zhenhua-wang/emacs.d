@@ -226,7 +226,7 @@
 
 (defun zw/tab-bar-format-debug ()
   `((debug menu-item ,(zw/tab-bar-debug)
-           zw/dape-in-path :help "Debug")
+           zw/dape :help "Debug")
     (next menu-item ,(zw/tab-bar-next)
           dape-next :help "Next")
     (continue menu-item ,(zw/tab-bar-continue)
