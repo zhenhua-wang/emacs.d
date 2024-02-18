@@ -175,6 +175,7 @@
       tab-line-new-button-show nil
       tab-line-close-button-show t
       tab-line-close-button "× "
+      tab-line-close-tab-function #'kill-buffer
       tab-line-separator ""
       x-underline-at-descent-line t)
 (add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
