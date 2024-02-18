@@ -203,6 +203,39 @@
                    'mouse-face 'highlight)
                  zw/tab-bar--open-repl :help "Open REPL side window")))
 
+;; ** debug
+(defun zw/tab-bar-debug ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_alt") " ")
+              'face 'success))
+
+(defun zw/tab-bar-next ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_line_by_line") " ")
+              'face 'warning))
+
+(defun zw/tab-bar-continue ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_continue_small") " ")
+              'face 'warning))
+
+(defun zw/tab-bar-quit ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-stop_circle") " ")
+              'face 'error))
+
+(defun zw/tab-bar-rerun ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_rerun") " ")
+              'face 'error))
+
+(defun zw/tab-bar-format-debug ()
+  `((debug menu-item ,(zw/tab-bar-debug)
+           zw/dape-in-path :help "Debug")
+    (next menu-item ,(zw/tab-bar-next)
+          dape-next :help "Next")
+    (continue menu-item ,(zw/tab-bar-continue)
+              dape-continue :help "Continue")
+    (quit menu-item ,(zw/tab-bar-quit)
+          dape-quit :help "Quit")
+    (rerun menu-item ,(zw/tab-bar-rerun)
+           dape-restart :help "Rerun")))
+
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
   "Update battery status."
@@ -446,7 +479,8 @@
                        tab-bar-separator
                        zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
-                       tab-bar-format-align-right))
+                       tab-bar-format-align-right
+                       zw/tab-bar-format-debug))
 (tab-bar-mode)
 
 ;; ** time

@@ -36,7 +36,6 @@
 ;; appearance
 (require 'zw-appearance)
 (require 'zw-mode-line)
-(require 'zw-header-line)
 (require 'zw-tab-bar)
 (require 'zw-tab-line)
 (require 'zw-theme)
