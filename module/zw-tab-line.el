@@ -119,14 +119,16 @@
                          (if (mode-line-window-selected-p)
                              'tab-line-tab-current
                            'tab-line-tab)
-                       'tab-line-tab-inactive)))
-    (concat (propertize " " 'face space-face
-                        'keymap tab-line-tab-map
-                        'mouse-face 'tab-line-highlight)
+                       'tab-line-tab-inactive))
+         (space (propertize " " 'face space-face
+                            'keymap tab-line-tab-map
+                            'mouse-face 'tab-line-highlight)))
+    (concat space
             (propertize icon 'face icon-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
-            tab-string)))
+            tab-string
+            space)))
 
 (advice-add 'tab-line-tab-name-format-default :around
             'zw/tab-line-tab-name-format)
@@ -170,14 +172,17 @@
   (define-key global-map (car key-func) (cdr key-func)))
 
 ;; * Config
-(setq tab-line-tab-name-function #'zw/tab-line-tab-name
-      tab-line-tabs-function #'zw/tab-line-buffer-group-buffers
-      tab-line-new-button-show nil
-      tab-line-close-button-show t
-      tab-line-close-button "× "
-      tab-line-close-tab-function #'kill-buffer
-      tab-line-separator ""
-      x-underline-at-descent-line t)
+(with-eval-after-load "tab-line"
+  (setq tab-line-tab-name-function #'zw/tab-line-tab-name
+        tab-line-tabs-function #'zw/tab-line-buffer-group-buffers
+        tab-line-new-button-show nil
+        tab-line-close-button-show t
+        tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
+                                          'mouse-face 'tab-line-close-highlight
+                                          'help-echo "Click to close tab")
+        tab-line-close-tab-function #'kill-buffer
+        tab-line-separator ""
+        x-underline-at-descent-line t))
 (add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
 
 ;; * enable
