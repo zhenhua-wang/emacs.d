@@ -76,7 +76,7 @@
 ;; ** face
 (defun zw/tab-line-init-appearence ()
   (set-face-attribute 'tab-line-tab-current nil
-                      :underline (face-background 'highlight))
+                      :overline (face-background 'highlight))
   (dolist (face '(tab-line
                   tab-line-tab
                   tab-line-tab-current
@@ -108,11 +108,11 @@
                             (list :inherit icon-face-raw
                                   :height (face-attribute 'tab-line-tab-current :height)
                                   :background (face-background 'tab-line-tab-current)
-                                  :underline (face-attribute 'tab-line-tab-current :underline))
+                                  :overline (face-attribute 'tab-line-tab-current :overline))
                           (list :inherit icon-face-raw
                                 :height (face-attribute 'tab-line-tab :height)
                                 :background (face-background 'tab-line-tab)
-                                :underline (face-attribute 'tab-line-tab :underline)))
+                                :overline (face-attribute 'tab-line-tab :overline)))
                       'tab-line-tab-inactive))
          (space-face (if selected-p
                          (if (mode-line-window-selected-p)
