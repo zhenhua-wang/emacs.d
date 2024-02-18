@@ -29,5 +29,5 @@
 (require 'zw-package)
 (require 'zw-startup)
 (require 'zw-base)
-(require 'zw-modeline)
+(require 'zw-mode-line)
 (require 'zw-completion)

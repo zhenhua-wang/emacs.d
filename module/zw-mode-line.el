@@ -530,4 +530,4 @@
       visible-bell t)
 
 ;; * Provide
-(provide 'zw-modeline)
+(provide 'zw-mode-line)
