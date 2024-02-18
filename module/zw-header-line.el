@@ -8,7 +8,7 @@
 (defun zw/headerline-debug ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_alt") " ")
               'face 'success
-              'keymap (zw/headerline-keymap 'zw/dape-in-path)))
+              'keymap (zw/headerline-keymap 'zw/dape)))
 
 (defun zw/headerline-next ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_line_by_line") " ")
