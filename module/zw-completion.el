@@ -16,7 +16,6 @@
   :hook
   (after-init . vertico-mode)
   (vertico-mode . vertico-multiform-mode)
-  (vertico-mode . vertico-mouse-mode)
   ;; Tidy shadowed file names
   (rfn-eshadow-update-overlay . vertico-directory-tidy)
   ;; More convenient directory navigation commands
