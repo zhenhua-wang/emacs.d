@@ -13,10 +13,10 @@ yay -S libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
 
 # core
-yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control
+yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect
 sudo systemctl enable gdm.service -f
 # extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals iio-sensor-proxy xcursor-breeze ibus-rime nautilus loupe gnome-calculator gnome-disk-utility baobab eyedropper networkmanager-openconnect evince
+yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-appindicator gnome-shell-extension-hide-universal-access gnome-shell-extension-caffeine gnome-shell-extension-vitals xcursor-breeze ibus-rime nautilus gnome-calculator gnome-disk-utility baobab loupe evince
 # keyd
 yay -S keyd-git
 sudo systemctl enable keyd && sudo systemctl start keyd
@@ -32,5 +32,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
-# essential desktop applications
-yay -S firefox kitty htop neofetch obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils foliate fragments impression warp
+# essential desktop
+yay -S firefox kitty htop neofetch obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
+# flatpak applications
+flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper
