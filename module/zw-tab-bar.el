@@ -234,7 +234,9 @@
     (quit menu-item ,(zw/tab-bar-quit)
           dape-quit :help "Quit")
     (rerun menu-item ,(zw/tab-bar-rerun)
-           dape-restart :help "Rerun")))
+           dape-restart :help "Rerun")
+    (debug-end menu-item "     "
+               :help "")))
 
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
@@ -476,10 +478,11 @@
                        zw/tab-bar-format-vterm
                        tab-bar-separator
                        zw/tab-bar-format-repl
-                       tab-bar-separator
-                       zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right
+                       tab-bar-separator
+                       zw/tab-bar-format-env
+                       tab-bar-separator
                        zw/tab-bar-format-debug))
 (tab-bar-mode)
 
