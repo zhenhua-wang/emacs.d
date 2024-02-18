@@ -95,8 +95,7 @@
 
 (defun zw/tab-line-tab-name-format (orig-fun &rest args)
   (let* ((tab-string (apply orig-fun args))
-         (buffer-name (string-trim (replace-regexp-in-string
-                                    tab-line-close-button "" tab-string)))
+         (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
          (buffer (get-buffer buffer-name))
          (selected-p (eq buffer (window-buffer)))
          (icon (if (buffer-file-name buffer)
@@ -178,6 +177,7 @@
         tab-line-new-button-show nil
         tab-line-close-button-show t
         tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
+                                          'face 'shadow
                                           'mouse-face 'tab-line-close-highlight
                                           'help-echo "Click to close tab")
         tab-line-close-tab-function #'kill-buffer
