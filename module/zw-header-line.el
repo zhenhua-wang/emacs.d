@@ -8,31 +8,26 @@
 (defun zw/headerline-debug ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_alt") " ")
               'face 'success
-              'mouse-face 'highlight
               'keymap (zw/headerline-keymap 'zw/dape-in-path)))
 
 (defun zw/headerline-next ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_line_by_line") " ")
               'face 'warning
-              'mouse-face 'highlight
               'keymap (zw/headerline-keymap 'dape-next)))
 
 (defun zw/headerline-continue ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_continue_small") " ")
               'face 'warning
-              'mouse-face 'highlight
               'keymap (zw/headerline-keymap 'dape-continue)))
 
 (defun zw/headerline-quit ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_stop") " ")
               'face 'error
-              'mouse-face 'highlight
               'keymap (zw/headerline-keymap 'dape-quit)))
 
 (defun zw/headerline-rerun ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_rerun") " ")
               'face 'error
-              'mouse-face 'highlight
               'keymap (zw/headerline-keymap 'dape-restart)))
 
 (defun zw/headerline-begin ()
@@ -42,9 +37,28 @@
                           2.5))))
     (zw/modeline--begin color width height)))
 
-(defvar zw/headerline-supported-mode '(python-mode-hook))
-(dolist (mode zw/headerline-supported-mode)
-  (add-hook mode 'zw-header-line-mode))
+(defun zw/headerline-rhs ()
+  (concat (zw/headerline-debug)
+          (zw/headerline-next)
+          (zw/headerline-continue)
+          (zw/headerline-quit)
+          (zw/headerline-rerun)))
+
+(use-package breadcrumb
+  :config
+  (setq breadcrumb-imenu-crumb-separator " > "
+        breadcrumb-project-crumb-separator " / "))
+(defun zw/headerline-breadcrumb ()
+  (let ((breadcrumb (breadcrumb-imenu-crumbs)))
+    (if (and breadcrumb (not (string= "" breadcrumb)))
+        breadcrumb
+      (breadcrumb-project-crumbs))))
+
+(add-hook 'prog-mode-hook 'zw-header-line-mode)
+(defvar zw/headerline-disable-mode '(emacs-lisp-mode-hook
+                                     polymode-init-inner-hook))
+(dolist (mode zw/headerline-disable-mode)
+  (add-hook mode (lambda () (zw-header-line-mode -1))))
 
 ;; define zw-header-line-mode
 (define-minor-mode zw-header-line-mode
@@ -54,12 +68,12 @@
       (progn
         (setq-local header-line-format
                     (list '(:eval (zw/headerline-begin))
-                          '(:eval (zw/headerline-debug))
-                          '(:eval (zw/headerline-next))
-                          '(:eval (zw/headerline-continue))
-                          '(:eval (zw/headerline-quit))
-                          '(:eval (zw/headerline-rerun))))
+                          " "
+                          '(:eval (zw/headerline-breadcrumb))
+                          '(:eval (zw/modeline-middle-space (zw/headerline-rhs)))
+                          '(:eval (zw/headerline-rhs))))
         (redraw-frame))
-    (setq-local header-line-format (default-value 'header-line-format))))
+    (setq-local header-line-format (default-value 'header-line-format))
+    (redraw-frame)))
 
 (provide 'zw-header-line)
