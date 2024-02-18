@@ -8,6 +8,9 @@ cd ~/yay && makepkg -si && cd ~
 mv ~/emacs.d ~/.emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
+# compile emacs
+yay -S libxpm libtiff giflib aspell aspell-en
+git clone git://git.sv.gnu.org/emacs.git
 
 # core
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control
@@ -25,7 +28,7 @@ ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 # bluetooth
 sudo systemctl enable bluetooth.service
 # statistics
-yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra
+yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 # zsh
 yay -S zsh && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
