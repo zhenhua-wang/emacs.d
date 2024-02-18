@@ -20,10 +20,6 @@ yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-dash-to-
 # keyd
 yay -S keyd
 sudo systemctl enable keyd && sudo systemctl start keyd
-# usermod -aG keyd zhenhua
-# keyd-application-mapper
-# symbolic link rime
-ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
 
 # bluetooth
 sudo systemctl enable bluetooth.service
