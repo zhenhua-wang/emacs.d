@@ -57,7 +57,8 @@ sudo systemctl enable keyd && sudo systemctl start keyd
 # usermod -aG keyd zhenhua
 # keyd-application-mapper
 # symbolic link rime
-ln -s ~/.local/share/fcitx5/rime/ ~/.config/ibus/rime
+ln -s ~/.local/share/fcitx5/rime/default.custom.yaml ~/.config/ibus/rime/default.custom.yaml
+ln -s ~/.local/share/fcitx5/rime/luna_pinyin.custom.yaml ~/.config/ibus/rime/luna_pinyin.custom.yaml
 #+end_src
 
 *** Extensions
