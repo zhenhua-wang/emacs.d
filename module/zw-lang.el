@@ -38,11 +38,20 @@
                                     (directory-files (car dir) t "^[^.]"))))
                      lang-env-path))))))
 
+(defmacro zw/lang-run-repl-in-path-macro (path-var repl-func)
+  (let* ((path-var-symbol (intern (symbol-name (eval path-var)))))
+    `(let* ((path (completing-read (format "Specify %s path: " ,path-var-symbol)
+                                   (zw/lang-repl-path ,path-var-symbol)))
+            (,path-var-symbol path))
+       (call-interactively ,repl-func))))
+
 (defun zw/lang-run-repl-in-path ()
   (interactive)
   (pcase major-mode
-    ('ess-r-mode (call-interactively 'zw/run-R-in-path))
-    ('python-mode (call-interactively 'zw/run-python-in-path))
+    ('ess-r-mode
+     (zw/lang-run-repl-in-path-macro 'inferior-ess-r-program 'R))
+    ('python-mode
+     (zw/lang-run-repl-in-path-macro 'python-shell-interpreter 'run-python))
     (_ (message "No REPL is registered with current buffer"))))
 
 (define-key global-map (kbd "s-p") 'zw/lang-run-repl-in-path)
@@ -108,15 +117,6 @@
         (end (save-excursion (end-of-line) (point))))
     (zw/python-start-shell-before-send-string
      (buffer-substring-no-properties beg end))))
-
-(defvar python-shell-interpreter)
-(defun zw/run-python-in-path (path)
-  (interactive (list (completing-read "Specify Python path: "
-                                      (zw/lang-repl-path
-                                       (symbol-value 'python-shell-interpreter)))))
-  (let ((python-shell-interpreter path))
-    (display-buffer
-     (process-buffer (run-python)))))
 
 (use-package python
   :bind ((:map python-mode-map
@@ -221,12 +221,6 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
           (goto-char end))
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
-  (defun zw/run-R-in-path (path)
-    (interactive (list (completing-read "Specify R path: "
-                                        (zw/lang-repl-path
-                                         (symbol-value 'inferior-ess-r-program)))))
-    (let ((inferior-ess-r-program path))
-      (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
