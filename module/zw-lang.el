@@ -4,11 +4,8 @@
 (defvar zw/lang-env-path '(("~/.conda/envs/" . "bin/"))
   "Environment path should be formated as (env-dir . exec-dir).")
 
-(defvar zw/lang-exec-alist `((python-mode . python-shell-interpreter)
-                             (ess-r-mode . inferior-ess-r-program)))
-
-(defun zw/lang-repl-path (&optional keep-tramp-prefix)
-  (let* ((exec (or (symbol-value (cdr (assq major-mode zw/lang-exec-alist)))
+(defun zw/lang-repl-path (&optional exec keep-tramp-prefix)
+  (let* ((exec (or exec
                    (read-string "No exec is registered with current major mode.\nEnter manually: ")))
          (tramp-env-prefix (when (file-remote-p default-directory)
                              (let ((vec (tramp-dissect-file-name default-directory)))
@@ -115,7 +112,8 @@
 (defvar python-shell-interpreter)
 (defun zw/run-python-in-path (path)
   (interactive (list (completing-read "Specify Python path: "
-                                      (zw/lang-repl-path))))
+                                      (zw/lang-repl-path
+                                       (symbol-value 'python-shell-interpreter)))))
   (let ((python-shell-interpreter path))
     (display-buffer
      (process-buffer (run-python)))))
@@ -225,7 +223,8 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
              (forward-paragraph))))
   (defun zw/run-R-in-path (path)
     (interactive (list (completing-read "Specify R path: "
-                                        (zw/lang-repl-path))))
+                                        (zw/lang-repl-path
+                                         (symbol-value 'inferior-ess-r-program)))))
     (let ((inferior-ess-r-program path))
       (call-interactively 'R)))
   ;; fix freezing in macos by creating your process using pipe

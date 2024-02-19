@@ -133,15 +133,18 @@
             (defun dape--save-on-start ()
               (save-some-buffers t t)))
   ;; run dape in selected path
+  (defun zw/dape-major-mode-config ()
+    (cdr (cl-find-if
+          (lambda (config)
+            (and (not (eq (car config) 'current-config))
+                 (member major-mode (plist-get (cdr config) 'modes))))
+          dape-configs)))
   (defun zw/dape-in-path (path)
     (interactive (list (completing-read "Specify command path: "
-                                        (zw/lang-repl-path))))
-    (let* ((current-config (cdr (cl-find-if
-                                 (lambda (config)
-                                   (and (not (eq (car config) 'current-config))
-                                        (member major-mode (plist-get (cdr config) 'modes))))
-                                 dape-configs)))
-           (current-config (copy-tree current-config t)))
+                                        (zw/lang-repl-path
+                                         (plist-get (zw/dape-major-mode-config)
+                                                    'command)))))
+    (let ((current-config (copy-tree (zw/dape-major-mode-config) t)))
       ;; set 'current-config' command path
       (plist-put current-config 'command path)
       (plist-put current-config 'command-cwd (dape-command-cwd))
@@ -158,7 +161,8 @@
       (dape current-config)))
   (defun zw/dape ()
     (interactive)
-    (let ((path (cdr (assq major-mode zw/lang-exec-alist))))
+    (let* ((current-config (zw/dape-major-mode-config))
+           (path (plist-get current-config 'command)))
       (if path
           (zw/dape-in-path path)
         (message "No dape path found for %s" major-mode)))))
