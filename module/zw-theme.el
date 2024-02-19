@@ -1,9 +1,9 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Font
-(let ((default-font (font-spec :name "Noto Sans Mono" :size 14.0))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 17.0))
-      (emoji-font (font-spec :name "Noto Color Emoji" :size 17.0)))
+(let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
+      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 18.0))
+      (emoji-font (font-spec :name "Noto Color Emoji" :size 18.0)))
   (set-face-attribute 'default nil :font default-font)
   (dolist (charset '(kana han cjk-misc bopomofo))
     (set-fontset-font t charset cn-font))
