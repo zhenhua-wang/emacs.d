@@ -197,7 +197,7 @@
   (let ((strings (apply orig-fun args)))
     (append (list (zw/tab-line-bar))
             strings
-            ;; BUG: wrong middle spaces
+            ;; TODO: wrong middle spaces
             (list (zw/modeline-middle-space (zw/tab-line-debug-rhs)))
             (list (zw/tab-line-debug-rhs)))))
 
