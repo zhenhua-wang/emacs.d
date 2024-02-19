@@ -133,16 +133,68 @@
             'zw/tab-line-tab-name-format)
 
 ;; ** bar
-(defun zw/tab-line-begin ()
+(defun zw/tab-line-bar ()
   (let ((color (face-background 'tab-line))
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
     (zw/modeline--begin color width height)))
 
+;; ** debug
+(defun zw/tab-line-debug-keymap (function)
+  (let ((map (make-sparse-keymap)))
+    (define-key map (vector 'tab-line 'mouse-1) function)
+    map))
+
+(defun zw/tab-line-debug-start ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_alt") " ")
+              'face 'success
+              'mouse-face 'highlight
+              'keymap (zw/tab-line-debug-keymap 'zw/dape)))
+
+(defun zw/tab-line-debug-next ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_line_by_line") " ")
+              'face 'warning
+              'mouse-face 'highlight
+              'keymap (zw/tab-line-debug-keymap 'dape-next)))
+
+(defun zw/tab-line-debug-continue ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_continue_small") " ")
+              'face 'warning
+              'mouse-face 'highlight
+              'keymap (zw/tab-line-debug-keymap 'dape-continue)))
+
+(defun zw/tab-line-debug-quit ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_disconnect") " ")
+              'face 'error
+              'mouse-face 'highlight
+              'keymap (zw/tab-line-debug-keymap 'dape-quit)))
+
+(defun zw/tab-line-debug-rerun ()
+  (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_rerun") " ")
+              'face 'error
+              'mouse-face 'highlight
+              'keymap (zw/tab-line-debug-keymap 'dape-restart)))
+
+(defun zw/tab-line-debug-rhs ()
+  (when (derived-mode-p 'prog-mode)
+    (concat (zw/tab-line-debug-start)
+            (zw/tab-line-bar)
+            (zw/tab-line-debug-next)
+            (zw/tab-line-bar)
+            (zw/tab-line-debug-continue)
+            (zw/tab-line-bar)
+            (zw/tab-line-debug-quit)
+            (zw/tab-line-bar)
+            (zw/tab-line-debug-rerun))))
+
+;; ** template
 (defun zw/tab-line-format-template (orig-fun &rest args)
   (let ((strings (apply orig-fun args)))
-    (append `(,(zw/tab-line-begin)) strings)))
+    (append `(,(zw/tab-line-bar))
+            strings
+            `(,(zw/modeline-middle-space (zw/tab-line-debug-rhs)))
+            `(,(zw/tab-line-debug-rhs)))))
 
 (advice-add 'tab-line-format-template :around
             'zw/tab-line-format-template)

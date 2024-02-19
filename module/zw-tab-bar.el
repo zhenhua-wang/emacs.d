@@ -478,12 +478,10 @@
                        zw/tab-bar-format-vterm
                        tab-bar-separator
                        zw/tab-bar-format-repl
-                       ;; zw/tab-bar-format-file-path
-                       tab-bar-format-align-right
                        tab-bar-separator
                        zw/tab-bar-format-env
-                       tab-bar-separator
-                       zw/tab-bar-format-debug))
+                       ;; zw/tab-bar-format-file-path
+                       tab-bar-format-align-right))
 (tab-bar-mode)
 
 ;; ** time
