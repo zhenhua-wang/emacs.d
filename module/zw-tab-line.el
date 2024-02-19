@@ -198,6 +198,8 @@
     (append (list (zw/tab-line-bar))
             strings
             (list (zw/modeline-middle-space (zw/tab-line-debug-rhs)))
+            ;; Fix: zw/modeline-middle-space cannot compute all spaces
+            (list " ")
             (list (zw/tab-line-debug-rhs)))))
 
 (advice-add 'tab-line-format-template :around
