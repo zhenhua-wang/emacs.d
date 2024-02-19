@@ -370,7 +370,7 @@
                                 (tramp-file-name-user vec)
                                 (tramp-file-name-domain vec)
                                 (tramp-file-name-host vec)))))
-         (lang-env-path (cl-mapcar (lambda (path)
+         (exec-env-path (cl-mapcar (lambda (path)
                                      (cons (concat tramp-env-prefix (car path))
                                            (cdr path)))
                                    zw/repl-env-path)))
@@ -392,7 +392,7 @@
                                         path))))
                                   (ignore-errors
                                     (directory-files (car dir) t "^[^.]"))))
-                     lang-env-path))))))
+                     exec-env-path))))))
 
 (defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
   (let ((path-var-symbol (eval path-var)))
