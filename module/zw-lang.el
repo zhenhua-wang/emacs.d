@@ -4,11 +4,11 @@
 (defvar zw/lang-env-path '(("~/.conda/envs/" . "bin/"))
   "Environment path should be formated as (env-dir . exec-dir).")
 
-(defvar zw/lang-exec-alist '((python-mode . "python")
-                             (ess-r-mode . "R")))
+(defvar zw/lang-exec-alist `((python-mode . python-shell-interpreter)
+                             (ess-r-mode . inferior-ess-r-program)))
 
 (defun zw/lang-repl-path (&optional keep-tramp-prefix)
-  (let* ((exec (or (cdr (assq major-mode zw/lang-exec-alist))
+  (let* ((exec (or (symbol-value (cdr (assq major-mode zw/lang-exec-alist)))
                    (read-string "No exec is registered with current major mode.\nEnter manually: ")))
          (tramp-env-prefix (when (file-remote-p default-directory)
                              (let ((vec (tramp-dissect-file-name default-directory)))
