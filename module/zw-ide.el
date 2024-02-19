@@ -374,20 +374,19 @@
                                      (cons (concat tramp-env-prefix (car path))
                                            (cdr path)))
                                    zw/repl-env-path)))
-    (append (list exec)
-            (cl-remove-if-not
-             (lambda (full-path)
-               (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
-             (apply #'append
-                    (cl-mapcar
-                     (lambda (dir)
-                       (cl-mapcar (lambda (path)
-                                    (let ((env-path (if (and tramp-env-prefix (not keep-tramp-prefix))
-                                                        (string-replace tramp-env-prefix "" path)
-                                                      path)))
-                                      (expand-file-name exec (expand-file-name (cdr dir) env-path))))
-                                  (ignore-errors (directory-files (car dir) t "^[^.]"))))
-                     exec-env-path))))))
+    (cons exec (cl-remove-if-not
+                (lambda (full-path)
+                  (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
+                (apply #'append
+                       (cl-mapcar
+                        (lambda (dir)
+                          (cl-mapcar (lambda (path)
+                                       (let ((env-path (if (and tramp-env-prefix (not keep-tramp-prefix))
+                                                           (string-replace tramp-env-prefix "" path)
+                                                         path)))
+                                         (expand-file-name exec (expand-file-name (cdr dir) env-path))))
+                                     (ignore-errors (directory-files (car dir) t "^[^.]"))))
+                        exec-env-path))))))
 
 (defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
   (let ((path-var-symbol (eval path-var)))
