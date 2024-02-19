@@ -51,7 +51,10 @@
     ('ess-r-mode
      (zw/lang-run-repl-in-path-macro 'inferior-ess-r-program 'R))
     ('python-mode
-     (zw/lang-run-repl-in-path-macro 'python-shell-interpreter 'run-python))
+     (zw/lang-run-repl-in-path-macro 'python-shell-interpreter
+                                     (lambda ()
+                                       (interactive)
+                                       (run-python nil nil 'show))))
     (_ (message "No REPL is registered with current buffer"))))
 
 (define-key global-map (kbd "s-p") 'zw/lang-run-repl-in-path)
