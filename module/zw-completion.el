@@ -111,7 +111,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
          ("M-g i" . consult-imenu)
          ;; M-s bindings (search-map)
          ("M-s d" . consult-find)
-         ("M-s g" . consult-grep)
+         ("M-s g" . zw/consult-grep)
          ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
          ("M-s f" . consult-flymake)
@@ -139,7 +139,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   ;; custom functions
   (defun zw/consult-line-multi ()
     (interactive)
-    (consult-line-multi t)))
+    (consult-line-multi t))
+  (defun zw/consult-grep ()
+    (interactive)
+    (if (executable-find "rg")
+        (call-interactively 'consult-ripgrep)
+      (call-interactively 'consult-grep))))
 
 ;; other consult packages
 (use-package consult-yasnippet
