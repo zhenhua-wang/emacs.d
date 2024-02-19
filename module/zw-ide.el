@@ -141,7 +141,7 @@
           dape-configs)))
   (defun zw/dape-in-path (path)
     (interactive (list (completing-read "Specify command path: "
-                                        (zw/lang-repl-path
+                                        (zw/repl-path
                                          (plist-get (zw/dape-major-mode-config)
                                                     'command)))))
     (let ((current-config (copy-tree (zw/dape-major-mode-config) t)))
@@ -355,6 +355,61 @@
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
+
+;; * REPL
+(defvar zw/repl-env-path '(("~/.conda/envs/" . "bin/"))
+  "Environment path should be formated as (env-dir . exec-dir).")
+
+(defun zw/repl-path (&optional exec keep-tramp-prefix)
+  (let* ((exec (or exec
+                   (read-string "No exec is registered with current major mode.\nEnter manually: ")))
+         (tramp-env-prefix (when (file-remote-p default-directory)
+                             (let ((vec (tramp-dissect-file-name default-directory)))
+                               (tramp-make-tramp-file-name
+                                (tramp-file-name-method vec)
+                                (tramp-file-name-user vec)
+                                (tramp-file-name-domain vec)
+                                (tramp-file-name-host vec)))))
+         (lang-env-path (cl-mapcar (lambda (path)
+                                     (cons (concat tramp-env-prefix (car path))
+                                           (cdr path)))
+                                   zw/repl-env-path)))
+    (append (list exec)
+            (cl-remove-if-not
+             (lambda (full-path)
+               (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
+             (apply #'append
+                    (cl-mapcar
+                     (lambda (dir)
+                       (cl-mapcar (lambda (path)
+                                    (expand-file-name
+                                     exec
+                                     (expand-file-name
+                                      (cdr dir)
+                                      (if (and tramp-env-prefix
+                                               (not keep-tramp-prefix))
+                                          (replace-regexp-in-string tramp-env-prefix "" path)
+                                        path))))
+                                  (ignore-errors
+                                    (directory-files (car dir) t "^[^.]"))))
+                     lang-env-path))))))
+
+(defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
+  (let ((path-var-symbol (eval path-var)))
+    `(let* ((path (completing-read (format "Specify %s path: " ,path-var-symbol)
+                                   (zw/repl-path ,path-var-symbol)))
+            (,path-var-symbol path))
+       (apply ,repl-func ,repl-args))))
+
+(defun zw/repl-run-in-path ()
+  (interactive)
+  (pcase major-mode
+    ('ess-r-mode
+     (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
+    ('python-mode
+     (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
+                                (list nil (when (project-current) 'project) 'show)))
+    (_ (message "No REPL is registered with current buffer"))))
 
 ;; * Provide
 (provide 'zw-ide)

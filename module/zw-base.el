@@ -569,6 +569,7 @@ The order of values may be different."
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
            ("s-\\" . toggle-input-method)
+           ("s-p" . zw/repl-run-in-path)
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
            :map prog-mode-map
