@@ -38,23 +38,21 @@
                                     (directory-files (car dir) t "^[^.]"))))
                      lang-env-path))))))
 
-(defmacro zw/lang-run-repl-in-path-macro (path-var repl-func)
-  (let* ((path-var-symbol (intern (symbol-name (eval path-var)))))
+(defmacro zw/lang-run-repl-in-path-macro (path-var repl-func &optional repl-args)
+  (let ((path-var-symbol (eval path-var)))
     `(let* ((path (completing-read (format "Specify %s path: " ,path-var-symbol)
                                    (zw/lang-repl-path ,path-var-symbol)))
             (,path-var-symbol path))
-       (call-interactively ,repl-func))))
+       (apply ,repl-func ,repl-args))))
 
 (defun zw/lang-run-repl-in-path ()
   (interactive)
   (pcase major-mode
     ('ess-r-mode
-     (zw/lang-run-repl-in-path-macro 'inferior-ess-r-program 'R))
+     (zw/lang-run-repl-in-path-macro 'inferior-ess-r-program 'run-ess-r))
     ('python-mode
-     (zw/lang-run-repl-in-path-macro 'python-shell-interpreter
-                                     (lambda ()
-                                       (interactive)
-                                       (run-python nil nil 'show))))
+     (zw/lang-run-repl-in-path-macro 'python-shell-interpreter 'run-python
+                                     (list nil (when (project-current) 'project) 'show)))
     (_ (message "No REPL is registered with current buffer"))))
 
 (define-key global-map (kbd "s-p") 'zw/lang-run-repl-in-path)
