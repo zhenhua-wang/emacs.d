@@ -232,7 +232,7 @@
     (length (match-string 2)))
   (defun zw/outline--unfontify (beg end)
     (let ((font-lock-extra-managed-props
-           (append '(invisible) font-lock-extra-managed-props)))
+           (cons 'invisible font-lock-extra-managed-props)))
       (font-lock-default-unfontify-region beg end)))
   (defun zw/outline-previous-invisible-p ()
     (unless (= (point) 1)
