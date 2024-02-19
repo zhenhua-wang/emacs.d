@@ -143,7 +143,11 @@
 ;; ** debug
 (defun zw/tab-line-debug-keymap (function)
   (let ((map (make-sparse-keymap)))
-    (define-key map (vector 'tab-line 'mouse-1) function)
+    (define-key map (vector 'tab-line 'mouse-1)
+                (lambda (&optional event)
+                  (interactive "e")
+                  (with-current-buffer (window-buffer (posn-window (cadr event)))
+                    (call-interactively function))))
     map))
 
 (defun zw/tab-line-debug-start ()
