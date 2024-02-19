@@ -382,16 +382,11 @@
                     (cl-mapcar
                      (lambda (dir)
                        (cl-mapcar (lambda (path)
-                                    (expand-file-name
-                                     exec
-                                     (expand-file-name
-                                      (cdr dir)
-                                      (if (and tramp-env-prefix
-                                               (not keep-tramp-prefix))
-                                          (replace-regexp-in-string tramp-env-prefix "" path)
-                                        path))))
-                                  (ignore-errors
-                                    (directory-files (car dir) t "^[^.]"))))
+                                    (let ((env-path (if (and tramp-env-prefix (not keep-tramp-prefix))
+                                                        (string-replace tramp-env-prefix "" path)
+                                                      path)))
+                                      (expand-file-name exec (expand-file-name (cdr dir) env-path))))
+                                  (ignore-errors (directory-files (car dir) t "^[^.]"))))
                      exec-env-path))))))
 
 (defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
