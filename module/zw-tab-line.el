@@ -190,15 +190,24 @@
             (zw/tab-line-bar)
             (zw/tab-line-debug-quit)
             (zw/tab-line-bar)
-            (zw/tab-line-debug-rerun))))
+            (zw/tab-line-debug-rerun)
+            "   ")))
 
 ;; ** template
+(defun zw/tab-line-middle-space (rhs)
+  (let ((middle-space (progn
+                        (add-face-text-property 0 (length rhs) 'tab-line t rhs)
+                        (string-pixel-width rhs))))
+    (propertize
+     " "
+     'display
+     `((space :align-to (- (+ right right-fringe right-margin) (,middle-space)))))))
+
 (defun zw/tab-line-format-template (orig-fun &rest args)
   (let ((strings (apply orig-fun args)))
     (append (list (zw/tab-line-bar))
             strings
-            ;; TODO: wrong middle spaces
-            (list (zw/modeline-middle-space (zw/tab-line-debug-rhs)))
+            (list (zw/tab-line-middle-space (zw/tab-line-debug-rhs)))
             (list (zw/tab-line-debug-rhs)))))
 
 (advice-add 'tab-line-format-template :around
