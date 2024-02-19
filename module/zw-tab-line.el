@@ -195,10 +195,10 @@
 ;; ** template
 (defun zw/tab-line-format-template (orig-fun &rest args)
   (let ((strings (apply orig-fun args)))
-    (append `(,(zw/tab-line-bar))
+    (append (list (zw/tab-line-bar))
             strings
-            `(,(zw/modeline-middle-space (zw/tab-line-debug-rhs)))
-            `(,(zw/tab-line-debug-rhs)))))
+            (list (zw/modeline-middle-space (zw/tab-line-debug-rhs)))
+            (list (zw/tab-line-debug-rhs)))))
 
 (advice-add 'tab-line-format-template :around
             'zw/tab-line-format-template)
