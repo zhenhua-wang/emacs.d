@@ -134,9 +134,8 @@
                 (append (mapcar (lambda (x)
                                   (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
                                 (conda-env-candidates))
-                        (list "---")
-                        (list "deactivate"
-                              (vector "conda deactivate" `(lambda () (interactive) (conda-env-deactivate) t))))))
+                        (list "---" "---")
+                        (list (vector "conda deactivate" `(lambda () (interactive) (conda-env-deactivate) t))))))
          (choice (x-popup-menu t menu))
 	 (action (lookup-key menu (apply 'vector choice)))
 	 (action-is-command-p  (and (commandp action) (functionp action))))
