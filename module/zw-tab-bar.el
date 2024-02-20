@@ -57,6 +57,13 @@
 (defun zw/tab-bar-begin ()
   (propertize " " 'face '(:height 1.2) 'display '(raise -0.1)))
 
+;; ** separator
+(defun zw/tab-bar-separator-thin ()
+  (let ((color (face-background 'tab-bar))
+        (width (/ (string-pixel-width " ") 4))
+        (height (string-pixel-width " ")))
+    (zw/modeline--begin color width height)))
+
 ;; ** tab name
 (defun zw/tab-bar-tab-name ()
   (let* ((buffer-file-p (buffer-file-name (window-buffer (minibuffer-selected-window))))
@@ -134,7 +141,7 @@
                                  :height 0.85
                                  :v-adjust 0.15)))
     (if env
-        `((env menu-item ,(concat icon " " env)
+        `((env menu-item ,(concat icon (zw/tab-bar-separator-thin) env)
                conda-env-deactivate :help "Click to deactivate environment"))
       `((env menu-item ,icon
              conda-env-activate :help "Click to activate environment")))))
