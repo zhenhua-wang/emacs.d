@@ -425,8 +425,8 @@
                              'mouse-face 'highlight
                              'keymap keymap)
                  (zw/modeline-separator-thin)
-                 (propertize errors 'face (zw/modeline-set-face 'zw/modeline-default-active
-                                                                'zw/modeline-default-inactive))
+                 (propertize (string-trim errors) 'face (zw/modeline-set-face 'zw/modeline-default-active
+                                                                              'zw/modeline-default-inactive))
                  (zw/modeline-separator-thin)
                  (propertize (nerd-icons-codicon
                               "nf-cod-warning"
