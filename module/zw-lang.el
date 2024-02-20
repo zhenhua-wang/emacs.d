@@ -70,7 +70,7 @@
   :config (setq python-shell-dedicated 'project))
 
 (use-package conda
-  :commands conda-env-activate
+  :commands (conda-env-activate conda-env-candidates)
   :init
   (defvar zw/conda-path '("/opt/anaconda/bin"
                           "/opt/miniconda3/bin"))
