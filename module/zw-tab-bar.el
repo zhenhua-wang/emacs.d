@@ -134,6 +134,19 @@
                  :help "File path")))
 
 ;; ** env
+(defun zw/tab-bar--env-menu (event)
+  (interactive "e" )
+  (let* ((menu (easy-menu-create-menu
+                "Activate conda environment"
+                (mapcar (lambda (x)
+                          (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
+                        (conda-env-candidates))))
+         (choice (x-popup-menu t menu))
+	 (action (lookup-key menu (apply 'vector choice)))
+	 (action-is-command-p  (and (commandp action) (functionp action))))
+    (when action-is-command-p
+      (call-interactively action))))
+
 (defun zw/tab-bar-format-env ()
   (let ((env (ignore-errors
                (substring-no-properties (zw/modeline-env))))
@@ -144,7 +157,7 @@
         `((env menu-item ,(concat icon (zw/tab-bar-separator-thin) env)
                conda-env-deactivate :help "Click to deactivate environment"))
       `((env menu-item ,icon
-             conda-env-activate :help "Click to activate environment")))))
+             zw/tab-bar--env-menu :help "Click to activate environment")))))
 
 ;; ** dired
 (defun zw/tab-bar--open-dired (event)
