@@ -3,11 +3,21 @@
 ;; * Font
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
       (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 15.0))
-      (emoji-font (font-spec :name "Noto Color Emoji" :size 15.0)))
-  (set-face-attribute 'default nil :font default-font)
-  (dolist (charset '(kana han cjk-misc bopomofo))
-    (set-fontset-font t charset cn-font))
-  (set-fontset-font t 'symbol emoji-font))
+      (emoji-font (font-spec :name "Noto Color Emoji" :size 15.0))
+      (fixed-pitch-font (font-spec :name "JetBrains Mono"))
+      (variable-pitch-font (font-spec :name "EB Garamond")))
+  (when (find-font default-font)
+    (set-face-attribute 'default nil :font default-font))
+  (when (find-font cn-font)
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font t charset cn-font)))
+  (when (find-font emoji-font)
+    (set-fontset-font t 'symbol emoji-font))
+  ;; fonts
+  (when (find-font fixed-pitch-font)
+    (set-face-attribute 'fixed-pitch nil :font fixed-pitch-font))
+  (when (find-font variable-pitch-font)
+    (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
 
 ;; * Doom theme
 (use-package doom-themes
@@ -19,8 +29,6 @@
 ;; * ZW theme
 (defun zw/theme--set-theme (theme-params)
   (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (fixed-font             `(:font "JetBrains Mono"))
-         (variable-font          `(:font "EB Garamond" :weight SemiBold))
          (modeline-height         130)
          (tab-bar-height          120)
          (block-bg (alist-get 'block-bg theme-params))
@@ -30,10 +38,6 @@
          (tab-bar-box (alist-get 'tab-bar-box theme-params)))
     (custom-theme-set-faces
      'user
-     ;; fonts
-     `(fixed-pitch ((t (,@fixed-font))))
-     `(variable-pitch ((t (,@variable-font))))
-
      ;; child frame
      `(child-frame-border ((t (:background ,(face-background 'highlight)))))
 
@@ -105,7 +109,8 @@
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
-     `(company-tooltip ((t (:inherit tooltip ,@fixed-font))))
+     `(tooltip ((t (:inherit fixed-pitch))))
+     `(company-tooltip ((t (:inherit tooltip))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
      `(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :slant normal :weight bold))))
@@ -113,16 +118,16 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))
 
      ;; org with variable font
-     `(org-level-8 ((t (:inherit outline-8 ,@variable-font))))
-     `(org-level-7 ((t (:inherit outline-7 ,@variable-font))))
-     `(org-level-6 ((t (:inherit outline-6 ,@variable-font))))
-     `(org-level-5 ((t (:inherit outline-5 ,@variable-font))))
-     `(org-level-4 ((t (:inherit outline-4 ,@variable-font :height 1.25))))
-     `(org-level-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
-     `(org-level-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
-     `(org-level-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
+     `(org-level-8 ((t (:inherit (outline-8 variable-pitch)))))
+     `(org-level-7 ((t (:inherit (outline-7 variable-pitch)))))
+     `(org-level-6 ((t (:inherit (outline-6 variable-pitch)))))
+     `(org-level-5 ((t (:inherit (outline-5 variable-pitch)))))
+     `(org-level-4 ((t (:inherit (outline-4 variable-pitch) :height 1.25))))
+     `(org-level-3 ((t (:inherit (outline-3 variable-pitch) :height 1.25))))
+     `(org-level-2 ((t (:inherit (outline-2 variable-pitch) :height 1.25))))
+     `(org-level-1 ((t (:inherit (outline-1 variable-pitch) :height 1.5))))
      `(org-document-title
-       ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
+       ((t (:inherit variable-pitch :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
      ;; org with fixed font
      `(org-ellipsis
        ((t (:inherit fixed-pitch))))
@@ -160,14 +165,14 @@
        ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
 
      ;; markdown with variable font
-     `(markdown-header-face-6 ((t (:inherit outline-6 ,@variable-font))))
-     `(markdown-header-face-5 ((t (:inherit outline-5 ,@variable-font))))
-     `(markdown-header-face-4 ((t (:inherit outline-4 ,@variable-font :height 1.25))))
-     `(markdown-header-face-3 ((t (:inherit outline-3 ,@variable-font :height 1.25))))
-     `(markdown-header-face-2 ((t (:inherit outline-2 ,@variable-font :height 1.25))))
-     `(markdown-header-face-1 ((t (:inherit outline-1 ,@variable-font :height 1.5))))
+     `(markdown-header-face-6 ((t (:inherit (outline-6 variable-pitch)))))
+     `(markdown-header-face-5 ((t (:inherit (outline-5 variable-pitch)))))
+     `(markdown-header-face-4 ((t (:inherit (outline-4 variable-pitch) :height 1.25))))
+     `(markdown-header-face-3 ((t (:inherit (outline-3 variable-pitch) :height 1.25))))
+     `(markdown-header-face-2 ((t (:inherit (outline-2 variable-pitch) :height 1.25))))
+     `(markdown-header-face-1 ((t (:inherit (outline-1 variable-pitch) :height 1.5))))
      `(markdown-metadata-value-face
-       ((t (,@variable-font :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
+       ((t (:inherit variable-pitch :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
      ;; markdown with fixed font
      `(markdown-metadata-key-face
        ((t (:inherit (thin fixed-pitch) :height 0.8))))
