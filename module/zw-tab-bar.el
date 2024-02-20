@@ -130,10 +130,13 @@
 (defun zw/tab-bar--env-menu (event)
   (interactive "e" )
   (let* ((menu (easy-menu-create-menu
-                "Activate conda environment"
-                (mapcar (lambda (x)
-                          (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
-                        (conda-env-candidates))))
+                "Conda environment"
+                (append (mapcar (lambda (x)
+                                  (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
+                                (conda-env-candidates))
+                        (list "---")
+                        (list "deactivate"
+                              (vector "conda deactivate" `(lambda () (interactive) (conda-env-deactivate) t))))))
          (choice (x-popup-menu t menu))
 	 (action (lookup-key menu (apply 'vector choice)))
 	 (action-is-command-p  (and (commandp action) (functionp action))))
@@ -146,11 +149,8 @@
         (icon (nerd-icons-faicon "nf-fa-desktop"
                                  :height 0.85
                                  :v-adjust 0.15)))
-    (if env
-        `((env menu-item ,(concat icon ":" env)
-               conda-env-deactivate :help "Click to deactivate environment"))
-      `((env menu-item ,icon
-             zw/tab-bar--env-menu :help "Click to activate environment")))))
+    `((env menu-item ,(if env (concat icon ":" env) icon)
+           zw/tab-bar--env-menu :help "Click to activate environment"))))
 
 ;; ** dired
 (defun zw/tab-bar--open-dired (event)
