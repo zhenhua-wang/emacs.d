@@ -9,7 +9,8 @@ mv ~/emacs.d ~/.emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S emacs aspell aspell-en
+yay -S libxpm libtiff giflib aspell aspell-en noto-fonts noto-fonts-cjk noto-fonts-emoji
+git clone git://git.sv.gnu.org/emacs.git
 
 # core
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect
