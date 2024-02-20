@@ -128,9 +128,16 @@
 
 ;; ** env
 (defun zw/tab-bar-format-env ()
-  (let ((env (zw/modeline-env)))
-    (when env
-      (propertize env 'face 'zw/modeline-env-active))))
+  (let ((env (ignore-errors
+               (substring-no-properties (zw/modeline-env))))
+        (icon (nerd-icons-faicon "nf-fa-desktop"
+                                 :height 0.85
+                                 :v-adjust 0.15)))
+    (if env
+        `((env menu-item ,(concat icon " " env)
+               conda-env-deactivate :help "Click to deactivate environment"))
+      `((env menu-item ,icon
+             conda-env-activate :help "Click to activate environment")))))
 
 ;; ** dired
 (defun zw/tab-bar--open-dired (event)
