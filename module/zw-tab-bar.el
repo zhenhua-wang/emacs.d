@@ -147,7 +147,7 @@
                                  :height 0.85
                                  :v-adjust 0.15)))
     (if env
-        `((env menu-item ,(concat icon " " env)
+        `((env menu-item ,(concat icon ":" env)
                conda-env-deactivate :help "Click to deactivate environment"))
       `((env menu-item ,icon
              zw/tab-bar--env-menu :help "Click to activate environment")))))
