@@ -13,7 +13,6 @@
       (set-fontset-font t charset cn-font)))
   (when (find-font emoji-font)
     (set-fontset-font t 'symbol emoji-font))
-  ;; fonts
   (when (find-font fixed-pitch-font)
     (set-face-attribute 'fixed-pitch nil :font fixed-pitch-font))
   (when (find-font variable-pitch-font)
