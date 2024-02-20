@@ -157,11 +157,16 @@ Host vm-server
     Port 3022
 #+end_example
 
-- enable ssh on server
+enable ssh on server
 #+begin_example
 yay -S openssh
 sudo systemctl start sshd
 #+end_example
+
+find ip address
+#+begin_src example
+ip route get 1.2.3.4 | awk '{print $7}'
+#+end_src
 
 *** KDE
 - install =plasma-meta=
