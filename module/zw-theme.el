@@ -44,13 +44,13 @@
      `(mode-line
        ((t (:height ,modeline-height))))
      `(mode-line-inactive
-       ((t (:inherit mode-line :foreground ,(face-foreground 'font-lock-comment-face)))))
+       ((t (:inherit mode-line :foreground ,(face-foreground 'shadow)))))
      `(mode-line-highlight
        ((t (:inherit mode-line :foreground ,modeline-highlight-fg :background ,modeline-highlight-bg))))
      `(zw/modeline-default-active
        ((t (:height ,modeline-height :foreground ,(face-foreground 'mode-line)))))
      `(zw/modeline-default-inactive
-       ((t (:height ,modeline-height :foreground ,(face-foreground 'font-lock-comment-face)))))
+       ((t (:height ,modeline-height :foreground ,(face-foreground 'shadow)))))
      `(zw/modeline-modified-active
        ((t (:inherit (warning zw/modeline-buffer-name-active)))))
      `(zw/modeline-highlight-foreground-active
@@ -137,17 +137,17 @@
      `(org-formula
        ((t (:inherit fixed-pitch))))
      `(org-latex-and-related
-       ((t (:inherit (shadow fixed-pitch)))))
+       ((t (:inherit fixed-pitch))))
      `(org-link
        ((t (:inherit fixed-pitch :underline t))))
      `(org-special-keyword
-       ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+       ((t (:inherit fixed-pitch))))
      `(org-checkbox
        ((t (:inherit fixed-pitch))))
      `(org-property-value
        ((t (:inherit fixed-pitch))))
      `(org-tag
-       ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+       ((t (:inherit fixed-pitch :weight bold :height 0.8))))
      `(org-document-info
        ((t (:foreground "dark orange"))))
      `(org-document-info-keyword
@@ -156,14 +156,14 @@
        ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(org-block-begin-line
        ((t (:inherit org-block
-                     :foreground ,(face-foreground 'font-lock-comment-face)
-                     :underline ,(face-foreground 'font-lock-comment-face)))))
+                     :foreground ,(face-foreground 'shadow)
+                     :underline ,(face-foreground 'shadow)))))
      `(org-block-end-line
        ((t (:inherit org-block-begin-line))))
      `(org-code
-       ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
+       ((t (:inherit fixed-pitch :background ,block-bg))))
      `(org-verbatim
-       ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
+       ((t (:inherit fixed-pitch :background ,block-bg))))
 
      ;; markdown with variable font
      `(markdown-header-face-6 ((t (:inherit (outline-6 variable-pitch)))))
@@ -176,15 +176,15 @@
        ((t (:inherit variable-pitch :foreground ,base-font-color :weight Bold :height 1.7 :underline t))))
      ;; markdown with fixed font
      `(markdown-metadata-key-face
-       ((t (:inherit (thin fixed-pitch) :height 0.8))))
+       ((t (:inherit fixed-pitch :height 0.8))))
      `(markdown-header-delimiter-face
-       ((t (:inherit (font-lock-comment-face fixed-pitch) :height 0.8))))
+       ((t (:inherit (shadow fixed-pitch) :height 0.8))))
      `(markdown-language-info-face
-       ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+       ((t (:inherit (shadow fixed-pitch)))))
      `(markdown-code-face
        ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(markdown-markup-face
-       ((t (:inherit (font-lock-comment-face fixed-pitch) :foreground unspecified :slant normal)))))))
+       ((t (:inherit (shadow fixed-pitch) :foreground unspecified :slant normal)))))))
 
 ;; * Load theme
 (defun zw/theme-set-theme ()
