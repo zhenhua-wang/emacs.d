@@ -440,6 +440,17 @@
                                                                                 'zw/modeline-default-inactive)))))
      zw/modeline-separator)))
 
+;; ** writer
+(defun zw/modeline-writer-mode ()
+  (when zw/writer-mode
+    (concat (propertize (nerd-icons-faicon
+                         "nf-fa-pencil"
+                         :height 1
+                         :v-adjust 0.05)
+                        'face (zw/modeline-set-face 'zw/modeline-default-active
+                                                    'zw/modeline-default-inactive))
+            zw/modeline-separator)))
+
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
   (let ((middle-space (progn
@@ -470,6 +481,7 @@
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
+  '(:eval (zw/modeline-writer-mode))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-count-region))
