@@ -144,7 +144,7 @@
 
 (defun zw/modeline-bar ()
   (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'mode-line)
+                   (face-background 'zw/modeline-separator-active)
                  (face-background 'mode-line-inactive)))
         (width 1)
         (height (floor (* (string-pixel-width " ")
