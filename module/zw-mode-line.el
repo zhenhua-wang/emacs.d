@@ -469,13 +469,13 @@
   "%e"
   ;; left
   '(:eval (zw/modeline-remote))
-  '(:eval (zw/modeline-bar))
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
+  '(:eval (zw/modeline-bar))
   ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   '(:eval (zw/modeline-rhs))))
@@ -489,7 +489,6 @@
                           (list
                            "%e"
                            '(:eval (zw/modeline-remote))
-                           '(:eval (zw/modeline-bar))
                            '(:eval (propertize
                                     (zw/modeline-buffer-name 30 "...")
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active
@@ -498,7 +497,8 @@
                            '(:eval (zw/modeline-count-region))
                            '(:eval (zw/modeline-mark-active))
                            '(:eval (zw/modeline-kmacro-recording))
-                           '(:eval (zw/modeline-process)))))))
+                           '(:eval (zw/modeline-process))
+                           '(:eval (zw/modeline-bar)))))))
 
 ;; ** ring bell
 (defvar zw/modeline--ring-bell-timer nil)
