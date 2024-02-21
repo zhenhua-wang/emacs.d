@@ -41,4 +41,4 @@ git config --global credential.helper store
 yay -S firefox kitty htop neofetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
-flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper app.drey.Dialect
+flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper
