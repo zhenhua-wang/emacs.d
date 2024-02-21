@@ -153,12 +153,13 @@
      `(org-document-info-keyword
        ((t (:inherit (shadow fixed-pitch)))))
      `(org-block
-       ((t (:inherit fixed-pitch :background ,block-bg))))
+       ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(org-block-begin-line
-       ((t (:inherit (font-lock-comment-face fixed-pitch)
-                     :background ,block-bg :bold t :italic t :underline t :extend t))))
+       ((t (:inherit org-block
+                     :foreground ,(face-foreground 'font-lock-comment-face)
+                     :underline ,(face-foreground 'font-lock-comment-face)))))
      `(org-block-end-line
-       ((t (:background ,block-bg :bold t :italic t :extend t))))
+       ((t (:inherit org-block-begin-line))))
      `(org-code
        ((t (:inherit (shadow fixed-pitch) :background ,block-bg))))
      `(org-verbatim
