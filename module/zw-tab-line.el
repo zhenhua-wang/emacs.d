@@ -138,7 +138,7 @@
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
-    (zw/modeline--begin color width height)))
+    (zw/modeline--bar color width height)))
 
 ;; ** debug
 (defun zw/tab-line-debug-keymap (function)

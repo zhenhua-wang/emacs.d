@@ -128,8 +128,8 @@
     inactive-face))
 
 ;; * Module
-;; ** begin
-(defun zw/modeline--begin (color width height)
+;; ** bar
+(defun zw/modeline--bar (color width height)
   (if (and (display-graphic-p)
            (image-type-available-p 'pbm))
       (propertize
@@ -142,14 +142,14 @@
           'pbm t :scale 1 :foreground color :ascent 'center)))
     (propertize " " 'face `(:background ,color))))
 
-(defun zw/modeline-begin ()
+(defun zw/modeline-bar ()
   (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'mode-line-highlight)
-                 (face-background 'zw/modeline-highlight-background-inactive)))
-        (width (string-pixel-width (propertize " " 'face 'mode-line)))
+                   (face-background 'mode-line)
+                 (face-background 'mode-line-inactive)))
+        (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.7))))
-    (zw/modeline--begin color width height)))
+    (zw/modeline--bar color width height)))
 
 ;; ** seperator
 (defvar zw/modeline-separator
@@ -161,7 +161,7 @@
                  (face-background 'mode-line-inactive)))
         (width (floor (/ (string-pixel-width " ") 4)))
         (height (string-pixel-width " ")))
-    (zw/modeline--begin color width height)))
+    (zw/modeline--bar color width height)))
 
 ;; ** remote
 (defun zw/modeline-remote ()
@@ -171,8 +171,8 @@
                :v-adjust 0.05)))
     (concat
      (propertize (if (file-remote-p default-directory)
-                     (concat icon " " (file-remote-p default-directory 'host) " ")
-                   (concat icon " "))
+                     (concat " " icon " " (file-remote-p default-directory 'host) " ")
+                   (concat " " icon " "))
                  'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
      zw/modeline-separator)))
 
@@ -467,9 +467,9 @@
  mode-line-format
  (list
   "%e"
-  '(:eval (zw/modeline-begin))
   ;; left
   '(:eval (zw/modeline-remote))
+  '(:eval (zw/modeline-bar))
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-text-scale))
@@ -488,8 +488,8 @@
               (setq-local mode-line-format
                           (list
                            "%e"
-                           '(:eval (zw/modeline-begin))
                            '(:eval (zw/modeline-remote))
+                           '(:eval (zw/modeline-bar))
                            '(:eval (propertize
                                     (zw/modeline-buffer-name 30 "...")
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active

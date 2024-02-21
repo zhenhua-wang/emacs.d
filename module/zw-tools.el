@@ -95,8 +95,8 @@
 
 (defun zw/dired-sidebar--modeline-format ()
   (list "%e"
-        '(:eval (zw/modeline-begin))
         '(:eval (zw/modeline-remote))
+        '(:eval (zw/modeline-bar))
         '(:eval (zw/dired-sidebar--modeline-name))
         '(:eval (zw/modeline-line-column))))
 
@@ -159,7 +159,7 @@
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
-    (concat (zw/modeline--begin color width height)
+    (concat (zw/modeline--bar color width height)
             (nerd-icons-sucicon
              "nf-custom-folder_open"
              :height 0.9
