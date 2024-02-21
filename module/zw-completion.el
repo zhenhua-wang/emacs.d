@@ -212,12 +212,12 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
            (company-backends '((company-dabbrev :with company-ispell))))
       (unless (string= prefix "")
         (call-interactively 'company-manual-begin))))
-  (define-advice company-dabbrev--prefix (:around (orig-fun &rest args)
-                                                  company-dabbrev--prefix-advice)
-    "Return nil when prefix is empty."
+  ;; prefix return nil when it's empty
+  (defun company-backend--prefix-advice (orig-fun &rest args)
     (let ((prefix (apply orig-fun args)))
       (unless (string= prefix "")
         prefix)))
+  (advice-add 'company-dabbrev--prefix :around 'company-backend--prefix-advice)
   ;; auto-complete in text-mode
   (add-hook 'text-mode-hook (lambda ()
                               (setq-local company-idle-delay 0))))
