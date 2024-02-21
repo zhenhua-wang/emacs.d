@@ -466,7 +466,6 @@ The order of values may be different."
       (progn
         (setq-local company-idle-delay (plist-get zw/writer-pre-config :company-idle-delay)
                     company-backends (plist-get zw/writer-pre-config :company-backends))))))
-(add-hook 'text-mode-hook 'zw/writer-mode)
 
 (defun zw/smart-tab ()
   "Tab indent or toggle hide show or toggle outline"
