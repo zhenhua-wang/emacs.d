@@ -199,8 +199,8 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                          vterm-mode eshell-mode)
               company-backends '(company-files
                                  company-capf
-                                 company-yasnippet
-                                 (company-dabbrev :with company-ispell)))
+                                 (company-dabbrev :with company-ispell)
+                                 company-yasnippet))
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
@@ -211,7 +211,13 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     (let* ((prefix (company-grab-symbol))
            (company-backends '((company-dabbrev :with company-ispell))))
       (unless (string= prefix "")
-        (call-interactively 'company-manual-begin)))))
+        (call-interactively 'company-manual-begin))))
+  (define-advice company-dabbrev--prefix (:around (orig-fun &rest args)
+                                                  company-dabbrev--prefix-advice)
+    "Return nil when prefix is empty."
+    (let ((prefix (apply orig-fun args)))
+      (unless (string= prefix "")
+        prefix))))
 
 (use-package company-prescient
   :hook

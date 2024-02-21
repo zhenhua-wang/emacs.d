@@ -449,24 +449,6 @@ The order of values may be different."
   (force-mode-line-update)
   (redraw-display))
 
-(defvar zw/writer-pre-config nil)
-(define-minor-mode zw/writer-mode
-  "Toggle writer mode"
-  :global nil
-  (when (featurep 'company)
-    (if zw/writer-mode
-        (progn
-          (setq zw/writer-pre-config
-                (plist-put zw/writer-pre-config :company-backends company-backends))
-          (setq zw/writer-pre-config
-                (plist-put zw/writer-pre-config :company-idle-delay company-idle-delay))
-          (setq-local company-idle-delay 0
-                      company-backends '(company-files
-                                         (company-dabbrev :with company-ispell))))
-      (progn
-        (setq-local company-idle-delay (plist-get zw/writer-pre-config :company-idle-delay)
-                    company-backends (plist-get zw/writer-pre-config :company-backends))))))
-
 (defun zw/smart-tab ()
   "Tab indent or toggle hide show or toggle outline"
   (interactive)
