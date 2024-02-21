@@ -217,7 +217,10 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
     "Return nil when prefix is empty."
     (let ((prefix (apply orig-fun args)))
       (unless (string= prefix "")
-        prefix))))
+        prefix)))
+  ;; auto-complete in text-mode
+  (add-hook 'text-mode-hook (lambda ()
+                              (setq-local company-idle-delay 0))))
 
 (use-package company-prescient
   :hook
