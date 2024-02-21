@@ -19,7 +19,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-default-inactive
-  `((t (:foreground ,(face-foreground 'font-lock-comment-face))))
+  `((t (:foreground ,(face-foreground 'shadow))))
   "Default face for inactive modeline"
   :group 'zw/modeline-inactive)
 

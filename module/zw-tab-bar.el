@@ -373,7 +373,7 @@
   "Show buffers of current frame on tab-bar."
   (let* ((i 0)
          (buffer-name-ellipsis ".")
-         (buffer-separator (propertize " | " 'face 'font-lock-comment-face))
+         (buffer-separator (propertize " | " 'face 'shadow))
          (screen-width (frame-width))
          (buffer-list (zw/exwm-buffer-sorted-display-list))
          (buffer-list-length (length buffer-list))
@@ -389,7 +389,7 @@
                       (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
               (bname-face (if (eq buffer current-buffer)
                               (propertize bname 'face '(:weight bold))
-                            (propertize bname 'face 'font-lock-comment-face)))
+                            (propertize bname 'face 'shadow)))
               (current-tab `(tab menu-item ,bname-face
                                  (lambda () (interactive)
                                    (zw/tab-bar-switch-or-focus-buffer ,buffer))
