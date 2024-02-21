@@ -143,7 +143,7 @@
      `(org-special-keyword
        ((t (:inherit (font-lock-comment-face fixed-pitch)))))
      `(org-checkbox
-       ((t (:inherit 'fixed-pitch))))
+       ((t (:inherit fixed-pitch))))
      `(org-property-value
        ((t (:inherit fixed-pitch))))
      `(org-tag
@@ -155,7 +155,8 @@
      `(org-block
        ((t (:inherit fixed-pitch :background ,block-bg))))
      `(org-block-begin-line
-       ((t (:inherit 'fixed-pitch :background ,block-bg :bold t :italic t :underline t :extend t))))
+       ((t (:inherit (font-lock-comment-face fixed-pitch)
+                     :background ,block-bg :bold t :italic t :underline t :extend t))))
      `(org-block-end-line
        ((t (:background ,block-bg :bold t :italic t :extend t))))
      `(org-code
