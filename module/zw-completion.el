@@ -201,6 +201,11 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                                  company-capf
                                  (company-dabbrev :with company-ispell)
                                  company-yasnippet))
+  ;; use literal completion for company-mode
+  (defun company-completion-styles (capf-fn &rest args)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply capf-fn args)))
+  (advice-add 'company-capf :around #'company-completion-styles)
   ;; remove completions that start with numbers
   (push (apply-partially #'cl-remove-if
                          (lambda (c) (string-match-p "\\`[0-9]+" c)))
