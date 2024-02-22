@@ -134,7 +134,7 @@
 
 ;; ** bar
 (defun zw/tab-line-bar ()
-  (let ((color (face-background 'tab-line))
+  (let ((color (face-background 'tab-line nil 'default))
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.5))))
