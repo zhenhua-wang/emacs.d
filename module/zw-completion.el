@@ -72,20 +72,14 @@
          ("M-A" . marginalia-cycle))
   :hook (vertico-mode . marginalia-mode)
   :config
-  (setq marginalia-align 'center)
   ;; show mode on/off
   (defun marginalia-annotate-command (cand)
-    "Annotate command CAND with its documentation string.
-Similar to `marginalia-annotate-symbol', but does not show symbol class."
-    (when-let* ((sym (intern-soft cand)))
+    (when-let ((sym (intern-soft cand)))
       (concat
-       (let ((mode (if (and sym (boundp sym))
-                       sym
-                     nil)))
-         (when (and sym (boundp sym))
-           (if (and (boundp mode) (symbol-value mode))
-               (propertize " [On]" 'face 'marginalia-on)
-             (propertize " [Off]" 'face 'marginalia-off))))
+       (when (boundp sym)
+         (if (symbol-value sym)
+             (propertize " [On]" 'face 'marginalia-on)
+           (propertize " [Off]" 'face 'marginalia-off)))
        (marginalia-annotate-binding cand)
        (marginalia--documentation (marginalia--function-doc sym))))))
 
