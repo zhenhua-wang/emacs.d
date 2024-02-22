@@ -70,6 +70,10 @@
        ((t (:inherit zw/modeline-default-inactive :background ,mode-line-inactive-color))))
      `(zw/modeline-separator-active
        ((t (:inherit mode-line :background ,mode-line-color))))
+     `(zw/modeline-local-active
+       ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
+     `(zw/modeline-remote-active
+       ((t (:inherit mode-line :foreground ,highlight-alt-revert-color :background ,highlight-alt-color))))
 
      ;; tab-bar
      `(tab-bar

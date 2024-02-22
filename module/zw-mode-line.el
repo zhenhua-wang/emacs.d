@@ -83,6 +83,11 @@
   "Defining kmacro face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-local-active
+  '((t (:inherit zw/modeline-highlight-background-active)))
+  "Local file face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-remote-active
   '((t (:inherit zw/modeline-highlight-background-active)))
   "Remote file face for active modeline"
@@ -170,10 +175,11 @@
                :height 1
                :v-adjust 0.05)))
     (concat
-     (propertize (if (file-remote-p default-directory)
-                     (concat " " icon " " (file-remote-p default-directory 'host) " ")
-                   (concat " " icon " "))
-                 'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+     (if (file-remote-p default-directory)
+         (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
+                     'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+       (propertize (concat " " icon " ")
+                   'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive)))
      zw/modeline-separator)))
 
 ;; ** tab index
