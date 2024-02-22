@@ -50,7 +50,8 @@
          (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-toggle)))
   :init (setq lsp-ui-imenu-enable t
-              lsp-ui-imenu-buffer-name "imenu"
+              lsp-ui-imenu-auto-refresh 'after-save
+              lsp-ui-imenu-auto-refresh-delay 0.5
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
               lsp-ui-doc-position 'at-point
@@ -78,11 +79,17 @@
   (advice-add #'lsp-ui-peek--peek-new :override #'lsp-ui-peek--peek-display)
   (advice-add #'lsp-ui-peek--peek-hide :override #'lsp-ui-peek--peek-destroy)
   ;; lsp-ui-imenu
+  (defun zw/lsp-ui-imenu--modeline-name ()
+    "Sidebar modeline name."
+    (propertize (concat "imenu: " (buffer-name lsp-ui-imenu--origin)
+                        zw/modeline-separator)
+                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                            'zw/modeline-default-inactive)))
   (setq lsp-ui-imenu--custom-mode-line-format
         (list "%e"
               '(:eval (zw/modeline-begin))
               '(:eval (zw/modeline-remote))
-              '(:eval (zw/modeline-buffer-name 30 "..."))
+              '(:eval (zw/lsp-ui-imenu--modeline-name))
               '(:eval (zw/modeline-bar))))
   (defun zw/lsp-ui-imenu-init ()
     (visual-line-mode -1)
