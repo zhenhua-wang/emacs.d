@@ -25,18 +25,24 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic nil))
 
+(defun zw/theme-emphasize-color (color aplha dark-p)
+  (if dark-p
+      (doom-lighten color aplha)
+    (doom-darken color aplha)))
+
 ;; * ZW theme
-(defun zw/theme--set-theme (theme-params)
-  (let* ((base-font-color          (face-foreground 'default nil 'default))
+(defun zw/theme-set-theme ()
+  (let* ((dark-p                   (eq (frame-parameter nil 'background-mode) 'dark))
+         (base-font-color          (face-foreground 'default nil 'default))
          (mode-line-color          (face-background 'mode-line nil 'default))
          (tab-bar-color            (face-background 'tab-bar nil 'default))
          (shadow-color             (face-foreground 'shadow nil 'default))
          (highlight-color          (face-background 'highlight))
          (highlight-revert-color   (face-foreground 'highlight))
          (highlight-alt-color      (face-foreground 'warning nil 'default))
-         (block-color              (alist-get 'block-color theme-params))
-         (mode-line-inactive-color (alist-get 'mode-line-inactive-color theme-params))
-         (tab-bar-box              (alist-get 'tab-bar-box theme-params))
+         (block-color              (zw/theme-emphasize-color (face-background 'default) 0.06 dark-p))
+         (mode-line-inactive-color (zw/theme-emphasize-color (face-background 'mode-line-inactive) 0.05 dark-p))
+         (tab-bar-box              (zw/theme-emphasize-color (face-background 'tab-bar) 0.05 dark-p))
          (modeline-height          130)
          (tab-bar-height           120))
     (custom-theme-set-faces
@@ -189,17 +195,6 @@
        ((t (:inherit (shadow fixed-pitch) :foreground unspecified :slant normal)))))))
 
 ;; * Load theme
-(defun zw/theme-set-theme ()
-  (let ((light-theme-params `((block-color . ,(doom-darken (face-background 'default) 0.06))
-                              (mode-line-inactive-color . ,(doom-darken (face-background 'mode-line-inactive) 0.05))
-                              (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))))
-        (dark-theme-params `((block-color . ,(doom-lighten (face-background 'default) 0.06))
-                             (mode-line-inactive-color . ,(doom-lighten (face-background 'mode-line-inactive) 0.05))
-                             (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05)))))
-    (pcase (frame-parameter nil 'background-mode)
-      ('light (zw/theme--set-theme light-theme-params))
-      ('dark (zw/theme--set-theme dark-theme-params)))))
-
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
 (when (not (file-exists-p zw/theme-selector))
