@@ -155,9 +155,7 @@
      `(org-block
        ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
      `(org-block-begin-line
-       ((t (:inherit org-block
-                     :foreground ,(face-foreground 'shadow)
-                     :underline ,(face-foreground 'shadow)))))
+       ((t (:inherit org-block :foreground ,(face-foreground 'shadow) :underline ,(face-foreground 'shadow)))))
      `(org-block-end-line
        ((t (:inherit org-block-begin-line))))
      `(org-code
