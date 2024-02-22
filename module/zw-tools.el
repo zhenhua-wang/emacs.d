@@ -33,10 +33,7 @@
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
   (dired-mode . zw/dired-setup)
-  :bind ((:map global-map
-               ("s-b" . zw/dired-sidebar-toggle))
-
-         (:map dired-mode-map
+  :bind ((:map dired-mode-map
                ("s-f" . isearch-forward)
                ("<tab>" . zw/dired-subtree-toggle)
                ("q" . zw/kill-bufer-quit-window)))
@@ -343,7 +340,6 @@
   :keymap
   `((,(kbd "s-q") . zw/kill-bufer-quit-window)
     (,(kbd "q") . zw/kill-bufer-quit-window)
-    (,(kbd "s-b") . zw/kill-bufer-quit-window)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
@@ -354,6 +350,9 @@
     (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-backward-action)
     (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action)))
+
+;; register in zw/left-side-window
+(add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type

@@ -41,9 +41,7 @@
   :commands (lsp-ui-imenu)
   :hook ((lsp-mode . lsp-ui-mode)
          (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
-  :bind ((("C-s-b" . zw/lsp-ui-imenu))
-         (:map lsp-ui-imenu-mode-map
-               ("C-s-b" . kill-buffer-and-window)
+  :bind ((:map lsp-ui-imenu-mode-map
                ("<return>" . lsp-ui-imenu--visit)
                ("s-f" . isearch-forward))
          (:map lsp-ui-mode-map
@@ -54,7 +52,6 @@
   :init (setq lsp-ui-imenu-enable t
               lsp-ui-imenu-buffer-position 'left
               lsp-ui-imenu-buffer-name "imenu"
-              lsp-ui-imenu-window-width 0.3
               lsp-ui-imenu-window-fix-width t
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
@@ -87,7 +84,8 @@
         (list "%e"
               '(:eval (zw/modeline-begin))
               '(:eval (zw/modeline-remote))
-              '(:eval (zw/modeline-buffer-name 30 "..."))))
+              '(:eval (zw/modeline-buffer-name 30 "..."))
+              '(:eval (zw/modeline-bar))))
   (defun zw/lsp-ui-imenu-init ()
     (visual-line-mode -1)
     (setq-local buffer-face-mode-face
@@ -98,7 +96,8 @@
   (defun zw/lsp-ui-imenu ()
     (interactive)
     (ignore-errors
-      (lsp-ui-imenu))))
+      (lsp-ui-imenu)))
+  (add-to-list 'zw/left-side-window-open-functions 'zw/lsp-ui-imenu t))
 
 ;; ** eglot
 (use-package eglot

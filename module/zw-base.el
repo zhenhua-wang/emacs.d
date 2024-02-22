@@ -8,9 +8,9 @@
 (defun zw/hidden-buffer-p (&optional buffer)
   (string-match "^[[:space:]].*$" (buffer-name buffer)))
 
-(defun zw/side-window-p ()
-  "Return non-nil if current window is a side window."
-  (window-parameter (get-buffer-window) 'window-side))
+(defun zw/window-side (window)
+  "Get window's side, return nil if it is not side window."
+  (window-parameter window 'window-side))
 
 (defun zw/merge-list-symbols (dst src &optional prepend)
   "Merge lists, possibly symbols."
@@ -246,6 +246,23 @@ The order of values may be different."
                   (delete-window buffer-window)))))
         (cl-mapcar 'display-buffer zw/side-window--buffer-opened))
     (message "No buffer in side window.")))
+
+;; ** Left side window
+(defvar zw/left-side-window-open-functions nil
+  "List of functions to open left side window.")
+
+(defun zw/left-side-window-toggle ()
+  "Open left side window."
+  (interactive)
+  (if (eq (zw/window-side (selected-window)) 'left)
+      (dolist (left-side-window (cl-remove-if-not
+                                 (lambda (window)
+                                   (eq (zw/window-side window) 'left))
+                                 (window-list)))
+        (with-selected-window left-side-window
+          (zw/kill-bufer-quit-window)))
+    (dolist (func zw/left-side-window-open-functions)
+      (funcall func))))
 
 ;; * Tool
 ;; ** Tramp
@@ -536,6 +553,7 @@ The order of values may be different."
            ("s-T" . winner-undo)
            ("s-u" . winner-undo)
            ("s-U" . winner-redo)
+           ("s-b" . zw/left-side-window-toggle)
            ("s-B" . zw/side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands
