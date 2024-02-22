@@ -38,7 +38,7 @@
       (lsp-deferred))))
 
 (use-package lsp-ui
-  :commands (lsp-ui-imenu)
+  :commands (lsp-ui-imenu-buffer-mode)
   :hook ((lsp-mode . lsp-ui-mode)
          (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
   :bind ((:map lsp-ui-imenu-mode-map
@@ -50,9 +50,7 @@
          (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-toggle)))
   :init (setq lsp-ui-imenu-enable t
-              lsp-ui-imenu-buffer-position 'left
               lsp-ui-imenu-buffer-name "imenu"
-              lsp-ui-imenu-window-fix-width t
               lsp-ui-sideline-enable nil
               lsp-ui-peek-always-show t
               lsp-ui-doc-position 'at-point
@@ -96,7 +94,18 @@
   (defun zw/lsp-ui-imenu ()
     (interactive)
     (ignore-errors
-      (lsp-ui-imenu)))
+      (lsp-ui-imenu-buffer-mode 1)
+      (setq lsp-ui-imenu--origin (current-buffer))
+      (imenu--make-index-alist)
+      (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
+        (lsp-ui-imenu--refresh-content)
+        (let ((win (display-buffer-in-side-window
+                    imenu-buffer '((side . left)
+                                   (window-height . 0.4)))))
+          (set-window-margins win 1)
+          (set-window-start win 1)
+          (lsp-ui-imenu--move-to-name-beginning)
+          (set-window-dedicated-p win t)))))
   (add-to-list 'zw/left-side-window-open-functions 'zw/lsp-ui-imenu t))
 
 ;; ** eglot
