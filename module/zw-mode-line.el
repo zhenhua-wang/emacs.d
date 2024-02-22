@@ -144,8 +144,8 @@
 
 (defun zw/modeline-bar ()
   (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'zw/modeline-separator-active)
-                 (face-background 'mode-line-inactive)))
+                   (face-background 'zw/modeline-separator-active nil 'default)
+                 (face-background 'mode-line-inactive nil 'default)))
         (width 1)
         (height (floor (* (string-pixel-width " ")
                           2.7))))
@@ -157,8 +157,8 @@
 
 (defun zw/modeline-separator-thin ()
   (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'zw/modeline-separator-active)
-                 (face-background 'mode-line-inactive)))
+                   (face-background 'zw/modeline-separator-active nil 'default)
+                 (face-background 'mode-line-inactive nil 'default)))
         (width (floor (/ (string-pixel-width " ") 4)))
         (height (string-pixel-width " ")))
     (zw/modeline--bar color width height)))
