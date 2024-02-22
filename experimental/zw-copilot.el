@@ -12,8 +12,9 @@
          ("C-<right>" . 'copilot-accept-completion-by-word)
          ("C-<down>" . 'copilot-accept-completion-by-line))
   :config
+  (setq copilot-indent-offset-warning-disable t)
   (add-to-list 'copilot-disable-predicates #'company--active-p)
   (add-to-list 'copilot-disable-display-predicates #'company--active-p)
-  (setq copilot-indent-offset-warning-disable t))
+  (advice-add 'company-posframe-show :before 'copilot-clear-overlay))
 
 (provide 'zw-copilot)
