@@ -27,26 +27,6 @@
 The order of values may be different."
   (not (cl-set-exclusive-or list1 list2)))
 
-(defun zw/get-face-attr-recur (face attr)
-  "Get face background/foreground recursively"
-  (let ((face-attr (face-attribute face attr)))
-    (if (and face-attr
-             (not (eq face-attr 'unspecified)))
-        face-attr
-      (let ((parent-face (face-attribute face :inherit)))
-        (if (and parent-face
-                 (not (eq parent-face 'unspecified)))
-            (zw/get-face-attr-recur parent-face attr)
-          nil)))))
-
-(defun zw/get-face-bg-recur (face)
-  "Get face background recursively"
-  (zw/get-face-attr-recur face :background))
-
-(defun zw/get-face-fg-recur (face)
-  "Get face foreground recursively"
-  (zw/get-face-attr-recur face :foreground))
-
 (defun zw/translate-shift-number (i)
   "Translate S-i to character."
   (pcase i

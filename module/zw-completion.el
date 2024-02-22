@@ -273,7 +273,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
                   (tab-line-format . nil)
                   (tab-bar-lines . 0)
                   (tab-bar-lines-keep-state . 0)
-                  (background-color . ,(zw/get-face-bg-recur 'company-tooltip))))))
+                  (background-color . ,(face-background 'company-tooltip nil t))))))
   (advice-add #'company-posframe-show :before #'zw/company-posframe-show-params))
 
 ;; ** backend
