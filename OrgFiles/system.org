@@ -10,6 +10,9 @@ sudo pacman -S --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+
+# fonts
+yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
 #+end_src
 
 ** Emacs
@@ -20,7 +23,7 @@ mv emacs.d .emacs.d
 mkdir ~/.fonts
 cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
-yay -S libxpm libtiff giflib aspell aspell-en noto-fonts noto-fonts-cjk noto-fonts-emoji
+yay -S libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
 cd emacs
 ./autogen.sh
