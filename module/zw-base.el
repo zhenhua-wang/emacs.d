@@ -464,7 +464,9 @@ The order of values may be different."
  save-interprogram-paste-before-kill t
  select-enable-clipboard t
  ;; copy while draging mouse
- mouse-drag-copy-region t)
+ mouse-drag-copy-region t
+ mouse-drag-and-drop-region t
+ mouse-drag-and-drop-region-cross-program t)
 
 ;; ** Auto revert
 (add-hook 'after-init-hook 'global-auto-revert-mode)
