@@ -110,7 +110,7 @@
      `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
-     `(show-paren-match ((t (:background ,highlight-alt-color :foreground highlight-alt-revert-color :weight bold))))
+     `(show-paren-match ((t (:background ,highlight-alt-color :foreground ,highlight-alt-revert-color :weight bold))))
 
      ;; diredfl
      `(diredfl-dir-name ((t (:bold t))))
