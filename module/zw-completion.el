@@ -244,7 +244,7 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
-        company-posframe-show-indicator t)
+        company-posframe-show-indicator nil)
   ;; set show parameters
   (defun zw/company-posframe-refposhandler (&optional frame)
     (cond
@@ -264,17 +264,14 @@ Similar to `marginalia-annotate-symbol', but does not show symbol class."
               :poshandler 'company-posframe-quickhelp-right-poshandler
               :timeout 60
               :no-properties nil))
-  (defun zw/company-posframe-show-params ()
-    (setq company-posframe-show-params
-          (list :refposhandler 'zw/company-posframe-refposhandler
-                :override-parameters
-                `((tab-bar-mode . 0)
-                  (tab-bar-format . nil)
-                  (tab-line-format . nil)
-                  (tab-bar-lines . 0)
-                  (tab-bar-lines-keep-state . 0)
-                  (background-color . ,(face-background 'company-tooltip nil t))))))
-  (advice-add #'company-posframe-show :before #'zw/company-posframe-show-params))
+  (setq company-posframe-show-params
+        (list :refposhandler 'zw/company-posframe-refposhandler
+              :override-parameters
+              '((tab-bar-mode . 0)
+                (tab-bar-format . nil)
+                (tab-line-format . nil)
+                (tab-bar-lines . 0)
+                (tab-bar-lines-keep-state . 0)))))
 
 ;; ** backend
 (defun company-R-objects--prefix ()
