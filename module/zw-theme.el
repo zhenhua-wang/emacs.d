@@ -52,9 +52,9 @@
      `(mode-line-highlight
        ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-default-active
-       ((t (:inherit mode-line :height ,modeline-height))))
+       ((t (:height ,modeline-height))))
      `(zw/modeline-default-inactive
-       ((t (:inherit mode-line :height ,modeline-height :foreground ,shadow-color))))
+       ((t (:height ,modeline-height :foreground ,shadow-color))))
      `(zw/modeline-modified-active
        ((t (:inherit zw/modeline-buffer-name-active :foreground ,highlight-alt-color))))
      `(zw/modeline-highlight-foreground-active
