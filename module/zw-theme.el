@@ -27,38 +27,42 @@
 
 ;; * ZW theme
 (defun zw/theme--set-theme (theme-params)
-  (let* ((base-font-color         (face-foreground 'default nil 'default))
-         (modeline-height         130)
-         (tab-bar-height          120)
-         (block-bg (alist-get 'block-bg theme-params))
-         (modeline-highlight-bg (alist-get 'modeline-highlight-bg theme-params))
-         (modeline-highlight-fg (alist-get 'modeline-highlight-fg theme-params))
-         (modeline-highlight-inactive-bg (alist-get 'modeline-highlight-inactive-bg theme-params))
-         (tab-bar-box (alist-get 'tab-bar-box theme-params)))
+  (let* ((base-font-color          (face-foreground 'default nil 'default))
+         (mode-line-color          (face-background 'mode-line nil 'default))
+         (tab-bar-color            (face-background 'tab-bar nil 'default))
+         (shadow-color             (face-foreground 'shadow nil 'default))
+         (block-color              (alist-get 'block-color theme-params))
+         (highlight-color          (face-background 'highlight))
+         (highlight-revert-color   (face-foreground 'highlight))
+         (highlight-alt-color      (face-foreground 'warning nil 'default))
+         (mode-line-inactive-color (alist-get 'mode-line-inactive-color theme-params))
+         (tab-bar-box              (alist-get 'tab-bar-box theme-params))
+         (modeline-height          130)
+         (tab-bar-height           120))
     (custom-theme-set-faces
      'user
      ;; child frame
-     `(child-frame-border ((t (:background ,(face-background 'highlight)))))
+     `(child-frame-border ((t (:background ,highlight-color))))
 
      ;; modeline
      `(mode-line
        ((t (:height ,modeline-height))))
      `(mode-line-inactive
-       ((t (:inherit mode-line :foreground ,(face-foreground 'shadow)))))
+       ((t (:inherit mode-line :foreground ,shadow-color))))
      `(mode-line-highlight
-       ((t (:inherit mode-line :foreground ,modeline-highlight-fg :background ,modeline-highlight-bg))))
+       ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-default-active
-       ((t (:height ,modeline-height :foreground ,(face-foreground 'mode-line)))))
+       ((t (:inherit mode-line :height ,modeline-height))))
      `(zw/modeline-default-inactive
-       ((t (:height ,modeline-height :foreground ,(face-foreground 'shadow)))))
+       ((t (:inherit mode-line :height ,modeline-height :foreground ,shadow-color))))
      `(zw/modeline-modified-active
-       ((t (:inherit (warning zw/modeline-buffer-name-active)))))
+       ((t (:inherit zw/modeline-buffer-name-active :foreground ,highlight-alt-color))))
      `(zw/modeline-highlight-foreground-active
-       ((t (:foreground ,(face-background 'highlight)))))
+       ((t (:inherit mode-line :foreground ,highlight-color))))
      `(zw/modeline-highlight-background-inactive
-       ((t (:inherit zw/modeline-default-inactive :background ,modeline-highlight-inactive-bg))))
+       ((t (:inherit zw/modeline-default-inactive :background ,mode-line-inactive-color))))
      `(zw/modeline-separator-active
-       ((t :background ,(face-background 'mode-line))))
+       ((t (:inherit mode-line :background ,mode-line-color))))
 
      ;; tab-bar
      `(tab-bar
@@ -68,21 +72,21 @@
      `(zw/tab-bar-menu-bar
        ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-path-selected
-       ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,modeline-highlight-bg))))
+       ((t (:inherit zw/tab-bar-default-selected :bold t :foreground ,highlight-color))))
      `(zw/tab-bar-tab-battery-load-default
        ((t (:inherit zw/tab-bar-default-selected :bold t))))
      `(zw/tab-bar-tab-battery-load-charging
-       ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'success) :bold t))))
+       ((t (:inherit (success zw/tab-bar-default-selected) :bold t))))
      `(zw/tab-bar-tab-battery-load-low
-       ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'warning) :bold t))))
+       ((t (:inherit (warning zw/tab-bar-default-selected) :bold t))))
      `(zw/tab-bar-tab-battery-load-critical
-       ((t (:inherit zw/tab-bar-default-selected :foreground ,(face-foreground 'error) :bold t))))
+       ((t (:inherit (error zw/tab-bar-default-selected) :bold t))))
 
      ;; tab-line
-     `(tab-line ((t (:background ,(face-background 'tab-bar nil 'default) :underline ,tab-bar-box))))
+     `(tab-line ((t (:background ,tab-bar-color :underline ,tab-bar-box))))
 
      ;; header-line
-     `(header-line ((t (:background ,(face-background 'mode-line) :underline ,tab-bar-box :bold t))))
+     `(header-line ((t (:background ,mode-line-color :underline ,tab-bar-box :bold t))))
 
      ;; vc
      '(vc-edited-state ((t (:foreground "#FF9F29"))))
@@ -99,7 +103,7 @@
      `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
-     `(show-paren-match ((t (:background ,(face-foreground 'warning) :foreground "black" :weight extra-bold))))
+     `(show-paren-match ((t (:background ,highlight-alt-color :foreground "black" :weight extra-bold))))
 
      ;; diredfl
      `(diredfl-dir-name ((t (:bold t))))
@@ -153,15 +157,15 @@
      `(org-document-info-keyword
        ((t (:inherit (shadow fixed-pitch)))))
      `(org-block
-       ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
+       ((t (:inherit fixed-pitch :background ,block-color :extend t))))
      `(org-block-begin-line
-       ((t (:inherit org-block :foreground ,(face-foreground 'shadow) :underline ,(face-foreground 'shadow)))))
+       ((t (:inherit org-block :foreground ,shadow-color :underline ,shadow-color))))
      `(org-block-end-line
        ((t (:inherit org-block-begin-line))))
      `(org-code
-       ((t (:inherit fixed-pitch :background ,block-bg))))
+       ((t (:inherit fixed-pitch :background ,block-color))))
      `(org-verbatim
-       ((t (:inherit fixed-pitch :background ,block-bg))))
+       ((t (:inherit fixed-pitch :background ,block-color))))
 
      ;; markdown with variable font
      `(markdown-header-face-6 ((t (:inherit (outline-6 variable-pitch)))))
@@ -180,23 +184,17 @@
      `(markdown-language-info-face
        ((t (:inherit (shadow fixed-pitch)))))
      `(markdown-code-face
-       ((t (:inherit fixed-pitch :background ,block-bg :extend t))))
+       ((t (:inherit fixed-pitch :background ,block-color :extend t))))
      `(markdown-markup-face
        ((t (:inherit (shadow fixed-pitch) :foreground unspecified :slant normal)))))))
 
 ;; * Load theme
 (defun zw/theme-set-theme ()
-  (let ((light-theme-params `((block-bg . ,(doom-darken (face-background 'default) 0.06))
-                              (modeline-highlight-bg . ,(face-background 'highlight))
-                              (modeline-highlight-fg . ,(face-foreground 'highlight))
-                              (modeline-highlight-inactive-bg . ,(doom-darken (face-background 'mode-line-inactive)
-                                                                              0.05))
+  (let ((light-theme-params `((block-color . ,(doom-darken (face-background 'default) 0.06))
+                              (mode-line-inactive-color . ,(doom-darken (face-background 'mode-line-inactive) 0.05))
                               (tab-bar-box . ,(doom-darken (face-background 'tab-bar) 0.05))))
-        (dark-theme-params `((block-bg . ,(doom-lighten (face-background 'default) 0.06))
-                             (modeline-highlight-bg . ,(face-background 'highlight))
-                             (modeline-highlight-fg . ,(face-foreground 'highlight))
-                             (modeline-highlight-inactive-bg . ,(doom-lighten (face-background 'mode-line-inactive)
-                                                                              0.05))
+        (dark-theme-params `((block-color . ,(doom-lighten (face-background 'default) 0.06))
+                             (mode-line-inactive-color . ,(doom-lighten (face-background 'mode-line-inactive) 0.05))
                              (tab-bar-box . ,(doom-lighten (face-background 'tab-bar) 0.05)))))
     (pcase (frame-parameter nil 'background-mode)
       ('light (zw/theme--set-theme light-theme-params))
