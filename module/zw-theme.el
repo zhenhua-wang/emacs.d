@@ -32,19 +32,20 @@
 
 ;; * ZW theme
 (defun zw/theme-set-theme ()
-  (let* ((dark-p                   (eq (frame-parameter nil 'background-mode) 'dark))
-         (base-font-color          (face-foreground 'default nil 'default))
-         (mode-line-color          (face-background 'mode-line nil 'default))
-         (tab-bar-color            (face-background 'tab-bar nil 'default))
-         (shadow-color             (face-foreground 'shadow nil 'default))
-         (highlight-color          (face-background 'highlight))
-         (highlight-revert-color   (face-foreground 'highlight))
-         (highlight-alt-color      (face-foreground 'warning nil 'default))
-         (block-color              (zw/theme-emphasize-color (face-background 'default) 0.06 dark-p))
-         (mode-line-inactive-color (zw/theme-emphasize-color (face-background 'mode-line-inactive) 0.05 dark-p))
-         (tab-bar-box              (zw/theme-emphasize-color (face-background 'tab-bar) 0.05 dark-p))
-         (modeline-height          130)
-         (tab-bar-height           120))
+  (let* ((dark-p                      (eq (frame-parameter nil 'background-mode) 'dark))
+         (base-font-color             (face-foreground 'default nil 'default))
+         (mode-line-color             (face-background 'mode-line nil 'default))
+         (tab-bar-color               (face-background 'tab-bar nil 'default))
+         (shadow-color                (face-foreground 'shadow nil 'default))
+         (highlight-color             (face-background 'highlight))
+         (highlight-revert-color      (face-foreground 'highlight))
+         (highlight-alt-color         (face-foreground 'warning nil 'default))
+         (highlight-alt-revert-color  "black")
+         (block-color                 (zw/theme-emphasize-color (face-background 'default) 0.06 dark-p))
+         (mode-line-inactive-color    (zw/theme-emphasize-color (face-background 'mode-line-inactive) 0.05 dark-p))
+         (tab-bar-box                 (zw/theme-emphasize-color (face-background 'tab-bar) 0.05 dark-p))
+         (modeline-height             130)
+         (tab-bar-height              120))
     (custom-theme-set-faces
      'user
      ;; child frame
@@ -109,7 +110,7 @@
      `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
-     `(show-paren-match ((t (:background ,highlight-alt-color :foreground "black" :weight extra-bold))))
+     `(show-paren-match ((t (:background ,highlight-alt-color :foreground highlight-alt-revert-color :weight bold))))
 
      ;; diredfl
      `(diredfl-dir-name ((t (:bold t))))
