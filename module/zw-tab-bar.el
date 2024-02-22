@@ -210,7 +210,7 @@
     (if repl-buffer
         (with-selected-window (get-buffer-window (car repl-buffer))
           (quit-window))
-      (zw/side-window-toggle))))
+      (zw/right-side-window-toggle))))
 
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item

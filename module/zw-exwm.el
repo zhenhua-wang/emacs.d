@@ -585,7 +585,7 @@
                 exwm-workspace-switch-to-buffer
                 vterm multi-vterm
                 zw/dired-sidebar-toggle
-                zw/side-window-toggle
+                zw/right-side-window-toggle
                 magit-status
                 helpful-variable
                 helpful-callable
@@ -988,7 +988,7 @@
         (,(kbd "s-U") . winner-redo)
         ;; side bar
         (,(kbd "s-b") . zw/dired-sidebar-toggle)
-        (,(kbd "s-B") . zw/side-window-toggle)
+        (,(kbd "s-B") . zw/right-side-window-toggle)
         ;; mininbuffer
         (,(kbd "s-<down>") . zw/exwm-window-down)
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)

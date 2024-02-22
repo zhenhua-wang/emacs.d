@@ -211,40 +211,40 @@ The order of values may be different."
          (display-buffer-reuse-mode-window display-buffer-below-selected)
          (window-height . shrink-window-if-larger-than-buffer))))
 
-;; ** Side window
-(defcustom zw/side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
-  "List of modes of buffer displayed in side window.")
+;; ** Right side window
+(defcustom zw/right-side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
+  "List of modes of buffer displayed in right side window.")
 
-(defcustom zw/side-window-buffer-regex nil
-  "List of name regex of buffer displayed in side window.")
+(defcustom zw/right-side-window-buffer-regex nil
+  "List of name regex of buffer displayed in right side window.")
 
-(defvar zw/side-window--buffer-opened nil)
+(defvar zw/right-side-window--buffer-opened nil)
 
-(defun zw/side-window--update ()
-  (setq zw/side-window--buffer-opened
+(defun zw/right-side-window--update ()
+  (setq zw/right-side-window--buffer-opened
         (cl-remove-if-not
          (lambda (buffer)
            (with-current-buffer buffer
-             (or (member major-mode zw/side-window-buffer-mode)
+             (or (member major-mode zw/right-side-window-buffer-mode)
                  (cl-some (lambda (regex)
                             (string-match-p regex (buffer-name buffer)))
-                          zw/side-window-buffer-regex))))
+                          zw/right-side-window-buffer-regex))))
          (buffer-list))))
 
-(defun zw/side-window-toggle ()
+(defun zw/right-side-window-toggle ()
   "Toggle side windows."
   (interactive)
-  (zw/side-window--update)
-  (if zw/side-window--buffer-opened
+  (zw/right-side-window--update)
+  (if zw/right-side-window--buffer-opened
       (if (cl-some (lambda (buffer) (get-buffer-window buffer))
-                   zw/side-window--buffer-opened)
-          (dolist (buffer zw/side-window--buffer-opened)
+                   zw/right-side-window--buffer-opened)
+          (dolist (buffer zw/right-side-window--buffer-opened)
             (let ((buffer-window (get-buffer-window buffer)))
               (when buffer-window
                 (if  (eq buffer-window (window-main-window))
                     (previous-buffer)
                   (delete-window buffer-window)))))
-        (cl-mapcar 'display-buffer zw/side-window--buffer-opened))
+        (cl-mapcar 'display-buffer zw/right-side-window--buffer-opened))
     (message "No buffer in side window.")))
 
 ;; ** Left side window
@@ -554,7 +554,7 @@ The order of values may be different."
            ("s-u" . winner-undo)
            ("s-U" . winner-redo)
            ("s-b" . zw/left-side-window-toggle)
-           ("s-B" . zw/side-window-toggle)
+           ("s-B" . zw/right-side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands
            ("s-i" . imenu)
