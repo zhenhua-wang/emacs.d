@@ -7,7 +7,7 @@
   ((helpful-mode ess-r-help-mode) . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t
-                visual-fill-column-width 90))
+                visual-fill-column-width 95))
 
 ;; * Org mode
 ;; ** main
