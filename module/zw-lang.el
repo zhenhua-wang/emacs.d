@@ -116,7 +116,7 @@
       (eglot-ensure)))
   (defun zw/conda-postactivate ()
     (zw/conda-env-update)
-    ;; HACK: set LD_LIBRARY_PATH after conda activate
+    ;; set LD_LIBRARY_PATH after conda activate
     (setenv "LD_LIBRARY_PATH"
             (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
     (message "Switched to conda environment: %s\n
