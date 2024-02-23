@@ -42,7 +42,7 @@
   :hook ((lsp-mode . lsp-ui-mode)
          (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
   :bind ((:map global-map
-               ([remap imenu] . lsp-ui-imenu))
+               ("s-i" . lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
                ("s-i" . zw/kill-bufer-quit-window)
                ("<return>" . lsp-ui-imenu--visit)
