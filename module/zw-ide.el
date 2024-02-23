@@ -41,7 +41,9 @@
   :commands (lsp-ui-imenu-buffer-mode)
   :hook ((lsp-mode . lsp-ui-mode)
          (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
-  :bind ((:map lsp-ui-imenu-mode-map
+  :bind ((:map global-map
+               ([remap imenu] . lsp-ui-imenu))
+         (:map lsp-ui-imenu-mode-map
                ("<return>" . lsp-ui-imenu--visit)
                ("s-f" . isearch-forward))
          (:map lsp-ui-mode-map
