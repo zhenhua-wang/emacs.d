@@ -20,9 +20,9 @@
                ("M-p" . org-previous-block)
                ("M-n" . org-next-block)
                ("M-s c" . org-cite-insert)))
-  :hook
+  ;; :hook
   ;; (org-mode . org-num-mode)
-  ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
+  ;; ((org-babel-after-execute org-mode) . org-redisplay-inline-images)
   :config
   (setq org-num-face 'default
         org-ellipsis " ⇲"                    ; ▼, ↴, ⬎, ⤷, ⋱, ⤵, ⇲
