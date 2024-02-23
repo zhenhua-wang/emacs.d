@@ -87,7 +87,6 @@
                                             'zw/modeline-default-inactive)))
   (setq lsp-ui-imenu--custom-mode-line-format
         (list "%e"
-              '(:eval (zw/modeline-begin))
               '(:eval (zw/modeline-remote))
               '(:eval (zw/lsp-ui-imenu--modeline-name))
               '(:eval (zw/modeline-bar))))
