@@ -53,6 +53,7 @@
          (:map lsp-ui-doc-mode-map
                ("s-d" . lsp-ui-doc-toggle)))
   :init (setq lsp-ui-imenu-enable t
+              lsp-ui-imenu-buffer-position 'left
               lsp-ui-imenu-auto-refresh 'after-save
               lsp-ui-imenu-auto-refresh-delay 0.5
               lsp-ui-sideline-enable nil
@@ -102,19 +103,23 @@
     (buffer-face-mode 1))
   (defun zw/lsp-ui-imenu ()
     (interactive)
-    (ignore-errors
-      (lsp-ui-imenu-buffer-mode 1)
-      (setq lsp-ui-imenu--origin (current-buffer))
-      (imenu--make-index-alist)
-      (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
-        (lsp-ui-imenu--refresh-content)
-        (let ((win (display-buffer-in-side-window
-                    imenu-buffer '((side . left)
-                                   (window-height . 0.4)))))
-          (set-window-margins win 1)
-          (set-window-start win 1)
-          (lsp-ui-imenu--move-to-name-beginning)
-          (set-window-dedicated-p win t)))))
+    (when (and lsp-mode (not (buffer-base-buffer)))
+      (ignore-errors
+        (lsp-ui-imenu-buffer-mode 1)
+        (setq lsp-ui-imenu--origin (current-buffer))
+        (imenu--make-index-alist)
+        (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
+          (lsp-ui-imenu--refresh-content)
+          (let ((win (display-buffer-in-side-window
+                      imenu-buffer '((side . left)
+                                     (window-height . 0.4)))))
+            (set-window-margins win 1)
+            (set-window-start win 1)
+            (lsp-ui-imenu--move-to-name-beginning)
+            (set-window-dedicated-p win t))
+          ;; enable left side window mode
+          (with-current-buffer imenu-buffer
+            (zw/left-side-window-mode 1))))))
   (add-to-list 'zw/left-side-window-open-functions 'zw/lsp-ui-imenu t))
 
 ;; ** eglot

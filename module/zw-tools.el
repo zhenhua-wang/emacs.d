@@ -263,6 +263,7 @@
                                                 :height (face-attribute 'default :height)
                                                 :box nil))
         (buffer-face-mode 1)
+        (zw/left-side-window-mode 1)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-hide-information-line :append :local)
         (zw/dired-sidebar-format-header-line)
@@ -291,6 +292,7 @@
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-folder-indicator :local)
             (buffer-face-mode -1)
+            (zw/left-side-window-mode -1)
             ;; remove header line
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-hide-information-line :local)

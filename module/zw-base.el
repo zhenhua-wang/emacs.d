@@ -264,6 +264,12 @@ The order of values may be different."
     (dolist (func zw/left-side-window-open-functions)
       (funcall func))))
 
+(define-minor-mode zw/left-side-window-mode
+  "Toggle left side window."
+  :global nil
+  :keymap `((,(kbd "s-b") . zw/left-side-window-toggle)
+            (,(kbd "s-q") . zw/left-side-window-toggle)))
+
 ;; * Tool
 ;; ** Tramp
 (setq tramp-default-method "ssh"
