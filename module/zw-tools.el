@@ -45,7 +45,7 @@
         dired-mouse-drag-files t
         dired-free-space 'separate
         dired-use-ls-dired t
-        dired-listing-switches "-al --no-group --human-readable --group-directories-first"
+        dired-listing-switches "-alh --group-directories-first"
         dired-omit-extensions '("~")
         dired-omit-files "^\\..?$"
         dired-omit-verbose nil)
