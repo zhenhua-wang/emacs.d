@@ -170,7 +170,7 @@
      `(org-block
        ((t (:inherit fixed-pitch :background ,block-color :extend t))))
      `(org-block-begin-line
-       ((t (:inherit org-block :foreground ,shadow-color :underline ,shadow-color))))
+       ((t (:inherit org-block :foreground ,shadow-color))))
      `(org-block-end-line
        ((t (:inherit org-block-begin-line))))
      `(org-code
