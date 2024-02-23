@@ -103,7 +103,8 @@
     (buffer-face-mode 1))
   (defun zw/lsp-ui-imenu ()
     (interactive)
-    (when (and lsp-mode (not (buffer-base-buffer)))
+    (when (and (featurep 'lsp-mode) lsp-mode
+               (not (buffer-base-buffer)))
       (ignore-errors
         (lsp-ui-imenu-buffer-mode 1)
         (setq lsp-ui-imenu--origin (current-buffer))

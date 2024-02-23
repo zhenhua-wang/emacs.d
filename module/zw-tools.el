@@ -341,8 +341,7 @@
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
   :keymap
-  `((,(kbd "s-q") . zw/kill-bufer-quit-window)
-    (,(kbd "q") . zw/kill-bufer-quit-window)
+  `((,(kbd "q") . zw/kill-bufer-quit-window)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
