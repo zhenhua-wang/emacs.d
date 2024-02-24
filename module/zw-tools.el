@@ -246,7 +246,6 @@
       (overlay-put overlay-highlight 'invisible t))))
 
 (defun zw/dired-sidebar-enable (buffer)
-  (interactive)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
       (zw-dired-sidebar-mode 1)
@@ -275,28 +274,11 @@
                  (window-width)))))))
 
 (defun zw/dired-sidebar-disable (buffer)
-  (interactive)
   (with-current-buffer buffer
     (when zw-dired-sidebar-mode
-      (zw-dired-sidebar-mode 0)
       (let* ((dir (abbreviate-file-name (dired-current-directory))))
-        (dired-hide-details-mode -1)
-        (rename-buffer dir)
-        (setq-local mode-line-format (default-value 'mode-line-format))
-        ;; close sidebar
-        (quit-window) (display-buffer buffer)
-        (set-window-dedicated-p (get-buffer-window buffer) nil)
-        (let ((new-buffer (get-buffer dir)))
-          (with-current-buffer new-buffer
-            (remove-hook 'dired-after-readin-hook
-                         'zw/dired-sidebar-folder-indicator :local)
-            (buffer-face-mode -1)
-            ;; remove header line
-            (remove-hook 'dired-after-readin-hook
-                         'zw/dired-sidebar-hide-information-line :local)
-            (setq-local header-line-format (default-value 'header-line-format))
-            ;; refresh display
-            (dired-revert)))))))
+        (kill-buffer buffer)
+        (dired dir)))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
