@@ -342,20 +342,13 @@
               zw/modeline-separator))))
 
 ;; ** LSP
-(defun zw/modeline-lsp-bridge ()
-  (when (and (featurep 'lsp-bridge) lsp-bridge-mode)
-    (when lsp-bridge-server
-      (concat
-       (propertize "BRIDGE"
-                   'help-echo (format "lsp-bridge:%s" lsp-bridge-server-port)
-                   'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive))
-       zw/modeline-separator))))
+(defvar zw/modeline-lsp-icon "⚡")
 
 (defun zw/modeline-lsp ()
   (when (and (featurep 'lsp-mode) lsp-mode)
     (let ((workspaces (lsp-workspaces)))
       (concat
-       (propertize "LSP"
+       (propertize zw/modeline-lsp-icon
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if workspaces
@@ -370,7 +363,7 @@
   (when (and (featurep 'eglot) (eglot-managed-p))
     (let ((server (eglot-current-server)))
       (concat
-       (propertize "EGLOT"
+       (propertize zw/modeline-lsp-icon
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if server
@@ -461,7 +454,6 @@
   (concat
    (zw/modeline-input-method)
    (zw/modeline-process)
-   (zw/modeline-lsp-bridge)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
    (zw/modeline-vc)
