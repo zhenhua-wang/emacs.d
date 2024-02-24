@@ -269,8 +269,7 @@
       ;; rename buffer
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
-        (rename-buffer name)
-        (message (buffer-name buffer)))
+        (rename-buffer name))
       ;; refresh display
       (zw/dired-sidebar-format-header-line)
       (zw/dired-siderbar-display buffer)
