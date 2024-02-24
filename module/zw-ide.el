@@ -40,7 +40,8 @@
 (use-package lsp-ui
   :commands (lsp-ui-imenu-buffer-mode)
   :hook ((lsp-mode . lsp-ui-mode)
-         (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init))
+         (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init)
+         (lsp-ui-imenu-mode . zw/left-side-window-mode))
   :bind ((:map global-map
                ("s-i" . lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
@@ -110,9 +111,6 @@
         (setq lsp-ui-imenu--origin (current-buffer))
         (imenu--make-index-alist)
         (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
-          ;; enable left side window mode
-          (with-current-buffer imenu-buffer
-            (zw/left-side-window-mode 1))
           (lsp-ui-imenu--refresh-content)
           (let ((win (display-buffer-in-side-window
                       imenu-buffer '((side . left)

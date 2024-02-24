@@ -249,7 +249,6 @@
   (interactive)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
-      (zw/left-side-window-mode 1)
       (zw-dired-sidebar-mode 1)
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
@@ -281,7 +280,6 @@
     (when zw-dired-sidebar-mode
       (zw-dired-sidebar-mode 0)
       (let* ((dir (abbreviate-file-name (dired-current-directory))))
-        (zw/left-side-window-mode -1)
         (dired-hide-details-mode -1)
         (rename-buffer dir)
         (setq-local mode-line-format (default-value 'mode-line-format))
@@ -355,6 +353,7 @@
 
 ;; register in zw/left-side-window
 (add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
+(add-hook 'zw-dired-sidebar-mode-hook 'zw/left-side-window-mode)
 
 ;; * Openwith
 (defvar open-app-command (pcase system-type
