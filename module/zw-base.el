@@ -373,11 +373,11 @@ The order of values may be different."
   "maximize window (also works for side windows)."
   (interactive)
   (let ((current-buffer-name (buffer-name (current-buffer))))
-    (if (window-parameter (get-buffer-window) 'window-side)
+    (if (zw/window-side (get-buffer-window))
         (progn (select-window
                 (get-window-with-predicate
                  (lambda (window)
-                   (not (window-parameter window 'window-side)))))
+                   (not (zw/window-side window)))))
                (delete-other-windows)
                (switch-to-buffer current-buffer-name))
       (delete-other-windows))))

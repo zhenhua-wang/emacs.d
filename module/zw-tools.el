@@ -145,11 +145,12 @@
   (when (eq (current-buffer) buffer)
     (bury-buffer))
   ;; display sidebar
-  (display-buffer-in-side-window
-   buffer `((side . left) (slot . -99)
-            (window-width . 0.2)
-            (preserve-size . (t . nil))))
-  (select-window (get-buffer-window buffer)))
+  (let ((window (display-buffer-in-side-window
+                 buffer `((side . left) (slot . -99)
+                          (window-width . 0.2)
+                          (preserve-size . (t . nil))))))
+    (select-window window)
+    (set-window-dedicated-p window t)))
 
 (defun zw/dired-sidebar-header-line-prefix ()
   (let ((color (face-background 'header-line))
@@ -248,37 +249,39 @@
 (defun zw/dired-sidebar-enable (buffer)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
+      ;; set local variables
+      (add-hook 'dired-after-readin-hook
+                'zw/dired-sidebar-folder-indicator :append :local)
+      (add-hook 'dired-after-readin-hook
+                'zw/dired-sidebar-hide-information-line :append :local)
+      (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
+                  buffer-face-mode-face (list :inherit 'tab-bar
+                                              :height (face-attribute 'default :height)
+                                              :box nil)
+                  ;; display header line from beginning
+                  zw/dired-sidebar-header-line-beg (- (+ (length (zw/dired-sidebar-header-line-main))
+                                                         (length (zw/dired-sidebar-header-line-prefix)))
+                                                      (window-width)))
+      ;; enable modes
       (zw-dired-sidebar-mode 1)
+      (dired-hide-details-mode t)
+      (buffer-face-mode 1)
+      ;; rename buffer
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
-        (dired-hide-details-mode t)
         (rename-buffer name)
-        (setq-local mode-line-format (zw/dired-sidebar--modeline-format))
-        (zw/dired-siderbar-display buffer)
-        (set-window-dedicated-p (get-buffer-window buffer) t)
-        (add-hook 'dired-after-readin-hook
-                  'zw/dired-sidebar-folder-indicator :append :local)
-        (setq-local buffer-face-mode-face (list :inherit 'tab-bar
-                                                :height (face-attribute 'default :height)
-                                                :box nil))
-        (buffer-face-mode 1)
-        (add-hook 'dired-after-readin-hook
-                  'zw/dired-sidebar-hide-information-line :append :local)
-        (zw/dired-sidebar-format-header-line)
-        ;; refresh display
-        (dired-revert)
-        ;; display header line from beginning
-        (setq zw/dired-sidebar-header-line-beg
-              (- (+ (length (zw/dired-sidebar-header-line-main))
-                    (length (zw/dired-sidebar-header-line-prefix)))
-                 (window-width)))))))
+        (message (buffer-name buffer)))
+      ;; refresh display
+      (zw/dired-sidebar-format-header-line)
+      (zw/dired-siderbar-display buffer)
+      (dired-revert))))
 
 (defun zw/dired-sidebar-disable (buffer)
-  (with-current-buffer buffer
-    (when zw-dired-sidebar-mode
-      (let* ((dir (abbreviate-file-name (dired-current-directory))))
-        (kill-buffer buffer)
-        (dired dir)))))
+  (with-current-buffer
+      (when zw-dired-sidebar-mode
+        (let* ((dir (abbreviate-file-name (dired-current-directory))))
+          (kill-buffer buffer)
+          (dired dir)))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
