@@ -355,7 +355,7 @@
                        (concat "LSP Connected "
                                (string-join
                                 (mapcar (lambda (w)
-                                          (format "[%s]\n" (lsp--workspace-print w)))
+                                          (format "[%s]" (lsp--workspace-print w)))
                                         workspaces)))))
        zw/modeline-separator))))
 
