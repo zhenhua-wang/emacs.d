@@ -342,7 +342,7 @@
               zw/modeline-separator))))
 
 ;; ** LSP
-(defvar zw/modeline-lsp-icon "⚡")
+(defvar zw/modeline-lsp-icon (nerd-icons-octicon "nf-oct-rocket" :height 1 :v-adjust 0.05))
 
 (defun zw/modeline-lsp ()
   (when (and (featurep 'lsp-mode) lsp-mode)
