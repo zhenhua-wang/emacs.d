@@ -249,6 +249,7 @@
   (interactive)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
+      (zw/left-side-window-mode 1)
       (zw-dired-sidebar-mode 1)
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
@@ -263,7 +264,6 @@
                                                 :height (face-attribute 'default :height)
                                                 :box nil))
         (buffer-face-mode 1)
-        (zw/left-side-window-mode 1)
         (add-hook 'dired-after-readin-hook
                   'zw/dired-sidebar-hide-information-line :append :local)
         (zw/dired-sidebar-format-header-line)
@@ -281,7 +281,8 @@
     (when zw-dired-sidebar-mode
       (zw-dired-sidebar-mode 0)
       (let* ((dir (abbreviate-file-name (dired-current-directory))))
-        (dired-hide-details-mode 0)
+        (zw/left-side-window-mode -1)
+        (dired-hide-details-mode -1)
         (rename-buffer dir)
         (setq-local mode-line-format (default-value 'mode-line-format))
         ;; close sidebar
@@ -292,7 +293,6 @@
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-folder-indicator :local)
             (buffer-face-mode -1)
-            (zw/left-side-window-mode -1)
             ;; remove header line
             (remove-hook 'dired-after-readin-hook
                          'zw/dired-sidebar-hide-information-line :local)
@@ -341,7 +341,8 @@
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
   :keymap
-  `((,(kbd "q") . zw/kill-bufer-quit-window)
+  `((,(kbd "s-q") . zw/kill-bufer-quit-window)
+    (,(kbd "q") . zw/kill-bufer-quit-window)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)

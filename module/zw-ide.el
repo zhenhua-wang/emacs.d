@@ -110,6 +110,9 @@
         (setq lsp-ui-imenu--origin (current-buffer))
         (imenu--make-index-alist)
         (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
+          ;; enable left side window mode
+          (with-current-buffer imenu-buffer
+            (zw/left-side-window-mode 1))
           (lsp-ui-imenu--refresh-content)
           (let ((win (display-buffer-in-side-window
                       imenu-buffer '((side . left)
@@ -117,10 +120,7 @@
             (set-window-margins win 1)
             (set-window-start win 1)
             (lsp-ui-imenu--move-to-name-beginning)
-            (set-window-dedicated-p win t))
-          ;; enable left side window mode
-          (with-current-buffer imenu-buffer
-            (zw/left-side-window-mode 1))))))
+            (set-window-dedicated-p win t))))))
   (add-to-list 'zw/left-side-window-open-functions 'zw/lsp-ui-imenu t))
 
 ;; ** eglot
