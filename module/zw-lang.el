@@ -104,12 +104,15 @@
       (message "Cannot find Anaconda installation"))
   ;; update conda environment
   (defun zw/conda-env-update ()
-    (when (executable-find "ipython")
-      (setq python-shell-interpreter "ipython"
-            python-shell-interpreter-args
-            "-i --simple-prompt --InteractiveShell.display_page=True")
-      (add-to-list 'python-shell-completion-native-disabled-interpreters
-                   "ipython"))
+    (cond ((executable-find "ipython")
+           (setq python-shell-interpreter "ipython"
+                 python-shell-interpreter-args
+                 "-i --simple-prompt --InteractiveShell.display_page=True")
+           (add-to-list 'python-shell-completion-native-disabled-interpreters
+                        "ipython"))
+          (t
+           (setq python-shell-interpreter "python3"
+                 python-shell-interpreter-args "-i")))
     (when (and (featurep 'lsp-mode) lsp-mode)
       (lsp-restart-workspace))
     (when (and (featurep 'eglot) eglot--managed-mode)
