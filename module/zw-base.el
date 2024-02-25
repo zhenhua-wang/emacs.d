@@ -244,7 +244,9 @@ The order of values may be different."
                 (if  (eq buffer-window (window-main-window))
                     (previous-buffer)
                   (delete-window buffer-window)))))
-        (cl-mapcar 'display-buffer zw/right-side-window--buffer-opened))
+        (dolist (buffer zw/right-side-window--buffer-opened)
+          (display-buffer buffer)
+          (set-window-dedicated-p (get-buffer-window buffer) t)))
     (message "No buffer in side window.")))
 
 ;; ** Left side window

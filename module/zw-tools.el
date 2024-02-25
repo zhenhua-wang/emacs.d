@@ -11,11 +11,12 @@
                ("<escape>" . nil)
                ("<f5>" . nil)))
   :config
-  (setq vterm-shell "/usr/bin/zsh"
-        vterm-kill-buffer-on-exit t
+  (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t
         vterm-tramp-shells '(("ssh" "/usr/bin/bash")
                              ("docker" "/bin/sh")))
+  (when (executable-find "/usr/bin/zsh")
+    (setq vterm-shell "/usr/bin/zsh"))
   (add-hook 'vterm-mode-hook
             (lambda ()
               (unless (file-remote-p default-directory)
