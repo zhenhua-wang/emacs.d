@@ -212,42 +212,35 @@ The order of values may be different."
          (window-height . shrink-window-if-larger-than-buffer))))
 
 ;; ** Right side window
-(defcustom zw/right-side-window-buffer-mode '(inferior-ess-r-mode inferior-python-mode)
-  "List of modes of buffer displayed in right side window.")
-
-(defcustom zw/right-side-window-buffer-regex nil
-  "List of name regex of buffer displayed in right side window.")
-
-(defvar zw/right-side-window--buffer-opened nil)
-
-(defun zw/right-side-window--update ()
-  (setq zw/right-side-window--buffer-opened
-        (cl-remove-if-not
-         (lambda (buffer)
-           (with-current-buffer buffer
-             (or (member major-mode zw/right-side-window-buffer-mode)
-                 (cl-some (lambda (regex)
-                            (string-match-p regex (buffer-name buffer)))
-                          zw/right-side-window-buffer-regex))))
-         (buffer-list))))
-
 (defun zw/right-side-window-toggle ()
-  "Toggle side windows."
+  "Toggle right side windows."
   (interactive)
-  (zw/right-side-window--update)
-  (if zw/right-side-window--buffer-opened
-      (if (cl-some (lambda (buffer) (get-buffer-window buffer))
-                   zw/right-side-window--buffer-opened)
-          (dolist (buffer zw/right-side-window--buffer-opened)
-            (let ((buffer-window (get-buffer-window buffer)))
-              (when buffer-window
-                (if  (eq buffer-window (window-main-window))
-                    (previous-buffer)
-                  (delete-window buffer-window)))))
-        (dolist (buffer zw/right-side-window--buffer-opened)
-          (display-buffer buffer)
-          (set-window-dedicated-p (get-buffer-window buffer) t)))
-    (message "No buffer in side window.")))
+  (let ((right-side-buffers (cl-remove-if-not
+                             (lambda (buffer)
+                               (with-current-buffer buffer
+                                 zw/right-side-window-mode))
+                             (buffer-list))))
+    (if right-side-buffers
+        (let ((right-side-visible-buffers (cl-remove-if-not
+                                           (lambda (buffer)
+                                             (get-buffer-window buffer))
+                                           right-side-buffers)))
+          (if right-side-visible-buffers
+              (dolist (buffer right-side-visible-buffers)
+                (let ((buffer-window (get-buffer-window buffer)))
+                  (when buffer-window
+                    (if  (eq buffer-window (window-main-window))
+                        (previous-buffer)
+                      (delete-window buffer-window)))))
+            (let ((last-buffer (car right-side-buffers)))
+              (display-buffer last-buffer)
+              (set-window-dedicated-p (get-buffer-window last-buffer) t))))
+      (message "No buffer in right side window."))))
+
+(define-minor-mode zw/right-side-window-mode
+  "Toggle right side window."
+  :global nil
+  :keymap `((,(kbd "s-B") . zw/right-side-window-toggle)))
 
 ;; ** Left side window
 (defvar zw/left-side-window-open-functions nil

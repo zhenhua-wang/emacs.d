@@ -67,6 +67,7 @@
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
                ("C-<return>" . zw/python-shell-send-line)))
+  :hook (inferior-python-mode . zw/right-side-window-mode)
   :config (setq python-shell-dedicated 'project))
 
 (use-package conda
@@ -137,6 +138,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
   :hook
   (ess-mode . zw/ess-setup)
   (inferior-ess-mode . zw/inferior-ess-setup)
+  (inferior-ess-mode . zw/right-side-window-mode)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
                ("TAB" . zw/smart-tab)
