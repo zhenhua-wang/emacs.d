@@ -3,5 +3,7 @@
 # key: <img
 # --
 
+#+caption: ${1:caption}
+#+name: ${2:label}
 #+attr_latex: :width 300px
 [[$0]]
