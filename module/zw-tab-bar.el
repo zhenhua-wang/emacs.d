@@ -204,13 +204,7 @@
 ;; ** repl
 (defun zw/tab-bar--open-repl (event)
   (interactive "e")
-  (let ((repl-buffer (cl-remove-if-not (lambda (buffer)
-                                         (get-buffer-window buffer))
-                                       zw/side-window--buffer-opened)))
-    (if repl-buffer
-        (with-selected-window (get-buffer-window (car repl-buffer))
-          (quit-window))
-      (zw/right-side-window-toggle))))
+  (zw/right-side-window-toggle))
 
 (defun zw/tab-bar-format-repl ()
   `((repl-button menu-item
