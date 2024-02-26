@@ -55,15 +55,16 @@
   :hook (vertico-mode . vertico-posframe-mode)
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
+  :init
+  (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
+        vertico-posframe-width (/ (display-pixel-width)
+                                  (frame-char-width)))
   :config
   (defun vertico-posframe-init (&rest args)
     (with-current-buffer vertico-posframe--buffer
       (setq-local cursor-type 'bar
                   cursor-in-non-selected-windows 'bar)))
-  (advice-add 'vertico-posframe--show :after 'vertico-posframe-init)
-  (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
-        vertico-posframe-width (/ (display-pixel-width)
-                                  (frame-char-width))))
+  (advice-add 'vertico-posframe--show :after 'vertico-posframe-init))
 
 ;; * Marginalia
 (use-package marginalia
