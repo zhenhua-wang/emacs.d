@@ -250,6 +250,15 @@
 (defun zw/dired-sidebar-enable (buffer)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
+      ;; rename buffer
+      (let* ((dir (abbreviate-file-name (dired-current-directory)))
+             (name (concat " :" dir)))
+        (rename-buffer name))
+      ;; enable modes
+      (zw-dired-sidebar-mode 1)
+      (dired-hide-details-mode t)
+      (zw/dired-sidebar-format-header-line)
+      (zw/dired-siderbar-display buffer)
       ;; set local variables
       (add-hook 'dired-after-readin-hook
                 'zw/dired-sidebar-folder-indicator :append :local)
@@ -260,16 +269,7 @@
                   zw/dired-sidebar-header-line-beg (- (+ (length (zw/dired-sidebar-header-line-main))
                                                          (length (zw/dired-sidebar-header-line-prefix)))
                                                       (window-width)))
-      ;; enable modes
-      (zw-dired-sidebar-mode 1)
-      (dired-hide-details-mode t)
-      ;; rename buffer
-      (let* ((dir (abbreviate-file-name (dired-current-directory)))
-             (name (concat " :" dir)))
-        (rename-buffer name))
       ;; refresh display
-      (zw/dired-sidebar-format-header-line)
-      (zw/dired-siderbar-display buffer)
       (dired-revert))))
 
 (defun zw/dired-sidebar-disable (buffer)
