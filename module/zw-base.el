@@ -270,6 +270,7 @@ The order of values may be different."
 (setq tramp-default-method "ssh"
       tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
       tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory))
+
 (with-eval-after-load "tramp"
   (setq password-cache-expiry nil
         remote-file-name-inhibit-cache nil
@@ -285,6 +286,10 @@ The order of values may be different."
       comint-scroll-to-bottom-on-output nil
       comint-move-point-for-output nil)
 
+(add-hook 'comint-mode-hook
+          (lambda ()
+            (setq-local scroll-margin 2)))
+
 ;; ** Recentf
 (add-hook 'after-init-hook 'recentf-mode)
 (setq recentf-max-saved-items 300
@@ -295,6 +300,7 @@ The order of values may be different."
         "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
         no-littering-var-directory no-littering-etc-directory
         (lambda (file) (file-in-directory-p file package-user-dir))))
+
 (with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name)
