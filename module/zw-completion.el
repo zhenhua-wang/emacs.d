@@ -58,8 +58,8 @@
   :config
   (defun vertico-posframe-set-cursor (&rest args)
     (with-current-buffer vertico-posframe--buffer
-      (setq-local cursor-type 'bar)
-      (setq-local cursor-in-non-selected-windows 'bar)))
+      (setq-local cursor-type 'bar
+                  cursor-in-non-selected-windows 'bar)))
   (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
         vertico-posframe-width (/ (display-pixel-width)
