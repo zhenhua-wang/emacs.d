@@ -104,7 +104,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-lsp-active
-  '((t (:inherit zw/modeline-default-active :bold t)))
+  '((t (:inherit zw/modeline-highlight-foreground-active :bold t)))
   "LSP mode face for active modeline"
   :group 'zw/modeline-active)
 
@@ -357,7 +357,7 @@
                                 (mapcar (lambda (w)
                                           (format "[%s]" (lsp--workspace-print w)))
                                         workspaces)))))
-       zw/modeline-separator))))
+       (zw/modeline-separator-thin)))))
 
 (defun zw/modeline-eglot ()
   (when (and (featurep 'eglot) (eglot-managed-p))
@@ -371,7 +371,7 @@
                                (format "[%s/%s]"
                                        (eglot--major-modes server)
                                        (eglot--project-nickname server)))))
-       zw/modeline-separator))))
+       (zw/modeline-separator-thin)))))
 
 ;; ** major mode
 (defun zw/modeline-major-mode ()
@@ -454,9 +454,9 @@
   (concat
    (zw/modeline-input-method)
    (zw/modeline-process)
+   (zw/modeline-vc)
    (zw/modeline-lsp)
    (zw/modeline-eglot)
-   (zw/modeline-vc)
    (zw/modeline-major-mode)))
 
 ;; * Config
