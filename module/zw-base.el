@@ -269,7 +269,8 @@ The order of values may be different."
                       (list :inherit 'tab-bar
                             :height (face-attribute 'default :height)
                             :box nil))
-                (buffer-face-mode 1)))
+                (buffer-face-mode 1)
+                (visual-line-mode -1)))
 
 ;; * Tool
 ;; ** Tramp

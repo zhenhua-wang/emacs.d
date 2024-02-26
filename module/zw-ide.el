@@ -40,7 +40,6 @@
 (use-package lsp-ui
   :commands (lsp-ui-imenu-buffer-mode)
   :hook ((lsp-mode . lsp-ui-mode)
-         (lsp-ui-imenu-mode . zw/lsp-ui-imenu-init)
          (lsp-ui-imenu-mode . zw/left-side-window-mode))
   :bind ((:map global-map
                ("s-i" . lsp-ui-imenu))
@@ -95,8 +94,6 @@
               '(:eval (zw/modeline-remote))
               '(:eval (zw/lsp-ui-imenu--modeline-name))
               '(:eval (zw/modeline-bar))))
-  (defun zw/lsp-ui-imenu-init ()
-    (visual-line-mode -1))
   (defun zw/lsp-ui-imenu ()
     (interactive)
     (when (and (featurep 'lsp-mode) lsp-mode
