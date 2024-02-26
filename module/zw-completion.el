@@ -56,11 +56,11 @@
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
   :config
-  (defun vertico-posframe-set-cursor (&rest args)
+  (defun vertico-posframe-init (&rest args)
     (with-current-buffer vertico-posframe--buffer
       (setq-local cursor-type 'bar
                   cursor-in-non-selected-windows 'bar)))
-  (advice-add 'vertico-posframe--show :after 'vertico-posframe-set-cursor)
+  (advice-add 'vertico-posframe--show :after 'vertico-posframe-init)
   (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
         vertico-posframe-width (/ (display-pixel-width)
                                   (frame-char-width))))
