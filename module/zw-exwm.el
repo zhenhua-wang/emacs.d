@@ -480,7 +480,7 @@
 
 (add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
 (with-current-buffer "*scratch*"
-  (display-line-numbers-mode 0)
+  (display-line-numbers-mode -1)
   (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
 
 ;; ** wallpaper

@@ -96,12 +96,7 @@
               '(:eval (zw/lsp-ui-imenu--modeline-name))
               '(:eval (zw/modeline-bar))))
   (defun zw/lsp-ui-imenu-init ()
-    (visual-line-mode -1)
-    (setq-local buffer-face-mode-face
-                (list :inherit 'tab-bar
-                      :height (face-attribute 'default :height)
-                      :box nil))
-    (buffer-face-mode 1))
+    (visual-line-mode -1))
   (defun zw/lsp-ui-imenu ()
     (interactive)
     (when (and (featurep 'lsp-mode) lsp-mode

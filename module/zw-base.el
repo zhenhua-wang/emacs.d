@@ -124,7 +124,7 @@ The order of values may be different."
   (add-hook mode 'display-line-numbers-mode))
 ;; Override some modes which derive from the above
 (dolist (mode '(org-mode-hook markdown-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (add-hook mode (lambda () (display-line-numbers-mode -1))))
 
 ;; ** Highlight line
 (add-hook 'after-init-hook 'global-hl-line-mode)
@@ -263,7 +263,13 @@ The order of values may be different."
   "Toggle left side window."
   :global nil
   :keymap `((,(kbd "s-b") . zw/left-side-window-toggle)
-            (,(kbd "s-q") . zw/left-side-window-toggle)))
+            (,(kbd "s-q") . zw/left-side-window-toggle))
+  :after-hook (progn
+                (setq buffer-face-mode-face
+                      (list :inherit 'tab-bar
+                            :height (face-attribute 'default :height)
+                            :box nil))
+                (buffer-face-mode 1)))
 
 ;; * Tool
 ;; ** Tramp

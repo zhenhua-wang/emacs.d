@@ -256,9 +256,6 @@
       (add-hook 'dired-after-readin-hook
                 'zw/dired-sidebar-hide-information-line :append :local)
       (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
-                  buffer-face-mode-face (list :inherit 'tab-bar
-                                              :height (face-attribute 'default :height)
-                                              :box nil)
                   ;; display header line from beginning
                   zw/dired-sidebar-header-line-beg (- (+ (length (zw/dired-sidebar-header-line-main))
                                                          (length (zw/dired-sidebar-header-line-prefix)))
@@ -266,7 +263,6 @@
       ;; enable modes
       (zw-dired-sidebar-mode 1)
       (dired-hide-details-mode t)
-      (buffer-face-mode 1)
       ;; rename buffer
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
