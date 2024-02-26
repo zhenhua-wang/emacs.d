@@ -280,7 +280,6 @@ The order of values may be different."
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 ;; ** Comint
-;; Make processes’ outputs read-only.
 (setq comint-prompt-read-only t
       comint-scroll-to-bottom-on-input t
       comint-scroll-to-bottom-on-output nil
@@ -299,7 +298,6 @@ The order of values may be different."
 (with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name)
-  ;; save recentf-list before closing frame
   (advice-add 'save-buffers-kill-terminal :before 'recentf-save-list))
 
 ;; ** Savehist
