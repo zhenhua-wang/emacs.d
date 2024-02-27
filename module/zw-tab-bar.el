@@ -128,7 +128,7 @@
 
 ;; ** env
 (defun zw/tab-bar--env-menu (event)
-  (interactive "e" )
+  (interactive "e")
   (let* ((menu (easy-menu-create-menu
                 "Conda environment"
                 (append (mapcar (lambda (x)

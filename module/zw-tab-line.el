@@ -213,8 +213,34 @@
 (advice-add 'tab-line-format-template :around
             'zw/tab-line-format-template)
 
+;; * Config
+(with-eval-after-load "tab-line"
+  (setq tab-line-tab-name-function #'zw/tab-line-tab-name
+        tab-line-tabs-function #'zw/tab-line-buffer-group-buffers
+        tab-line-new-button-show nil
+        tab-line-close-button-show t
+        tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
+                                          'face 'shadow
+                                          'mouse-face 'tab-line-close-highlight
+                                          'help-echo "Click to close tab")
+        tab-line-close-tab-function #'kill-buffer
+        tab-line-separator ""
+        x-underline-at-descent-line t))
+(add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
+
+;; * enable
+(global-tab-line-mode 1)
+(defun zw/tab-line-hide ()
+  (when (and (featurep 'tab-line)
+	     tab-line-mode
+             (not (zw/tab-line-buffer-group-visible)))
+    (tab-line-mode -1)))
+(add-hook 'window-configuration-change-hook 'zw/tab-line-hide)
+(add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
+(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
+
 ;; * keymap
-;; ** select tab
+;; select tab
 (defun zw/tab-line-select (index)
   (interactive)
   (let* ((visible-tabs (funcall tab-line-tabs-function))
@@ -236,31 +262,8 @@
                           (number-sequence 0 9)))
   (define-key global-map (car key-func) (cdr key-func)))
 
-;; * Config
-(with-eval-after-load "tab-line"
-  (setq tab-line-tab-name-function #'zw/tab-line-tab-name
-        tab-line-tabs-function #'zw/tab-line-buffer-group-buffers
-        tab-line-new-button-show nil
-        tab-line-close-button-show t
-        tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
-                                          'face 'shadow
-                                          'mouse-face 'tab-line-close-highlight
-                                          'help-echo "Click to close tab")
-        tab-line-close-tab-function #'kill-buffer
-        tab-line-separator ""
-        x-underline-at-descent-line t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
-
-;; * enable
-(add-hook 'after-init-hook 'global-tab-line-mode)
-(defun zw/tab-line-hide ()
-  (when (and (featurep 'tab-line)
-	     tab-line-mode
-             (not (zw/tab-line-buffer-group-visible)))
-    (tab-line-mode -1)))
-(add-hook 'window-configuration-change-hook 'zw/tab-line-hide)
-(add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
-(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
+(bind-keys :map global-map
+           ("<tab-line> <down-mouse-3>" . nil))
 
 ;; * Provide
 (provide 'zw-tab-line)
