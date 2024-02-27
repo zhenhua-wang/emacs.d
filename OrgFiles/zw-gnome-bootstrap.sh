@@ -48,3 +48,7 @@ yay -S firefox kitty htop neofetch ripgrep obs-studio mpv celluloid yt-dlp strea
 
 # flatpak applications
 flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper
+
+# config
+bash ~/.emacs.d/OrgFiles/zw-gnome-config.sh
+bash ~/.emacs.d/OrgFiles/zw-gnome-keymap.sh
