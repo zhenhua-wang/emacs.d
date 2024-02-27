@@ -53,6 +53,14 @@ The order of values may be different."
                 (cl-subseq list (1+ pos)))
       (throw 'not-found "after-item not found in list"))))
 
+(defun zw/define-menu (menu-name items)
+  (let* ((menu (easy-menu-create-menu menu-name items))
+         (choice (x-popup-menu t menu))
+	 (action (lookup-key menu (apply 'vector choice)))
+	 (action-is-command-p  (and (commandp action) (functionp action))))
+    (when action-is-command-p
+      (call-interactively action))))
+
 ;; keep track active UI
 (defvar zw/previous-frame nil)
 (defvar zw/active-frame nil)

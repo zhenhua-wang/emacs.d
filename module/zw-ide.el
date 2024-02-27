@@ -173,17 +173,12 @@
       (dape current-config)))
   (defun zw/dape-in-path-menu ()
     (interactive)
-    (let* ((menu (easy-menu-create-menu
-                  "Debug path"
-                  (append (mapcar (lambda (x)
-                                    (vector x `(lambda () (interactive) (zw/dape-in-path ,x) t)))
-                                  (zw/repl-path
-                                   (plist-get (zw/dape-major-mode-config) 'command))))))
-           (choice (x-popup-menu t menu))
-	   (action (lookup-key menu (apply 'vector choice)))
-	   (action-is-command-p  (and (commandp action) (functionp action))))
-      (when action-is-command-p
-        (call-interactively action))))
+    (zw/define-menu
+     "Debug path"
+     (append (mapcar (lambda (x)
+                       (vector x `(lambda () (interactive) (zw/dape-in-path ,x) t)))
+                     (zw/repl-path
+                      (plist-get (zw/dape-major-mode-config) 'command))))))
   (defun zw/dape ()
     (interactive)
     (let* ((current-config (zw/dape-major-mode-config))

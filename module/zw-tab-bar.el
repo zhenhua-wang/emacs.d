@@ -129,18 +129,14 @@
 ;; ** env
 (defun zw/tab-bar--env-menu (event)
   (interactive "e")
-  (let* ((menu (easy-menu-create-menu
-                "Conda environment"
-                (append (mapcar (lambda (x)
-                                  (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
-                                (conda-env-candidates))
-                        (list "---" "---")
-                        (list (vector "conda deactivate" `(lambda () (interactive) (conda-env-deactivate) t))))))
-         (choice (x-popup-menu t menu))
-	 (action (lookup-key menu (apply 'vector choice)))
-	 (action-is-command-p  (and (commandp action) (functionp action))))
-    (when action-is-command-p
-      (call-interactively action))))
+  (zw/define-menu
+   "Conda environment"
+   (append (mapcar (lambda (x)
+                     (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
+                   (conda-env-candidates))
+           (list "---" "---")
+           (list (vector "conda deactivate"
+                         `(lambda () (interactive) (conda-env-deactivate) t))))))
 
 (defun zw/tab-bar-format-env ()
   (let ((env (ignore-errors
