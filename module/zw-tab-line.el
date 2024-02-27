@@ -262,8 +262,5 @@
                           (number-sequence 0 9)))
   (define-key global-map (car key-func) (cdr key-func)))
 
-(bind-keys :map global-map
-           ("<tab-line> <down-mouse-3>" . nil))
-
 ;; * Provide
 (provide 'zw-tab-line)
