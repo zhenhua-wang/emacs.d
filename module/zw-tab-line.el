@@ -141,20 +141,26 @@
     (zw/modeline--bar color width height)))
 
 ;; ** debug
-(defun zw/tab-line-debug-keymap (function)
+(defun zw/tab-line-debug-keymap (left-click-func &optional right-click-func)
   (let ((map (make-sparse-keymap)))
     (define-key map (vector 'tab-line 'mouse-1)
                 (lambda (&optional event)
                   (interactive "e")
                   (with-current-buffer (window-buffer (posn-window (cadr event)))
-                    (call-interactively function))))
+                    (call-interactively left-click-func))))
+    (when right-click-func
+      (define-key map (vector 'tab-line 'down-mouse-3)
+                  (lambda (&optional event)
+                    (interactive "e")
+                    (with-current-buffer (window-buffer (posn-window (cadr event)))
+                      (call-interactively right-click-func)))))
     map))
 
 (defun zw/tab-line-debug-start ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_alt") " ")
               'face 'success
               'mouse-face 'highlight
-              'keymap (zw/tab-line-debug-keymap 'zw/dape)))
+              'keymap (zw/tab-line-debug-keymap 'zw/dape 'zw/dape-in-path-menu)))
 
 (defun zw/tab-line-debug-next ()
   (propertize (concat " " (nerd-icons-codicon "nf-cod-debug_line_by_line") " ")

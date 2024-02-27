@@ -136,7 +136,7 @@
 
 ;; * Dape
 (use-package dape
-  :commands (zw/dape zw/dape-in-path dape dape-breakpoint-toggle)
+  :commands (zw/dape zw/dape-in-path zw/dape-in-path-menu dape dape-breakpoint-toggle)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle))
   :config
   (setq dape-buffer-window-arrangement 'right)
@@ -171,6 +171,19 @@
       ;; add new 'current-config'
       (add-to-list 'dape-configs `(current-config ,@current-config))
       (dape current-config)))
+  (defun zw/dape-in-path-menu ()
+    (interactive)
+    (let* ((menu (easy-menu-create-menu
+                  "Debug path"
+                  (append (mapcar (lambda (x)
+                                    (vector x `(lambda () (interactive) (zw/dape-in-path ,x) t)))
+                                  (zw/repl-path
+                                   (plist-get (zw/dape-major-mode-config) 'command))))))
+           (choice (x-popup-menu t menu))
+	   (action (lookup-key menu (apply 'vector choice)))
+	   (action-is-command-p  (and (commandp action) (functionp action))))
+      (when action-is-command-p
+        (call-interactively action))))
   (defun zw/dape ()
     (interactive)
     (let* ((current-config (zw/dape-major-mode-config))
