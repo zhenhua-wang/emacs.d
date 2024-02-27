@@ -377,7 +377,7 @@
                        zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
-(tab-bar-mode)
+(tab-bar-mode 1)
 
 ;; ** time
 (setq display-time-format "%b %-e %a %H:%M:%S %p"
