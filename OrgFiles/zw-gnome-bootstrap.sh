@@ -22,6 +22,9 @@ yay -S keyd-git
 sudo systemctl enable keyd && sudo systemctl start keyd
 sudo usermod -aG keyd $USER
 keyd-application-mapper --verbose
+if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
+    mkdir ~/.local/share/gnome-shell/extensions/
+fi
 ln -s /usr/share/keyd/gnome-extension-45 ~/.local/share/gnome-shell/extensions/keyd
 gnome-extensions enable keyd
 
