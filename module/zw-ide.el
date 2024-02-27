@@ -110,8 +110,7 @@
             (set-window-margins win 1)
             (set-window-start win 1)
             (lsp-ui-imenu--move-to-name-beginning)
-            (set-window-dedicated-p win t))))))
-  (add-to-list 'zw/left-side-window-open-functions 'zw/lsp-ui-imenu t))
+            (set-window-dedicated-p win t)))))))
 
 ;; ** eglot
 (use-package eglot
