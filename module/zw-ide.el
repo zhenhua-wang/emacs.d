@@ -34,15 +34,6 @@
   (defun zw/lsp-locally ()
     (unless (file-remote-p default-directory)
       (lsp-deferred)))
-  (defun zw/lsp-in-path (cmd)
-    (interactive "sLSP Command: ")
-    (let* ((path (completing-read (format "Select %s path: " cmd)
-                                  (zw/repl-path cmd))))
-      (setf (lsp--client-new-connection
-             (gethash (intern cmd) lsp-clients))
-            (lsp-stdio-connection
-             (lambda () `(,path))))
-      (lsp-deferred)))
   (with-eval-after-load "polymode"
     (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
 
