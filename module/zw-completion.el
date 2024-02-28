@@ -58,7 +58,7 @@
   :init
   (setq vertico-posframe-border-width 5
         vertico-posframe-poshandler 'posframe-poshandler-frame-center
-        vertico-posframe-width (floor (* (frame-width) 0.8)))
+        vertico-posframe-width (floor (* (frame-width) 0.7)))
   :config
   (defun vertico-posframe-init (&rest args)
     (with-current-buffer vertico-posframe--buffer
