@@ -45,7 +45,8 @@
   (add-hook 'polymode-init-inner-hook
             (lambda ()
               (zw/tab-line-remove-polymode-inner (buffer-base-buffer))
-              (tab-line-mode 1))))
+              (when (zw/tab-line-buffer-group-visible)
+                (tab-line-mode 1)))))
 
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
