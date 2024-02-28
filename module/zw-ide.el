@@ -102,24 +102,7 @@
         (list "%e"
               '(:eval (zw/modeline-remote))
               '(:eval (zw/lsp-ui-imenu--modeline-name))
-              '(:eval (zw/modeline-bar))))
-  (defun zw/lsp-ui-imenu ()
-    (interactive)
-    (when (and (featurep 'lsp-mode) lsp-mode
-               (not (buffer-base-buffer)))
-      (ignore-errors
-        (lsp-ui-imenu-buffer-mode 1)
-        (setq lsp-ui-imenu--origin (current-buffer))
-        (imenu--make-index-alist)
-        (let ((imenu-buffer (get-buffer-create lsp-ui-imenu-buffer-name)))
-          (lsp-ui-imenu--refresh-content)
-          (let ((win (display-buffer-in-side-window
-                      imenu-buffer '((side . left)
-                                     (window-height . 0.4)))))
-            (set-window-margins win 1)
-            (set-window-start win 1)
-            (lsp-ui-imenu--move-to-name-beginning)
-            (set-window-dedicated-p win t)))))))
+              '(:eval (zw/modeline-bar)))))
 
 ;; * Dape
 (use-package dape
