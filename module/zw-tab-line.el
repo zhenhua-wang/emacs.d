@@ -74,7 +74,7 @@
 
 ;; * Appearence
 ;; ** face
-(defun zw/tab-line-init-appearence ()
+(defun zw/tab-line-init ()
   (set-face-attribute 'tab-line-tab-current nil
                       :overline (face-background 'highlight))
   (dolist (face '(tab-line
@@ -87,7 +87,7 @@
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
-                                    (zw/tab-line-init-appearence)
+                                    (zw/tab-line-init)
                                     (tab-line-format)))
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
@@ -232,7 +232,7 @@
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-init-appearence)
+(add-hook 'tab-line-mode-hook 'zw/tab-line-init)
 
 ;; * enable
 (global-tab-line-mode 1)

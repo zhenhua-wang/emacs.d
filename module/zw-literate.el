@@ -99,8 +99,8 @@ at the first function to return non-nil.")
 ;; BUG: revert in inner buffer would lose font-lock
 (use-package polymode
   :commands polymode-mode
-  :hook ((polymode-init-host . zw/polymode-init-host)
-         (polymode-init-inner . zw/polymode-init-inner))
+  :hook ((polymode-init-host . zw/polymode-host-init)
+         (polymode-init-inner . zw/polymode-inner-init))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
@@ -112,9 +112,9 @@ at the first function to return non-nil.")
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  (defun zw/polymode-init-host ()
+  (defun zw/polymode-host-init ()
     (font-lock-update))
-  (defun zw/polymode-init-inner ()
+  (defun zw/polymode-inner-init ()
     (buffer-face-mode -1)
     (display-line-numbers-mode -1)
     (zw-outline-mode -1)

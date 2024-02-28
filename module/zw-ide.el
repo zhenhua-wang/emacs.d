@@ -7,9 +7,9 @@
 (use-package lsp-mode
   :commands (lsp-deferred)
   :hook
-  (python-mode . zw/lsp-locally)
-  (ess-r-mode . zw/lsp-locally)
-  ((c++-mode c-mode) . zw/lsp-locally)
+  (python-mode . lsp-deferred)
+  (ess-r-mode . lsp-deferred)
+  ((c++-mode c-mode) . lsp-deferred)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -28,13 +28,9 @@
         lsp-completion-provider :none
         lsp-enable-indentation nil
         lsp-enable-on-type-formatting nil
-        lsp-diagnostics-disabled-modes '(markdown-mode gfm-mode)
         lsp-enable-file-watchers nil
         lsp-enable-text-document-color nil)
   :config
-  (defun zw/lsp-locally ()
-    (unless (file-remote-p default-directory)
-      (lsp-deferred)))
   (with-eval-after-load "polymode"
     (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
 
