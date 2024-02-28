@@ -265,8 +265,6 @@
   :config
   (setq flymake-no-changes-timeout nil
         flymake-fringe-indicator-position nil)
-  ;; disable flymake log about proc-legacy-flymake
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   ;; show flymake when cursor hovers
   (setq help-at-pt-timer-delay 0.9
         help-at-pt-display-when-idle 'never))
