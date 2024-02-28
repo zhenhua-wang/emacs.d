@@ -56,9 +56,11 @@
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
   :init
-  (setq vertico-posframe-poshandler 'posframe-poshandler-frame-bottom-center
-        vertico-posframe-width (/ (display-pixel-width)
-                                  (frame-char-width)))
+  (setq vertico-posframe-border-width 5
+        vertico-posframe-poshandler 'posframe-poshandler-frame-center
+        vertico-posframe-width (floor (/ (display-pixel-width)
+                                         (frame-char-width)
+                                         1.2)))
   :config
   (defun vertico-posframe-init (&rest args)
     (with-current-buffer vertico-posframe--buffer
