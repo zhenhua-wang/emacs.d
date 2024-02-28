@@ -29,7 +29,8 @@
       (dolist (func '(eglot--TextDocumentItem
                       eglot--signal-textDocument/didSave
                       eglot--signal-textDocument/didChange))
-        (eval `(zw/eglot-patch-macro ,func))))))
+        (eval `(zw/eglot-patch-macro ,func)))
+      (kill-buffer "eglot.el"))))
 
 ;; * Dape
 (use-package dape
