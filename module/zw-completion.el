@@ -210,8 +210,7 @@
   ;; start dabbrev with ispell
   (defun company-dabbrev-ispell ()
     (interactive)
-    (let* ((prefix (company-grab-symbol))
-           (company-backends '((company-dabbrev :with company-ispell))))
+    (let* ((company-backends '((company-dabbrev :with company-ispell))))
       (call-interactively 'company-manual-begin)))
   ;; prefix return nil when it's empty
   (defun company-backend--prefix-advice (orig-fun &rest args)
