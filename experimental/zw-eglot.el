@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
+(use-package psearch
+  :straight (:host github :repo "twlz0ne/psearch.el"))
+
 (use-package eglot
   :hook
   (python-mode . eglot-ensure)

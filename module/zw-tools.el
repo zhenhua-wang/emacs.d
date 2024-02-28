@@ -391,9 +391,5 @@
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
 
-;; * Code patch psearch
-(use-package psearch
-  :straight (:host github :repo "twlz0ne/psearch.el"))
-
 ;; * Provide
 (provide 'zw-tools)
