@@ -15,8 +15,8 @@
   (setq read-process-output-max (* 1024 1024)
         eglot-autoshutdown t
         eglot-send-changes-idle-time 0.5)
-  ;; patch for polymode
   (with-eval-after-load "polymode"
+    ;; patch for polymode
     (defun zw/buffer-content (START END)
       (if (and (featurep 'polymode)
                polymode-mode)
@@ -31,8 +31,15 @@
                       eglot--signal-textDocument/didSave
                       eglot--signal-textDocument/didChange))
         (eval `(zw/eglot-patch-macro ,func)))
-      ;; HACK: apply Eglot patch and kill eglot.el buffer"
-      (kill-buffer "eglot.el"))))
+      ;; HACK: kill eglot.el buffer after applying Eglot patch"
+      (kill-buffer "eglot.el"))
+    ;; initialize eglot in polymode
+    (defun zw/eglot-polymode-init ()
+      (setq-local eglot-ignored-server-capabilities
+                  '(:documentFormattingProvider
+                    :documentRangeFormattingProvider
+                    :documentOnTypeFormattingProvider)))
+    (add-hook 'polymode-init-inner-hook 'zw/eglot-polymode-init)))
 
 (use-package consult-eglot
   :commands (consult-eglot-symbols))
