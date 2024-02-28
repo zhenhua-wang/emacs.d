@@ -2,7 +2,8 @@
 
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
-  :hook ((prog-mode . zw/activate-copilot))
+  :hook ((prog-mode . zw/activate-copilot)
+         (polymode-init-inner . (lambda () (copilot-mode -1))))
   :bind (("C-<tab>" . copilot-complete)
          :map copilot-completion-map
          ("C-g" . 'copilot-clear-overlay)
