@@ -24,6 +24,12 @@
     (let ((vc-follow-symlinks t))
       (psearch-patch eglot--TextDocumentItem
         (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
+                         '`(zw/buffer-content (point-min) (point-max))))
+      (psearch-patch eglot--signal-textDocument/didSave
+        (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
+                         '`(zw/buffer-content (point-min) (point-max))))
+      (psearch-patch eglot--signal-textDocument/didChange
+        (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
                          '`(zw/buffer-content (point-min) (point-max)))))))
 
 ;; * Dape
