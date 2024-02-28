@@ -390,6 +390,9 @@
   (image-mode . iscroll-mode)
   (org-mode . iscroll-mode)
   (markdown-mode . iscroll-mode))
+;; * Psearch
+(use-package psearch
+  :straight (:host github :repo "twlz0ne/psearch.el"))
 
 ;; * Provide
 (provide 'zw-tools)
