@@ -29,7 +29,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
 gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'io.github.celluloid_player.Celluloid.desktop', 'org.gnome.baobab.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.15
 # vitals
 gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
