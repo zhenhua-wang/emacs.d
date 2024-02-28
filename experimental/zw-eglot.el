@@ -22,8 +22,7 @@
   ;; patch for polymode
   (with-eval-after-load "polymode"
     (defun zw/buffer-content (START END)
-      (if (and (featurep 'polymode)
-               polymode-mode)
+      (if (and polymode-mode pm/polymode)
           (pm--lsp-text)
         (buffer-substring-no-properties START END)))
     (defmacro zw/eglot-patch-macro (patch-func)
@@ -36,11 +35,7 @@
                       eglot--signal-textDocument/didChange))
         (eval `(zw/eglot-patch-macro ,func)))
       ;; HACK: kill eglot.el buffer after applying Eglot patch"
-      (kill-buffer "eglot.el"))
-    (defun zw/eglot-polymode-init ()
-      (when (eglot-managed-p)
-        (call-interactively 'eglot-reconnect)))
-    (add-hook 'polymode-init-inner-hook 'zw/eglot-polymode-init)))
+      (kill-buffer "eglot.el"))))
 
 (use-package consult-eglot
   :commands (consult-eglot-symbols))
