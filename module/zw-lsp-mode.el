@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
+;; * LSP mode
 (setenv "LSP_USE_PLISTS" "true")
 (setq-default read-process-output-max (* 1024 1024)
               lsp-use-plists t)
@@ -36,6 +37,7 @@
   (with-eval-after-load "polymode"
     (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
 
+;; * LSP UI
 (use-package lsp-ui
   :commands (lsp-ui-imenu-buffer-mode)
   :hook ((lsp-mode . lsp-ui-mode)
@@ -94,4 +96,5 @@
               '(:eval (zw/lsp-ui-imenu--modeline-name))
               '(:eval (zw/modeline-bar)))))
 
+;; * Provide
 (provide 'zw-lsp-mode)
