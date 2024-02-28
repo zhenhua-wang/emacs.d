@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-;; * eglot
+;; * Eglot
 (use-package eglot
   :hook
   (python-mode . eglot-ensure)
@@ -30,6 +30,10 @@
                       eglot--signal-textDocument/didSave
                       eglot--signal-textDocument/didChange))
         (eval `(zw/eglot-patch-macro ,func))))))
+
+(use-package consult-eglot
+  :bind (:map eglot-mode-map
+              ("s-i" . consult-eglot-symbols)))
 
 ;; * Dape
 (use-package dape
