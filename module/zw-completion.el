@@ -212,8 +212,7 @@
     (interactive)
     (let* ((prefix (company-grab-symbol))
            (company-backends '((company-dabbrev :with company-ispell))))
-      (unless (string= prefix "")
-        (call-interactively 'company-manual-begin))))
+      (call-interactively 'company-manual-begin)))
   ;; prefix return nil when it's empty
   (defun company-backend--prefix-advice (orig-fun &rest args)
     (let ((prefix (apply orig-fun args)))
