@@ -22,13 +22,14 @@
           (pm--lsp-text)
         (buffer-substring-no-properties START END)))
     (defmacro zw/eglot-patch-macro (patch-func)
-      `(psearch-patch ,(intern patch-func)
+      `(psearch-patch ,patch-func
          (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
                           '`(zw/buffer-content (point-min) (point-max)))))
     (let ((vc-follow-symlinks t))
-      (zw/eglot-patch-macro "eglot--TextDocumentItem")
-      (zw/eglot-patch-macro "eglot--signal-textDocument/didSave")
-      (zw/eglot-patch-macro "eglot--signal-textDocument/didChange"))))
+      (dolist (func '(eglot--TextDocumentItem
+                      eglot--signal-textDocument/didSave
+                      eglot--signal-textDocument/didChange))
+        (eval `(zw/eglot-patch-macro ,func))))))
 
 ;; * Dape
 (use-package dape
