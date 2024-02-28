@@ -131,6 +131,10 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))
 
+     ;; eglot
+     `(eglot-highlight-symbol-face
+       ((t (:inherit bold :background ,highlight-color :foreground ,highlight-revert-color))))
+
      ;; org with variable font
      `(org-level-8 ((t (:inherit (outline-8 variable-pitch)))))
      `(org-level-7 ((t (:inherit (outline-7 variable-pitch)))))

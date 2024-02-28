@@ -2,7 +2,6 @@
 
 ;; * eglot
 (use-package eglot
-  :straight (:type built-in)
   :hook
   (python-mode . eglot-ensure)
   (ess-r-mode . eglot-ensure)
@@ -12,7 +11,8 @@
               ("s-h" . display-local-help)
               ("s-d" . eldoc))
   :config
-  (setq eglot-autoshutdown t
+  (setq read-process-output-max (* 1024 1024)
+        eglot-autoshutdown t
         eglot-send-changes-idle-time 0.5)
   ;; patch for polymode
   (with-eval-after-load "polymode"

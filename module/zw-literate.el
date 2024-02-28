@@ -120,9 +120,7 @@ at the first function to return non-nil.")
     (zw-outline-mode -1)
     (setq-local lsp-diagnostics-provider :none))
   ;; run kill-buffer in host buffer, which solves the font lock issue
-  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
-  ;; lsp integration
-  (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content))
+  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
 
 (use-package poly-rmarkdown
   :straight '(poly-rmarkdown :host github :repo "zhenhua-wang/poly-rmarkdown")

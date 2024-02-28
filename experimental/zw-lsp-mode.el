@@ -33,7 +33,9 @@
   :config
   (defun zw/lsp-locally ()
     (unless (file-remote-p default-directory)
-      (lsp-deferred))))
+      (lsp-deferred)))
+  (with-eval-after-load "polymode"
+    (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
 
 (use-package lsp-ui
   :commands (lsp-ui-imenu-buffer-mode)
