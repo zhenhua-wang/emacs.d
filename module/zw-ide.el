@@ -30,6 +30,7 @@
                       eglot--signal-textDocument/didSave
                       eglot--signal-textDocument/didChange))
         (eval `(zw/eglot-patch-macro ,func)))
+      ;; HACK: apply Eglot patch and kill eglot.el buffer"
       (kill-buffer "eglot.el"))))
 
 ;; * Dape
