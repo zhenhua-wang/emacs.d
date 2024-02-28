@@ -37,7 +37,11 @@
                       eglot--signal-textDocument/didChange))
         (eval `(zw/eglot-patch-macro ,func)))
       ;; HACK: kill eglot.el buffer after applying Eglot patch"
-      (kill-buffer "eglot.el"))))
+      (kill-buffer "eglot.el"))
+    (defun zw/eglot-polymode-init ()
+      (when (eglot-managed-p)
+        (call-interactively 'eglot-reconnect)))
+    (add-hook 'polymode-init-inner-hook 'zw/eglot-polymode-init)))
 
 (use-package consult-eglot
   :commands (consult-eglot-symbols))
