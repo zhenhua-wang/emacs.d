@@ -18,6 +18,7 @@
         eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
         eglot-stay-out-of '(company)
+        eglot-events-buffer-config '(:size 0 :format full)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
   ;; patch for polymode
   (with-eval-after-load "polymode"
