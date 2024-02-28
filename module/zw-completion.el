@@ -190,7 +190,7 @@
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
               company-dabbrev-char-regexp "[[:word:]_-]+"
-              company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"
+              company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
                                          vterm-mode eshell-mode)
@@ -203,10 +203,6 @@
     (let ((completion-styles '(basic partial-completion)))
       (apply capf-fn args)))
   (advice-add 'company-capf :around #'company-completion-styles)
-  ;; remove completions that start with numbers
-  (push (apply-partially #'cl-remove-if
-                         (lambda (c) (string-match-p "\\`[0-9]+" c)))
-        company-transformers)
   ;; start dabbrev with ispell
   (defun company-dabbrev-ispell ()
     (interactive)
