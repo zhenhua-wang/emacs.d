@@ -15,6 +15,7 @@
   (setq read-process-output-max (* 1024 1024)
         eglot-autoshutdown t
         eglot-sync-connect nil
+        eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
         eglot-stay-out-of '(company)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
