@@ -7,9 +7,9 @@
 (use-package lsp-mode
   :commands (lsp-deferred)
   :hook
-  (python-mode . lsp-deferred)
-  (ess-r-mode . lsp-deferred)
-  ((c++-mode c-mode) . lsp-deferred)
+  (python-mode . zw/lsp-locally)
+  (ess-r-mode . zw/lsp-locally)
+  ((c++-mode c-mode) . zw/lsp-locally)
   :init
   (setq lsp-auto-guess-root t
         lsp-keep-workspace-alive nil
@@ -31,6 +31,18 @@
         lsp-enable-file-watchers nil
         lsp-enable-text-document-color nil)
   :config
+  (defun zw/lsp-locally ()
+    (unless (file-remote-p default-directory)
+      (lsp-deferred)))
+  (defun zw/lsp-in-path (cmd)
+    (interactive "sLSP Command: ")
+    (let* ((path (completing-read (format "Select %s path: " cmd)
+                                  (zw/repl-path cmd))))
+      (setf (lsp--client-new-connection
+             (gethash (intern cmd) lsp-clients))
+            (lsp-stdio-connection
+             (lambda () `(,path))))
+      (lsp-deferred)))
   (with-eval-after-load "polymode"
     (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
 
