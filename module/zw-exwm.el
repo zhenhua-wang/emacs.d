@@ -613,7 +613,6 @@
       (select-window (get-buffer-window buffer)))
      (t (exwm-workspace-switch-to-buffer buffer)))))
 
-;; HACK: updating next-buffer--list when idle
 (defvar zw/exwm-next-buffer--idle-time 0.7)
 (defvar zw/exwm-next-buffer--list nil)
 (defvar zw/exwm-next-buffer--timer nil)
@@ -668,7 +667,6 @@
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
-;; HACK: switch-to-buffer enter when idle
 (defvar zw/exwm-switch-to-buffer--idle-sec 0.7)
 (defvar zw/exwm-switch-to-buffer--timer nil)
 (defun zw/exwm-switch-to-buffer--enter ()
