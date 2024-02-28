@@ -177,7 +177,7 @@
               company-selection-wrap-around t
               company-minimum-prefix-length 1
               company-abort-on-unique-match nil
-              company-abort-manual-when-too-short t
+              company-abort-manual-when-too-short nil
               company-icon-size '(auto-scale . 20)
               company-icon-margin 2
               company-tooltip-limit 14
