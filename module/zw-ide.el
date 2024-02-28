@@ -9,7 +9,8 @@
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-h" . display-local-help)
-              ("s-d" . eldoc))
+              ("s-d" . eldoc)
+              ("s-i" . consult-eglot-symbols))
   :config
   (setq read-process-output-max (* 1024 1024)
         eglot-autoshutdown t
@@ -32,8 +33,7 @@
         (eval `(zw/eglot-patch-macro ,func))))))
 
 (use-package consult-eglot
-  :bind (:map eglot-mode-map
-              ("s-i" . consult-eglot-symbols)))
+  :commands (consult-eglot-symbols))
 
 ;; * Dape
 (use-package dape
