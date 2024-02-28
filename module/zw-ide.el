@@ -21,16 +21,14 @@
                polymode-mode)
           (pm--lsp-text)
         (buffer-substring-no-properties START END)))
+    (defmacro zw/eglot-patch-macro (patch-func)
+      `(psearch-patch ,(intern patch-func)
+         (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
+                          '`(zw/buffer-content (point-min) (point-max)))))
     (let ((vc-follow-symlinks t))
-      (psearch-patch eglot--TextDocumentItem
-        (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
-                         '`(zw/buffer-content (point-min) (point-max))))
-      (psearch-patch eglot--signal-textDocument/didSave
-        (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
-                         '`(zw/buffer-content (point-min) (point-max))))
-      (psearch-patch eglot--signal-textDocument/didChange
-        (psearch-replace '`(buffer-substring-no-properties (point-min) (point-max))
-                         '`(zw/buffer-content (point-min) (point-max)))))))
+      (zw/eglot-patch-macro "eglot--TextDocumentItem")
+      (zw/eglot-patch-macro "eglot--signal-textDocument/didSave")
+      (zw/eglot-patch-macro "eglot--signal-textDocument/didChange"))))
 
 ;; * Dape
 (use-package dape
