@@ -8,6 +8,7 @@
   ((c++-mode c-mode) . eglot-ensure)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
+              ("s-i" . consult-eglot-symbols)
               ("s-h" . display-local-help)
               ("s-d" . eldoc))
   :config
@@ -32,6 +33,9 @@
         (eval `(zw/eglot-patch-macro ,func)))
       ;; HACK: apply Eglot patch and kill eglot.el buffer"
       (kill-buffer "eglot.el"))))
+
+(use-package consult-eglot
+  :commands (consult-eglot-symbols))
 
 ;; * Dape
 (use-package dape
