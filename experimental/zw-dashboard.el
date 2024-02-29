@@ -10,7 +10,9 @@
         dashboard-display-icons-p t
         dashboard-icon-type 'nerd-icons
         dashboard-set-file-icons t
-        dashboard-projects-backend 'project-el)
+        dashboard-projects-backend 'project-el
+        dashboard-footer-icon ""
+        dashboard-footer-messages '("Happy coding!"))
   (setq dashboard-items '((recents . 5)
                           (projects . 5)))
   (setq dashboard-navigator-buttons
