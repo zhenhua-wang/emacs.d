@@ -18,8 +18,10 @@
         eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
         eglot-stay-out-of '(company)
-        eglot-events-buffer-config '(:size 0 :format full)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
+  ;; speedup eglot
+  (fset #'jsonrpc--log-event #'ignore)
+  (setf (plist-get eglot-events-buffer-config :size) 0)
   ;; patch for polymode
   (with-eval-after-load "polymode"
     (defun zw/buffer-content (START END)
@@ -39,6 +41,7 @@
       (kill-buffer "eglot.el"))))
 
 (use-package consult-eglot
+  :after eglot
   :commands (consult-eglot-symbols))
 
 ;; * Dape
