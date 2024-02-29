@@ -12,10 +12,13 @@
         dashboard-set-file-icons t)
   (setq dashboard-items '((recents  . 5)))
   (setq dashboard-navigator-buttons
-        `(((,(nerd-icons-codicon "nf-cod-github" :height 1.1 :v-adjust 0.0)
+        `(((,(nerd-icons-codicon "nf-cod-github" :height 1.1)
             "Homepage"
             "Browse homepage"
-            (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d"))))))
+            (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))
+           (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
+            "Update" "Update Configuration"
+            (lambda (&rest _) (zw/update-emacs-tangle-dotfiles))))))
   (defun zw/dashboard-init ()
     (setq-local mode-line-format
                 (list
