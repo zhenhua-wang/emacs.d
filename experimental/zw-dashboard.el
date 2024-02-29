@@ -3,7 +3,6 @@
 (use-package dashboard
   :hook (dashboard-mode . zw/dashboard-init)
   :init
-  (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 2
         dashboard-center-content t
         dashboard-vertically-center-content t
@@ -28,6 +27,7 @@
                  '(:eval (zw/modeline-bar))
                  ;; right
                  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-                 '(:eval (zw/modeline-rhs))))))
+                 '(:eval (zw/modeline-rhs)))))
+  (dashboard-setup-startup-hook))
 
 (provide 'zw-dashboard)
