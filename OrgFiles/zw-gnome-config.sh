@@ -32,7 +32,8 @@ gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'fir
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur true
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.20
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.40
+gsettings set org.gnome.shell.extensions.blur-my-shell.panel override-background-dynamically true
 # vitals
 gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
 gsettings set org.gnome.shell.extensions.vitals hide-icons true
