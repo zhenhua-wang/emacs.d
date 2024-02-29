@@ -9,8 +9,10 @@
         dashboard-set-navigator t
         dashboard-display-icons-p t
         dashboard-icon-type 'nerd-icons
-        dashboard-set-file-icons t)
-  (setq dashboard-items '((recents  . 5)))
+        dashboard-set-file-icons t
+        dashboard-projects-backend 'project-el)
+  (setq dashboard-items '((recents . 5)
+                          (projects . 5)))
   (setq dashboard-navigator-buttons
         `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
             "Homepage"
