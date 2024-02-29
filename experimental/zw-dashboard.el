@@ -21,13 +21,18 @@
            (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
             "Update" "Update Configuration"
             (lambda (&rest _) (zw/update-emacs-tangle-dotfiles))))))
+  (defun zw/dashboard--modeline-name ()
+    (propertize (concat " " default-directory " "
+                        zw/modeline-separator)
+                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
+                                            'zw/modeline-default-inactive)))
   (defun zw/dashboard-init ()
     (setq-local mode-line-format
                 (list
                  "%e"
                  ;; left
                  '(:eval (zw/modeline-remote))
-                 '(:eval (zw/modeline-buffer-name 30 "..."))
+                 '(:eval (zw/dashboard--modeline-name))
                  '(:eval (zw/modeline-text-scale))
                  '(:eval (zw/modeline-bar))
                  ;; right
