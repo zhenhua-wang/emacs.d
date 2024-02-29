@@ -54,7 +54,7 @@
 (setq zw/user-config
       (expand-file-name "zw-user-config.el" user-emacs-directory))
 (when (not (file-exists-p zw/user-config))
-  (write-region "(require 'zw-lsp-mode)\n(require 'zw-copilot)" nil zw/user-config))
+  (with-temp-buffer (write-file zw/user-config)))
 (load zw/user-config)
 (defun zw/open-user-config ()
   (interactive)
