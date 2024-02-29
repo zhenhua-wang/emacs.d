@@ -6,6 +6,7 @@
   (python-mode . eglot-ensure)
   (ess-r-mode . eglot-ensure)
   ((c++-mode c-mode) . eglot-ensure)
+  (eglot-managed-mode . zw/eglot-init)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-i" . consult-eglot-symbols)
@@ -17,9 +18,11 @@
         eglot-sync-connect nil
         eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
-        eglot-stay-out-of '(company)
         eglot-events-buffer-config '(:size 0 :format full)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
+  (defun zw/eglot-init ()
+    (setq-local company-backends
+                '(company-files company-capf)))
   ;; patch for polymode
   (with-eval-after-load "polymode"
     (defun zw/buffer-content (START END)
