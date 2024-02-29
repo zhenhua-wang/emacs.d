@@ -96,8 +96,7 @@ The order of values may be different."
 ;; make scratch and dashboard unkillable
 (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
 (defun zw/dont-kill-scratch ()
-  (if (not (or (equal (buffer-name) "*scratch*")
-               (equal (buffer-name) "*dashboard*")))
+  (if (not (equal (buffer-name) "*scratch*"))
       t
     ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
     (bury-buffer)
