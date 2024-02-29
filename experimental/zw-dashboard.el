@@ -12,7 +12,7 @@
         dashboard-set-file-icons t)
   (setq dashboard-items '((recents  . 5)))
   (setq dashboard-navigator-buttons
-        `(((,(nerd-icons-codicon "nf-cod-github" :height 1.1)
+        `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
             "Homepage"
             "Browse homepage"
             (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))
