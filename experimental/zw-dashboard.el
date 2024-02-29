@@ -1,7 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package dashboard
-  :config
+  :hook (dashboard-mode . zw/dashboard-init)
+  :init
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 2
         dashboard-center-content t
@@ -15,6 +16,18 @@
         `(((,(nerd-icons-codicon "nf-cod-github" :height 1.1 :v-adjust 0.0)
             "Homepage"
             "Browse homepage"
-            (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))))))
+            (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d"))))))
+  (defun zw/dashboard-init ()
+    (setq-local mode-line-format
+                (list
+                 "%e"
+                 ;; left
+                 '(:eval (zw/modeline-remote))
+                 '(:eval (zw/modeline-buffer-name 30 "..."))
+                 '(:eval (zw/modeline-text-scale))
+                 '(:eval (zw/modeline-bar))
+                 ;; right
+                 '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
+                 '(:eval (zw/modeline-rhs))))))
 
 (provide 'zw-dashboard)
