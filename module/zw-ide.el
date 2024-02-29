@@ -42,7 +42,8 @@
 
 (use-package consult-eglot
   :after eglot
-  :commands (consult-eglot-symbols))
+  :bind (:map eglot-mode-map
+              ("s-i" . consult-eglot-symbols)))
 
 ;; * Dape
 (use-package dape
