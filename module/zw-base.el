@@ -551,7 +551,7 @@ The order of values may be different."
            ("s-s" . save-buffer)
            ("s-S" . write-file)
            ;; term/shell
-           ("s-e" . vterm)
+           ("s-e" . eshell)
            ;; buffer operations
            ("C-<f5>" . revert-buffer-quick)
            ("s-r" . revert-buffer-quick)

@@ -2,7 +2,8 @@
 
 ;; * Vterm
 (use-package vterm
-  :bind ((:map vterm-copy-mode-map
+  :bind (("s-e" . vterm)
+         (:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . quit-window)
