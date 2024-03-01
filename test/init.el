@@ -10,12 +10,12 @@
 (require 'zw-base)
 (require 'zw-completion)
 
-;; test user config
-(setq zw/user-config
-      (expand-file-name "zw-user-config.el" user-emacs-directory))
-(when (not (file-exists-p zw/user-config))
-  (with-temp-buffer (write-file zw/user-config)))
-(load zw/user-config)
-(defun zw/open-user-config ()
+;; test config
+(setq zw/test-config
+      (expand-file-name "zw-test-config.el" user-emacs-directory))
+(when (not (file-exists-p zw/test-config))
+  (with-temp-buffer (write-file zw/test-config)))
+(load zw/test-config)
+(defun zw/open-test-config ()
   (interactive)
-  (find-file zw/user-config))
+  (find-file zw/test-config))
