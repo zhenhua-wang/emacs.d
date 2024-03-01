@@ -11,8 +11,9 @@
         dashboard-icon-type 'nerd-icons
         dashboard-set-file-icons t
         dashboard-projects-backend 'project-el
+        dashboard-projects-switch-function 'dired
         dashboard-footer-icon ""
-        dashboard-footer-messages '("Happy coding!"))
+        dashboard-footer-messages '("Happy hacking!"))
   (setq dashboard-items '((recents . 5)
                           (projects . 5)))
   (setq dashboard-navigator-buttons
