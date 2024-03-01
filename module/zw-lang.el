@@ -3,11 +3,7 @@
 ;; * C/C++
 (use-package cc-mode
   :bind ((:map c-mode-base-map
-               ("C-c C-c" . compile)))
-  :hook (c-mode-common . (lambda () (remove-hook 'flymake-diagnostic-functions
-                                                 'flymake-cc t)))
-  :config (advice-add #'c-indent-line-or-region :after
-                      (lambda (&rest args) (deactivate-mark))))
+               ("C-c C-c" . compile))))
 
 ;; * Python
 (defun zw/python-start-shell-before-send-string (code-string)
