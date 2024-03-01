@@ -9,3 +9,13 @@
 (require 'zw-startup)
 (require 'zw-base)
 (require 'zw-completion)
+
+;; test user config
+(setq zw/user-config
+      (expand-file-name "zw-user-config.el" user-emacs-directory))
+(when (not (file-exists-p zw/user-config))
+  (with-temp-buffer (write-file zw/user-config)))
+(load zw/user-config)
+(defun zw/open-user-config ()
+  (interactive)
+  (find-file zw/user-config))
