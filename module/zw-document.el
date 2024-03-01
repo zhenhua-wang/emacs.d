@@ -205,15 +205,13 @@
         TeX-save-query nil
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
-        TeX-source-correlate-start-server t
-        TeX-view-program-selection '((output-pdf "PDF Tools")))
+        TeX-source-correlate-start-server t)
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package auctex-latexmk
   :after tex
-  :init
   :hook ((latex-mode LaTeX-mode) .
          (lambda ()
            ;; Set LatexMk as the default.
