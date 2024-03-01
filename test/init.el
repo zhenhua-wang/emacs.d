@@ -8,7 +8,6 @@
 (require 'zw-package)
 (require 'zw-startup)
 (require 'zw-base)
-(require 'zw-completion)
 
 ;; test config
 (setq zw/test-config
