@@ -338,11 +338,6 @@
 (add-hook 'zw-dired-sidebar-mode-hook 'zw/left-side-window-mode)
 
 ;; * Openwith
-(defvar open-app-command (pcase system-type
-                           ('gnu/linux "setsid -w xdg-open")
-                           (_ "open"))
-  "Shell command used to open in external apps.")
-
 (use-package openwith
   :hook
   (after-init . openwith-mode)
@@ -355,14 +350,6 @@
                   "webm" "ogg" "mkv" "pdf"))
                open-app-command
                '(file)))))
-
-(defun zw/open-in-external (arg)
-  "Open visited file in default external program."
-  (interactive "P")
-  (when buffer-file-name
-    (call-process-shell-command
-     (concat open-app-command " " (shell-quote-argument buffer-file-name))
-     nil 0)))
 
 ;; * Helpful
 (use-package helpful

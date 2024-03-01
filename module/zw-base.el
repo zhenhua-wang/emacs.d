@@ -366,6 +366,20 @@ The order of values may be different."
 (add-hook 'after-init-hook 'winner-mode)
 (setq winner-dont-bind-my-keys t)
 
+;; ** Open externally
+(defvar open-app-command (pcase system-type
+                           ('gnu/linux "setsid -w xdg-open")
+                           (_ "open"))
+  "Shell command used to open in external apps.")
+
+(defun zw/open-in-external (arg)
+  "Open visited file in default external program."
+  (interactive "P")
+  (when buffer-file-name
+    (call-process-shell-command
+     (concat open-app-command " " (shell-quote-argument buffer-file-name))
+     nil 0)))
+
 ;; ** Custom tools
 (defun zw/dumb-function ()
   (interactive))
