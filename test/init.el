@@ -8,5 +8,4 @@
 (require 'zw-package)
 (require 'zw-startup)
 (require 'zw-base)
-(require 'zw-mode-line)
 (require 'zw-completion)
