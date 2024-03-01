@@ -507,6 +507,72 @@ The order of values may be different."
       (copy-file font font-dest t))
     (async-shell-command "fc-cache -fv")))
 
+;; * IDE
+;; ** REPL
+(defvar zw/repl-env-path '(("~/.conda/envs/" . "bin/"))
+  "Environment path should be formated as (env-dir . exec-dir).")
+
+(defun zw/repl-path (&optional exec keep-tramp-prefix)
+  (let* ((exec (or exec
+                   (read-string "No exec is registered with current major mode.\nEnter manually: ")))
+         (tramp-env-prefix (when (file-remote-p default-directory)
+                             (let ((vec (tramp-dissect-file-name default-directory)))
+                               (tramp-make-tramp-file-name
+                                (tramp-file-name-method vec)
+                                (tramp-file-name-user vec)
+                                (tramp-file-name-domain vec)
+                                (tramp-file-name-host vec)))))
+         (exec-env-path (cl-mapcar (lambda (path)
+                                     (cons (concat tramp-env-prefix (car path))
+                                           (cdr path)))
+                                   zw/repl-env-path)))
+    (cons exec (cl-remove-if-not
+                (lambda (full-path)
+                  (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
+                (apply #'append
+                       (cl-mapcar
+                        (lambda (dir)
+                          (cl-mapcar (lambda (path)
+                                       (let ((env-path (if (and tramp-env-prefix (not keep-tramp-prefix))
+                                                           (string-replace tramp-env-prefix "" path)
+                                                         path)))
+                                         (expand-file-name exec (expand-file-name (cdr dir) env-path))))
+                                     (ignore-errors (directory-files (car dir) t "^[^.]"))))
+                        exec-env-path))))))
+
+(defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
+  (let ((path-var-symbol (eval path-var)))
+    `(let* ((path (completing-read (format "Specify %s path: " ,path-var-symbol)
+                                   (zw/repl-path ,path-var-symbol)))
+            (,path-var-symbol path))
+       (apply ,repl-func ,repl-args))))
+
+(defun zw/repl-run-in-path ()
+  (interactive)
+  (pcase major-mode
+    ('ess-r-mode
+     (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
+    ('python-mode
+     (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
+                                (list nil (when (project-current) 'project) 'show)))
+    (_ (message "No REPL is registered with current buffer"))))
+
+;; ** Flymake
+(setq flymake-no-changes-timeout nil
+      flymake-fringe-indicator-position nil
+      ;; show flymake when cursor hovers
+      help-at-pt-timer-delay 0.9
+      help-at-pt-display-when-idle 'never)
+(add-hook 'prog-mode-hook 'flymake-mode)
+
+;; ** Xref
+(when (executable-find "rg")
+  (setq xref-search-program 'ripgrep))
+(setq xref-prompt-for-identifier '(not xref-find-definitions
+                                       xref-find-definitions-other-window
+                                       xref-find-definitions-other-frame
+                                       xref-find-references))
+
 ;; * Editor
 ;; ** Copy
 (setq-default
