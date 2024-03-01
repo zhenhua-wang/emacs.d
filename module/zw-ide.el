@@ -17,7 +17,7 @@
         eglot-sync-connect nil
         eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
-        eglot-stay-out-of '(company flymake)
+        eglot-stay-out-of '(company)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
   ;; speedup eglot
   (fset #'jsonrpc--log-event #'ignore)
