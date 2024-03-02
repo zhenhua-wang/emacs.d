@@ -150,7 +150,7 @@
      `(org-ellipsis
        ((t (:inherit fixed-pitch))))
      `(org-meta-line
-       ((t (:inherit (shadow fixed-pitch)))))
+       ((t (:inherit (shadow fixed-pitch) :foreground unspecified))))
      `(org-table
        ((t (:inherit fixed-pitch))))
      `(org-formula
