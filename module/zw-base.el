@@ -474,8 +474,8 @@ The order of values may be different."
   (if zw/presentation-mode
       (setq-local mode-line-format nil)
     (setq-local mode-line-format (default-value 'mode-line-format)))
-  (when (eq major-mode 'pdf-view-mode)
-    (pdf-view-fit-page-to-window))
+  (when (eq major-mode 'doc-view-mode)
+    (doc-view-fit-page-to-window))
   (force-mode-line-update)
   (redraw-display))
 
