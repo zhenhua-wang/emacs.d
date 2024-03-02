@@ -188,7 +188,7 @@
               company-dabbrev-downcase nil
               company-dabbrev-other-buffers 'all
               company-dabbrev-code-other-buffers t
-              company-dabbrev-char-regexp "[[:word:]_-]+"
+              company-dabbrev-char-regexp "[\\.0-9a-z-_'/]"
               company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
               company-transformers '(company-sort-prefer-same-case-prefix)
               company-global-modes '(not message-mode help-mode
