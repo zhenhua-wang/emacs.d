@@ -483,11 +483,13 @@ The order of values may be different."
   "Tab indent or toggle hide show or toggle outline"
   (interactive)
   (cond
-   ((and outline-minor-mode
+   ((and (featurep 'outline) outline-minor-mode
          (or (outline-on-heading-p)
              (outline-invisible-p)))
     (outline-toggle-children))
-   ((and hs-minor-mode (hs-already-hidden-p)) (zw/toggle-fold))
+   ((and (featurep 'hideshow) hs-minor-mode
+         (hs-already-hidden-p))
+    (zw/toggle-fold))
    (t (indent-for-tab-command))))
 
 (defun zw/install-fonts ()
