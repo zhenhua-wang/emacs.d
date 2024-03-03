@@ -126,8 +126,14 @@ tab_separator ""
 tab_title_template "{index}: {title}"
 tab_bar_edge bottom
 tab_bar_style powerline
+tab_powerline_style slanted
 tab_bar_min_tabs 1
-active_tab_font_style bold
+active_tab_foreground   #000
+active_tab_background   #eee
+active_tab_font_style   bold
+inactive_tab_foreground #abb2bf
+inactive_tab_background #393e48
+inactive_tab_font_style normal
 # theme
 foreground #979eab
 background #282c34
