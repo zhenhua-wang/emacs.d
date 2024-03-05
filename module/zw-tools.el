@@ -173,6 +173,7 @@
         (height (floor (* (string-pixel-width " ")
                           2.5))))
     (concat (zw/modeline--bar color width height)
+            " "
             (nerd-icons-mdicon
              "nf-md-home"
              :height 1.1
@@ -250,7 +251,7 @@
 (defun zw/dired-sidebar-format-header-line ()
   (setq-local
    header-line-format
-   (list "%e" " " '(:eval (zw/dired-sidebar-header-line-format)))))
+   (list "%e" '(:eval (zw/dired-sidebar-header-line-format)))))
 
 (defun zw/dired-sidebar-hide-information-line ()
   (save-excursion
