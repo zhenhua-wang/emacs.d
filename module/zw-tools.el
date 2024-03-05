@@ -77,7 +77,13 @@
     (interactive)
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
                (not (zw/dired-directory-empty-p)))
-      (dired-subtree-toggle)
+      (if (dired-subtree--is-expanded-p)
+          (save-excursion
+            (dired-next-line 1)
+            (dired-subtree-remove)
+            (when (bobp)
+              (dired-next-line 1)))
+        (save-excursion (dired-subtree-insert)))
       (revert-buffer)))
   :config
   (setq dired-subtree-use-backgrounds nil))
@@ -127,6 +133,13 @@
     (save-excursion
       (goto-char (point-min))
       (while (not (eobp))
+        ;; hide leading whitespace
+        (beginning-of-line)
+        (let* ((beg (point))
+               (end (progn (dired-move-to-filename) (point)))
+               (overlay-highlight (make-overlay beg end)))
+          (overlay-put overlay-highlight 'invisible t))
+        ;; add folder indicator
         (when (dired-move-to-filename nil)
           (dired-move-to-filename)
           (let ((file (dired-get-filename 'verbatim t)))
@@ -160,10 +173,10 @@
         (height (floor (* (string-pixel-width " ")
                           2.5))))
     (concat (zw/modeline--bar color width height)
-            (nerd-icons-sucicon
-             "nf-custom-folder_open"
-             :height 0.9
-             :v-adjust 0.13)
+            (nerd-icons-mdicon
+             "nf-md-home"
+             :height 1.1
+             :v-adjust 0.1)
             " ")))
 
 (defun zw/dired-sidebar-header-line-main ()
@@ -237,7 +250,7 @@
 (defun zw/dired-sidebar-format-header-line ()
   (setq-local
    header-line-format
-   (list "%e" "   " '(:eval (zw/dired-sidebar-header-line-format)))))
+   (list "%e" " " '(:eval (zw/dired-sidebar-header-line-format)))))
 
 (defun zw/dired-sidebar-hide-information-line ()
   (save-excursion
