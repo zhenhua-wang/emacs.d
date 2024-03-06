@@ -161,7 +161,6 @@
   :hook
   (after-init . global-company-mode)
   (company-mode . yas-minor-mode)
-  (ess-r-mode . company-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
