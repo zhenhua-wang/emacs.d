@@ -48,9 +48,7 @@
         dired-free-space 'separate
         dired-use-ls-dired t
         dired-listing-switches "-alh --group-directories-first"
-        dired-omit-extensions '("~")
-        dired-omit-files "^\\..?$"
-        dired-omit-verbose nil)
+        dired-omit-extensions '("~"))
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"))
   (defun zw/dired-directory-empty-p ()
