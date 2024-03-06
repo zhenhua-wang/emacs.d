@@ -551,13 +551,13 @@ The order of values may be different."
 
 (defun zw/repl-run-in-path ()
   (interactive)
-  (pcase major-mode
-    ('ess-r-mode
-     (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
-    ('python-mode
-     (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
-                                (list nil (when (project-current) 'project) 'show)))
-    (_ (message "No REPL is registered with current buffer"))))
+  (cond
+   ((eq major-mode 'ess-r-mode)
+    (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
+   ((memq major-mode '(python-mode python-ts-mode))
+    (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
+                               (list nil (when (project-current) 'project) 'show)))
+   (t (message "No REPL is registered with current buffer"))))
 
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil
