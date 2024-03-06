@@ -107,6 +107,17 @@
           (zw/dape-in-path path)
         (message "No dape path found for %s" major-mode)))))
 
+;; * Treesit
+(use-package treesit-auto
+  :if (featurep 'treesit)
+  :hook (after-init . global-treesit-auto-mode)
+  :init
+  (setq treesit-auto-install 'prompt)
+  :config
+  (with-eval-after-load "python"
+    (setq python-ts-mode-hook python-mode-hook
+          python-ts-mode-map python-mode-map)))
+
 ;; * Eldoc
 (use-package eldoc-box
   :bind (([remap eldoc] . eldoc-box-help-at-point))
