@@ -213,7 +213,8 @@
                                  "nf-oct-chevron_right"
                                  :height 0.9
                                  :v-adjust 0.13
-                                 :face 'shadow))))))
+                                 :face 'shadow)))
+            " ")))
 
 (defvar zw/dired-sidebar-header-line-beg 0)
 (defun zw/dired-sidebar-header-line-format ()
