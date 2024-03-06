@@ -109,7 +109,6 @@
 
 ;; * Treesit
 (use-package treesit-auto
-  :if (featurep 'treesit)
   :hook (after-init . global-treesit-auto-mode)
   :init
   (setq treesit-auto-install 'prompt)
