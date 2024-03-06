@@ -109,13 +109,23 @@
 
 ;; * Treesit
 (use-package treesit-auto
-  :hook (after-init . global-treesit-auto-mode)
+  :hook ((after-init . global-treesit-auto-mode)
+         (prog-mode . zw/treesit-auto-remap))
   :init
   (setq treesit-auto-install 'prompt)
   :config
-  (with-eval-after-load "python"
-    (setq python-ts-mode-hook python-mode-hook
-          python-ts-mode-map python-mode-map)))
+  (defun zw/treesit-auto-remap ()
+    (when-let* ((recipe (treesit-auto--get-buffer-recipe))
+                (lang (treesit-auto-recipe-lang recipe))
+                (ts-mode (treesit-auto-recipe-ts-mode recipe))
+                (mode (treesit-auto-recipe-remap recipe))
+                (mode-hook (intern (format "%s-hook" mode)))
+                (mode-map (intern (format "%s-map" mode)))
+                (ts-mode-hook (intern (format "%s-hook" ts-mode)))
+                (ts-mode-map (intern (format "%s-map" ts-mode))))
+      (with-eval-after-load lang
+        (eval `(setf ,ts-mode-hook ,mode-hook
+                     ,ts-mode-map ,mode-map))))))
 
 ;; * Eldoc
 (use-package eldoc-box
