@@ -77,13 +77,15 @@
     (interactive)
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
                (not (zw/dired-directory-empty-p)))
-      (if (dired-subtree--is-expanded-p)
-          (save-excursion
-            (dired-next-line 1)
-            (dired-subtree-remove)
-            (when (bobp)
-              (dired-next-line 1)))
-        (save-excursion (dired-subtree-insert)))
+      (save-excursion
+        (dired-move-to-filename)
+        (if (dired-subtree--is-expanded-p)
+            (progn
+              (dired-next-line 1)
+              (dired-subtree-remove)
+              (when (bobp)
+                (dired-next-line 1)))
+          (dired-subtree-insert)))
       (revert-buffer)))
   :config
   (setq dired-subtree-use-backgrounds nil))
