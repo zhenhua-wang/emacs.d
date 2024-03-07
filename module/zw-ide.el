@@ -124,8 +124,10 @@
                 (ts-mode-hook (intern (format "%s-hook" ts-mode)))
                 (ts-mode-map (intern (format "%s-map" ts-mode))))
       (with-eval-after-load lang
-        (eval `(setf ,ts-mode-hook ,mode-hook
-                     ,ts-mode-map ,mode-map))))))
+        (eval `(setf ,ts-mode-hook ,mode-hook))
+        (eval `(use-local-map ,mode-map))
+        (local-set-key (kbd "C-M-a") 'treesit-beginning-of-defun)
+        (local-set-key (kbd "C-M-e") 'treesit-end-of-defun)))))
 
 ;; * Eldoc
 (use-package eldoc-box
