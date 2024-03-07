@@ -110,7 +110,7 @@
 ;; * Treesit
 (use-package treesit-auto
   :hook ((after-init . global-treesit-auto-mode)
-         (prog-mode . zw/treesit-auto-remap))
+         (change-major-mode . zw/treesit-auto-remap))
   :init
   (setq treesit-auto-install 'prompt)
   :config
@@ -125,7 +125,6 @@
                 (ts-mode-map (intern (format "%s-map" ts-mode))))
       (with-eval-after-load lang
         (eval `(setf ,ts-mode-hook ,mode-hook))
-        ;; hack: remap mode-map to ts-mode-map
         (eval `(setf ,ts-mode-map ,mode-map))))))
 
 ;; * Eldoc
