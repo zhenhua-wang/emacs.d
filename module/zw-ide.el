@@ -171,12 +171,6 @@
 (use-package outline
   :hook
   (prog-mode . zw-outline-mode)
-  :bind
-  ((:map outline-minor-mode-map
-         ("<remap> <newline>" . zw/outline-newline)
-         ("<remap> <delete-char>" . zw/outline-delete-char)
-         ("<remap> <delete-backward-char>" . zw/outline-delete-backward-char)
-         ("<remap> <backward-delete-char-untabify>" . zw/outline-backward-delete-char)))
   :config
   (defun zw/outline--level ()
     (length (match-string 2)))
@@ -225,6 +219,11 @@
   (define-minor-mode zw-outline-mode
     "Toggle zw-outline mode."
     :global nil
+    :keymap
+    `((,(kbd "<remap> <newline>") . zw/outline-newline)
+      (,(kbd "<remap> <delete-char>") . zw/outline-delete-char)
+      (,(kbd "<remap> <delete-backward-char>") . zw/outline-delete-backward-char)
+      (,(kbd "<remap> <backward-delete-char-untabify>") . zw/outline-backward-delete-char))
     (let* ((comment-start-symbol (or (string-trim comment-start) "#"))
            (outline-header (rx-to-string
                             `(: (group (0+ space)
