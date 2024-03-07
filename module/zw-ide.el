@@ -124,8 +124,7 @@
                 (ts-mode-hook (intern (format "%s-hook" ts-mode)))
                 (ts-mode-map (intern (format "%s-map" ts-mode))))
       (with-eval-after-load lang
-        (eval `(setf ,ts-mode-hook ,mode-hook))
-        (eval `(setf ,ts-mode-map ,mode-map))))))
+        (eval `(setf ,ts-mode-hook ,mode-hook))))))
 
 ;; * Eldoc
 (use-package eldoc-box
