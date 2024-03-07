@@ -62,10 +62,6 @@
   :bind ((:map python-mode-map
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
-               ("C-<return>" . zw/python-shell-send-line))
-         (:map python-ts-mode-map
-               ("C-c C-c" . zw/python-shell-send-region-or-block)
-               ("C-c C-b" . zw/python-shell-send-buffer)
                ("C-<return>" . zw/python-shell-send-line)))
   :hook (inferior-python-mode . zw/right-side-window-mode)
   :config (setq python-shell-dedicated 'project))
