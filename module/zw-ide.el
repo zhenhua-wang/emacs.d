@@ -227,7 +227,8 @@
       (add-to-invisibility-spec 'zw-outline-star)
       (setq-local comment-start-symbol (or (string-trim comment-start) "#")
                   outline-regexp (rx-to-string
-                                  `(: (group (0+ space)
+                                  `(: line-start
+                                      (group (0+ space)
                                              (+ ,comment-start-symbol)
                                              (+ space) (group (+ "*")))
                                       space))
