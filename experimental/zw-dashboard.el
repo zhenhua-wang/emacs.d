@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package dashboard
-  :hook (dashboard-mode . zw/dashboard-init)
+  :hook (dashboard-after-initialize . zw/dashboard-init)
   :init
   (setq dashboard-startup-banner "~/.emacs.d/exwm/banner.png"
         dashboard-image-banner-max-width 700
@@ -41,7 +41,8 @@
                  '(:eval (zw/modeline-bar))
                  ;; right
                  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-                 '(:eval (zw/modeline-rhs)))))
+                 '(:eval (zw/modeline-rhs))))
+    (dashboard-jump-to-recents))
   (dashboard-setup-startup-hook))
 
 (provide 'zw-dashboard)
