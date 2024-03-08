@@ -575,7 +575,7 @@ The order of values may be different."
                                        xref-find-definitions-other-frame
                                        xref-find-references))
 
-;; ** Code folding
+;; ** Folding
 ;; *** Hideshow
 (defface collapsed-face '((t (:inherit highlight))) "Collapsed Overlay")
 (defvar collapsed-face 'collapsed-face)
@@ -673,7 +673,6 @@ The order of values may be different."
     (add-hook 'post-self-insert-hook 'zw/outline-reveal nil t)
     (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
    (t
-    ;; reset config
     (setq-local outline-regexp (default-value 'outline-regexp)
                 outline-level (default-value 'outline-level)
                 outline-isearch-open-invisible-function #'outline-isearch-open-invisible)
