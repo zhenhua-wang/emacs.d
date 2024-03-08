@@ -627,36 +627,18 @@ The order of values may be different."
     (zw/outline-reveal-children) (zw/outline-reveal))
    ;; invisible, no sub
    (t (zw/outline-reveal-children))))
-(defun zw/outline-newline (&optional ARG INTERACTIVE)
-  (interactive "*P\np")
-  (newline ARG INTERACTIVE)
-  (zw/outline-reveal))
-(defun zw/outline-delete-char (N)
-  (interactive "p")
-  (delete-char N)
-  (zw/outline-reveal))
-(defun zw/outline-delete-backward-char (n &optional killflag)
-  (declare (interactive-only delete-char))
-  (interactive "p\nP")
-  (delete-backward-char n killflag)
-  (save-excursion
-    (backward-char)
-    (zw/outline-reveal)))
-(defun zw/outline-backward-delete-char (ARG &optional KILLP)
-  (interactive "p\nP")
-  (backward-delete-char-untabify ARG KILLP)
-  (save-excursion
-    (backward-char)
-    (zw/outline-reveal)))
+(defun zw/outline-reveal-before-change (beg end)
+  (if (= beg end)
+      (zw/outline-reveal)
+    (progn
+      (zw/outline-reveal)
+      (save-excursion
+        (backward-char)
+        (zw/outline-reveal)))))
 
 (define-minor-mode zw-outline-mode
   "Toggle zw-outline mode."
   :global nil
-  :keymap
-  `((,(kbd "<remap> <newline>") . zw/outline-newline)
-    (,(kbd "<remap> <delete-char>") . zw/outline-delete-char)
-    (,(kbd "<remap> <delete-backward-char>") . zw/outline-delete-backward-char)
-    (,(kbd "<remap> <backward-delete-char-untabify>") . zw/outline-backward-delete-char))
   (cond
    (zw-outline-mode
     (setq-local comment-start-symbol (or (string-trim comment-start) "#")
@@ -670,14 +652,14 @@ The order of values may be different."
                 outline-isearch-open-invisible-function (lambda (o) (zw/outline-reveal)))
     (outline-minor-mode 1)
     (outline-hide-sublevels 1)
-    (add-hook 'post-self-insert-hook 'zw/outline-reveal nil t)
+    (add-hook 'before-change-functions 'zw/outline-reveal-before-change nil t)
     (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
    (t
     (setq-local outline-regexp (default-value 'outline-regexp)
                 outline-level (default-value 'outline-level)
                 outline-isearch-open-invisible-function #'outline-isearch-open-invisible)
     (outline-minor-mode 0)
-    (remove-hook 'post-self-insert-hook 'zw/outline-reveal t)
+    (remove-hook 'before-change-functions 'zw/outline-reveal-before-change t)
     (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))
 
 (add-hook 'prog-mode-hook 'zw-outline-mode)
