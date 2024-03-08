@@ -575,6 +575,114 @@ The order of values may be different."
                                        xref-find-definitions-other-frame
                                        xref-find-references))
 
+;; ** Code folding
+;; *** Hideshow
+(defface collapsed-face '((t (:inherit highlight))) "Collapsed Overlay")
+(defvar collapsed-face 'collapsed-face)
+(define-fringe-bitmap 'hs-marker [0 24 24 126 126 24 24 0])
+(defun display-code-line-counts (ov)
+  (when (eq 'code (overlay-get ov 'hs))
+    (let* ((marker-string "*fringe-dummy*")
+	   (marker-length (length marker-string))
+	   (display-string
+	    (format " (%d lines)... "
+		    (count-lines (overlay-start ov) (overlay-end ov)))))
+      (overlay-put ov 'help-echo "<backtab> to toggle")
+      (put-text-property 0 marker-length 'display
+			 (list 'left-fringe 'hs-marker 'fringe-face)
+			 marker-string)
+      (overlay-put ov 'before-string marker-string)
+      (put-text-property 1 (1- (length display-string))
+			 'face 'collapsed-face display-string)
+      (overlay-put ov 'display display-string))))
+(setq hs-set-up-overlay 'display-code-line-counts)
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+(defun zw/toggle-fold ()
+  "Toggle code folding"
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (hs-toggle-hiding)))
+(with-eval-after-load "hideshow"
+  (bind-keys :map hs-minor-mode-map
+             ("<backtab>" . zw/toggle-fold)))
+
+;; *** Outline
+(defun zw/outline--level ()
+  (length (match-string 2)))
+(defun zw/outline-previous-invisible-p ()
+  (unless (= (point) 1)
+    (outline-invisible-p (- (point) 1))))
+(defun zw/outline-reveal-children ()
+  (save-excursion
+    (outline-back-to-heading)
+    (outline-show-children) (outline-show-entry)))
+(defun zw/outline-reveal ()
+  (cond
+   ;; visible
+   ((not (outline-invisible-p)) nil)
+   ;; invisible, has sub
+   ((outline-has-subheading-p)
+    (zw/outline-reveal-children) (zw/outline-reveal))
+   ;; invisible, no sub
+   (t (zw/outline-reveal-children))))
+(defun zw/outline-newline (&optional ARG INTERACTIVE)
+  (interactive "*P\np")
+  (newline ARG INTERACTIVE)
+  (zw/outline-reveal))
+(defun zw/outline-delete-char (N)
+  (interactive "p")
+  (delete-char N)
+  (zw/outline-reveal))
+(defun zw/outline-delete-backward-char (n &optional killflag)
+  (declare (interactive-only delete-char))
+  (interactive "p\nP")
+  (delete-backward-char n killflag)
+  (save-excursion
+    (backward-char)
+    (zw/outline-reveal)))
+(defun zw/outline-backward-delete-char (ARG &optional KILLP)
+  (interactive "p\nP")
+  (backward-delete-char-untabify ARG KILLP)
+  (save-excursion
+    (backward-char)
+    (zw/outline-reveal)))
+
+(define-minor-mode zw-outline-mode
+  "Toggle zw-outline mode."
+  :global nil
+  :keymap
+  `((,(kbd "<remap> <newline>") . zw/outline-newline)
+    (,(kbd "<remap> <delete-char>") . zw/outline-delete-char)
+    (,(kbd "<remap> <delete-backward-char>") . zw/outline-delete-backward-char)
+    (,(kbd "<remap> <backward-delete-char-untabify>") . zw/outline-backward-delete-char))
+  (cond
+   (zw-outline-mode
+    (setq-local comment-start-symbol (or (string-trim comment-start) "#")
+                outline-regexp (rx-to-string
+                                `(: line-start
+                                    (group (0+ space)
+                                           (+ ,comment-start-symbol)
+                                           (+ space) (group (+ "*")))
+                                    space))
+                outline-level 'zw/outline--level
+                outline-isearch-open-invisible-function (lambda (o) (zw/outline-reveal)))
+    (outline-minor-mode 1)
+    (outline-hide-sublevels 1)
+    (add-hook 'post-self-insert-hook 'zw/outline-reveal nil t)
+    (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
+   (t
+    ;; reset config
+    (setq-local outline-regexp (default-value 'outline-regexp)
+                outline-level (default-value 'outline-level)
+                outline-isearch-open-invisible-function #'outline-isearch-open-invisible)
+    (outline-minor-mode 0)
+    (remove-hook 'post-self-insert-hook 'zw/outline-reveal t)
+    (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))
+
+(add-hook 'prog-mode-hook 'zw-outline-mode)
+
 ;; * Editor
 ;; ** Copy
 (setq-default
