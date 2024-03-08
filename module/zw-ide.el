@@ -172,10 +172,6 @@
   :config
   (defun zw/outline--level ()
     (length (match-string 2)))
-  (defun zw/outline--unfontify (beg end)
-    (let ((font-lock-extra-managed-props
-           (cons 'invisible font-lock-extra-managed-props)))
-      (font-lock-default-unfontify-region beg end)))
   (defun zw/outline-previous-invisible-p ()
     (unless (= (point) 1)
       (outline-invisible-p (- (point) 1))))
@@ -213,7 +209,6 @@
     (save-excursion
       (backward-char)
       (zw/outline-reveal)))
-  (defvar-local zw/outline--font-lock-keywords nil)
   (define-minor-mode zw-outline-mode
     "Toggle zw-outline mode."
     :global nil
@@ -224,7 +219,6 @@
       (,(kbd "<remap> <backward-delete-char-untabify>") . zw/outline-backward-delete-char))
     (cond
      (zw-outline-mode
-      (add-to-invisibility-spec 'zw-outline-star)
       (setq-local comment-start-symbol (or (string-trim comment-start) "#")
                   outline-regexp (rx-to-string
                                   `(: line-start
@@ -232,30 +226,17 @@
                                              (+ ,comment-start-symbol)
                                              (+ space) (group (+ "*")))
                                       space))
-                  zw/outline--font-lock-keywords `((,outline-regexp
-                                                    1 '(face nil invisible zw-outline-star)))
                   outline-level 'zw/outline--level
-                  outline-minor-mode-use-buttons t
-                  font-lock-unfontify-region-function #'zw/outline--unfontify
                   outline-isearch-open-invisible-function (lambda (o) (zw/outline-reveal)))
-      (font-lock-add-keywords nil zw/outline--font-lock-keywords)
       (outline-minor-mode 1)
       (outline-hide-sublevels 1)
       (add-hook 'post-self-insert-hook 'zw/outline-reveal nil t)
       (add-hook 'save-place-after-find-file-hook 'zw/outline-reveal nil t))
      (t
-      ;; unfontify
-      (remove-from-invisibility-spec 'zw-outline-star)
-      (dolist (o (overlays-in (window-start) (window-end)))
-        (when (overlay-get o 'outline-button)
-          (delete-overlay o)))
       ;; reset config
       (setq-local outline-regexp (default-value 'outline-regexp)
                   outline-level (default-value 'outline-level)
-                  outline-minor-mode-use-buttons nil
-                  font-lock-unfontify-region-function #'font-lock-default-unfontify-region
                   outline-isearch-open-invisible-function #'outline-isearch-open-invisible)
-      (font-lock-remove-keywords nil zw/outline--font-lock-keywords)
       (outline-minor-mode 0)
       (remove-hook 'post-self-insert-hook 'zw/outline-reveal t)
       (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t)))))
