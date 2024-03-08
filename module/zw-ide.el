@@ -133,12 +133,12 @@
   :config
   (setq eldoc-box-clear-with-C-g t))
 
-;; * Code folding
+;; * Folding
 (use-package outline-minor-faces
   :after outline
   :hook (outline-minor-mode . outline-minor-faces-mode))
 
-;; * Fast comment
+;; * Comment
 (use-package evil-nerd-commenter
   :bind (("s-;" . evilnc-comment-or-uncomment-lines)))
 
