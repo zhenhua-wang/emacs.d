@@ -103,7 +103,7 @@
            (path (plist-get current-config 'command)))
       (if path
           (zw/dape-in-path path)
-        (message "No dape path found for %s" major-mode)))))
+        (message "No debug program found for %s" major-mode)))))
 
 ;; * Treesit
 (use-package treesit-auto
