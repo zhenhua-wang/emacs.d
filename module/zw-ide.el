@@ -54,7 +54,8 @@
 
 ;; * Dape
 (use-package dape
-  :commands (zw/dape zw/dape-in-path zw/dape-in-path-menu dape dape-breakpoint-toggle)
+  :commands (dape dape-breakpoint-toggle zw/dape
+                  zw/dape-in-path zw/dape-in-path-menu zw/dape-major-mode-config)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle))
   :config
   (setq dape-buffer-window-arrangement 'right)
