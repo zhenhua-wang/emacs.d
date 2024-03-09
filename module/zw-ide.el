@@ -3,9 +3,7 @@
 ;; * Eglot
 (use-package eglot
   :hook
-  (python-mode . eglot-ensure)
-  (ess-r-mode . eglot-ensure)
-  ((c++-mode c-mode) . eglot-ensure)
+  (prog-mode . eglot-ensure)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-i" . consult-eglot-symbols)
