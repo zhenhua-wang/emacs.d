@@ -1,7 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package dashboard
-  :hook (dashboard-after-initialize . zw/dashboard-init)
+  :hook ((dashboard-after-initialize . zw/dashboard-init)
+         (dashboard-mode . zw/dashboard-init))
   :init
   (setq dashboard-startup-banner "~/.emacs.d/exwm/banner.png"
         dashboard-image-banner-max-width 700
