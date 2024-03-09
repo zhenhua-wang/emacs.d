@@ -187,8 +187,7 @@
               'keymap (zw/tab-line-debug-keymap 'dape-restart)))
 
 (defun zw/tab-line-debug-rhs ()
-  (when (and (derived-mode-p 'prog-mode)
-             (zw/dape-major-mode-config))
+  (when (derived-mode-p 'prog-mode)
     (concat (zw/tab-line-debug-start)
             (zw/tab-line-bar)
             (zw/tab-line-debug-next)
