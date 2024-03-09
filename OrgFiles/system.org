@@ -68,7 +68,6 @@ ln -s ~/.local/share/fcitx5/rime/luna_pinyin.custom.yaml ~/.config/ibus/rime/lun
 https://extensions.gnome.org/extension/1336/run-or-raise/
 https://extensions.gnome.org/extension/4998/legacy-gtk3-theme-scheme-auto-switcher/
 https://extensions.gnome.org/extension/5233/swap-finger-gestures-3-to-4/
-https://extensions.gnome.org/extension/6784/wiggle/
 
 *** tricks
 **** firefox force wayland
