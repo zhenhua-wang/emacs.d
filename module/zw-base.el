@@ -557,7 +557,7 @@ The order of values may be different."
    ((memq major-mode '(python-mode python-ts-mode))
     (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
                                (list nil (when (project-current) 'project) 'show)))
-   (t (message "No REPL is registered with current buffer"))))
+   (t (message "No REPL registered with current buffer"))))
 
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil
