@@ -35,7 +35,8 @@
     (unless (file-remote-p default-directory)
       (lsp-deferred)))
   (with-eval-after-load "polymode"
-    (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)))
+    (pm-around-advice 'lsp--buffer-content #'polymode-lsp-buffer-content)
+    (setq-local lsp-diagnostics-provider :none)))
 
 ;; * LSP UI
 (use-package lsp-ui
