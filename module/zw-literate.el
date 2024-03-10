@@ -117,8 +117,7 @@ at the first function to return non-nil.")
   (defun zw/polymode-inner-init ()
     (buffer-face-mode -1)
     (display-line-numbers-mode -1)
-    (zw-outline-mode -1)
-    (flymake-mode -1))
+    (zw-outline-mode -1))
   ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
 
