@@ -106,6 +106,7 @@
   (list "%e"
         '(:eval (zw/modeline-remote))
         '(:eval (zw/dired-sidebar--modeline-name))
+        '(:eval (zw/modeline-text-scale))
         '(:eval (zw/modeline-line-column))
         '(:eval (zw/modeline-bar))))
 

@@ -468,8 +468,8 @@
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
-  '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-text-scale))
+  '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
