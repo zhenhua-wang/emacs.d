@@ -461,10 +461,8 @@ style:
 patch:
   __include: rime_ice_suggestion:/
   menu/page_size: 9
-  switcher:
-    caption: "〔方案选单〕"
-    hotkeys:
-      - Control+grave
+  switcher/hotkeys:
+    - Control+grave
   ascii_composer:
     good_old_caps_lock: true
     switch_key:
@@ -482,6 +480,9 @@ patch:
     - {accept: period, send: Page_Down, when: has_menu}
     - {accept: bracketleft, send: Page_Up, when: paging}
     - {accept: bracketright, send: Page_Down, when: has_menu}
+  # resolve conflict with bracket paging
+  key_binder/select_first_character:
+  key_binder/select_last_character:
 #+end_src
 
 * Rofi
