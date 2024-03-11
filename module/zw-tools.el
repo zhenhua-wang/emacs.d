@@ -416,6 +416,7 @@
   :init
   (setq default-input-method "pyim"
         pyim-page-tooltip 'posframe
+        pyim-page-posframe-border-width 2
         pyim-default-scheme 'quanpin
         pyim-page-style 'two-line
         pyim-page-length 9
