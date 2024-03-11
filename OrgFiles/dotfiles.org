@@ -1153,6 +1153,7 @@ f = C-f
 = = C-=
 p = C-p
 \ = C-\
+tab = swapm(app_switch_state, M-tab)
 # tab
 t = C-t
 T = C-S-t
@@ -1183,6 +1184,12 @@ v = pageup
 v = pagedown
 a = home
 e = end
+
+[app_switch_state:M]
+tab = M-tab
+right = M-tab
+` = M-S-tab
+left = M-S-tab
 
 [meta_normal:M]
 
