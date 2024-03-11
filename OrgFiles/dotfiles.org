@@ -1208,6 +1208,9 @@ e = end
 [meta_normal:M]
 \ = C-\
 
+[control_normal:C]
+\ = M-\
+
 [alt_zw+shift]
 , = C-home
 . = C-end
@@ -1223,7 +1226,7 @@ f = M-C-f
 [emacs]
 leftalt = layer(meta_normal)
 leftmeta = layer(alt)
-capslock = layer(control)
+capslock = layer(control_normal)
 
 [kitty]
 leftalt = layer(meta_normal)
