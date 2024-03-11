@@ -2,8 +2,8 @@
 
 ;; * Font
 (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 15.0))
-      (emoji-font (font-spec :name "Noto Color Emoji" :size 15.0))
+      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0))
+      (emoji-font (font-spec :name "Noto Color Emoji" :size 13.0))
       (fixed-pitch-font (font-spec :name "JetBrains Mono"))
       (variable-pitch-font (font-spec :name "EB Garamond")))
   (when (find-font default-font)
