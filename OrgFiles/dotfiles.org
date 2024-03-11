@@ -1206,7 +1206,6 @@ a = home
 e = end
 
 [meta_normal:M]
-\ = C-\
 
 [control_normal:C]
 \ = M-\
