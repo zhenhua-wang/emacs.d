@@ -532,40 +532,6 @@
 (setenv "XMODIFIERS" "@im=fcitx")
 (setenv "SDL_IM_MODULE" "fcitx")
 (setenv "GLFW_IM_MODULE" "ibus")
-(setq default-input-method "pyim")
-
-(use-package pyim
-  :demand t
-  :bind ((:map pyim-mode-map
-               ("," . pyim-previous-page)
-               ("." . pyim-next-page)
-               ("<left>" . pyim-backward-point)
-               ("<right>" . pyim-forward-point)
-               ("C-\\" . pyim/toggle-input-method)))
-  :config
-  (setq pyim-page-tooltip 'posframe
-        pyim-default-scheme 'quanpin
-        pyim-page-style 'two-line
-        pyim-page-length 9
-        pyim-cloudim 'google)
-  (global-set-key (kbd "C-\\") 'toggle-input-method)
-  ;; vertico search pinyin
-  (defun pyim-orderless-regexp (orig-func component)
-    (let ((result (funcall orig-func component)))
-      (pyim-cregexp-build result)))
-  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp)
-  ;; toggle input entered pinyin
-  (defun pyim/toggle-input-method ()
-    (interactive)
-    (let ((word (pyim-entered-get)))
-      (pyim-quit-clear)
-      (funcall-interactively #'toggle-input-method)
-      (insert word))))
-
-(use-package pyim-basedict
-  :after pyim
-  :config
-  (pyim-basedict-enable))
 
 ;; ** exwm randr
 ;; Set the screen resolution (update this to be the correct resolution for your screen!)
