@@ -14,7 +14,7 @@ gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.desktop.peripherals.touchpad tap-and-drag false
 # input
-gsettings set org.gnome.desktop.input-sources sources "[('ibus', 'rime'), ('xkb', 'us')]"
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'rime')]"
 gsettings set org.gnome.desktop.input-sources per-window true
 # extension
 gsettings set org.gnome.shell disable-user-extensions false
