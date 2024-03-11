@@ -449,10 +449,10 @@ EnableFractionalScale=True
 #+end_src
 
 * IBus
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/ibus/rime/build/ibus_rime.yaml")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/ibus/rime/ibus_rime.custom.yaml")
 #+begin_src conf
-style:
-  horizontal: true
+patch:
+  style/horizontal: true
 #+end_src
 
 * Rime
