@@ -42,7 +42,8 @@
                  '(:eval (zw/modeline-bar))
                  ;; right
                  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-                 '(:eval (zw/modeline-rhs)))))
+                 '(:eval (zw/modeline-rhs))))
+    (ignore-errors (dashboard-jump-to-recents)))
   (dashboard-setup-startup-hook))
 
 (provide 'zw-dashboard)
