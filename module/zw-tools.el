@@ -404,7 +404,7 @@
 
 ;; * Pyim
 (use-package pyim
-  :commands (pyim-cregexp-build)
+  :autoload pyim-cregexp-build
   :bind ((:map pyim-mode-map
                ("," . pyim-previous-page)
                ("." . pyim-next-page)
