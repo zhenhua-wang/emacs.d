@@ -423,15 +423,12 @@
   ;; rime finalize
   (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
 
-;; * Pyim
-(use-package pyim
-  :commands (pyim-cregexp-build)
+(use-package pinyinlib
+  :autoload pinyinlib-build-regexp-string
   :init
-  ;; vertico search pinyin
-  (defun pyim-orderless-regexp (orig-func component)
-    (let ((result (funcall orig-func component)))
-      (pyim-cregexp-build result)))
-  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp))
+  (defun completion--regex-pinyin (str)
+    (orderless-regexp (pinyinlib-build-regexp-string str)))
+  (add-to-list 'orderless-matching-styles 'completion--regex-pinyin))
 
 ;; * Provide
 (provide 'zw-tools)
