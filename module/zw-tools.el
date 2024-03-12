@@ -404,6 +404,7 @@
 
 ;; * Rime
 (use-package rime
+  :hook (input-method-activate . zw/rime-finalize)
   :init
   (setq default-input-method "rime")
   :config
@@ -420,7 +421,9 @@
       (make-symbolic-link (expand-file-name "default.custom.yaml"
                                             "~/.local/share/fcitx5/rime/")
                           config t)))
-  (add-hook 'kill-emacs-hook #'rime-lib-finalize))
+  ;; rime finalize
+  (defun zw/rime-finalize ()
+    (add-hook 'kill-emacs-hook #'rime-lib-finalize)))
 
 ;; * Provide
 (provide 'zw-tools)
