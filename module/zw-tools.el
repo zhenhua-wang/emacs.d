@@ -427,12 +427,6 @@
 (use-package pyim
   :commands (pyim-cregexp-build)
   :init
-  (setq pyim-page-tooltip 'posframe
-        pyim-page-posframe-border-width 2
-        pyim-default-scheme 'quanpin
-        pyim-page-style 'two-line
-        pyim-page-length 9
-        pyim-cloudim 'google)
   ;; vertico search pinyin
   (defun pyim-orderless-regexp (orig-func component)
     (let ((result (funcall orig-func component)))
