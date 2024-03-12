@@ -1209,7 +1209,7 @@ left = M-S-tab
 leftalt = layer(meta_normal)
 leftmeta = layer(alt)
 capslock = layer(control)
-ctrl.\ = M-\
+control.\ = M-\
 
 [kitty]
 leftalt = layer(meta_normal)
