@@ -404,7 +404,6 @@
 
 ;; * Rime
 (use-package rime
-  :hook (input-method-activate . zw/rime-finalize)
   :init
   (setq default-input-method "rime")
   :config
@@ -422,13 +421,18 @@
                                             "~/.local/share/fcitx5/rime/")
                           config t)))
   ;; rime finalize
-  (defun zw/rime-finalize ()
-    (add-hook 'kill-emacs-hook #'rime-lib-finalize)))
+  (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
 
 ;; * Pyim
 (use-package pyim
   :commands (pyim-cregexp-build)
   :init
+  (setq pyim-page-tooltip 'posframe
+        pyim-page-posframe-border-width 2
+        pyim-default-scheme 'quanpin
+        pyim-page-style 'two-line
+        pyim-page-length 9
+        pyim-cloudim 'google)
   ;; vertico search pinyin
   (defun pyim-orderless-regexp (orig-func component)
     (let ((result (funcall orig-func component)))
