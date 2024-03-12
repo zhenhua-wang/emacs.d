@@ -421,7 +421,9 @@
         pyim-default-scheme 'quanpin
         pyim-page-style 'two-line
         pyim-page-length 9
-        pyim-cloudim 'google)
+        pyim-cloudim 'google
+        pyim-title ""
+        pyim-indicator-modeline-string '("中 ", "EN "))
   ;; vertico search pinyin
   (defun pyim-orderless-regexp (orig-func component)
     (let ((result (funcall orig-func component)))
