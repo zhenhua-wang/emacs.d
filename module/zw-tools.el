@@ -424,6 +424,7 @@
   (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
 
 (use-package pinyinlib
+  :after orderless
   :autoload pinyinlib-build-regexp-string
   :init
   (defun completion--regex-pinyin (str)
