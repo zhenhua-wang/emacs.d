@@ -1145,14 +1145,6 @@ leftmeta = layer(alt_zw)
 capslock = layer(control_zw)
 
 [meta_zw:M]
-# command
-r = C-f5
-q = C-q
-f = C-f
-- = C--
-= = C-=
-p = C-p
-tab = swapm(app_switch_state, M-tab)
 # tab
 t = C-t
 T = C-S-t
@@ -1175,6 +1167,15 @@ Z = C-S-z
 x = C-x
 c = C-c
 v = C-v
+# command
+r = C-f5
+q = C-q
+f = C-f
+- = C--
+= = C-=
+p = C-p
+\ = A+space
+tab = swapm(app_switch_state, M-tab)
 
 [alt_zw:A]
 v = pageup
@@ -1183,12 +1184,10 @@ v = pageup
 v = pagedown
 a = home
 e = end
+\ = A+space
 
-[meta_emacs:M]
+[meta_normal:M]
 tab = swapm(app_switch_state, M-tab)
-
-[control_emacs:C]
-\ = M-\
 
 [alt_zw+shift]
 , = C-home
@@ -1209,12 +1208,12 @@ left = M-S-tab
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
 #+begin_src conf
 [emacs]
-leftalt = layer(meta_emacs)
+leftalt = layer(meta_normal)
 leftmeta = layer(alt)
-capslock = layer(control_emacs)
+capslock = layer(control)
 
 [kitty]
-leftalt = layer(meta)
+leftalt = layer(meta_normal)
 leftmeta = layer(alt)
 capslock = layer(control)
 #+end_src
