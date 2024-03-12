@@ -405,12 +405,12 @@
 ;; * Rime
 (use-package rime
   :init
-  (setq default-input-method "rime")
-  :config
-  (setq rime-show-preedit t
+  (setq default-input-method "rime"
+        rime-show-preedit t
         rime-user-data-dir "~/.cache/emacs/rime/"
         rime-show-candidate 'posframe
         rime-posframe-properties (list :internal-border-width 2))
+  :config
   ;; init user config
   (let* ((dir rime-user-data-dir)
          (config (expand-file-name "default.custom.yaml" dir)))
@@ -422,14 +422,6 @@
                           config t)))
   ;; rime finalize
   (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
-
-(use-package pinyinlib
-  :after orderless
-  :autoload pinyinlib-build-regexp-string
-  :init
-  (defun completion--regex-pinyin (str)
-    (orderless-regexp (pinyinlib-build-regexp-string str)))
-  (add-to-list 'orderless-matching-styles 'completion--regex-pinyin))
 
 ;; * Provide
 (provide 'zw-tools)
