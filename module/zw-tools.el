@@ -425,5 +425,15 @@
   (defun zw/rime-finalize ()
     (add-hook 'kill-emacs-hook #'rime-lib-finalize)))
 
+;; * Pyim
+(use-package pyim
+  :commands (pyim-cregexp-build)
+  :init
+  ;; vertico search pinyin
+  (defun pyim-orderless-regexp (orig-func component)
+    (let ((result (funcall orig-func component)))
+      (pyim-cregexp-build result)))
+  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp))
+
 ;; * Provide
 (provide 'zw-tools)

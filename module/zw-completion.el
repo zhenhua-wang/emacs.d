@@ -8,14 +8,6 @@
         orderless-component-separator #'orderless-escapable-split-on-space
         completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package pinyinlib
-  :after orderless
-  :autoload pinyinlib-build-regexp-string
-  :init
-  (defun completion--regex-pinyin (str)
-    (orderless-regexp (pinyinlib-build-regexp-string str)))
-  (add-to-list 'orderless-matching-styles 'completion--regex-pinyin))
-
 ;; * Vertico
 (use-package vertico
   :straight (vertico :files (:defaults "extensions/*")
