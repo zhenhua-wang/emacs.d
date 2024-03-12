@@ -1183,15 +1183,10 @@ v = pageup
 v = pagedown
 a = home
 e = end
-\ = M-\
 
-[meta_normal:M]
+[meta_emacs:M]
 tab = swapm(app_switch_state, M-tab)
 \ = C-\
-
-[alt_normal:A]
-
-[control_normal:C]
 
 [alt_zw+shift]
 , = C-home
@@ -1212,14 +1207,14 @@ left = M-S-tab
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
 #+begin_src conf
 [emacs]
-leftalt = layer(meta_normal)
-leftmeta = layer(alt_normal)
-capslock = layer(control_normal)
+leftalt = layer(meta_emacs)
+leftmeta = layer(alt)
+capslock = layer(control)
 
 [kitty]
-leftalt = layer(meta_normal)
-leftmeta = layer(alt_normal)
-capslock = layer(control_normal)
+leftalt = layer(meta)
+leftmeta = layer(alt)
+capslock = layer(control)
 #+end_src
 
 * Gnome
