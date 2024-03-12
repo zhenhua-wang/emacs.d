@@ -135,9 +135,6 @@
      `(eglot-highlight-symbol-face
        ((t (:inherit bold :background ,highlight-color :foreground ,highlight-revert-color))))
 
-     ;; pyim
-     `(pyim-page ((t (:inherit tooltip :foreground ,base-font-color :background ,block-color))))
-
      ;; org with variable font
      `(org-level-8 ((t (:inherit (outline-8 variable-pitch)))))
      `(org-level-7 ((t (:inherit (outline-7 variable-pitch)))))
