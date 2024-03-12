@@ -402,26 +402,44 @@
 (use-package psearch
   :straight (:host github :repo "twlz0ne/psearch.el"))
 
-;; * Rime
-(use-package rime
+;; * Pyim
+(use-package pyim
+  :commands (pyim-cregexp-build)
+  :bind ((:map pyim-mode-map
+               ("," . pyim-previous-page)
+               ("." . pyim-next-page)
+               ("[" . pyim-previous-page)
+               ("]" . pyim-next-page)
+               ("<left>" . pyim-backward-point)
+               ("<right>" . pyim-forward-point)
+               ("C-\\" . pyim/toggle-input-method)
+               ("s-\\" . pyim/toggle-input-method)))
   :init
-  (setq default-input-method "rime"
-        rime-show-preedit t
-        rime-user-data-dir "~/.cache/emacs/rime/"
-        rime-show-candidate 'posframe
-        rime-posframe-properties (list :internal-border-width 2))
+  (setq default-input-method "pyim"
+        pyim-page-tooltip 'posframe
+        pyim-page-posframe-border-width 2
+        pyim-default-scheme 'quanpin
+        pyim-page-style 'two-line
+        pyim-page-length 9
+        pyim-cloudim 'google)
+  ;; vertico search pinyin
+  (defun pyim-orderless-regexp (orig-func component)
+    (let ((result (funcall orig-func component)))
+      (pyim-cregexp-build result)))
+  (advice-add 'orderless-regexp :around #'pyim-orderless-regexp)
   :config
-  ;; init user config
-  (let* ((dir rime-user-data-dir)
-         (config (expand-file-name "default.custom.yaml" dir)))
-    (unless (file-directory-p dir)
-      (make-directory dir t))
-    (unless (file-exists-p config)
-      (make-symbolic-link (expand-file-name "default.custom.yaml"
-                                            "~/.local/share/fcitx5/rime/")
-                          config t)))
-  ;; rime finalize
-  (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
+  ;; toggle input entered pinyin
+  (defun pyim/toggle-input-method ()
+    (interactive)
+    (let ((word (pyim-entered-get)))
+      (pyim-quit-clear)
+      (funcall-interactively #'toggle-input-method)
+      (insert word))))
+
+(use-package pyim-basedict
+  :after pyim
+  :config
+  (pyim-basedict-enable))
 
 ;; * Provide
 (provide 'zw-tools)
