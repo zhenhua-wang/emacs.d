@@ -1188,6 +1188,8 @@ e = end
 [meta_normal:M]
 tab = swapm(app_switch_state, M-tab)
 
+[alt_normal:A]
+
 [control_normal:C]
 \ = M-\
 
@@ -1211,13 +1213,13 @@ left = M-S-tab
 #+begin_src conf
 [emacs]
 leftalt = layer(meta_normal)
-leftmeta = layer(alt)
+leftmeta = layer(alt_normal)
 capslock = layer(control_normal)
 
 [kitty]
 leftalt = layer(meta_normal)
-leftmeta = layer(alt)
-capslock = layer(control)
+leftmeta = layer(alt_normal)
+capslock = layer(control_normal)
 #+end_src
 
 * Gnome
