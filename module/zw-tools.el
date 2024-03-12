@@ -426,6 +426,7 @@
 ;; * Pyim
 (use-package pyim
   :commands (pyim-cregexp-build)
+  :hook (after-init . pyim-isearch-mode)
   :init
   (setq pyim-page-tooltip 'posframe
         pyim-page-posframe-border-width 2
