@@ -1174,7 +1174,6 @@ f = C-f
 - = C--
 = = C-=
 p = C-p
-\ = A-space
 tab = swapm(app_switch_state, M-tab)
 
 [alt_zw:A]
@@ -1184,7 +1183,6 @@ v = pageup
 v = pagedown
 a = home
 e = end
-\ = A-space
 
 [meta_normal:M]
 tab = swapm(app_switch_state, M-tab)
@@ -1211,6 +1209,7 @@ left = M-S-tab
 leftalt = layer(meta_normal)
 leftmeta = layer(alt)
 capslock = layer(control)
+ctrl.\ = M-\
 
 [kitty]
 leftalt = layer(meta_normal)
