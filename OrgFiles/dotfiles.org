@@ -1152,6 +1152,7 @@ f = C-f
 - = C--
 = = C-=
 p = C-p
+\ = C-\
 tab = swapm(app_switch_state, M-tab)
 # tab
 t = C-t
@@ -1186,7 +1187,9 @@ e = end
 
 [meta_emacs:M]
 tab = swapm(app_switch_state, M-tab)
-\ = C-\
+
+[control_emacs:C]
+\ = M-\
 
 [alt_zw+shift]
 , = C-home
@@ -1209,7 +1212,7 @@ left = M-S-tab
 [emacs]
 leftalt = layer(meta_emacs)
 leftmeta = layer(alt)
-capslock = layer(control)
+capslock = layer(control_emacs)
 
 [kitty]
 leftalt = layer(meta)
