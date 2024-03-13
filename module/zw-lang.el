@@ -75,8 +75,8 @@
   (dolist (conda-path zw/conda-path)
     (let ((conda-exec (concat conda-path "/conda")))
       (when (file-exists-p conda-exec)
-        (setenv "PATH" (concat conda-path ":"
-                               (getenv "PATH")))
+        ;; (setenv "PATH" (concat conda-path ":"
+        ;;                        (getenv "PATH")))
         (setq conda--executable-path conda-exec))))
   :config
   (setq conda-message-on-environment-switch nil)
