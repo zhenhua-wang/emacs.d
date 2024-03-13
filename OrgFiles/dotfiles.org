@@ -361,6 +361,9 @@ NextCandidate=
 # Toggle embedded preedit
 TogglePreedit=
 
+[Hotkey/TriggerKeys]
+0=Control+backslash
+
 [Behavior]
 # Active By Default
 ActiveByDefault=False
@@ -402,6 +405,12 @@ Default Layout=us
 DefaultIM=rime
 
 [Groups/0/Items/0]
+# Name
+Name=keyboard-us
+# Layout
+Layout=
+
+[Groups/0/Items/1]
 # Name
 Name=rime
 # Layout
