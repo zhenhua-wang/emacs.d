@@ -341,6 +341,7 @@
                          tab-bar-separator
                          zw/tab-bar-format-buffers
                          tab-bar-format-align-right
+                         zw/tab-bar-begin
                          tab-bar-separator
                          tab-bar-separator
                          tab-bar-separator
