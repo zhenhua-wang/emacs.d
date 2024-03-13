@@ -473,7 +473,7 @@ patch:
       Caps_Lock: noop
       Eisu_toggle: noop
   key_binder/bindings:
-    # - {accept: Control+backslash, toggle: ascii_mode, when: always}
+    - {accept: Control+backslash, toggle: ascii_mode, when: always}
     - {accept: minus, send: Page_Up, when: paging}
     - {accept: equal, send: Page_Down, when: has_menu}
     - {accept: comma, send: Page_Up, when: paging}
