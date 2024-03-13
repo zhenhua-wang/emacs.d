@@ -532,11 +532,6 @@
 (setenv "SDL_IM_MODULE" "fcitx")
 (setenv "GLFW_IM_MODULE" "ibus")
 
-;; disable keyd if active
-(call-process-shell-command
- "systemctl is-active --quiet keyd && sudo systemctl stop keyd"
- nil 0)
-
 ;; ** exwm randr
 ;; Set the screen resolution (update this to be the correct resolution for your screen!)
 (require 'exwm-randr)
