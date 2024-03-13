@@ -966,6 +966,8 @@
         (,(kbd "s-<down>") . zw/exwm-window-down)
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
+        ;; tab-bar
+        (,(kbd "s-k") . keycast-tab-bar-mode)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
         ;; web search
