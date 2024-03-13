@@ -239,9 +239,9 @@ The order of values may be different."
                     (if  (eq buffer-window (window-main-window))
                         (previous-buffer)
                       (delete-window buffer-window)))))
-            (let ((last-buffer (car right-side-buffers)))
-              (display-buffer last-buffer)
-              (set-window-dedicated-p (get-buffer-window last-buffer) t))))
+            (dolist (buffer (reverse right-side-buffers))
+              (display-buffer buffer)
+              (set-window-dedicated-p (get-buffer-window buffer) t))))
       (message "No buffer in right side window."))))
 
 (define-minor-mode zw/right-side-window-mode
