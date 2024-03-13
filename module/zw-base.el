@@ -479,10 +479,11 @@ The order of values may be different."
   (force-mode-line-update)
   (redraw-display))
 
-(defun zw/smart-tab ()
+(defun zw/smart-tab (&optional arg)
   "Tab indent or toggle hide show or toggle outline"
-  (interactive)
+  (interactive "P")
   (cond
+   (mark-active (indent-for-tab-command arg))
    ((and (featurep 'outline) outline-minor-mode
          (or (outline-on-heading-p)
              (outline-invisible-p)))
@@ -490,7 +491,7 @@ The order of values may be different."
    ((and (featurep 'hideshow) hs-minor-mode
          (hs-already-hidden-p))
     (zw/toggle-fold))
-   (t (indent-for-tab-command))))
+   (t (indent-for-tab-command arg))))
 
 (defun zw/install-fonts ()
   "Install required fonts."
