@@ -215,8 +215,7 @@
                  (side . right)
                  (slot . -1)
                  (dedicated . t)
-                 (window-height . 0.5)))
-  (add-to-list 'zw/side-window-buffer-regex buffer))
+                 (window-height . 0.5))))
 
 ;; display buffers
 (defun zw/exwm-display-buffer-p (x)
