@@ -1174,6 +1174,7 @@ f = C-f
 - = C--
 = = C-=
 p = C-p
+\ = C-\
 tab = swapm(app_switch_state, M-tab)
 
 [alt_zw:A]
