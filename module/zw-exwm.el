@@ -215,9 +215,7 @@
                  (side . right)
                  (slot . -1)
                  (dedicated . t)
-                 (window-height . 0.5)))
-  (with-current-buffer buffer
-    (zw/right-side-window-mode 1)))
+                 (window-height . 0.5))))
 
 ;; display buffers
 (defun zw/exwm-display-buffer-p (x)
