@@ -40,10 +40,7 @@ sudo systemctl enable sddm.service
 # required
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi rofi-calc flameshot
 # optional
-yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze thunar tumbler ffmpegthumbnailer plank plank-theme-bigsur
-# application dock
-# dconf dump /net/launchpad/plank/docks/ > docks.ini
-cat ~/.emacs.d/exwm/docks.ini | dconf load /net/launchpad/plank/docks/
+yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze thunar tumbler ffmpegthumbnailer
 #+end_src
 
 ** Gnome
