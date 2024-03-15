@@ -101,7 +101,7 @@
   ;; quick activate
   (defun zw/conda-env-activate ()
     (interactive)
-    (let* ((deactivate "Deactivate conda environment")
+    (let* ((deactivate "Conda deactivate")
            (env (completing-read
                  "Conda switch environment:"
                  (append (conda-env-candidates) `(,deactivate)))))
