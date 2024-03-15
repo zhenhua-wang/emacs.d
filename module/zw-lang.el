@@ -68,6 +68,7 @@
 
 (use-package conda
   :commands (conda-env-activate conda-env-candidates)
+  :bind (("s-P" . zw/conda-env-activate))
   :init
   (defvar zw/conda-path '("/opt/anaconda/bin"
                           "/opt/miniconda3/bin"))
@@ -97,6 +98,16 @@
                return (setq conda-anaconda-home (expand-file-name dir)
                             conda-env-home-directory (expand-file-name dir)))
       (message "Cannot find Anaconda installation"))
+  ;; quick activate
+  (defun zw/conda-env-activate ()
+    (interactive)
+    (let* ((deactivate "Deactivate conda environment")
+           (env (completing-read
+                 "Conda switch environment:"
+                 (append (conda-env-candidates) `(,deactivate)))))
+      (if (string= env deactivate)
+          (conda-env-deactivate)
+        (conda-env-activate env))))
   ;; update conda environment
   (defun zw/conda-env-update ()
     (cond ((executable-find "ipython")
