@@ -377,9 +377,6 @@ The order of values may be different."
      nil 0)))
 
 ;; ** Custom tools
-(defun zw/dumb-function ()
-  (interactive))
-
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
   (interactive)
@@ -704,8 +701,8 @@ The order of values may be different."
            ("C-<wheel-down>" . nil)
            ("C-<wheel-up>" . nil)
            ;; disable header line mouse scroll
-           ("<header-line> <wheel-up>" . zw/dumb-function)
-           ("<header-line> <wheel-down>" . zw/dumb-function)
+           ("<header-line> <wheel-up>" . ignore)
+           ("<header-line> <wheel-down>" . ignore)
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
