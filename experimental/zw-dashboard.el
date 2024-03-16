@@ -34,7 +34,8 @@
                 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                             'zw/modeline-default-inactive)))
   (defun zw/dashboard-init ()
-    (setq-local mode-line-format
+    (setq-local default-directory "~/"
+                mode-line-format
                 (list
                  "%e"
                  ;; left
