@@ -286,11 +286,6 @@ The order of values may be different."
       tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory))
 
 (with-eval-after-load "tramp"
-  (setq password-cache-expiry nil
-        remote-file-name-inhibit-cache nil
-        vc-ignore-dir-regexp (format "\\(%s\\)\\|\\(%s\\)"
-                                     vc-ignore-dir-regexp
-                                     tramp-file-name-regexp))
   ;; respect the PATH variable on the remote machine
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
