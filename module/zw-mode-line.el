@@ -465,6 +465,7 @@
  mode-line-format
  (list
   "%e"
+  '(:eval (zw/modeline-bar))
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
@@ -473,7 +474,6 @@
   '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
   '(:eval (zw/modeline-kmacro-recording))
-  '(:eval (zw/modeline-bar))
   ;; right
   '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
   '(:eval (zw/modeline-rhs))))
@@ -486,6 +486,7 @@
               (setq-local mode-line-format
                           (list
                            "%e"
+                           '(:eval (zw/modeline-bar))
                            '(:eval (zw/modeline-remote))
                            '(:eval (propertize
                                     (zw/modeline-buffer-name 30 "...")
@@ -495,8 +496,7 @@
                            '(:eval (zw/modeline-count-region))
                            '(:eval (zw/modeline-mark-active))
                            '(:eval (zw/modeline-kmacro-recording))
-                           '(:eval (zw/modeline-process))
-                           '(:eval (zw/modeline-bar)))))))
+                           '(:eval (zw/modeline-process)))))))
 
 ;; ** ring bell
 (defvar zw/modeline--ring-bell-timer nil)

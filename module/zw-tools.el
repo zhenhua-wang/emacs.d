@@ -105,11 +105,11 @@
 
 (defun zw/dired-sidebar--modeline-format ()
   (list "%e"
+        '(:eval (zw/modeline-bar))
         '(:eval (zw/modeline-remote))
         '(:eval (zw/dired-sidebar--modeline-name))
         '(:eval (zw/modeline-text-scale))
-        '(:eval (zw/modeline-line-column))
-        '(:eval (zw/modeline-bar))))
+        '(:eval (zw/modeline-line-column))))
 
 (defun zw/dired-sidebar-folder-indicator ()
   "Display the icons of files in a dired buffer."
