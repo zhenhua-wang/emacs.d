@@ -164,6 +164,7 @@
   (company-mode . yas-minor-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
+               ("C-M-i" . company-manual-begin)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
