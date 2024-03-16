@@ -281,8 +281,7 @@ The order of values may be different."
 
 ;; * Tool
 ;; ** Tramp
-(setq tramp-default-method "ssh"
-      tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
+(setq tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
       tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory))
 
 (with-eval-after-load "tramp"
