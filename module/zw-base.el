@@ -281,10 +281,16 @@ The order of values may be different."
 
 ;; * Tool
 ;; ** Tramp
-(setq tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
-      tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory))
-
 (with-eval-after-load "tramp"
+  (setq tramp-default-method "ssh"
+        tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
+        tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory)
+        password-cache-expiry nil
+        remote-file-name-inhibit-cache 60
+        vc-ignore-dir-regexp (format "%s\\|%s\\|%s"
+                                     vc-ignore-dir-regexp
+                                     tramp-file-name-regexp
+                                     "[/\\\\]node_modules"))
   ;; respect the PATH variable on the remote machine
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
