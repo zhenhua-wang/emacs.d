@@ -184,7 +184,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
         ess-style 'RStudio-
         ess-local-process-name "R"
         ess-use-company nil
-        ess-use-flymake nil
+        ess-use-flymake t
         ess-eval-visibly-p 'nowait
         ess-R-font-lock-keywords
         '((ess-R-fl-keyword:keywords   . t)
