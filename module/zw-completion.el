@@ -236,6 +236,12 @@
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
         company-posframe-show-indicator nil)
+  ;; solve flickering
+  (defun zw/company-posframe-show (orig-fun &rest args)
+    (let ((x-wait-for-event-timeout 0)
+          (pgtk-wait-for-event-timeout 0))
+      (apply orig-fun args)))
+  (advice-add 'company-posframe-show :around #'zw/company-posframe-show)
   ;; handle exwm
   (with-eval-after-load "exwm"
     (defun zw/company-posframe-refposhandler (&optional frame)
