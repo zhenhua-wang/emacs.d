@@ -257,13 +257,7 @@
                 :timeout 60
                 :no-properties nil))
     (setq company-posframe-show-params
-          (list :refposhandler 'zw/company-posframe-refposhandler
-                :override-parameters
-                '((tab-bar-mode . 0)
-                  (tab-bar-format . nil)
-                  (tab-line-format . nil)
-                  (tab-bar-lines . 0)
-                  (tab-bar-lines-keep-state . 0))))))
+          (list :refposhandler 'zw/company-posframe-refposhandler))))
 
 ;; ** backend
 (defun company-R-objects--prefix ()
