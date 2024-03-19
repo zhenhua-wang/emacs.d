@@ -183,6 +183,7 @@
               company-tooltip-limit 14
               company-tooltip-align-annotations t
               company-tooltip-minimum-width 40
+              company-tooltip-maximum-width 40
               company-dabbrev-minimum-length 4
               company-dabbrev-ignore-invisible t
               company-dabbrev-ignore-case 'keep-prefix
@@ -235,7 +236,8 @@
   :config
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
-        company-posframe-show-indicator nil)
+        company-posframe-show-indicator nil
+        company-posframe-font (face-attribute 'fixed-pitch :font))
   ;; handle exwm
   (with-eval-after-load "exwm"
     (defun zw/company-posframe-refposhandler (&optional frame)
