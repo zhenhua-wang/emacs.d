@@ -368,7 +368,7 @@
          (list (openwith-make-extension-regexp
                 '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
                   "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
-                  "webm" "ogg" "mkv" "pdf"))
+                  "webm" "ogg" "mkv"))
                open-app-command
                '(file)))))
 
