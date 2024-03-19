@@ -236,33 +236,34 @@
   (setq company-posframe-quickhelp-delay nil
         company-posframe-show-metadata nil
         company-posframe-show-indicator nil)
-  ;; set show parameters
-  (defun zw/company-posframe-refposhandler (&optional frame)
-    (cond
-     ((bound-and-true-p exwm--connection)
-      (or (with-slots ((x* x) (y* y))
-              (exwm-workspace--workarea frame)
-            (cons x* y*))
-          (posframe-refposhandler-xwininfo frame)
-          (cons 0 0)))
-     (t nil)))
-  (defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
-    (cond
-     ((bound-and-true-p exwm--connection) (cons 0 0))
-     (t . nil)))
-  (setq company-posframe-quickhelp-show-params
-        (list :refposhandler 'zw/company-posframe-quickhelp-refposhandler
-              :poshandler 'company-posframe-quickhelp-right-poshandler
-              :timeout 60
-              :no-properties nil))
-  (setq company-posframe-show-params
-        (list :refposhandler 'zw/company-posframe-refposhandler
-              :override-parameters
-              '((tab-bar-mode . 0)
-                (tab-bar-format . nil)
-                (tab-line-format . nil)
-                (tab-bar-lines . 0)
-                (tab-bar-lines-keep-state . 0)))))
+  ;; handle exwm
+  (with-eval-after-load "exwm"
+    (defun zw/company-posframe-refposhandler (&optional frame)
+      (cond
+       ((bound-and-true-p exwm--connection)
+        (or (with-slots ((x* x) (y* y))
+                (exwm-workspace--workarea frame)
+              (cons x* y*))
+            (posframe-refposhandler-xwininfo frame)
+            (cons 0 0)))
+       (t nil)))
+    (defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
+      (cond
+       ((bound-and-true-p exwm--connection) (cons 0 0))
+       (t . nil)))
+    (setq company-posframe-quickhelp-show-params
+          (list :refposhandler 'zw/company-posframe-quickhelp-refposhandler
+                :poshandler 'company-posframe-quickhelp-right-poshandler
+                :timeout 60
+                :no-properties nil))
+    (setq company-posframe-show-params
+          (list :refposhandler 'zw/company-posframe-refposhandler
+                :override-parameters
+                '((tab-bar-mode . 0)
+                  (tab-bar-format . nil)
+                  (tab-line-format . nil)
+                  (tab-bar-lines . 0)
+                  (tab-bar-lines-keep-state . 0))))))
 
 ;; ** backend
 (defun company-R-objects--prefix ()
