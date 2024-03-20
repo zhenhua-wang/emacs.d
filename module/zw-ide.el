@@ -4,7 +4,8 @@
 (use-package eglot
   :hook
   (prog-mode . (lambda ()
-                 (unless (and (featurep 'polymode) polymode-mode)
+                 (unless (or (and (featurep 'polymode) polymode-mode)
+                             (file-remote-p default-directory))
                    (eglot-ensure))))
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
