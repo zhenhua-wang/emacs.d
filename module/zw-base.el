@@ -622,10 +622,10 @@ The order of values may be different."
    ;; invisible, no sub
    (t (zw/outline-reveal-children))))
 (defun zw/outline-reveal-before-change (beg end)
-  (if (= beg end)
-      (zw/outline-reveal)
-    (progn
-      (zw/outline-reveal)
+  (ignore-errors
+    (zw/outline-reveal)
+    ;; check previous char after deletion
+    (unless (= beg end)
       (save-excursion
         (backward-char)
         (zw/outline-reveal)))))
