@@ -3,8 +3,6 @@
 (use-package dashboard
   :hook ((dashboard-after-initialize . zw/dashboard-init)
          (dashboard-mode . zw/dashboard-init))
-  :bind ((:map dashboard-mode-map
-               ("d" . dashboard-remove-item-under)))
   :init
   (setq dashboard-startup-banner "~/.emacs.d/exwm/banner.png"
         dashboard-image-banner-max-width 700
