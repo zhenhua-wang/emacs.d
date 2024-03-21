@@ -8,7 +8,6 @@
         dashboard-image-banner-max-width 700
         dashboard-center-content t
         dashboard-vertically-center-content t
-        dashboard-set-navigator t
         dashboard-display-icons-p t
         dashboard-icon-type 'nerd-icons
         dashboard-set-file-icons t
@@ -16,6 +15,16 @@
         dashboard-projects-switch-function 'dired
         dashboard-footer-icon ""
         dashboard-footer-messages '("Happy hacking!"))
+  (setq dashboard-startupify-list '(dashboard-insert-banner
+                                    dashboard-insert-newline
+                                    dashboard-insert-banner-title
+                                    dashboard-insert-newline
+                                    dashboard-insert-navigator
+                                    dashboard-insert-newline
+                                    dashboard-insert-init-info
+                                    dashboard-insert-items
+                                    dashboard-insert-newline
+                                    dashboard-insert-footer))
   (setq dashboard-items '((recents . 5)
                           (projects . 5)))
   (setq dashboard-navigator-buttons
