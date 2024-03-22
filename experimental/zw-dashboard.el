@@ -29,8 +29,7 @@
                           (projects . 5)))
   (setq dashboard-navigator-buttons
         `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
-            "Homepage"
-            "Browse homepage"
+            "Homepage" "Browse homepage"
             (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))
            (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
             "Update" "Update Configuration"
