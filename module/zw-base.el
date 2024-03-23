@@ -286,9 +286,16 @@ The order of values may be different."
         tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
         tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory)
         password-cache-expiry nil
-        remote-file-name-inhibit-cache 60)
+        remote-file-name-inhibit-cache 60
+        tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   ;; respect the PATH variable on the remote machine
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
+(defun zw/tramp-abort ()
+  (interactive)
+  (recentf-cleanup)
+  (tramp-cleanup-all-buffers)
+  (tramp-cleanup-all-connections))
 
 ;; ** Comint
 (setq comint-prompt-read-only t
