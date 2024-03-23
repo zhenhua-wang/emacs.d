@@ -27,8 +27,7 @@ if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
     mkdir ~/.local/share/gnome-shell/extensions/
 fi
 ln -s /usr/share/keyd/gnome-extension-45 ~/.local/share/gnome-shell/extensions/keyd
-gnome-extensions enable keyd
-keyd-application-mapper --verbose
+keyd-application-mapper -d
 
 # bluetooth
 sudo systemctl enable bluetooth.service
