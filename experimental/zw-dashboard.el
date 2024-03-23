@@ -12,19 +12,15 @@
         dashboard-icon-type 'nerd-icons
         dashboard-set-file-icons t
         dashboard-projects-backend 'project-el
-        dashboard-projects-switch-function 'dired
-        dashboard-footer-icon ""
-        dashboard-footer-messages '("Happy hacking!"))
+        dashboard-projects-switch-function 'dired)
   (setq dashboard-startupify-list '(dashboard-insert-banner
-                                    dashboard-insert-newline
-                                    dashboard-insert-banner-title
                                     dashboard-insert-newline
                                     dashboard-insert-navigator
                                     dashboard-insert-newline
-                                    dashboard-insert-init-info
+                                    dashboard-insert-banner-title
                                     dashboard-insert-items
                                     dashboard-insert-newline
-                                    dashboard-insert-footer))
+                                    dashboard-insert-init-info))
   (setq dashboard-items '((recents . 5)
                           (projects . 5)))
   (setq dashboard-navigator-buttons
