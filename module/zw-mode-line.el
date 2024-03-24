@@ -527,5 +527,14 @@
 (setq ring-bell-function 'zw/modeline-ring-bell
       visible-bell t)
 
+;; ** compat
+(unless (fboundp 'mode-line-window-selected-p)
+  (defun mode-line-window-selected-p ()
+    (let ((window (selected-window)))
+      (or (eq window (old-selected-window))
+	  (and (minibuffer-window-active-p (minibuffer-window))
+	       (with-selected-window (minibuffer-window)
+	         (eq window (minibuffer-selected-window))))))))
+
 ;; * Provide
 (provide 'zw-mode-line)
