@@ -2,7 +2,9 @@
 
 (unless (fboundp 'string-pixel-width)
   (defun string-pixel-width (string)
-    (string-width string)))
+    (if string
+        (string-width string)
+      0)))
 
 (unless (fboundp 'mode-line-window-selected-p)
   (defun mode-line-window-selected-p ()
