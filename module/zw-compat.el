@@ -14,8 +14,15 @@
 	       (with-selected-window (minibuffer-window)
 	         (eq window (minibuffer-selected-window))))))))
 
-(use-package kkp
-  :if (not (display-graphic-p))
-  :config (global-kkp-mode +1))
+(unless (display-graphic-p)
+  (use-package kkp
+    :config (global-kkp-mode +1))
+
+  (bind-keys :map global-map
+             ("s-S-s" . write-file)
+             ("s-S-u" . winner-redo)
+             ("s-S-b" . zw/right-side-window-toggle)
+             ("s-S-p" . zw/repl-run-in-path)
+             ("s-S-g" . magit-status)))
 
 (provide 'zw-compat)
