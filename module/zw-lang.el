@@ -169,6 +169,9 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
     (setq-local indent-line-function #'ess-r-indent-line))
   (defun zw/ess-send-region-or-block ()
     (interactive)
+    ;; handle emacs in terminal
+    (unless (ignore-errors (ess-get-process))
+      (run-ess-r))
     (if mark-active
         (let ((beg (region-beginning))
               (end (region-end)))
