@@ -39,6 +39,7 @@
   :bind ((:map dired-mode-map
                ("s-f" . isearch-forward)
                ("<tab>" . zw/dired-subtree-toggle)
+               ("TAB" . zw/dired-subtree-toggle)
                ("q" . zw/kill-bufer-quit-window)))
   :init
   (setq dired-dwim-target t
