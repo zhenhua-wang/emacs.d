@@ -33,6 +33,7 @@
 (require 'zw-package)
 (require 'zw-startup)
 (require 'zw-base)
+(require 'zw-compat)
 ;; appearance
 (require 'zw-appearance)
 (require 'zw-mode-line)
