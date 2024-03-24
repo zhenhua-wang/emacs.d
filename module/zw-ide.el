@@ -93,6 +93,8 @@
 
 ;; * Treesit
 (use-package treesit-auto
+  :if (and (fboundp 'treesit-available-p)
+           (treesit-available-p))
   :hook ((after-init . global-treesit-auto-mode)
          (change-major-mode . zw/treesit-auto-remap))
   :init
