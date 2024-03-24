@@ -14,4 +14,8 @@
 	       (with-selected-window (minibuffer-window)
 	         (eq window (minibuffer-selected-window))))))))
 
+(use-package kkp
+  :if (not (display-graphic-p))
+  :config (global-kkp-mode +1))
+
 (provide 'zw-compat)
