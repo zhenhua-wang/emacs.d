@@ -156,7 +156,8 @@ The order of values may be different."
 (setq show-paren-when-point-inside-paren nil
       show-paren-when-point-in-periphery nil
       show-paren-context-when-offscreen 'child-frame)
-(add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4))
+(when (zw/icon-displayable-p)
+  (add-to-list 'show-paren--context-child-frame-parameters '(child-frame-border-width . 4)))
 
 ;; ** Window placement
 ;; window split
