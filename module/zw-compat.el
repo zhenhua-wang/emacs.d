@@ -16,9 +16,8 @@
 
 (unless (display-graphic-p)
   (use-package kkp
-    :config
-    (global-kkp-mode +1)
-    (setq kkp-terminal-query-timeout 1))
+    :init (setq kkp-terminal-query-timeout 1)
+    :config (global-kkp-mode +1))
 
   (bind-keys :map global-map
              ("s-S-s" . write-file)
