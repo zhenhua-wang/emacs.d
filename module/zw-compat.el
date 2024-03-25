@@ -1,8 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(when (< emacs-major-version 27)
-  (load "~/.emacs.d/early-init.el"))
-
 (unless (fboundp 'string-pixel-width)
   (defun string-pixel-width (string)
     (if string
