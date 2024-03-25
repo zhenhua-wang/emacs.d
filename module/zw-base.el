@@ -206,7 +206,7 @@ The order of values may be different."
          (display-buffer-reuse-window display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
-         (slot . 1)
+         (slot . -1)
          (dedicated . t))
         ("\\*\\(R\\|Python\\).*"
          (display-buffer-reuse-window display-buffer-in-side-window)
