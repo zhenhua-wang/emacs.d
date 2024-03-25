@@ -124,7 +124,6 @@ alias emacs="~/.conda/envs/emacs/bin/emacs"
 conda create -n research python=3.9
 source activate research
 conda install conda-forge::mamba
-mamba install conda-forge::emacs
 ## r
 mamba install conda-forge::r-base r::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
 ## python
