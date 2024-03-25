@@ -59,7 +59,7 @@
                 directory-files-no-dot-files-regexp))
        0))
   (defun zw/dired-setup ()
-    (visual-line-mode -1)
+    (zw/visual-line-disable)
     (add-hook 'post-command-hook #'force-mode-line-update nil t)))
 
 (use-package diredfl

@@ -140,6 +140,9 @@ The order of values may be different."
 
 ;; ** Warp long line
 (add-hook 'after-init-hook 'global-visual-line-mode)
+(defun zw/visual-line-disable ()
+  (visual-line-mode -1)
+  (setq truncate-lines 1))
 
 ;; ** So long
 (add-hook 'after-init-hook 'global-so-long-mode)
@@ -284,7 +287,7 @@ The order of values may be different."
                             :height (face-attribute 'default :height)
                             :box nil))
                 (buffer-face-mode 1)
-                (visual-line-mode -1)))
+                (zw/visual-line-disable)))
 
 ;; * Tool
 ;; ** Tramp

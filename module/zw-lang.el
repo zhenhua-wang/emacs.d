@@ -208,5 +208,14 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
   :after ess
   :straight (ess-smart-assign :host github :repo "zhenhua-wang/ess-smart-assign"))
 
+;; * CSV
+(use-package csv-mode
+  :hook ((csv-mode . zw/csv-init))
+  :config
+  (defun zw/csv-init ()
+    (csv-guess-set-separator)
+    (csv-align-mode 1)
+    (zw/visual-line-disable)))
+
 ;; * Provide
 (provide 'zw-lang)
