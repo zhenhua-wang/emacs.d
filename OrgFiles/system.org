@@ -112,6 +112,25 @@ sudo systemctl enable tlp.service NetworkManager-dispatcher.service
 sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 #+end_src
 
+** Conda Research environment
+#+begin_src sh
+# emacs
+conda create -n emacs python=3.9
+conda install conda-forge::emacs
+## add these to .bashrc
+export INFOPATH=~/.conda/envs/emacs/share/info
+alias emacs="~/.conda/envs/emacs/bin/emacs"
+# research
+conda create -n research python=3.9
+source activate research
+conda install conda-forge::mamba
+mamba install conda-forge::emacs
+## r
+mamba install conda-forge::r-base r::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
+## python
+mamba install numpy scipy matplotlib scikit-learn pytorch torchvision torchaudio cpuonly -c pytorch
+#+end_src
+
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
