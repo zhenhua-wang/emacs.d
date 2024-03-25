@@ -40,11 +40,11 @@
                 mode-line-format
                 (list
                  "%e"
+                 '(:eval (zw/modeline-bar))
                  ;; left
                  '(:eval (zw/modeline-remote))
                  '(:eval (zw/dashboard--modeline-name))
                  '(:eval (zw/modeline-text-scale))
-                 '(:eval (zw/modeline-bar))
                  ;; right
                  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
                  '(:eval (zw/modeline-rhs))))
