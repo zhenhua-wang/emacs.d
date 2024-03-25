@@ -148,6 +148,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
   (ess-mode . zw/ess-setup)
   (inferior-ess-mode . zw/inferior-ess-setup)
   (inferior-ess-mode . zw/right-side-window-mode)
+  (ess-rdired-mode . zw/right-side-window-mode)
   (ess-jags-mode . zw/ess-indent)
   :bind ((:map ess-r-mode-map
                ("TAB" . zw/smart-tab)
