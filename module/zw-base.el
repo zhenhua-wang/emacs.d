@@ -142,7 +142,7 @@ The order of values may be different."
 (add-hook 'after-init-hook 'global-visual-line-mode)
 (defun zw/visual-line-disable ()
   (visual-line-mode -1)
-  (setq truncate-lines 1))
+  (setq-local truncate-lines 1))
 
 ;; ** So long
 (add-hook 'after-init-hook 'global-so-long-mode)
