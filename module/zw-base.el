@@ -201,9 +201,14 @@ The order of values may be different."
          (window-height . 0.2)
          (side . top)
          (slot . 1))
+        ("\\*R \\(dired\\|view\\).*"
+         (display-buffer-reuse-window display-buffer-in-side-window)
+         (side . top)
+         (slot . 1)
+         (dedicated . t))
         ;; right side window
         ("\\*\\(R\\|Python\\).*"
-         (display-buffer-in-side-window)
+         (display-buffer-reuse-window display-buffer-in-side-window)
          (window-width . 0.3)
          (side . right)
          (slot . 1)
