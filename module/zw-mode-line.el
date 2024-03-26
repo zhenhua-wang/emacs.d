@@ -148,13 +148,15 @@
     (propertize " " 'face `(:background ,color))))
 
 (defun zw/modeline-bar ()
-  (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'zw/modeline-separator-active nil 'default)
-                 (face-background 'mode-line-inactive nil 'default)))
-        (width 1)
-        (height (floor (* (string-pixel-width " ")
-                          2.7))))
-    (zw/modeline--bar color width height)))
+  (if (display-graphic-p)
+      (let ((color (if (mode-line-window-selected-p)
+                       (face-background 'zw/modeline-separator-active nil 'default)
+                     (face-background 'mode-line-inactive nil 'default)))
+            (width 1)
+            (height (floor (* (string-pixel-width " ")
+                              2.7))))
+        (zw/modeline--bar color width height))
+    ""))
 
 ;; ** seperator
 (defvar zw/modeline-separator

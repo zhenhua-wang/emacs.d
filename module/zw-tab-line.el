@@ -134,11 +134,13 @@
 
 ;; ** bar
 (defun zw/tab-line-bar ()
-  (let ((color (face-background 'tab-line nil 'default))
-        (width 1)
-        (height (floor (* (string-pixel-width " ")
-                          2.5))))
-    (zw/modeline--bar color width height)))
+  (if (display-graphic-p)
+      (let ((color (face-background 'tab-line nil 'default))
+            (width 1)
+            (height (floor (* (string-pixel-width " ")
+                              2.5))))
+        (zw/modeline--bar color width height))
+    ""))
 
 ;; ** debug
 (defun zw/tab-line-debug-keymap (left-click-func &optional right-click-func)
