@@ -181,8 +181,8 @@
                           2.5))))
     (concat (zw/modeline--bar color width height)
             " "
-            (nerd-icons-mdicon
-             "nf-md-home"
+            (nerd-icons-codicon
+             "nf-cod-home"
              :height 1.1
              :v-adjust 0.1)
             " ")))
@@ -216,10 +216,10 @@
               (propertize "/" 'keymap (funcall create-keymap "/")
                           'mouse-face 'highlight))
             (when (cl-remove-if 'string-empty-p dirs)
-              (string-join dirs (nerd-icons-octicon
-                                 "nf-oct-chevron_right"
-                                 :height 0.9
-                                 :v-adjust 0.13
+              (string-join dirs (nerd-icons-faicon
+                                 "nf-fa-angle_right"
+                                 :height 0.6
+                                 :v-adjust 0.3
                                  :face 'shadow)))
             " ")))
 
