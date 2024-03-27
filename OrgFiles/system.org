@@ -126,7 +126,7 @@ conda create -n research python=3.9
 source activate research
 conda install conda-forge::mamba
 ## r
-mamba install conda-forge::r-base r::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
+mamba install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
 ## python
 mamba install numpy scipy matplotlib scikit-learn pytorch torchvision torchaudio cpuonly -c pytorch
 #+end_src
