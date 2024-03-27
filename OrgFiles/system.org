@@ -128,7 +128,7 @@ conda install conda-forge::mamba
 ## r
 mamba install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
 ## python
-mamba install numpy scipy matplotlib scikit-learn pytorch torchvision torchaudio cpuonly -c pytorch
+mamba install numpy scipy pandas matplotlib scikit-learn
 #+end_src
 
 ** Misc
