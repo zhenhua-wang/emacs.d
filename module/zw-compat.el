@@ -17,6 +17,7 @@
 (unless (display-graphic-p)
   (with-eval-after-load "zw-package"
     ;; full-featured keybindings
+    (straight-use-package 'kkp)
     (use-package kkp
       :init (setq kkp-terminal-query-timeout 1)
       :bind (:map global-map
@@ -28,6 +29,7 @@
                   ("s-S-g" . magit-status))
       :hook (after-init . global-kkp-mode))
     ;; copy and paste
+    (straight-use-package 'clipetty)
     (use-package clipetty
       :hook (after-init . global-clipetty-mode))))
 
