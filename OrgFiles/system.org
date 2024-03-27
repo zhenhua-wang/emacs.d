@@ -117,7 +117,7 @@ sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 #+begin_src sh
 # emacs
 conda create -n emacs python=3.9
-conda install conda-forge::emacs
+conda install conda-forge::emacs conda-forge::ncurses
 ## add these to .bashrc
 export INFOPATH=~/.conda/envs/emacs/share/info
 alias emacs="~/.conda/envs/emacs/bin/emacs"
