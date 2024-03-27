@@ -140,26 +140,6 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
   (add-hook 'conda-postactivate-hook 'zw/conda-postactivate)
   (add-hook 'conda-postdeactivate-hook 'zw/conda-postdeactivate))
 
-;; This requires the python library: jupytext.
-(use-package code-cells
-  :hook (python-mode . code-cells-mode-maybe)
-  :bind ((:map code-cells-mode-map
-               ("C-c C-c" . zw/python-shell-send-region-or-block)
-               ("C-c C-b" . zw/python-shell-send-buffer)
-               ("C-<return>" . zw/python-shell-send-line)
-               ("C-c C-e" . zw/jupyter-export-to)
-               ("M-p" . code-cells-backward-cell)
-               ("M-n" . code-cells-forward-cell)))
-  :config
-  (defun zw/jupyter-export-to (file-type)
-    (interactive
-     (list (completing-read "jupyter export to: "
-                            '("pdf" "html") nil t)))
-    (when (string= (file-name-extension buffer-file-name) "ipynb")
-      (async-shell-command
-       (concat "jupyter nbconvert --execute --to " file-type " "
-               (shell-quote-argument buffer-file-name))))))
-
 ;; * R
 (use-package ess
   :defer t
@@ -227,35 +207,6 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
 (use-package ess-smart-assign
   :after ess
   :straight (ess-smart-assign :host github :repo "zhenhua-wang/ess-smart-assign"))
-
-;; BUG: revert in inner buffer would lose font-lock
-(use-package polymode
-  :commands polymode-mode
-  :hook ((polymode-init-host . zw/polymode-host-init)
-         (polymode-init-inner . zw/polymode-inner-init))
-  :bind ((:map polymode-mode-map
-               ("C-c C-e" . polymode-export)
-               ("C-c C-b" . polymode-eval-buffer)
-               ("M-p" . polymode-previous-chunk)
-               ("M-n" . polymode-next-chunk)))
-  :init
-  (setq poly-lock-allow-fontification t
-        poly-lock-allow-background-adjustment t
-        ;; disable this for now because of reverse-typing issue in poly-R
-        polymode-lsp-integration nil)
-  :config
-  (defun zw/polymode-host-init ()
-    (font-lock-update))
-  (defun zw/polymode-inner-init ()
-    (buffer-face-mode -1)
-    (display-line-numbers-mode -1)
-    (zw-outline-mode -1))
-  ;; run kill-buffer in host buffer, which solves the font lock issue
-  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
-
-(use-package poly-rmarkdown
-  :straight '(poly-rmarkdown :host github :repo "zhenhua-wang/poly-rmarkdown")
-  :commands (poly-rmarkdown-mode))
 
 ;; * CSV
 (use-package csv-mode
