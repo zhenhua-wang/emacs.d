@@ -49,7 +49,6 @@
 (require 'zw-lang)
 ;; document
 (require 'zw-document)
-(require 'zw-literate)
 
 ;; user config
 (setq zw/user-config
