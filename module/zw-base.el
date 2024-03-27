@@ -393,6 +393,16 @@ The order of values may be different."
      (concat open-app-command " " (shell-quote-argument buffer-file-name))
      nil 0)))
 
+;; ** Flyspell
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
+      ispell-alternate-dictionary (file-truename "~/.emacs.d/OrgFiles/english-words.txt")
+      flyspell-issue-message-flag nil)
+
+(add-hook 'outline-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 ;; ** Custom tools
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
