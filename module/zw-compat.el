@@ -16,17 +16,19 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load "zw-package"
-    (straight-use-package 'kkp)
+    ;; full-featured keybindings
     (use-package kkp
       :init (setq kkp-terminal-query-timeout 1)
-      :config
-      (bind-keys :map global-map
-                 ("s-S-z" . undo-fu-only-redo)
-                 ("s-S-s" . write-file)
-                 ("s-S-u" . winner-redo)
-                 ("s-S-b" . zw/right-side-window-toggle)
-                 ("s-S-p" . zw/repl-run-in-path)
-                 ("s-S-g" . magit-status))
-      (global-kkp-mode +1))))
+      :bind (:map global-map
+                  ("s-S-z" . undo-fu-only-redo)
+                  ("s-S-s" . write-file)
+                  ("s-S-u" . winner-redo)
+                  ("s-S-b" . zw/right-side-window-toggle)
+                  ("s-S-p" . zw/repl-run-in-path)
+                  ("s-S-g" . magit-status))
+      :hook (after-init . global-kkp-mode))
+    ;; copy and paste
+    (use-package clipetty
+      :hook (after-init . global-clipetty-mode))))
 
 (provide 'zw-compat)
