@@ -183,11 +183,8 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
-  (setq ess-first-continued-statement-offset 2
-        ess-continued-statement-offset 0
-        ess-expression-offset 2
+  (setq ess-style 'DEFAULT
         ess-nuke-trailing-whitespace-p t
-        ess-style 'DEFAULT
         ess-ask-for-ess-directory nil
         ess-local-process-name "R"
         ess-use-company nil
