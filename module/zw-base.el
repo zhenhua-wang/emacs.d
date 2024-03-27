@@ -733,6 +733,7 @@ The order of values may be different."
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
+           ("M-<backspace>" . kill-region)
            ("s-<backspace>" . (lambda () (interactive) (kill-line 0)))
            ("S-<home> <delete>" . (lambda () (interactive) (kill-line 0)))
            ("s-z" . undo)

@@ -22,7 +22,8 @@
                ("RET" . vertico-directory-enter)
                ("M-RET" . vertico-exit-input)
                ("DEL" . vertico-directory-delete-char)
-               ("M-DEL" . vertico-directory-delete-word)))
+               ("M-DEL" . vertico-directory-delete-word)
+               ("M-<backspace>" . vertico-directory-delete-word)))
   :init
   (setq vertico-resize nil
         vertico-scroll-margin 0
