@@ -174,6 +174,7 @@
 (use-package markdown-mode
   :defer t
   :commands (markdown-mode gfm-mode)
+  :mode ("\\.rmd\\'" . gfm-mode)
   :init
   (setq markdown-enable-math t
         markdown-enable-wiki-links t
