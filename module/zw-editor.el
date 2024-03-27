@@ -26,5 +26,9 @@
   :bind (("C-c r" . vr/replace)
          ("C-c q" . vr/query-replace)))
 
+;; * Clipetty
+(use-package clipetty
+  :hook (after-init . global-clipetty-mode))
+
 ;; * Provide
 (provide 'zw-editor)
