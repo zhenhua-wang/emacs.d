@@ -403,6 +403,10 @@ The order of values may be different."
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+;; ** Server mode
+(when (daemonp)
+  (server-start))
+
 ;; ** Custom tools
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
