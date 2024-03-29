@@ -36,7 +36,6 @@
     (defun zw/theme-compat ()
       (custom-set-faces
        `(tab-line ((t (:underline unspecified))))
-       `(outline-minor-0 ((t (:background ,(face-background 'tab-bar)))))
        `(zw/modeline-highlight-foreground-active ((t (:foreground ,(face-foreground 'default) :bold t))))))
     (zw/theme-compat)
     (advice-add 'zw/theme-set-theme :after 'zw/theme-compat)))

@@ -123,6 +123,7 @@
      `(diredfl-dir-name ((t (:bold t))))
 
      ;; outline minor
+     `(outline-minor-0 ((t (:background ,tab-bar-color))))
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
