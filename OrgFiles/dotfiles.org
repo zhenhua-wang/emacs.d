@@ -115,7 +115,8 @@ tab_bar_edge bottom
 tab_bar_style powerline
 tab_powerline_style slanted
 tab_bar_min_tabs 1
-tab_activity_symbol " "
+bell_on_tab "🔔 "
+tab_activity_symbol "⌛ "
 active_tab_foreground   #000
 active_tab_background   #eee
 active_tab_font_style   bold
