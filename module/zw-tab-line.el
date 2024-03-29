@@ -76,7 +76,7 @@
 ;; ** face
 (defun zw/tab-line-init ()
   (set-face-attribute 'tab-line-tab-current nil
-                      :overline (face-background 'highlight))
+                      :overline (face-background 'highlight nil t))
   (dolist (face '(tab-line
                   tab-line-tab
                   tab-line-tab-current
