@@ -96,7 +96,7 @@ map cmd+shift+c copy_to_clipboard
 map cmd+shift+v paste_from_clipboard
 map cmd+shift+t new_tab
 map cmd+shift+w close_tab
-map cmd+shift+q close_os_window
+# map cmd+shift+q close_os_window
 map cmd+shift+1 goto_tab 1
 map cmd+shift+2 goto_tab 2
 map cmd+shift+3 goto_tab 3
@@ -106,6 +106,8 @@ map cmd+shift+6 goto_tab 6
 map cmd+shift+7 goto_tab 7
 map cmd+shift+8 goto_tab 8
 map cmd+shift+9 goto_tab 9
+map cmd+shift+left previous_tab
+map cmd+shift+right next_tab
 # tab bar
 tab_separator ""
 tab_title_template "{index}: {title}"
