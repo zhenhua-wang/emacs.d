@@ -143,8 +143,9 @@
                (substring-no-properties (zw/modeline-env))))
         (icon (nerd-icons-faicon "nf-fa-desktop"
                                  :height 0.85
-                                 :v-adjust 0.15)))
-    `((env menu-item ,(if env (concat icon ":" env) icon)
+                                 :v-adjust 0.15))
+        (separator (if (display-graphic-p) ":" " :")))
+    `((env menu-item ,(if env (concat icon separator env) icon)
            zw/tab-bar--env-menu :help "Click to activate environment"))))
 
 ;; ** dired
