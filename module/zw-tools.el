@@ -216,10 +216,10 @@
               (propertize "/" 'keymap (funcall create-keymap "/")
                           'mouse-face 'highlight))
             (when (cl-remove-if 'string-empty-p dirs)
-              (string-join dirs (nerd-icons-codicon
-                                 "nf-cod-chevron_right"
-                                 :height 0.6
-                                 :v-adjust 0.3
+              (string-join dirs (nerd-icons-octicon
+                                 "nf-oct-chevron_right"
+                                 :height 0.9
+                                 :v-adjust 0.1
                                  :face 'shadow)))
             " ")))
 
