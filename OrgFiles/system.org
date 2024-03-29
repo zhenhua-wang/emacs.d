@@ -99,6 +99,7 @@ yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecomme
 # zsh
 yay -S zsh && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo -e '[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"' >> ~/.zshrc
 # config git
 git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
