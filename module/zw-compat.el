@@ -33,7 +33,9 @@
     (use-package clipetty
       :hook (after-init . global-clipetty-mode)))
   (with-eval-after-load "zw-theme"
-    (custom-set-faces
-     `(tab-line ((t (:underline unspecified)))))))
+    (advice-add 'zw/theme-set-theme :after
+                (lambda ()
+                  (custom-set-faces
+                   `(tab-line ((t (:underline unspecified)))))))))
 
 (provide 'zw-compat)
