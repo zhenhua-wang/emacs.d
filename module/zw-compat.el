@@ -31,6 +31,9 @@
     ;; copy and paste
     (straight-use-package 'clipetty)
     (use-package clipetty
-      :hook (after-init . global-clipetty-mode))))
+      :hook (after-init . global-clipetty-mode)))
+  (with-eval-after-load "zw-theme"
+    (custom-set-faces
+     `(tab-line ((t (:underline unspecified)))))))
 
 (provide 'zw-compat)
