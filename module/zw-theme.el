@@ -37,13 +37,16 @@
          (mode-line-color             (face-background 'mode-line nil 'default))
          (tab-bar-color               (face-background 'tab-bar nil 'default))
          (shadow-color                (face-foreground 'shadow nil 'default))
-         (highlight-color             (face-background 'highlight))
-         (highlight-revert-color      (face-foreground 'highlight))
+         (highlight-color             (face-background 'highlight nil t))
+         (highlight-revert-color      (face-foreground 'highlight nil t))
          (highlight-alt-color         (face-foreground 'warning nil 'default))
-         (highlight-alt-revert-color  (face-foreground 'highlight))
-         (block-color                 (zw/theme-emphasize-color (face-background 'default) 0.06 dark-p))
-         (mode-line-inactive-color    (zw/theme-emphasize-color (face-background 'mode-line-inactive) 0.05 dark-p))
-         (tab-bar-box                 (zw/theme-emphasize-color (face-background 'tab-bar) 0.05 dark-p))
+         (highlight-alt-revert-color  (face-foreground 'highlight nil t))
+         (block-color                 (zw/theme-emphasize-color
+                                       (face-background 'default nil t) 0.06 dark-p))
+         (mode-line-inactive-color    (zw/theme-emphasize-color
+                                       (face-background 'mode-line-inactive nil t) 0.05 dark-p))
+         (tab-bar-box                 (zw/theme-emphasize-color
+                                       (face-background 'tab-bar nil t) 0.05 dark-p))
          (modeline-height             130)
          (tab-bar-height              120))
     (custom-theme-set-faces
