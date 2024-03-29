@@ -31,9 +31,6 @@
     ;; copy and paste
     (straight-use-package 'clipetty)
     (use-package clipetty
-      :hook (after-init . global-clipetty-mode))
-    ;; tab bar
-    (add-to-list 'tab-bar-format 'zw/tab-bar-format-time t)
-    (add-to-list 'tab-bar-format 'zw/tab-bar-update-battery-status t)))
+      :hook (after-init . global-clipetty-mode))))
 
 (provide 'zw-compat)
