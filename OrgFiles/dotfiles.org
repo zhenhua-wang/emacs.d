@@ -91,6 +91,7 @@ hide_window_decorations yes
 map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
+map cmd+shift+f show_scrollback
 map cmd+shift+c copy_to_clipboard
 map cmd+shift+v paste_from_clipboard
 map cmd+shift+t new_tab
