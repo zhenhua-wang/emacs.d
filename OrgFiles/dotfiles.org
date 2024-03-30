@@ -153,6 +153,7 @@ selection_background #979eab
 ** Font
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/kitty/font.conf")
 #+begin_src conf
+# https://gist.github.com/Velrok/4c5bc2a0f2125f92361319928b770c8d
 # https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
 symbol_map U+E5FA-U+E62B Symbols Nerd Font Mono
 # Devicons
