@@ -94,7 +94,6 @@ map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
 map f11 toggle_fullscreen
-map cmd+shift+n new_window
 map cmd+shift+f show_scrollback
 map cmd+shift+c copy_to_clipboard
 map cmd+shift+v paste_from_clipboard
