@@ -129,7 +129,7 @@ conda install conda-forge::mamba
 ## r
 mamba install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf conda-forge::r-spdep
 ## python
-pip install numpy scipy pandas matplotlib seaborn scikit-learn ipython tqdm pyright
+pip install numpy scipy pandas matplotlib seaborn scikit-learn jupytext ipython tqdm pyright
 #+end_src
 
 ** Misc
