@@ -87,6 +87,7 @@ options(menu.graphics=FALSE)
 font_size        22.0
 confirm_os_window_close 1
 hide_window_decorations yes
+linux_display_server x11
 # keymap
 map ctrl+shift+a no_op
 map ctrl+shift+e no_op
