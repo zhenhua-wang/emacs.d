@@ -94,12 +94,12 @@ map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
 map f11 toggle_fullscreen
-map cmd+shift+n new_window
+map cmd+shift+t new_window
 map cmd+shift+w close_window
 map cmd+shift+f show_scrollback
 map cmd+shift+c copy_to_clipboard
 map cmd+shift+v paste_from_clipboard
-map cmd+shift+t new_tab
+map cmd+shift+n new_tab
 map cmd+shift+q close_tab
 # map cmd+shift+q close_os_window
 map cmd+shift+1 goto_tab 1
