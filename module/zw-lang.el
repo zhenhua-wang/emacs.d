@@ -21,11 +21,7 @@
         (let ((inhibit-quit nil))
           (run-hooks 'python-shell-first-prompt-hook)))
       ;; send code-string
-      (process-send-string process (concat code-string "\n")))))
-  ;; deactivate mark after idle
-  (sit-for 0.1)
-  (goto-char (region-end))
-  (deactivate-mark))
+      (process-send-string process (concat code-string "\n"))))))
 
 (defun zw/python-region-or-block-string (forward-func backward-func)
   (if mark-active
@@ -44,7 +40,11 @@
 (defun zw/python-shell-send-region-or-block ()
   (interactive)
   (zw/python-start-shell-before-send-string
-   (zw/python-region-or-block-string 'forward-paragraph 'backward-paragraph)))
+   (zw/python-region-or-block-string 'forward-paragraph 'backward-paragraph))
+  ;; deactivate mark after idle
+  (sit-for 0.1)
+  (goto-char (region-end))
+  (deactivate-mark))
 
 (defun zw/python-shell-send-buffer ()
   (interactive)
