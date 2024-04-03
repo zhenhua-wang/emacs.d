@@ -35,11 +35,11 @@
 (require 'zw-startup)
 (require 'zw-base)
 ;; appearance
+(require 'zw-theme)
 (require 'zw-appearance)
 (require 'zw-mode-line)
 (require 'zw-tab-bar)
 (require 'zw-tab-line)
-(require 'zw-theme)
 ;; tools
 (require 'zw-tools)
 (require 'zw-editor)

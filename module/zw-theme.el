@@ -18,6 +18,35 @@
   (when (find-font variable-pitch-font)
     (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
 
+(use-package nerd-icons
+  :config
+  (nerd-icons-set-font)
+  (zw/merge-list-symbols 'nerd-icons/mdicon-alist
+                         '(("nf-md-firefox_web_browser" . "󰈹")
+                           ("nf-md-visual_studio_code" . "󰨞"))
+                         'prepend)
+  (zw/merge-list-symbols 'nerd-icons-regexp-icon-alist
+                         '(("^firefox:.*" nerd-icons-mdicon "nf-md-firefox")
+                           ("^discord:.*" nerd-icons-mdicon "nf-md-discord")
+                           ("^Code:.*" nerd-icons-mdicon "nf-md-visual_studio_code"))
+                         'prepend)
+  (zw/merge-list-symbols 'nerd-icons-extension-icon-alist
+                         '(("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
+                         'prepend)
+  (zw/merge-list-symbols 'nerd-icons-mode-icon-alist
+                         '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
+                         'prepend))
+
+(use-package nerd-icons-dired
+  :after nerd-icons
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package nerd-icons-completion
+  :after (marginalia nerd-icons)
+  :hook
+  (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  (marginalia-mode . nerd-icons-completion-mode))
+
 ;; * Doom theme
 (use-package doom-themes
   :defer t
