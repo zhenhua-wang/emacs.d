@@ -172,7 +172,7 @@ conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-curren
     (interactive)
     ;; handle emacs in terminal
     (unless (ignore-errors (ess-get-process))
-      (run-ess-r))
+      (display-buffer (run-ess-r)))
     (if mark-active
         (let ((beg (region-beginning))
               (end (region-end)))
