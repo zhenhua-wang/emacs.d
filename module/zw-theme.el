@@ -20,6 +20,7 @@
 
 (use-package nerd-icons
   :config
+  (ignore-errors (nerd-icons-set-font))
   (zw/merge-list-symbols 'nerd-icons/mdicon-alist
                          '(("nf-md-firefox_web_browser" . "󰈹")
                            ("nf-md-visual_studio_code" . "󰨞"))
