@@ -11,7 +11,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "['<Shift><
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Shift><Super>d']"
-gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Control>q']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Control>w']"
 gsettings set org.gnome.mutter.keybindings toggle-tiled-left "['<Super>Home']"
 gsettings set org.gnome.mutter.keybindings toggle-tiled-right "['<Super>End']"
 gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>m']"
