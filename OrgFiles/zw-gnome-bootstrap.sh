@@ -3,7 +3,6 @@ cd ~
 sudo pacman -S --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd ~/yay && makepkg -si && cd ~
-yay -Y --devel --save
 
 # fonts
 yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
