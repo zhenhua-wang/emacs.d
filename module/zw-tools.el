@@ -60,9 +60,7 @@
        0))
   (defun zw/dired-setup ()
     (zw/visual-line-disable)
-    (add-hook 'post-command-hook #'force-mode-line-update nil t)
-    (setq-local left-fringe-width 0
-                right-fringe-width 0)))
+    (add-hook 'post-command-hook #'force-mode-line-update nil t)))
 
 (use-package diredfl
   :hook
