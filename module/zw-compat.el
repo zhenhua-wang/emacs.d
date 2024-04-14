@@ -36,7 +36,8 @@
     (defun zw/theme-compat ()
       (custom-set-faces
        `(tab-line ((t (:underline unspecified))))
-       `(zw/modeline-highlight-foreground-active ((t (:foreground ,(face-foreground 'default) :bold t))))))
+       `(zw/modeline-highlight-foreground-active ((t (:foreground ,(face-foreground 'default) :bold t))))
+       `(header-line ((t (:background ,(face-background 'mode-line) :bold t))))))
     (zw/theme-compat)
     (advice-add 'zw/theme-set-theme :after 'zw/theme-compat)))
 
