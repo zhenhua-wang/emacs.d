@@ -101,7 +101,8 @@
   (setq treesit-auto-install 'prompt)
   :config
   (defun zw/treesit-auto-remap ()
-    (when-let* ((recipe (treesit-auto--get-buffer-recipe))
+    (when-let* ((recipe (ignore-errors
+                          (treesit-auto--get-buffer-recipe)))
                 (lang (treesit-auto-recipe-lang recipe))
                 (ts-mode (treesit-auto-recipe-ts-mode recipe))
                 (mode (treesit-auto-recipe-remap recipe))
