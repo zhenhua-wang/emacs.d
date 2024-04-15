@@ -396,7 +396,7 @@ The order of values may be different."
 ;; ** Flyspell
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
-      ispell-alternate-dictionary (file-truename "~/.emacs.d/resources/OrgFiles/english-words.txt")
+      ispell-alternate-dictionary (file-truename "~/.emacs.d/resources/english-words.txt")
       flyspell-issue-message-flag nil)
 
 (add-hook 'outline-mode-hook 'flyspell-mode)
