@@ -501,7 +501,7 @@
   (interactive)
   (let* ((wallpaper (car (directory-files "~/.cache/emacs/" t zw/exwm-wallpaper-regexp))))
     (call-process-shell-command
-     (concat "feh --bg-scale " (or wallpaper "~/.emacs.d/exwm/wallpaper.png"))
+     (concat "feh --bg-scale " (or wallpaper "~/.emacs.d/resources/images/wallpaper.png"))
      nil 0)))
 
 (defun zw/exwm-set-wallpaper (file)

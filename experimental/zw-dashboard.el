@@ -4,7 +4,7 @@
   :hook ((dashboard-after-initialize . zw/dashboard-init)
          (dashboard-mode . zw/dashboard-init))
   :init
-  (setq dashboard-startup-banner "~/.emacs.d/exwm/banner.png"
+  (setq dashboard-startup-banner "~/.emacs.d/resources/images/banner.png"
         dashboard-image-banner-max-width 700
         dashboard-center-content t
         dashboard-vertically-center-content t

@@ -58,7 +58,7 @@ Xft.dpi:   192
 [Desktop Entry]
 Name=EXWM
 Comment=Emacs Window Manager
-Exec=sh /home/zhenhua/.emacs.d/exwm/start-exwm.sh
+Exec=sh /home/zhenhua/.emacs.d/resources/exwm/start-exwm.sh
 TryExec=sh
 Type=Application
 X-LightDM-DesktopName=exwm

@@ -396,7 +396,7 @@ The order of values may be different."
 ;; ** Flyspell
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
-      ispell-alternate-dictionary (file-truename "~/.emacs.d/OrgFiles/english-words.txt")
+      ispell-alternate-dictionary (file-truename "~/.emacs.d/resources/OrgFiles/english-words.txt")
       flyspell-issue-message-flag nil)
 
 (add-hook 'outline-mode-hook 'flyspell-mode)
@@ -438,7 +438,7 @@ The order of values may be different."
   (interactive)
   (require 'org)
   (let ((msg (string-trim (shell-command-to-string "cd ~/.emacs.d && git pull"))))
-    (org-babel-tangle-file "~/.emacs.d/OrgFiles/dotfiles.org")
+    (org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")
     (message (concat "emacs update:\n " msg))))
 
 ;; show scratch buffer in new window
@@ -530,7 +530,7 @@ The order of values may be different."
                     ((eq system-type 'darwin)
                      (concat (getenv "HOME")
                              "/Library/Fonts/")))))
-    (dolist (font (directory-files-recursively "~/.emacs.d/fonts" ""))
+    (dolist (font (directory-files-recursively "~/.emacs.d/resources/fonts" ""))
       (copy-file font font-dest t))
     (async-shell-command "fc-cache -fv")))
 

@@ -19,7 +19,7 @@
 ;; * Snippets
 (use-package yasnippet
   :hook (after-init . yas-global-mode)
-  :init (setq yas-snippet-dirs '("~/.emacs.d/yasnippet")))
+  :init (setq yas-snippet-dirs '("~/.emacs.d/resources/yasnippet")))
 
 ;; * Visual regexp
 (use-package visual-regexp

@@ -1,6 +1,6 @@
 #+title: Emacs as an IDE
 #+author: Zhenhua Wang
-#+SETUPFILE: ~/.emacs.d/OrgFiles/htmlTemplates/white_clean.theme
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/htmlTemplates/white_clean.theme
 #+OPTIONS: num:nil toc:nil
 #+STARTUP: overview
 -----

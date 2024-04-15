@@ -21,7 +21,7 @@ yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
 git clone https://github.com/zhenhua-wang/emacs.d.git
 mv emacs.d .emacs.d
 mkdir ~/.fonts
-cp ~/.emacs.d/fonts/* ~/.fonts && fc-cache -fv
+cp ~/.emacs.d/resources/fonts/* ~/.fonts && fc-cache -fv
 # compile emacs
 yay -S libxpm libtiff giflib aspell aspell-en
 git clone git://git.sv.gnu.org/emacs.git
