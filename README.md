@@ -43,5 +43,5 @@
 # Debug Configuration
 
 ```elisp
-emacs --init-directory .emacs.d/test
+emacs --init-directory .emacs.d/resources/test
 ```
