@@ -29,6 +29,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
 gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode "FIXED"
 gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.6
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
+gsettings set org.gnome.shell.extensions.dash-to-dock disable-overview-on-startup true
 gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'io.github.celluloid_player.Celluloid.desktop', 'org.gnome.baobab.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.vixalien.sticky.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop']"
 # blur my shell
 gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
