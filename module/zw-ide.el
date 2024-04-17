@@ -23,7 +23,7 @@
   ;; speedup eglot
   (fset #'jsonrpc--log-event #'ignore)
   (setf (plist-get eglot-events-buffer-config :size) 0)
-  ;; HACK: flymake-start after eglot publishDiagnostics
+  ;; flymake-start after eglot publishDiagnostics
   (cl-defmethod eglot-handle-notification :after
     (_server (_method (eql textDocument/publishDiagnostics)) &key uri
              &allow-other-keys)
