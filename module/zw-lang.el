@@ -57,7 +57,8 @@
   (let ((beg (save-excursion (beginning-of-line) (point)))
         (end (save-excursion (end-of-line) (point))))
     (zw/python-start-shell-before-send-string
-     (buffer-substring-no-properties beg end))))
+     (buffer-substring-no-properties beg end)))
+  (next-line))
 
 (use-package python
   :bind ((:map python-mode-map
