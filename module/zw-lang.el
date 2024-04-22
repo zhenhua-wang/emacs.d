@@ -121,11 +121,8 @@
           (t
            (setq python-shell-interpreter "python3"
                  python-shell-interpreter-args "-i")))
-    (when (and (featurep 'lsp-mode) lsp-mode)
-      (lsp-restart-workspace))
-    (when (and (featurep 'eglot) eglot--managed-mode)
-      (call-interactively 'eglot-shutdown)
-      (eglot-ensure)))
+    ;; refresh current buffer
+    (revert-buffer-quick))
   (defun zw/conda-postactivate ()
     (zw/conda-env-update)
     ;; set LD_LIBRARY_PATH after conda activate
