@@ -287,7 +287,8 @@
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-R-objects))
-    (prefix (company-R-objects--prefix))
+    (prefix (or (company-R-objects--prefix)
+                (company-grab-symbol)))
     (candidates (if (company-capf-with-R-objects--check-prefix arg)
                     (company-R-objects--candidates arg)
                   (company-capf command arg)))
