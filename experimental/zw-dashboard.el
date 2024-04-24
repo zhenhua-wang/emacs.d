@@ -49,6 +49,14 @@
                  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
                  '(:eval (zw/modeline-rhs))))
     (ignore-errors (dashboard-jump-to-recents)))
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
+  :config
+  (when (not (display-graphic-p))
+    (let ((banner-ascii (expand-file-name
+                         "0.txt"
+                         dashboard-banners-directory)))
+      (when (not (file-exists-p banner-ascii))
+        (make-symbolic-link (file-truename "~/.emacs.d/resources/images/banner.txt") banner-ascii)))
+    (setq dashboard-startup-banner 0)))
 
 (provide 'zw-dashboard)
