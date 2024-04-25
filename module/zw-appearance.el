@@ -64,7 +64,10 @@
   ;; Integration with magit
   (with-eval-after-load "magit"
     (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
-    (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
+    (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+  ;; Fall back to margin when in terminal
+  (unless (display-graphic-p)
+    (diff-hl-margin-mode 1)))
 
 ;; * Indent guide
 (use-package indent-guide
