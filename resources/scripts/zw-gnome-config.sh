@@ -18,25 +18,24 @@ gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 
 gsettings set org.gnome.desktop.input-sources per-window true
 # extension
 gsettings set org.gnome.shell disable-user-extensions false
-gnome-extensions enable blur-my-shell@aunetx
-gnome-extensions enable dash-to-dock@micxgx.gmail.com
+gnome-extensions enable dash-to-panel@jderose9.github.com
 gnome-extensions enable Vitals@CoreCoding.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable hide-universal-access@akiirui.github.io
 gnome-extensions enable caffeine@patapon.info
-# dash to dock
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "RIGHT"
-gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode "FIXED"
-gsettings set org.gnome.shell.extensions.dash-to-dock background-opacity 0.6
-gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
-gsettings set org.gnome.shell.extensions.dash-to-dock disable-overview-on-startup true
+# dash to panel
+gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP"}'
+gsettings set org.gnome.shell.extensions.dash-to-panel trans-use-custom-bg true
+gsettings set org.gnome.shell.extensions.dash-to-panel trans-use-custom-opacity true
+gsettings set org.gnome.shell.extensions.dash-to-panel trans-use-dynamic-opacity true
+gsettings set org.gnome.shell.extensions.dash-to-panel trans-use-custom-gradient true
+gsettings set org.gnome.shell.extensions.dash-to-panel show-favorites false
+gsettings set org.gnome.shell.extensions.dash-to-panel animate-appicon-hover true
+gsettings set org.gnome.shell.extensions.dash-to-panel overview-click-to-exit true
+gsettings set org.gnome.shell.extensions.dash-to-panel hide-overview-on-startup true
+gsettings set org.gnome.shell.extensions.dash-to-panel stockgs-keep-dash true
+gsettings set org.gnome.shell.extensions.dash-to-panel panel-element-positions '{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
 gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'io.github.celluloid_player.Celluloid.desktop', 'org.gnome.baobab.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.vixalien.sticky.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop']"
-# blur my shell
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel customize true
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel static-blur true
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.40
-gsettings set org.gnome.shell.extensions.blur-my-shell.panel override-background-dynamically true
-gsettings set org.gnome.shell.extensions.blur-my-shell.overview style-components 0
 # vitals
 gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
 gsettings set org.gnome.shell.extensions.vitals hide-icons true
