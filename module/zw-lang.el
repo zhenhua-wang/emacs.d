@@ -122,7 +122,8 @@
            (setq python-shell-interpreter "python3"
                  python-shell-interpreter-args "-i")))
     ;; refresh current buffer
-    (revert-buffer-quick))
+    (when (buffer-file-name)
+      (revert-buffer-quick)))
   (defun zw/conda-postactivate ()
     (zw/conda-env-update)
     ;; set LD_LIBRARY_PATH after conda activate
