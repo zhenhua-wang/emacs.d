@@ -31,8 +31,8 @@ keyd-application-mapper -d
 # bluetooth
 sudo systemctl enable bluetooth.service
 
-# statistics
-yay -S r gcc-fortran pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
+# research
+yay -S pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # zsh
 yay -S zsh && chsh -s $(which zsh)
