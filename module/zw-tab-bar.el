@@ -367,10 +367,6 @@
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
                        tab-bar-separator
-                       zw/tab-bar-format-vterm
-                       tab-bar-separator
-                       zw/tab-bar-format-repl
-                       tab-bar-separator
                        zw/tab-bar-format-env
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
@@ -435,40 +431,28 @@
              (string-join bufs " "))
            :face 'marginalia-documentation)))))))
 
-;; define zw-tab-bar-keymap-mode
-(define-minor-mode zw-tab-bar-keymap-mode
-  "zw tab bar keymap mode."
-  :global t
-  (if zw-tab-bar-keymap-mode
-      (bind-keys :map global-map
-                 ;; tab operations
-                 ("s-1" . zw/tab-switch)
-                 ("s-9" . tab-new)
-                 ("s-0" . tab-close))
-    (bind-keys :map global-map
-               ;; tab operations
-               ("s-1" . nil)
-               ("s-9" . nil)
-               ("s-0" . nil))))
-
 ;; set tab-bar-map
+(defun zw/tab-bar--item-select (item)
+  (let ((func (nth 1 item)))
+    (if (functionp func)
+        (call-interactively func)
+      (let ((tab-number (tab-bar--key-to-number (nth 0 item))))
+        (unless (eq tab-number t)
+          (tab-bar-select-tab tab-number))))))
+
 (defun zw/tab-bar-touchscreen-tab-select (event)
   "Select a tab at touchscreen tap."
   (interactive "e")
   (let* ((posn (cdadr event))
-         (item (tab-bar--event-to-item posn))
-         (func (nth 1 item)))
-    (when (and (touch-screen-track-tap event)
-               (functionp func))
-      (call-interactively func))))
+         (item (tab-bar--event-to-item posn)))
+    (when (touch-screen-track-tap event)
+      (zw/tab-bar--item-select item))))
 
 (defun zw/tab-bar-click-tab-select (event)
   "Select a tab at click."
   (interactive "e")
-  (let* ((item (tab-bar--event-to-item (event-start event)))
-         (func (nth 1 item)))
-    (when (functionp func)
-      (call-interactively func))))
+  (let ((item (tab-bar--event-to-item (event-start event))))
+    (zw/tab-bar--item-select item)))
 
 (bind-keys :map tab-bar-map
            ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
