@@ -52,6 +52,13 @@
 (defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
+;; * Appearance
+(defun zw/tab-bar-tab-name-current ()
+  (concat " "
+          (or (zw/tab-line-buffer-group (window-buffer (minibuffer-selected-window)))
+              "Other")
+          " "))
+
 ;; * Module
 ;; ** begin
 (defun zw/tab-bar-begin ()
@@ -363,11 +370,15 @@
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
       tab-bar-separator " "
+      tab-bar-auto-width nil
+      tab-bar-tab-name-function 'zw/tab-bar-tab-name-current
       tab-bar-format '(zw/tab-bar-begin
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
                        tab-bar-separator
                        zw/tab-bar-format-env
+                       tab-bar-separator
+                       tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
 (tab-bar-mode 1)
@@ -459,6 +470,13 @@
            ("<down-mouse-1>" . nil)
            ("<mouse-1>" . zw/tab-bar-click-tab-select)
            ("<down-mouse-3>" . nil))
+
+(dolist (i (number-sequence 1 9))
+  (define-key global-map
+              (kbd (format "s-%s" (zw/translate-shift-number i)))
+              (lambda ()
+                (interactive)
+                (tab-bar-select-tab i))))
 
 ;; * Provide
 (provide 'zw-tab-bar)
