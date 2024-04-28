@@ -1237,6 +1237,17 @@ tab = swapm(app_switch_state, M-tab)
 , = C-home
 . = C-end
 
+[alt_zw+meta_zw]
+1 = M-A-1
+2 = M-A-2
+3 = M-A-3
+4 = M-A-4
+5 = M-A-5
+6 = M-A-6
+7 = M-A-7
+8 = M-A-8
+9 = M-A-9
+
 [control_zw+meta_zw]
 e = M-C-e
 f = M-C-f
