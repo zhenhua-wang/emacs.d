@@ -54,10 +54,13 @@
 
 ;; * Appearance
 (defun zw/tab-bar-tab-name-current ()
-  (concat " "
-          (or (zw/tab-line-buffer-group (window-buffer (minibuffer-selected-window)))
-              "Other")
-          " "))
+  (let ((tab-line-group (zw/tab-line-buffer-group
+                         (window-buffer (minibuffer-selected-window)))))
+    (concat " "
+            (pcase tab-line-group
+              ("Doc" "Doc")
+              (_ "Main"))
+            " ")))
 
 ;; * Module
 ;; ** begin
