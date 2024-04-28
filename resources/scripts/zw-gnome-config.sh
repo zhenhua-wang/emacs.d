@@ -23,9 +23,6 @@ gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable hide-universal-access@akiirui.github.io
 gnome-extensions enable caffeine@patapon.info
 # dash to panel
-gsettings set org.gnome.shell.extensions.dash-to-panel hot-keys true
-gsettings set org.gnome.shell.extensions.dash-to-panel hotkey-prefix-text 'SuperAlt'
-gsettings set org.gnome.shell.extensions.dash-to-panel shortcut-text ''
 gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP"}'
 gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-unfocused 'DASHES'
 gsettings set org.gnome.shell.extensions.dash-to-panel dot-style-focused 'DASHES'
