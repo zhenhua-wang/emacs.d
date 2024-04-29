@@ -479,7 +479,10 @@
               (kbd (format "s-%s" (zw/translate-shift-number i)))
               (lambda ()
                 (interactive)
-                (tab-bar-select-tab i))))
+                (if (> i (length (tab-bar-tabs)))
+                    (tab-bar-new-tab)
+                  (tab-bar-select-tab i)))))
+(define-key global-map (kbd "s-)") 'tab-close)
 
 ;; * Provide
 (provide 'zw-tab-bar)
