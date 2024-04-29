@@ -52,15 +52,22 @@
 (defvar zw/tab-bar-ellipsis "..."
   "Replacing string for long path name or file name")
 
-;; * Appearance
+;; * Workspace
 (defun zw/tab-bar-tab-name-current ()
   (let ((tab-line-group (zw/tab-line-buffer-group
                          (window-buffer (minibuffer-selected-window)))))
-    (concat " "
-            (pcase tab-line-group
-              ("Help" "Help")
-              (_ "Main"))
-            " ")))
+    (pcase tab-line-group
+      ("Help" " Help ")
+      (_ " Main "))))
+
+(defun switch-to-tab-based-on-group (buffer &rest args)
+  (pcase (zw/tab-line-buffer-group buffer)
+    ("Help" (tab-bar-select-tab-by-name " Help "))
+    (_ (tab-bar-select-tab-by-name " Main "))))
+(advice-add 'switch-to-buffer
+            :before #'switch-to-tab-based-on-group)
+(advice-add 'zw/display-buffer-in-largest-window
+            :before #'switch-to-tab-based-on-group)
 
 ;; * Module
 ;; ** begin
