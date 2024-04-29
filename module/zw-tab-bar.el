@@ -58,7 +58,7 @@
                          (window-buffer (minibuffer-selected-window)))))
     (concat " "
             (pcase tab-line-group
-              ("Doc" "Doc")
+              ("Help" "Help")
               (_ "Main"))
             " ")))
 

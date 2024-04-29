@@ -54,7 +54,7 @@
           ((memq major-mode '(helpful-mode
                               help-mode
                               ess-r-help-mode))
-           "Doc")
+           "Help")
           ((memq major-mode '(inferior-ess-r-mode
                               inferior-python-mode))
            "REPL")
