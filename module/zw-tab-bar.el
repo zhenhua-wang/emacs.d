@@ -155,7 +155,7 @@
 
 (defun zw/tab-bar-format-env ()
   (let ((env (ignore-errors
-               (substring-no-properties (zw/modeline-env))))
+               (substring-no-properties (string-trim (zw/modeline-env)))))
         (icon (nerd-icons-faicon "nf-fa-desktop"
                                  :height 0.85
                                  :v-adjust 0.15))
