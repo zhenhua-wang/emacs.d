@@ -53,13 +53,6 @@
   "Replacing string for long path name or file name")
 
 ;; * Workspace
-(defun zw/tab-bar-tab-name-current ()
-  (let ((tab-line-group (zw/tab-line-buffer-group
-                         (window-buffer (minibuffer-selected-window)))))
-    (pcase tab-line-group
-      ("Help" " Help ")
-      (_ " Main "))))
-
 (defun zw/tab-line-buffer-group (&rest args))
 (defun switch-to-tab-based-on-group (buffer &rest args)
   (pcase (zw/tab-line-buffer-group buffer)
@@ -386,7 +379,6 @@
       tab-bar-close-button-show nil
       tab-bar-separator " "
       tab-bar-auto-width nil
-      tab-bar-tab-name-function 'zw/tab-bar-tab-name-current
       tab-bar-format '(zw/tab-bar-begin
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
@@ -396,6 +388,7 @@
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
+(tab-rename " Main " 1)
 (tab-bar-mode 1)
 
 ;; ** time
