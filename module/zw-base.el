@@ -70,13 +70,13 @@ The order of values may be different."
   "Update active UI."
   (let ((frame (selected-frame))
         (window (selected-window)))
-    (unless (or (minibufferp (window-buffer window))
+    (unless (or (minibuffer-selected-window)
                 (eq zw/active-frame frame))
       (setq zw/previous-frame zw/active-frame)
       (setq zw/active-frame frame))
     (setq zw/active-window window)
-    (unless (minibuffer-window-active-p (minibuffer-window))
-      (setq zw/active-window-non-minibufer window))))
+    (setq zw/active-window-non-minibufer (or (minibuffer-selected-window)
+                                             window))))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
 ;; * Config
