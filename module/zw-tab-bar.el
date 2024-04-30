@@ -488,7 +488,6 @@
                   (if (> i total-tabs)
                       (tab-bar-select-tab total-tabs)
                     (tab-bar-select-tab i))))))
-(define-key global-map (kbd "s-)") 'tab-close)
 
 ;; * Provide
 (provide 'zw-tab-bar)
