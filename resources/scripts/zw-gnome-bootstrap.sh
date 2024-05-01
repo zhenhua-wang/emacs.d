@@ -48,7 +48,7 @@ git config --global credential.helper store
 ln -s ~/.local/share/fcitx5/rime/default.custom.yaml ~/.config/ibus/rime/default.custom.yaml
 
 # essential desktop
-yay -S firefox kitty htop neofetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
+yay -S firefox kitty htop fastfetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
 flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.vixalien.sticky
