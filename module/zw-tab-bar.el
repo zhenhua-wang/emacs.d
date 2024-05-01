@@ -347,48 +347,6 @@
     (display-battery-mode 1)))
 
 ;; * Keymap
-;; switch to tab
-(defun zw/tab-switch (index-name)
-  (interactive
-   (let* ((other-tabs (mapcar (lambda (tab)
-                                (concat
-                                 (number-to-string (1+ (tab-bar--tab-index tab)))
-                                 " "
-                                 (alist-get 'name tab)))
-                              (tab-bar--tabs-recent))))
-     (list (completing-read (format-prompt "Switch to tab by index"
-                                           (car other-tabs))
-                            other-tabs))))
-  (tab-bar-select-tab (or (string-to-number (car (split-string index-name))) 1)))
-
-;; register zw/tab-switch marginalia
-(with-eval-after-load "marginalia"
-  (add-to-list 'marginalia-prompt-categories '("\\<tab by index\\>" . tab-index))
-  (add-to-list 'marginalia-annotator-registry
-               '(tab-index marginalia-annotate-tab-index marginalia-annotate-face builtin none))
-  (defun marginalia-annotate-tab-index (cand)
-    "Annotate named tab CAND with window and buffer information."
-    (when-let* ((tabs (funcall tab-bar-tabs-function))
-                (index (1- (string-to-number (car (split-string cand))))))
-      (let* ((tab (nth index tabs))
-             (ws (alist-get 'ws tab))
-             (bufs (window-state-buffers ws)))
-        ;; NOTE: When the buffer key is present in the window state
-        ;; it is added in front of the window buffer list and gets duplicated.
-        (when (cadr (assq 'buffer ws)) (pop bufs))
-        (concat
-         (marginalia--fields
-          ((format "win:%s" (length bufs))
-           :face 'marginalia-size)
-          ((format "group:%s" (or (alist-get 'group tab) 'none))
-           :face 'marginalia-type
-           :width 30)
-          ((if (memq 'current-tab tab)
-               "*current tab*"
-             (string-join bufs " "))
-           :face 'marginalia-documentation)))))))
-
-;; set tab-bar-map
 (defun zw/tab-bar--item-select (item)
   (let ((func (nth 1 item)))
     (if (functionp func)
