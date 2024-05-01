@@ -66,80 +66,23 @@
             :after (lambda (&rest args)
                      (switch-to-tab-based-on-group
                       (window-buffer (minibuffer-selected-window)))))
+;; * Appearance
+(defun zw/tab-bar-tab-name-format (tab i)
+  (let ((current-p (eq (car tab) 'current-tab)))
+    (propertize
+     (concat (if tab-bar-tab-hints (format "%d " i) " ")
+             (alist-get 'name tab)
+             (or (and tab-bar-close-button-show
+                      (not (eq tab-bar-close-button-show
+                               (if current-p 'non-selected 'selected)))
+                      tab-bar-close-button)
+                 " "))
+     'face (funcall tab-bar-tab-face-function tab))))
 
 ;; * Module
 ;; ** begin
 (defun zw/tab-bar-begin ()
   (propertize " " 'face '(:height 1.2) 'display '(raise -0.1)))
-
-;; ** tab name
-(defun zw/tab-bar-tab-name ()
-  (let* ((buffer-file-p (buffer-file-name (window-buffer (minibuffer-selected-window))))
-         (tab-name-max (if buffer-file-p 30 50))
-         (dir-name-max 30)
-         (tab-name (propertize (buffer-name (window-buffer (minibuffer-selected-window)))
-                               'face 'zw/tab-bar-tab-selected))
-         (tab-name-abbrev (truncate-string-to-width
-                           tab-name tab-name-max nil nil
-                           zw/tab-bar-ellipsis))
-         (dir-name (if buffer-file-p
-                       (propertize (abbreviate-file-name default-directory)
-                                   'face 'zw/tab-bar-tab-path-selected)
-                     ""))
-         (dir-name-length (length dir-name))
-         (dir-name-abbrev (if (< dir-name-length dir-name-max)
-                              dir-name
-                            (concat zw/tab-bar-ellipsis
-                                    "/"
-                                    (string-join (cdr (split-string (truncate-string-to-width
-                                                                     dir-name
-                                                                     dir-name-length
-                                                                     (- dir-name-length dir-name-max))
-                                                                    "\\/"))
-                                                 "/"))))
-         (dir-name-abbrev-prop (propertize dir-name-abbrev
-                                           'face 'zw/tab-bar-tab-path-selected)))
-    (concat dir-name-abbrev-prop tab-name-abbrev)))
-
-;; ** function definition
-(defun zw/tab-bar-beginning-of-defun ()
-  "Return the line moved to by `beginning-of-defun'."
-  (save-excursion
-    (when (beginning-of-defun)
-      (font-lock-ensure (point) (point-at-eol))
-      (buffer-substring (point) (point-at-eol)))))
-
-(defun zw/in-defun-p ()
-  "check if current cursor is in a function definition"
-  (save-excursion
-    ;; if `end-of-defun' moves the cursor, cursor if in a definition
-    (let ((current-point (point)))
-      (end-of-defun)
-      ;; return true if cursor moved
-      (not (= (point) current-point)))))
-
-(defun zw/tab-bar--func-def ()
-  "helper function to get function definition"
-  ;; if all three predicates are true, return the value of the last predicate
-  (let ((tab-func-def-max 50))
-    (and (derived-mode-p 'prog-mode)
-         (ignore-errors (zw/in-defun-p))
-         (ignore-errors (concat
-                         (propertize " Def "
-                                     'face 'mode-line-highlight)
-                         " "
-                         (truncate-string-to-width
-                          (string-trim (zw/tab-bar-beginning-of-defun)) tab-func-def-max nil nil
-                          zw/tab-bar-ellipsis))))))
-
-(defun zw/tab-bar-format-function-def ()
-  `((global menu-item ,(zw/tab-bar--func-def)
-            :help "Function definition")))
-
-;; ** file path
-(defun zw/tab-bar-format-file-path ()
-  `((current-tab menu-item ,(zw/tab-bar-tab-name)
-                 :help "File path")))
 
 ;; ** env
 (defun zw/tab-bar--env-menu (event)
@@ -291,15 +234,6 @@
   `((global menu-item ,cpu-temperature-string
             nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
 
-;; ** pyim
-(defun zw/tab-bar-format-pyim ()
-  "Produce menu that shows pyim."
-  (let* ((input-method (or current-input-method-title ""))
-         (chinese-input-method-p (string-match-p "PYIM/C" input-method))
-         (chinese-input-method (if chinese-input-method-p "中 " "")))
-    `((global menu-item ,chinese-input-method
-              nil :help ,(format "Current input method: %s" current-input-method-title)))))
-
 ;; ** exwm
 ;; *** workspace
 (defun zw/tab-bar-format-exwm-workspace ()
@@ -379,6 +313,7 @@
       tab-bar-close-button-show nil
       tab-bar-separator " "
       tab-bar-auto-width nil
+      tab-bar-tab-name-format-function 'zw/tab-bar-tab-name-format
       tab-bar-format '(zw/tab-bar-begin
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
@@ -388,7 +323,7 @@
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
-(tab-rename " Main " 1)
+(tab-rename "Main" 1)
 (tab-bar-mode 1)
 
 ;; ** time
