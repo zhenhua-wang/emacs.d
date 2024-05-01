@@ -153,5 +153,44 @@
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
 
+;; * Tabspaces
+(use-package tabspaces
+  :hook (after-init . tabspaces-mode)
+  :custom
+  (tabspaces-use-filtered-buffers-as-default t)
+  (tabspaces-default-tab "Main")
+  (tabspaces-remove-to-default t)
+  (tabspaces-include-buffers '("*scratch*" "*Messages*"))
+  ;; sessions
+  (tabspaces-session t)
+  (tabspaces-session-auto-restore t)
+  :init
+  ;; filter Buffers for Consult-Buffer
+  (with-eval-after-load 'consult
+    ;; hide full buffer list (still available with "b" prefix)
+    (consult-customize consult--source-buffer :hidden t :default nil)
+    ;; set consult-workspace buffer list
+    (defvar consult--source-workspace
+      (list :name     "Workspace Buffer"
+            :narrow   ?w
+            :history  'buffer-name-history
+            :category 'buffer
+            :state    #'consult--buffer-state
+            :default  t
+            :items    (lambda () (consult--buffer-query
+                                  :predicate #'tabspaces--local-buffer-p
+                                  :sort 'visibility
+                                  :as #'buffer-name)))
+      "Set workspace buffer list for consult-buffer.")
+    (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+  ;; filter tab-lines
+  (with-eval-after-load "zw-tab-line"
+    (defun zw/tabspace-filter-tab-line (old-func)
+      (cl-remove-if-not (lambda (buffer)
+                          (memq buffer (tabspaces--buffer-list)))
+                        (funcall old-func)))
+    (advice-add 'zw/tab-line-buffer-group-buffers :around
+                #'zw/tabspace-filter-tab-line)))
+
 ;; * Provide
 (provide 'zw-ide)

@@ -65,23 +65,6 @@
                  " "))
      'face (funcall tab-bar-tab-face-function tab))))
 
-;; * Workspace
-(defun zw/tab-line-buffer-group (&rest args))
-(defun switch-to-tab-based-on-group (buffer &rest args)
-  (pcase (zw/tab-line-buffer-group buffer)
-    ("Help" (tab-bar-select-tab-by-name "Help"))
-    (_ (if (string= (cdr (assq 'name (tab-bar--current-tab)))
-                    "Help")
-           (tab-bar-select-tab-by-name "Main")))))
-(advice-add 'switch-to-buffer
-            :before #'switch-to-tab-based-on-group)
-(advice-add 'zw/display-buffer-in-largest-window
-            :before #'switch-to-tab-based-on-group)
-(advice-add 'kill-buffer
-            :after (lambda (&rest args)
-                     (switch-to-tab-based-on-group
-                      (window-buffer (minibuffer-selected-window)))))
-
 ;; * Module
 ;; ** begin
 (defun zw/tab-bar-begin ()
