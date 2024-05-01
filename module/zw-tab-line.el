@@ -49,15 +49,15 @@
 ;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
   (with-current-buffer buffer
-    (cond (buffer-file-name
-           "File")
-          ((memq major-mode '(helpful-mode
+    (cond ((memq major-mode '(helpful-mode
                               help-mode
                               ess-r-help-mode))
            "Help")
           ((memq major-mode '(inferior-ess-r-mode
                               inferior-python-mode))
            "REPL")
+          (buffer-file-name
+           "File")
           (t nil))))
 
 (defun zw/tab-line-buffer-group-visible ()
