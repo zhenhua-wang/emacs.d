@@ -191,8 +191,9 @@ The order of values may be different."
          (display-buffer-reuse-mode-window
           zw/display-buffer-in-largest-window))
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
-         (display-buffer-reuse-mode-window
-          zw/display-buffer-in-largest-window))
+         (display-buffer-in-tab
+          zw/display-buffer-in-largest-window)
+         (tab-name . "Help"))
         ;; top side window
         ("\\*\\(Messages\\|Warnings\\|Backtrace\\).*"
          (display-buffer-in-side-window)
