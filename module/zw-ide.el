@@ -140,10 +140,12 @@
 (use-package magit
   :bind (("s-G" . magit-status)
          :map magit-mode-map
-         ("C" . zw/magit-change-repo))
+         ("C" . zw/magit-change-repo)
+         ("s-q" . magit-mode-bury-buffer))
   :commands (magit-status magit-get-current-branch)
   :config
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+        magit-bury-buffer-function #'magit-restore-window-configuration)
   (defun zw/magit-change-repo ()
     (interactive)
     (let ((dir (magit-read-repository)))
