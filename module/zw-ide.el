@@ -190,7 +190,13 @@
                           (memq buffer (tabspaces--buffer-list)))
                         (funcall old-func)))
     (advice-add 'zw/tab-line-buffer-group-buffers :around
-                #'zw/tabspace-filter-tab-line)))
+                #'zw/tabspace-filter-tab-line))
+  ;; open dashboard in default tab
+  (with-eval-after-load "dashboard"
+    (defun zw/tabspace-dashboard ()
+      (tab-bar-select-tab-by-name tabspaces-default-tab))
+    (advice-add 'dashboard-open :before #'zw/tabspace-dashboard)
+    (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard)))
 
 ;; * Provide
 (provide 'zw-ide)
