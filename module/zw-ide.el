@@ -198,7 +198,9 @@
     (defun zw/tabspace-dashboard (&rest args)
       (tab-bar-select-tab-by-name tabspaces-default-tab))
     (advice-add 'dashboard-open :before #'zw/tabspace-dashboard)
-    (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard)))
+    (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard))
+  ;; side window
+  (setq zw/right-side-window-buffer-list-function 'tabspaces--buffer-list))
 
 ;; * Provide
 (provide 'zw-ide)
