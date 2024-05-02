@@ -289,7 +289,7 @@
     (interactive (company-begin-backend 'company-R-objects))
     (prefix (let ((prefix (company-R-objects--prefix)))
               (if (or (not prefix)
-                      (string-match ":" prefix))
+                      (string-match-p ":" prefix))
                   (company-grab-symbol)
                 prefix)))
     (candidates (if (company-capf-with-R-objects--check-prefix arg)
