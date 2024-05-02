@@ -61,8 +61,6 @@
     (zw/exwm-run-in-background "udiskie --automount -t"))
   (when (executable-find "fcitx5")
     (zw/exwm-run-in-background "fcitx5"))
-  (when (executable-find "plank")
-    (zw/exwm-run-in-background "plank"))
   (when (executable-find "polybar")
     (zw/exwm-run-in-background "polybar panel")))
 
@@ -338,10 +336,16 @@
   (require 'zw-tab-bar)
   (setq tab-bar-show t
         tab-bar-format '(zw/tab-bar-format-exwm-workspace
+                         zw/tab-bar-begin
+                         ;; tab-bar-format-menu-bar
+                         zw/tab-bar-format-dired
+                         tab-bar-separator
+                         zw/tab-bar-format-env
+                         tab-bar-separator
+                         tab-bar-format-tabs
                          tab-bar-separator
                          zw/tab-bar-format-buffers
                          tab-bar-format-align-right
-                         zw/tab-bar-begin
                          tab-bar-separator
                          tab-bar-separator
                          tab-bar-separator
