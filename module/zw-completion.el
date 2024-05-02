@@ -287,8 +287,11 @@
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-R-objects))
-    (prefix (or (company-R-objects--prefix)
-                (company-grab-symbol)))
+    (prefix (let ((prefix (company-R-objects--prefix)))
+              (if (or (not prefix)
+                      (string-match ":" prefix))
+                  (company-grab-symbol)
+                prefix)))
     (candidates (if (company-capf-with-R-objects--check-prefix arg)
                     (company-R-objects--candidates arg)
                   (company-capf command arg)))
