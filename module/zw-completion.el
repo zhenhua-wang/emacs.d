@@ -280,8 +280,8 @@
         (all-completions arg (ess--get-cached-completions arg))))))
 
 (defun company-capf-with-R-objects--check-prefix (prefix)
-  (or (cl-search "$" prefix)
-      (cl-search "@" prefix)))
+  (or (string-match-p "\\$" prefix)
+      (string-match-p "\\@" prefix)))
 
 (defun company-capf-with-R-objects (command &optional arg &rest ignored)
   (interactive (list 'interactive))
@@ -289,7 +289,7 @@
     (interactive (company-begin-backend 'company-R-objects))
     (prefix (let ((prefix (company-R-objects--prefix)))
               (if (or (not prefix)
-                      (string-match-p ":" prefix))
+                      (string-match-p "\\:" prefix))
                   (company-grab-symbol)
                 prefix)))
     (candidates (if (company-capf-with-R-objects--check-prefix arg)
