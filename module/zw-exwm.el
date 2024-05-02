@@ -489,10 +489,22 @@
   (when this-command
     (zw/exwm-desktop-window-config)))
 
-(add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
-(with-current-buffer "*scratch*"
-  (display-line-numbers-mode -1)
-  (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t))
+(define-minor-mode zw-exwm-desktop-mode
+  "Toggle zw-exmm-deskto mode."
+  :global t
+  (if zw-exwm-desktop-mode
+      (progn
+        (add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
+        (with-current-buffer "*scratch*"
+          (display-line-numbers-mode -1)
+          (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)))
+    (progn
+      (remove-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
+      (with-current-buffer "*scratch*"
+        (display-line-numbers-mode 1)
+        (remove-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)))))
+
+(set-frame-parameter exwm-workspace--current 'alpha-background 85)
 
 ;; ** wallpaper
 (defvar zw/exwm-wallpaper-type-regexp
