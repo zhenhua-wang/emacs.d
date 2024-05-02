@@ -221,7 +221,6 @@
             nil :help ,(format "CPU temperature: %s" cpu-temperature-string))))
 
 ;; ** exwm
-;; *** workspace
 (defun zw/tab-bar-format-exwm-workspace ()
   "Produce menu that shows current exwm workspace."
   (let* ((bg (face-background 'tab-bar))
@@ -231,66 +230,6 @@
     `((global menu-item ,(propertize (format " %d " exwm-workspace-current-index)
                                      'face `(:background ,bg-alt :weight regular))
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
-
-;; *** buffer
-(defun zw/tab-bar-switch-or-focus-buffer (buffer)
-  "Switch to buffer if not visible, otherwise focus buffer."
-  (let* ((buffer-window (zw/exwm-buffer-visible-p buffer))
-         (buffer-float (with-current-buffer buffer exwm--floating-frame)))
-    (cond ((eq (current-buffer) buffer) nil)
-          ((and buffer-window buffer-float)
-           (when exwm--floating-frame
-             (select-frame-set-input-focus exwm-workspace--current))
-           (select-frame-set-input-focus buffer-float))
-          (buffer-window
-           (when exwm--floating-frame
-             (select-frame-set-input-focus exwm-workspace--current))
-           (select-window buffer-window))
-          (t
-           (when exwm--floating-frame
-             (select-frame-set-input-focus exwm-workspace--current))
-           (exwm-workspace-switch-to-buffer buffer)))))
-
-(defun zw/tab-bar-switch-to-buffer (i)
-  "Tab bar switch to buffer."
-  (let* ((buffer-list (zw/exwm-buffer-sorted-display-list))
-         (buffer-list-size (length buffer-list)))
-    (if (>= buffer-list-size i)
-        (let* ((buffer (nth (- i 1) buffer-list)))
-          (zw/tab-bar-switch-or-focus-buffer buffer))
-      (zw/exwm-dunst-send-message "-r 99 -i gnome-windows" "Window" (format "\"Tab-%d does not exist\"" i)))))
-
-(defun zw/tab-bar-format-buffers ()
-  "Show buffers of current frame on tab-bar."
-  (let* ((i 0)
-         (buffer-name-ellipsis ".")
-         (buffer-separator (propertize " | " 'face 'shadow))
-         (screen-width (frame-width))
-         (buffer-list (zw/exwm-buffer-sorted-display-list))
-         (buffer-list-length (length buffer-list))
-         (buffer-name-max (when (> buffer-list-length 0)
-                            (- (/ screen-width buffer-list-length 2)
-                               (length buffer-separator)
-                               5))))
-    (mapcan
-     (lambda (buffer)
-       (let* ((current-frame (if (frame-live-p zw/active-frame) zw/active-frame exwm-workspace--current))
-              (current-buffer (window-buffer (frame-selected-window current-frame)))
-              (bname (truncate-string-to-width
-                      (buffer-name buffer) buffer-name-max nil nil buffer-name-ellipsis))
-              (bname-face (if (eq buffer current-buffer)
-                              (propertize bname 'face '(:weight bold))
-                            (propertize bname 'face 'shadow)))
-              (current-tab `(tab menu-item ,bname-face
-                                 (lambda () (interactive)
-                                   (zw/tab-bar-switch-or-focus-buffer ,buffer))
-                                 :help ,(or (buffer-file-name buffer) (buffer-name buffer))))
-              (tab-seperator `(seperator menu-item ,buffer-separator ignore)))
-         (setq i (1+ i))
-         (if (= i buffer-list-length)
-             (list current-tab)
-           (list current-tab tab-seperator))))
-     buffer-list)))
 
 ;; * Config
 ;; ** main
