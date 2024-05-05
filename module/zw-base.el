@@ -592,7 +592,7 @@ The order of values may be different."
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil
       flymake-fringe-indicator-position 'right-fringe
-      flymake-margin-indicator-position 'right-margin
+      flymake-margin-indicator-position nil
       ;; show flymake when cursor hovers
       help-at-pt-timer-delay 0.9
       help-at-pt-display-when-idle 'never)
