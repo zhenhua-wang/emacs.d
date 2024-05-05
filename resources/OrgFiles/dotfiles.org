@@ -118,7 +118,7 @@ tab_title_template "{index}: {title}"
 tab_bar_edge bottom
 tab_bar_style powerline
 tab_powerline_style slanted
-tab_bar_min_tabs 2
+tab_bar_min_tabs 1
 bell_on_tab "🔔 "
 tab_activity_symbol "⌛ "
 active_tab_foreground   #000
