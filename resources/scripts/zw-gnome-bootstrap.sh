@@ -13,7 +13,7 @@ yay -S emacs aspell aspell-en
 emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))' --eval '(defun zw/org-babel-tangle-linux (path) (if (eq system-type (intern "gnu/linux")) path "no"))' --eval '(defun zw/org-babel-tangle-not-exist (path) (if (file-exists-p path) "no" path))' --eval '(org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")'
 
 # gnome core
-yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect gnome-remote-desktop
+yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect gnome-remote-desktop gnome-firmware gnome-connections
 sudo systemctl enable gdm.service -f
 # gnome extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-calculator gnome-disk-utility baobab loupe evince
