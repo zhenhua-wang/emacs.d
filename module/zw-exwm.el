@@ -506,7 +506,7 @@
         (display-line-numbers-mode 1)
         (remove-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)))))
 
-(add-to-list 'default-frame-alist '(alpha-background . 85))
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 ;; ** wallpaper
 (defvar zw/exwm-wallpaper-type-regexp
