@@ -386,26 +386,28 @@
   (advice-add 'zw/exwm-update-title :after 'zw/exwm-polybar-update-buffer-name))
 
 ;; ** minibuffer
-(vertico-posframe-mode 0)
-(setq exwm-workspace-minibuffer-position 'bottom
+(setq exwm-workspace-minibuffer-position nil
       exwm-workspace-display-echo-area-timeout 0.1)
-;; detached minibuffer freezes on help message
-;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
-(global-eldoc-mode 0)
-(which-key-mode 0)
-(setq echo-keystrokes 0)
-(add-hook 'exwm-init-hook
-          (lambda ()
-            (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
-;; disable message to prevent freezing
-(defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
-  "Advice function that silences all messages in ORIG-FUN."
-  (let ((inhibit-message t)
-        (message-log-max nil))
-    (apply orig-fun args)))
-(dolist (func '(pixel-scroll-precision
-                touch-screen-scroll))
-  (advice-add func :around 'zw/exwm-minibuffer-silence-messages-advice))
+(when (eq exwm-workspace-minibuffer-position 'bottom)
+  (vertico-posframe-mode 0)
+  ;; detached minibuffer freezes on help message
+  ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
+  (global-eldoc-mode 0)
+  (which-key-mode 0)
+  (setq echo-keystrokes 0)
+  (add-hook 'exwm-init-hook
+            (lambda ()
+              (set-frame-parameter exwm-workspace--minibuffer 'background-color (face-background 'mode-line))))
+  ;; disable message to prevent freezing
+  (defun zw/exwm-minibuffer-silence-messages-advice (orig-fun &rest args)
+    "Advice function that silences all messages in ORIG-FUN."
+    (let ((inhibit-message t)
+          (message-log-max nil))
+      (apply orig-fun args)))
+  (dolist (func '(pixel-scroll-precision
+                  touch-screen-scroll))
+    (advice-add func :around 'zw/exwm-minibuffer-silence-messages-advice)))
+
 ;; if ever stuck in exwm minibuffer, use abort-recursive-edit (c-]) to exit
 (defun zw/exwm-minibuffer-and-keyboard-quit ()
   (interactive)
