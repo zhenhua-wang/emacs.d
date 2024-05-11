@@ -1003,12 +1003,15 @@
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
-        ;; switch buffer
+        ;; switch tab
         ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%s" (zw/translate-shift-number i))) .
+                    `(,(kbd (format "C-s-%s" i)) .
                       (lambda ()
                         (interactive)
-                        (zw/tab-bar-switch-to-buffer ,i))))
+                        (let ((total-tabs (length (tab-bar-tabs))))
+                          (if (> ,i total-tabs)
+                              (tab-bar-select-tab total-tabs)
+                            (tab-bar-select-tab ,i))))))
                   (number-sequence 1 9))
         ;; switch workspace
         ,@(mapcar (lambda (i)
