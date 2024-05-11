@@ -22,7 +22,8 @@
   (add-hook 'vterm-mode-hook
             (lambda ()
               (unless (file-remote-p default-directory)
-                (vterm-send-string "source ~/.cache/emacs/vterm_conf.sh\n")))))
+                (vterm-send-string
+                 "source ~/.emacs.d/resources/scripts/zw-vterm-config.sh\n")))))
 
 (use-package multi-vterm
   :commands (multi-vterm)
