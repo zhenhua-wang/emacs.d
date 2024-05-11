@@ -414,7 +414,7 @@
   :init
   (setq default-input-method "rime"
         rime-show-preedit t
-        rime-user-data-dir "~/.cache/emacs/rime/"
+        rime-user-data-dir (expand-file-name "rime/" user-emacs-directory)
         rime-show-candidate 'posframe
         rime-posframe-properties (list :internal-border-width 2))
   :config
