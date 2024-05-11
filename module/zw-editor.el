@@ -1,12 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-;; * Undo
-(use-package undo-fu
-  :bind (("s-z" . undo-fu-only-undo)
-         ("s-Z" . undo-fu-only-redo)
-         ("C-z" . undo-fu-only-undo)
-         ("C-S-z" . undo-fu-only-redo)))
-
 ;; * Auto save
 (use-package super-save
   :hook (after-init . super-save-mode)
