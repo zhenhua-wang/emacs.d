@@ -515,7 +515,7 @@
 
 (defun zw/exwm-show-wallpaper ()
   (interactive)
-  (let* ((wallpaper (car (directory-files "~/.cache/emacs/" t zw/exwm-wallpaper-regexp))))
+  (let* ((wallpaper (car (directory-files user-emacs-directory t zw/exwm-wallpaper-regexp))))
     (call-process-shell-command
      (concat "feh --bg-scale " (or wallpaper "~/.emacs.d/resources/images/wallpaper.png"))
      nil 0)))
@@ -530,7 +530,7 @@
                                (string-match zw/exwm-wallpaper-type-regexp file-name))))))
   (when file
     ;; delete old wallpaper
-    (dolist (wallpaper-old (directory-files "~/.cache/emacs/" t zw/exwm-wallpaper-regexp))
+    (dolist (wallpaper-old (directory-files user-emacs-directory t zw/exwm-wallpaper-regexp))
       (delete-file wallpaper-old))
     ;; set new wallpaper
     (let ((suffix (car (last (split-string file "\\.")))))
