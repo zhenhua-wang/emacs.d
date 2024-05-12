@@ -982,7 +982,7 @@
         (,(kbd "s-R") . exwm-reset)
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
-        (,(kbd "s-E") . zw/exwm-floating-hide-all)
+        (,(kbd "C-s-e") . zw/exwm-floating-hide-all)
         (,(kbd "s-m") . (lambda ()
                           (interactive)
                           (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
