@@ -3,7 +3,7 @@
 ;; * exwm init
 (use-package exwm
   :demand t
-  :straight (:host github :repo "zhenhua-wang/exwm" :files ("*")))
+  :straight (:host github :repo "emacs-exwm/exwm" :files ("*")))
 
 ;; start server for ipc
 (server-start)
@@ -67,6 +67,17 @@
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
 ;; * exwm appearance
+;; ** xsettings
+(require 'exwm-xsettings)
+(setq exwm-xsettings-theme '("Materia-light" . "Materia-dark") ;; light/dark
+      exwm-xsettings-icon-theme "Adwaita"
+      exwm-xsettings `(("Xft/HintStyle" . "hintslight")
+                       ("Xft/RGBA" . "rgb")
+                       ("Xft/lcdfilter" . "lcddefault")
+                       ("Xft/Antialias" . 1)
+                       ("Xft/Hinting" . 1)))
+(exwm-xsettings-enable)
+
 ;; ** window management
 ;; *** ewmh window type
 ;; set ewmh type
