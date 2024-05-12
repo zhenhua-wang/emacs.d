@@ -22,8 +22,11 @@
   (add-hook 'vterm-mode-hook
             (lambda ()
               (unless (file-remote-p default-directory)
-                (vterm-send-string
-                 "source ~/.emacs.d/resources/scripts/zw-vterm-config.sh\n")))))
+                (if (string-match-p "zsh" vterm-shell)
+                    (vterm-send-string
+                     "source ~/.emacs.d/resources/scripts/zw-vterm-zsh-config.sh\n")
+                  (vterm-send-string
+                   "source ~/.emacs.d/resources/scripts/zw-vterm-bash-config.sh\n"))))))
 
 (use-package multi-vterm
   :commands (multi-vterm)
