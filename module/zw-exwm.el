@@ -887,6 +887,16 @@
       (call-process-shell-command "rofi -show combi -dpi 1")
     (app-launcher-run-app)))
 
+(defun zw/launch-app-by-name (name)
+  (let ((app (cl-find-if
+              (lambda (buffer)
+                (with-current-buffer buffer
+                  (string= exwm-class-name name)))
+              (buffer-list))))
+    (if app
+        (display-buffer app)
+      (zw/exwm-run-in-background name))))
+
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
   :demand t
@@ -1010,10 +1020,10 @@
         ;; launch app
         (,(kbd "C-s-k") . (lambda ()
                             (interactive)
-                            (zw/exwm-run-in-background "kitty")))
+                            (zw/launch-app-by-name "kitty")))
         (,(kbd "C-s-f") . (lambda ()
                             (interactive)
-                            (zw/exwm-run-in-background "firefox")))
+                            (zw/launch-app-by-name "firefox")))
         ;; switch tab
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "C-s-%s" i)) .
