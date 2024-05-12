@@ -894,7 +894,7 @@
                   (string= exwm-class-name name)))
               (buffer-list))))
     (if app
-        (display-buffer app)
+        (exwm-workspace-switch-to-buffer app)
       (zw/exwm-run-in-background name))))
 
 ;; ** CPU temperature
