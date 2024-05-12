@@ -416,14 +416,15 @@
     (keyboard-quit)))
 (defun zw/exwm-toggle-minibuffer ()
   (interactive)
-  (let* ((geometry (zw/exwm-get-geometry
-                    exwm--connection
-                    (frame-parameter exwm-workspace--minibuffer
-                                     'exwm-container)))
-         (height (alist-get 'height geometry)))
-    (if (> height 1)
-        (exwm-workspace--hide-minibuffer)
-      (exwm-workspace--show-minibuffer))))
+  (when exwm-workspace--minibuffer
+    (let* ((geometry (zw/exwm-get-geometry
+                      exwm--connection
+                      (frame-parameter exwm-workspace--minibuffer
+                                       'exwm-container)))
+           (height (alist-get 'height geometry)))
+      (if (> height 1)
+          (exwm-workspace--hide-minibuffer)
+        (exwm-workspace--show-minibuffer)))))
 ;; don't clear echo area after every input
 (defun zw/exwm-input--clear-echo-area ()
   (when (current-message)
