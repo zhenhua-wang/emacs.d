@@ -141,16 +141,22 @@
   :bind (("s-G" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo)
-         ("s-q" . magit-mode-bury-buffer))
+         ("q" . zw/magit-kill-buffers)
+         ("s-q" . zw/magit-kill-buffers))
   :commands (magit-status magit-get-current-branch)
   :config
-  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
-        magit-bury-buffer-function #'magit-restore-window-configuration)
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (defun zw/magit-change-repo ()
     (interactive)
     (let ((dir (magit-read-repository)))
       (magit-kill-this-buffer)
-      (magit-init dir))))
+      (magit-init dir)))
+  (defun zw/magit-kill-buffers ()
+    "Restore window configuration and kill all Magit buffers."
+    (interactive)
+    (let ((buffers (magit-mode-get-buffers)))
+      (magit-restore-window-configuration)
+      (mapc #'kill-buffer buffers))))
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
