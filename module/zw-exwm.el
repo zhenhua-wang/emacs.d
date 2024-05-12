@@ -511,7 +511,7 @@
 
 (add-hook 'exwm-workspace-switch-hook
           (lambda ()
-            (set-frame-parameter exwm-workspace--current 'alpha 95)))
+            (set-frame-parameter exwm-workspace--current 'alpha 90)))
 
 ;; ** wallpaper
 (defvar zw/exwm-wallpaper-type-regexp
