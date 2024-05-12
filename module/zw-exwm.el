@@ -1003,6 +1003,13 @@
         ;; vterm
         (,(kbd "s-e") . vterm)
         (,(kbd "s-E") . multi-vterm)
+        ;; launch app
+        (,(kbd "C-s-k") . (lambda ()
+                            (interactive)
+                            (zw/exwm-run-in-background "kitty")))
+        (,(kbd "C-s-f") . (lambda ()
+                            (interactive)
+                            (zw/exwm-run-in-background "firefox")))
         ;; switch tab
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "C-s-%s" i)) .
