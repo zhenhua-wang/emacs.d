@@ -968,12 +968,11 @@
       `(;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
         ;; window
-        (,(kbd "s-F") . exwm-floating-toggle-floating)
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "s-m") . (lambda ()
                           (interactive)
                           (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
-        (,(kbd "s-M") . zw/exwm-floating-hide-all)
+        (,(kbd "s-M") . exwm-floating-toggle-floating)
         (,(kbd "s-+") . enlarge-window-horizontally)
         (,(kbd "s-_") . shrink-window-horizontally)
         (,(kbd "s-^") . enlarge-window)
