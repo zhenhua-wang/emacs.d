@@ -38,9 +38,9 @@ sudo make install
 yay -S sddm xorg-xrdb xorg-xrandr qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
 sudo systemctl enable sddm.service
 # required
-yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im fcitx5-skin-adwaita-dark rofi rofi-calc flameshot
+yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im
 # optional
-yay -S arc-gtk-theme papirus-icon-theme xcursor-breeze thunar tumbler ffmpegthumbnailer
+yay -S rofi rofi-calc fcitx5-skin-adwaita-dark materia-gtk-theme flameshot thunar tumbler ffmpegthumbnailer
 #+end_src
 
 ** Gnome
