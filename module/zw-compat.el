@@ -21,7 +21,7 @@
     (use-package kkp
       :init (setq kkp-terminal-query-timeout 1)
       :bind (:map global-map
-                  ("s-S-z" . undo-fu-only-redo)
+                  ("s-S-z" . undo-redo)
                   ("s-S-s" . write-file)
                   ("s-S-u" . winner-redo)
                   ("s-S-b" . zw/right-side-window-toggle)
