@@ -441,20 +441,22 @@
   (select-frame-set-input-focus exwm-workspace--current))
 (defun zw/exwm-window-up ()
   (interactive)
-  (if (minibufferp)
+  (if (and (minibufferp)
+           exwm-workspace--minibuffer)
       (zw/exwm-focus-main)
     (windmove-up)))
 (defun zw/exwm-window-down ()
   (interactive)
   (unless (ignore-errors (windmove-down))
-    (if (active-minibuffer-window)
+    (if (and (active-minibuffer-window)
+             exwm-workspace--minibuffer)
         (zw/exwm-focus-minibuffer)
       (message "No buffer below."))))
 (bind-keys :map global-map
            ("s-<up>" . zw/exwm-window-up)
            ("s-<down>" . zw/exwm-window-down)
            :map minibuffer-mode-map
-           ("s-<up>" . zw/exwm-focus-main)
+           ("s-<up>" . zw/exwm-window-up)
            ("<down-mouse-1>" . zw/exwm-focus-minibuffer))
 
 ;; ** systemtray
