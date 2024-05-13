@@ -119,11 +119,13 @@
                       'face 'zw/modeline-process-active)
           " "))
 
-(let* ((panel-height (if (executable-find "polybar") (line-pixel-height) 0))
-       (float-width (floor (/ (frame-pixel-width) 1.1)))
-       (float-height (floor (/ (frame-pixel-height) 1.1)))
-       (float-x (/ (- (frame-pixel-width) float-width) 2))
-       (float-y (- (/ (- (frame-pixel-height) float-height) 2) panel-height))
+(let* ((panel-height (if (or (executable-find "polybar")
+                             tab-bar-mode)
+                         (line-pixel-height) 0))
+       (float-width (floor (/ (display-pixel-width) 1.1)))
+       (float-height (floor (/ (display-pixel-height) 1.1)))
+       (float-x (/ (- (display-pixel-width) float-width) 2))
+       (float-y (+ (/ (- (display-pixel-height) float-height) 2) panel-height))
        (float-header-line (list " "
                                 '(:eval (propertize (zw/modeline-buffer-name 30 "...")
                                                     'face 'zw/modeline-process-active))
@@ -149,21 +151,14 @@
                      height ,(floor (* float-width 0.3)))
                    default-config)
           ;; floating fixed geometry
-          ,(append `((string= "Emacs" exwm-class-name)
+          ,(append `((or (string= "Emacs" exwm-class-name)
+                         (string= "kitty" exwm-class-name))
                      floating t
                      char-mode t
                      x ,float-x
                      y ,float-y
                      width ,float-width
                      height ,float-height)
-                   default-config)
-          ;; floating char-mode
-          ,(append `((string= "kitty" exwm-class-name)
-                     floating t
-                     char-mode t
-                     max-width ,float-width
-                     max-height ,float-height
-                     border-width 3)
                    default-config)
           ;; tiling
           ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
