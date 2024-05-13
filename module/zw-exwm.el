@@ -998,24 +998,11 @@
                           (interactive)
                           (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
         (,(kbd "s-M") . exwm-floating-toggle-floating)
-        (,(kbd "s-+") . enlarge-window-horizontally)
-        (,(kbd "s-_") . shrink-window-horizontally)
-        (,(kbd "s-^") . enlarge-window)
-        (,(kbd "s-u") . winner-undo)
-        (,(kbd "s-U") . winner-redo)
-        ;; side bar
-        (,(kbd "s-b") . zw/dired-sidebar-toggle)
-        (,(kbd "s-B") . zw/right-side-window-toggle)
         ;; mininbuffer
-        (,(kbd "s-<down>") . zw/exwm-window-down)
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
-        ;; tab-bar
-        (,(kbd "s-k") . keycast-tab-bar-mode)
         ;; update emacs
         (,(kbd "<f5>") . zw/update-emacs-tangle-dotfiles)
-        ;; web search
-        (,(kbd "s-l") . emacs-websearch)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
@@ -1024,11 +1011,6 @@
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/launch-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
-        ;; git
-        (,(kbd "s-G") . magit-status)
-        ;; vterm
-        (,(kbd "s-e") . vterm)
-        (,(kbd "s-E") . multi-vterm)
         ;; launch app
         (,(kbd "C-s-k") . (lambda ()
                             (interactive)
@@ -1036,16 +1018,6 @@
         (,(kbd "C-s-f") . (lambda ()
                             (interactive)
                             (zw/launch-app-by-name "firefox")))
-        ;; switch tab
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "C-s-%s" i)) .
-                      (lambda ()
-                        (interactive)
-                        (let ((total-tabs (length (tab-bar-tabs))))
-                          (if (> ,i total-tabs)
-                              (tab-bar-select-tab total-tabs)
-                            (tab-bar-select-tab ,i))))))
-                  (number-sequence 1 9))
         ;; switch workspace
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "M-s-%d" i)) .
@@ -1071,9 +1043,36 @@
            ("s-<right>" . windmove-right)
            ("s-<up>" . zw/exwm-window-up)
            ("s-<down>" . zw/exwm-window-down)
+           ("s-+" . enlarge-window-horizontally)
+           ("s-_" . shrink-window-horizontally)
+           ("s-^" . enlarge-window)
+           ("s-u" . winner-undo)
+           ("s-U" . winner-redo)
+           ;; tab-bar
+           ("s-k" . keycast-tab-bar-mode)
+           ;; git
+           ("s-G" . magit-status)
+           ;; vterm
+           ("s-e" . vterm)
+           ("s-E" . multi-vterm)
+           ;; web search
+           ("s-l" . emacs-websearch)
+           ;; side bar
+           ("s-b" . zw/dired-sidebar-toggle)
+           ("s-B" . zw/right-side-window-toggle)
            :map vertico-map
            ("s-<tab>" . vertico-next)
            ("s-`" . vertico-next))
+
+(dolist (i (number-sequence 1 9))
+  (define-key exwm-mode-map
+              (kbd (format "C-s-%s" i))
+              (lambda ()
+                (interactive)
+                (let ((total-tabs (length (tab-bar-tabs))))
+                  (if (> i total-tabs)
+                      (tab-bar-select-tab total-tabs)
+                    (tab-bar-select-tab i))))))
 
 ;; * exwm enable
 (exwm-enable)
