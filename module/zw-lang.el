@@ -131,9 +131,8 @@
             (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
     (message "Switched to conda environment: %s\n
 In case of any error, you might want to install in your env:
-conda install -c conda-forge glib libxkbcommon
-conda install -c conda-forge ncurses
-conda install -c conda-forge gcc=12.1.0" (conda-env-name-to-dir conda-env-current-name)))
+conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
+             (conda-env-name-to-dir conda-env-current-name)))
   (defun zw/conda-postdeactivate ()
     (zw/conda-env-update)
     (setenv "LD_LIBRARY_PATH"))
