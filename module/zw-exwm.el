@@ -424,6 +424,7 @@
     (keyboard-quit)))
 (defun zw/exwm-toggle-minibuffer ()
   (interactive)
+  (exwm-systemtray--refresh)
   (when exwm-workspace--minibuffer
     (let* ((geometry (zw/exwm-get-geometry
                       exwm--connection
