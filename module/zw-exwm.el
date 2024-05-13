@@ -991,6 +991,8 @@
 (setq exwm-input-global-keys
       `(;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
+        ;; tab
+        (,(kbd "s-K") . tab-bar-mode)
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "C-s-e") . zw/exwm-floating-hide-all)
