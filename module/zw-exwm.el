@@ -162,7 +162,8 @@
                      floating t
                      char-mode t
                      max-width ,float-width
-                     max-height ,float-height)
+                     max-height ,float-height
+                     border-width 3)
                    default-config)
           ;; tiling
           ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
