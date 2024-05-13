@@ -1014,6 +1014,8 @@
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/launch-app)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
+        ;; web search
+        (,(kbd "s-l") . emacs-websearch)
         ;; launch app
         (,(kbd "C-s-k") . (lambda ()
                             (interactive)
@@ -1058,8 +1060,6 @@
            ;; vterm
            ("s-e" . vterm)
            ("s-E" . multi-vterm)
-           ;; web search
-           ("s-l" . emacs-websearch)
            ;; side bar
            ("s-b" . zw/dired-sidebar-toggle)
            ("s-B" . zw/right-side-window-toggle)
