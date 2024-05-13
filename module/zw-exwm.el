@@ -158,7 +158,8 @@
                      x ,float-x
                      y ,float-y
                      width ,float-width
-                     height ,float-height)
+                     height ,float-height
+                     border-width 3)
                    default-config)
           ;; tiling
           ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
