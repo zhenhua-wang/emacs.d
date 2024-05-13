@@ -516,7 +516,9 @@
       (remove-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
       (with-current-buffer "*scratch*"
         (display-line-numbers-mode 1)
-        (remove-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)))))
+        (remove-hook 'post-command-hook 'zw/exwm-scratch-post-command t)
+        (zw/exwm-set-ui t)
+        (set-frame-parameter exwm-workspace--current 'alpha-background 100)))))
 
 (add-hook 'exwm-workspace-switch-hook
           (lambda ()
