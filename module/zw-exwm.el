@@ -469,6 +469,28 @@
            ("s-<up>" . zw/exwm-window-up)
            ("<down-mouse-1>" . zw/exwm-focus-minibuffer))
 
+;; ** vertico posframe
+(defun zw/company-posframe-refposhandler (&optional frame)
+  (cond
+   ((bound-and-true-p exwm--connection)
+    (or (with-slots ((x* x) (y* y))
+            (exwm-workspace--workarea frame)
+          (cons x* y*))
+        (posframe-refposhandler-xwininfo frame)
+        (cons 0 0)))
+   (t nil)))
+(defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
+  (cond
+   ((bound-and-true-p exwm--connection) (cons 0 0))
+   (t . nil)))
+(setq company-posframe-quickhelp-show-params
+      (list :refposhandler 'zw/company-posframe-quickhelp-refposhandler
+            :poshandler 'company-posframe-quickhelp-right-poshandler
+            :timeout 60
+            :no-properties nil))
+(setq company-posframe-show-params
+      (list :refposhandler 'zw/company-posframe-refposhandler))
+
 ;; ** systemtray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)

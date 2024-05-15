@@ -242,29 +242,7 @@
     (let ((x-wait-for-event-timeout 0)
           (pgtk-wait-for-event-timeout 0))
       (apply orig-fun args)))
-  (advice-add 'company-posframe-show :around #'zw/company-posframe-show)
-  ;; handle exwm
-  (with-eval-after-load "exwm"
-    (defun zw/company-posframe-refposhandler (&optional frame)
-      (cond
-       ((bound-and-true-p exwm--connection)
-        (or (with-slots ((x* x) (y* y))
-                (exwm-workspace--workarea frame)
-              (cons x* y*))
-            (posframe-refposhandler-xwininfo frame)
-            (cons 0 0)))
-       (t nil)))
-    (defun zw/company-posframe-quickhelp-refposhandler (&optional frame)
-      (cond
-       ((bound-and-true-p exwm--connection) (cons 0 0))
-       (t . nil)))
-    (setq company-posframe-quickhelp-show-params
-          (list :refposhandler 'zw/company-posframe-quickhelp-refposhandler
-                :poshandler 'company-posframe-quickhelp-right-poshandler
-                :timeout 60
-                :no-properties nil))
-    (setq company-posframe-show-params
-          (list :refposhandler 'zw/company-posframe-refposhandler))))
+  (advice-add 'company-posframe-show :around #'zw/company-posframe-show))
 
 ;; ** backend
 (defun company-R-objects--prefix ()
