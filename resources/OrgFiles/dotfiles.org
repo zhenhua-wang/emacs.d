@@ -905,7 +905,7 @@ window {
     anchor:                      center;
     fullscreen:                  false;
     width:                       1300px;
-    border-radius:               10px;
+    border-radius:               0px;
     cursor:                      "default";
     background-color:            var(background-window);
 }
