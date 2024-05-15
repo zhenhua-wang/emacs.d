@@ -493,15 +493,24 @@
       (list :refposhandler 'zw/company-posframe-refposhandler))
 
 ;; vertico posframe
-(defun zw/posframe-poshandler-frame-center (info)
+(defun zw/vertico-posframe-poshandler (info)
   (cons (/ (- (display-pixel-width)
               (plist-get info :posframe-width))
            2)
         (/ (- (display-pixel-height)
               (plist-get info :posframe-height))
            2)))
-(setq vertico-posframe-poshandler 'zw/posframe-poshandler-frame-center
-      vertico-posframe-refposhandler 'zw/company-posframe-refposhandler)
+(defun zw/vertico-posframe-refposhandler (&optional frame)
+  (cond
+   ((bound-and-true-p exwm--connection)
+    (or (with-slots ((x* x) (y* y))
+            (exwm-workspace--workarea exwm-workspace--current)
+          (cons x* y*))
+        (posframe-refposhandler-xwininfo frame)
+        (cons 0 0)))
+   (t nil)))
+(setq vertico-posframe-poshandler 'zw/vertico-posframe-poshandler
+      vertico-posframe-refposhandler 'zw/vertico-posframe-refposhandler)
 
 ;; ** systemtray
 (require 'exwm-systemtray)
