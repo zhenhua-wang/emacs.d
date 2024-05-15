@@ -469,7 +469,8 @@
            ("s-<up>" . zw/exwm-window-up)
            ("<down-mouse-1>" . zw/exwm-focus-minibuffer))
 
-;; ** vertico posframe
+;; ** posframe
+;; company posframe
 (defun zw/company-posframe-refposhandler (&optional frame)
   (cond
    ((bound-and-true-p exwm--connection)
@@ -490,6 +491,17 @@
             :no-properties nil))
 (setq company-posframe-show-params
       (list :refposhandler 'zw/company-posframe-refposhandler))
+
+;; vertico posframe
+(defun zw/posframe-poshandler-frame-center (info)
+  (cons (/ (- (display-pixel-width)
+              (plist-get info :posframe-width))
+           2)
+        (/ (- (display-pixel-height)
+              (plist-get info :posframe-height))
+           2)))
+(setq vertico-posframe-poshandler 'zw/posframe-poshandler-frame-center
+      vertico-posframe-refposhandler 'zw/company-posframe-refposhandler)
 
 ;; ** systemtray
 (require 'exwm-systemtray)
