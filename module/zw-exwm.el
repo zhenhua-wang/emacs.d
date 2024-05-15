@@ -119,60 +119,66 @@
                       'face 'zw/modeline-process-active)
           " "))
 
-(let* ((panel-height (if (or (executable-find "polybar")
-                             tab-bar-mode)
-                         (line-pixel-height) 0))
-       (float-width (floor (/ (display-pixel-width) 1.1)))
-       (float-height (floor (/ (display-pixel-height) 1.1)))
-       (float-x (/ (- (display-pixel-width) float-width) 2))
-       (float-y (+ (/ (- (display-pixel-height) float-height) 2) panel-height))
-       (float-header-line (list " "
-                                '(:eval (propertize (zw/modeline-buffer-name 30 "...")
-                                                    'face 'zw/modeline-process-active))
-                                '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
-                                '(:eval (zw/exwm-float-header-line-rhs))))
-       (default-config (list 'tiling-mode-line nil
-                             'tiling-header-line nil
-                             'floating-mode-line nil
-                             'floating-header-line nil)))
-  (setq exwm-manage-configurations
-        `(;; plot buffer
-          ,(append `((and (zw/exwm-plot-buffer-p exwm-class-name)
-                          (cl-some 'identity
-                                   (cl-mapcar (lambda (buffer)
-                                                (with-current-buffer buffer
-                                                  (string= "Emacs" exwm-class-name)))
-                                              (buffer-list))))
-                     floating t
-                     x ,(- (+ float-x float-width)
-                           (floor (* float-width 0.3)))
-                     y ,float-y
-                     width ,(floor (* float-width 0.3))
-                     height ,(floor (* float-width 0.3)))
-                   default-config)
-          ;; floating fixed geometry
-          ,(append `((or (string= "Emacs" exwm-class-name)
-                         (string= "kitty" exwm-class-name))
-                     floating t
-                     char-mode t
-                     x ,float-x
-                     y ,float-y
-                     width ,float-width
-                     height ,float-height
-                     border-width 3)
-                   default-config)
-          ;; tiling
-          ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
-                         (and (eq (car exwm-window-type)
-                                  xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL)
-                              (member exwm-class-name '("firefox"))))
-                     floating nil)
-                   default-config)
-          ;; default
-          ,(append `(t floating t
-                       max-width ,float-width
-                       max-height ,float-height)
-                   default-config))))
+(defun zw/exwm-set-window-config ()
+  (let* ((panel-height (* (line-pixel-height) 1.2))
+         (panel-y (cond ((executable-find "polybar") (- panel-height))
+                        (tab-bar-mode panel-height)
+                        (t 0)))
+         (display-width (display-pixel-width))
+         (display-height (- (display-pixel-height) panel-height))
+         (float-width (floor (* display-width 0.9)))
+         (float-height (floor (* display-height 0.9)))
+         (float-x (floor (* (- display-width float-width) 0.5)))
+         (float-y (floor (+ (* (- display-height float-height) 0.5) panel-y)))
+         (float-header-line (list " "
+                                  '(:eval (propertize (zw/modeline-buffer-name 30 "...")
+                                                      'face 'zw/modeline-process-active))
+                                  '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
+                                  '(:eval (zw/exwm-float-header-line-rhs))))
+         (default-config (list 'tiling-mode-line nil
+                               'tiling-header-line nil
+                               'floating-mode-line nil
+                               'floating-header-line nil)))
+    (setq exwm-manage-configurations
+          `(;; plot buffer
+            ,(append `((and (zw/exwm-plot-buffer-p exwm-class-name)
+                            (cl-some 'identity
+                                     (cl-mapcar (lambda (buffer)
+                                                  (with-current-buffer buffer
+                                                    (string= "Emacs" exwm-class-name)))
+                                                (buffer-list))))
+                       floating t
+                       x ,(- (+ float-x float-width)
+                             (floor (* float-width 0.3)))
+                       y ,float-y
+                       width ,(floor (* float-width 0.3))
+                       height ,(floor (* float-width 0.3)))
+                     default-config)
+            ;; floating fixed geometry
+            ,(append `((or (string= "Emacs" exwm-class-name)
+                           (string= "kitty" exwm-class-name))
+                       floating t
+                       char-mode t
+                       x ,float-x
+                       y ,float-y
+                       width ,float-width
+                       height ,float-height
+                       border-width 3)
+                     default-config)
+            ;; tiling
+            ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
+                           (and (eq (car exwm-window-type)
+                                    xcb:Atom:_NET_WM_WINDOW_TYPE_NORMAL)
+                                (member exwm-class-name '("firefox"))))
+                       floating nil)
+                     default-config)
+            ;; default
+            ,(append `(t floating t
+                         max-width ,float-width
+                         max-height ,float-height)
+                     default-config)))))
+(add-hook 'exwm-init-hook 'zw/exwm-set-window-config)
+(add-hook 'tab-bar-mode-hook 'zw/exwm-set-window-config)
 
 (defun zw/exwm-floating-setup-hook ()
   (select-frame-set-input-focus exwm--floating-frame))
@@ -340,6 +346,10 @@
 (set-face-attribute 'mode-line nil :box nil)
 
 ;; ** tab bar
+(defun zw/exwm-toggle-tab-bar ()
+  (interactive)
+  (unless (executable-find "polybar")
+    (call-interactively 'tab-bar-mode)))
 (unless (executable-find "polybar")
   (require 'zw-tab-bar)
   (setq tab-bar-show t
@@ -362,6 +372,7 @@
                          zw/tab-bar-format-battery)))
 
 (when (executable-find "polybar")
+  (tab-bar-mode 0)
   (let* ((power-supply (shell-command-to-string "ls -1 /sys/class/power_supply/"))
          (power-lines (split-string power-supply "\n")))
     (dolist (line power-lines)
@@ -1035,7 +1046,7 @@
       `(;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
         (,(kbd "s-R") . exwm-reset)
         ;; tab
-        (,(kbd "s-K") . tab-bar-mode)
+        (,(kbd "s-K") . zw/exwm-toggle-tab-bar)
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "C-s-e") . zw/exwm-floating-hide-all)
