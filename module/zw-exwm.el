@@ -369,7 +369,8 @@
                          tab-bar-separator
                          zw/tab-bar-format-cpu-temp
                          zw/tab-bar-format-time
-                         zw/tab-bar-format-battery)))
+                         zw/tab-bar-format-battery))
+  (advice-add 'buffer-list :override 'tabspaces--buffer-list))
 
 (when (executable-find "polybar")
   (tab-bar-mode 0)
@@ -809,6 +810,19 @@
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
 
+;; ** exwm hide buffer
+(defun zw/exwm-hide-buffer (&optional buffer)
+  (interactive)
+  (let ((buffer (or buffer (current-buffer))))
+    (with-current-buffer buffer
+      (if exwm--floating-frame
+          (zw/exwm-floating-hide)
+        (bury-buffer))
+      ;; add the buried buffer back to frame's buffer-list
+      (set-frame-parameter
+       exwm-workspace--current 'buffer-list
+       (push buffer (frame-parameter nil 'buffer-list))))))
+
 ;; ** auto hide float
 (defun zw/exwm-floating-hide-all ()
   (interactive)
@@ -1050,9 +1064,7 @@
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
         (,(kbd "C-s-e") . zw/exwm-floating-hide-all)
-        (,(kbd "s-m") . (lambda ()
-                          (interactive)
-                          (if exwm--floating-frame (zw/exwm-floating-hide) (bury-buffer))))
+        (,(kbd "s-m") . zw/exwm-hide-buffer)
         (,(kbd "s-M") . exwm-floating-toggle-floating)
         ;; mininbuffer
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
