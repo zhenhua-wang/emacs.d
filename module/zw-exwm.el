@@ -208,12 +208,6 @@
          zw/previous-frame
        exwm-workspace--current))))
 
-(defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
-  (and (tabspaces--local-buffer-p buffer)
-       (funcall oldfun buffer)))
-(advice-add 'exwm-layout--other-buffer-predicate :around
-            'zw/exwm-tabspace-buffer-predicate)
-
 ;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers
@@ -1013,6 +1007,17 @@
   (add-to-list 'keycast-substitute-alist '(pdf-view-mouse-set-region nil nil))
   (add-to-list 'keycast-substitute-alist '(pdf-util-image-map-mouse-event-proxy nil nil))
   (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil)))
+
+;; ** tabspace
+(defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
+  (and (tabspaces--local-buffer-p buffer)
+       (funcall oldfun buffer)))
+(advice-add 'exwm-layout--other-buffer-predicate :around
+            'zw/exwm-tabspace-buffer-predicate)
+(defun zw/exwm-tabspace-buffer-filter (buffer-list)
+  (cl-remove-if-not 'tabspaces--local-buffer-p buffer-list))
+(advice-add 'zw/exwm-buffer-display-list :filter-return
+            'zw/exwm-tabspace-buffer-filter)
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
