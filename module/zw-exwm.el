@@ -617,6 +617,10 @@
 (setq window-divider-default-places t)
 (window-divider-mode 1)
 
+;; ** dashboard
+(with-eval-after-load "dashboard"
+  (add-hook 'exwm-init-hook 'dashboard-open))
+
 ;; * exwm tool
 ;; ** input method
 ;; (require 'exwm-xim)
