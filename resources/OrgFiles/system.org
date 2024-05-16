@@ -35,8 +35,7 @@ sudo make install
 ** Exwm
 #+begin_src sh
 # x11
-yay -S sddm xorg-xrdb xorg-xrandr qt5-graphicaleffects qt5-svg qt5-quickcontrols2 sddm-theme-catppuccin-git
-sudo systemctl enable sddm.service
+yay -S xorg-xrdb xorg-xrandr
 # required
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im
 # optional
