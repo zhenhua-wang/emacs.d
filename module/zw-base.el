@@ -98,9 +98,7 @@ The order of values may be different."
 (defun zw/dont-kill-scratch ()
   (if (not (equal (buffer-name) "*scratch*"))
       t
-    ;; (message "Not allowed to kill %s, burying instead" (buffer-name))
-    (bury-buffer)
-    nil))
+    (message "Not allowed to kill %s" (buffer-name))))
 
 ;; * Appearance
 ;; ** UI

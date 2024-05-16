@@ -168,7 +168,6 @@
   (tabspaces-use-filtered-buffers-as-default t)
   (tabspaces-default-tab "Main")
   (tabspaces-remove-to-default t)
-  (tabspaces-include-buffers '("*scratch*" "*Messages*"))
   ;; sessions
   (tabspaces-session t)
   (tabspaces-session-auto-restore t)
