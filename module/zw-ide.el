@@ -206,7 +206,7 @@
     (advice-add 'dashboard-open :before #'zw/tabspace-dashboard)
     (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard))
   ;; side window
-  (setq zw/right-side-window-buffer-list-function 'tabspaces--buffer-list))
+  (setq zw/right-side-window-buffer-list-predicate 'tabspaces--local-buffer-p))
 
 ;; * Provide
 (provide 'zw-ide)

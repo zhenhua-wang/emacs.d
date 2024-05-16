@@ -230,13 +230,17 @@ The order of values may be different."
          (window-height . shrink-window-if-larger-than-buffer))))
 
 ;; ** Right side window
-(defun zw/right-side-window--toggle (buffer-list)
+(defvar zw/right-side-window-buffer-list-predicate nil)
+(defun zw/right-side-window-toggle ()
   "Toggle right side windows."
+  (interactive)
   (let ((right-side-buffers (cl-remove-if-not
                              (lambda (buffer)
                                (with-current-buffer buffer
-                                 zw/right-side-window-mode))
-                             buffer-list)))
+                                 (and zw/right-side-window-buffer-list-predicate
+                                      (funcall zw/right-side-window-buffer-list-predicate buffer)
+                                      zw/right-side-window-mode)))
+                             (buffer-list))))
     (if right-side-buffers
         (let ((right-side-visible-buffers (cl-remove-if-not
                                            (lambda (buffer)
@@ -253,11 +257,6 @@ The order of values may be different."
               (display-buffer buffer)
               (set-window-dedicated-p (get-buffer-window buffer) t))))
       (message "No buffer in right side window."))))
-
-(defvar zw/right-side-window-buffer-list-function 'buffer-list)
-(defun zw/right-side-window-toggle ()
-  (interactive)
-  (zw/right-side-window--toggle (funcall zw/right-side-window-buffer-list-function)))
 
 (define-minor-mode zw/right-side-window-mode
   "Toggle right side window."
