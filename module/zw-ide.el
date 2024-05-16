@@ -195,7 +195,7 @@
   (with-eval-after-load "zw-tab-line"
     (defun zw/tabspace-filter-tab-line (old-func)
       (cl-remove-if-not (lambda (buffer)
-                          (memq buffer (tabspaces--buffer-list)))
+                          (tabspaces--local-buffer-p buffer))
                         (funcall old-func)))
     (advice-add 'zw/tab-line-buffer-group-buffers :around
                 #'zw/tabspace-filter-tab-line))
