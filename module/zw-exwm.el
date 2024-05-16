@@ -208,6 +208,12 @@
          zw/previous-frame
        exwm-workspace--current))))
 
+(defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
+  (and (tabspaces--local-buffer-p buffer)
+       (funcall oldfun buffer)))
+(advice-add 'exwm-layout--other-buffer-predicate :around
+            'zw/exwm-tabspace-buffer-predicate)
+
 ;; *** buffer config
 ;; plots
 (defvar zw/exwm-plot-buffers
@@ -371,8 +377,7 @@
                          tab-bar-separator
                          zw/tab-bar-format-cpu-temp
                          zw/tab-bar-format-time
-                         zw/tab-bar-format-battery))
-  (advice-add 'buffer-list :override 'tabspaces--buffer-list))
+                         zw/tab-bar-format-battery)))
 
 (when (executable-find "polybar")
   (tab-bar-mode 0)
