@@ -70,7 +70,7 @@
 ;; ** xsettings
 (require 'exwm-xsettings)
 (setq exwm-xsettings-theme '("Materia-light" . "Materia-dark") ;; light/dark
-      exwm-xsettings-icon-theme "Adwaita"
+      exwm-xsettings-icon-theme '("Papirus-Light" . "Papirus-Dark")
       exwm-xsettings `(("Xft/HintStyle" . "hintslight")
                        ("Xft/RGBA" . "rgb")
                        ("Xft/lcdfilter" . "lcddefault")
