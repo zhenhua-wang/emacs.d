@@ -62,7 +62,9 @@
   (when (executable-find "fcitx5")
     (zw/exwm-run-in-background "fcitx5"))
   (when (executable-find "polybar")
-    (zw/exwm-run-in-background "polybar panel")))
+    (zw/exwm-run-in-background "polybar panel"))
+  (when (executable-find "xfce4-power-manager")
+    (zw/exwm-run-in-background "xfce4-power-manager")))
 
 (add-hook 'exwm-init-hook #'zw/exwm-run-apps)
 
