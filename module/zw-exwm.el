@@ -173,7 +173,11 @@
 ;; *** floating window
 ;; set up floating window
 (defun zw/exwm-floating-setup-hook ()
-  (select-frame-set-input-focus exwm--floating-frame))
+  (select-frame-set-input-focus exwm--floating-frame)
+  ;; add buffer in the floating window to current workspace frame
+  (set-frame-parameter
+   exwm-workspace--current 'buffer-list
+   (push (current-buffer) (frame-parameter exwm-workspace--current 'buffer-list))))
 (add-hook 'exwm-floating-setup-hook 'zw/exwm-floating-setup-hook)
 
 ;; always run in main frame
@@ -755,11 +759,7 @@
     (with-current-buffer buffer
       (if exwm--floating-frame
           (zw/exwm-floating-hide)
-        (bury-buffer))
-      ;; add the buried buffer back to frame's buffer-list
-      (set-frame-parameter
-       exwm-workspace--current 'buffer-list
-       (push buffer (frame-parameter nil 'buffer-list))))))
+        (bury-buffer)))))
 
 ;; ** auto hide float
 (defun zw/exwm-floating-hide-all ()
@@ -947,6 +947,7 @@
 ;; ** tabspace
 (defun zw/exwm-tabspace-local-buffer-p (buffer)
   (or (tabspaces--local-buffer-p buffer)
+      (memq buffer (frame-parameter nil 'buried-buffer-list))
       ;; when in float buffer, also show buffers in current workspace
       (memq buffer (tabspaces--buffer-list exwm-workspace--current))))
 (defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
