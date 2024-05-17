@@ -101,12 +101,6 @@ The order of values may be different."
     (and (message "Not allowed to kill %s" (buffer-name))
          nil)))
 
-(defun zw/kill-current-buffer ()
-  (interactive)
-  (if (string= (buffer-name) "*scratch*")
-      (bury-buffer)
-    (kill-current-buffer)))
-
 ;; * Appearance
 ;; ** UI
 (dolist (mode '(window-divider-mode
@@ -763,7 +757,7 @@ The order of values may be different."
            ;; buffer operations
            ("C-<f5>" . revert-buffer-quick)
            ("s-r" . revert-buffer-quick)
-           ("s-q" . zw/kill-current-buffer)
+           ("s-q" . kill-current-buffer)
            ("s-=" . text-scale-increase)
            ("s--" . text-scale-decrease)
            ;; window operations
