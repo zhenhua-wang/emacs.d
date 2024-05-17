@@ -88,11 +88,12 @@
                                             'exwm-outer-id)
                            xcb:Atom:_NET_WM_WINDOW_TYPE_DESKTOP)
   ;; dock
-  (zw/exwm-set-window-type exwm--connection
-                           (frame-parameter exwm-workspace--minibuffer
-                                            'exwm-container)
-                           xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK)
-  (xcb:flush exwm--connection))
+  (when exwm-workspace--minibuffer
+    (zw/exwm-set-window-type exwm--connection
+                             (frame-parameter exwm-workspace--minibuffer
+                                              'exwm-container)
+                             xcb:Atom:_NET_WM_WINDOW_TYPE_DOCK)
+    (xcb:flush exwm--connection)))
 (add-hook 'exwm-workspace-switch-hook 'zw/exwm-workspace-set-type)
 
 ;; *** update title
@@ -434,7 +435,7 @@
 ;; ** minibuffer
 (setq exwm-workspace-minibuffer-position nil
       exwm-workspace-display-echo-area-timeout 0.1)
-(when (eq exwm-workspace-minibuffer-position 'bottom)
+(when exwm-workspace-minibuffer-position
   (vertico-posframe-mode 0)
   ;; detached minibuffer freezes on help message
   ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
