@@ -950,16 +950,19 @@
       (memq buffer (frame-parameter nil 'buried-buffer-list))
       ;; when in float buffer, also show buffers in current workspace
       (memq buffer (tabspaces--buffer-list exwm-workspace--current))))
+;; exwm other buffer predicate
 (defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
   (and (zw/exwm-tabspace-local-buffer-p buffer)
        (funcall oldfun buffer)))
 (advice-add 'exwm-layout--other-buffer-predicate :around
             'zw/exwm-tabspace-buffer-predicate)
+;; zw/exwm-buffer-display-list
 (defun zw/exwm-tabspace-buffer-filter (buffer-list)
   (cl-remove-if-not 'zw/exwm-tabspace-local-buffer-p
                     buffer-list))
 (advice-add 'zw/exwm-buffer-display-list :filter-return
             'zw/exwm-tabspace-buffer-filter)
+;; launch app
 (setq zw/launch-app-predicate 'zw/exwm-tabspace-local-buffer-p)
 
 ;; ** consult
