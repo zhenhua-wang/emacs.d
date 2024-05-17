@@ -1010,21 +1010,37 @@
   (add-to-list 'keycast-substitute-alist '(zw/tab-bar-touchscreen-tab-select nil nil)))
 
 ;; ** tabspace
+(defun zw/exwm-tabspace-local-buffer-p (buffer)
+  (or (tabspaces--local-buffer-p buffer)
+      ;; when in float buffer, also show buffers in current workspace
+      (memq buffer (tabspaces--buffer-list exwm-workspace--current))))
 (defun zw/exwm-tabspace-buffer-predicate (oldfun buffer)
-  (and (tabspaces--local-buffer-p buffer)
+  (and (zw/exwm-tabspace-local-buffer-p buffer)
        (funcall oldfun buffer)))
 (advice-add 'exwm-layout--other-buffer-predicate :around
             'zw/exwm-tabspace-buffer-predicate)
 (defun zw/exwm-tabspace-buffer-filter (buffer-list)
-  (cl-remove-if-not 'tabspaces--local-buffer-p buffer-list))
+  (cl-remove-if-not 'zw/exwm-tabspace-local-buffer-p
+                    buffer-list))
 (advice-add 'zw/exwm-buffer-display-list :filter-return
             'zw/exwm-tabspace-buffer-filter)
-(setq zw/launch-app-predicate 'tabspaces--local-buffer-p)
+(setq zw/launch-app-predicate 'zw/exwm-tabspace-local-buffer-p)
 
 ;; ** consult
 (setq consult--buffer-display
       (lambda (buffer &rest args)
         (exwm-workspace-switch-to-buffer buffer)))
+(setq consult--source-workspace
+      (list :name     "EXWM Workspace Buffer"
+            :narrow   ?w
+            :history  'buffer-name-history
+            :category 'buffer
+            :state    #'consult--buffer-state
+            :default  t
+            :items    (lambda () (consult--buffer-query
+                                  :predicate #'zw/exwm-tabspace-local-buffer-p
+                                  :sort 'visibility
+                                  :as #'buffer-name))))
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
