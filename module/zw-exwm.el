@@ -969,11 +969,14 @@
       (call-process-shell-command "rofi -show combi -dpi 1")
     (app-launcher-run-app)))
 
+(defvar zw/launch-app-predicate nil)
 (defun zw/launch-app-by-name (name)
   (let ((app (cl-find-if
               (lambda (buffer)
                 (with-current-buffer buffer
-                  (string= exwm-class-name name)))
+                  (and (or (not zw/launch-app-predicate)
+                           (funcall zw/launch-app-predicate buffer))
+                       (string= exwm-class-name name))))
               (buffer-list))))
     (if app
         (exwm-workspace-switch-to-buffer app)
@@ -1016,6 +1019,7 @@
   (cl-remove-if-not 'tabspaces--local-buffer-p buffer-list))
 (advice-add 'zw/exwm-buffer-display-list :filter-return
             'zw/exwm-tabspace-buffer-filter)
+(setq zw/launch-app-predicate 'tabspaces--local-buffer-p)
 
 ;; ** consult
 (setq consult--buffer-display
