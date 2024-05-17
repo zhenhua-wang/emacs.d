@@ -142,6 +142,7 @@
          :map magit-mode-map
          ("C" . zw/magit-change-repo)
          ("q" . zw/magit-kill-buffers)
+         :map magit-status-mode-map
          ("s-q" . zw/magit-kill-buffers))
   :commands (magit-status magit-get-current-branch)
   :config
