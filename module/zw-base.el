@@ -179,9 +179,7 @@ The order of values may be different."
 (dolist (mode '(magit-mode-hook
                 git-commit-setup-hook))
   (add-hook mode
-            (lambda () (setq-local display-buffer-base-action
-                                   '((display-buffer--maybe-same-window
-                                      display-buffer--maybe-pop-up-frame-or-window))))))
+            (lambda () (setq-local display-buffer-base-action '(nil)))))
 
 ;; buffer placement rules
 (setq display-buffer-alist
