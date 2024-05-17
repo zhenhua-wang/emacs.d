@@ -287,20 +287,20 @@ fade-in-step = 0.028;
 fade-out-step = 0.03;
 fade-exclude = ["class_g != 'Dunst'"];
 # shadow
-shadow = true;
-shadow-radius = 10;
-shadow-offset-x = -10;
-shadow-offset-y = -10;
-shadow-exclude = [
-  "window_type = 'menu'",
-  "window_type = 'dropdown_menu'",
-  "window_type = 'popup_menu'",
-  "window_type = 'tooltip'",
-  "window_type = 'desktop'",
-  "window_type = 'utility'",
-  "window_type = 'notification'",
-  "class_g = 'Plank'"
-];
+# shadow = true;
+# shadow-radius = 10;
+# shadow-offset-x = -10;
+# shadow-offset-y = -10;
+# shadow-exclude = [
+#   "window_type = 'menu'",
+#   "window_type = 'dropdown_menu'",
+#   "window_type = 'popup_menu'",
+#   "window_type = 'tooltip'",
+#   "window_type = 'desktop'",
+#   "window_type = 'utility'",
+#   "window_type = 'notification'",
+#   "class_g = 'Plank'"
+# ];
 #+end_src
 
 * Fcitx5
