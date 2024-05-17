@@ -21,7 +21,7 @@
  exwm-workspace-show-all-buffers nil
  ;; able to move to buffer in inactive space
  exwm-layout-show-all-buffers nil
- exwm-floating-border-width 0
+ exwm-floating-border-width 3
  exwm-floating-border-color (face-background 'highlight)
  ;; https://github.com/ch11ng/exwm/issues/924
  x-no-window-manager t)
