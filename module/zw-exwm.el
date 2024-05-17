@@ -1037,10 +1037,8 @@
             :category 'buffer
             :state    #'consult--buffer-state
             :default  t
-            :items    (lambda () (consult--buffer-query
-                                  :predicate #'zw/exwm-tabspace-local-buffer-p
-                                  :sort 'visibility
-                                  :as #'buffer-name))))
+            :items    (lambda () (cl-mapcar 'buffer-name
+                                            (zw/exwm-buffer-display-list)))))
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
