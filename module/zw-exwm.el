@@ -755,11 +755,7 @@
     (with-current-buffer buffer
       (if exwm--floating-frame
           (zw/exwm-floating-hide)
-        (bury-buffer))
-      ;; add the buried buffer back to frame's buffer-list
-      (set-frame-parameter
-       exwm-workspace--current 'buffer-list
-       (push buffer (frame-parameter nil 'buffer-list))))))
+        (bury-buffer)))))
 
 ;; ** auto hide float
 (defun zw/exwm-floating-hide-all ()
