@@ -39,7 +39,7 @@ yay -S xorg-xrdb xorg-xrandr
 # required
 yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im
 # optional
-yay -S rofi rofi-calc fcitx5-skin-adwaita-dark materia-gtk-theme papirus-icon-theme flameshot thunar tumbler ffmpegthumbnailer xfce4-power-manager
+yay -S rofi rofi-calc fcitx5-skin-adwaita-dark materia-gtk-theme papirus-icon-theme flameshot thunar tumbler ffmpegthumbnailer
 #+end_src
 
 ** Gnome
