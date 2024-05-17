@@ -1019,6 +1019,11 @@
 (advice-add 'zw/exwm-buffer-display-list :filter-return
             'zw/exwm-tabspace-buffer-filter)
 
+;; ** consult
+(setq consult--buffer-display
+      (lambda (buffer &rest args)
+        (exwm-workspace-switch-to-buffer buffer)))
+
 ;; * exwm keymap
 ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
