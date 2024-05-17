@@ -108,17 +108,6 @@
 (add-hook 'exwm-update-title-hook #'zw/exwm-update-title)
 
 ;; *** window config
-(defun zw/exwm-float-header-line-rhs ()
-  (concat (propertize (zw/exwm-modeline-toggle-window-input)
-                      'face 'zw/modeline-process-active)
-          " "
-          (propertize (zw/exwm-modeline-toggle-window-type)
-                      'face 'zw/modeline-process-active)
-          " "
-          (propertize (zw/exwm-modeline-float-hide)
-                      'face 'zw/modeline-process-active)
-          " "))
-
 (defun zw/exwm-set-window-config ()
   (let* ((panel-height (* (line-pixel-height) 1.2))
          (panel-y (cond ((executable-find "polybar") (- panel-height))
@@ -180,17 +169,44 @@
 (add-hook 'exwm-init-hook 'zw/exwm-set-window-config)
 (add-hook 'tab-bar-mode-hook 'zw/exwm-set-window-config)
 
+;; *** floating window
+;; set up floating window
 (defun zw/exwm-floating-setup-hook ()
   (select-frame-set-input-focus exwm--floating-frame))
 (add-hook 'exwm-floating-setup-hook 'zw/exwm-floating-setup-hook)
 
+;; always run in main frame
+(defun zw/exwm-floating-function-run-in-main (&rest args)
+  (when exwm--floating-frame
+    (select-frame-set-input-focus exwm-workspace--current)))
+(dolist (func '(find-file
+                switch-to-buffer
+                exwm-workspace-switch-to-buffer
+                vterm multi-vterm
+                zw/dired-sidebar-toggle
+                zw/right-side-window-toggle
+                magit-status
+                helpful-variable
+                helpful-callable
+                helpful-key))
+  (advice-add func :before 'zw/exwm-floating-function-run-in-main))
+
+;; disabled functions in floating window
+(defun zw/exwm-floating-function-disable (func &rest args)
+  (if exwm--floating-frame
+      (message "This command is disabled in floating window")
+    (apply func args)))
+(dolist (func '(split-window-below
+                split-window-right))
+  (advice-add func :around 'zw/exwm-floating-function-disable))
+
 ;; focus last frame after closing floating window
-(defun zw/exwm-focus-preview-frame ()
+(defun zw/exwm-focus-previous-frame ()
   (when (and exwm--floating-frame
              (frame-live-p zw/previous-frame)
              (frame-visible-p zw/previous-frame))
     (select-frame-set-input-focus zw/previous-frame)))
-(add-hook 'kill-buffer-hook 'zw/exwm-focus-preview-frame)
+(add-hook 'kill-buffer-hook 'zw/exwm-focus-previous-frame)
 
 (defun zw/exwm-floating-hide ()
   "Hide the current floating X window and focus previous window."
@@ -205,6 +221,17 @@
               (frame-visible-p zw/previous-frame))
          zw/previous-frame
        exwm-workspace--current))))
+
+(defun zw/exwm-float-header-line-rhs ()
+  (concat (propertize (zw/exwm-modeline-toggle-window-input)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-toggle-window-type)
+                      'face 'zw/modeline-process-active)
+          " "
+          (propertize (zw/exwm-modeline-float-hide)
+                      'face 'zw/modeline-process-active)
+          " "))
 
 ;; *** buffer config
 ;; plots
@@ -642,29 +669,6 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
-(defun zw/exwm-floating-function-run-in-main (&rest args)
-  (when exwm--floating-frame
-    (select-frame-set-input-focus exwm-workspace--current)))
-(dolist (func '(find-file
-                switch-to-buffer
-                exwm-workspace-switch-to-buffer
-                vterm multi-vterm
-                zw/dired-sidebar-toggle
-                zw/right-side-window-toggle
-                magit-status
-                helpful-variable
-                helpful-callable
-                helpful-key))
-  (advice-add func :before 'zw/exwm-floating-function-run-in-main))
-
-(defun zw/exwm-floating-function-disable (func &rest args)
-  (if exwm--floating-frame
-      (message "This command is disabled in floating window")
-    (apply func args)))
-(dolist (func '(split-window-below
-                split-window-right))
-  (advice-add func :around 'zw/exwm-floating-function-disable))
-
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
     (concat (propertize " " 'display `(space :align-to center))
