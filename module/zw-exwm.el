@@ -1123,7 +1123,7 @@
            ("s-q" . (lambda ()
                       (interactive)
                       (when (y-or-n-p (format "Confirm kill %s? " exwm-class-name))
-                        (kill-this-buffer))))
+                        (zw/kill-current-buffer))))
            ;; window
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
