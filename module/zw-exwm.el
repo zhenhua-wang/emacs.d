@@ -755,7 +755,11 @@
     (with-current-buffer buffer
       (if exwm--floating-frame
           (zw/exwm-floating-hide)
-        (bury-buffer)))))
+        (bury-buffer))
+      ;; add the buried buffer back to frame's buffer-list
+      (set-frame-parameter
+       exwm-workspace--current 'buffer-list
+       (push buffer (frame-parameter nil 'buffer-list))))))
 
 ;; ** auto hide float
 (defun zw/exwm-floating-hide-all ()
@@ -968,8 +972,10 @@
             :category 'buffer
             :state    #'consult--buffer-state
             :default  t
-            :items    (lambda () (cl-mapcar 'buffer-name
-                                            (zw/exwm-buffer-display-list)))))
+            :items    (lambda () (consult--buffer-query
+                                  :predicate #'zw/exwm-tabspace-local-buffer-p
+                                  :sort 'visibility
+                                  :as #'buffer-name))))
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
