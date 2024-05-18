@@ -652,6 +652,9 @@
 (with-eval-after-load "dashboard"
   (add-hook 'exwm-init-hook 'dashboard-open))
 
+;; ** fringe
+(add-hook 'exwm-init-hook 'fringe-mode)
+
 ;; * exwm tool
 ;; ** input method
 ;; (require 'exwm-xim)
