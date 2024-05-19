@@ -930,8 +930,9 @@
   (setq cpu-temperature-update-interval 3)
   (defun zw/exwm-cpu-temperature-init ()
     (unless cpu-temperature--temp-path
-      (setq cpu-temperature-method 'hwmon)
-      (cpu-temperature-set-thermal-zone))))
+      (setq cpu-temperature-method 'hwmon
+            cpu-temperature-hwmon-type "Composite")
+      (cpu-temperature-set-path))))
 
 ;; ** winner mode
 (defun zw/winner-remove-dead-frame (&rest args)
