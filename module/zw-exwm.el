@@ -677,6 +677,16 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
+(defun zw/exwm-switch-to-first-emacs-buffer ()
+  (interactive)
+  (exwm-workspace-switch-to-buffer
+   (cl-find-if-not
+    (lambda (buffer) (or (with-current-buffer buffer exwm--id)
+                         (minibufferp buffer)))
+    (if exwm--floating-frame
+        (tabspaces--buffer-list exwm-workspace--current)
+      (tabspaces--buffer-list)))))
+
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
     (concat (propertize " " 'display `(space :align-to center))
@@ -1048,7 +1058,7 @@
         (,(kbd "s-K") . zw/exwm-toggle-tab-bar)
         ;; window
         (,(kbd "s-D") . zw/exwm-show-desktop)
-        (,(kbd "C-s-e") . zw/exwm-floating-hide-all)
+        (,(kbd "C-s-e") . zw/exwm-switch-to-first-emacs-buffer)
         (,(kbd "s-m") . zw/exwm-hide-buffer)
         (,(kbd "s-M") . exwm-floating-toggle-floating)
         ;; mininbuffer
