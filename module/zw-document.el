@@ -12,7 +12,6 @@
 ;; * Org mode
 ;; ** main
 (use-package org
-  :straight (:type built-in)
   :mode (("\\.org$" . org-mode))
   :bind ((:map org-mode-map
                ("C-c =" . nil)
