@@ -924,9 +924,14 @@
 (use-package emacs-cpu-temperature
   :demand t
   :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
-  :hook ((exwm-init . cpu-temperature-mode))
+  :hook ((exwm-init . cpu-temperature-mode)
+         (cpu-temperature-mode . zw/exwm-cpu-temperature-init))
   :config
-  (setq cpu-temperature-update-interval 3))
+  (setq cpu-temperature-update-interval 3)
+  (defun zw/exwm-cpu-temperature-init ()
+    (unless cpu-temperature--temp-path
+      (setq cpu-temperature-method 'hwmon)
+      (cpu-temperature-set-thermal-zone))))
 
 ;; ** winner mode
 (defun zw/winner-remove-dead-frame (&rest args)
