@@ -178,7 +178,7 @@
            (face (if valid-percentage?
                      (cond (charging? 'zw/tab-bar-tab-battery-load-charging)
                            ((< percentage battery-load-critical) 'zw/tab-bar-tab-battery-load-critical)
-                           ((< percentage 40) 'zw/tab-bar-tab-battery-load-low)
+                           ((< percentage 50) 'zw/tab-bar-tab-battery-load-low)
                            (t 'zw/tab-bar-tab-battery-load-default))
                    'error))
            (icon (if valid-percentage?
