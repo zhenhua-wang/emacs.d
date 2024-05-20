@@ -703,8 +703,6 @@
          ;; (buffer (completing-read "EXWM switch to buffer: " buffer-names nil t)))
          (buffer (consult--read buffer-names
                                 :prompt "EXWM switch to buffer: "
-                                :state (consult--exwm-buffer-preview)
-                                ;; :preview-key '(:debounce 0.2 any)
                                 :require-match t)))
     (exwm-workspace-switch-to-buffer buffer)))
 
