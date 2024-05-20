@@ -779,6 +779,7 @@
     (if (= height (display-pixel-height))
         (zw/exwm--hide-desktop)
       (progn
+        (switch-to-buffer nil)
         (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)
         (zw/exwm--show-desktop))))
   (xcb:flush exwm--connection))
