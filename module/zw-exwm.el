@@ -645,7 +645,9 @@
 
 ;; ** Window divider
 ;; enable divider at right and bottom
-(setq window-divider-default-places t)
+(setq window-divider-default-places t
+      window-divider-default-right-width 6
+      window-divider-default-bottom-width 1)
 (window-divider-mode 1)
 
 ;; ** dashboard
