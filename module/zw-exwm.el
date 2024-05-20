@@ -737,12 +737,35 @@
 (advice-add 'nerd-icons-completion-get-icon :around #'zw/nerd-icons-completion-get-icon)
 
 ;; ** exwm show desktop
-(defun zw/exwm-show-desktop ()
+(defun zw/exwm-toggle-scratch ()
   (interactive)
   (zw/exwm-floating-hide-all)
   (if (string= (buffer-name) "*scratch*")
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
+
+(defun zw/exwm-toggle-desktop ()
+  (interactive)
+  (exwm-systemtray--refresh)
+  (let* ((geometry (zw/exwm-get-geometry
+                    exwm--connection
+                    (frame-parameter exwm-workspace--current
+                                     'exwm-container)))
+         (height (alist-get 'height geometry)))
+    (if (> height 1)
+        (progn
+          (switch-to-buffer "*scratch*")
+          (exwm--set-geometry (frame-parameter exwm-workspace--current
+                                               'exwm-container)
+                              nil nil 1 1))
+      (progn
+        (switch-to-buffer nil)
+        (exwm--set-geometry (frame-parameter exwm-workspace--current
+                                             'exwm-container)
+                            nil nil
+                            (frame-pixel-width exwm-workspace--current)
+                            (frame-pixel-height exwm-workspace--current)))))
+  (xcb:flush exwm--connection))
 
 ;; ** exwm hide buffer
 (defun zw/exwm-hide-buffer (&optional buffer)
@@ -1036,7 +1059,7 @@
         ;; tab
         (,(kbd "s-K") . zw/exwm-toggle-tab-bar)
         ;; window
-        (,(kbd "s-D") . zw/exwm-show-desktop)
+        (,(kbd "s-D") . zw/exwm-toggle-desktop)
         (,(kbd "C-s-e") . zw/exwm-switch-to-first-emacs-buffer)
         (,(kbd "s-m") . zw/exwm-hide-buffer)
         (,(kbd "s-M") . exwm-floating-toggle-floating)
