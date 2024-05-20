@@ -173,6 +173,9 @@
   (tabspaces-session t)
   (tabspaces-session-auto-restore t)
   :init
+  (defun zw/tabspace-local-buffer-p (buffer)
+    (or (tabspaces--local-buffer-p buffer)
+        (memq buffer (frame-parameter nil 'buried-buffer-list))))
   ;; filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
     ;; hide full buffer list (still available with "b" prefix)
@@ -186,7 +189,7 @@
             :state    #'consult--buffer-state
             :default  t
             :items    (lambda () (consult--buffer-query
-                                  :predicate #'tabspaces--local-buffer-p
+                                  :predicate #'zw/tabspace-local-buffer-p
                                   :sort 'visibility
                                   :as #'buffer-name)))
       "Set workspace buffer list for consult-buffer.")
@@ -195,7 +198,7 @@
   (with-eval-after-load "zw-tab-line"
     (defun zw/tabspace-filter-tab-line (old-func)
       (cl-remove-if-not (lambda (buffer)
-                          (tabspaces--local-buffer-p buffer))
+                          (zw/tabspace-local-buffer-p buffer))
                         (funcall old-func)))
     (advice-add 'zw/tab-line-buffer-group-buffers :around
                 #'zw/tabspace-filter-tab-line))
@@ -206,7 +209,7 @@
     (advice-add 'dashboard-open :before #'zw/tabspace-dashboard)
     (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard))
   ;; side window
-  (setq zw/right-side-window-buffer-list-predicate 'tabspaces--local-buffer-p))
+  (setq zw/right-side-window-buffer-list-predicate 'zw/tabspace-local-buffer-p))
 
 ;; * Provide
 (provide 'zw-ide)

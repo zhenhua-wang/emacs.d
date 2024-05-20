@@ -976,8 +976,7 @@
 
 ;; ** tabspace
 (defun zw/exwm-tabspace-local-buffer-p (buffer)
-  (or (tabspaces--local-buffer-p buffer)
-      (memq buffer (frame-parameter nil 'buried-buffer-list))
+  (or (zw/tabspace-local-buffer-p buffer)
       ;; when in float buffer, also show buffers in current workspace
       (memq buffer (tabspaces--buffer-list exwm-workspace--current))))
 
