@@ -679,9 +679,16 @@
   :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
+(defun zw/exwm--switch-to-buffer-show-desktop (buffer &rest args)
+  "Switch to buffer and show desktop if hidden"
+  (exwm-workspace-switch-to-buffer buffer)
+  ;; show desktop if hidden
+  (zw/exwm--show-desktop)
+  (xcb:flush exwm--connection))
+
 (defun zw/exwm-switch-to-first-emacs-buffer ()
   (interactive)
-  (exwm-workspace-switch-to-buffer
+  (zw/exwm--switch-to-buffer-show-desktop
    (cl-find-if-not
     (lambda (buffer) (or (with-current-buffer buffer exwm--id)
                          (minibufferp buffer)))
@@ -706,7 +713,7 @@
          (buffer (consult--read buffer-names
                                 :prompt "EXWM switch to buffer: "
                                 :require-match t)))
-    (exwm-workspace-switch-to-buffer buffer)))
+    (zw/exwm--switch-to-buffer-show-desktop buffer)))
 
 ;; register exwm buffer switch marginalia
 (with-eval-after-load "marginalia"
@@ -744,6 +751,21 @@
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
 
+(defun zw/exwm--hide-desktop ()
+  (switch-to-buffer "*scratch*")
+  (exwm--set-geometry (frame-parameter exwm-workspace--current
+                                       'exwm-container)
+                      nil nil
+                      (frame-pixel-width exwm-workspace--current)
+                      (floor (* 1.11 (pixel-line-height)))))
+
+(defun zw/exwm--show-desktop ()
+  (exwm--set-geometry (frame-parameter exwm-workspace--current
+                                       'exwm-container)
+                      nil nil
+                      (frame-pixel-width exwm-workspace--current)
+                      (frame-pixel-height exwm-workspace--current)))
+
 (defun zw/exwm-toggle-desktop ()
   (interactive)
   (exwm-systemtray--refresh)
@@ -752,19 +774,11 @@
                     (frame-parameter exwm-workspace--current
                                      'exwm-container)))
          (height (alist-get 'height geometry)))
-    (if (> height 1)
-        (progn
-          (switch-to-buffer "*scratch*")
-          (exwm--set-geometry (frame-parameter exwm-workspace--current
-                                               'exwm-container)
-                              nil nil 1 1))
+    (if (= height (display-pixel-height))
+        (zw/exwm--hide-desktop)
       (progn
         (switch-to-buffer nil)
-        (exwm--set-geometry (frame-parameter exwm-workspace--current
-                                             'exwm-container)
-                            nil nil
-                            (frame-pixel-width exwm-workspace--current)
-                            (frame-pixel-height exwm-workspace--current)))))
+        (zw/exwm--show-desktop))))
   (xcb:flush exwm--connection))
 
 ;; ** exwm hide buffer
@@ -929,7 +943,7 @@
                        (string= exwm-class-name name))))
               (buffer-list))))
     (if app
-        (exwm-workspace-switch-to-buffer app)
+        (zw/exwm--switch-to-buffer-show-desktop app)
       (zw/exwm-run-in-background name))))
 
 ;; ** CPU temperature
@@ -985,9 +999,7 @@
 (setq zw/launch-app-predicate 'zw/exwm-tabspace-local-buffer-p)
 
 ;; ** consult
-(setq consult--buffer-display
-      (lambda (buffer &rest args)
-        (exwm-workspace-switch-to-buffer buffer)))
+(setq consult--buffer-display #'zw/exwm--switch-to-buffer-show-desktop)
 (setq consult--source-workspace
       (list :name     "EXWM Workspace Buffer"
             :narrow   ?w
