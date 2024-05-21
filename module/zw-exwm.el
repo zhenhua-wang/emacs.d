@@ -78,6 +78,11 @@
                        ("Xft/Hinting" . 1)))
 (exwm-xsettings-enable)
 
+;; ** background
+(add-hook 'exwm-workspace-switch-hook
+          (lambda ()
+            (set-frame-parameter exwm-workspace--current 'alpha 95)))
+
 ;; ** window management
 ;; *** ewmh window type
 ;; set ewmh type
@@ -560,55 +565,6 @@
 (exwm-systemtray-enable)
 (setq exwm-systemtray-background-color 'transparent
       exwm-systemtray-icon-gap 1)
-
-;; ** desktop
-(defun zw/exwm-set-ui (predicate)
-  (with-current-buffer "*scratch*"
-    (if predicate
-        (progn
-          (setq-local cursor-type (default-value 'cursor-type)
-                      mode-line-format (default-value 'mode-line-format))
-          (set-frame-parameter exwm-workspace--current 'alpha-background 98))
-      (progn
-        (setq-local cursor-type nil
-                    mode-line-format nil)
-        (set-frame-parameter exwm-workspace--current 'alpha-background 0)))))
-
-(defun zw/exwm-desktop-window-config ()
-  (cond ((or (not (eq (selected-frame) exwm-workspace--current))
-             (minibufferp)) nil)
-        ((string= (buffer-name) "*scratch*")
-         (let ((n-window (length (window-list))))
-           (if (and (= n-window 1)
-                    (= (buffer-size) 0))
-               (zw/exwm-set-ui nil)
-             (zw/exwm-set-ui t))))
-        (t (zw/exwm-set-ui t))))
-
-(defun zw/exwm-scratch-post-command ()
-  (when this-command
-    (zw/exwm-desktop-window-config)))
-
-(define-minor-mode zw-exwm-desktop-mode
-  "Toggle zw-exmm-deskto mode."
-  :global t
-  (if zw-exwm-desktop-mode
-      (progn
-        (add-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
-        (with-current-buffer "*scratch*"
-          (display-line-numbers-mode -1)
-          (add-hook 'post-command-hook 'zw/exwm-scratch-post-command nil t)))
-    (progn
-      (remove-hook 'window-configuration-change-hook 'zw/exwm-desktop-window-config)
-      (with-current-buffer "*scratch*"
-        (display-line-numbers-mode 1)
-        (remove-hook 'post-command-hook 'zw/exwm-scratch-post-command t)
-        (zw/exwm-set-ui t)
-        (set-frame-parameter exwm-workspace--current 'alpha-background 100)))))
-
-(add-hook 'exwm-workspace-switch-hook
-          (lambda ()
-            (set-frame-parameter exwm-workspace--current 'alpha 95)))
 
 ;; ** wallpaper
 (defvar zw/exwm-wallpaper-type-regexp
