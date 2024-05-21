@@ -767,9 +767,11 @@
                       nil nil
                       (frame-pixel-width exwm-workspace--current)
                       (frame-pixel-height exwm-workspace--current)))
-(advice-add 'tab-bar-select-tab :after
-            (lambda (&rest args)
-              (zw/exwm--show-desktop)))
+(add-hook 'exwm-init-hook
+          (lambda ()
+            (advice-add 'tab-bar-select-tab :after
+                        (lambda (&rest args)
+                          (zw/exwm--show-desktop)))))
 
 (defun zw/exwm-toggle-desktop ()
   (interactive)
