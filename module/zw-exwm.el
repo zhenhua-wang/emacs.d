@@ -727,7 +727,8 @@
           (lambda ()
             (advice-add 'tab-bar-select-tab :after
                         (lambda (&rest args)
-                          (zw/exwm--show-desktop)))))
+                          (zw/exwm--show-desktop)
+                          (xcb:flush exwm--connection)))))
 
 (defun zw/exwm-toggle-desktop ()
   (interactive)
