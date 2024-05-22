@@ -835,15 +835,10 @@
             (setq artist (match-string 1 line)))
            ((string-match icon-rx line)
             (setq icon (match-string 1 line)))))
-        (if (string= status "Playing")
-            (zw/exwm-dunst-send-message
-             (format "-r 3 -i %s" icon)
-             (format "\"%s - Paused\"" device)
-             (format "\"%s\n%s\"" artist title))
-          (zw/exwm-dunst-send-message
-           (format "-r 3 -i %s" icon)
-           (format "\"%s - Playing\"" device)
-           (format "\"%s\n%s\"" artist title))))))
+        (zw/exwm-dunst-send-message
+         (format "-r 3 -i %s" icon)
+         (format "\"%s - %s\"" device status)
+         (format "\"%s\n%s\"" artist title)))))
   ;; config
   (setq desktop-environment-volume-normal-increment "5%+"
         desktop-environment-volume-normal-decrement "5%-"
