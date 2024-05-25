@@ -61,13 +61,7 @@
         vertico-posframe-parameters '((left-fringe . 16)
                                       (right-fringe . 16))
         vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
-                                           (/ (display-pixel-height) (frame-char-width) 0.9))))
-  :config
-  (defun vertico-posframe-init (&rest args)
-    (with-current-buffer vertico-posframe--buffer
-      (setq-local cursor-type 'bar
-                  cursor-in-non-selected-windows 'bar)))
-  (advice-add 'vertico-posframe--show :after 'vertico-posframe-init))
+                                           (/ (display-pixel-height) (frame-char-width) 0.9)))))
 
 ;; * Marginalia
 (use-package marginalia

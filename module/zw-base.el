@@ -110,7 +110,6 @@ The order of values may be different."
 
 (setq-default use-dialog-box nil
               visible-bell t
-              cursor-type '(bar . 2)
               cursor-in-non-selected-windows nil
               indent-tabs-mode nil
               enable-recursive-minibuffers t)
