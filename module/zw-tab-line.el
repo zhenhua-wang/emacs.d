@@ -247,6 +247,51 @@
 (add-hook 'after-change-major-mode-hook 'zw/tab-line-hide)
 (add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
 
+;; * drag move
+(setq my-tab-line-buffer-list ())
+
+;; Filter special buffers from tab-line while maintaining current order
+(setq tab-line-tabs-function
+      (lambda ()
+	(let* ((current-tabs (--select (buffer-file-name it) (buffer-list)))
+	       (intersect-tabs (--select (member it current-tabs) my-tab-line-buffer-list))
+	       (new-tabs (--select (not (member it my-tab-line-buffer-list)) current-tabs)))
+	  (setq my-tab-line-buffer-list (append intersect-tabs new-tabs)))))
+
+(defun tab-line-mouse-move-tab (event)
+  "Move a tab to a different position on the tab line.
+This command should be bound to a drag event.  It moves the tab
+at the mouse-down event to the position at mouse-up event."
+  (interactive "e")
+  (let* ((from-str (posn-string (event-start event)))
+         (to-str (posn-string (event-end event)))
+	 (from-rowcol (posn-col-row (event-start event)))
+	 (to-rowcol (posn-col-row (event-end event)))
+	 (from (tab-line--get-tab-property 'tab (car from-str)))
+         (to (tab-line--get-tab-property 'tab (car to-str))))
+
+    (message "move %s p:%s to %s p:%s" from-str (car from-rowcol) to-str (car to-rowcol))
+
+    ;; Only adjust if the two tabs are different
+    ;; if going left to right add on the right and vice versa if going right to left
+    (unless (or (eq from to) (eq from t) (eq to t))
+      (setq my-tab-line-buffer-list
+	    (reverse (let (value)
+		       (dolist (elt my-tab-line-buffer-list value)
+			 ;; add the element in its new position moving leftwards
+			 (if (and (equal elt (get-buffer to)) (> (car from-rowcol) (car to-rowcol)))
+			     (setq value (cons (get-buffer from) value)))
+			 ;; add all other elements in old position
+			 (if (not (equal elt (get-buffer from)))
+			     (setq value (cons elt value)))
+			 ;; add the element in its new position moving rightwards
+			 (if (and (equal elt (get-buffer to)) (>= (car to-rowcol) (car from-rowcol)))
+			     (setq value (cons (get-buffer from) value)))
+			 ))))
+      (force-mode-line-update))))
+
+(keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab)
+
 ;; * keymap
 ;; select tab
 (defun zw/tab-line-select (index)
