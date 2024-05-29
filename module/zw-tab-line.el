@@ -261,27 +261,26 @@ at the mouse-down event to the position at mouse-up event."
          (to (tab-line--get-tab-property 'tab (car to-str)))
          (group (zw/tab-line-buffer-group (get-buffer from)))
          (group-buffers (gethash group zw/tab-line-group--hash-table)))
-
-    (message "move %s p:%s to %s p:%s" from-str (car from-rowcol) to-str (car to-rowcol))
-
     ;; Only adjust if the two tabs are different
     ;; if going left to right add on the right and vice versa if going right to left
-    (unless (or (eq from to) (eq from t) (eq to t))
-      (puthash group
-	       (reverse (let (value)
-		          (dolist (elt group-buffers value)
-			    ;; add the element in its new position moving leftwards
-			    (if (and (equal elt (get-buffer to)) (> (car from-rowcol) (car to-rowcol)))
-			        (setq value (cons (get-buffer from) value)))
-			    ;; add all other elements in old position
-			    (if (not (equal elt (get-buffer from)))
-			        (setq value (cons elt value)))
-			    ;; add the element in its new position moving rightwards
-			    (if (and (equal elt (get-buffer to)) (>= (car to-rowcol) (car from-rowcol)))
-			        (setq value (cons (get-buffer from) value)))
-			    )))
-               zw/tab-line-group--hash-table)
-      (force-mode-line-update))))
+    (ignore-errors
+      (unless (or (eq from to) (eq from t) (eq to t))
+        (puthash group
+	         (reverse (let (value)
+		            (dolist (elt group-buffers value)
+			      ;; add the element in its new position moving leftwards
+			      (if (and (equal elt (get-buffer to)) (> (car from-rowcol) (car to-rowcol)))
+			          (setq value (cons (get-buffer from) value)))
+			      ;; add all other elements in old position
+			      (if (not (equal elt (get-buffer from)))
+			          (setq value (cons elt value)))
+			      ;; add the element in its new position moving rightwards
+			      (if (and (equal elt (get-buffer to)) (>= (car to-rowcol) (car from-rowcol)))
+			          (setq value (cons (get-buffer from) value)))
+			      )))
+                 zw/tab-line-group--hash-table)
+        (message "move %s p:%s to %s p:%s" from-str (car from-rowcol) to-str (car to-rowcol))
+        (force-mode-line-update)))))
 
 (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab)
 
