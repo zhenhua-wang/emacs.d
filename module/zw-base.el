@@ -112,7 +112,8 @@ The order of values may be different."
               visible-bell t
               cursor-in-non-selected-windows nil
               indent-tabs-mode nil
-              enable-recursive-minibuffers t)
+              enable-recursive-minibuffers t
+              tooltip-hide-delay 600)
 
 ;; ** Buffer face mode
 ;; Set fixed-font faces for prog
