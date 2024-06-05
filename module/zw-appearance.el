@@ -57,7 +57,7 @@
          (dired-mode . (lambda ()
                          (unless (file-remote-p default-directory)
                            (diff-hl-dired-mode 1)))))
-  :init (setq diff-hl-side 'left
+  :init (setq diff-hl-side 'right
               diff-hl-draw-borders nil
               diff-hl-show-staged-changes nil)
   :config
