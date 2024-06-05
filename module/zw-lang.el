@@ -70,7 +70,7 @@
 
 (use-package conda
   :commands (conda-env-activate conda-env-candidates)
-  :bind (("s-p" . zw/conda-env-activate))
+  :bind (("s-P" . zw/conda-env-activate))
   :init
   (defvar zw/conda-path '("/opt/anaconda/bin"
                           "/opt/miniconda3/bin"))
