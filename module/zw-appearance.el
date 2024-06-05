@@ -58,7 +58,7 @@
                          (unless (file-remote-p default-directory)
                            (diff-hl-dired-mode 1)))))
   :init (setq diff-hl-side 'right
-              diff-hl-draw-borders nil
+              diff-hl-draw-borders t
               diff-hl-show-staged-changes nil)
   :config
   ;; Integration with magit
