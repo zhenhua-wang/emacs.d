@@ -54,11 +54,12 @@
 (use-package diff-hl
   :hook ((after-init . global-diff-hl-mode)
          (diff-hl-mode . diff-hl-flydiff-mode)
+         (diff-hl-mode . zw/diff-hl-init)
          (dired-mode . (lambda ()
                          (unless (file-remote-p default-directory)
                            (diff-hl-dired-mode 1)))))
   :init (setq diff-hl-side 'right
-              diff-hl-draw-borders t
+              diff-hl-draw-borders nil
               diff-hl-show-staged-changes nil)
   :config
   ;; Integration with magit
@@ -67,7 +68,9 @@
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
   ;; Fall back to margin when in terminal
   (unless (display-graphic-p)
-    (diff-hl-margin-mode 1)))
+    (diff-hl-margin-mode 1))
+  (defun zw/diff-hl-init ()
+    (setq right-fringe-width 25)))
 
 ;; * Indent guide
 (use-package indent-guide
