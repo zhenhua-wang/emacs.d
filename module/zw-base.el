@@ -776,6 +776,7 @@ The order of values may be different."
            ("s-B" . zw/right-side-window-toggle)
            ("C-x 1" . zw/maximize-window)
            ;; misc commands
+           ("s-K" . tab-bar-mode)
            ("s-i" . imenu)
            ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
