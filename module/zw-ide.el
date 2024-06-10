@@ -42,10 +42,8 @@
 (use-package dape
   :commands (dape dape-breakpoint-toggle zw/dape zw/dape-in-path zw/dape-in-path-menu)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle)
-         ("<f6>" . zw/dape)
-         ("<f7>" . dape-breakpoint-toggle)
-         ("<f8>" . dape-next)
-         ("<f9>" . dape-continue))
+         ("M-s-d" . zw/dape)
+         ("M-s-t" . dape-breakpoint-toggle))
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
