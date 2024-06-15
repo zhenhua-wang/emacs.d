@@ -11,6 +11,7 @@ keymap:
   - name: Emacs
     application:
       not: [emacs, emacs.Emacs, kitty, kitty.kitty]
+    exact_match: true
     remap:
       # Cursor
       C-b: { with_mark: left }
@@ -76,6 +77,7 @@ keymap:
   - name: Apple keymap
     application:
       not: [emacs, emacs.Emacs, kitty, kitty.kitty]
+    exact_match: true
     remap:
       # tab
       Super-1: M-1
@@ -95,20 +97,18 @@ keymap:
       # edit
       Super-q: C-q
       Super-a: C-a
+      Super-s: C-s
+      Super-shift-s: C-shift-s
       Super-z: C-z
+      Super-shift-z: C-shift-z
       Super-x: C-x
       Super-c: C-c
       Super-v: C-v
       Super-w: C-w
       Super-t: C-t
+      Super-shift-t: C-shift-t
       Super-l: C-l
       Super-f: C-f
       Super-o: C-o
       Super-p: C-p
       Super-backspace: [Shift-home, backspace]
-
-  - name: Gnome keymap
-    remap:
-      Super-C-e: Super-C-e
-      Super-C-f: Super-C-f
-      Super-C-k: Super-C-k
