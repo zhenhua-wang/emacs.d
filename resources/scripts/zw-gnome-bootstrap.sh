@@ -20,7 +20,7 @@ yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindic
 
 # xremap for gnome wayland
 yay -S xremap-gnome-bin
-sudo gpasswd -a zhenhua input
+sudo gpasswd -a $USER input
 echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
 if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
     mkdir ~/.local/share/gnome-shell/extensions/
