@@ -18,7 +18,7 @@ sudo systemctl enable gdm.service -f
 # gnome extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-calculator gnome-disk-utility baobab loupe evince
 
-# xremap
+# xremap for gnome wayland
 yay -S xremap-gnome-bin
 sudo gpasswd -a zhenhua input
 echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
