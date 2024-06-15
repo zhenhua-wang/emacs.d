@@ -11,18 +11,18 @@ keymap:
   - name: Emacs
     application:
       not: [emacs, emacs.Emacs, kitty, kitty.kitty]
+    exact_match: true
     remap:
-      # Cursor
-      C-b: { with_mark: left }
-      C-f: { with_mark: right }
-      C-p: { with_mark: up }
-      C-n: { with_mark: down }
-      # Forward/Backward word
-      M-b: { with_mark: C-left }
-      M-f: { with_mark: C-right }
+      # Arrow
+      up: { with_mark: up }
+      down: { with_mark: down }
+      left: { with_mark: left }
+      right: { with_mark: right }
       # Beginning/End of line
       C-a: { with_mark: home }
       C-e: { with_mark: end }
+      C-shift-a: shift-home
+      C-shift-e: shift-end
       # Page up/down
       M-v: { with_mark: pageup }
       C-v: { with_mark: pagedown }
