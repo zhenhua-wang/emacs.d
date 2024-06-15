@@ -22,6 +22,13 @@ keymap:
       C-down: { with_mark: C-down }
       C-left: { with_mark: C-left }
       C-right: { with_mark: C-right }
+      C-b: { with_mark: left }
+      C-f: { with_mark: right }
+      C-p: { with_mark: up }
+      C-n: { with_mark: down }
+      # Forward/Backward word
+      M-b: { with_mark: C-left }
+      M-f: { with_mark: C-right }
       # Beginning/End of line
       C-a: { with_mark: home }
       C-e: { with_mark: end }
