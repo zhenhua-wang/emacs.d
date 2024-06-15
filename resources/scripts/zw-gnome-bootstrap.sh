@@ -18,15 +18,14 @@ sudo systemctl enable gdm.service -f
 # gnome extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-calculator gnome-disk-utility baobab loupe evince
 
-# keyd
-yay -S keyd-git
-sudo systemctl enable keyd && sudo systemctl start keyd
-sudo usermod -aG keyd $USER
+# xremap
+yay -S xremap-gnome-bin
+sudo gpasswd -a zhenhua input
+echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
 if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
     mkdir ~/.local/share/gnome-shell/extensions/
 fi
-ln -s /usr/share/keyd/gnome-extension-45 ~/.local/share/gnome-shell/extensions/keyd
-keyd-application-mapper -d
+git clone https://github.com/xremap/xremap-gnome ~/.local/share/gnome-shell/extensions/xremap@k0kubun.com
 
 # bluetooth
 sudo systemctl enable bluetooth.service

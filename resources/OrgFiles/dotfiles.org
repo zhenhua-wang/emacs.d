@@ -1119,93 +1119,33 @@ content = ""
 click-left = ~/.config/rofi/powermenu.sh
 #+end_src
 
-* Keyd
-** System
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/keyd/default.conf")
+* Xremap
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/systemd/user/xremap.service")
 #+begin_src conf
-[ids]
-,*
+[Unit]
+Description=xremap
 
-[main]
-leftalt = layer(meta_zw)
-leftmeta = layer(alt_zw)
-capslock = layer(control_zw)
-
-[meta_zw:M]
-# tab
-t = C-t
-T = C-S-t
-w = C-w
-1 = A-1
-2 = A-2
-3 = A-3
-4 = A-4
-5 = A-5
-6 = A-6
-7 = A-7
-8 = A-8
-9 = A-9
-# edit
-backspace = macro(S-home delete)
-a = C-a
-s = C-s
-z = C-z
-Z = C-S-z
-x = C-x
-c = C-c
-v = C-v
-# command
-r = C-f5
-q = C-q
-f = C-f
-- = C--
-= = C-=
-p = C-p
-\ = C-\
-tab = swapm(app_switch_state, M-tab)
-
-[alt_zw:A]
-v = pageup
-
-[control_zw:C]
-v = pagedown
-a = home
-e = end
-
-[meta_normal:M]
-tab = swapm(app_switch_state, M-tab)
-
-[alt_zw+shift]
-, = C-home
-. = C-end
-
-[control_zw+meta_zw]
-e = M-C-e
-f = M-C-f
-
-[app_switch_state:M]
-tab = M-tab
-right = M-tab
-` = M-S-tab
-left = M-S-tab
+[Service]
+Restart=always
+ExecStart=xremap ~/.emacs.d/resources/scripts/keymap.yml
 #+end_src
 
-** Application
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/keyd/app.conf")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/modules-load.d/uinput.conf")
 #+begin_src conf
-[emacs]
-leftalt = layer(meta_normal)
-leftmeta = layer(alt)
-capslock = layer(control)
-control.\ = M-\
-
-[kitty]
-leftalt = layer(meta_normal)
-leftmeta = layer(alt)
-capslock = layer(control)
+uinput
 #+end_src
 
 * Gnome
+** Auto start
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/autostart/xremap.desktop")
+#+begin_src conf
+[Desktop Entry]
+Name=Xremap
+Type=Application
+Exec=systemctl --user start xremap
+Terminal=false
+#+end_src
+
 ** Run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
