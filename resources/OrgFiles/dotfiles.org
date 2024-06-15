@@ -1127,7 +1127,7 @@ Description=xremap
 
 [Service]
 Restart=always
-ExecStart=xremap %h/.emacs.d/resources/scripts/keymap.yml
+ExecStart=xremap %h/.emacs.d/resources/scripts/keymap.yml --watch
 #+end_src
 
 #+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/modules-load.d/uinput.conf")
