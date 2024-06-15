@@ -18,6 +18,10 @@ keymap:
       down: { with_mark: down }
       left: { with_mark: left }
       right: { with_mark: right }
+      C-up: { with_mark: C-up }
+      C-down: { with_mark: C-down }
+      C-left: { with_mark: C-left }
+      C-right: { with_mark: C-right }
       # Beginning/End of line
       C-a: { with_mark: home }
       C-e: { with_mark: end }
