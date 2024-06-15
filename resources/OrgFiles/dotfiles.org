@@ -96,10 +96,10 @@ map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
 map f11 toggle_fullscreen
 map cmd+shift+f show_scrollback
-map cmd+shift+c copy_to_clipboard
-map cmd+shift+v paste_from_clipboard
 map cmd+shift+t new_tab
 map cmd+shift+w close_tab
+map cmd+c copy_and_clear_or_interrupt
+map cmd+v paste_from_clipboard
 map alt+shift+, scroll_home
 map alt+shift+. scroll_end
 # map cmd+shift+q close_os_window

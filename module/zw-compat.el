@@ -16,6 +16,8 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load "zw-package"
+    ;; enable cua-mode to handle C-c
+    (cua-mode 1)
     ;; full-featured keybindings
     (straight-use-package 'kkp)
     (use-package kkp
