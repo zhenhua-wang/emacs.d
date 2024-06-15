@@ -105,8 +105,8 @@ keymap:
       Super-q: C-q
       Super-s: C-s
       Super-shift-s: C-shift-s
-      Super-SCROLLUP: Super-SCROLLUP
-      Super-SCROLLDOWN: Super-SCROLLDOWN
+      Super-SCROLLUP: C-SCROLLUP
+      Super-SCROLLDOWN: C-SCROLLDOWN
       # edit
       Super-a: C-a
       Super-z: [C-z, { set_mark: false }]
