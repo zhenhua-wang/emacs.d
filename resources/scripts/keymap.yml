@@ -51,12 +51,14 @@ keymap:
       C-Shift-ro: C-z
       # Mark
       C-space: { set_mark: true }
+      C-shift-2: { set_mark: true }
       # Search
       C-s: C-f
       C-r: Shift-F3
       M-Shift-5: C-h
       # Cancel
       C-g: [esc, { set_mark: false }]
+      esc: [esc, { set_mark: false }]
       # C-x YYY
       C-x:
         remap:
@@ -88,26 +90,26 @@ keymap:
       Super-7: M-7
       Super-8: M-8
       Super-9: M-9
+      Super-w: C-w
+      Super-t: C-t
+      Super-shift-t: C-shift-t
       # command
       Super-backslash: C-backslash
       Super-minus: C-minus
       Super-equal: C-equal
       Super-r: C-f5
-      # edit
-      Super-q: C-q
-      Super-a: C-a
-      Super-s: C-s
-      Super-shift-s: C-shift-s
-      Super-z: C-z
-      Super-shift-z: C-shift-z
-      Super-x: C-x
-      Super-c: C-c
-      Super-v: C-v
-      Super-w: C-w
-      Super-t: C-t
-      Super-shift-t: C-shift-t
       Super-l: C-l
       Super-f: C-f
       Super-o: C-o
       Super-p: C-p
-      Super-backspace: [Shift-home, backspace]
+      Super-q: C-q
+      Super-s: C-s
+      Super-shift-s: C-shift-s
+      # edit
+      Super-a: C-a
+      Super-z: [C-z, { set_mark: false }]
+      Super-shift-z: [C-shift-z, { set_mark: false }]
+      Super-x: [C-x, { set_mark: false }]
+      Super-c: [C-c, { set_mark: false }]
+      Super-v: [C-v, { set_mark: false }]
+      Super-backspace: [Shift-home, backspace, { set_mark: false }]
