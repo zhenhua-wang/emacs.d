@@ -105,8 +105,7 @@ keymap:
       Super-q: C-q
       Super-s: C-s
       Super-shift-s: C-shift-s
-      Super-WheelUp: C-WheelUp
-      Super-WheelDown: C-WheelDown
+      Super-REL_WHEEL: C-REL_WHEEL
       # edit
       Super-a: C-a
       Super-z: [C-z, { set_mark: false }]
