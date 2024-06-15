@@ -10,7 +10,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: [emacs, kitty]
+      not: [emacs, emacs.Emacs, kitty]
     remap:
       # Cursor
       C-b: { with_mark: left }
@@ -75,7 +75,7 @@ keymap:
 
   - name: Apple keymap
     application:
-      not: [emacs, kitty]
+      not: [emacs, emacs.Emacs, kitty]
     remap:
       # tab
       Super-1: M-1
