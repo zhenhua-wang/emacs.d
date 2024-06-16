@@ -99,6 +99,7 @@
            (treesit-available-p))
   :hook ((after-init . global-treesit-auto-mode)
          (change-major-mode . zw/treesit-auto-remap))
+  :mode (("\\.yml\\'" . yaml-ts-mode))
   :init
   (setq treesit-auto-install 'prompt)
   :config
