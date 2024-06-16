@@ -114,6 +114,7 @@ keymap:
       Super-o: C-o
       Super-p: C-p
       Super-q: C-q
+      Super-shift-q: C-shift-q
       Super-s: C-s
       Super-shift-s: C-shift-s
       # edit
