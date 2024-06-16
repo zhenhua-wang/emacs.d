@@ -124,7 +124,7 @@ alias emacs="~/.conda/envs/emacs/bin/emacs"
 conda create -n research python=3.11
 source activate research
 ## r
-conda install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf conda-forge::r-spdep conda-forge::r-fields conda-forge::r-languageserver conda-forge::r-tidybayes conda-forge::r-rstan conda-forge::r-devtools conda-forge::sqlite
+conda install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf conda-forge::r-spdep conda-forge::r-fields conda-forge::r-languageserver conda-forge::r-tidybayes conda-forge::r-rstan conda-forge::r-devtools conda-forge::r-mice conda-forge::sqlite
 ## python
 # don't use pip to install pyright
 conda install conda-forge::pyright
