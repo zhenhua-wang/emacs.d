@@ -85,9 +85,9 @@
 
      ;; modeline
      `(mode-line
-       ((t (:height ,modeline-height))))
+       ((t (:height ,modeline-height :box unspecified))))
      `(mode-line-inactive
-       ((t (:inherit mode-line :foreground ,shadow-color))))
+       ((t (:inherit mode-line :foreground ,shadow-color :box unspecified))))
      `(mode-line-highlight
        ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-default-active
@@ -106,6 +106,10 @@
        ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-remote-active
        ((t (:inherit mode-line :foreground ,highlight-alt-revert-color :background ,highlight-alt-color))))
+     `(zw/modeline-major-mode-active
+       ((t (:inherit zw/modeline-default-active :bold t))))
+     `(zw/modeline-lsp-active
+       ((t (:inherit success))))
 
      ;; tab-bar
      `(tab-bar

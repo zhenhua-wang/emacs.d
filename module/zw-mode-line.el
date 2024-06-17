@@ -359,7 +359,7 @@
                                 (mapcar (lambda (w)
                                           (format "[%s]" (lsp--workspace-print w)))
                                         workspaces)))))
-       (zw/modeline-separator-thin)))))
+       " "))))
 
 (defun zw/modeline-eglot ()
   (when (and (featurep 'eglot) (eglot-managed-p))
@@ -373,7 +373,7 @@
                                (format "[%s/%s]"
                                        (eglot--major-modes server)
                                        (eglot--project-nickname server)))))
-       (zw/modeline-separator-thin)))))
+       " "))))
 
 ;; ** major mode
 (defun zw/modeline-major-mode ()
@@ -457,8 +457,6 @@
    (zw/modeline-input-method)
    (zw/modeline-process)
    (zw/modeline-vc)
-   (zw/modeline-lsp)
-   (zw/modeline-eglot)
    (zw/modeline-major-mode)))
 
 ;; * Config
@@ -472,6 +470,8 @@
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
   '(:eval (zw/modeline-text-scale))
+  '(:eval (zw/modeline-lsp))
+  '(:eval (zw/modeline-eglot))
   '(:eval (zw/modeline-flymake))
   '(:eval (zw/modeline-count-region))
   '(:eval (zw/modeline-mark-active))
