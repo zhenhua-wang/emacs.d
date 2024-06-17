@@ -736,9 +736,6 @@ The order of values may be different."
            ;; disable header line mouse scroll
            ("<header-line> <wheel-up>" . ignore)
            ("<header-line> <wheel-down>" . ignore)
-           ;; moving
-           ("C-M-<up>" . up-list)
-           ("C-M-<down>" . down-list)
            ;; completion
            ("<C-tab>" . completion-at-point)
            ;; editing
