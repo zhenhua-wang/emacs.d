@@ -265,7 +265,8 @@
                        (if default-theme
                            (write-region (format "(load-theme '%s t)" default-theme)
                                          nil zw/theme-selector)
-                         (write-region "" nil zw/theme-selector)))))
+                         (write-region "(set-face-attribute 'mode-line-highlight nil :inherit 'unspecified)"
+                                       nil zw/theme-selector)))))
 
 ;; * Provide
 (provide 'zw-theme)
