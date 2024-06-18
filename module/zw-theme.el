@@ -78,16 +78,27 @@
                                        (face-background 'tab-bar nil t) 0.05 dark-p))
          (modeline-height             130)
          (tab-bar-height              120))
+    ;; base face
+    (set-face-attribute 'tooltip nil
+                        :inherit 'fixed-pitch)
+    (set-face-attribute 'mode-line nil
+                        :height modeline-height :box 'unspecified)
+    (set-face-attribute 'mode-line-inactive nil
+                        :inherit 'mode-line :foreground shadow-color :box 'unspecified)
+    (set-face-attribute 'tab-bar nil
+                        :inherit 'unspecified :foreground base-font-color :height tab-bar-height
+                        :weight 'regular :box tab-bar-box)
+    (set-face-attribute 'tab-line nil
+                        :inherit 'unspecified :background tab-bar-color :underline tab-bar-box)
+    (set-face-attribute 'header-line nil
+                        :inherit 'unspecified :background mode-line-color :underline tab-bar-box :bold t)
+    ;; user face
     (custom-theme-set-faces
      'user
      ;; child frame
      `(child-frame-border ((t (:background ,highlight-color))))
 
      ;; modeline
-     `(mode-line
-       ((t (:height ,modeline-height :box unspecified))))
-     `(mode-line-inactive
-       ((t (:inherit mode-line :foreground ,shadow-color :box unspecified))))
      `(zw/modeline-default-active
        ((t (:height ,modeline-height))))
      `(zw/modeline-default-inactive
@@ -110,8 +121,6 @@
        ((t (:inherit success))))
 
      ;; tab-bar
-     `(tab-bar
-       ((t (:foreground ,base-font-color :height ,tab-bar-height :weight regular :box ,tab-bar-box))))
      `(zw/tab-bar-default-selected
        ((t (:inherit tab-bar))))
      `(zw/tab-bar-menu-bar
@@ -126,12 +135,6 @@
        ((t (:inherit (warning zw/tab-bar-default-selected) :bold t))))
      `(zw/tab-bar-tab-battery-load-critical
        ((t (:inherit (error zw/tab-bar-default-selected) :bold t))))
-
-     ;; tab-line
-     `(tab-line ((t (:background ,tab-bar-color :underline ,tab-bar-box))))
-
-     ;; header-line
-     `(header-line ((t (:background ,mode-line-color :underline ,tab-bar-box :bold t))))
 
      ;; vc
      '(vc-edited-state ((t (:foreground "#FF9F29"))))
@@ -158,7 +161,6 @@
      `(outline-minor-1 ((t (:inherit (outline-minor-0 outline-1) :overline t))))
 
      ;; company-mode
-     `(tooltip ((t (:inherit fixed-pitch))))
      `(company-tooltip ((t (:inherit tooltip))))
      `(company-tooltip-selection ((t (:weight bold))))
      `(company-tooltip-annotation ((t (:slant normal))))
