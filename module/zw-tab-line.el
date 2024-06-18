@@ -106,10 +106,12 @@
          (icon-face (if selected-p
                         (if (mode-line-window-selected-p)
                             (list :inherit icon-face-raw
+                                  :box (face-attribute 'tab-line-tab-current :box nil t)
                                   :height (face-attribute 'tab-line-tab-current :height)
                                   :background (face-background 'tab-line-tab-current nil t)
                                   :overline (face-attribute 'tab-line-tab-current :overline))
                           (list :inherit icon-face-raw
+                                :box (face-attribute 'tab-line-tab :box nil t)
                                 :height (face-attribute 'tab-line-tab :height)
                                 :background (face-background 'tab-line-tab nil t)
                                 :overline (face-attribute 'tab-line-tab :overline)))
