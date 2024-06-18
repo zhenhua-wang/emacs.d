@@ -63,6 +63,7 @@
 (defun zw/theme-set-theme ()
   (let* ((dark-p                      (eq (frame-parameter nil 'background-mode) 'dark))
          (base-font-color             (face-foreground 'default nil 'default))
+         (ui-color                    (face-foreground 'mode-line nil 'default))
          (mode-line-color             (face-background 'mode-line nil 'default))
          (tab-bar-color               (face-background 'tab-bar nil 'default))
          (shadow-color                (face-foreground 'shadow nil 'default))
@@ -86,12 +87,14 @@
     (set-face-attribute 'mode-line-inactive nil
                         :inherit 'mode-line :foreground shadow-color :box 'unspecified)
     (set-face-attribute 'tab-bar nil
-                        :inherit 'unspecified :foreground base-font-color :height tab-bar-height
+                        :inherit 'unspecified :foreground ui-color :height tab-bar-height
                         :weight 'regular :box tab-bar-box)
     (set-face-attribute 'tab-line nil
-                        :inherit 'unspecified :background tab-bar-color :underline tab-bar-box)
+                        :inherit 'unspecified :foreground ui-color :background tab-bar-color
+                        :underline tab-bar-box)
     (set-face-attribute 'header-line nil
-                        :inherit 'unspecified :background mode-line-color :underline tab-bar-box :bold t)
+                        :inherit 'unspecified :foreground ui-color :background mode-line-color
+                        :underline tab-bar-box :bold t)
     ;; user face
     (custom-theme-set-faces
      'user
