@@ -66,10 +66,10 @@
          (mode-line-color             (face-background 'mode-line nil 'default))
          (tab-bar-color               (face-background 'tab-bar nil 'default))
          (shadow-color                (face-foreground 'shadow nil 'default))
-         (highlight-color             (face-background 'highlight nil t))
-         (highlight-revert-color      (face-foreground 'highlight nil t))
+         (highlight-color             (face-background 'mode-line-highlight nil t))
+         (highlight-revert-color      (face-foreground 'mode-line-highlight nil t))
          (highlight-alt-color         (face-foreground 'warning nil 'default))
-         (highlight-alt-revert-color  (face-foreground 'highlight nil t))
+         (highlight-alt-revert-color  (face-foreground 'mode-line-highlight nil t))
          (block-color                 (zw/theme-emphasize-color
                                        (face-background 'default nil t) 0.06 dark-p))
          (mode-line-inactive-color    (zw/theme-emphasize-color
@@ -88,8 +88,6 @@
        ((t (:height ,modeline-height :box unspecified))))
      `(mode-line-inactive
        ((t (:inherit mode-line :foreground ,shadow-color :box unspecified))))
-     `(mode-line-highlight
-       ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-default-active
        ((t (:height ,modeline-height))))
      `(zw/modeline-default-inactive
