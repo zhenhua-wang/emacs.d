@@ -95,12 +95,11 @@
     (set-face-attribute 'header-line nil
                         :inherit 'unspecified :foreground ui-color :background mode-line-color
                         :underline tab-bar-box :bold t)
+    (set-face-attribute 'child-frame-border nil
+                        :background highlight-color)
     ;; user face
     (custom-theme-set-faces
      'user
-     ;; child frame
-     `(child-frame-border ((t (:background ,highlight-color))))
-
      ;; modeline
      `(zw/modeline-default-active
        ((t (:height ,modeline-height))))
