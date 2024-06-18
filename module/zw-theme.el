@@ -243,13 +243,17 @@
 ;; * Load theme
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
-(when (not (file-exists-p zw/theme-selector))
-  (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
-(load zw/theme-selector)
+(add-hook 'after-init-hook
+          (lambda ()
+            ;; default theme
+            (when (not (file-exists-p zw/theme-selector))
+              (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
+            ;; load theme
+            (load zw/theme-selector)
+            (zw/theme-set-theme)))
 
 ;; load custom faces
-(zw/theme-set-theme)
-(add-hook 'server-after-make-frame-hook 'zw/theme-set-theme)
+(add-hook 'server-after-make-frame-hook #'zw/theme-set-theme)
 (advice-add #'consult-theme
             :after (lambda (arg)
                      (zw/theme-set-theme)
