@@ -71,7 +71,7 @@
   :config (setq python-shell-dedicated 'project))
 
 (use-package conda
-  :commands (conda-env-activate conda-env-candidates)
+  :commands (conda-env-activate conda-env-deactivate conda-env-candidates)
   :bind (("s-P" . zw/conda-env-activate))
   :init
   (defvar zw/conda-path '("/opt/anaconda/bin"
@@ -82,6 +82,16 @@
       (when (file-exists-p conda-exec)
         ;; (setenv "PATH" (concat conda-path ":" (getenv "PATH")))
         (setq conda--executable-path conda-exec))))
+  ;; quick activate
+  (defun zw/conda-env-activate ()
+    (interactive)
+    (let* ((deactivate "Conda deactivate")
+           (env (completing-read
+                 "Conda switch environment:"
+                 (append (conda-env-candidates) `(,deactivate)))))
+      (if (string= env deactivate)
+          (conda-env-deactivate)
+        (conda-env-activate env))))
   :config
   (setq conda-message-on-environment-switch nil)
   (or (cl-loop for dir in (list conda-anaconda-home
@@ -102,16 +112,6 @@
                return (setq conda-anaconda-home (expand-file-name dir)
                             conda-env-home-directory (expand-file-name dir)))
       (message "Cannot find Anaconda installation"))
-  ;; quick activate
-  (defun zw/conda-env-activate ()
-    (interactive)
-    (let* ((deactivate "Conda deactivate")
-           (env (completing-read
-                 "Conda switch environment:"
-                 (append (conda-env-candidates) `(,deactivate)))))
-      (if (string= env deactivate)
-          (conda-env-deactivate)
-        (conda-env-activate env))))
   ;; update conda environment
   (defun zw/conda-env-update ()
     (cond ((executable-find "ipython")
