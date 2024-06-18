@@ -258,8 +258,11 @@
             :after (lambda (arg)
                      (zw/theme-set-theme)
                      (setq zw/modeline-bg (face-background 'mode-line nil t))
-                     (write-region (format "(load-theme '%s t)" (car custom-enabled-themes))
-                                   nil zw/theme-selector)))
+                     (let ((default-theme (car custom-enabled-themes)))
+                       (if default-theme
+                           (write-region (format "(load-theme '%s t)" default-theme)
+                                         nil zw/theme-selector)
+                         (write-region "" nil zw/theme-selector)))))
 
 ;; * Provide
 (provide 'zw-theme)
