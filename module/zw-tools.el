@@ -112,8 +112,8 @@
   (list "%e"
         '(:eval (zw/modeline-bar))
         '(:eval (zw/modeline-remote))
-        '(:eval (zw/dired-sidebar--modeline-name))
-        '(:eval (zw/modeline-text-scale))
+        ;; '(:eval (zw/dired-sidebar--modeline-name))
+        ;; '(:eval (zw/modeline-text-scale))
         '(:eval (zw/modeline-line-column))))
 
 (defun zw/dired-sidebar-folder-indicator ()
