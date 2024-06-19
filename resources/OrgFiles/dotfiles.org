@@ -123,34 +123,38 @@ tab_powerline_style slanted
 tab_bar_min_tabs 1
 bell_on_tab "🔔 "
 tab_activity_symbol "⌛ "
-active_tab_foreground   #000
-active_tab_background   #eee
 active_tab_font_style   bold
-inactive_tab_foreground #abb2bf
-inactive_tab_background #393e48
 inactive_tab_font_style normal
-# theme
-foreground #979eab
-background #282c34
-cursor #cccccc
-color0 #282c34
-color1 #e06c75
-color2 #98c379
-color3 #e5c07b
-color4 #61afef
-color5 #be5046
-color6 #56b6c2
-color7 #979eab
-color8 #393e48
-color9 #d19a66
-color10 #56b6c2
-color11 #e5c07b
-color12 #61afef
-color13 #be5046
-color14 #56b6c2
-color15 #abb2bf
-selection_foreground #282c34
-selection_background #979eab
+
+# BEGIN_KITTY_THEME
+include current-theme.conf
+# END_KITTY_THEME
+#+end_src
+
+** Theme
+#+HEADER: :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/current-theme.conf")
+#+begin_src conf
+background            #000000
+foreground            #e9e9e9
+cursor                #e9e9e9
+selection_background  #424242
+color0                #000000
+color8                #000000
+color1                #d44d53
+color9                #d44d53
+color2                #b9c949
+color10               #b9c949
+color3                #e6c446
+color11               #e6c446
+color4                #79a6da
+color12               #79a6da
+color5                #c396d7
+color13               #c396d7
+color6                #70c0b1
+color14               #70c0b1
+color7                #fffefe
+color15               #fffefe
+selection_foreground  #000000
 #+end_src
 
 ** Font
