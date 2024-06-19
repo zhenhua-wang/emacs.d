@@ -81,7 +81,7 @@
          (tab-bar-height              120))
     ;; base face
     (set-face-attribute 'tooltip nil
-                        :inherit 'fixed-pitch)
+                        :inherit 'fixed-pitch :foreground base-font-color)
     (set-face-attribute 'mode-line nil
                         :height modeline-height :box 'unspecified)
     (set-face-attribute 'mode-line-inactive nil
