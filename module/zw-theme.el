@@ -251,7 +251,7 @@
             (when (not (file-exists-p zw/theme-selector))
               (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
             ;; load theme
-            (load zw/theme-selector)
+            (ignore-errors (load zw/theme-selector))
             (zw/theme-set-theme)))
 
 ;; load custom faces
