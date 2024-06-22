@@ -66,7 +66,7 @@ The order of values may be different."
 (defvar zw/active-frame nil)
 (defvar zw/active-window nil)
 (defvar zw/active-window-non-minibufer nil)
-(defun zw/update-active-ui (&rest arg)
+(defun zw/update-active-ui (&rest _)
   "Update active UI."
   (let ((frame (selected-frame))
         (window (selected-window)))
