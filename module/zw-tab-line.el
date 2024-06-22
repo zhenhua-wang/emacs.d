@@ -246,7 +246,7 @@
 	     tab-line-mode
              (not (zw/tab-line-buffer-group-visible)))
     (tab-line-mode -1)))
-(add-hook 'window-buffer-change-functions 'zw/tab-line-hide)
+(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
 
 ;; * drag move
 (defun tab-line-mouse-move-tab (event)
