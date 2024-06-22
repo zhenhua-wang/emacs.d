@@ -86,6 +86,13 @@ keymap:
           # C-x u (undo)
           u: [C-z, { set_mark: false }]
 
+  - name: Emacs Rime
+    application:
+      only: [emacs, emacs.Emacs]
+    exact_match: true
+    remap:
+      C-backslash: Super-backslash
+
   - name: Apple keymap
     application:
       not: [emacs, emacs.Emacs, kitty, kitty.kitty]
