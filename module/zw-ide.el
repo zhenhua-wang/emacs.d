@@ -206,10 +206,11 @@
     (advice-add 'zw/tab-line-buffer-group-buffers :around
                 #'zw/tabspace-filter-tab-line)
     (defun zw/tabspace-add-buffer-to-frame (window)
-      (let ((buffer (window-buffer window)))
-        (set-frame-parameter
-         nil 'buffer-list
-         (push buffer (frame-parameter nil 'buffer-list)))))
+      (unless (window-minibuffer-p window)
+        (let ((buffer (window-buffer window)))
+          (set-frame-parameter
+           nil 'buffer-list
+           (push buffer (frame-parameter nil 'buffer-list))))))
     (defun zw/tabspace-tab-line-setup ()
       (add-hook 'window-buffer-change-functions
                 'zw/tabspace-add-buffer-to-frame nil t))
