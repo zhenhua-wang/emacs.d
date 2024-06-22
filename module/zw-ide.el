@@ -179,6 +179,7 @@
   (defun zw/tabspace-local-buffer-p (buffer)
     (or (tabspaces--local-buffer-p buffer)
         (memq buffer (frame-parameter nil 'buried-buffer-list))
+        ;; current visible buffer
         (get-buffer-window buffer)))
   ;; filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
