@@ -178,9 +178,7 @@
   :init
   (defun zw/tabspace-local-buffer-p (buffer)
     (or (tabspaces--local-buffer-p buffer)
-        (memq buffer (frame-parameter nil 'buried-buffer-list))
-        ;; current visible buffer
-        (get-buffer-window buffer)))
+        (memq buffer (frame-parameter nil 'buried-buffer-list))))
   ;; filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
     ;; hide full buffer list (still available with "b" prefix)
@@ -206,7 +204,16 @@
                           (zw/tabspace-local-buffer-p buffer))
                         (funcall old-func)))
     (advice-add 'zw/tab-line-buffer-group-buffers :around
-                #'zw/tabspace-filter-tab-line))
+                #'zw/tabspace-filter-tab-line)
+    (defun zw/tabspace-add-buffer-to-frame (window)
+      (let ((buffer (window-buffer window)))
+        (set-frame-parameter
+         nil 'buffer-list
+         (push buffer (frame-parameter nil 'buffer-list)))))
+    (defun zw/tabspace-tab-line-setup ()
+      (add-hook 'window-buffer-change-functions
+                'zw/tabspace-add-buffer-to-frame nil t))
+    (add-hook 'tab-line-mode-hook 'zw/tabspace-tab-line-setup))
   ;; open dashboard in default tab
   (with-eval-after-load "dashboard"
     (defun zw/tabspace-dashboard (&rest _)
