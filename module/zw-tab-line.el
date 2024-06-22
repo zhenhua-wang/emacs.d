@@ -8,7 +8,6 @@
   (when (and (buffer-live-p buffer)
              (not (minibufferp))
              (zw/tab-line-buffer-group-visible))
-    (message (buffer-name))
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table)))
       (add-to-list 'group-buffers buffer 'append)
