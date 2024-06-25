@@ -165,10 +165,10 @@
       (org-agenda nil "d")
     (message "Agenda doesn't exit!")))
 (bind-keys :prefix-map zw/org-agenda-map
-           :prefix "<f12>"
+           :prefix "<f9>"
            ("<down>" . zw/git-pull-agenda)
            ("<up>" . zw/git-add-commit-push-agenda)
-           ("<f12>" . zw/open-agenda))
+           ("<f9>" . zw/open-agenda))
 
 ;; ** babel
 (with-eval-after-load "ob"

@@ -720,8 +720,9 @@ The order of values may be different."
 ;; keys
 (bind-keys :map global-map
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
-           ("<f5>" . zw/update-emacs-tangle-dotfiles)
+           ("<f12>" . zw/update-emacs-tangle-dotfiles)
            ("<f11>" . zw/presentation-mode)
+           ("<f5>" . ibuffer)
            ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
