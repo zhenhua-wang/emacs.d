@@ -172,6 +172,9 @@
      `(company-posframe-active-backend-name ((t (:inherit company-tooltip :background unspecified :weight bold))))
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))
 
+     ;; vertico
+     `(vertico-posframe-border ((t (:inherit child-frame-border))))
+
      ;; eglot
      `(eglot-highlight-symbol-face
        ((t (:inherit bold :background ,highlight-color :foreground ,highlight-revert-color))))

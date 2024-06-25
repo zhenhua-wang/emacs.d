@@ -376,6 +376,10 @@ The order of values may be different."
            ("s-v" . isearch-yank-kill)
            ("S-<insert>" . isearch-yank-kill))
 
+;; ** Ibuffer
+(with-eval-after-load "ibuffer"
+  (define-key ibuffer-mode-map (kbd "<f5>") 'quit-window))
+
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
 (setq winner-dont-bind-my-keys t)
@@ -788,9 +792,7 @@ The order of values may be different."
            ("<escape>" . minibuffer-keyboard-quit)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab)
-           ("TAB" . zw/smart-tab)
-           :map ibuffer-mode-map
-           ("<f5>" . quit-window))
+           ("TAB" . zw/smart-tab))
 
 ;; * Provide
 (provide 'zw-base)
