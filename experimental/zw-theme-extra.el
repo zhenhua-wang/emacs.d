@@ -3,7 +3,7 @@
 (use-package modus-themes)
 (use-package ef-themes)
 (use-package lambda-themes
-  :straight (:type git :host github :repo "lambda-emacs/lambda-themes")
+  :straight (:type git :host github :repo "zhenhua-wang/lambda-themes")
   :custom
   (lambda-themes-set-italic-comments t)
   (lambda-themes-set-italic-keywords t)
