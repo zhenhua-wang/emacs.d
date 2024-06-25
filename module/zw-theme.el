@@ -67,10 +67,12 @@
          (mode-line-color             (face-background 'mode-line nil 'default))
          (tab-bar-color               (face-background 'tab-bar nil 'default))
          (shadow-color                (face-foreground 'shadow nil 'default))
-         (highlight-color             (face-background 'mode-line-highlight nil t))
-         (highlight-revert-color      (face-foreground 'mode-line-highlight nil t))
+         (highlight-color             (or (face-background 'mode-line-highlight nil t)
+                                          (face-background 'highlight nil t)))
+         (highlight-revert-color      (or (face-foreground 'mode-line-highlight nil t)
+                                          (face-foreground 'highlight nil 'default)))
          (highlight-alt-color         (face-foreground 'warning nil 'default))
-         (highlight-alt-revert-color  (face-foreground 'mode-line-highlight nil t))
+         (highlight-alt-revert-color  highlight-revert-color)
          (block-color                 (zw/theme-emphasize-color
                                        (face-background 'default nil t) 0.06 dark-p))
          (mode-line-inactive-color    (zw/theme-emphasize-color
