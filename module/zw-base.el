@@ -788,7 +788,9 @@ The order of values may be different."
            ("<escape>" . minibuffer-keyboard-quit)
            :map prog-mode-map
            ("<tab>" . zw/smart-tab)
-           ("TAB" . zw/smart-tab))
+           ("TAB" . zw/smart-tab)
+           :map ibuffer-mode-map
+           ("<f5>" . quit-window))
 
 ;; * Provide
 (provide 'zw-base)
