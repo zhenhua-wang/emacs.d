@@ -3,7 +3,6 @@ gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Super>Return
 gsettings set org.gnome.mutter overlay-key "Super_R"
 gsettings set org.gnome.desktop.input-sources xkb-options "['terminate:ctrl_alt_bksp']"
 # keymaps
-gsettings set org.gnome.settings-daemon.plugins.media-keys logout "['<Alt><Super>q']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>space']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Control>backslash', '<Alt>space']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Control>backslash']"
