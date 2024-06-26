@@ -36,10 +36,10 @@
       :hook (after-init . global-clipetty-mode)))
   (with-eval-after-load "zw-theme"
     (defun zw/theme-compat ()
-      (custom-set-faces
-       `(tab-line ((t (:underline unspecified))))
-       `(header-line ((t (:background ,(face-background 'mode-line) :bold t))))))
-    (zw/theme-compat)
+      (set-face-attribute 'tab-line nil :underline nil)
+      (set-face-attribute 'header-line nil
+                          :background (face-background 'mode-line)
+                          :weight 'bold))
     (advice-add 'zw/theme-set-theme :after 'zw/theme-compat)))
 
 (provide 'zw-compat)
