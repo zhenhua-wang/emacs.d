@@ -237,7 +237,7 @@
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-init)
+(add-hook 'global-tab-line-mode-hook 'zw/tab-line-init)
 
 ;; * enable
 (global-tab-line-mode 1)
