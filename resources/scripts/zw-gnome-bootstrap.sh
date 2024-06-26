@@ -52,7 +52,7 @@ ln -s ~/.local/share/fcitx5/rime/default.custom.yaml ~/.config/ibus/rime/default
 yay -S firefox kitty htop fastfetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
-flatpak install com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List
+flatpak install com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List us.zoom.Zoom
 
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
