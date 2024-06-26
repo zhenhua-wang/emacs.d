@@ -241,12 +241,13 @@
 
 ;; * enable
 (global-tab-line-mode 1)
-(defun zw/tab-line-hide (&optional _)
-  (when (and (featurep 'tab-line)
-	     tab-line-mode
-             (not (zw/tab-line-buffer-group-visible)))
-    (tab-line-mode -1)))
-(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
+(defun zw/tab-line-window-hide (window)
+  (with-selected-window window
+    (unless (zw/tab-line-buffer-group-visible)
+      (tab-line-mode -1))))
+(defun zw/tab-line-hide ()
+  (add-hook 'window-buffer-change-functions 'zw/tab-line-window-hide nil t))
+(add-hook 'tab-line-mode-hook 'zw/tab-line-hide)
 
 ;; * drag move
 (defun tab-line-mouse-move-tab (event)
