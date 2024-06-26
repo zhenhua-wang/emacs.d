@@ -143,6 +143,9 @@ The order of values may be different."
   (visual-line-mode -1)
   (setq-local truncate-lines 1))
 
+;; ** Column indicator
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+
 ;; ** So long
 (add-hook 'after-init-hook 'global-so-long-mode)
 
