@@ -75,7 +75,7 @@
 
 ;; * Appearence
 ;; ** face
-(defun zw/tab-line-init ()
+(defun zw/tab-line-set-face ()
   (set-face-attribute 'tab-line-tab-current nil
                       :overline (face-background 'highlight nil t))
   (dolist (face '(tab-line
@@ -88,7 +88,7 @@
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
-                                    (zw/tab-line-init)
+                                    (zw/tab-line-set-face)
                                     (tab-line-format)))
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
@@ -237,9 +237,9 @@
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-init)
+(add-hook 'tab-line-mode-hook 'zw/tab-line-set-face)
 
-;; * enable
+;; * Enable
 (global-tab-line-mode 1)
 (defun zw/tab-line-window-hide (window)
   (with-selected-window window
@@ -249,7 +249,7 @@
   (add-hook 'window-buffer-change-functions 'zw/tab-line-window-hide nil t))
 (add-hook 'tab-line-mode-hook 'zw/tab-line-hide)
 
-;; * drag move
+;; * Drag move
 (defun tab-line-mouse-move-tab (event)
   "Move a tab to a different position on the tab line.
 This command should be bound to a drag event.  It moves the tab
@@ -286,7 +286,7 @@ at the mouse-down event to the position at mouse-up event."
 
 (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab)
 
-;; * keymap
+;; * Keymap
 ;; select tab
 (defun zw/tab-line-select (index)
   (interactive)

@@ -232,7 +232,6 @@
               nil :help ,(format "Current EXWM workspace: %d" exwm-workspace-current-index)))))
 
 ;; * Config
-;; ** main
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
@@ -248,25 +247,27 @@
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
-(tab-rename "Main" 1)
-(tab-bar-mode 1)
 
-;; ** time
-(setq display-time-format "%b %-e %a %H:%M:%S %p"
-      display-time-interval 1
-      display-time-default-load-average nil)
-(display-time-mode 1)
-
-;; ** battery
-(require 'battery)
-(when battery-status-function
-  (setq have-battery-status-p
-        (let ((perc-charged (assoc ?p (funcall battery-status-function))))
-          (and perc-charged
-               (not (zerop (string-to-number (cdr perc-charged)))))))
-  (when (and have-battery-status-p
-             tab-bar-show)
-    (display-battery-mode 1)))
+;; * Enable
+(defun zw/tab-bar-init ()
+  (tab-rename "Main" 1)
+  (tab-bar-mode 1)
+  ;; time
+  (setq display-time-format "%b %-e %a %H:%M:%S %p"
+        display-time-interval 1
+        display-time-default-load-average nil)
+  (display-time-mode 1)
+  ;; battery
+  (require 'battery)
+  (when battery-status-function
+    (setq have-battery-status-p
+          (let ((perc-charged (assoc ?p (funcall battery-status-function))))
+            (and perc-charged
+                 (not (zerop (string-to-number (cdr perc-charged)))))))
+    (when (and have-battery-status-p
+               tab-bar-show)
+      (display-battery-mode 1))))
+(add-hook 'after-init-hook 'zw/tab-bar-init)
 
 ;; * Keymap
 (defun zw/tab-bar--item-select (item)
