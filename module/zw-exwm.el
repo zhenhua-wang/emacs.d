@@ -709,10 +709,7 @@
       (switch-to-buffer nil)
     (switch-to-buffer "*scratch*")))
 
-(defvar zw/exwm--hide-desktop-previous-buffer nil)
 (defun zw/exwm--hide-desktop ()
-  (setq zw/exwm--hide-desktop-previous-buffer (current-buffer))
-  (switch-to-buffer "*scratch*")
   (exwm--set-geometry (frame-parameter exwm-workspace--current
                                        'exwm-container)
                       nil nil
@@ -742,10 +739,7 @@
          (height (alist-get 'height geometry)))
     (if (= height (display-pixel-height))
         (zw/exwm--hide-desktop)
-      (progn
-        (switch-to-buffer nil)
-        (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)
-        (zw/exwm--show-desktop))))
+      (zw/exwm--show-desktop)))
   (xcb:flush exwm--connection))
 
 ;; ** exwm hide buffer
