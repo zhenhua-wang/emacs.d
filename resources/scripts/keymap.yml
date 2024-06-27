@@ -10,7 +10,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: [emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
     exact_match: true
     remap:
       # Arrow
@@ -88,14 +88,14 @@ keymap:
 
   - name: Emacs Rime
     application:
-      only: [emacs, emacs.Emacs]
+      only: [emacs, Emacs, emacs.Emacs]
     exact_match: true
     remap:
       C-backslash: Super-backslash
 
   - name: Apple keymap
     application:
-      not: [emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
     exact_match: true
     remap:
       # tab
