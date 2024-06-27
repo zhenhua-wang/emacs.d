@@ -721,6 +721,7 @@
 (defun zw/exwm--hide-desktop ()
   (setq zw/exwm--hide-desktop-previous-buffer (current-buffer))
   (switch-to-buffer "*scratch*")
+  (zw/maximize-window)
   (exwm--set-geometry (frame-parameter exwm-workspace--current
                                        'exwm-container)
                       nil nil
@@ -748,7 +749,8 @@
     (progn
       (switch-to-buffer nil)
       (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)
-      (zw/exwm--show-desktop)))
+      (zw/exwm--show-desktop)
+      (winner-undo)))
   (xcb:flush exwm--connection))
 
 ;; ** exwm hide buffer
