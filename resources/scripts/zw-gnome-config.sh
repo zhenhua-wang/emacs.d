@@ -18,10 +18,8 @@ gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 
 gsettings set org.gnome.desktop.input-sources per-window true
 # extension
 gsettings set org.gnome.shell disable-user-extensions false
-gnome-extensions enable dash-to-panel@jderose9.github.com
 gnome-extensions enable Vitals@CoreCoding.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
-gnome-extensions enable hide-universal-access@akiirui.github.io
 gnome-extensions enable caffeine@patapon.info
 # vitals
 gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
