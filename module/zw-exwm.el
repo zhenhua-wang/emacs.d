@@ -650,7 +650,9 @@
                          (minibufferp buffer)))
     (if exwm--floating-frame
         (tabspaces--buffer-list exwm-workspace--current)
-      (tabspaces--buffer-list)))))
+      (tabspaces--buffer-list))))
+  (zw/exwm--show-desktop)
+  (xcb:flush exwm--connection))
 
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
