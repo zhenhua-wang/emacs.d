@@ -179,8 +179,8 @@
   (tabspaces-default-tab "Main")
   (tabspaces-remove-to-default t)
   ;; sessions
-  (tabspaces-session t)
-  (tabspaces-session-auto-restore t)
+  (tabspaces-session nil)
+  (tabspaces-session-auto-restore nil)
   :init
   (defun zw/tabspace-local-buffer-p (buffer)
     (or (tabspaces--local-buffer-p buffer)
