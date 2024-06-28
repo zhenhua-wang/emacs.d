@@ -718,8 +718,10 @@
     (not (= height (display-pixel-height)))))
 
 (defvar zw/exwm--hide-desktop-previous-buffer nil)
+(defvar zw/exwm--hide-desktop-previous-layout nil)
 (defun zw/exwm--hide-desktop ()
-  (setq zw/exwm--hide-desktop-previous-buffer (current-buffer))
+  (setq zw/exwm--hide-desktop-previous-buffer (current-buffer)
+        zw/exwm--hide-desktop-previous-layout (current-window-configuration))
   (switch-to-buffer "*scratch*")
   (zw/maximize-window)
   (exwm--set-geometry (frame-parameter exwm-workspace--current
@@ -750,7 +752,7 @@
       (switch-to-buffer nil)
       (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)
       (zw/exwm--show-desktop)
-      (winner-undo)))
+      (set-window-configuration zw/exwm--hide-desktop-previous-layout)))
   (xcb:flush exwm--connection))
 
 ;; ** exwm hide buffer
@@ -911,7 +913,9 @@
               (buffer-list))))
     (if app
         (zw/exwm--switch-to-buffer-show-desktop app)
-      (zw/exwm-run-in-background name))))
+      (zw/exwm-run-in-background name)))
+  (zw/exwm--show-desktop)
+  (xcb:flush exwm--connection))
 
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
