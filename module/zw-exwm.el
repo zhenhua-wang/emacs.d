@@ -736,12 +736,6 @@
                       nil nil
                       (frame-pixel-width exwm-workspace--current)
                       (frame-pixel-height exwm-workspace--current)))
-(add-hook 'exwm-init-hook
-          (lambda ()
-            (advice-add 'tab-bar-select-tab :after
-                        (lambda (&rest args)
-                          (zw/exwm--show-desktop)
-                          (xcb:flush exwm--connection)))))
 
 (defun zw/exwm-toggle-desktop ()
   (interactive)
@@ -754,6 +748,23 @@
       (zw/exwm--show-desktop)
       (set-window-configuration zw/exwm--hide-desktop-previous-layout)))
   (xcb:flush exwm--connection))
+
+;; show desktop after select tab
+(add-hook 'exwm-init-hook
+          (lambda ()
+            (advice-add 'tab-bar-select-tab :after
+                        (lambda (&rest args)
+                          (zw/exwm--show-desktop)
+                          (xcb:flush exwm--connection)))))
+
+;; hide desktop on startup
+(defvar zw/exwm-desktop-init nil)
+(add-hook 'exwm-randr-refresh-hook
+          (lambda (&rest args)
+            (unless zw/exwm-desktop-init
+              (setq zw/exwm-desktop-init t)
+              (zw/exwm--hide-desktop)
+              (xcb:flush exwm--connection))))
 
 ;; ** exwm hide buffer
 (defun zw/exwm-hide-buffer (&optional buffer)
