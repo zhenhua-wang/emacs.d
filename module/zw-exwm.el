@@ -749,13 +749,19 @@
       (set-window-configuration zw/exwm--hide-desktop-previous-layout)))
   (xcb:flush exwm--connection))
 
-;; show desktop after select tab
+;; show desktop hook
 (add-hook 'exwm-init-hook
           (lambda ()
             (advice-add 'tab-bar-select-tab :after
                         (lambda (&rest args)
                           (zw/exwm--show-desktop)
                           (xcb:flush exwm--connection)))))
+(add-hook 'after-change-major-mode-hook
+          (lambda ()
+            (unless (minibufferp)
+              (message (buffer-name))
+              (zw/exwm--show-desktop)
+              (xcb:flush exwm--connection))))
 
 ;; hide desktop on startup
 (defvar zw/exwm-desktop-init nil)
