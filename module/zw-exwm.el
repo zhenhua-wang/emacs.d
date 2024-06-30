@@ -639,8 +639,10 @@
   "Switch to buffer and show desktop if hidden"
   (exwm-workspace-switch-to-buffer buffer)
   ;; show desktop if hidden
-  (zw/exwm--show-desktop)
-  (xcb:flush exwm--connection))
+  (with-current-buffer buffer
+    (when (not exwm--floating-frame)
+      (zw/exwm--show-desktop)
+      (xcb:flush exwm--connection))))
 
 (defun zw/exwm-switch-to-first-emacs-buffer ()
   (interactive)
@@ -756,11 +758,12 @@
                           (zw/exwm--show-desktop)
                           (xcb:flush exwm--connection)))))
 (add-hook 'window-buffer-change-functions
-          (lambda (_)
-            (unless (or (minibufferp)
-                        (string= (buffer-name) "*scratch*"))
-              (zw/exwm--show-desktop)
-              (xcb:flush exwm--connection))))
+          (lambda (frame)
+            (when (eq frame exwm-workspace--current)
+              (unless (or (minibufferp)
+                          (string= (buffer-name) "*scratch*"))
+                (zw/exwm--show-desktop)
+                (xcb:flush exwm--connection)))))
 
 ;; hide desktop on startup
 (defvar zw/exwm-desktop-init nil)
