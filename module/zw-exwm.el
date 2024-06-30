@@ -758,9 +758,8 @@
                           (xcb:flush exwm--connection)))))
 (add-hook 'window-buffer-change-functions
           (lambda (&rest _)
-            (when (and (not (minibufferp))
-                       (not (string= (buffer-name) "*scratch*")))
-              (message (buffer-name))
+            (unless (or (minibufferp)
+                        (string= (buffer-name) "*scratch*"))
               (zw/exwm--show-desktop)
               (xcb:flush exwm--connection))))
 
