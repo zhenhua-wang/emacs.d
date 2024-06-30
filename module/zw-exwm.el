@@ -713,7 +713,7 @@
 (defun zw/exwm--desktop-hidden-p ()
   (let* ((geometry (zw/exwm-get-geometry
                     exwm--connection
-                    (frame-parameter exwm-workspace--minibuffer
+                    (frame-parameter exwm-workspace--current
                                      'exwm-container)))
          (height (alist-get 'height geometry)))
     (not (= height (display-pixel-height)))))
