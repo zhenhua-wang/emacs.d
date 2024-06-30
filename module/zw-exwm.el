@@ -723,13 +723,14 @@
 (defun zw/exwm--hide-desktop ()
   (setq zw/exwm--hide-desktop-previous-buffer (current-buffer)
         zw/exwm--hide-desktop-previous-layout (current-window-configuration))
-  (exwm-workspace-switch-to-buffer "*scratch*")
-  (zw/maximize-window)
-  (exwm--set-geometry (frame-parameter exwm-workspace--current
-                                       'exwm-container)
-                      nil nil
-                      (frame-pixel-width exwm-workspace--current)
-                      (floor (* 1.11 (pixel-line-height)))))
+  (with-selected-frame exwm-workspace--current
+    (switch-to-buffer "*scratch*")
+    (zw/maximize-window)
+    (exwm--set-geometry (frame-parameter exwm-workspace--current
+                                         'exwm-container)
+                        nil nil
+                        (frame-pixel-width exwm-workspace--current)
+                        (floor (* 1.11 (pixel-line-height))))))
 
 (defun zw/exwm--show-desktop ()
   (exwm--set-geometry (frame-parameter exwm-workspace--current
