@@ -74,6 +74,7 @@
       (plist-put current-config 'command-cwd (dape-command-cwd))
       (plist-put current-config ':cwd (dape-cwd))
       (plist-put current-config ':program (dape-buffer-default))
+      (plist-put current-config ':env `(:PYTHONPATH ,(dape-cwd)))
       ;; set tramp
       (when (file-remote-p default-directory)
         (setq current-config (dape-config-autoport (dape-config-tramp current-config))))
