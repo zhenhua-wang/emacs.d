@@ -721,9 +721,9 @@
 (defvar zw/exwm--hide-desktop-previous-buffer nil)
 (defvar zw/exwm--hide-desktop-previous-layout nil)
 (defun zw/exwm--hide-desktop ()
-  (setq zw/exwm--hide-desktop-previous-buffer (current-buffer)
-        zw/exwm--hide-desktop-previous-layout (current-window-configuration))
+  (setq zw/exwm--hide-desktop-previous-buffer (current-buffer))
   (with-selected-frame exwm-workspace--current
+    (setq zw/exwm--hide-desktop-previous-layout (current-window-configuration))
     (switch-to-buffer "*scratch*")
     (zw/maximize-window)
     (exwm--set-geometry (frame-parameter exwm-workspace--current
@@ -746,10 +746,9 @@
           (not (zw/exwm--desktop-hidden-p)))
       (zw/exwm--hide-desktop)
     (progn
-      (switch-to-buffer nil)
-      (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)
       (zw/exwm--show-desktop)
-      (set-window-configuration zw/exwm--hide-desktop-previous-layout)))
+      (set-window-configuration zw/exwm--hide-desktop-previous-layout)
+      (exwm-workspace-switch-to-buffer zw/exwm--hide-desktop-previous-buffer)))
   (xcb:flush exwm--connection))
 
 ;; show desktop hook
