@@ -1005,12 +1005,13 @@
 ;; * exwm keymap
 ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
-      '(?\C-x
+      `(?\C-x
         ?\C-u
         ?\C-h
         ?\M-x
         ?\M-&
-        ?\M-:))
+        ?\M-:
+        ,(elt (kbd "<f9>") 0)))
 
 ;; ** exwm simulate keys
 (setq exwm-input-simulation-keys
