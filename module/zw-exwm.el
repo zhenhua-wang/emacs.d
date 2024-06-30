@@ -649,8 +649,7 @@
   (zw/exwm--switch-to-buffer-show-desktop
    (cl-find-if-not
     (lambda (buffer) (or (with-current-buffer buffer exwm--id)
-                         (minibufferp buffer)
-                         (string= (buffer-name buffer) "*scratch*")))
+                         (minibufferp buffer)))
     (if exwm--floating-frame
         (tabspaces--buffer-list exwm-workspace--current)
       (tabspaces--buffer-list)))))
