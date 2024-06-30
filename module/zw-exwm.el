@@ -1068,6 +1068,7 @@
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
         ;; update emacs
         (,(kbd "<f12>") . zw/update-emacs-tangle-dotfiles)
+        (,(kbd "<f5>") . ibuffer)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
