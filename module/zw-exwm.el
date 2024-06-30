@@ -755,8 +755,8 @@
                         (lambda (&rest _)
                           (zw/exwm--show-desktop)
                           (xcb:flush exwm--connection)))))
-(add-hook 'window-buffer-change-functions
-          (lambda (_)
+(add-hook 'window-configuration-change-hook
+          (lambda ()
             (unless (or (minibufferp)
                         (string= (buffer-name) "*scratch*"))
               (zw/exwm--show-desktop)
