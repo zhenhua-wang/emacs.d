@@ -753,12 +753,13 @@
 (add-hook 'exwm-init-hook
           (lambda ()
             (advice-add 'tab-bar-select-tab :after
-                        (lambda (&rest args)
+                        (lambda (&rest _)
                           (zw/exwm--show-desktop)
                           (xcb:flush exwm--connection)))))
-(add-hook 'after-change-major-mode-hook
-          (lambda ()
-            (unless (minibufferp)
+(add-hook 'window-buffer-change-functions
+          (lambda (&rest _)
+            (when (and (not (minibufferp))
+                       (not (string= (buffer-name) "*scratch*")))
               (message (buffer-name))
               (zw/exwm--show-desktop)
               (xcb:flush exwm--connection))))
