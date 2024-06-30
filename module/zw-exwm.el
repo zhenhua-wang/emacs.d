@@ -721,8 +721,10 @@
 (defvar zw/exwm--hide-desktop-previous-buffer nil)
 (defvar zw/exwm--hide-desktop-previous-layout nil)
 (defun zw/exwm--hide-desktop ()
+  ;; record previous buffer including float buffer
   (setq zw/exwm--hide-desktop-previous-buffer (current-buffer))
   (with-selected-frame exwm-workspace--current
+    ;; record the previous layout of exwm main frame
     (setq zw/exwm--hide-desktop-previous-layout (current-window-configuration))
     (switch-to-buffer "*scratch*")
     (zw/maximize-window)
