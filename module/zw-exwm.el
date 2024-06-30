@@ -647,12 +647,11 @@
   (zw/exwm--switch-to-buffer-show-desktop
    (cl-find-if-not
     (lambda (buffer) (or (with-current-buffer buffer exwm--id)
-                         (minibufferp buffer)))
+                         (minibufferp buffer)
+                         (string= (buffer-name buffer) "*scratch*")))
     (if exwm--floating-frame
         (tabspaces--buffer-list exwm-workspace--current)
-      (tabspaces--buffer-list))))
-  (zw/exwm--show-desktop)
-  (xcb:flush exwm--connection))
+      (tabspaces--buffer-list)))))
 
 (defun zw/exwm-switch-to-buffer-annotation (style)
   (with-current-buffer style
@@ -757,7 +756,7 @@
                           (zw/exwm--show-desktop)
                           (xcb:flush exwm--connection)))))
 (add-hook 'window-buffer-change-functions
-          (lambda (&rest _)
+          (lambda (_)
             (unless (or (minibufferp)
                         (string= (buffer-name) "*scratch*"))
               (zw/exwm--show-desktop)
@@ -930,9 +929,7 @@
               (buffer-list))))
     (if app
         (zw/exwm--switch-to-buffer-show-desktop app)
-      (zw/exwm-run-in-background name)))
-  (zw/exwm--show-desktop)
-  (xcb:flush exwm--connection))
+      (zw/exwm-run-in-background name))))
 
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
