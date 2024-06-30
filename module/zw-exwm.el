@@ -741,7 +741,8 @@
 (defun zw/exwm-toggle-desktop ()
   (interactive)
   (exwm-systemtray--refresh)
-  (if (not (zw/exwm--desktop-hidden-p))
+  (if (or exwm--floating-frame
+          (not (zw/exwm--desktop-hidden-p)))
       (zw/exwm--hide-desktop)
     (progn
       (switch-to-buffer nil)
