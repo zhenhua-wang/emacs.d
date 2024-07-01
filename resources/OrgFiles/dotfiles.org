@@ -107,6 +107,10 @@ tab_powerline_style slanted
 tab_bar_min_tabs 1
 bell_on_tab "🔔 "
 tab_activity_symbol "⌛ "
+active_tab_foreground   #000
+active_tab_background   #eee
+inactive_tab_foreground #444
+inactive_tab_background #999
 active_tab_font_style   bold
 inactive_tab_font_style normal
 
@@ -199,10 +203,10 @@ from kitty.tab_bar import (
     draw_tab_with_powerline)
 
 opts = get_options()
-CLOCK_FG = as_rgb(color_as_int(opts.color0))
-CLOCK_BG = as_rgb(color_as_int(opts.color2))
-DATE_FG = as_rgb(color_as_int(opts.color0))
-DATE_BG = as_rgb(color_as_int(opts.color7))
+CLOCK_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+CLOCK_BG = as_rgb(color_as_int(opts.inactive_tab_background))
+DATE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+DATE_BG = as_rgb(color_as_int(opts.active_tab_background))
 REFRESH_TIME = 10
 timer_id = None
 
