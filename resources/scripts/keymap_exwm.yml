@@ -1,0 +1,54 @@
+modmap:
+  - name: Global
+    remap:
+      # swap left Super with left Alt
+      LEFTMETA: LEFTALT
+      LEFTALT: LEFTMETA
+      # map Capslock to Ctrl
+      CAPSLOCK: LEFTCTRL
+
+keymap:
+  - name: Emacs
+    application:
+      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+    exact_match: true
+    remap:
+      # Arrow
+      up: { with_mark: up }
+      down: { with_mark: down }
+      left: { with_mark: left }
+      right: { with_mark: right }
+      C-up: { with_mark: C-up }
+      C-down: { with_mark: C-down }
+      C-left: { with_mark: C-left }
+      C-right: { with_mark: C-right }
+      # Beginning/End of line
+      C-a: { with_mark: home }
+      C-e: { with_mark: end }
+      # Page up/down
+      M-v: { with_mark: pageup }
+      C-v: { with_mark: pagedown }
+      # Beginning/End of file
+      M-Shift-comma: { with_mark: C-home }
+      M-Shift-dot: { with_mark: C-end }
+      # Kill word backward
+      Alt-backspace: [C-backspace, {set_mark: false}]
+      # Mark
+      C-space: { set_mark: true }
+      C-shift-2: { set_mark: true }
+      # Cancel
+      C-g: [C-g, { set_mark: false }]
+      esc: [esc, { set_mark: false }]
+
+  - name: Apple keymap
+    application:
+      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+    exact_match: true
+    remap:
+      # edit
+      Super-z: [Super-z, { set_mark: false }]
+      Super-shift-z: [Super-shift-z, { set_mark: false }]
+      Super-x: [Super-x, { set_mark: false }]
+      Super-c: [Super-c, { set_mark: false }]
+      Super-v: [Super-v, { set_mark: false }]
+      Super-backspace: [Shift-home, backspace, { set_mark: false }]

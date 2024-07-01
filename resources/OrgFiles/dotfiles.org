@@ -7,7 +7,9 @@
 ** Keyboard
 Keyboard identifier can be found using ~xinput list~
 
-#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf")
+To use, tangle this to ~(zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf")~
+
+#+HEADER: :tangle no
 #+begin_src conf
 Section "InputClass"
     Identifier "system-keyboard"

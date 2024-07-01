@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# remap keys
+xremap ~/.emacs.d/resources/scripts/keymap_exwm.yml --watch=device &
+
 # Set the screen DPI (uncomment this if needed!)
 xrdb ~/.cache/emacs/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
