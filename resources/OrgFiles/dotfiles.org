@@ -200,9 +200,9 @@ from kitty.tab_bar import (
 
 opts = get_options()
 CLOCK_FG = as_rgb(color_as_int(opts.color0))
-CLOCK_BG = as_rgb(color_as_int(opts.color2))
+CLOCK_BG = as_rgb(color_as_int(opts.color4))
 DATE_FG = as_rgb(color_as_int(opts.color0))
-DATE_BG = as_rgb(color_as_int(opts.color2))
+DATE_BG = as_rgb(color_as_int(opts.color4))
 REFRESH_TIME = 10
 timer_id = None
 
