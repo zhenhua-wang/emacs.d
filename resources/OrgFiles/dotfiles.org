@@ -7,28 +7,10 @@
 ** Keyboard
 Keyboard identifier can be found using ~xinput list~
 
-To use, tangle this to ~(zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf")~
-
-#+HEADER: :tangle no
+#+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/X11/xorg.conf.d/00-keyboard.conf")
 #+begin_src conf
 Section "InputClass"
     Identifier "system-keyboard"
-    MatchIsKeyboard "on"
-    Option "XkbLayout" "us"
-    Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
-EndSection
-
-Section "InputClass"
-    Identifier "external-keyboard1"
-    MatchProduct "BY Tech Air75"
-    MatchIsKeyboard "on"
-    Option "XkbLayout" "us"
-    Option "XkbOptions" "caps:ctrl_modifier,altwin:swap_lalt_lwin"
-EndSection
-
-Section "InputClass"
-    Identifier "external-keyboard2"
-    MatchProduct "Air75 BT5.0"
     MatchIsKeyboard "on"
     Option "XkbLayout" "us"
     Option "XkbOptions" "caps:ctrl_modifier"
