@@ -151,19 +151,19 @@
         (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
         (shell-command "cd ~/Documents/Agenda && git push")
         (message "Agenda pushed!"))
-    (message "~/Documents/Agenda is empty!")))
+    (message "~/Documents/Agenda doesn't exist!")))
 (defun zw/git-pull-agenda ()
   (interactive)
   (if (file-directory-p "~/Documents/Agenda")
       (progn
         (shell-command "cd ~/Documents/Agenda && git pull")
         (message "Agenda pulled!"))
-    (message "~/Documents/Agenda is empty!")))
+    (message "~/Documents/Agenda doesn't exist!")))
 (defun zw/open-agenda ()
   (interactive)
   (if (file-directory-p "~/Documents/Agenda")
       (org-agenda nil "d")
-    (message "~/Documents/Agenda is empty!")))
+    (message "~/Documents/Agenda doesn't exist!")))
 (bind-keys :prefix-map zw/org-agenda-map
            :prefix "<f9>"
            ("<down>" . zw/git-pull-agenda)
