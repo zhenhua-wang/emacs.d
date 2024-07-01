@@ -35,8 +35,8 @@
 
 - vertico + marginalia + consult
 - company-mode + company-posframe
-- lsp-mode + lsp-ui
-- ess + polymode + stan-mode
+- eglot + dape
+- ess + polymode
 - python-mode + conda + code-cells
 - auctex + reftex
 
