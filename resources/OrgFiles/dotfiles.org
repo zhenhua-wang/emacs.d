@@ -1132,8 +1132,7 @@ uinput
 [Desktop Entry]
 Name=Xremap
 Type=Application
-# Exec=systemctl --user start xremap
-Exec=/usr/bin/xremap .emacs.d/resources/scripts/keymap.yml --watch=device
+Exec=systemctl --user start xremap
 Terminal=false
 #+end_src
 
