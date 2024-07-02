@@ -379,138 +379,6 @@ fade-exclude = ["class_g != 'Dunst'"];
 # ];
 #+end_src
 
-* Fcitx5
-** Config
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/config")
-#+begin_src conf
-[Hotkey]
-# Trigger Input Method
-TriggerKeys=
-# Enumerate when press trigger key repeatedly
-EnumerateWithTriggerKeys=True
-# Temporally switch between first and current Input Method
-AltTriggerKeys=
-# Enumerate Input Method Forward
-EnumerateForwardKeys=
-# Enumerate Input Method Backward
-EnumerateBackwardKeys=
-# Skip first input method while enumerating
-EnumerateSkipFirst=False
-# Enumerate Input Method Group Forward
-EnumerateGroupForwardKeys=
-# Enumerate Input Method Group Backward
-EnumerateGroupBackwardKeys=
-# Activate Input Method
-ActivateKeys=
-# Deactivate Input Method
-DeactivateKeys=
-# Default Previous page
-PrevPage=
-# Default Next page
-NextPage=
-# Default Previous Candidate
-PrevCandidate=
-# Default Next Candidate
-NextCandidate=
-# Toggle embedded preedit
-TogglePreedit=
-
-[Hotkey/TriggerKeys]
-0=Control+backslash
-
-[Behavior]
-# Active By Default
-ActiveByDefault=False
-# Share Input State
-ShareInputState=Program
-# Show preedit in application
-PreeditEnabledByDefault=True
-# Show Input Method Information when switch input method
-ShowInputMethodInformation=True
-# Show Input Method Information when changing focus
-showInputMethodInformationWhenFocusIn=True
-# Show compact input method information
-CompactInputMethodInformation=True
-# Show first input method information
-ShowFirstInputMethodInformation=False
-# Default page size
-DefaultPageSize=9
-# Override Xkb Option
-OverrideXkbOption=False
-# Custom Xkb Option
-CustomXkbOption=
-# Force Enabled Addons
-EnabledAddons=
-# Force Disabled Addons
-DisabledAddons=
-# Preload input method to be used by default
-PreloadInputMethod=True
-#+end_src
-
-** Profile
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/profile")
-#+begin_src conf
-[Groups/0]
-# Group Name
-Name=Default
-# Layout
-Default Layout=us
-# Default Input Method
-DefaultIM=rime
-
-[Groups/0/Items/0]
-# Name
-Name=keyboard-us
-# Layout
-Layout=
-
-[Groups/0/Items/1]
-# Name
-Name=rime
-# Layout
-Layout=
-
-[GroupOrder]
-0=Default
-#+end_src
-
-** Theme
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/fcitx5/conf/classicui.conf")
-#+begin_src sh
-# Vertical Candidate List
-Vertical Candidate List=False
-# Use mouse wheel to go to prev or next page
-WheelForPaging=True
-# Font
-Font="Sans 13"
-# Menu Font
-MenuFont="Sans 13"
-# Tray Font
-TrayFont="Sans Bold 13"
-# Tray Label Outline Color
-TrayOutlineColor=#000000
-# Tray Label Text Color
-TrayTextColor=#ffffff
-# Prefer Text Icon
-PreferTextIcon=False
-# Show Layout Name In Icon
-ShowLayoutNameInIcon=True
-# Use input method language to display text
-UseInputMethodLanguageToDisplayText=True
-# Theme
-Theme=adwaita-dark
-# Dark Theme
-DarkTheme=default-dark
-# Follow system light/dark color scheme
-UseDarkTheme=True
-# Use Per Screen DPI on X11
-PerScreenDPI=True
-# Force font DPI on Wayland
-ForceWaylandDPI=0
-# Enable fractional scale under Wayland
-EnableFractionalScale=True
-#+end_src
-
 * IBus
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/ibus/rime/ibus_rime.custom.yaml")
 #+begin_src conf
@@ -519,7 +387,7 @@ patch:
 #+end_src
 
 * Rime
-#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/fcitx5/rime/default.custom.yaml")
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/ibus/rime/default.custom.yaml")
 #+begin_src conf
 patch:
   __include: rime_ice_suggestion:/

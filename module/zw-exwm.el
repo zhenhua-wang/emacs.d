@@ -59,8 +59,8 @@
     (zw/exwm-run-in-background "blueman-applet"))
   (when (executable-find "udiskie")
     (zw/exwm-run-in-background "udiskie --automount -t"))
-  (when (executable-find "fcitx5")
-    (zw/exwm-run-in-background "fcitx5"))
+  (when (executable-find "ibus-daemon")
+    (zw/exwm-run-in-background "ibus-daemon -rxRd"))
   (when (executable-find "polybar")
     (zw/exwm-run-in-background "polybar panel")))
 
@@ -619,10 +619,10 @@
 ;; (exwm-xim-enable)
 ;; (setenv "CLUTTER_IM_MODULE" "xim")
 (push ?\C-\\ exwm-input-prefix-keys)
-(setenv "GTK_IM_MODULE" "fcitx")
-(setenv "QT_IM_MODULE" "fcitx")
-(setenv "XMODIFIERS" "@im=fcitx")
-(setenv "SDL_IM_MODULE" "fcitx")
+(setenv "GTK_IM_MODULE" "ibus")
+(setenv "QT_IM_MODULE" "ibus")
+(setenv "XMODIFIERS" "@im=ibus")
+(setenv "SDL_IM_MODULE" "ibus")
 (setenv "GLFW_IM_MODULE" "ibus")
 
 ;; ** exwm randr

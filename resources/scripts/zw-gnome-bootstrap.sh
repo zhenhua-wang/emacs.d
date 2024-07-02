@@ -46,9 +46,6 @@ git config --global user.name "Zhenhua Wang"
 git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 
-# rime
-ln -s ~/.local/share/fcitx5/rime/default.custom.yaml ~/.config/ibus/rime/default.custom.yaml
-
 # essential desktop
 yay -S firefox kitty htop fastfetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
 

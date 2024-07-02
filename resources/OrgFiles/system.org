@@ -37,9 +37,9 @@ sudo make install
 # x11
 yay -S xorg-xrdb xorg-xrandr
 # required
-yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl fcitx5-rime fcitx5-im
+yay -S picom dunst network-manager-applet pasystray udiskie blueman feh brightnessctl alsa-utils playerctl
 # optional
-yay -S rofi rofi-calc fcitx5-skin-adwaita-dark materia-gtk-theme papirus-icon-theme flameshot thunar tumbler ffmpegthumbnailer
+yay -S rofi rofi-calc materia-gtk-theme papirus-icon-theme flameshot thunar tumbler ffmpegthumbnailer
 #+end_src
 
 ** Gnome
@@ -55,8 +55,6 @@ yay -S keyd-git
 sudo systemctl enable keyd && sudo systemctl start keyd
 # usermod -aG keyd zhenhua
 # keyd-application-mapper
-# symbolic link rime
-ln -s ~/.local/share/fcitx5/rime/default.custom.yaml ~/.config/ibus/rime/default.custom.yaml
 #+end_src
 
 *** Extensions

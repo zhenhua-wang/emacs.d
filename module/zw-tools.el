@@ -428,7 +428,7 @@
       (make-directory dir t))
     (unless (file-exists-p config)
       (make-symbolic-link (expand-file-name "default.custom.yaml"
-                                            "~/.local/share/fcitx5/rime/")
+                                            "~/.config/ibus/rime/")
                           config t)))
   ;; rime finalize
   (add-hook 'kill-emacs-hook (lambda () (ignore-errors (rime-lib-finalize)))))
