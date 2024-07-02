@@ -283,6 +283,12 @@ sudo fsck -p /dev/sda1
 *** Nuphy Air75 Fn keys in win mode
 ~echo 'options hid_apple fnmode=0' | sudo tee -a /etc/modprobe.d/hid_apple.conf~
 
+*** Steam proton
+- Settings/compatibility/enable steam play for all other titles
+- Use ~protontricks~ inject dll (e.g. NBA2K_Hook.dll) into process (NBA2K20.exe)
+  - ~flatpak install com.github.Matoking.protontricks~
+  - Double click ~NBA2K_Hook.dll~ and select ~NBA2K20.exe~
+
 * MacOS
 ** Homebrew
 #+begin_src shell
