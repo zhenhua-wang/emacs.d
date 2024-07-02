@@ -1218,7 +1218,8 @@ uinput
 [Desktop Entry]
 Name=Xremap
 Type=Application
-Exec=systemctl --user start xremap
+#Exec=systemctl --user start xremap
+Exec=/usr/bin/sh .emacs.d/resources/scripts/zw-gnome-autostart.sh
 Terminal=false
 #+end_src
 
@@ -1228,6 +1229,7 @@ Terminal=false
 <Ctrl><Super>e,emacs,emacs,
 <Ctrl><Super>k,kitty,kitty,
 <Ctrl><Super>f,firefox,firefox,
+<Ctrl><Super>n,nautilus,nautilus,
 #+end_src
 
 * Local variables

@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # remap keys
+pkill xremap
 xremap ~/.emacs.d/resources/scripts/keymap_exwm.yml --watch=device &
 
 # Set the screen DPI (uncomment this if needed!)
