@@ -33,3 +33,6 @@ gio mime inode/directory org.gnome.Nautilus.desktop
 dconf write /desktop/ibus/general/hotkey/triggers "['<Super>backslash', '<Alt>space']"
 dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'rime']"
 dconf write /desktop/ibus/general/use-global-engine false
+dconf write /desktop/ibus/panel/use-custom-theme true
+dconf write /desktop/ibus/panel/use-custom-font true
+dconf write /desktop/ibus/panel/custom-font "'Sans 13'"
