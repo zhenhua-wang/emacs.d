@@ -1023,6 +1023,7 @@
         (,(kbd "s-t") . ,(kbd "C-t"))
         (,(kbd "s-T") . ,(kbd "C-S-t"))
         (,(kbd "s-w") . ,(kbd "C-w"))
+        (,(kbd "s-n") . ,(kbd "C-n"))
         (,(kbd "s-1") . ,(kbd "M-1"))
         (,(kbd "s-2") . ,(kbd "M-2"))
         (,(kbd "s-3") . ,(kbd "M-3"))

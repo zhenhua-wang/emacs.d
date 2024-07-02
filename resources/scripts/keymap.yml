@@ -110,6 +110,7 @@ keymap:
       Super-9: M-9
       Super-w: C-w
       Super-t: C-t
+      Super-n: C-n
       Super-shift-t: C-shift-t
       # command
       Super-backslash: C-backslash
