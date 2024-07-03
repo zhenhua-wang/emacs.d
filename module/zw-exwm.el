@@ -1070,9 +1070,12 @@
         ;; mininbuffer
         (,(kbd "s-<escape>") . zw/exwm-toggle-minibuffer)
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
-        ;; update emacs
+        ;; command
         (,(kbd "<f12>") . zw/update-emacs-tangle-dotfiles)
         (,(kbd "<f5>") . ibuffer)
+        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
+        (,(kbd "s-l") . emacs-websearch)
+        (,(kbd "s-P") . zw/conda-env-activate)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
@@ -1080,10 +1083,6 @@
                                  (save-some-buffers)
                                  (async-shell-command command)))
         (,(kbd "s-SPC") . zw/launch-app)
-        (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
-        ;; web search
-        (,(kbd "s-l") . emacs-websearch)
-        ;; launch app
         (,(kbd "C-s-k") . (lambda ()
                             (interactive)
                             (zw/launch-app-by-name "kitty")))
