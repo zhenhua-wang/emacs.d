@@ -1089,6 +1089,9 @@
         (,(kbd "C-s-f") . (lambda ()
                             (interactive)
                             (zw/launch-app-by-name "firefox")))
+        (,(kbd "C-s-n") . (lambda ()
+                            (interactive)
+                            (zw/launch-app-by-name "nautilus")))
         ;; switch workspace
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "M-s-%d" i)) .
