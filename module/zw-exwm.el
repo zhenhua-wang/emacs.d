@@ -745,7 +745,8 @@
   (exwm-systemtray--refresh)
   (if (or exwm--floating-frame
           (not (zw/exwm--desktop-hidden-p)))
-      (zw/exwm--hide-desktop)
+      (progn (zw/exwm--hide-desktop)
+             (zw/exwm-floating-hide-all))
     (progn
       (zw/exwm--show-desktop)
       (set-window-configuration zw/exwm--hide-desktop-previous-layout)
