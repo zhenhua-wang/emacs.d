@@ -29,7 +29,6 @@ gsettings set org.gnome.shell.extensions.vitals fixed-widths true
 gsettings set org.gnome.shell.extensions.caffeine restore-state true
 # default app
 gio mime inode/directory org.gnome.Nautilus.desktop
-xdg-mime default emacsclient.desktop text/plain
 # ibus
 dconf write /desktop/ibus/general/hotkey/triggers "['<Super>backslash', '<Alt>space']"
 dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'rime']"
