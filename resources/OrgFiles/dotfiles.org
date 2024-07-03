@@ -254,9 +254,11 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
     for fg, bg, cell in cells:
         screen.cursor.fg = fg
         screen.cursor.bg = bg
+        screen.cursor.bold = True
         screen.draw(cell)
         screen.cursor.fg = 0
         screen.cursor.bg = 0
+        screen.cursor.bold = False
 
     screen.cursor.x = max(screen.cursor.x, screen.columns - right_status_length)
     return screen.cursor.x
