@@ -140,7 +140,8 @@
                             (cl-some 'identity
                                      (cl-mapcar (lambda (buffer)
                                                   (with-current-buffer buffer
-                                                    (string= "Emacs" exwm-class-name)))
+                                                    (or (string= "Emacs" exwm-class-name)
+                                                        (string-match-p "kitty: emacs" (buffer-name)))))
                                                 (buffer-list))))
                        floating t
                        x ,(- (+ float-x float-width)
