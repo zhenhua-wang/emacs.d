@@ -39,14 +39,14 @@ keymap:
       # Cancel
       C-g: [C-g, { set_mark: false }]
       esc: [esc, { set_mark: false }]
-      C-backslash: Super-backslash
+      Super-backslash: C-backslash
 
   - name: Emacs Rime
     application:
       only: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
     exact_match: true
     remap:
-      Super-backslash: C-backslash
+      C-backslash: Super-backslash
 
   - name: Apple keymap
     application:
