@@ -8,5 +8,6 @@
   (lambda-themes-set-italic-comments t)
   (lambda-themes-set-italic-keywords t)
   (lambda-themes-set-variable-pitch nil))
+(use-package adwaita-dark-theme)
 
 (provide 'zw-theme-extra)
