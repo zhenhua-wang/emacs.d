@@ -70,7 +70,7 @@
          (highlight-color             (or (face-background 'mode-line-highlight)
                                           (face-background 'highlight nil 'default)))
          (highlight-revert-color      (if (face-background 'mode-line-highlight)
-                                          (face-foreground 'mode-line-highlight)
+                                          (face-foreground 'mode-line-highlight nil t)
                                         (face-foreground 'highlight nil 'default)))
          (highlight-alt-color         (face-foreground 'warning nil 'default))
          (highlight-alt-revert-color  highlight-revert-color)
