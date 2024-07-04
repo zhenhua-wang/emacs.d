@@ -145,10 +145,10 @@
                                                 (buffer-list))))
                        floating t
                        x ,(- (+ float-x float-width)
-                             (floor (* float-width 0.3)))
+                             (floor (* float-width 0.25)))
                        y ,float-y
-                       width ,(floor (* float-width 0.3))
-                       height ,(floor (* float-width 0.3)))
+                       width ,(floor (* float-width 0.25))
+                       height ,(floor (* float-width 0.25)))
                      default-config)
             ;; floating fixed geometry
             ,(append `((or (string= "Emacs" exwm-class-name)
