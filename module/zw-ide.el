@@ -183,9 +183,9 @@
   (tabspaces-session nil)
   (tabspaces-session-auto-restore nil)
   :init
-  (defun zw/tabspace-local-buffer-p (buffer)
+  (defun zw/tabspace-local-buffer-p (buffer &optional frame)
     (or (tabspaces--local-buffer-p buffer)
-        (memq buffer (frame-parameter nil 'buried-buffer-list))))
+        (memq buffer (frame-parameter frame 'buried-buffer-list))))
   ;; filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
     ;; hide full buffer list (still available with "b" prefix)
