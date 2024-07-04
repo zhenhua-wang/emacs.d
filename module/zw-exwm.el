@@ -1072,10 +1072,8 @@
         (,(kbd "S-s-<escape>") . exwm-workspace-toggle-minibuffer)
         ;; command
         (,(kbd "<f12>") . zw/update-emacs-tangle-dotfiles)
-        (,(kbd "<f5>") . ibuffer)
         (,(kbd "s-<tab>") . zw/exwm-switch-to-buffer)
         (,(kbd "s-l") . emacs-websearch)
-        (,(kbd "s-P") . zw/conda-env-activate)
         ;; Launch applications
         (,(kbd "s-<return>") . (lambda (command)
                                  (interactive (list (read-shell-command "$ ")))
@@ -1124,14 +1122,15 @@
            ("s-U" . winner-redo)
            ;; tab-bar
            ("s-k" . keycast-tab-bar-mode)
-           ;; git
-           ("s-G" . magit-status)
-           ;; vterm
-           ("s-e" . vterm)
-           ("s-E" . multi-vterm)
            ;; side bar
            ("s-b" . zw/dired-sidebar-toggle)
            ("s-B" . zw/right-side-window-toggle)
+           ;; command
+           ("<f5>" . ibuffer)
+           ("s-G" . magit-status)
+           ("s-e" . vterm)
+           ("s-E" . multi-vterm)
+           ("s-P" . zw/conda-env-activate)
            :map vertico-map
            ("s-<tab>" . vertico-next)
            ("s-`" . vertico-next))
