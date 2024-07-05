@@ -1003,6 +1003,33 @@
                                   :sort 'visibility
                                   :as #'buffer-name))))
 
+;; ** vertico posframe
+(defun zw/exwm-posframe--set-frame-size (size-info)
+  "Set POSFRAME's size based on SIZE-INFO."
+  (let ((posframe (plist-get size-info :posframe))
+        (width vertico-posframe-width)
+        (height (or vertico-posframe-height
+                    (+ vertico-count 1)))
+        (max-width (display-pixel-width))
+        (max-height (display-pixel-height))
+        (min-width (plist-get size-info :min-width))
+        (min-height (plist-get size-info :min-height)))
+    (when height (set-frame-height posframe height))
+    (when width (set-frame-width posframe width))
+    (unless (and height width)
+      (posframe--fit-frame-to-buffer
+       posframe max-height min-height max-width min-width
+       (cond (width 'vertically)
+             (height 'horizontally))))
+    (setq-local posframe--last-posframe-size size-info)))
+
+(defun zw/exwm-vertico-posframe--show-advice (orig-func &rest args)
+  (cl-letf  (((symbol-function 'posframe--set-frame-size)
+              'zw/exwm-posframe--set-frame-size size-info))
+    (apply orig-func args)))
+
+(advice-add 'vertico-posframe--show :around 'zw/exwm-vertico-posframe--show-advice)
+
 ;; * exwm keymap
 ;; ** exwm prefix keys
 (setq exwm-input-prefix-keys
