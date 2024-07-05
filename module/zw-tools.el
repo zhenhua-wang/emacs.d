@@ -398,7 +398,9 @@
 ;; * Web search
 (use-package emacs-websearch
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
-  :bind (("s-l" . emacs-websearch)))
+  :bind (("s-l" . emacs-websearch))
+  :config
+  (setq emacs-websearch-async t))
 
 ;; * Image scroll
 (use-package iscroll
