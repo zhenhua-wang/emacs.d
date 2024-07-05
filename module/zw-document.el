@@ -142,19 +142,28 @@
                          (org-agenda-todo-keyword-format ""))))))))
 
 ;; agenda settings
-(setq zw/org-agenda-directory "~/Documents/Agenda"
+(setq zw/org-agenda-directory "~/Documents/Agenda/"
       zw/org-agenda-files '("Work.org")
       org-agenda-files (cl-mapcar (lambda (file) (expand-file-name file zw/org-agenda-directory))
                                   zw/org-agenda-files))
 ;; agenda keys
-(defun zw/open-agenda ()
+(defun zw/open-agenda-dashboard ()
   (interactive)
   (when (and (not (file-directory-p zw/org-agenda-directory))
              (y-or-n-p (format "%s doesn't exist! Initialize? " zw/org-agenda-directory)))
     (make-directory zw/org-agenda-directory)
     (make-empty-file (car org-agenda-files)))
   (org-agenda nil "d"))
-(bind-keys :map global-map ("<f9>" . zw/open-agenda))
+(defun zw/open-agenda-file ()
+  (interactive)
+  (let* ((vertico-preselect 'first)
+         (file (read-file-name "View Agenda file: "
+                               zw/org-agenda-directory
+                               nil t)))
+    (find-file file)))
+(bind-keys :map global-map
+           ("<f9>" . zw/open-agenda-dashboard)
+           ("<f10>" . zw/open-agenda-file))
 
 ;; ** babel
 (with-eval-after-load "ob"
