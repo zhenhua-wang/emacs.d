@@ -147,22 +147,6 @@
       org-agenda-files (cl-mapcar (lambda (file) (expand-file-name file zw/org-agenda-directory))
                                   zw/org-agenda-files))
 ;; agenda keys
-(defun zw/git-add-commit-push-agenda ()
-  (interactive)
-  (if (file-directory-p zw/org-agenda-directory)
-      (progn
-        (shell-command (format "cd %s && git add *" zw/org-agenda-directory))
-        (shell-command (format "cd %s && git commit -m 'Updated all files.'" zw/org-agenda-directory))
-        (shell-command (format "cd %s && git push" zw/org-agenda-directory))
-        (message "Agenda pushed!"))
-    (message (format "%s doesn't exist!" zw/org-agenda-directory))))
-(defun zw/git-pull-agenda ()
-  (interactive)
-  (if (file-directory-p zw/org-agenda-directory)
-      (progn
-        (shell-command (format "cd %s && git pull" zw/org-agenda-directory))
-        (message "Agenda pulled!"))
-    (message (format "%s doesn't exist!" zw/org-agenda-directory))))
 (defun zw/open-agenda ()
   (interactive)
   (when (and (not (file-directory-p zw/org-agenda-directory))
