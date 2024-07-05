@@ -167,9 +167,12 @@
         (forward-line 1)))))
 
 (defun zw/dired-siderbar-display (buffer)
-  ;; bury current dired buffer when it has the same root as sidebar
-  (when (eq (current-buffer) buffer)
-    (bury-buffer))
+  ;; bury dired buffers that have the same root as sidebar
+  (dolist (window (window-list))
+    (let ((buf (window-buffer window)))
+      (when (eq buf buffer)
+        (with-selected-window window
+          (bury-buffer)))))
   ;; display sidebar
   (let ((window (display-buffer-in-side-window
                  buffer `((side . left) (slot . -99)
