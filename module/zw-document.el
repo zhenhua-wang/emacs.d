@@ -118,9 +118,8 @@
             (lambda ()
               (bind-keys :map org-agenda-mode-map
                          ("s-q" . org-agenda-exit)
-                         ("q" . org-agenda-exit))))
-  ;; agenda settings
-  (setq org-agenda-files '("~/Documents/Agenda/Work.org"))
+                         ("q" . org-agenda-exit)
+                         ("<f9>" . org-agenda-exit))))
   ;; default agenda
   (setq org-log-done 'time
         org-agenda-window-setup 'only-window
@@ -131,9 +130,9 @@
         org-agenda-time-grid
         '((daily today require-timed)
           (800 1000 1200 1400 1600 1800 2000)
-          "" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
-        "ᐊ┈┈┈┈┈┈┈ Now")
+        "◀── now ─────────────────────────────────────────────────")
   ;; custom agenda
   (setq org-agenda-custom-commands
         '(("d" "Dashboard"
@@ -142,33 +141,36 @@
                          (org-agenda-sorting-strategy '(priority-down))
                          (org-agenda-todo-keyword-format ""))))))))
 
+;; agenda settings
+(setq zw/org-agenda-directory "~/Documents/Agenda"
+      zw/org-agenda-files '("Work.org")
+      org-agenda-files (cl-mapcar (lambda (file) (expand-file-name file zw/org-agenda-directory))
+                                  zw/org-agenda-files))
 ;; agenda keys
 (defun zw/git-add-commit-push-agenda ()
   (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
+  (if (file-directory-p zw/org-agenda-directory)
       (progn
-        (shell-command "cd ~/Documents/Agenda && git add *")
-        (shell-command "cd ~/Documents/Agenda && git commit -m 'Updated all files.'")
-        (shell-command "cd ~/Documents/Agenda && git push")
+        (shell-command (format "cd %s && git add *" zw/org-agenda-directory))
+        (shell-command (format "cd %s && git commit -m 'Updated all files.'" zw/org-agenda-directory))
+        (shell-command (format "cd %s && git push" zw/org-agenda-directory))
         (message "Agenda pushed!"))
-    (message "~/Documents/Agenda doesn't exist!")))
+    (message (format "%s doesn't exist!" zw/org-agenda-directory))))
 (defun zw/git-pull-agenda ()
   (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
+  (if (file-directory-p zw/org-agenda-directory)
       (progn
-        (shell-command "cd ~/Documents/Agenda && git pull")
+        (shell-command (format "cd %s && git pull" zw/org-agenda-directory))
         (message "Agenda pulled!"))
-    (message "~/Documents/Agenda doesn't exist!")))
+    (message (format "%s doesn't exist!" zw/org-agenda-directory))))
 (defun zw/open-agenda ()
   (interactive)
-  (if (file-directory-p "~/Documents/Agenda")
-      (org-agenda nil "d")
-    (message "~/Documents/Agenda doesn't exist!")))
-(bind-keys :prefix-map zw/org-agenda-map
-           :prefix "<f9>"
-           ("<down>" . zw/git-pull-agenda)
-           ("<up>" . zw/git-add-commit-push-agenda)
-           ("<f9>" . zw/open-agenda))
+  (when (and (not (file-directory-p zw/org-agenda-directory))
+             (y-or-n-p (format "%s doesn't exist! Initialize? " zw/org-agenda-directory)))
+    (make-directory zw/org-agenda-directory)
+    (make-empty-file (car org-agenda-files)))
+  (org-agenda nil "d"))
+(bind-keys :map global-map ("<f9>" . zw/open-agenda))
 
 ;; ** babel
 (with-eval-after-load "ob"
