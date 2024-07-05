@@ -100,8 +100,6 @@
                         :underline tab-bar-box :bold t)
     (set-face-attribute 'child-frame-border nil
                         :background highlight-color)
-    (set-face-attribute 'keycast-key nil
-                        :inherit '(highlight bold))
     ;; user face
     (custom-theme-set-faces
      'user
@@ -154,7 +152,7 @@
      `(diff-hl-delete ((t (:foreground "white" :background "#E94560"))))
 
      ;; key-cast
-     `(keycast-key ((t (:height ,tab-bar-height))))
+     `(keycast-key ((t (:height ,tab-bar-height :inherit (highlight bold)))))
      `(keycast-command ((t (:height ,tab-bar-height))))
 
      ;; show paren
