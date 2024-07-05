@@ -100,6 +100,8 @@
                         :underline tab-bar-box :bold t)
     (set-face-attribute 'child-frame-border nil
                         :background highlight-color)
+    (set-face-attribute 'keycast-key nil
+                        :inherit '(highlight bold))
     ;; user face
     (custom-theme-set-faces
      'user
