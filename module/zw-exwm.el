@@ -42,6 +42,12 @@
                      :window id
                      :data (vector type))))
 
+(defun zw/exwm-get-window-type (conn id)
+  (let ((reply (xcb:+request-unchecked+reply conn
+                   (make-instance 'xcb:ewmh:get-_NET_WM_WINDOW_TYPE
+                                  :window id))))
+    (car (append (slot-value reply 'value) nil))))
+
 ;; * exwm applications
 (defun zw/exwm-run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
@@ -123,6 +129,8 @@
          (display-height (- (display-pixel-height) panel-height))
          (float-width (floor (* display-width 0.9)))
          (float-height (floor (* display-height 0.9)))
+         (dialog-width (floor (* display-width 0.6)))
+         (dialog-height (floor (* display-height 0.6)))
          (float-x (floor (* (- display-width float-width) 0.5)))
          (float-y (floor (+ (* (- display-height float-height) 0.5) panel-y)))
          (float-header-line (list " "
@@ -160,6 +168,13 @@
                        width ,float-width
                        height ,float-height
                        border-width 3)
+                     default-config)
+            ;; dialog
+            ,(append `((eq (zw/exwm-get-window-type exwm--connection exwm--id)
+                           xcb:Atom:_NET_WM_WINDOW_TYPE_DIALOG)
+                       floating t
+                       width ,dialog-width
+                       height ,dialog-height)
                      default-config)
             ;; tiling
             ,(append `((or (zw/exwm-plot-buffer-p exwm-class-name)
