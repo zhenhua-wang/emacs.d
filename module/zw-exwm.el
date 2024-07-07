@@ -127,12 +127,16 @@
                         (t 0)))
          (display-width (display-pixel-width))
          (display-height (- (display-pixel-height) panel-height))
+         ;; float geometry
          (float-width (floor (* display-width 0.9)))
          (float-height (floor (* display-height 0.9)))
-         (dialog-width (floor (* display-width 0.6)))
-         (dialog-height (floor (* display-height 0.6)))
          (float-x (floor (* (- display-width float-width) 0.5)))
          (float-y (floor (+ (* (- display-height float-height) 0.5) panel-y)))
+         ;; dialog geometry
+         (dialog-width (floor (* display-width 0.6)))
+         (dialog-height (floor (* display-height 0.6)))
+         (dialog-x (floor (* (- display-width dialog-width) 0.5)))
+         (dialog-y (floor (+ (* (- display-height dialog-height) 0.5) panel-y)))
          (float-header-line (list " "
                                   '(:eval (propertize (zw/modeline-buffer-name 30 "...")
                                                       'face 'zw/modeline-process-active))
@@ -173,6 +177,8 @@
             ,(append `((eq (zw/exwm-get-window-type exwm--connection exwm--id)
                            xcb:Atom:_NET_WM_WINDOW_TYPE_DIALOG)
                        floating t
+                       x ,dialog-x
+                       y ,dialog-y
                        width ,dialog-width
                        height ,dialog-height)
                      default-config)
