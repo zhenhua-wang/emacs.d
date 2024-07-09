@@ -54,6 +54,9 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic nil))
 
+(use-package adwaita-dark-theme
+  :defer t)
+
 (defun zw/theme-emphasize-color (color aplha dark-p)
   (if dark-p
       (doom-lighten color aplha)
@@ -255,7 +258,7 @@
           (lambda ()
             ;; default theme
             (when (not (file-exists-p zw/theme-selector))
-              (write-region "(load-theme 'doom-one t)" nil zw/theme-selector))
+              (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
             ;; load theme
             (ignore-errors (load zw/theme-selector))
             (zw/theme-set-theme)))
