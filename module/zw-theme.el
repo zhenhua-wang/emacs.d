@@ -47,7 +47,7 @@
   (marginalia-mode . nerd-icons-completion-marginalia-setup)
   (marginalia-mode . nerd-icons-completion-mode))
 
-;; * Doom theme
+;; * Default theme
 (use-package doom-themes
   :defer t
   :config
