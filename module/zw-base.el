@@ -725,7 +725,7 @@ The order of values may be different."
 (bind-keys :map global-map
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f12>" . zw/update-emacs-tangle-dotfiles)
-           ("<f11>" . zw/presentation-mode)
+           ("s-<f11>" . zw/presentation-mode)
            ("<f5>" . ibuffer)
            ;; disable some weird keys
            ("C-z" . nil)
