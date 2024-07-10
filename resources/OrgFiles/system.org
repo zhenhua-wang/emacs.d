@@ -135,6 +135,13 @@ Sys.setenv(RETICULATE_PYTHON = "~/.conda/envs/pytorch/bin/python3")
 library("reticulate")
 #+end_src
 
+OpenSSL and cryptography error might exist after updating miniconda3 in AUR. To solve this, try reinstall both ~cryptography~ and ~pyOpenSSL~ in base.
+#+begin_src sh
+source /opt/miniconda3/bin/activate
+sudo pip uninstall cryptography pyOpenSSL
+sudo pip install cryptography pyOpenSSL
+#+end_src
+
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
