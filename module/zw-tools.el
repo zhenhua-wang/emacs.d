@@ -10,7 +10,11 @@
                ("s-z" . vterm-undo)
                ("M-:" . nil)
                ("<escape>" . nil)
-               ("<f5>" . nil)))
+               ("<f5>" . nil)
+               ("<f9>" . nil)
+               ("<f10>" . nil)
+               ("<f11>" . nil)
+               ("<f12>" . nil)))
   :config
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t
