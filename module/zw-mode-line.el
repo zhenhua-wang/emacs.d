@@ -230,6 +230,16 @@
       'face (zw/modeline-set-face 'zw/modeline-default-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
+;; ** Read only
+(defun zw/modeline-read-only ()
+  (when buffer-read-only
+    (concat (propertize (nerd-icons-mdicon
+                         "nf-md-lock"
+                         :height 1
+                         :v-adjust 0.05)
+                        'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive))
+            zw/modeline-separator)))
+
 ;; ** count region
 (defun zw/modeline-count-region ()
   (when (and (region-active-p) (mode-line-window-selected-p))
@@ -469,6 +479,7 @@
   ;; left
   '(:eval (zw/modeline-remote))
   '(:eval (zw/modeline-buffer-name 30 "..."))
+  '(:eval (zw/modeline-read-only))
   '(:eval (zw/modeline-text-scale))
   '(:eval (zw/modeline-lsp))
   '(:eval (zw/modeline-eglot))
