@@ -160,6 +160,7 @@
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
                ("C-M-i" . company-manual-begin)
+               ("C-S-<iso-lefttab>" . company-yasnippet)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
@@ -206,7 +207,7 @@
   ;; prefix return nil when it's empty
   (defun company-backend--prefix-advice (orig-fun &rest args)
     (let ((prefix (apply orig-fun args)))
-      (unless (string= prefix "")
+      (unless (string= (car prefix) "")
         prefix)))
   (advice-add 'company-dabbrev--prefix :around 'company-backend--prefix-advice)
   ;; auto-complete in text-mode
