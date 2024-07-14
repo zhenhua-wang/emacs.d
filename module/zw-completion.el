@@ -256,7 +256,7 @@
   (or (string-match-p "\\$" prefix)
       (string-match-p "\\@" prefix)))
 
-(defun company-capf-with-R-objects (command &optional arg &rest ignored)
+(defun company-capf-with-R-objects (command &optional arg &rest rest)
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-R-objects))
@@ -267,14 +267,14 @@
                 prefix)))
     (candidates (if (company-capf-with-R-objects--check-prefix arg)
                     (company-R-objects--candidates arg)
-                  (company-capf command arg)))
+                  (company-capf--candidates arg (car rest))))
     (annotation (if (company-capf-with-R-objects--check-prefix arg)
                     "R-object"
-                  (company-capf command arg)))
+                  (company-capf command arg rest)))
     (kind (if (company-capf-with-R-objects--check-prefix arg)
               'field
-            (company-capf command arg)))
-    (doc-buffer (company-capf command arg))))
+            (company-capf command arg rest)))
+    (doc-buffer (company-capf command arg rest))))
 
 (use-package company-reftex
   :commands (company-reftex-labels company-reftex-citations))
