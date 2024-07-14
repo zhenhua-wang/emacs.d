@@ -4,7 +4,7 @@ gsettings set org.gnome.desktop.interface enable-hot-corners false
 gsettings set org.gnome.desktop.privacy remember-recent-files false
 gsettings set org.gnome.system.location enabled true
 gsettings set org.gnome.desktop.datetime automatic-timezone true
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.DiskUtility.desktop', 'io.github.celluloid_player.Celluloid.desktop', 'org.gnome.baobab.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'com.github.finefindus.eyedropper.desktop', 'io.github.mrvladus.List.desktop', 'com.github.johnfactotum.Foliate.desktop', 'de.haeckerfelix.Fragments.desktop']"
+gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.baobab.desktop', 'com.obsproject.Studio.desktop', 'app.drey.Warp.desktop', 'io.gitlab.adhami3310.Impression.desktop', 'org.gnome.SystemMonitor.desktop', 'com.github.finefindus.eyedropper.desktop', 'com.github.johnfactotum.Foliate.desktop', 'io.github.mrvladus.List.desktop', 'de.haeckerfelix.Fragments.desktop']"
 # window
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier "<Super>"
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
