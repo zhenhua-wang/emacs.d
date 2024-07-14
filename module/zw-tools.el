@@ -10,7 +10,7 @@
                ("s-z" . vterm-undo)
                ("M-:" . nil)
                ("<escape>" . nil)
-               ("<f5>" . nil)
+               ("<f2>" . nil)
                ("<f9>" . nil)
                ("<f10>" . nil)
                ("<f11>" . nil)
