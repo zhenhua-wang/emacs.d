@@ -160,7 +160,7 @@
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
                ("C-M-i" . company-manual-begin)
-               ("C-S-<iso-lefttab>" . company-yasnippet)
+               ("M-Y" . company-yasnippet)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
