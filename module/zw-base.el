@@ -325,7 +325,8 @@ The order of values may be different."
       '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
         "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\|csv\\)$"
         "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-        "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.emacs.d/straight/"
+        "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
+        "~/.emacs.d/straight/" "~/.conda/"
         no-littering-var-directory no-littering-etc-directory
         (lambda (file) (file-in-directory-p file package-user-dir))))
 
