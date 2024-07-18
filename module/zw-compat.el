@@ -18,6 +18,7 @@
   (with-eval-after-load "zw-package"
     ;; enable cua-mode to handle C-c
     (cua-mode 1)
+    (define-key cua-global-keymap (kbd "C-<return>") nil)
     ;; full-featured keybindings
     (straight-use-package 'kkp)
     (use-package kkp
