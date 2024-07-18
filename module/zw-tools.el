@@ -367,7 +367,6 @@
     (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-backward-action)
     (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action))
-  :global nil
   (unless (derived-mode-p 'dired-mode)
     (error "`zw-dired-sidebar-mode' should be enabled only in `dired-mode'")))
 
