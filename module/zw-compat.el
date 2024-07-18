@@ -40,6 +40,9 @@
       (set-face-attribute 'header-line nil
                           :background (face-background 'mode-line)
                           :weight 'bold))
-    (advice-add 'zw/theme-set-theme :after 'zw/theme-compat)))
+    (advice-add 'zw/theme-set-theme :after 'zw/theme-compat))
+  (with-eval-after-load "zw-base"
+    (bind-keys :map global-map
+               ("<f12>" . nil))))
 
 (provide 'zw-compat)
