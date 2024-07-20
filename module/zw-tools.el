@@ -309,11 +309,11 @@
       (dired-revert))))
 
 (defun zw/dired-sidebar-disable (buffer)
-  (with-current-buffer
-      (when zw-dired-sidebar-mode
-        (let* ((dir (abbreviate-file-name (dired-current-directory))))
-          (kill-buffer buffer)
-          (dired dir)))))
+  (with-current-buffer buffer
+    (when zw-dired-sidebar-mode
+      (let* ((dir (abbreviate-file-name (dired-current-directory))))
+        (kill-buffer buffer)
+        (dired dir)))))
 
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
