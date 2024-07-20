@@ -48,10 +48,10 @@ git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 
 # essential desktop
-yay -S firefox kitty htop fastfetch ripgrep obs-studio mpv celluloid yt-dlp streamlink file-roller exfat-utils
+yay -S firefox kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
-flatpak install com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List us.zoom.Zoom
+flatpak install com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List com.obsproject.Studio org.gnome.Showtime us.zoom.Zoom
 
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
