@@ -229,7 +229,7 @@
                           'mouse-face 'highlight))
             (when (cl-remove-if 'string-empty-p dirs)
               (string-join dirs (nerd-icons-octicon
-                                 "nf-oct-chevron_right"
+                                 "nf-oct-triangle_right"
                                  :height 0.9
                                  :v-adjust 0.1
                                  :face 'shadow)))
