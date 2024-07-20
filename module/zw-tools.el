@@ -194,7 +194,7 @@
             " "
             (nerd-icons-mdicon
              "nf-md-home_analytics"
-             :height 1.1
+             :height 1
              :v-adjust 0.1)
             " ")))
 
