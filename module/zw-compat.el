@@ -40,6 +40,7 @@
       (set-face-attribute 'tab-line nil :underline nil)
       (set-face-attribute 'header-line nil
                           :background (face-background 'mode-line)
+                          :underline nil
                           :weight 'bold))
     (advice-add 'zw/theme-set-theme :after 'zw/theme-compat))
   (with-eval-after-load "zw-base"
