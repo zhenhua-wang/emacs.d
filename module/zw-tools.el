@@ -192,8 +192,8 @@
                           2.5))))
     (concat (zw/modeline--bar color width height)
             " "
-            (nerd-icons-codicon
-             "nf-cod-home"
+            (nerd-icons-mdicon
+             "nf-md-home_analytics"
              :height 1.1
              :v-adjust 0.1)
             " ")))
@@ -221,6 +221,7 @@
                 (lambda (pair)
                   (propertize (car pair)
                               'keymap (funcall create-keymap (cdr pair))
+                              'face '(:height 0.9)
                               'mouse-face 'highlight))
                 pairs)))
     (concat (when (string-empty-p (car dirs))
