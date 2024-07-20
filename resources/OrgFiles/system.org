@@ -301,6 +301,10 @@ sudo fsck -p /dev/sda1
   - ~flatpak install com.github.Matoking.protontricks~
   - Double click ~NBA2K_Hook.dll~ and select ~NBA2K20.exe~
 
+*** Flatpak font scale
+- Launch Flatseal and select the troublesome Flatpak application.
+- Under the ~Environment — Variables~ section, add the line: ~QT_SCALE_FACTOR=1.5~
+
 * MacOS
 ** Homebrew
 #+begin_src shell
