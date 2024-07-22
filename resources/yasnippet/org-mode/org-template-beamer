@@ -6,6 +6,6 @@
 #+AUTHOR: Zhenhua Wang
 #+EMAIL: zhenhua.wang@mail.missouri.edu
 #+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-beamer.setup
-#+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
+#+BEAMER_HEADER: \title[${2:footer}]{${1}}
 
 $0
