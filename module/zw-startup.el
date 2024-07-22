@@ -9,7 +9,7 @@
         gcmh-auto-idle-delay-factor 10
         gcmh-high-cons-threshold (* 16 1024 1024)))
 
-;; * Keep .emacs.d Clean
+;; * Keep .emacs.d clean
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering)
 
@@ -21,13 +21,7 @@
                           temporary-file-directory)))
 (load custom-file t)
 
-;; * benchmark
-(use-package benchmark-init
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-
-;; * Exec-path-from-shell
+;; * Execute path from shell
 (use-package exec-path-from-shell
   :if (or (eq system-type 'darwin)
           (eq system-type 'gnu/linux)
