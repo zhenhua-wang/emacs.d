@@ -22,7 +22,6 @@
     ;; full-featured keybindings
     (straight-use-package 'kkp)
     (use-package kkp
-      :init (setq kkp-terminal-query-timeout 1)
       :bind (:map global-map
                   ("s-S-z" . undo-redo)
                   ("s-S-s" . write-file)
@@ -30,7 +29,9 @@
                   ("s-S-b" . zw/right-side-window-toggle)
                   ("s-S-p" . zw/conda-env-activate)
                   ("s-S-g" . magit-status))
-      :hook (after-init . global-kkp-mode))
+      :init
+      (setq kkp-terminal-query-timeout 1)
+      (global-kkp-mode 1))
     ;; copy and paste
     (straight-use-package 'clipetty)
     (use-package clipetty
