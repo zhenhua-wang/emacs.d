@@ -14,7 +14,7 @@
 #+LATEX_HEADER: \definecolor{MediumRed}{rgb}{0.925, 0.345, 0.345}
 #+LATEX_HEADER: \definecolor{MediumGreen}{rgb}{0.37, 0.7, 0.66}
 #+LATEX_HEADER: \definecolor{MediumBlue}{rgb}{0.015, 0.315, 0.45}
-#+LATEX_HEADER: \definecolor{DarkBlue}{rgb}{0.05, 0.15, 0.35} 
+#+LATEX_HEADER: \definecolor{DarkBlue}{rgb}{0.05, 0.15, 0.35}
 #+LATEX_HEADER: \usecolortheme[named=DarkBlue]{structure}
 #+LATEX_HEADER: \setbeamercolor{titlelike}{parent=structure}
 #+LATEX_HEADER: \setbeamercolor{block title}{bg=MediumBlue}
