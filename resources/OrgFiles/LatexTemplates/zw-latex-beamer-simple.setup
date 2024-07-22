@@ -62,7 +62,7 @@
 #+LATEX_HEADER:         \else%
 #+LATEX_HEADER:             \vskip0.25em%
 #+LATEX_HEADER:             {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-#+LATEX_HEADER:         \fi%     
+#+LATEX_HEADER:         \fi%
 #+LATEX_HEADER:         \end{beamercolorbox}%
 #+LATEX_HEADER:         \vskip0.5em\par
 #+LATEX_HEADER:         % ------------------------
