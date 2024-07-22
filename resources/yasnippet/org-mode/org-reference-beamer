@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: org reference
-# key: <reference
+# name: org beamer reference
+# key: <reference-beamer
 # --
 $0* Reference
 :PROPERTIES:

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org beamer article
+# key: <reference-article
+# --
+$0* Reference :ignore:
+#+BIBLIOGRAPHY: ${3:bibliography file}
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:
