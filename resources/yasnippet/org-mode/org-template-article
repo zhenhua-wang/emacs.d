@@ -8,3 +8,8 @@
 #+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-article.setup
 
 $0
+
+* Reference :ignore:
+#+BIBLIOGRAPHY: ${3:bibliography file}
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:
