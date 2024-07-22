@@ -11,11 +11,5 @@
 #+STARTUP: beamer
 #+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-beamer.setup
 #+LATEX_HEADER: \setbeamertemplate{frame footer}{\color{lightgray}${2:footer}}
-#+BIBLIOGRAPHY: ${3:bibliography file}
 
 $0
-
-* Reference
-** Reference
-#+CITE_EXPORT: natbib kluwer
-#+PRINT_BIBLIOGRAPHY:

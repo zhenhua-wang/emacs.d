@@ -10,11 +10,5 @@
 #+OPTIONS: d:nil todo:t pri:nil
 #+STARTUP: beamer
 #+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-beamer-simple.setup
-#+BIBLIOGRAPHY: ${3:bibliography file}
 
 $0
-
-* Reference
-** Reference
-#+CITE_EXPORT: natbib kluwer
-#+PRINT_BIBLIOGRAPHY:

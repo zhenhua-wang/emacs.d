@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: org reference
+# key: <reference
+# --
+$0* Reference
+** Reference
+#+BIBLIOGRAPHY: ${1:bibliography file}
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:

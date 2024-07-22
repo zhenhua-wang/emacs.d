@@ -7,10 +7,5 @@
 #+AUTHOR: Zhenhua Wang
 #+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-standard.setup
 #+OPTIONS: toc:nil
-#+BIBLIOGRAPHY: ${3:bibliography file}
 
 $0
-
-* Reference :ignore:
-#+CITE_EXPORT: natbib kluwer
-#+PRINT_BIBLIOGRAPHY:
