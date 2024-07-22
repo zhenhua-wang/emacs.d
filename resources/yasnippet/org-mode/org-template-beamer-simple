@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: org beamer simple template
+# key: <template-beamer-simple
+# --
+#+title: ${1:title}
+#+AUTHOR: Zhenhua Wang
+#+EMAIL: zhenhua.wang@mail.missouri.edu
+#+LANGUAGE: en
+#+OPTIONS: H:2 num:t toc:t \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS: d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-beamer-simple.setup
+#+BIBLIOGRAPHY: ${3:bibliography file}
+
+$0
+
+* Reference
+** Reference
+#+CITE_EXPORT: natbib kluwer
+#+PRINT_BIBLIOGRAPHY:
