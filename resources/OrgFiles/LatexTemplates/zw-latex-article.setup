@@ -1,3 +1,5 @@
+#+OPTIONS: toc:nil
+
 #+LaTeX_CLASS: org-plain-latex
 #+LaTeX_CLASS_OPTIONS: [article, 12pt]
 #+LATEX_HEADER: \usepackage{lmodern} % Ensures we have the right font

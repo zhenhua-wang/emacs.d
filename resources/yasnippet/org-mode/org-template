@@ -1,11 +1,10 @@
 # -*- mode: snippet -*-
-# name: org template
-# key: <template
+# name: org article template
+# key: <template-article
 # --
 #+TITLE: ${1:title}
 #+SUBTITLE: ${2:subtitle}
 #+AUTHOR: Zhenhua Wang
-#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-standard.setup
-#+OPTIONS: toc:nil
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-article.setup
 
 $0
