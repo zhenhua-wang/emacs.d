@@ -1,0 +1,83 @@
+#+LATEX_HEADER: \mode<presentation>
+
+#+LATEX_HEADER: \usetheme{Madrid}
+#+LATEX_HEADER: \useinnertheme{circles}
+
+# % color
+#+LATEX_HEADER: \definecolor{InvisibleRed}{rgb}{0.97, 0.92, 0.92}
+#+LATEX_HEADER: \definecolor{InvisibleGreen}{rgb}{0.92, 0.97, 0.92}
+#+LATEX_HEADER: \definecolor{InvisibleBlue}{rgb}{0.92, 0.92, 0.97}
+#+LATEX_HEADER: \definecolor{MediumRed}{rgb}{0.925, 0.345, 0.345}
+#+LATEX_HEADER: \definecolor{MediumGreen}{rgb}{0.37, 0.7, 0.66}
+#+LATEX_HEADER: \definecolor{MediumBlue}{rgb}{0.015, 0.315, 0.45}
+#+LATEX_HEADER: \definecolor{DarkBlue}{rgb}{0.05, 0.15, 0.35} 
+#+LATEX_HEADER: \usecolortheme[named=DarkBlue]{structure}
+#+LATEX_HEADER: \setbeamercolor{titlelike}{parent=structure}
+#+LATEX_HEADER: \setbeamercolor{block title}{bg=MediumBlue}
+#+LATEX_HEADER: \setbeamercolor{block body}{bg=InvisibleBlue}
+#+LATEX_HEADER: \setbeamercolor{block title example}{bg=MediumGreen}
+#+LATEX_HEADER: \setbeamercolor{block body example}{bg=InvisibleGreen}
+#+LATEX_HEADER: \setbeamercolor{block title alerted}{bg=MediumRed}
+#+LATEX_HEADER: \setbeamercolor{block body alerted}{bg=InvisibleRed}
+
+# % font
+#+LATEX_HEADER: \setbeamerfont{structure}{family=\sffamily,series=\mdseries}
+#+LATEX_HEADER: \setbeamerfont{title}{size=\huge,series=\bfseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{subtitle}{size=\normalsize,parent=title}
+#+LATEX_HEADER: \setbeamerfont{date}{size=\scriptsize,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{author}{size=\large,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{institute}{size=\scriptsize,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{section in toc}{size=\Large,series=\bfseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{section in head/foot}{size=\tiny,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{subsection in toc}{size=\small,series=\mdseries,parent={section in toc}}
+#+LATEX_HEADER: \setbeamerfont{frametitle}{size=\LARGE,series=\bfseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{framesubtitle}{parent=frametitle,size=\Large}
+#+LATEX_HEADER: \setbeamerfont{caption}{size=\footnotesize}
+#+LATEX_HEADER: \setbeamerfont{item}{parent=structure,series=\mdseries}
+#+LATEX_HEADER: \setbeamerfont{block title}{size=\large,series=\mdseries,parent={structure,block body}}
+
+# % inner
+#+LATEX_HEADER: \pgfdeclareverticalshading[lower.bg,upper.bg]{bmb@transition}{200cm}{%
+#+LATEX_HEADER:   color(0pt)=(lower.bg); color(2pt)=(lower.bg); color(4pt)=(lower.bg)}
+#+LATEX_HEADER: \setbeamersize{text margin left=2em,text margin right=2em}
+#+LATEX_HEADER: \setbeamertemplate{section in toc}[sections numbered]
+#+LATEX_HEADER: \setbeamertemplate{subsection in toc}{\leavevmode\leftskip=3.2em\rlap{\hskip-2em\inserttocsectionnumber.\inserttocsubsectionnumber}\inserttocsubsection\par}
+#+LATEX_HEADER: \setbeamertemplate{footline}[page number]
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \setbeamertemplate{blocks}[rounded][shadow=false]
+#+LATEX_HEADER: \setbeamertemplate{enumerate items}[default]
+#+LATEX_HEADER: \setbeamertemplate{frametitle}{\vspace*{0.5em}\bfseries\insertframetitle\par\vskip-6pt\hrulefill\vspace{-0.1em}}
+#+LATEX_HEADER: \setbeamertemplate{title page}{
+#+LATEX_HEADER:     \vspace{7em}
+#+LATEX_HEADER:     \begingroup
+#+LATEX_HEADER:         \centering
+#+LATEX_HEADER:         % ------------------------
+#+LATEX_HEADER:         \begin{beamercolorbox}[sep=8pt,center]{title}
+#+LATEX_HEADER:         \usebeamerfont{title}\inserttitle\par%
+#+LATEX_HEADER:         \ifx\insertsubtitle\@empty%
+#+LATEX_HEADER:         \else%
+#+LATEX_HEADER:             \vskip0.25em%
+#+LATEX_HEADER:             {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+#+LATEX_HEADER:         \fi%     
+#+LATEX_HEADER:         \end{beamercolorbox}%
+#+LATEX_HEADER:         \vskip0.5em\par
+#+LATEX_HEADER:         % ------------------------
+#+LATEX_HEADER:         \begin{beamercolorbox}[sep=8pt,center]{author}
+#+LATEX_HEADER:         \usebeamerfont{author}\insertauthor
+#+LATEX_HEADER:         \end{beamercolorbox}
+#+LATEX_HEADER:         \vskip-1em
+#+LATEX_HEADER:         % ------------------------
+#+LATEX_HEADER:         \begin{beamercolorbox}[sep=8pt,center]{institute}
+#+LATEX_HEADER:         \usebeamerfont{institute}\insertinstitute
+#+LATEX_HEADER:         \end{beamercolorbox}
+#+LATEX_HEADER:         % ------------------------
+#+LATEX_HEADER:         \begin{beamercolorbox}[sep=8pt,center]{date}
+#+LATEX_HEADER:         \usebeamerfont{date}\insertdate
+#+LATEX_HEADER:         \end{beamercolorbox}\vskip0.5em
+#+LATEX_HEADER:         % ------------------------
+#+LATEX_HEADER:         {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+#+LATEX_HEADER:     \endgroup
+#+LATEX_HEADER:     \vfill
+#+LATEX_HEADER: }
+
+#+LATEX_HEADER: \mode<all>
