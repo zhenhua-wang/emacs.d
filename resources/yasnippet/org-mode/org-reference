@@ -3,6 +3,9 @@
 # key: <reference
 # --
 $0* Reference
+:PROPERTIES:
+:UNNUMBERED: notoc
+:END:
 ** Reference
 #+BIBLIOGRAPHY: ${1:bibliography file}
 #+CITE_EXPORT: natbib kluwer
