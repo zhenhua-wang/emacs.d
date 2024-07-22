@@ -407,7 +407,7 @@ The order of values may be different."
 
 (add-hook 'outline-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 ;; ** Server mode
 (when (daemonp)
