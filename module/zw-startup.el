@@ -24,7 +24,7 @@
 ;; * Execute path from shell
 (use-package exec-path-from-shell
   :if (or (eq system-type 'darwin)
-          (eq system-type 'gnu/linux)
+          ;; (eq system-type 'gnu/linux)
           (daemonp))
   :init
   (setq exec-path-from-shell-arguments '("-l"))
