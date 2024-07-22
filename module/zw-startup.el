@@ -27,7 +27,7 @@
           (eq system-type 'gnu/linux)
           (daemonp))
   :init
-  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize))
 
 ;; * Provide
