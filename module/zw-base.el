@@ -297,18 +297,27 @@ The order of values may be different."
   (interactive)
   (call-interactively zw/term-function))
 
-(defun zw/eshell-quit ()
-  "Quit Eshell if the input is empty."
-  (interactive)
-  (if (eq (point-max)
-          (save-excursion (goto-char (point-max)) (eshell-bol) (point)))
-      (kill-buffer)
-    (message "Eshell prompt is not empty")))
+(with-eval-after-load "eshell"
+  ;; prompt
+  (defun zw/eshell-prompt ()
+    (concat
+     (user-login-name) "@" (car (split-string (system-name) "\\.")) ":"
+     (abbreviate-file-name (eshell/pwd))
+     " $ "))
+  (setq eshell-prompt-function 'zw/eshell-prompt)
 
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (define-key eshell-mode-map (kbd "s-e") 'quit-window)
-            (define-key eshell-mode-map (kbd "C-d") 'zw/eshell-quit)))
+  ;; keymap
+  (defun zw/eshell-quit ()
+    "Quit Eshell if the input is empty."
+    (interactive)
+    (if (eq (point-max)
+            (save-excursion (goto-char (point-max)) (eshell-bol) (point)))
+        (kill-buffer)
+      (message "Eshell prompt is not empty")))
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (define-key eshell-mode-map (kbd "s-e") 'quit-window)
+              (define-key eshell-mode-map (kbd "C-d") 'zw/eshell-quit))))
 
 ;; ** Tramp
 (with-eval-after-load "tramp"
