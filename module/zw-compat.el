@@ -33,6 +33,13 @@
       (setq kkp-terminal-query-timeout 1)
       (global-kkp-mode 1))
     ;; copy and paste
+    (defun zw/xterm-paste (event)
+      (interactive "e")
+      (when (and (use-region-p)
+                 delete-selection-mode)
+        (delete-region (region-beginning) (region-end)))
+      (call-interactively 'xterm-paste))
+    (define-key global-map [xterm-paste] #'zw/xterm-paste)
     (straight-use-package 'clipetty)
     (use-package clipetty
       :hook (after-init . global-clipetty-mode)))
