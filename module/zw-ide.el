@@ -4,7 +4,9 @@
 (use-package eglot
   :hook
   (prog-mode . (lambda ()
-                 (unless (or (and (featurep 'polymode) polymode-mode)
+                 (unless (or (derived-mode-p 'emacs-lisp-mode 'lisp-mode
+                                             'makefile-mode 'snippet-mode)
+                             (and (featurep 'polymode) polymode-mode)
                              (file-remote-p default-directory))
                    (eglot-ensure))))
   :bind (:map eglot-mode-map
