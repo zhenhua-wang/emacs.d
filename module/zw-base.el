@@ -300,20 +300,19 @@ The order of values may be different."
 (with-eval-after-load "eshell"
   ;; prompt
   (defun zw/eshell-prompt ()
-    (propertize
-     (concat
-      (propertize (user-login-name)
-                  'face '(eshell-prompt bold))
-      (propertize "@" 'face 'eshell-prompt)
-      (propertize (car (split-string (system-name) "\\."))
-                  'face '(eshell-prompt bold))
-      (propertize ":" 'face 'eshell-prompt)
-      (propertize (abbreviate-file-name (eshell/pwd))
-                  'face '(eshell-ls-directory bold))
-      (propertize " $ " 'face 'eshell-prompt))
-     'read-only t))
+    (concat
+     (propertize (user-login-name)
+                 'face '(eshell-prompt bold))
+     (propertize "@" 'face 'eshell-prompt)
+     (propertize (car (split-string (system-name) "\\."))
+                 'face '(eshell-prompt bold))
+     (propertize ":" 'face 'eshell-prompt)
+     (propertize (abbreviate-file-name (eshell/pwd))
+                 'face '(eshell-ls-directory bold))
+     (propertize " $" 'face 'eshell-prompt)
+     " "))
   (setq eshell-prompt-function 'zw/eshell-prompt
-        eshell-highlight-prompt nil)
+        eshell-highlight-prompt t)
 
   ;; keymap
   (defun zw/eshell-quit ()
