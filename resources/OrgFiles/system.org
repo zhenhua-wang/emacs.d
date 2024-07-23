@@ -135,6 +135,8 @@ Sys.setenv(RETICULATE_PYTHON = "~/.conda/envs/pytorch/bin/python3")
 library("reticulate")
 #+end_src
 
+When using conda's R for plotting ~sf~ using ~ggplot~, we need to set the environment variable ~PROJ_LIB~ to the path that contains ~proj.db~ beforehand.
+
 OpenSSL and cryptography error might exist after updating miniconda3 in AUR. To solve this, try reinstall both ~cryptography~ and ~pyOpenSSL~ in base.
 #+begin_src sh
 source /opt/miniconda3/bin/activate
