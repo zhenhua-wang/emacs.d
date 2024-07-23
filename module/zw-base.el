@@ -300,7 +300,7 @@ The order of values may be different."
 (add-hook 'eshell-mode-hook
           (lambda ()
             (define-key eshell-mode-map (kbd "s-e") 'quit-window)
-            (define-key eshell-mode-map (kbd "s-e") 'kill-current-buffer)))
+            (define-key eshell-mode-map (kbd "C-d") 'kill-current-buffer)))
 
 ;; ** Tramp
 (with-eval-after-load "tramp"
