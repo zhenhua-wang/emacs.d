@@ -297,10 +297,16 @@ The order of values may be different."
   (interactive)
   (call-interactively zw/term-function))
 
+(defun zw/eshell-quit ()
+  "Quit Eshell if the input is empty."
+  (interactive)
+  (when (eq (point-max) (save-excursion (eshell-bol) (point)))
+    (kill-buffer)))
+
 (add-hook 'eshell-mode-hook
           (lambda ()
             (define-key eshell-mode-map (kbd "s-e") 'quit-window)
-            (define-key eshell-mode-map (kbd "C-d") 'kill-current-buffer)))
+            (define-key eshell-mode-map (kbd "C-d") 'zw/eshell-quit)))
 
 ;; ** Tramp
 (with-eval-after-load "tramp"
