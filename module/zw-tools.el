@@ -2,8 +2,8 @@
 
 ;; * Vterm
 (use-package vterm
-  :bind (("s-e" . vterm)
-         (:map vterm-copy-mode-map
+  :if (display-graphic-p)
+  :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . quit-window)
@@ -15,6 +15,8 @@
                ("<f10>" . nil)
                ("<f11>" . nil)
                ("<f12>" . nil)))
+  :init
+  (setq zw/term-function 'vterm)
   :config
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t

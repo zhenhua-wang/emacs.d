@@ -291,6 +291,15 @@ The order of values may be different."
                 (zw/visual-line-disable)))
 
 ;; * Tool
+;; ** Term
+(defvar zw/term-function 'eshell)
+(defun zw/term-start ()
+  (interactive)
+  (call-interactively zw/term-function))
+
+(with-eval-after-load "eshell"
+  (define-key eshell-mode-map (kbd "s-e") 'quit-window))
+
 ;; ** Tramp
 (with-eval-after-load "tramp"
   (setq tramp-default-method "ssh"
@@ -757,7 +766,7 @@ The order of values may be different."
            ("s-s" . save-buffer)
            ("s-S" . write-file)
            ;; term/shell
-           ("s-e" . eshell)
+           ("s-e" . zw/term-start)
            ;; buffer operations
            ("C-<f5>" . revert-buffer-quick)
            ("s-r" . revert-buffer-quick)
