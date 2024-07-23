@@ -298,7 +298,9 @@ The order of values may be different."
   (call-interactively zw/term-function))
 
 (add-hook 'eshell-mode-hook
-          (lambda () (define-key eshell-mode-map (kbd "s-e") 'quit-window)))
+          (lambda ()
+            (define-key eshell-mode-map (kbd "s-e") 'quit-window)
+            (define-key eshell-mode-map (kbd "s-e") 'kill-current-buffer)))
 
 ;; ** Tramp
 (with-eval-after-load "tramp"
