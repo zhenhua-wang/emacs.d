@@ -54,7 +54,7 @@ yay -S firefox kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller ex
 flatpak install com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List com.obsproject.Studio org.gnome.Showtime org.gnome.Papers org.gimp.GIMP org.inkscape.Inkscape us.zoom.Zoom
 
 # xorg
-yay -S xorg-server xorg-xauth
+yay -S xorg-server
 
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
