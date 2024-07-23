@@ -1,5 +1,81 @@
 ;; -*- lexical-binding: t -*-
 
+;; * Environment
+(use-package conda
+  :commands (conda-env-activate conda-env-deactivate conda-env-candidates)
+  :bind (("s-P" . zw/conda-env-activate))
+  :init
+  (defvar zw/conda-path '("/opt/anaconda/bin"
+                          "/opt/miniconda3/bin"))
+  (defvar zw/conda-executable-path nil)
+  (dolist (conda-path zw/conda-path)
+    (let ((conda-exec (concat conda-path "/conda")))
+      (when (file-exists-p conda-exec)
+        ;; (setenv "PATH" (concat conda-path ":" (getenv "PATH")))
+        (setq conda--executable-path conda-exec))))
+  ;; quick activate
+  (defun zw/conda-env-activate ()
+    (interactive)
+    (let* ((deactivate "Conda deactivate")
+           (env (completing-read
+                 "Conda switch environment:"
+                 (append (conda-env-candidates) `(,deactivate)))))
+      (if (string= env deactivate)
+          (conda-env-deactivate)
+        (conda-env-activate env))))
+  :config
+  (setq conda-message-on-environment-switch nil)
+  (or (cl-loop for dir in (list conda-anaconda-home
+                                "~/.anaconda"
+                                "~/.miniconda"
+                                "~/.miniconda3"
+                                "~/.miniforge3"
+                                "~/anaconda3"
+                                "~/miniconda3"
+                                "~/miniforge3"
+                                "~/opt/miniconda3"
+                                "/usr/bin/anaconda3"
+                                "/usr/local/anaconda3"
+                                "/usr/local/miniconda3"
+                                "/usr/local/Caskroom/miniconda/base"
+                                "~/.conda")
+               if (file-directory-p dir)
+               return (setq conda-anaconda-home (expand-file-name dir)
+                            conda-env-home-directory (expand-file-name dir)))
+      (message "Cannot find Anaconda installation"))
+  ;; update conda environment
+  (defun zw/conda-env-update ()
+    (cond ((executable-find "ipython")
+           (setq python-shell-interpreter "ipython"
+                 python-shell-interpreter-args
+                 "-i --simple-prompt --InteractiveShell.display_page=True")
+           (add-to-list 'python-shell-completion-native-disabled-interpreters
+                        "ipython"))
+          (t
+           (setq python-shell-interpreter "python3"
+                 python-shell-interpreter-args "-i")))
+    ;; refresh current buffer
+    (when (buffer-file-name)
+      (revert-buffer-quick)))
+  (defun zw/conda-postactivate ()
+    (zw/conda-env-update)
+    ;; set LD_LIBRARY_PATH after conda activate
+    (setenv "LD_LIBRARY_PATH"
+            (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
+    ;; set PROJ_LIB for using ggplot with sf in R
+    (setenv "PROJ_LIB"
+            (concat (getenv "CONDA_PREFIX") "/share/proj/"))
+    (message "Switched to conda environment: %s\n
+In case of any error, you might want to install in your env:
+conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
+             (conda-env-name-to-dir conda-env-current-name)))
+  (defun zw/conda-postdeactivate ()
+    (zw/conda-env-update)
+    (setenv "LD_LIBRARY_PATH")
+    (setenv "PROJ_LIB"))
+  (add-hook 'conda-postactivate-hook 'zw/conda-postactivate)
+  (add-hook 'conda-postdeactivate-hook 'zw/conda-postdeactivate))
+
 ;; * C/C++
 (use-package cc-mode
   :bind ((:map c-mode-base-map
@@ -69,77 +145,6 @@
                ("C-M-<right>" . python-nav-forward-sexp-safe)))
   :hook (inferior-python-mode . zw/right-side-window-mode)
   :config (setq python-shell-dedicated 'project))
-
-(use-package conda
-  :commands (conda-env-activate conda-env-deactivate conda-env-candidates)
-  :bind (("s-P" . zw/conda-env-activate))
-  :init
-  (defvar zw/conda-path '("/opt/anaconda/bin"
-                          "/opt/miniconda3/bin"))
-  (defvar zw/conda-executable-path nil)
-  (dolist (conda-path zw/conda-path)
-    (let ((conda-exec (concat conda-path "/conda")))
-      (when (file-exists-p conda-exec)
-        ;; (setenv "PATH" (concat conda-path ":" (getenv "PATH")))
-        (setq conda--executable-path conda-exec))))
-  ;; quick activate
-  (defun zw/conda-env-activate ()
-    (interactive)
-    (let* ((deactivate "Conda deactivate")
-           (env (completing-read
-                 "Conda switch environment:"
-                 (append (conda-env-candidates) `(,deactivate)))))
-      (if (string= env deactivate)
-          (conda-env-deactivate)
-        (conda-env-activate env))))
-  :config
-  (setq conda-message-on-environment-switch nil)
-  (or (cl-loop for dir in (list conda-anaconda-home
-                                "~/.anaconda"
-                                "~/.miniconda"
-                                "~/.miniconda3"
-                                "~/.miniforge3"
-                                "~/anaconda3"
-                                "~/miniconda3"
-                                "~/miniforge3"
-                                "~/opt/miniconda3"
-                                "/usr/bin/anaconda3"
-                                "/usr/local/anaconda3"
-                                "/usr/local/miniconda3"
-                                "/usr/local/Caskroom/miniconda/base"
-                                "~/.conda")
-               if (file-directory-p dir)
-               return (setq conda-anaconda-home (expand-file-name dir)
-                            conda-env-home-directory (expand-file-name dir)))
-      (message "Cannot find Anaconda installation"))
-  ;; update conda environment
-  (defun zw/conda-env-update ()
-    (cond ((executable-find "ipython")
-           (setq python-shell-interpreter "ipython"
-                 python-shell-interpreter-args
-                 "-i --simple-prompt --InteractiveShell.display_page=True")
-           (add-to-list 'python-shell-completion-native-disabled-interpreters
-                        "ipython"))
-          (t
-           (setq python-shell-interpreter "python3"
-                 python-shell-interpreter-args "-i")))
-    ;; refresh current buffer
-    (when (buffer-file-name)
-      (revert-buffer-quick)))
-  (defun zw/conda-postactivate ()
-    (zw/conda-env-update)
-    ;; set LD_LIBRARY_PATH after conda activate
-    (setenv "LD_LIBRARY_PATH"
-            (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
-    (message "Switched to conda environment: %s\n
-In case of any error, you might want to install in your env:
-conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
-             (conda-env-name-to-dir conda-env-current-name)))
-  (defun zw/conda-postdeactivate ()
-    (zw/conda-env-update)
-    (setenv "LD_LIBRARY_PATH"))
-  (add-hook 'conda-postactivate-hook 'zw/conda-postactivate)
-  (add-hook 'conda-postdeactivate-hook 'zw/conda-postdeactivate))
 
 ;; * R
 (use-package ess
