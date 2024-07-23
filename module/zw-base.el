@@ -300,7 +300,8 @@ The order of values may be different."
 (defun zw/eshell-quit ()
   "Quit Eshell if the input is empty."
   (interactive)
-  (when (eq (point-max) (save-excursion (eshell-bol) (point)))
+  (when (eq (point-max)
+            (save-excursion (goto-char (point-max)) (eshell-bol) (point)))
     (kill-buffer)))
 
 (add-hook 'eshell-mode-hook
