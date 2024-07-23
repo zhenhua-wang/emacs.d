@@ -301,10 +301,17 @@ The order of values may be different."
   ;; prompt
   (defun zw/eshell-prompt ()
     (concat
-     (user-login-name) "@" (car (split-string (system-name) "\\.")) ":"
-     (abbreviate-file-name (eshell/pwd))
-     " $ "))
-  (setq eshell-prompt-function 'zw/eshell-prompt)
+     (propertize (user-login-name)
+                 'face '(eshell-prompt bold))
+     (propertize "@" 'face 'eshell-prompt)
+     (propertize (car (split-string (system-name) "\\."))
+                 'face '(eshell-prompt bold))
+     (propertize ":" 'face 'eshell-prompt)
+     (propertize (abbreviate-file-name (eshell/pwd))
+                 'face '(eshell-ls-directory bold))
+     (propertize " $ " 'face 'eshell-prompt)))
+  (setq eshell-prompt-function 'zw/eshell-prompt
+        eshell-highlight-prompt nil)
 
   ;; keymap
   (defun zw/eshell-quit ()
