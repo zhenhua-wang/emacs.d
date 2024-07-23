@@ -83,7 +83,6 @@
 
 ;; * Consult
 (use-package consult
-  :demand
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
          ("C-c m" . consult-mode-command)
@@ -91,8 +90,6 @@
          ;; C-x bindings (ctl-x-map)
          ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
-         ("C-x C-d" . consult-dir)
-         ("C-x C-t" . zw/consult-dir-tramp-ssh)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)
          ("<help> a" . consult-apropos)
@@ -104,14 +101,10 @@
          ;; M-s bindings (search-map)
          ("M-s d" . consult-find)
          ("M-s g" . zw/consult-grep)
-         ("M-s y" . consult-yasnippet)
          ("M-s m" . consult-minor-mode-menu)
          ("M-s f" . consult-flymake)
-         ("M-s s" . consult-flyspell)
          (:map isearch-mode-map
-               ("M-s" . consult-isearch-history))
-         (:map minibuffer-local-completion-map
-               ("C-x C-d" . consult-dir)))
+               ("M-s" . consult-isearch-history)))
   :init
   (setq consult-preview-key "M-."
         register-preview-delay 0.5
@@ -140,16 +133,19 @@
 
 ;; other consult packages
 (use-package consult-yasnippet
-  :commands consult-yasnippet)
+  :bind (("M-s y" . consult-yasnippet)))
 (use-package consult-dir
-  :commands consult-dir zw/consult-dir-tramp-ssh
+  :bind (("C-x C-d" . consult-dir)
+         ("C-x C-t" . zw/consult-dir-tramp-ssh)
+         (:map minibuffer-local-completion-map
+               ("C-x C-d" . consult-dir)))
   :config
   (defun zw/consult-dir-tramp-ssh ()
     (interactive)
     (let ((consult-dir-sources '(consult-dir--source-tramp-ssh)))
       (consult-dir))))
 (use-package consult-flyspell
-  :commands consult-flyspell)
+  :bind (("M-s s" . consult-flyspell)))
 
 ;; * Company
 ;; ** main
