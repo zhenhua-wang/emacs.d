@@ -41,6 +41,7 @@ echo -e 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.z
 echo -e '[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"' >> ~/.zshrc
 echo -e "bindkey '^H' backward-kill-word" >> ~/.zshrc
 echo -e 'alias streamlink="streamlink --player mpv"' >> ~/.zshrc
+echo -e 'alias open="xdg-open"' >> ~/.zshrc
 
 # config git
 git config --global user.name "Zhenhua Wang"
