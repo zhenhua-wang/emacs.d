@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org beamer thank you page
+# key: <beamer-thankyou
+# --
+${0}** 
+\centering \Huge
+\emph{Thank You!}
