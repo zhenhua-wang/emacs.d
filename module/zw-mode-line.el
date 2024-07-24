@@ -171,17 +171,22 @@
     (zw/modeline--bar color width height)))
 
 ;; ** remote
+(defcustom zw/modeline-remote-show-local t
+  "Whether show local indicator on mode line."
+  :type 'boolean)
+
 (defun zw/modeline-remote ()
   (let ((icon (nerd-icons-codicon
                "nf-cod-remote"
                :height 1
                :v-adjust 0.05)))
     (concat
-     (if (file-remote-p default-directory)
-         (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
-                     'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-       (propertize (concat " " icon " ")
-                   'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive)))
+     (when zw/modeline-remote-show-local
+       (if (file-remote-p default-directory)
+           (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
+                       'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+         (propertize (concat " " icon " ")
+                     'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive))))
      zw/modeline-separator)))
 
 ;; ** tab index
