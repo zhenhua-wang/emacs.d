@@ -34,7 +34,7 @@
 (defun zw/tab-line-switch-to-previous-buffer (buffer group-buffers)
   (when-let* ((pos (cl-position buffer group-buffers))
               (pos-previous (- pos 1))
-              (buffer-pos (if (< pos-previous 0) 0 pos-previous)))
+              (buffer-pos (if (< pos-previous 0) 1 pos-previous)))
     (switch-to-buffer (nth buffer-pos group-buffers))))
 
 (defcustom zw/tab-line-kill-buffer-switch-to-previous t
