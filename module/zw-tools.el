@@ -83,14 +83,6 @@
              dired-subtree--dired-line-is-directory-or-link-p
              dired-subtree--is-expanded-p)
   :init
-  (defun zw/dired-subtree-inside-p ()
-    (ignore-errors
-      (let* ((ov (dired-subtree--get-ov))
-             (beg (overlay-start ov))
-             (end (overlay-end ov))
-             (current-pos (point)))
-        (and (>= current-pos beg)
-             (<= current-pos end)))))
   (defun zw/dired-subtree-toggle ()
     (interactive)
     ;; move forward if at bobp
@@ -355,10 +347,9 @@
 
 (defun zw/dired-sidebar-up-directory ()
   (interactive)
-  (let ((in-subtree-p (zw/dired-subtree-inside-p)))
-    (dired-up-directory)
-    (unless in-subtree-p
-      (zw/dired-sidebar-enable (current-buffer)))))
+  (goto-char (point-min))
+  (dired-up-directory)
+  (zw/dired-sidebar-enable (current-buffer)))
 
 (defun zw/dired-sidebar-maximize ()
   (interactive)
