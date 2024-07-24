@@ -31,7 +31,21 @@
              (cl-remove buffer group-buffers)
              zw/tab-line-group--hash-table)))
 
+(defun zw/tab-line-switch-to-previous-buffer (buffer group-buffers)
+  (when-let* ((pos (cl-position buffer group-buffers))
+              (pos-previous (- pos 1))
+              (buffer-pos (if (< pos-previous 0) 0 pos-previous)))
+    (switch-to-buffer (nth buffer-pos group-buffers))))
+
+(defun zw/tab-line-kill-buffer-switch-to-previous ()
+  (let* ((buffer (current-buffer))
+         (group (zw/tab-line-buffer-group buffer))
+         (group-buffers (gethash group zw/tab-line-group--hash-table)))
+    (zw/tab-line-switch-to-previous-buffer
+     buffer (cl-remove-if-not 'buffer-live-p group-buffers))))
+
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
+(add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
 
 (with-eval-after-load "polymode"
   (defun zw/tab-line-remove-polymode-inner (base-buffer)
