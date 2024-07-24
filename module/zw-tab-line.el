@@ -32,9 +32,13 @@
              zw/tab-line-group--hash-table)))
 
 (defun zw/tab-line-switch-to-previous-buffer (buffer group-buffers)
-  (when-let* ((pos (cl-position buffer group-buffers))
+  (when-let* ((max-index (- (length group-buffers) 1))
+              (pos (cl-position buffer group-buffers))
               (pos-previous (- pos 1))
-              (buffer-pos (if (< pos-previous 0) 1 pos-previous)))
+              (pos-next (+ pos 1))
+              (buffer-pos (cond ((<= pos-next max-index) pos-next)
+                                ((>= pos-previous 0) pos-previous)
+                                (t 1))))
     (switch-to-buffer (nth buffer-pos group-buffers))))
 
 (defcustom zw/tab-line-kill-buffer-switch-to-previous t
