@@ -36,9 +36,7 @@
               (pos (cl-position buffer group-buffers))
               (pos-previous (- pos 1))
               (pos-next (+ pos 1))
-              (buffer-pos (cond ((<= pos-next max-index) pos-next)
-                                ((>= pos-previous 0) pos-previous)
-                                (t 1))))
+              (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
     (switch-to-buffer (nth buffer-pos group-buffers))))
 
 (defcustom zw/tab-line-kill-buffer-switch-to-previous t
