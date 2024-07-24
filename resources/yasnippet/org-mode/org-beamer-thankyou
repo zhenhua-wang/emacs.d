@@ -2,6 +2,6 @@
 # name: org beamer thank you page
 # key: <beamer-thankyou
 # --
-${0}** 
+${0}** :thankyou:
 \centering \Huge
 \emph{Thank You!}
