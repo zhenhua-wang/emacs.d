@@ -37,12 +37,17 @@
               (buffer-pos (if (< pos-previous 0) 0 pos-previous)))
     (switch-to-buffer (nth buffer-pos group-buffers))))
 
+(defcustom zw/tab-line-kill-buffer-switch-to-previous t
+  "Switch to previous buffer on tab-line after kill buffer"
+  :type 'boolean)
+
 (defun zw/tab-line-kill-buffer-switch-to-previous ()
-  (let* ((buffer (current-buffer))
-         (group (zw/tab-line-buffer-group buffer))
-         (group-buffers (gethash group zw/tab-line-group--hash-table)))
-    (zw/tab-line-switch-to-previous-buffer
-     buffer (cl-remove-if-not 'buffer-live-p group-buffers))))
+  (when zw/tab-line-kill-buffer-switch-to-previous
+    (when-let* ((buffer (current-buffer))
+                (group (zw/tab-line-buffer-group buffer))
+                (group-buffers (gethash group zw/tab-line-group--hash-table)))
+      (zw/tab-line-switch-to-previous-buffer
+       buffer (cl-remove-if-not 'buffer-live-p group-buffers)))))
 
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 (add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
