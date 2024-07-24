@@ -11,10 +11,10 @@
     (let* ((group (zw/tab-line-buffer-group buffer))
            (group-buffers (gethash group zw/tab-line-group--hash-table))
            (other-buffer (other-buffer buffer t)))
-      (when (not (memq buffer group-buffers))
-        (if (memq other-buffer group-buffers)
-            (setq group-buffers (zw/insert-after group-buffers other-buffer buffer))
-          (add-to-list 'group-buffers buffer 'append)))
+      (if (memq other-buffer group-buffers)
+          (when (not (memq buffer group-buffers))
+            (setq group-buffers (zw/insert-after group-buffers other-buffer buffer)))
+        (add-to-list 'group-buffers buffer 'append))
       (puthash group
                ;; clear dead buffers
                (cl-remove-if-not 'buffer-live-p group-buffers)
