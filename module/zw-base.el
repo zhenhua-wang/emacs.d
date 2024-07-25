@@ -309,7 +309,7 @@ The order of values may be different."
      (propertize ":" 'face 'bold)
      (propertize (abbreviate-file-name (eshell/pwd))
                  'face '(eshell-ls-directory bold))
-     (propertize " $" 'face 'eshell-prompt)
+     (propertize " $" 'face '(eshell-prompt bold))
      " "))
   (setq eshell-prompt-function 'zw/eshell-prompt
         eshell-highlight-prompt t)
