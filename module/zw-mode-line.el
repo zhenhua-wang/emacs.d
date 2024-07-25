@@ -185,7 +185,7 @@
        (if (file-remote-p default-directory)
            (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
                        'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-         (propertize (concat " " icon " " (zw/localhost-short) " ")
+         (propertize (concat " " icon " ")
                      'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive))))
      zw/modeline-separator)))
 
