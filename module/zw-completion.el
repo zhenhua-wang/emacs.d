@@ -130,7 +130,19 @@
     (interactive)
     (if (executable-find "rg")
         (call-interactively 'consult-ripgrep)
-      (call-interactively 'consult-grep))))
+      (call-interactively 'consult-grep)))
+  (defun consult-open-externally (file)
+    "Open FILE using system's default application."
+    (interactive "fOpen externally: ")
+    (if (and (eq system-type 'windows-nt)
+             (fboundp 'w32-shell-execute))
+        (w32-shell-execute "open" file)
+      (call-process (pcase system-type
+                      ('darwin "open")
+                      ('cygwin "cygstart")
+                      (_ "xdg-open"))
+                    nil 0 nil
+                    (expand-file-name file)))))
 
 ;; other consult packages
 (use-package consult-yasnippet
