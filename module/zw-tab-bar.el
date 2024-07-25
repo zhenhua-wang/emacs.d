@@ -235,7 +235,7 @@
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
-      tab-bar-separator " "
+      tab-bar-separator (if (display-graphic-p) " " "  ")
       tab-bar-auto-width nil
       tab-bar-tab-name-format-function 'zw/tab-bar-tab-name-format
       tab-bar-format '(zw/tab-bar-begin
@@ -243,7 +243,7 @@
                        zw/tab-bar-format-dired
                        tab-bar-separator
                        zw/tab-bar-format-env
-                       tab-bar-separator
+                       " "
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))

@@ -160,8 +160,7 @@
 
 ;; ** seperator
 (defvar zw/modeline-separator
-  (propertize (if (display-graphic-p) " " "  ")
-              'face 'zw/modeline-default-active))
+  (propertize " " 'face 'zw/modeline-default-active))
 
 (defun zw/modeline-separator-thin ()
   (let ((color (if (mode-line-window-selected-p)
@@ -360,7 +359,9 @@
               zw/modeline-separator))))
 
 ;; ** LSP
-(defvar zw/modeline-lsp-icon (nerd-icons-codicon "nf-cod-rocket" :height 1 :v-adjust 0.05))
+(defvar zw/modeline-lsp-icon
+  (concat (nerd-icons-codicon "nf-cod-rocket" :height 1 :v-adjust 0.05)
+          (if (display-graphic-p) "" " ")))
 
 (defun zw/modeline-lsp ()
   (when (and (featurep 'lsp-mode) lsp-mode)
