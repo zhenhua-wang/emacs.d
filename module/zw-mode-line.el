@@ -426,15 +426,15 @@
                       (define-key map (vector 'mode-line 'mouse-1) 'flymake-start)
                       map)))
        (if (and (= num-errors 0) (= num-warnings 0))
-           (propertize (nerd-icons-codicon
-                        "nf-cod-check"
+           (propertize (nerd-icons-octicon
+                        "nf-oct-check"
                         :height 1
                         :v-adjust 0.05)
                        'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
                        'mouse-face 'highlight
                        'keymap keymap)
-         (concat (propertize (nerd-icons-codicon
-                              "nf-cod-error"
+         (concat (propertize (nerd-icons-faicon
+                              "nf-fa-times_circle"
                               :height 1
                               :v-adjust 0.05)
                              'face (zw/modeline-set-face 'error 'zw/modeline-default-inactive)
@@ -444,8 +444,8 @@
                  (propertize (string-trim errors) 'face (zw/modeline-set-face 'zw/modeline-default-active
                                                                               'zw/modeline-default-inactive))
                  (zw/modeline-separator-thin)
-                 (propertize (nerd-icons-codicon
-                              "nf-cod-warning"
+                 (propertize (nerd-icons-faicon
+                              "nf-fa-warning"
                               :height 1
                               :v-adjust 0.05)
                              'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive)
