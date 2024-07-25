@@ -1,80 +1,12 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Group
-;;;; group hash table
-(defvar zw/tab-line-group--hash-table (make-hash-table))
-
-(defun zw/tab-line-group-add-buffer (buffer)
-  (when (and (buffer-live-p buffer)
-             (not (minibufferp))
-             (zw/tab-line-buffer-group-visible))
-    (let* ((group (zw/tab-line-buffer-group buffer))
-           (group-buffers (gethash group zw/tab-line-group--hash-table))
-           (other-buffer (other-buffer buffer t)))
-      (when (not (memq buffer group-buffers))
-        (setq group-buffers
-              (if (memq other-buffer group-buffers)
-                  (zw/insert-after group-buffers other-buffer buffer)
-                (append group-buffers (list buffer))))
-        (puthash group
-                 ;; clear dead buffers
-                 (cl-remove-if-not 'buffer-live-p group-buffers)
-                 zw/tab-line-group--hash-table)))))
-
-(defun zw/tab-line-group-add-current-buffer ()
-  (zw/tab-line-group-add-buffer (current-buffer)))
-
-(defun zw/tab-line-group-remove-buffer (buffer)
-  (let* ((group (zw/tab-line-buffer-group buffer))
-         (group-buffers (gethash group zw/tab-line-group--hash-table)))
-    (puthash group
-             (cl-remove buffer group-buffers)
-             zw/tab-line-group--hash-table)))
-
-(defun zw/tab-line-switch-to-previous-buffer (buffer group-buffers)
-  (when-let* ((max-index (- (length group-buffers) 1))
-              (pos (cl-position buffer group-buffers))
-              (pos-previous (- pos 1))
-              (pos-next (+ pos 1))
-              (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
-    (switch-to-buffer (nth buffer-pos group-buffers))))
-
 (defcustom zw/tab-line-kill-buffer-switch-to-previous t
   "Switch to previous buffer on tab-line after kill buffer"
   :type 'boolean)
 
-(defun zw/tab-line-kill-buffer-switch-to-previous ()
-  (when zw/tab-line-kill-buffer-switch-to-previous
-    (when-let* ((buffer (current-buffer))
-                (group (zw/tab-line-buffer-group buffer))
-                (group-buffers (gethash group zw/tab-line-group--hash-table)))
-      (zw/tab-line-switch-to-previous-buffer
-       buffer (cl-remove-if-not 'buffer-live-p group-buffers)))))
-
-(add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
-(add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
-
-(with-eval-after-load "polymode"
-  (defun zw/tab-line-remove-polymode-inner (base-buffer)
-    (cl-map 'list
-            'zw/tab-line-group-remove-buffer
-            (zw/indirect-buffers base-buffer)))
-  (defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
-    (let* ((group (zw/tab-line-buffer-group new-buffer))
-           (group-buffers (gethash group zw/tab-line-group--hash-table)))
-      (puthash group (zw/insert-after group-buffers after-buffer new-buffer)
-               zw/tab-line-group--hash-table)))
-  (add-hook 'polymode-after-switch-buffer-hook
-            (lambda (old-buffer new-buffer)
-              (zw/tab-line-group-remove-buffer new-buffer)
-              (zw/tab-line-group-add-buffer-after old-buffer new-buffer)
-              (zw/tab-line-group-remove-buffer old-buffer)))
-  (add-hook 'polymode-init-inner-hook
-            (lambda ()
-              (zw/tab-line-remove-polymode-inner (buffer-base-buffer)))))
-
-;;;; group buffers
 (defun zw/tab-line-buffer-group (buffer)
+  "Get `group' for buffer."
   (with-current-buffer buffer
     (cond ((memq major-mode '(helpful-mode
                               help-mode
@@ -87,17 +19,83 @@
            "File")
           (t nil))))
 
-(defun zw/tab-line-buffer-group-visible ()
+;; group hash table
+(defvar zw/tab-line-group--hash-table (make-hash-table))
+
+(defun zw/tab-line-get-group-buffers (group)
+  "Get `group-buffers' for `group' excluding dead buffers and invisible buffers."
+  (cl-remove-if (lambda (buf)
+                  (or (not (buffer-live-p buf))
+                      (with-current-buffer buf
+                        (string-equal " " (substring (buffer-name) 0 1)))))
+                (gethash group zw/tab-line-group--hash-table)))
+
+(defun zw/tab-line-group-add-buffer (buffer)
+  (when (and (buffer-live-p buffer)
+             (not (minibufferp))
+             (zw/tab-line-buffer-group-visible-p))
+    (let* ((group (zw/tab-line-buffer-group buffer))
+           (group-buffers (zw/tab-line-get-group-buffers group))
+           (other-buffer (other-buffer buffer t)))
+      (when (not (memq buffer group-buffers))
+        (setq group-buffers
+              (if (memq other-buffer group-buffers)
+                  (zw/insert-after group-buffers other-buffer buffer)
+                (append group-buffers (list buffer))))
+        (puthash group group-buffers
+                 zw/tab-line-group--hash-table)))))
+
+(defun zw/tab-line-group-add-current-buffer ()
+  (zw/tab-line-group-add-buffer (current-buffer)))
+
+(defun zw/tab-line-group-remove-buffer (buffer)
+  (let* ((group (zw/tab-line-buffer-group buffer))
+         (group-buffers (zw/tab-line-get-group-buffers group)))
+    (puthash group
+             (cl-remove buffer group-buffers)
+             zw/tab-line-group--hash-table)))
+
+(defun zw/tab-line-kill-buffer-switch-to-previous ()
+  (when zw/tab-line-kill-buffer-switch-to-previous
+    (when-let* ((buffer (current-buffer))
+                (group (zw/tab-line-buffer-group buffer))
+                (group-buffers (zw/tab-line-get-group-buffers group))
+                (max-index (- (length group-buffers) 1))
+                (pos (cl-position buffer group-buffers))
+                (pos-previous (- pos 1))
+                (pos-next (+ pos 1))
+                (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
+      (switch-to-buffer (nth buffer-pos group-buffers)))))
+
+(add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
+(add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
+
+(defun zw/tab-line-buffer-group-visible-p ()
   (zw/tab-line-buffer-group (current-buffer)))
 
-(defun zw/tab-line-buffer-group-buffers ()
+(defun zw/tab-line-tabs-function ()
   (let* ((group (zw/tab-line-buffer-group (current-buffer))))
-    ;; clear dead buffers and invisible buffers
-    (cl-remove-if (lambda (buffer)
-                    (or (not (buffer-live-p buffer))
-                        (with-current-buffer buffer
-                          (string-equal " " (substring (buffer-name) 0 1)))))
-                  (gethash group zw/tab-line-group--hash-table))))
+    (zw/tab-line-get-group-buffers group)))
+
+;; ** polymode
+(with-eval-after-load "polymode"
+  (defun zw/tab-line-remove-polymode-inner (base-buffer)
+    (cl-map 'list
+            'zw/tab-line-group-remove-buffer
+            (zw/indirect-buffers base-buffer)))
+  (defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
+    (let* ((group (zw/tab-line-buffer-group new-buffer))
+           (group-buffers (zw/tab-line-get-group-buffers group)))
+      (puthash group (zw/insert-after group-buffers after-buffer new-buffer)
+               zw/tab-line-group--hash-table)))
+  (add-hook 'polymode-after-switch-buffer-hook
+            (lambda (old-buffer new-buffer)
+              (zw/tab-line-group-remove-buffer new-buffer)
+              (zw/tab-line-group-add-buffer-after old-buffer new-buffer)
+              (zw/tab-line-group-remove-buffer old-buffer)))
+  (add-hook 'polymode-init-inner-hook
+            (lambda ()
+              (zw/tab-line-remove-polymode-inner (buffer-base-buffer)))))
 
 ;; * Appearence
 ;; ** face
@@ -111,6 +109,8 @@
     (set-face-attribute face nil
                         :family (face-attribute 'default :font)
                         :height (face-attribute 'tab-bar :height))))
+
+(add-hook 'tab-line-mode-hook 'zw/tab-line-set-face)
 
 ;; fix issue when switching theme
 (advice-add 'consult-theme :after (lambda (arg)
@@ -253,7 +253,7 @@
 ;; * Config
 (with-eval-after-load "tab-line"
   (setq tab-line-tab-name-function #'zw/tab-line-tab-name
-        tab-line-tabs-function #'zw/tab-line-buffer-group-buffers
+        tab-line-tabs-function #'zw/tab-line-tabs-function
         tab-line-new-button-show nil
         tab-line-close-button-show t
         tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
@@ -263,14 +263,13 @@
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-set-face)
 
 ;; * Enable
 (global-tab-line-mode 1)
 (defun zw/tab-line-hide ()
   (when (and (featurep 'tab-line)
              tab-line-mode
-             (not (zw/tab-line-buffer-group-visible)))
+             (not (zw/tab-line-buffer-group-visible-p)))
     (tab-line-mode -1)))
 (add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
 
@@ -294,7 +293,7 @@ at the mouse-down event to the position at mouse-up event."
 	 (from (tab-line--get-tab-property 'tab (car from-str)))
          (to (tab-line--get-tab-property 'tab (car to-str)))
          (group (zw/tab-line-buffer-group (get-buffer from)))
-         (group-buffers (gethash group zw/tab-line-group--hash-table)))
+         (group-buffers (zw/tab-line-get-group-buffers group)))
     ;; Only adjust if the two tabs are different
     ;; if going left to right add on the right and vice versa if going right to left
     (ignore-errors
