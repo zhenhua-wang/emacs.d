@@ -50,7 +50,8 @@
                ("s-f" . isearch-forward)
                ("<tab>" . zw/dired-subtree-toggle)
                ("TAB" . zw/dired-subtree-toggle)
-               ("q" . zw/kill-bufer-quit-window)))
+               ("q" . zw/kill-bufer-quit-window)
+               ("o" . zw/dired-open-externally)))
   :init
   (setq dired-dwim-target t
         dired-kill-when-opening-new-dired-buffer t
@@ -70,7 +71,14 @@
        0))
   (defun zw/dired-setup ()
     (zw/visual-line-disable)
-    (add-hook 'post-command-hook #'force-mode-line-update nil t)))
+    (add-hook 'post-command-hook #'force-mode-line-update nil t))
+  (defun zw/dired-open-externally ()
+    "In dired, open the file named on this line."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (message "Opening %s..." file)
+      (call-process "xdg-open" nil 0 nil file)
+      (message "Opening %s done" file))))
 
 (use-package diredfl
   :hook
