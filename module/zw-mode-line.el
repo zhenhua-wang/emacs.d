@@ -171,7 +171,7 @@
     (zw/modeline--bar color width height)))
 
 ;; ** remote
-(defcustom zw/modeline-remote-show-local t
+(defcustom zw/modeline-remote-show-local nil
   "Whether show local indicator on mode line."
   :type 'boolean)
 
@@ -185,7 +185,7 @@
        (if (file-remote-p default-directory)
            (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
                        'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
-         (propertize (concat " " icon " ")
+         (propertize (concat " " icon " " (zw/localhost-short) " ")
                      'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive))))
      zw/modeline-separator)))
 

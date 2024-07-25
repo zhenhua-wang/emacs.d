@@ -297,6 +297,9 @@ The order of values may be different."
   (interactive)
   (call-interactively zw/term-function))
 
+(defun zw/localhost-short ()
+  (car (split-string (system-name) "\\.")))
+
 (with-eval-after-load "eshell"
   ;; prompt
   (defun zw/eshell-prompt ()
@@ -304,7 +307,7 @@ The order of values may be different."
      (propertize (user-login-name)
                  'face 'bold)
      (propertize "@" 'face 'bold)
-     (propertize (car (split-string (system-name) "\\."))
+     (propertize (zw/localhost-short)
                  'face 'bold)
      (propertize ":" 'face 'bold)
      (propertize (abbreviate-file-name (eshell/pwd))
