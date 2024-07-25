@@ -87,6 +87,7 @@
          ("C-c h" . consult-history)
          ("C-c m" . consult-mode-command)
          ("C-c k" . consult-kmacro)
+         ("C-c o" . consult-open-externally)
          ;; C-x bindings (ctl-x-map)
          ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
