@@ -160,7 +160,8 @@
 
 ;; ** seperator
 (defvar zw/modeline-separator
-  (propertize " " 'face 'zw/modeline-default-active))
+  (propertize (if (display-graphic-p) " " "  ")
+              'face 'zw/modeline-default-active))
 
 (defun zw/modeline-separator-thin ()
   (let ((color (if (mode-line-window-selected-p)
