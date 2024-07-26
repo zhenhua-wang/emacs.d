@@ -172,6 +172,10 @@
     ""))
 
 ;; ** debug
+(defcustom zw/tab-line-show-debug t
+  "Enbale debug on tab-line."
+  :type 'boolean)
+
 (defun zw/tab-line-debug-keymap (left-click-func &optional right-click-func)
   (let ((map (make-sparse-keymap)))
     (define-key map (vector 'tab-line 'mouse-1)
@@ -218,7 +222,8 @@
               'keymap (zw/tab-line-debug-keymap 'dape-restart)))
 
 (defun zw/tab-line-debug-rhs ()
-  (when (derived-mode-p 'prog-mode)
+  (when (and (derived-mode-p 'prog-mode)
+             zw/tab-line-show-debug)
     (concat (zw/tab-line-debug-start)
             (zw/tab-line-bar)
             (zw/tab-line-debug-next)
