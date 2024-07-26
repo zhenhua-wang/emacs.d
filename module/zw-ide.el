@@ -150,7 +150,6 @@
          ("q" . zw/magit-kill-buffers)
          :map magit-status-mode-map
          ("s-q" . zw/magit-kill-buffers))
-  :commands (magit-status magit-get-current-branch)
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (defun zw/magit-change-repo ()
