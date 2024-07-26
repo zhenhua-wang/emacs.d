@@ -261,9 +261,11 @@
                                           'mouse-face 'tab-line-close-highlight
                                           'help-echo "Click to close tab")
         tab-line-left-button (propertize "" 'keymap tab-line-left-map
-                                         'mouse-face 'shadow)
+                                         'face `(:box ,(face-attribute 'icon-button :box))
+                                         'mouse-face 'highlight)
         tab-line-right-button (propertize "" 'keymap tab-line-right-map
-                                          'mouse-face 'shadow)
+                                          'face `(:box ,(face-attribute 'icon-button :box))
+                                          'mouse-face 'highlight)
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
