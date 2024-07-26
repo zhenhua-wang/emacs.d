@@ -257,14 +257,11 @@
         tab-line-new-button-show nil
         tab-line-close-button-show t
         tab-line-close-button (propertize "" 'keymap tab-line-tab-close-map
-                                          'face 'shadow
                                           'mouse-face 'tab-line-close-highlight
                                           'help-echo "Click to close tab")
         tab-line-left-button (propertize "" 'keymap tab-line-left-map
-                                         'face `(:box ,(face-attribute 'icon-button :box))
                                          'mouse-face 'highlight)
         tab-line-right-button (propertize "" 'keymap tab-line-right-map
-                                          'face `(:box ,(face-attribute 'icon-button :box))
                                           'mouse-face 'highlight)
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
