@@ -133,12 +133,6 @@
         (when (and (boundp mode-map))
           (eval `(setf ,ts-mode-map ,mode-map)))))))
 
-;; * Eldoc
-(use-package eldoc-box
-  :bind (([remap eldoc] . eldoc-box-help-at-point))
-  :config
-  (setq eldoc-box-clear-with-C-g t))
-
 ;; * Folding
 (use-package outline-minor-faces
   :after outline
