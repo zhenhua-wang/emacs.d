@@ -22,9 +22,9 @@ gnome-extensions enable Vitals@CoreCoding.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable caffeine@patapon.info
 # vitals
-gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__']"
+gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__network-rx_max__', '__temperature_max__', '_memory_usage_']"
 gsettings set org.gnome.shell.extensions.vitals hide-icons true
-gsettings set org.gnome.shell.extensions.vitals fixed-widths true
+gsettings set org.gnome.shell.extensions.vitals fixed-widths false
 # caffeine
 gsettings set org.gnome.shell.extensions.caffeine restore-state true
 # default app
