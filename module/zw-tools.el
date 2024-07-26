@@ -291,8 +291,6 @@
       ;; rename buffer
       (let* ((dir (abbreviate-file-name (dired-current-directory)))
              (name (concat " :" dir)))
-        (when (get-buffer name)
-          (kill-buffer name))
         (rename-buffer name))
       ;; enable modes
       (zw-dired-sidebar-mode 1)
