@@ -257,6 +257,11 @@
              (- format-width window-width))
             (t zw/dired-sidebar-header-line-beg))))))
 
+(defun zw/dired-sidebar-header-line-max ()
+  (- (+ (length (zw/dired-sidebar-header-line-main))
+        (length (zw/dired-sidebar-header-line-prefix)))
+     (window-width)))
+
 (defun zw/dired-sidebar-header-line-wheel-backward-action ()
   (interactive)
   (when (> zw/dired-sidebar-header-line-beg 0)
@@ -265,9 +270,8 @@
 
 (defun zw/dired-sidebar-header-line-wheel-forward-action ()
   (interactive)
-  (when (> (- (length (format-mode-line header-line-format))
-              (length (zw/dired-sidebar-header-line-prefix)))
-           (window-width))
+  (when (< zw/dired-sidebar-header-line-beg
+           (zw/dired-sidebar-header-line-max))
     (setq zw/dired-sidebar-header-line-beg
           (+ zw/dired-sidebar-header-line-beg 1))))
 
@@ -304,9 +308,7 @@
                 'zw/dired-sidebar-hide-information-line :append :local)
       (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
                   ;; display header line from beginning
-                  zw/dired-sidebar-header-line-beg (- (+ (length (zw/dired-sidebar-header-line-main))
-                                                         (length (zw/dired-sidebar-header-line-prefix)))
-                                                      (window-width)))
+                  zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max))
       ;; refresh display
       (dired-revert))))
 
