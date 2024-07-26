@@ -256,10 +256,14 @@
         tab-line-tabs-function #'zw/tab-line-tabs-function
         tab-line-new-button-show nil
         tab-line-close-button-show t
-        tab-line-close-button (propertize "×" 'keymap tab-line-tab-close-map
+        tab-line-close-button (propertize "" 'keymap tab-line-tab-close-map
                                           'face 'shadow
                                           'mouse-face 'tab-line-close-highlight
                                           'help-echo "Click to close tab")
+        tab-line-left-button (propertize "" 'keymap tab-line-left-map
+                                         'mouse-face 'shadow)
+        tab-line-right-button (propertize "" 'keymap tab-line-right-map
+                                          'mouse-face 'shadow)
         tab-line-close-tab-function #'kill-buffer
         tab-line-separator ""
         x-underline-at-descent-line t))
