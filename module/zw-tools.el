@@ -113,22 +113,15 @@
   (setq dired-subtree-use-backgrounds nil))
 
 ;; ** dired side bar
-(defun zw/dired-sidebar--modeline-name ()
-  "Sidebar modeline name."
-  (let* ((dir (dired-current-directory))
-         (name (car (last (split-string dir "/") 2))))
-    (propertize (concat " " name " "
-                        zw/modeline-separator)
-                'face (zw/modeline-set-face 'zw/modeline-major-mode-active
-                                            'zw/modeline-default-inactive))))
-
 (defun zw/dired-sidebar--modeline-format ()
   (list "%e"
         '(:eval (zw/modeline-bar))
         '(:eval (zw/modeline-remote))
-        ;; '(:eval (zw/dired-sidebar--modeline-name))
-        ;; '(:eval (zw/modeline-text-scale))
-        '(:eval (zw/modeline-line-column))))
+        '(:eval (propertize
+                 (zw/modeline-line-column)
+                 'face (zw/modeline-set-face
+                        'zw/modeline-buffer-name-active
+                        'zw/modeline-default-inactive)))))
 
 (defun zw/dired-sidebar-folder-indicator ()
   "Display the icons of files in a dired buffer."
