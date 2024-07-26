@@ -120,21 +120,6 @@
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (format " %s " (buffer-name buffer)))
 
-(defun zw/tab-line-tab-face (active-face selected-p)
-  (if selected-p
-      (if (mode-line-window-selected-p)
-          (list :inherit active-face
-                :box (face-attribute 'tab-line-tab-current :box nil t)
-                :height (face-attribute 'tab-line-tab-current :height)
-                :background (face-background 'tab-line-tab-current nil t)
-                :overline (face-attribute 'tab-line-tab-current :overline))
-        (list :inherit active-face
-              :box (face-attribute 'tab-line-tab :box nil t)
-              :height (face-attribute 'tab-line-tab :height)
-              :background (face-background 'tab-line-tab nil t)
-              :overline (face-attribute 'tab-line-tab :overline)))
-    'tab-line-tab-inactive))
-
 (defun zw/tab-line-tab-name-format (orig-fun &rest args)
   (let* ((tab-string (apply orig-fun args))
          (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
@@ -145,7 +130,19 @@
                  (with-current-buffer buffer
                    (nerd-icons-icon-for-mode major-mode))))
          (icon-face-raw (get-text-property 0 'face icon))
-         (icon-face (zw/tab-line-tab-face icon-face-raw selected-p))
+         (icon-face (if selected-p
+                        (if (mode-line-window-selected-p)
+                            (list :inherit icon-face-raw
+                                  :box (face-attribute 'tab-line-tab-current :box nil t)
+                                  :height (face-attribute 'tab-line-tab-current :height)
+                                  :background (face-background 'tab-line-tab-current nil t)
+                                  :overline (face-attribute 'tab-line-tab-current :overline))
+                          (list :inherit icon-face-raw
+                                :box (face-attribute 'tab-line-tab :box nil t)
+                                :height (face-attribute 'tab-line-tab :height)
+                                :background (face-background 'tab-line-tab nil t)
+                                :overline (face-attribute 'tab-line-tab :overline)))
+                      'tab-line-tab-inactive))
          (space-face (if selected-p
                          (if (mode-line-window-selected-p)
                              'tab-line-tab-current
@@ -158,12 +155,7 @@
             (propertize icon 'face icon-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
-            space
-            buffer-name
-            space
-            (propertize tab-line-close-button
-                        'face `(:inherit ,(zw/tab-line-tab-face
-                                           'tab-line-tab selected-p)))
+            tab-string
             space)))
 
 (advice-add 'tab-line-tab-name-format-default :around
@@ -265,7 +257,6 @@
         tab-line-new-button-show nil
         tab-line-close-button-show t
         tab-line-close-button (propertize "" 'keymap tab-line-tab-close-map
-                                          'mouse-face 'tab-line-close-highlight
                                           'help-echo "Click to close tab")
         tab-line-left-button (propertize "" 'keymap tab-line-left-map
                                          'mouse-face 'highlight)
