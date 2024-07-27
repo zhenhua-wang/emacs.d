@@ -29,7 +29,14 @@
                   ("s-S-p" . zw/conda-env-activate)
                   ("s-S-g" . magit-status))
       :hook (after-init . global-kkp-mode)
-      :init (setq kkp-terminal-query-timeout 1))
+      :init
+      (setq kkp-terminal-query-timeout 1)
+      (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
+        (interactive)
+        (kkp--terminal-teardown (kkp--selected-terminal))
+        (set-terminal-parameter terminal 'kkp--setup-started t)
+        (kkp--query-terminal-async "?u\e[c"
+                                   '(("\e[?" . kkp--terminal-setup)) terminal)))
     ;; copy and paste
     (defun zw/xterm-paste (event)
       (interactive "e")
