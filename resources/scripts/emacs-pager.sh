@@ -28,6 +28,7 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     (\"s-q\" . kill-emacs)
     (\"s-f\" . isearch-forward)
     :map isearch-mode-map
+    (\"<escape>\" . isearch-exit)
     (\"s-f\" . isearch-repeat-forward)
     (\"<down>\" . isearch-repeat-forward)
     (\"<up>\" . isearch-repeat-backward)
