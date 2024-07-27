@@ -79,7 +79,7 @@ map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
 map f11 toggle_fullscreen
-map cmd+shift+f launch --type=overlay --stdin-source=@screen_scrollback /bin/sh -c "/usr/bin/fzf --no-sort --no-mouse --exact -i --tac | kitty +kitten clipboard"
+map cmd+shift+f launch --type=overlay --stdin-source=@screen_scrollback /usr/bin/fzf --no-sort --no-mouse --exact -i --tac
 map cmd+shift+t new_tab
 map cmd+shift+w close_tab
 map cmd+c copy_and_clear_or_interrupt
