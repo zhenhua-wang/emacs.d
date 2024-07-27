@@ -30,6 +30,7 @@
                   ("s-S-g" . magit-status))
       :init
       (setq kkp-terminal-query-timeout 1)
+      (kkp-status)
       (global-kkp-mode 1))
     ;; copy and paste
     (defun zw/xterm-paste (event)

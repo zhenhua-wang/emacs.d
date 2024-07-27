@@ -18,7 +18,7 @@
 ;; keybinding
 (require 'zw-package)
 (use-package kkp
-  :hook (after-init . global-kkp-mode))
+  :commands (kkp-enable-in-terminal))
 (use-package clipetty
   :bind ("C-c" . kill-ring-save))
 (defun zw/isearch-yank-kill (event)
@@ -30,6 +30,7 @@
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
+ ("C-d" . isearch-delete-char)
  :map isearch-mode-map
  ("s-f" . isearch-repeat-forward)
  ("s-v" . isearch-yank-kill)
@@ -55,4 +56,6 @@
                             (read-only-mode 1)
                             (global-clipetty-mode 1)
                             (hl-line-mode 1)
+                            (kkp-status)
+                            (kkp-enable-in-terminal)
                             (setq-local mode-line-format nil)))
