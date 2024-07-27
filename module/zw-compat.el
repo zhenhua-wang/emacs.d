@@ -16,8 +16,7 @@
 
 (unless (display-graphic-p)
   (with-eval-after-load "zw-package"
-    ;; enable cua-mode to handle C-c
-    (cua-mode 1)
+    (add-hook 'after-init-hook 'cua-mode)
     (define-key cua-global-keymap (kbd "C-<return>") nil)
     ;; full-featured keybindings
     (straight-use-package 'kkp)
@@ -29,9 +28,9 @@
                   ("s-S-b" . zw/right-side-window-toggle)
                   ("s-S-p" . zw/conda-env-activate)
                   ("s-S-g" . magit-status))
+      :hook (after-init . global-kkp-mode)
       :init
-      (setq kkp-terminal-query-timeout 1)
-      (global-kkp-mode 1))
+      (setq kkp-terminal-query-timeout 1))
     ;; copy and paste
     (defun zw/xterm-paste (event)
       (interactive "e")
