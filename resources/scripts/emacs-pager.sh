@@ -13,5 +13,5 @@ cat - \
    | sed 's/\x1b\][0-9;:]*[AC]\x1b\\//g' \
     >> $t
 
-sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="(progn (menu-bar-mode -1) (load-theme (quote modus-vivendi) t) (global-set-key (kbd \"q\") (quote kill-emacs)) (add-hook (quote find-file-hook) (lambda () (read-only-mode 1) (setq-local mode-line-format nil) (call-interactively (quote isearch-forward)))))" "$t"
+sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="(progn (menu-bar-mode -1) (load-theme (quote modus-vivendi) t) (global-set-key (kbd \"q\") (quote kill-emacs)) (global-set-key (kbd \"<ESC>\") (quote kill-emacs)) (define-key isearch-mode-map (kbd \"<ESC>\") (quote kill-emacs)) (add-hook (quote find-file-hook) (lambda () (read-only-mode 1) (setq-local mode-line-format nil) (call-interactively (quote isearch-forward)))))" "$t"
 rm -f $t
