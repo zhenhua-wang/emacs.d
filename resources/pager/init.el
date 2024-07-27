@@ -39,7 +39,7 @@
  ("<left>" . isearch-repeat-backward))
 (advice-add 'self-insert-command :override
             (lambda (N &optional C)
-              (call-interactively 'isearch-forward)
+              (unless isearch-mode (isearch-mode t))
               (isearch-printing-char C N)))
 
 ;; pager
