@@ -413,6 +413,10 @@ The order of values may be different."
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
+           ("<down>" . isearch-repeat-forward)
+           ("<up>" . isearch-repeat-backward)
+           ("<right>" . isearch-repeat-forward)
+           ("<left>" . isearch-repeat-backward)
            ("s-v" . isearch-yank-kill)
            ("S-<insert>" . isearch-yank-kill))
 

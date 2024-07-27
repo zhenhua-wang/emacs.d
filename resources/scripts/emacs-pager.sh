@@ -22,17 +22,30 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
   (require 'zw-package)
   (use-package kkp
     :init (global-kkp-mode 1))
+  (use-package clipetty
+    :bind (\"C-c\" . kill-ring-save))
   (bind-keys
-    (\"q\" . kill-emacs)
     (\"s-q\" . kill-emacs)
     (\"<escape>\" . kill-emacs)
     (\"s-f\" . isearch-forward)
+    (\"RET\" . (lambda ()
+                 (interactive)
+                 (kill-ring-save (line-beginning-position) (line-end-position))
+                 (kill-emacs)))
     :map isearch-mode-map
     (\"<escape>\" . kill-emacs)
-    (\"s-f\" . isearch-repeat-forward))
-  (setq isearch-wrap-pause 'no)
+    (\"s-f\" . isearch-repeat-forward)
+    (\"<down>\" . isearch-repeat-forward)
+    (\"<up>\" . isearch-repeat-backward)
+    (\"<right>\" . isearch-repeat-forward)
+    (\"<left>\" . isearch-repeat-backward))
+  (setq isearch-lazy-count t
+        lazy-count-prefix-format \"%s/%s \"
+        isearch-wrap-pause 'no)
   (add-hook 'find-file-hook (lambda ()
                               (read-only-mode 1)
+                              (global-clipetty-mode 1)
+                              (hl-line-mode 1)
                               (setq-local mode-line-format nil)
                               (call-interactively 'isearch-forward)))
 )" "$t"
