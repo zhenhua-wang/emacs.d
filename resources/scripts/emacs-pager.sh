@@ -28,10 +28,6 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     (\"s-q\" . kill-emacs)
     (\"<escape>\" . kill-emacs)
     (\"s-f\" . isearch-forward)
-    (\"RET\" . (lambda ()
-                 (interactive)
-                 (kill-ring-save (line-beginning-position) (line-end-position))
-                 (kill-emacs)))
     :map isearch-mode-map
     (\"<escape>\" . kill-emacs)
     (\"s-f\" . isearch-repeat-forward)
@@ -41,7 +37,8 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     (\"<left>\" . isearch-repeat-backward))
   (setq isearch-lazy-count t
         lazy-count-prefix-format \"%s/%s \"
-        isearch-wrap-pause 'no)
+        isearch-wrap-pause 'no
+        visible-bell t)
   (add-hook 'find-file-hook (lambda ()
                               (read-only-mode 1)
                               (global-clipetty-mode 1)
