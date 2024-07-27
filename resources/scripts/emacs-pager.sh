@@ -47,7 +47,6 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
                               (read-only-mode 1)
                               (global-clipetty-mode 1)
                               (hl-line-mode 1)
-                              (setq-local mode-line-format nil)
-                              (call-interactively 'isearch-forward)))
+                              (setq-local mode-line-format nil)))
 )" "$t"
 rm -f $t
