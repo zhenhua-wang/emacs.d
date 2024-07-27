@@ -36,6 +36,23 @@ For Xft.dpi, using integer multiples of 96 usually works best, e.g. 192 for 200%
 Xft.dpi:   192
 #+end_src
 
+* Emacs-Q
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/applications/emacs-Q.desktop")
+#+begin_src conf
+[Desktop Entry]
+Name=Emacs-Q
+GenericName=Text Editor
+Comment=Edit text
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=emacs -Q %F
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupNotify=true
+StartupWMClass=Emacs
+#+end_src
+
 * EXWM
 #+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/usr/share/xsessions/EXWM.desktop")
 #+begin_src conf
