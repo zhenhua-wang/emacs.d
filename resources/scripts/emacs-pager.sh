@@ -31,6 +31,7 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     :map isearch-mode-map
     (\"<escape>\" . isearch-exit)
     (\"s-f\" . isearch-repeat-forward)
+    (\"s-v\" . isearch-yank-kill)
     (\"<down>\" . isearch-repeat-forward)
     (\"<up>\" . isearch-repeat-backward)
     (\"<right>\" . isearch-repeat-forward)
