@@ -26,10 +26,8 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     :bind (\"C-c\" . kill-ring-save))
   (bind-keys
     (\"s-q\" . kill-emacs)
-    (\"<escape>\" . kill-emacs)
     (\"s-f\" . isearch-forward)
     :map isearch-mode-map
-    (\"<escape>\" . kill-emacs)
     (\"s-f\" . isearch-repeat-forward)
     (\"<down>\" . isearch-repeat-forward)
     (\"<up>\" . isearch-repeat-backward)
