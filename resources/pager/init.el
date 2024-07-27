@@ -25,7 +25,6 @@
   (interactive "e")
   (unless isearch-mode (isearch-mode t))
   (isearch-yank-string (nth 1 event)))
-(define-key global-map [xterm-paste] 'zw/isearch-yank-kill)
 (bind-keys
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
@@ -58,4 +57,5 @@
                             (hl-line-mode 1)
                             (kkp-status)
                             (kkp-enable-in-terminal)
+                            (define-key global-map [xterm-paste] 'zw/isearch-yank-kill)
                             (setq-local mode-line-format nil)))
