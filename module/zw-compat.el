@@ -28,7 +28,7 @@
                   ("s-S-b" . zw/right-side-window-toggle)
                   ("s-S-p" . zw/conda-env-activate)
                   ("s-S-g" . magit-status))
-      :hook (after-init . global-kkp-mode)
+      :hook (after-init . zw/kkp-enable)
       :init
       (setq kkp-terminal-query-timeout 1)
       (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
@@ -36,15 +36,17 @@
         (kkp--terminal-teardown (kkp--selected-terminal))
         (set-terminal-parameter terminal 'kkp--setup-started t)
         (kkp--query-terminal-async "?u\e[c"
-                                   '(("\e[?" . kkp--terminal-setup)) terminal)))
-    ;; copy and paste
-    (defun zw/xterm-paste (event)
-      (interactive "e")
-      (when (and (use-region-p)
-                 delete-selection-mode)
-        (delete-region (region-beginning) (region-end)))
-      (call-interactively 'xterm-paste))
-    (define-key global-map [xterm-paste] #'zw/xterm-paste)
+                                   '(("\e[?" . kkp--terminal-setup)) terminal))
+      (defun zw/xterm-paste (event)
+        (interactive "e")
+        (when (and (use-region-p)
+                   delete-selection-mode)
+          (delete-region (region-beginning) (region-end)))
+        (call-interactively 'xterm-paste))
+      (defun zw/kkp-enable ()
+        (global-kkp-mode 1)
+        (define-key global-map [xterm-paste] #'zw/xterm-paste)))
+    ;; clipborad for tty
     (straight-use-package 'clipetty)
     (use-package clipetty
       :hook (after-init . global-clipetty-mode)))
