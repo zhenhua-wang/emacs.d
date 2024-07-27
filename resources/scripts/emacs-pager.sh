@@ -24,12 +24,16 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     :init (global-kkp-mode 1))
   (use-package clipetty
     :bind (\"C-c\" . kill-ring-save))
+  (defun zw/isearch-yank-kill (event)
+    (interactive \"e\")
+    (unless isearch-mode (isearch-mode t))
+    (isearch-yank-string (nth 1 event)))
+  (define-key global-map [xterm-paste] 'zw/isearch-yank-kill)
   (bind-keys
     (\"<escape>\" . keyboard-quit)
     (\"s-q\" . kill-emacs)
     (\"s-f\" . isearch-forward)
     :map isearch-mode-map
-    (\"<escape>\" . isearch-exit)
     (\"s-f\" . isearch-repeat-forward)
     (\"s-v\" . isearch-yank-kill)
     (\"<down>\" . isearch-repeat-forward)
