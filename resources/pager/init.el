@@ -18,7 +18,7 @@
 ;; keybinding
 (require 'zw-package)
 (use-package kkp
-  :init (global-kkp-mode 1))
+  :hook (after-init . global-kkp-mode))
 (use-package clipetty
   :bind ("C-c" . kill-ring-save))
 (defun zw/isearch-yank-kill (event)
