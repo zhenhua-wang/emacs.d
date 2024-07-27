@@ -96,7 +96,7 @@ map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
 map f11 toggle_fullscreen
-map cmd+shift+f launch --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac --track
+map cmd+shift+f launch --stdin-source=@screen_scrollback --stdin-add-formatting ~/.emacs.d/resources/scripts/emacs-pager.sh
 map cmd+shift+t new_tab
 map cmd+shift+w close_tab
 map cmd+c copy_and_clear_or_interrupt
