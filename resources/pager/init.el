@@ -4,9 +4,8 @@
       package-enable-at-startup nil
       gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6
+      file-name-handler-alist nil
       warning-minimum-level :error)
-(defvar config:file-name-handler-alist-cache file-name-handler-alist)
-(setq file-name-handler-alist nil)
 
 ;; user path
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
@@ -52,7 +51,6 @@
                             ;; restore
                             (setq gc-cons-threshold 16777216
                                   gc-cons-percentage 0.1)
-                            (setq file-name-handler-alist config:file-name-handler-alist-cache)
                             ;; pager
                             (read-only-mode 1)
                             (global-clipetty-mode 1)
