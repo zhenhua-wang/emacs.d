@@ -29,8 +29,9 @@
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
- ("C-d" . isearch-delete-char)
+ ("C-d" . isearch-del-char)
  :map isearch-mode-map
+ ([remap isearch-delete-char] . isearch-del-char)
  ("s-f" . isearch-repeat-forward)
  ("s-v" . isearch-yank-kill)
  ("<down>" . isearch-repeat-forward)
