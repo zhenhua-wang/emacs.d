@@ -28,7 +28,8 @@
                   ("s-S-b" . zw/right-side-window-toggle)
                   ("s-S-p" . zw/conda-env-activate)
                   ("s-S-g" . magit-status))
-      :hook (after-init . (lambda () (kkp-status) (global-kkp-mode 1))))
+      :hook (after-init . global-kkp-mode)
+      :init (setq kkp-terminal-query-timeout 1))
     ;; copy and paste
     (defun zw/xterm-paste (event)
       (interactive "e")
