@@ -35,6 +35,10 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
     (\"<up>\" . isearch-repeat-backward)
     (\"<right>\" . isearch-repeat-forward)
     (\"<left>\" . isearch-repeat-backward))
+  (advice-add 'self-insert-command :override
+              (lambda (N &optional C)
+                (call-interactively 'isearch-forward)
+                (isearch-printing-char C N)))
   (setq isearch-lazy-count t
         lazy-count-prefix-format \"%s/%s \"
         isearch-wrap-pause 'no
