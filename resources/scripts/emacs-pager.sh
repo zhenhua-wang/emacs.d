@@ -17,7 +17,7 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
 (progn
   (setq user-emacs-directory (expand-file-name \"~/.cache/emacs/\"))
   (push \"~/.emacs.d/module\" load-path)
-  (menu-bar-mode -1)
+  (push '(menu-bar-lines . 0)   default-frame-alist)
   (load-theme 'tango-dark t)
   (require 'zw-package)
   (use-package kkp
