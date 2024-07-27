@@ -25,6 +25,7 @@ sh -c 'emacs "$@" < /dev/tty' emacs -Q -nw --eval="
   (use-package clipetty
     :bind (\"C-c\" . kill-ring-save))
   (bind-keys
+    (\"<escape>\" . keyboard-quit)
     (\"s-q\" . kill-emacs)
     (\"s-f\" . isearch-forward)
     :map isearch-mode-map
