@@ -66,8 +66,8 @@
                                   gc-cons-percentage 0.1)
                             ;; pager
                             (read-only-mode 1)
-                            (global-clipetty-mode 1)
                             (hl-line-mode 1)
+                            (global-clipetty-mode 1)
                             (kkp-status)
                             (kkp-enable-in-terminal)
                             (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
