@@ -471,7 +471,8 @@
   ;; detached minibuffer freezes on help message
   ;; https://github.com/ch11ng/exwm/wiki#minor-issues-related-to-the-autohide-echo-area
   (global-eldoc-mode 0)
-  (which-key-mode 0)
+  (when (featurep 'which-key)
+    (which-key-mode 0))
   (setq echo-keystrokes 0)
   (add-hook 'exwm-init-hook
             (lambda ()
