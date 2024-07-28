@@ -9,6 +9,7 @@
   (defun eaf-install ())
   (defun eaf-install-and-update ())
   (defun zw/eaf-install ()
+    (interactive)
     (let ((zw/eaf-image-viewer-path (expand-file-name
                                      "straight/build/eaf-image-viewer" user-emacs-directory)))
       (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python=3.11 && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s" zw/eaf-image-viewer-path zw/eaf-image-viewer-path)))))
