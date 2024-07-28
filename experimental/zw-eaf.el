@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package eaf
+  :if (display-graphic-p)
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
   ;; HACK: force focus eaf buffer
@@ -21,6 +22,7 @@
   (advice-add 'eaf-install-and-update :override (lambda (&rest _))))
 
 (use-package eaf-pdf-viewer
+  :if (display-graphic-p)
   :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
                    :files ("*"))
   :config
@@ -31,6 +33,7 @@
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding))
 
 (use-package eaf-image-viewer
+  :if (display-graphic-p)
   :straight (:type git :host github :repo "emacs-eaf/eaf-image-viewer"
                    :files ("*")))
 
