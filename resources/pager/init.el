@@ -23,7 +23,6 @@
   :bind ("C-c" . kill-ring-save))
 (bind-keys
  ("<escape>" . keyboard-quit)
- ("RET" . kill-emacs)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
  ("s-z" . undo-only)
