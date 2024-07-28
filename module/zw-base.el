@@ -362,7 +362,7 @@ The order of values may be different."
 (setq recentf-max-saved-items 300
       recentf-exclude
       '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+        "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\|webp\\)$"
         "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
         "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
         "~/.emacs.d/straight/" "~/.conda/" ".csv" ".pdf"
