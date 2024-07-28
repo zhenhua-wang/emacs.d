@@ -1,16 +1,17 @@
 ;; -*- lexical-binding: t -*-
 
-;; dependencies
-;;
-;; /opt/miniconda3/bin/conda create -n eaf python=3.11
-;; source /opt/miniconda3/bin/activate eaf
-;; conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia
-;; pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf
 (use-package eaf
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
   :config
-  (setq eaf-python-command "~/.conda/envs/eaf/bin/python3"))
+  (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
+        eaf-python-command (expand-file-name "python3" zw/eaf-bin))
+  (defun eaf-install ())
+  (defun eaf-install-and-update ())
+  (defun zw/eaf-install ()
+    (let ((zw/eaf-image-viewer-path (expand-file-name
+                                     "straight/build/eaf-image-viewer" user-emacs-directory)))
+      (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python=3.11 && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s" zw/eaf-image-viewer-path zw/eaf-image-viewer-path)))))
 
 (use-package eaf-pdf-viewer
   :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
@@ -24,16 +25,6 @@
 
 (use-package eaf-image-viewer
   :straight (:type git :host github :repo "emacs-eaf/eaf-image-viewer"
-                   :files ("*"))
-  :config
-  (defun zw/eaf-image-viewer-install ()
-    (interactive)
-    (let ((zw/eaf-image-viewer-path (expand-file-name
-                                     "straight/build/eaf-image-viewer" user-emacs-directory))
-          (path (getenv "PATH")))
-      (setenv "PATH" (concat path ":/home/zhenhua/.conda/envs/eaf/bin"))
-      (shell-command (format "/home/zhenhua/.conda/envs/eaf/bin/npm install %s --prefix %s"
-                             zw/eaf-image-viewer-path zw/eaf-image-viewer-path))
-      (setenv "PATH" path))))
+                   :files ("*")))
 
 (provide 'zw-eaf)
