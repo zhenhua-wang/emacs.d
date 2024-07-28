@@ -23,10 +23,12 @@
   :bind ("C-c" . kill-ring-save))
 (bind-keys
  ("<escape>" . keyboard-quit)
+ ("RET" . kill-emacs)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
  ("s-z" . undo-only)
  ("s-S-z" . undo-redo)
+ ("C-d" . backward-delete-char)
  :map isearch-mode-map
  ([remap isearch-delete-char] . isearch-del-char)
  ([xterm-paste] . isearch-xterm-paste)
@@ -57,6 +59,7 @@
 (setq isearch-lazy-count t
       isearch-wrap-pause 'no
       isearch-allow-motion t
+      search-nonincremental-instead nil
       search-whitespace-regexp ".*?"
       lazy-count-prefix-format "%s/%s "
       visible-bell t)
