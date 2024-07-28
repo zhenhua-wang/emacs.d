@@ -37,7 +37,9 @@
  ("<down>" . isearch-repeat-forward)
  ("<up>" . isearch-repeat-backward)
  ("<right>" . isearch-repeat-forward)
- ("<left>" . isearch-repeat-backward))
+ ("<left>" . isearch-repeat-backward)
+ :map minibuffer-mode-map
+ ("<escape>" . minibuffer-keyboard-quit))
 (advice-add 'self-insert-command :around
             (lambda (orig-fun N &optional C)
               (if (minibufferp)
