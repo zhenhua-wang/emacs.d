@@ -29,7 +29,11 @@
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
- ("C-d" . isearch-del-char)
+ ("C-d" . (lambda ()
+            (interactive)
+            (if (minibufferp)
+                (call-interactively 'delete-backward-char)
+              (call-interactively 'isearch-del-char))))
  :map isearch-mode-map
  ([remap isearch-delete-char] . isearch-del-char)
  ("s-f" . isearch-repeat-forward)
@@ -38,10 +42,13 @@
  ("<up>" . isearch-repeat-backward)
  ("<right>" . isearch-repeat-forward)
  ("<left>" . isearch-repeat-backward))
-(advice-add 'self-insert-command :override
-            (lambda (N &optional C)
-              (unless isearch-mode (isearch-mode t))
-              (isearch-printing-char C N)))
+(advice-add 'self-insert-command :around
+            (lambda (orig-fun N &optional C)
+              (if (minibufferp)
+                  (funcall orig-fun N C)
+                (progn
+                  (unless isearch-mode (isearch-mode t))
+                  (isearch-printing-char C N)))))
 
 ;; pager
 (setq isearch-lazy-count t
