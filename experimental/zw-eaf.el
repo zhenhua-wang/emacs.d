@@ -3,7 +3,7 @@
 (use-package eaf
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
-  :config
+  :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
   (defun eaf-install ())
