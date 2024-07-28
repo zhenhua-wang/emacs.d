@@ -21,6 +21,10 @@
   :commands (kkp-enable-in-terminal))
 (use-package clipetty
   :bind ("C-c" . kill-ring-save))
+(use-package delsel
+  :commands (minibuffer-keyboard-quit)
+  :bind (:map minibuffer-mode-map
+              ("<escape>" . minibuffer-keyboard-quit)))
 (bind-keys
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
@@ -37,9 +41,7 @@
  ("<down>" . isearch-repeat-forward)
  ("<up>" . isearch-repeat-backward)
  ("<right>" . isearch-repeat-forward)
- ("<left>" . isearch-repeat-backward)
- :map minibuffer-mode-map
- ("<escape>" . minibuffer-keyboard-quit))
+ ("<left>" . isearch-repeat-backward))
 (advice-add 'self-insert-command :around
             (lambda (orig-fun N &optional C)
               (if (minibufferp)
