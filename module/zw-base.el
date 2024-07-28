@@ -407,8 +407,10 @@ The order of values may be different."
 
 ;; ** Isearch
 (setq isearch-lazy-count t
+      isearch-wrap-pause 'no
+      isearch-allow-motion t
       lazy-count-prefix-format "%s/%s "
-      isearch-wrap-pause 'no)
+      search-whitespace-regexp ".*?")
 
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)

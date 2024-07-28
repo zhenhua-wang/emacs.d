@@ -45,9 +45,10 @@
 
 ;; pager
 (setq isearch-lazy-count t
-      lazy-count-prefix-format "%s/%s "
       isearch-wrap-pause 'no
+      isearch-allow-motion t
       search-whitespace-regexp ".*?"
+      lazy-count-prefix-format "%s/%s "
       visible-bell t)
 (add-hook 'find-file-hook (lambda ()
                             ;; restore
