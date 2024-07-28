@@ -47,6 +47,7 @@
 (setq isearch-lazy-count t
       lazy-count-prefix-format "%s/%s "
       isearch-wrap-pause 'no
+      search-whitespace-regexp ".*?"
       visible-bell t)
 (add-hook 'find-file-hook (lambda ()
                             ;; restore
