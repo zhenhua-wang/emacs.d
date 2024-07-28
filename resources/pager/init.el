@@ -13,7 +13,7 @@
 
 ;; appearance
 (push '(menu-bar-lines . 0)   default-frame-alist)
-(load-theme 'tango-dark t)
+(load-theme 'misterioso t)
 
 ;; keybinding
 (require 'zw-package)
