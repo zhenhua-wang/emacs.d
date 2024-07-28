@@ -63,14 +63,16 @@
       lazy-count-prefix-format "%s/%s "
       visible-bell t)
 (add-hook 'find-file-hook (lambda ()
-                            ;; restore
-                            (setq gc-cons-threshold 16777216
-                                  gc-cons-percentage 0.1)
                             ;; pager
+                            (require 'ansi-color)
+                            (ansi-color-apply-on-region (point-min) (point-max))
                             (read-only-mode 1)
                             (hl-line-mode 1)
                             (global-clipetty-mode 1)
                             (kkp-status)
                             (kkp-enable-in-terminal)
                             (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
-                            (setq-local mode-line-format nil)))
+                            (setq-local mode-line-format nil)
+                            ;; restore
+                            (setq gc-cons-threshold 16777216
+                                  gc-cons-percentage 0.1)))
