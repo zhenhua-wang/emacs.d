@@ -9,7 +9,6 @@
 (use-package eaf
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
-  :demand
   :config
   (setq eaf-python-command "~/.conda/envs/eaf/bin/python3"))
 
