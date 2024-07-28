@@ -401,9 +401,7 @@
 
 ;; * Which Key
 (use-package which-key
-  :hook (after-init . which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
+  :hook (after-init . which-key-mode))
 
 ;; * keycast
 (use-package keycast
