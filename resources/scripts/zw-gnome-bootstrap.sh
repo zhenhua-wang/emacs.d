@@ -9,7 +9,7 @@ yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
 
 # emacs
 mv ~/emacs.d ~/.emacs.d
-yay -S emacs emacs-lsp-booster aspell aspell-en
+yay -S emacs-nativecomp emacs-lsp-booster aspell aspell-en
 emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))' --eval '(defun zw/org-babel-tangle-linux (path) (if (eq system-type (intern "gnu/linux")) path "no"))' --eval '(defun zw/org-babel-tangle-not-exist (path) (if (file-exists-p path) "no" path))' --eval '(org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")'
 
 # gnome core
