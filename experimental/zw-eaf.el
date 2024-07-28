@@ -3,6 +3,11 @@
 (use-package eaf
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
+  ;; HACK: force focus eaf buffer
+  :hook (eaf-mode . (lambda ()
+                      (let ((buffer-name (buffer-name)))
+                        (run-with-timer 0.1 nil
+                                        (lambda () (select-window (display-buffer buffer-name)))))))
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
