@@ -22,6 +22,7 @@
 (use-package clipetty
   :bind ("C-c" . kill-ring-save))
 (use-package delsel
+  :straight (:type built-in)
   :commands (minibuffer-keyboard-quit)
   :bind (:map minibuffer-mode-map
               ("<escape>" . minibuffer-keyboard-quit)))
