@@ -21,26 +21,16 @@
   :commands (kkp-enable-in-terminal))
 (use-package clipetty
   :bind ("C-c" . kill-ring-save))
-(defun zw/isearch-yank-kill (event)
-  (interactive "e")
-  (if (minibufferp)
-      (call-interactively 'xterm-paste)
-    (progn
-      (unless isearch-mode (isearch-mode t))
-      (isearch-yank-string (nth 1 event)))))
 (bind-keys
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
  ("s-f" . isearch-forward)
  ("s-z" . undo-only)
  ("s-S-z" . undo-redo)
- ("C-d" . (lambda ()
-            (interactive)
-            (if (minibufferp)
-                (call-interactively 'delete-backward-char)
-              (call-interactively 'isearch-del-char))))
  :map isearch-mode-map
  ([remap isearch-delete-char] . isearch-del-char)
+ ([xterm-paste] . isearch-xterm-paste)
+ ("C-d" . isearch-del-char)
  ("s-f" . isearch-repeat-forward)
  ("s-v" . isearch-yank-kill)
  ("<down>" . isearch-repeat-forward)
@@ -54,6 +44,14 @@
                 (progn
                   (unless isearch-mode (isearch-mode t))
                   (isearch-printing-char C N)))))
+(defun zw/pager-isearch-xterm-paste (event)
+  (interactive "e")
+  (if (minibufferp)
+      (call-interactively 'xterm-paste)
+    (when (eq (car-safe event) 'xterm-paste)
+      (unless isearch-mode (isearch-mode t))
+      (let ((pasted-text (nth 1 event)))
+        (isearch-yank-string pasted-text)))))
 
 ;; pager
 (setq isearch-lazy-count t
@@ -72,5 +70,6 @@
                             (hl-line-mode 1)
                             (kkp-status)
                             (kkp-enable-in-terminal)
-                            (define-key global-map [xterm-paste] 'zw/isearch-yank-kill)
-                            (setq-local mode-line-format nil)))
+                            (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
+                            (setq-local mode-line-format nil)
+                            (call-interactively 'isearch-forward)))
