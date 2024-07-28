@@ -181,10 +181,10 @@
                :height 1
                :v-adjust 0.05)))
     (concat
-     (when zw/modeline-remote-show-local
-       (if (file-remote-p default-directory)
-           (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
-                       'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+     (if (file-remote-p default-directory)
+         (propertize (concat " " icon " " (file-remote-p default-directory 'host) " ")
+                     'face (zw/modeline-set-face 'zw/modeline-remote-active 'zw/modeline-remote-inactive))
+       (when zw/modeline-remote-show-local
          (propertize (concat " " icon " ")
                      'face (zw/modeline-set-face 'zw/modeline-local-active 'zw/modeline-remote-inactive))))
      zw/modeline-separator)))
