@@ -73,5 +73,4 @@
                             (kkp-status)
                             (kkp-enable-in-terminal)
                             (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
-                            (setq-local mode-line-format nil)
-                            (call-interactively 'isearch-forward)))
+                            (setq-local mode-line-format nil)))
