@@ -47,11 +47,14 @@
   (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding))
+  (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key reload_document "s-r" eaf-pdf-viewer-keybinding))
 
 (use-package eaf-image-viewer
   :if (display-graphic-p)
   :straight (:type git :host github :repo "emacs-eaf/eaf-image-viewer"
-                   :files ("*")))
+                   :files ("*"))
+  :config
+  (eaf-bind-key reload_image "s-r" eaf-image-viewer-keybinding))
 
 (provide 'zw-eaf)
