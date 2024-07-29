@@ -127,9 +127,9 @@
          (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
          (buffer (get-buffer buffer-name))
          (selected-p (eq buffer (window-buffer)))
-         (icon (if (buffer-file-name buffer)
-                   (nerd-icons-icon-for-file (buffer-file-name buffer))
-                 (with-current-buffer buffer
+         (icon (with-current-buffer buffer
+                 (if buffer-file-name
+                     (nerd-icons-icon-for-file buffer-file-name)
                    (nerd-icons-icon-for-mode major-mode))))
          (icon-face-raw (get-text-property 0 'face icon))
          (icon-face (if selected-p
