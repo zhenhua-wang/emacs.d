@@ -25,8 +25,16 @@
     (if (eq major-mode 'eaf-mode)
         (let ((buffer-file-name (eaf-get-path-or-url)))
           (funcall orig-fun))
-      (funcall orig-fun args)))
-  (advice-add 'zw/open-in-external :around 'zw/eaf-open-in-external))
+      (funcall orig-fun)))
+  (advice-add 'zw/open-in-external :around 'zw/eaf-open-in-external)
+  (defun zw/eaf-tab-line-icon (orig-fun buffer)
+    (with-current-buffer buffer
+      (if (eq major-mode 'eaf-mode)
+          (pcase eaf--buffer-app-name
+            ("pdf-viewer" (nerd-icons-icon-for-file "pdf.pdf"))
+            ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange)))
+        (funcall orig-fun buffer))))
+  (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)

@@ -124,13 +124,9 @@
 
 (defun zw/tab-line-tab-icon (buffer)
   (with-current-buffer buffer
-    (cond (buffer-file-name
-           (nerd-icons-icon-for-file buffer-file-name))
-          ((string= eaf--buffer-app-name "pdf-viewer")
-           (nerd-icons-icon-for-file "pdf.pdf"))
-          ((string= eaf--buffer-app-name "image-viewer")
-           (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange))
-          (t (nerd-icons-icon-for-mode major-mode)))))
+    (if buffer-file-name
+        (nerd-icons-icon-for-file buffer-file-name)
+      (nerd-icons-icon-for-mode major-mode))))
 
 (defun zw/tab-line-tab-name-format (orig-fun &rest args)
   (let* ((tab-string (apply orig-fun args))
