@@ -436,9 +436,9 @@ The order of values may be different."
                            (_ "open"))
   "Shell command used to open in external apps.")
 
-(defun zw/open-in-external (arg)
+(defun zw/open-in-external ()
   "Open visited file in default external program."
-  (interactive "P")
+  (interactive)
   (when buffer-file-name
     (call-process-shell-command
      (concat open-app-command " " (shell-quote-argument buffer-file-name))
