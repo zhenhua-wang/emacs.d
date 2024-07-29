@@ -5,19 +5,24 @@
   "Switch to previous buffer on tab-line after kill buffer"
   :type 'boolean)
 
+(defcustom zw/tab-line-buffer-group-alist
+  '(((memq major-mode '(helpful-mode
+                        help-mode
+                        ess-r-help-mode))
+     . Help)
+    ((memq major-mode '(inferior-ess-r-mode
+                        inferior-python-mode))
+     . REPL)
+    (buffer-file-name
+     . File))
+  "Alist of tab line buffer groups.  (predicate . group).")
+
 (defun zw/tab-line-buffer-group (buffer)
   "Get `group' for buffer."
   (with-current-buffer buffer
-    (cond ((memq major-mode '(helpful-mode
-                              help-mode
-                              ess-r-help-mode))
-           "Help")
-          ((memq major-mode '(inferior-ess-r-mode
-                              inferior-python-mode))
-           "REPL")
-          (buffer-file-name
-           "File")
-          (t nil))))
+    (cdr (cl-find-if
+          (lambda (pred-group) (eval (car pred-group)))
+          zw/tab-line-buffer-group-alist))))
 
 ;; group hash table
 (defvar zw/tab-line-group--hash-table (make-hash-table))

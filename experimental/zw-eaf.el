@@ -19,7 +19,8 @@
       (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python=3.11 && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s" zw/eaf-image-viewer-path zw/eaf-image-viewer-path))))
   :config
   (advice-add 'eaf-install :override (lambda (&rest _)))
-  (advice-add 'eaf-install-and-update :override (lambda (&rest _))))
+  (advice-add 'eaf-install-and-update :override (lambda (&rest _)))
+  (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File)))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
