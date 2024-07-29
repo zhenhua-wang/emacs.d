@@ -42,8 +42,8 @@
   :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
                    :files ("*"))
   :config
-  (eaf-setq eaf-pdf-default-zoom  2
-            eaf-pdf-dark-mode "ignore")
+  (setq eaf-pdf-default-zoom  2
+        eaf-pdf-dark-mode "ignore")
   (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)
