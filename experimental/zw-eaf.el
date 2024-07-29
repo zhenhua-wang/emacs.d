@@ -8,8 +8,8 @@
                       (eaf-setq eaf-buffer-background-color (face-background 'default))
                       (let ((buffer-name (buffer-name)))
                         ;; HACK: force focus eaf buffer
-                        (run-with-timer 0.1 nil
-                                        (lambda () (select-window (display-buffer buffer-name)))))))
+                        (run-with-timer
+                         0.1 nil (lambda () (select-window (display-buffer buffer-name)))))))
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
