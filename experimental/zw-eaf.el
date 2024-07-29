@@ -4,9 +4,10 @@
   :if (display-graphic-p)
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
-  ;; HACK: force focus eaf buffer
   :hook (eaf-mode . (lambda ()
+                      (eaf-setq eaf-buffer-background-color (face-background 'default))
                       (let ((buffer-name (buffer-name)))
+                        ;; HACK: force focus eaf buffer
                         (run-with-timer 0.1 nil
                                         (lambda () (select-window (display-buffer buffer-name)))))))
   :init
