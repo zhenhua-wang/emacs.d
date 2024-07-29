@@ -28,12 +28,9 @@
 (defvar zw/tab-line-group--hash-table (make-hash-table))
 
 (defun zw/tab-line-get-group-buffers (group)
-  "Get `group-buffers' for `group' excluding dead buffers and invisible buffers."
-  (cl-remove-if (lambda (buf)
-                  (or (not (buffer-live-p buf))
-                      (with-current-buffer buf
-                        (string-equal " " (substring (buffer-name) 0 1)))))
-                (gethash group zw/tab-line-group--hash-table)))
+  "Get `group-buffers' for `group' excluding dead buffers."
+  (cl-remove-if-not 'buffer-live-p
+                    (gethash group zw/tab-line-group--hash-table)))
 
 (defun zw/tab-line-group-add-buffer (buffer)
   (when (and (buffer-live-p buffer)
