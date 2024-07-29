@@ -122,15 +122,22 @@
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (format " %s " (buffer-name buffer)))
 
+(defun zw/tab-line-tab-icon (buffer)
+  (with-current-buffer buffer
+    (cond (buffer-file-name
+           (nerd-icons-icon-for-file buffer-file-name))
+          ((string= eaf--buffer-app-name "pdf-viewer")
+           (nerd-icons-icon-for-file "pdf.pdf"))
+          ((string= eaf--buffer-app-name "image-viewer")
+           (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange))
+          (t (nerd-icons-icon-for-mode major-mode)))))
+
 (defun zw/tab-line-tab-name-format (orig-fun &rest args)
   (let* ((tab-string (apply orig-fun args))
          (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
          (buffer (get-buffer buffer-name))
          (selected-p (eq buffer (window-buffer)))
-         (icon (with-current-buffer buffer
-                 (if buffer-file-name
-                     (nerd-icons-icon-for-file buffer-file-name)
-                   (nerd-icons-icon-for-mode major-mode))))
+         (icon (zw/tab-line-tab-icon buffer))
          (icon-face-raw (get-text-property 0 'face icon))
          (icon-face (if selected-p
                         (if (mode-line-window-selected-p)
