@@ -21,9 +21,11 @@
   (advice-add 'eaf-install :override (lambda (&rest _)))
   (advice-add 'eaf-install-and-update :override (lambda (&rest _)))
   (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File))
-  (defun zw/eaf-buffer-file-name-advisor (orig-fun arg)
-    (let ((buffer-file-name (eaf-get-path-or-url)))
-      (funcall orig-fun arg)))
+  (defun zw/eaf-buffer-file-name-advisor (orig-fun &rest args)
+    (if (eq major-mode 'eaf-mode)
+        (let ((buffer-file-name (eaf-get-path-or-url)))
+          (funcall orig-fun args))
+      (funcall orig-fun args)))
   (advice-add 'zw/open-in-external :around 'zw/eaf-buffer-file-name-advisor))
 
 (use-package eaf-pdf-viewer
