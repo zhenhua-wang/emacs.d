@@ -5,9 +5,9 @@
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
   :hook (eaf-mode . (lambda ()
-                      (eaf-setq eaf-buffer-background-color (face-background 'default))
+                      (setq eaf-buffer-background-color (face-background 'default))
+                      ;; HACK: force focus eaf buffer
                       (let ((buffer-name (buffer-name)))
-                        ;; HACK: force focus eaf buffer
                         (run-with-timer
                          0.1 nil (lambda () (select-window (display-buffer buffer-name)))))))
   :init
@@ -42,8 +42,8 @@
   :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
                    :files ("*"))
   :config
-  (eaf-setq eaf-pdf-default-zoom  2)
-  (eaf-setq eaf-pdf-dark-mode "ignore")
+  (eaf-setq eaf-pdf-default-zoom  2
+            eaf-pdf-dark-mode "ignore")
   (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)
