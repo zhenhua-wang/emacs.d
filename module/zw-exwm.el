@@ -1174,7 +1174,7 @@
            ("s-b" . zw/dired-sidebar-toggle)
            ("s-B" . zw/right-side-window-toggle)
            ;; command
-           ("<f2>" . ibuffer)
+           ("<f5>" . ibuffer)
            ("s-G" . magit-status)
            ("s-e" . vterm)
            ("s-E" . multi-vterm)

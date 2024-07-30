@@ -424,7 +424,7 @@ The order of values may be different."
 
 ;; ** Ibuffer
 (with-eval-after-load "ibuffer"
-  (define-key ibuffer-mode-map (kbd "<f2>") 'quit-window))
+  (define-key ibuffer-mode-map (kbd "<f5>") 'quit-window))
 
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
@@ -772,7 +772,7 @@ The order of values may be different."
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f12>" . zw/update-emacs-tangle-dotfiles)
            ("s-<f11>" . zw/presentation-mode)
-           ("<f2>" . ibuffer)
+           ("<f5>" . ibuffer)
            ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
