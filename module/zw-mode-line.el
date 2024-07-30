@@ -351,19 +351,18 @@
       (let* ((backend (vc-backend buffer-file-name))
              (state (vc-state buffer-file-name backend))
              (branch (when vc-mode (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
-             (icon-face (cond ((eq state 'up-to-date)
-                               '(zw/modeline-vc-active . "nf-oct-git_branch"))
-                              ((not branch)
-                               '(zw/modeline-vc-untracked-active . "nf-oct-git_pull_request_closed"))
-                              (t
-                               '(zw/modeline-vc-modified-active . "nf-oct-git_compare")))))
+             (icon-face (cond
+                         ((eq state 'up-to-date)
+                          `(,(nerd-icons-devicon "nf-dev-git_branch") . zw/modeline-vc-active))
+                         ((not branch)
+                          `(,(nerd-icons-octicon "nf-oct-git_pull_request_closed") . zw/modeline-vc-untracked-active))
+                         (t
+                          `(,(nerd-icons-devicon "nf-dev-git_compare") . zw/modeline-vc-modified-active)))))
         (concat
-         (propertize (concat (nerd-icons-octicon (cdr icon-face)
-                                                 :height 1
-                                                 :v-adjust 0.05)
+         (propertize (concat (car icon-face)
                              (zw/modeline-separator-thin)
                              (or branch "Untracked"))
-                     'face (zw/modeline-set-face (car icon-face)
+                     'face (zw/modeline-set-face (cdr icon-face)
                                                  'zw/modeline-default-inactive)
                      'help-echo (format "VC root: %s" (project-root current-project)))
          zw/modeline-separator)))))
