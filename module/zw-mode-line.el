@@ -352,7 +352,7 @@
            (branch (when vc-mode (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
            (icon-face (cond ((eq state 'up-to-date)
                              '(zw/modeline-vc-active . "nf-oct-git_branch"))
-                            ((eq state 'unregistered)
+                            ((not branch)
                              '(zw/modeline-vc-untracked-active . "nf-oct-git_pull_request_closed"))
                             (t
                              '(zw/modeline-vc-modified-active . "nf-oct-git_compare")))))
