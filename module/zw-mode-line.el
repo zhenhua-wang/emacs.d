@@ -68,6 +68,11 @@
   "VC modified face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-vc-untracked-active
+  '((t (:inherit vc-removed-state :bold t)))
+  "VC untracked face for active modeline"
+  :group 'zw/modeline-active)
+
 (defface zw/modeline-encoding-active
   '((t (:inherit zw/modeline-default-active)))
   "Encoding face for active modeline"
@@ -341,22 +346,25 @@
 
 ;; ** VC
 (defun zw/modeline-vc ()
-  (when vc-mode
+  (when (and buffer-file-name (project-current))
     (let* ((backend (vc-backend buffer-file-name))
            (state (vc-state buffer-file-name backend))
-           (vc-info (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2)))
+           (branch (when vc-mode (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
            (icon-face (cond ((eq state 'up-to-date)
-                             '(zw/modeline-vc-active . "nf-dev-git_branch"))
+                             '(zw/modeline-vc-active . "nf-oct-git_branch"))
+                            ((eq state 'unregistered)
+                             '(zw/modeline-vc-untracked-active . "nf-oct-git_pull_request_closed"))
                             (t
-                             '(zw/modeline-vc-modified-active . "nf-dev-git_compare")))))
-      (concat (propertize (concat (nerd-icons-devicon (cdr icon-face)
-                                                      :height 1
-                                                      :v-adjust 0.05)
-                                  (zw/modeline-separator-thin)
-                                  vc-info)
-                          'face (zw/modeline-set-face (car icon-face)
-                                                      'zw/modeline-default-inactive))
-              zw/modeline-separator))))
+                             '(zw/modeline-vc-modified-active . "nf-oct-git_compare")))))
+      (concat
+       (propertize (concat (nerd-icons-octicon (cdr icon-face)
+                                               :height 1
+                                               :v-adjust 0.05)
+                           (zw/modeline-separator-thin)
+                           (or branch "Untracked"))
+                   'face (zw/modeline-set-face (car icon-face)
+                                               'zw/modeline-default-inactive))
+       zw/modeline-separator))))
 
 ;; ** LSP
 (defvar zw/modeline-lsp-icon
