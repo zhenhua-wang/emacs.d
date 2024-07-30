@@ -58,16 +58,17 @@
              zw/tab-line-group--hash-table)))
 
 (defun zw/tab-line-kill-buffer-switch-to-previous ()
-  (when zw/tab-line-kill-buffer-switch-to-previous
-    (when-let* ((buffer (current-buffer))
-                (group (zw/tab-line-buffer-group buffer))
-                (group-buffers (zw/tab-line-get-group-buffers group))
-                (max-index (- (length group-buffers) 1))
-                (pos (cl-position buffer group-buffers))
-                (pos-previous (- pos 1))
-                (pos-next (+ pos 1))
-                (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
-      (switch-to-buffer (nth buffer-pos group-buffers)))))
+  (let ((buffer (current-buffer)))
+    (when (and zw/tab-line-kill-buffer-switch-to-previous
+               (eq buffer (window-buffer (selected-window))))
+      (when-let* ((group (zw/tab-line-buffer-group buffer))
+                  (group-buffers (zw/tab-line-get-group-buffers group))
+                  (max-index (- (length group-buffers) 1))
+                  (pos (cl-position buffer group-buffers))
+                  (pos-previous (- pos 1))
+                  (pos-next (+ pos 1))
+                  (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
+        (switch-to-buffer (nth buffer-pos group-buffers))))))
 
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 (add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
