@@ -347,7 +347,7 @@
 ;; ** VC
 (defun zw/modeline-vc ()
   (let ((current-project (project-current)))
-    (when (and buffer-file-name )
+    (when (and buffer-file-name current-project)
       (let* ((backend (vc-backend buffer-file-name))
              (state (vc-state buffer-file-name backend))
              (branch (when vc-mode (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
