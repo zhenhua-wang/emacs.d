@@ -1,19 +1,26 @@
-;; speedup
-(setq load-prefer-newer noninteractive
-      frame-inhibit-implied-resize t
-      package-enable-at-startup nil
-      gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.6
+;; -*- lexical-binding: t; -*-
+
+;; config
+(setq gc-cons-percentage 0.6
       file-name-handler-alist nil
-      warning-minimum-level :error)
+      warning-minimum-level :error
+      auto-mode-case-fold nil
+      inhibit-startup-screen t
+      initial-scratch-message nil
+      ;; speed up emacs
+      idle-update-delay 1.0
+      inhibit-compacting-font-caches t
+      redisplay-skip-fontification-on-input t
+      ;; optimize long file
+      bidi-display-reordering nil
+      bidi-inhibit-bpa t
+      long-line-threshold 1000
+      large-hscroll-threshold 1000
+      syntax-wholeline-max 1000)
 
 ;; user path
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
+(setq auto-save-list-file-prefix (expand-file-name "auto-save/sessions/" user-emacs-directory))
 (push "~/.emacs.d/module" load-path)
-
-;; appearance
-(push '(menu-bar-lines . 0)   default-frame-alist)
-(load-theme 'misterioso t)
 
 ;; keybinding
 (require 'zw-package)
@@ -82,7 +89,6 @@
                             (kkp-status)
                             (kkp-enable-in-terminal)
                             (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
-                            (setq-local mode-line-format nil)
                             ;; restore
                             (setq gc-cons-threshold 16777216
                                   gc-cons-percentage 0.1)))
