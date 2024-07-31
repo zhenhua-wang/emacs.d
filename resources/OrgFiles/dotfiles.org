@@ -86,7 +86,7 @@ options(menu.graphics=FALSE)
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/kitty/kitty.conf")
 #+begin_src conf
 # default conf
-font_size        14.0
+font_size        15.0
 confirm_os_window_close 1
 hide_window_decorations yes
 linux_display_server x11
