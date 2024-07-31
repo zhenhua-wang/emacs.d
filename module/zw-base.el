@@ -171,16 +171,6 @@ The order of values may be different."
   (let ((largest-window (get-largest-window (selected-frame) nil)))
     (window--display-buffer buffer largest-window 'reuse alist)))
 
-;; default buffer placement rules
-(setq display-buffer-base-action '((display-buffer--maybe-same-window
-                                    zw/display-buffer-in-largest-window)))
-
-;; popup buffers
-(dolist (mode '(magit-mode-hook
-                git-commit-setup-hook))
-  (add-hook mode
-            (lambda () (setq-local display-buffer-base-action '(nil)))))
-
 ;; buffer placement rules
 (setq display-buffer-alist
       '(;; largest window

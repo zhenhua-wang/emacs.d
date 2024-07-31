@@ -307,6 +307,8 @@
       (add-hook 'dired-after-readin-hook
                 'zw/dired-sidebar-hide-information-line :append :local)
       (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
+                  ;; open file in the largest window
+                  display-buffer-base-action '((zw/display-buffer-in-largest-window))
                   ;; display header line from beginning
                   zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max))
       ;; refresh display
