@@ -119,6 +119,7 @@
 (advice-add 'consult-theme :after (lambda (arg)
                                     (zw/tab-line-set-face)
                                     (tab-line-format)))
+
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (format " %s " (buffer-name buffer)))
