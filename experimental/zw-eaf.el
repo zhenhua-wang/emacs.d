@@ -13,11 +13,20 @@
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
-  (defun zw/eaf-install ()
+  (defun zw/eaf-install-all ()
     (interactive)
     (let ((zw/eaf-image-viewer-path (expand-file-name
                                      "straight/build/eaf-image-viewer" user-emacs-directory)))
       (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python=3.11 && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s" zw/eaf-image-viewer-path zw/eaf-image-viewer-path))))
+  (defun zw/eaf-install-app ()
+    (interactive)
+    (let ((zw/eaf-image-viewer-path (expand-file-name
+                                     "straight/build/eaf-image-viewer" user-emacs-directory)))
+      (async-shell-command (format "source /opt/miniconda3/bin/activate eaf && npm install %s --prefix %s"
+                                   zw/eaf-image-viewer-path zw/eaf-image-viewer-path))))
+  (defun zw/eaf-update-env ()
+    (interactive)
+    (async-shell-command "source /opt/miniconda3/bin/activate eaf && conda update --all"))
   :config
   (advice-add 'eaf-install :override (lambda (&rest _)))
   (advice-add 'eaf-install-and-update :override (lambda (&rest _)))
