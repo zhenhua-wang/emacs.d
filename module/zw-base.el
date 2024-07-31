@@ -358,9 +358,7 @@ The order of values may be different."
         "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\|webp\\)$"
         "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
         "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
-        "~/.emacs.d/straight/" "~/.conda/" ".csv" ".pdf"
-        no-littering-var-directory no-littering-etc-directory
-        (lambda (file) (file-in-directory-p file package-user-dir))))
+        "~/.emacs.d/straight/" "~/.conda/" ".csv" ".pdf"))
 
 (with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
