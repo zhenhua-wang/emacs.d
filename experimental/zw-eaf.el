@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package eaf
+  :demand t
   :if (display-graphic-p)
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
@@ -48,6 +49,7 @@
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
+  :demand t
   :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
                    :files ("*"))
   :config
@@ -61,6 +63,7 @@
 
 (use-package eaf-image-viewer
   :if (display-graphic-p)
+  :demand t
   :straight (:type git :host github :repo "emacs-eaf/eaf-image-viewer"
                    :files ("*"))
   :config

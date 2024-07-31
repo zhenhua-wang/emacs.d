@@ -487,27 +487,25 @@
 
 ;; * Config
 ;; ** main
-(defun zw/modeline-init ()
-  (setq-default
-   mode-line-format
-   (list
-    "%e"
-    '(:eval (zw/modeline-bar))
-    ;; left
-    '(:eval (zw/modeline-remote))
-    '(:eval (zw/modeline-buffer-name 30 "..."))
-    '(:eval (zw/modeline-read-only))
-    '(:eval (zw/modeline-text-scale))
-    '(:eval (zw/modeline-lsp))
-    '(:eval (zw/modeline-eglot))
-    '(:eval (zw/modeline-flymake))
-    '(:eval (zw/modeline-count-region))
-    '(:eval (zw/modeline-mark-active))
-    '(:eval (zw/modeline-kmacro-recording))
-    ;; right
-    '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
-    '(:eval (zw/modeline-rhs)))))
-(add-hook 'after-init-hook 'zw/modeline-init)
+(setq-default
+ mode-line-format
+ (list
+  "%e"
+  '(:eval (zw/modeline-bar))
+  ;; left
+  '(:eval (zw/modeline-remote))
+  '(:eval (zw/modeline-buffer-name 30 "..."))
+  '(:eval (zw/modeline-read-only))
+  '(:eval (zw/modeline-text-scale))
+  '(:eval (zw/modeline-lsp))
+  '(:eval (zw/modeline-eglot))
+  '(:eval (zw/modeline-flymake))
+  '(:eval (zw/modeline-count-region))
+  '(:eval (zw/modeline-mark-active))
+  '(:eval (zw/modeline-kmacro-recording))
+  ;; right
+  '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
+  '(:eval (zw/modeline-rhs))))
 
 ;; ** repl
 (dolist (mode '(inferior-ess-mode-hook
