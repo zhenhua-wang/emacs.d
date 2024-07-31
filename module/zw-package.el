@@ -3,8 +3,9 @@
 ;; config
 (setq straight-repository-branch "develop"
       straight-use-package-by-default t)
-(when (executable-find "watchexec")
-  (setq straight-check-for-modifications '(watch-files find-when-checking)))
+(if (executable-find "watchexec")
+    (setq straight-check-for-modifications '(watch-files find-when-checking))
+  (setq straight-check-for-modifications '(check-on-save find-when-checking)))
 ;; bootstrap
 (defvar bootstrap-version)
 (let ((bootstrap-file
