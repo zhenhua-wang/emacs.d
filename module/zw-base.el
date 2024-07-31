@@ -177,6 +177,9 @@ The order of values may be different."
         ("\\.\\(?:pdf\\)\\'"
          (display-buffer-reuse-mode-window
           zw/display-buffer-in-largest-window))
+        ("\\.\\(?:gif\\|svg\\|png\\|jpe?g\\|bmp\\|webp\\)$"
+         (display-buffer-reuse-mode-window
+          zw/display-buffer-in-largest-window))
         ("\\*\\([Hh]elp\\|Man\\|eglot doc\\).*"
          (display-buffer-in-tab
           zw/display-buffer-in-largest-window)
