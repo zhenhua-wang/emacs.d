@@ -67,8 +67,9 @@
                   (max-index (- (length group-buffers) 1))
                   (pos (cl-position buffer group-buffers))
                   (pos-previous (- pos 1))
-                  (pos-next (+ pos 1))
-                  (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
+                  ;; (pos-next (+ pos 1))
+                  ;; (buffer-pos (if (> pos-next max-index) pos-previous pos-next))
+                  (buffer-pos (if (< pos-previous 0) 0 pos-previous)))
         (switch-to-buffer (nth buffer-pos group-buffers))))))
 
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
