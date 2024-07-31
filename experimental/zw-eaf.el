@@ -45,7 +45,9 @@
             ("pdf-viewer" (nerd-icons-icon-for-file "pdf.pdf"))
             ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange)))
         (funcall orig-fun buffer))))
-  (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon))
+  (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
+  (advice-add 'zw/modeline-init :after
+              (lambda () (setq eaf-mode-line-format mode-line-format))))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
