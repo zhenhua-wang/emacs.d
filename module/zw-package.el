@@ -1,10 +1,11 @@
 ;; -*- lexical-binding: t -*-
 
-;; straight
-(with-eval-after-load "straight"
-  (setq straight--native-comp-available nil
-        straight-disable-native-compile t))
-(setq straight-repository-branch "develop")
+;; config
+(setq straight-repository-branch "develop"
+      straight-use-package-by-default t)
+(when (executable-find "watchexec")
+  (setq straight-check-for-modifications '(watch-files find-when-checking)))
+;; bootstrap
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -17,10 +18,5 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
-;; integrate with use-package
-(setq straight-use-package-by-default t
-      ;; disable checking at start-up
-      straight-check-for-modifications '(watch-files find-when-checking))
 
 (provide 'zw-package)
