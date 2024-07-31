@@ -19,6 +19,7 @@
     (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
 
 (use-package nerd-icons
+  :demand t
   :config
   (ignore-errors (nerd-icons-set-font))
   (zw/merge-list-symbols 'nerd-icons/mdicon-alist
@@ -49,13 +50,11 @@
 
 ;; * Default theme
 (use-package doom-themes
-  :defer t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic nil))
 
 (use-package adwaita-dark-theme
-  :defer t
   :straight (:host github :repo "zhenhua-wang/zw-adwaita-theme"))
 
 (defun zw/theme-emphasize-color (color aplha dark-p)

@@ -2,11 +2,11 @@
 
 ;; * Orederless
 (use-package orderless
-  :config
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        orderless-component-separator #'orderless-escapable-split-on-space
-        completion-category-overrides '((file (styles partial-completion)))))
+  :custom
+  (completion-category-defaults nil)
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  (orderless-component-separator #'orderless-escapable-split-on-space))
 
 ;; * Vertico
 (use-package vertico

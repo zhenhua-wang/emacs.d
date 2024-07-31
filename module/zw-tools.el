@@ -430,7 +430,6 @@
 
 ;; * Rime
 (use-package rime
-  :defer t
   :init
   (setq default-input-method "rime"
         rime-show-preedit t

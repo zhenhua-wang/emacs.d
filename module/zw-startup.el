@@ -10,14 +10,14 @@
         gcmh-high-cons-threshold #x1000000))
 
 ;; * Cache
-(use-package no-littering)
-
 (setq custom-file
       (if (boundp 'server-socket-dir)
           (expand-file-name "custom.el" server-socket-dir)
         (expand-file-name (format "emacs-custom-%s.el" (user-uid))
                           temporary-file-directory)))
 (load custom-file t)
+
+(setq auto-save-list-file-prefix (expand-file-name "auto-save/sessions/" user-emacs-directory))
 
 ;; * Execute path from shell
 (use-package exec-path-from-shell

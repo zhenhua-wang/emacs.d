@@ -8,26 +8,30 @@
 
 ;;; Code:
 
-;; speed up start-up
+;; speed up
 (setq gc-cons-threshold most-positive-fixnum
       load-prefer-newer noninteractive
       frame-inhibit-implied-resize t
       package-enable-at-startup nil)
 
-;; set UI
+;; use package
+(setq use-package-always-defer t
+      use-package-expand-minimally t)
+
+;; user interface
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) initial-frame-alist)
 (push '(undecorated . t) initial-frame-alist)
+(setq-default mode-line-format nil)
 
-;; set user directory
+;; user directory
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
 
-;; native-comp settings
+;; native compilation
 (when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache (expand-file-name  "var/eln-cache/" user-emacs-directory))
-  (setq-default native-comp-speed 2
-                native-comp-async-query-on-exit t
-                native-comp-jit-compilation nil
-                native-comp-async-report-warnings-errors nil))
+  (setq native-comp-speed 2
+        native-comp-async-query-on-exit t
+        native-comp-jit-compilation nil
+        native-comp-async-report-warnings-errors nil))

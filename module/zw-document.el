@@ -242,7 +242,6 @@ at the first function to return non-nil.")
 
 ;; * Markdown
 (use-package markdown-mode
-  :defer t
   :commands (markdown-mode gfm-mode)
   :mode ("\\.rmd\\'" . gfm-mode)
   :init

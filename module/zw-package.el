@@ -18,11 +18,9 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;; Install use-package
-(straight-use-package 'use-package)
+;; integrate with use-package
 (setq straight-use-package-by-default t
       ;; disable checking at start-up
-      straight-check-for-modifications '(watch-files find-when-checking)
-      use-package-verbose t)
+      straight-check-for-modifications '(watch-files find-when-checking))
 
 (provide 'zw-package)

@@ -148,7 +148,6 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 
 ;; * R
 (use-package ess
-  :defer t
   :commands (R zw/run-R-in-path)
   :hook
   (ess-mode . zw/ess-setup)
