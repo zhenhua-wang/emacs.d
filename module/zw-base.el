@@ -6,7 +6,7 @@
   (or (display-graphic-p) (daemonp)))
 
 (defun zw/hidden-buffer-p (&optional buffer)
-  (string-match "^[[:space:]].*$" (buffer-name buffer)))
+  (eq (aref (buffer-name buffer) 0) ?\s))
 
 (defun zw/window-side (window)
   "Get window's side, return nil if it is not side window."
