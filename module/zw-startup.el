@@ -3,17 +3,15 @@
 ;; * Garbage collection
 (use-package gcmh
   :hook
-  (after-init . gcmh-mode)
+  (emacs-startup . gcmh-mode)
   :init
   (setq gcmh-idle-delay 'auto
         gcmh-auto-idle-delay-factor 10
-        gcmh-high-cons-threshold (* 16 1024 1024)))
+        gcmh-high-cons-threshold #x1000000))
 
-;; * Keep .emacs.d clean
-;; Use no-littering to automatically set common paths to the new user-emacs-directory
+;; * Cache
 (use-package no-littering)
 
-;; Keep customization settings in a temporary file (thanks Ambrevar!)
 (setq custom-file
       (if (boundp 'server-socket-dir)
           (expand-file-name "custom.el" server-socket-dir)
