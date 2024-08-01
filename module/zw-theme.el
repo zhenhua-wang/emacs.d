@@ -19,7 +19,6 @@
     (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
 
 (use-package nerd-icons
-  :demand t
   :config
   (ignore-errors (nerd-icons-set-font))
   (zw/merge-list-symbols 'nerd-icons/mdicon-alist
@@ -39,14 +38,13 @@
                          'prepend))
 
 (use-package nerd-icons-dired
-  :after nerd-icons
   :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
-  :after (marginalia nerd-icons)
   :hook
-  (marginalia-mode . nerd-icons-completion-marginalia-setup)
-  (marginalia-mode . nerd-icons-completion-mode))
+  ;; trigger autoload nerd-icons from here
+  (vertico-mode . nerd-icons-completion-mode)
+  (marginalia-mode . nerd-icons-completion-marginalia-setup))
 
 ;; * Default theme
 (use-package doom-themes

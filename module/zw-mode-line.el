@@ -366,15 +366,11 @@
          zw/modeline-separator)))))
 
 ;; ** LSP
-(defvar zw/modeline-lsp-icon
-  (concat (nerd-icons-codicon "nf-cod-rocket" :height 1 :v-adjust 0.05)
-          (if (display-graphic-p) "" " ")))
-
 (defun zw/modeline-lsp ()
   (when (and (featurep 'lsp-mode) lsp-mode)
     (let ((workspaces (lsp-workspaces)))
       (concat
-       (propertize zw/modeline-lsp-icon
+       (propertize (nerd-icons-codicon "nf-cod-rocket" :height 1 :v-adjust 0.05)
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if workspaces
@@ -389,7 +385,7 @@
   (when (and (featurep 'eglot) (eglot-managed-p))
     (let ((server (eglot-current-server)))
       (concat
-       (propertize zw/modeline-lsp-icon
+       (propertize (nerd-icons-codicon "nf-cod-rocket" :height 1 :v-adjust 0.05)
                    'face (zw/modeline-set-face 'zw/modeline-lsp-active 'zw/modeline-default-inactive)
                    'help-echo
                    (if server
