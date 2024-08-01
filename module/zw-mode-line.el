@@ -311,13 +311,14 @@
 (defun zw/modeline-mark-count ()
   (when (and mark-active (mode-line-window-selected-p))
     (let* ((num-words (count-words-region (region-beginning) (region-end)))
-           (plural (if (> num-words 1) "s" "")))
+           (plural (if (> num-words 1) "s" ""))
+           (text (if (> (length (buffer-substring (region-beginning) (region-end))) 0)
+                     (format " %i word%s" num-words plural) "")))
       (concat
-       (propertize (format " %s %i word%s "
+       (propertize (format " %s%s "
                            (nerd-icons-mdicon "nf-md-sticker_text"
                                               :v-adjust 0.05)
-                           num-words
-                           plural)
+                           text)
                    'face (zw/modeline-set-face 'zw/modeline-mark-count 'zw/modeline-default-inactive))
        zw/modeline-separator))))
 
