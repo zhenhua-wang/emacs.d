@@ -6,7 +6,7 @@
   :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
                   :files ("*"))
   :hook (eaf-mode . (lambda ()
-                      (setq eaf-buffer-background-color (face-background 'default))
+                      (zw/eaf-setup)
                       ;; HACK: force focus eaf buffer
                       (let ((buffer-name (buffer-name)))
                         (run-with-timer
@@ -14,6 +14,8 @@
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
+  (defun zw/eaf-setup ()
+    (setq eaf-buffer-background-color (face-background 'default)))
   (defun zw/eaf-install-all ()
     (interactive)
     (let ((zw/eaf-image-viewer-path (expand-file-name
