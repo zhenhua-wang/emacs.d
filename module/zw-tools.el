@@ -57,7 +57,7 @@
         dired-kill-when-opening-new-dired-buffer t
         dired-create-destination-dirs t
         dired-create-destination-dirs-on-trailing-dirsep t
-        dired-mouse-drag-files t
+        dired-mouse-drag-files nil
         dired-free-space 'separate
         dired-use-ls-dired t
         dired-listing-switches "-alh --group-directories-first"
