@@ -67,8 +67,9 @@
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)
   (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key reload_document "s-r" eaf-pdf-viewer-keybinding)
-  (add-to-list 'TeX-view-program-list '("eaf" eaf-pdf-synctex-forward-view))
-  (add-to-list 'TeX-view-program-selection '(output-pdf "eaf")))
+  (with-eval-after-load "tex"
+    (add-to-list 'TeX-view-program-list '("eaf" eaf-pdf-synctex-forward-view))
+    (add-to-list 'TeX-view-program-selection '(output-pdf "eaf"))))
 
 (use-package eaf-image-viewer
   :if (display-graphic-p)
