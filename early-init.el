@@ -32,5 +32,5 @@
 ;; native compilation
 (setq native-comp-speed 2
       native-comp-async-query-on-exit t
-      native-comp-jit-compilation nil
+      ;; native-comp-jit-compilation nil
       native-comp-async-report-warnings-errors nil)
