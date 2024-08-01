@@ -12,9 +12,10 @@
   (defun zw/eaf-setup ()
     (setq eaf-buffer-background-color (face-background 'default))
     ;; HACK: force focus eaf buffer
-    (let ((buffer-name (buffer-name)))
-      (run-with-timer
-       0.1 nil (lambda () (select-window (display-buffer buffer-name))))))
+    (when (eq this-command 'zw/dired-sidebar-find-file)
+      (let ((buffer-name (buffer-name)))
+        (run-with-timer
+         0.1 nil (lambda () (select-window (display-buffer buffer-name)))))))
   :config
   (advice-add 'eaf-install :override (lambda (&rest _)))
   (advice-add 'eaf-install-and-update :override (lambda (&rest _)))
