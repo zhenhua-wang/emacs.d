@@ -11,7 +11,7 @@
         eaf-python-command (expand-file-name "python3" zw/eaf-bin))
   (defun zw/eaf-setup ()
     (setq eaf-buffer-background-color (face-background 'default))
-    ;; HACK: force focus eaf buffer
+    ;; dired-sidebar open focus eaf buffer
     (when (eq this-command 'zw/dired-sidebar-find-file)
       (let ((buffer-name (buffer-name)))
         (run-with-timer
