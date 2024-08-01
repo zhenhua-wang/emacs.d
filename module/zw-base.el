@@ -346,6 +346,7 @@ The order of values may be different."
       (call-interactively 'find-file))))
 
 (defun zw/tramp-cleanup-all ()
+  "Cleanup all tramp connections and buffers."
   (interactive)
   (require 'tramp)
   (recentf-cleanup)
