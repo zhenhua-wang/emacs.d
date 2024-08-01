@@ -78,7 +78,7 @@
   "Encoding face for active modeline"
   :group 'zw/modeline-active)
 
-(defface zw/modeline-mark-active
+(defface zw/modeline-mark-count
   '((t (:inherit zw/modeline-highlight-background-active)))
   "Active mark face for active modeline"
   :group 'zw/modeline-active)
@@ -250,17 +250,6 @@
                         'face (zw/modeline-set-face 'warning 'zw/modeline-default-inactive))
             zw/modeline-separator)))
 
-;; ** count region
-(defun zw/modeline-count-region ()
-  (when (and (region-active-p) (mode-line-window-selected-p))
-    (let ((num-words (number-to-string (count-words-region (region-beginning) (region-end)))))
-      (concat
-       (propertize
-        (concat num-words "W")
-        'face (zw/modeline-set-face 'zw/modeline-line-column-active 'zw/modeline-default-inactive)
-        'help-echo (concat "Word counts: " num-words))
-       zw/modeline-separator))))
-
 ;; ** line column
 (defun zw/modeline-line-column ()
   (cond
@@ -318,20 +307,28 @@
         'face (zw/modeline-set-face 'zw/modeline-encoding-active 'zw/modeline-default-inactive))
        zw/modeline-separator))))
 
-;; ** mark active
-(defun zw/modeline-mark-active ()
+;; ** mark count
+(defun zw/modeline-mark-count ()
   (when (and mark-active (mode-line-window-selected-p))
-    (concat
-     (propertize " Mark "
-                 'face (zw/modeline-set-face 'zw/modeline-mark-active 'zw/modeline-default-inactive))
-     zw/modeline-separator)))
+    (let* ((num-words (count-words-region (region-beginning) (region-end)))
+           (plural (if (> num-words 1) "s" "")))
+      (concat
+       (propertize (format " %s %i word%s "
+                           (nerd-icons-mdicon "nf-md-sticker_text"
+                                              :v-adjust 0.05)
+                           num-words
+                           plural)
+                   'face (zw/modeline-set-face 'zw/modeline-mark-count 'zw/modeline-default-inactive))
+       zw/modeline-separator))))
 
 ;; ** kmacro recording
 (defun zw/modeline-kmacro-recording ()
   "Display current Emacs kmacro being recorded."
   (when (or defining-kbd-macro executing-kbd-macro)
     (concat
-     (propertize " kmacro "
+     (propertize (format " %s kmacro "
+                         (nerd-icons-mdicon "nf-md-record_circle"
+                                            :v-adjust 0.05))
                  'face (zw/modeline-set-face 'zw/modeline-kmacro-active 'zw/modeline-default-inactive))
      zw/modeline-separator)))
 
@@ -501,8 +498,7 @@
     '(:eval (zw/modeline-lsp))
     '(:eval (zw/modeline-eglot))
     '(:eval (zw/modeline-flymake))
-    '(:eval (zw/modeline-count-region))
-    '(:eval (zw/modeline-mark-active))
+    '(:eval (zw/modeline-mark-count))
     '(:eval (zw/modeline-kmacro-recording))
     ;; right
     '(:eval (zw/modeline-middle-space (zw/modeline-rhs)))
@@ -525,7 +521,7 @@
                                                                 'zw/modeline-default-inactive)))
                            '(:eval (zw/modeline-text-scale))
                            '(:eval (zw/modeline-count-region))
-                           '(:eval (zw/modeline-mark-active))
+                           '(:eval (zw/modeline-mark-count))
                            '(:eval (zw/modeline-kmacro-recording))
                            '(:eval (zw/modeline-process)))))))
 
