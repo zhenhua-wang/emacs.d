@@ -684,6 +684,7 @@
 
 (defun zw/exwm-switch-to-buffer ()
   (interactive)
+  (require 'consult)
   (let* ((buffers (cl-remove-if
                    (lambda (x) (or (eq (current-buffer) x)
                                    (zw/exwm-plot-buffer-p x)))
