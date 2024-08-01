@@ -279,6 +279,12 @@
                                (string-match y (buffer-name buffer)))
                        zw/exwm-plot-buffers)))))
 
+;; exwm buffer window placement
+(add-to-list 'display-buffer-alist
+             '((major-mode . exwm-mode)
+               (zw/display-buffer-in-largest-window)))
+
+;; plot buffer window placement
 (dolist (buffer zw/exwm-plot-buffers)
   (add-to-list 'display-buffer-alist
                `(,buffer
