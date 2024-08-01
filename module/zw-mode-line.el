@@ -168,12 +168,14 @@
   (propertize " " 'face 'zw/modeline-default-active))
 
 (defun zw/modeline-separator-thin ()
-  (let ((color (if (mode-line-window-selected-p)
-                   (face-background 'zw/modeline-separator-active nil 'default)
-                 (face-background 'mode-line-inactive nil 'default)))
-        (width (floor (/ (string-pixel-width " ") 4)))
-        (height (string-pixel-width " ")))
-    (zw/modeline--bar color width height)))
+  (if (display-graphic-p)
+      (let ((color (if (mode-line-window-selected-p)
+                       (face-background 'zw/modeline-separator-active nil 'default)
+                     (face-background 'mode-line-inactive nil 'default)))
+            (width (floor (/ (string-pixel-width " ") 4)))
+            (height (string-pixel-width " ")))
+        (zw/modeline--bar color width height))
+    zw/modeline-separator))
 
 ;; ** remote
 (defcustom zw/modeline-remote-show-local nil
@@ -494,6 +496,7 @@
     '(:eval (zw/modeline-text-scale))
     '(:eval (zw/modeline-lsp))
     '(:eval (zw/modeline-eglot))
+    (if (display-graphic-p) "" zw/modeline-separator)
     '(:eval (zw/modeline-flymake))
     '(:eval (zw/modeline-mark-count))
     '(:eval (zw/modeline-kmacro-recording))
