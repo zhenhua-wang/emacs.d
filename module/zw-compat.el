@@ -15,41 +15,38 @@
 	         (eq window (minibuffer-selected-window))))))))
 
 (unless (display-graphic-p)
-  (with-eval-after-load "zw-package"
-    (cua-mode 1)
-    (define-key cua-global-keymap (kbd "C-<return>") nil)
-    ;; full-featured keybindings
-    (straight-use-package 'kkp)
-    (use-package kkp
-      :bind (:map global-map
-                  ("s-S-z" . undo-redo)
-                  ("s-S-s" . write-file)
-                  ("s-S-u" . winner-redo)
-                  ("s-S-b" . zw/right-side-window-toggle)
-                  ("s-S-p" . zw/conda-env-activate)
-                  ("s-S-g" . magit-status))
-      :hook (after-init . zw/kkp-enable)
-      :init
-      (setq kkp-terminal-query-timeout 1)
-      (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
-        (interactive)
-        (kkp--terminal-teardown (kkp--selected-terminal))
-        (set-terminal-parameter terminal 'kkp--setup-started t)
-        (kkp--query-terminal-async "?u\e[c"
-                                   '(("\e[?" . kkp--terminal-setup)) terminal))
-      (defun zw/xterm-paste (event)
-        (interactive "e")
-        (when (and (use-region-p)
-                   delete-selection-mode)
-          (delete-region (region-beginning) (region-end)))
-        (call-interactively 'xterm-paste))
-      (defun zw/kkp-enable ()
-        (global-kkp-mode 1)
-        (define-key global-map [xterm-paste] #'zw/xterm-paste)))
-    ;; clipborad for tty
-    (straight-use-package 'clipetty)
-    (use-package clipetty
-      :hook (after-init . global-clipetty-mode)))
+  (cua-mode 1)
+  (define-key cua-global-keymap (kbd "C-<return>") nil)
+  ;; full-featured keybindings
+  (use-package kkp
+    :bind (:map global-map
+                ("s-S-z" . undo-redo)
+                ("s-S-s" . write-file)
+                ("s-S-u" . winner-redo)
+                ("s-S-b" . zw/right-side-window-toggle)
+                ("s-S-p" . zw/conda-env-activate)
+                ("s-S-g" . magit-status))
+    :hook (after-init . zw/kkp-enable)
+    :init
+    (setq kkp-terminal-query-timeout 1)
+    (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
+      (interactive)
+      (kkp--terminal-teardown (kkp--selected-terminal))
+      (set-terminal-parameter terminal 'kkp--setup-started t)
+      (kkp--query-terminal-async "?u\e[c"
+                                 '(("\e[?" . kkp--terminal-setup)) terminal))
+    (defun zw/xterm-paste (event)
+      (interactive "e")
+      (when (and (use-region-p)
+                 delete-selection-mode)
+        (delete-region (region-beginning) (region-end)))
+      (call-interactively 'xterm-paste))
+    (defun zw/kkp-enable ()
+      (global-kkp-mode 1)
+      (define-key global-map [xterm-paste] #'zw/xterm-paste)))
+  ;; clipborad for tty
+  (use-package clipetty
+    :hook (after-init . global-clipetty-mode))
   (with-eval-after-load "zw-theme"
     (defun zw/theme-compat ()
       (set-face-attribute 'tab-line nil :underline nil)
