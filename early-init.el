@@ -30,8 +30,7 @@
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))
 
 ;; native compilation
-(when (boundp 'native-comp-eln-load-path)
-  (setq native-comp-speed 2
-        native-comp-async-query-on-exit t
-        native-comp-jit-compilation nil
-        native-comp-async-report-warnings-errors nil))
+(setq native-comp-speed 2
+      native-comp-async-query-on-exit t
+      native-comp-jit-compilation nil
+      native-comp-async-report-warnings-errors nil)
