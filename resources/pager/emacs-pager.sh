@@ -5,8 +5,6 @@
 
 t=$(mktemp /tmp/emacs-pager.XXXXXX) || exit 1
 
-echo "Reading into emacs..."
-
 # Remove terminal escape sequences and empty lines
 cat - \
     | sed 's/\x1b\][0-9;:]*[AC]\x1b\\//g' \

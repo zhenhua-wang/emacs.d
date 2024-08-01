@@ -77,18 +77,19 @@
       hscroll-margin 1
       hscroll-step 1)
 (add-hook 'find-file-hook (lambda ()
-                            ;; pager
-                            (require 'ansi-color)
-                            (ansi-color-apply-on-region (point-min) (point-max))
-                            (read-only-mode 1)
-                            (hl-line-mode 1)
-                            (auto-save-mode 0)
-                            (toggle-truncate-lines 1)
-                            (set-display-table-slot standard-display-table 'truncation 32)
-                            (global-clipetty-mode 1)
-                            (kkp-status)
-                            (kkp-enable-in-terminal)
-                            (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
-                            ;; restore
-                            (setq gc-cons-threshold 16777216
-                                  gc-cons-percentage 0.1)))
+                            (let ((inhibit-message t))
+                              ;; pager
+                              (require 'ansi-color)
+                              (ansi-color-apply-on-region (point-min) (point-max))
+                              (read-only-mode 1)
+                              (hl-line-mode 1)
+                              (auto-save-mode 0)
+                              (toggle-truncate-lines 1)
+                              (set-display-table-slot standard-display-table 'truncation 32)
+                              (global-clipetty-mode 1)
+                              (kkp-status)
+                              (kkp-enable-in-terminal)
+                              (define-key global-map [xterm-paste] 'zw/pager-isearch-xterm-paste)
+                              ;; restore
+                              (setq gc-cons-threshold 16777216
+                                    gc-cons-percentage 0.1))))

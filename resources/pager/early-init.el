@@ -11,9 +11,7 @@
       use-package-expand-minimally t)
 
 ;; user interface
-(push '(menu-bar-lines . 0)   default-frame-alist)
-(push '(tool-bar-lines . 0)   default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
+(menu-bar-mode 0)
 (setq-default mode-line-format nil)
 
 ;; user directory
