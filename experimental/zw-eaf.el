@@ -47,7 +47,12 @@
         (funcall orig-fun buffer))))
   (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
   (advice-add 'zw/modeline-init :after
-              (lambda () (setq eaf-mode-line-format mode-line-format))))
+              (lambda () (setq eaf-mode-line-format mode-line-format)))
+  ;; solve fail reloading pdf after compiling latex
+  (defun zw/eaf-restart-process-advisor (&rest _)
+    (eaf-restart-process))
+  (advice-add 'org-export-dispatch :after 'zw/eaf-restart-process-advisor)
+  (advice-add 'TeX-command-master :after 'zw/eaf-restart-process-advisor))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
