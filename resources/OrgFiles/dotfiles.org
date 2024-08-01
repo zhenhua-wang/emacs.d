@@ -33,7 +33,7 @@ EndSection
 For Xft.dpi, using integer multiples of 96 usually works best, e.g. 192 for 200% scaling.
 #+HEADER: :tangle (zw/org-babel-tangle-not-exist (expand-file-name "Xresources" user-emacs-directory))
 #+begin_src conf
-Xft.dpi:   192
+Xft.dpi:   168
 #+end_src
 
 * Emacs-Q
