@@ -521,7 +521,6 @@
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                                 'zw/modeline-default-inactive)))
                            '(:eval (zw/modeline-text-scale))
-                           '(:eval (zw/modeline-count-region))
                            '(:eval (zw/modeline-mark-count))
                            '(:eval (zw/modeline-kmacro-recording))
                            '(:eval (zw/modeline-process)))))))
