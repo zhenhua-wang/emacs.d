@@ -342,7 +342,7 @@
   (let (pos)
     (save-excursion
       (setq pos (posn-point (event-start event)))
-      (let ((click-func (get-text-property pos 'click-func)))
+      (let ((click-func (ignore-errors (get-text-property pos 'click-func))))
         (if click-func
             (funcall click-func)
           (dired-mouse-find-file event)))))
