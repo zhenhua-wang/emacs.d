@@ -149,14 +149,8 @@
   :bind (("M-s y" . consult-yasnippet)))
 (use-package consult-dir
   :bind (("C-x C-d" . consult-dir)
-         ("C-x C-t" . zw/consult-dir-tramp-ssh)
          (:map minibuffer-local-completion-map
-               ("C-x C-d" . consult-dir)))
-  :config
-  (defun zw/consult-dir-tramp-ssh ()
-    (interactive)
-    (let ((consult-dir-sources '(consult-dir--source-tramp-ssh)))
-      (consult-dir))))
+               ("C-x C-d" . consult-dir))))
 (use-package consult-flyspell
   :bind (("M-s s" . consult-flyspell)))
 

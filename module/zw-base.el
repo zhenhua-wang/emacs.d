@@ -324,18 +324,30 @@ The order of values may be different."
               (define-key eshell-mode-map (kbd "C-d") 'zw/eshell-quit))))
 
 ;; ** Tramp
+(setq tramp-default-method "ssh"
+      tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
+      tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory)
+      password-cache-expiry nil
+      remote-file-name-inhibit-cache 60
+      tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 (with-eval-after-load "tramp"
-  (setq tramp-default-method "ssh"
-        tramp-auto-save-directory (expand-file-name "tramp-auto-save" user-emacs-directory)
-        tramp-persistency-file-name (expand-file-name "tramp-connection-history" user-emacs-directory)
-        password-cache-expiry nil
-        remote-file-name-inhibit-cache 60
-        tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   ;; respect the PATH variable on the remote machine
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
-(defun zw/tramp-abort ()
+(defun zw/find-file-tramp ()
+  "Open a file via TRAMP over SSH, pre-populating the prompt with `tramp-prefix'."
   (interactive)
+  (require 'tramp)
+  (let ((tramp-prefix "/ssh:"))
+    (minibuffer-with-setup-hook
+        (lambda ()
+          (delete-minibuffer-contents)
+          (insert tramp-prefix))
+      (call-interactively 'find-file))))
+
+(defun zw/tramp-cleanup-all ()
+  (interactive)
+  (require 'tramp)
   (recentf-cleanup)
   (tramp-cleanup-all-buffers)
   (tramp-cleanup-all-connections))
@@ -825,6 +837,7 @@ The order of values may be different."
            ("s-d" . eldoc)
            ("s-\\" . toggle-input-method)
            ("s-p" . zw/repl-run-in-path)
+           ("C-x C-t" . zw/find-file-tramp)
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
            :map prog-mode-map
