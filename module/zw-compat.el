@@ -17,6 +17,7 @@
 (unless (display-graphic-p)
   (cua-mode 1)
   (define-key cua-global-keymap (kbd "C-<return>") nil)
+  (define-key cua--cua-keys-keymap (kbd "C-v") nil)
   ;; full-featured keybindings
   (use-package kkp
     :bind (:map global-map
