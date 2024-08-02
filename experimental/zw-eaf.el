@@ -40,7 +40,10 @@
   (defun zw/eaf-restart-process-advisor (&rest _)
     (eaf-restart-process))
   (advice-add 'org-export-dispatch :after 'zw/eaf-restart-process-advisor)
-  (advice-add 'TeX-command-master :after 'zw/eaf-restart-process-advisor))
+  (advice-add 'TeX-command-master :after 'zw/eaf-restart-process-advisor)
+  ;; grab keybord in exwm
+  (with-eval-after-load "exwm"
+    (setq eaf-is-member-of-focus-fix-wms t)))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
