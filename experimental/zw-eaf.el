@@ -73,7 +73,7 @@
   (interactive)
   (let ((zw/eaf-image-viewer-path (expand-file-name
                                    "straight/repos/eaf-image-viewer" user-emacs-directory)))
-    (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python=3.11 && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s && ln -sf %s/node_modules %s/node_modules" zw/eaf-image-viewer-path zw/eaf-image-viewer-path zw/eaf-image-viewer-path (replace-regexp-in-string "repos" "build" zw/eaf-image-viewer-path)))))
+    (async-shell-command (format "/opt/miniconda3/bin/conda create -n eaf python && source /opt/miniconda3/bin/activate eaf && conda install conda-forge::wmctrl conda-forge::nodejs conda-forge::qt6-multimedia && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf && npm install %s --prefix %s && ln -sf %s/node_modules %s/node_modules" zw/eaf-image-viewer-path zw/eaf-image-viewer-path zw/eaf-image-viewer-path (replace-regexp-in-string "repos" "build" zw/eaf-image-viewer-path)))))
 
 (defun zw/eaf-compile-app ()
   "Complie eaf apps."
@@ -85,6 +85,6 @@
 (defun zw/eaf-update-env ()
   "Update eaf dependencies."
   (interactive)
-  (async-shell-command "source /opt/miniconda3/bin/activate eaf && conda update --all"))
+  (async-shell-command "source /opt/miniconda3/bin/activate eaf && conda update --all && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf --upgrade"))
 
 (provide 'zw-eaf)
