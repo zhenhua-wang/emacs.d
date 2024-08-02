@@ -43,8 +43,12 @@
   (advice-add 'TeX-command-master :after 'zw/eaf-restart-process-advisor)
   ;; grab keybord in exwm
   (with-eval-after-load "exwm"
-    (when (executable-find "wmctrl")
-      (setq eaf-is-member-of-focus-fix-wms t))))
+    (if (executable-find "wmctrl")
+        (setq eaf-is-member-of-focus-fix-wms t)
+      (if (executable-find "dunstify")
+          (call-process-shell-command
+           "dunstify -u critical -i dialog-error EXWM 'wmctrl not detected. EAF requires wmctrl in EXWM'" nil 0)
+        (display-warning :emergency "wmctrl not detected. EAF requires wmctrl in EXWM")))))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
