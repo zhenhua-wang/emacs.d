@@ -3,33 +3,34 @@
 (use-package dashboard
   :hook ((dashboard-after-initialize . zw/dashboard-init)
          (dashboard-mode . zw/dashboard-init))
+  :custom
+  (dashboard-startup-banner "~/.emacs.d/resources/images/banner.png")
+  (dashboard-image-banner-max-width 700)
+  (dashboard-center-content t)
+  (dashboard-vertically-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons)
+  (dashboard-set-file-icons t)
+  (dashboard-projects-backend 'project-el)
+  (dashboard-projects-switch-function 'dired)
+  (dashboard-startupify-list '(dashboard-insert-banner
+                               dashboard-insert-newline
+                               dashboard-insert-navigator
+                               dashboard-insert-newline
+                               dashboard-insert-banner-title
+                               dashboard-insert-items
+                               dashboard-insert-newline
+                               dashboard-insert-init-info))
+  (dashboard-items '((recents . 5)
+                     (projects . 5)))
+  (dashboard-navigator-buttons
+   `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
+       "Homepage" "Browse homepage"
+       (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))
+      (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
+       "Update" "Update Configuration"
+       (lambda (&rest _) (zw/update-emacs-tangle-dotfiles))))))
   :init
-  (setq dashboard-startup-banner "~/.emacs.d/resources/images/banner.png"
-        dashboard-image-banner-max-width 700
-        dashboard-center-content t
-        dashboard-vertically-center-content t
-        dashboard-display-icons-p t
-        dashboard-icon-type 'nerd-icons
-        dashboard-set-file-icons t
-        dashboard-projects-backend 'project-el
-        dashboard-projects-switch-function 'dired)
-  (setq dashboard-startupify-list '(dashboard-insert-banner
-                                    dashboard-insert-newline
-                                    dashboard-insert-navigator
-                                    dashboard-insert-newline
-                                    dashboard-insert-banner-title
-                                    dashboard-insert-items
-                                    dashboard-insert-newline
-                                    dashboard-insert-init-info))
-  (setq dashboard-items '((recents . 5)
-                          (projects . 5)))
-  (setq dashboard-navigator-buttons
-        `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
-            "Homepage" "Browse homepage"
-            (lambda (&rest _) (browse-url "https://github.com/zhenhua-wang/emacs.d")))
-           (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
-            "Update" "Update Configuration"
-            (lambda (&rest _) (zw/update-emacs-tangle-dotfiles))))))
   (defun zw/dashboard--modeline-name ()
     (propertize (concat " " default-directory " "
                         zw/modeline-separator)
