@@ -44,7 +44,6 @@
   :straight (:type built-in)
   :hook
   (dired-mode . dired-async-mode)
-  (dired-mode . dired-omit-mode)
   (dired-mode . zw/dired-setup)
   :bind ((:map dired-mode-map
                ("s-f" . isearch-forward)
@@ -60,8 +59,7 @@
         dired-mouse-drag-files nil
         dired-free-space 'separate
         dired-use-ls-dired t
-        dired-listing-switches "-alh --group-directories-first"
-        dired-omit-extensions '("~"))
+        dired-listing-switches "-alh --group-directories-first")
   (when (eq system-type 'darwin)
     (setq insert-directory-program "gls"))
   (defun zw/dired-directory-empty-p ()
@@ -312,7 +310,11 @@
                   ;; display header line from beginning
                   zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max))
       ;; refresh display
-      (dired-revert))))
+      (dired-revert)
+      (setq-local dired-omit-files "\\`[.][.]?\\'"
+                  dired-omit-extensions '("~")
+                  dired-omit-size-limit nil)
+      (dired-omit-mode))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (with-current-buffer buffer
