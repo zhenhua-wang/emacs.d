@@ -37,9 +37,6 @@
                          '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
                          'prepend))
 
-(use-package nerd-icons-dired
-  :hook (dired-mode . nerd-icons-dired-mode))
-
 (use-package nerd-icons-completion
   :hook
   ;; trigger autoload nerd-icons from here

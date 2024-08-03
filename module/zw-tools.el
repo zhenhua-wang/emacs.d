@@ -108,7 +108,68 @@
           (dired-subtree-insert)))
       (revert-buffer)))
   :config
-  (setq dired-subtree-use-backgrounds nil))
+  (setq dired-subtree-use-backgrounds t))
+
+;; ** dired icon
+(defun zw/dired-icon ()
+  "Display the icons of files in a dired buffer."
+  (let* ((inhibit-read-only t)
+         (icon-face '(:inherit dired-ignored :underline nil :background unspecified))
+         (collapsible-icon (propertize
+                            (nerd-icons-octicon
+                             "nf-oct-chevron_down"
+                             :height 0.6
+                             :v-adjust 0.3
+                             :face icon-face)
+                            'click-func 'dired-subtree-toggle
+                            'mouse-face 'highlight
+                            'help-echo "mouse-2: Toggle subdirectory"))
+         (expandable-icon (propertize
+                           (nerd-icons-octicon
+                            "nf-oct-chevron_right"
+                            :height 0.6
+                            :v-adjust 0.3
+                            :face icon-face)
+                           'click-func 'dired-subtree-toggle
+                           'mouse-face 'highlight
+                           'help-echo "mouse-2: Toggle subdirectory")))
+    (save-excursion
+      (goto-char (point-min))
+      ;; hide information line (the first line)
+      (when zw-dired-sidebar-mode
+        (let* ((beg (point-min))
+               (end (+ 1 (line-end-position)))
+               (overlay-highlight (make-overlay beg end)))
+          (overlay-put overlay-highlight 'invisible t)))
+      (while (not (eobp))
+        ;; hide leading whitespace
+        (when zw-dired-sidebar-mode
+          (beginning-of-line)
+          (let* ((beg (point))
+                 (end (progn (dired-move-to-filename) (point)))
+                 (overlay-highlight (make-overlay beg end)))
+            (overlay-put overlay-highlight 'invisible t)))
+        ;; add folder indicator and icon
+        (when (dired-move-to-filename nil)
+          (dired-move-to-filename)
+          (let* ((file (dired-get-filename 'relative t))
+                 (icon (if (file-directory-p file)
+                           (nerd-icons-icon-for-dir file
+                                                    :face 'dired-directory
+                                                    :v-adjust 0.01)
+                         (nerd-icons-icon-for-file file :v-adjust 0.01))))
+            (when zw-dired-sidebar-mode
+              (if (and (file-directory-p file)
+                       ;; ignore folders without permission
+                       (not (ignore-errors
+                              (zw/dired-directory-empty-p))))
+                  (if (dired-subtree--is-expanded-p)
+                      (insert (concat collapsible-icon " "))
+                    (insert (concat expandable-icon " ")))
+                (insert "  ")))
+            (insert (concat icon " "))))
+        (forward-line 1)))))
+(add-hook 'dired-after-readin-hook 'zw/dired-icon :append)
 
 ;; ** dired side bar
 (defun zw/dired-sidebar--modeline-format ()
@@ -120,56 +181,6 @@
                  'face (zw/modeline-set-face
                         'zw/modeline-buffer-name-active
                         'zw/modeline-default-inactive)))))
-
-(defun zw/dired-sidebar-folder-indicator ()
-  "Display the icons of files in a dired buffer."
-  (interactive)
-  (let* ((inhibit-read-only t)
-         (icon-face '(:inherit dired-ignored :underline nil :background unspecified))
-         (click-func (lambda ()
-                       (dired-subtree-toggle)))
-         (collapsible-icon (propertize
-                            (nerd-icons-octicon
-                             "nf-oct-chevron_down"
-                             :height 0.6
-                             :v-adjust 0.3
-                             :face icon-face)
-                            'click-func click-func
-                            'mouse-face 'highlight
-                            'help-echo "mouse-2: Toggle subdirectory"))
-         (expandable-icon (propertize
-                           (nerd-icons-octicon
-                            "nf-oct-chevron_right"
-                            :height 0.6
-                            :v-adjust 0.3
-                            :face icon-face)
-                           'click-func click-func
-                           'mouse-face 'highlight
-                           'help-echo "mouse-2: Toggle subdirectory")))
-    (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
-        ;; hide leading whitespace
-        (beginning-of-line)
-        (let* ((beg (point))
-               (end (progn (dired-move-to-filename) (point)))
-               (overlay-highlight (make-overlay beg end)))
-          (overlay-put overlay-highlight 'invisible t))
-        ;; add folder indicator
-        (when (dired-move-to-filename nil)
-          (dired-move-to-filename)
-          (let ((file (dired-get-filename 'verbatim t)))
-            (unless (member file '("." ".."))
-              (let ((filename (dired-get-filename nil t)))
-                (if (and (file-directory-p filename)
-                         ;; ignore folders without permission
-                         (not (ignore-errors
-                                (zw/dired-directory-empty-p))))
-                    (if (dired-subtree--is-expanded-p)
-                        (insert (concat collapsible-icon " "))
-                      (insert (concat expandable-icon " ")))
-                  (insert "  "))))))
-        (forward-line 1)))))
 
 (defun zw/dired-siderbar-display (buffer)
   ;; bury dired buffers that have the same root as sidebar
@@ -278,15 +289,6 @@
    header-line-format
    (list "%e" '(:eval (zw/dired-sidebar-header-line-format)))))
 
-(defun zw/dired-sidebar-hide-information-line ()
-  (save-excursion
-    (let* ((beg (point-min))
-           (end (progn
-                  (beginning-of-buffer)
-                  (+ 1 (line-end-position))))
-           (overlay-highlight (make-overlay beg end)))
-      (overlay-put overlay-highlight 'invisible t))))
-
 (defun zw/dired-sidebar-enable (buffer)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
@@ -300,11 +302,6 @@
       (dired-omit-mode 1)
       (zw/dired-sidebar-format-header-line)
       (zw/dired-siderbar-display buffer)
-      ;; set local variables
-      (add-hook 'dired-after-readin-hook
-                'zw/dired-sidebar-folder-indicator :append :local)
-      (add-hook 'dired-after-readin-hook
-                'zw/dired-sidebar-hide-information-line :append :local)
       ;; refresh display
       (dired-revert)
       (setq-local dired-omit-size-limit nil
