@@ -82,9 +82,7 @@
 
 (use-package diredfl
   :hook
-  ((dired-mode . diredfl-mode)
-   ;; highlight parent and preview as well
-   (dirvish-directory-view-mode . diredfl-mode)))
+  ((dired-mode . diredfl-mode)))
 
 (use-package dired-subtree
   :commands (dired-subtree-toggle
@@ -299,6 +297,7 @@
       ;; enable modes
       (zw-dired-sidebar-mode 1)
       (dired-hide-details-mode t)
+      (dired-omit-mode 1)
       (zw/dired-sidebar-format-header-line)
       (zw/dired-siderbar-display buffer)
       ;; set local variables
@@ -306,15 +305,12 @@
                 'zw/dired-sidebar-folder-indicator :append :local)
       (add-hook 'dired-after-readin-hook
                 'zw/dired-sidebar-hide-information-line :append :local)
-      (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
-                  ;; open file in the largest window
-                  display-buffer-base-action '((zw/display-buffer-in-largest-window))
-                  ;; display header line from beginning
-                  zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max))
       ;; refresh display
       (dired-revert)
-      (setq-local dired-omit-size-limit nil)
-      (dired-omit-mode))))
+      (setq-local dired-omit-size-limit nil
+                  mode-line-format (zw/dired-sidebar--modeline-format)
+                  display-buffer-base-action '((zw/display-buffer-in-largest-window))
+                  zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max)))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (with-current-buffer buffer
