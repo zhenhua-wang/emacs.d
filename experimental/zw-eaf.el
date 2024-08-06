@@ -97,6 +97,9 @@
 (defun zw/eaf-compile-app ()
   "Complie eaf apps."
   (interactive)
+  (dolist (pkg '("eaf-pdf-viewer" "eaf-image-viewer"))
+    (straight-pull-package pkg)
+    (straight-check-package pkg))
   (async-shell-command (concat zw/eaf-activate-env-string "&&"
                                zw/eaf-install-app-string)))
 
