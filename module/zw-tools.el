@@ -91,6 +91,9 @@
   :init
   (defun zw/dired-subtree-toggle ()
     (interactive)
+    ;; move forward if invisible
+    (while (invisible-p (point))
+      (right-char 1))
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
                (not (zw/dired-directory-empty-p)))
       (save-excursion
