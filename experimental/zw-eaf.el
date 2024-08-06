@@ -94,8 +94,8 @@
                                zw/eaf-install-dependecies-string "&&"
                                zw/eaf-install-app-string)))
 
-(defun zw/eaf-compile-app ()
-  "Complie eaf apps."
+(defun zw/eaf-update-app ()
+  "Update eaf apps."
   (interactive)
   (dolist (pkg '("eaf-pdf-viewer" "eaf-image-viewer"))
     (straight-pull-package pkg)
