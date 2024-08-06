@@ -91,10 +91,6 @@
   :init
   (defun zw/dired-subtree-toggle ()
     (interactive)
-    ;; move forward if at bobp
-    (while (bobp)
-      (dired-next-line 1)
-      (dired-previous-line 1))
     (when (and (dired-subtree--dired-line-is-directory-or-link-p)
                (not (zw/dired-directory-empty-p)))
       (save-excursion
