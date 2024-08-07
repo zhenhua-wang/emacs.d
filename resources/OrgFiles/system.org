@@ -144,6 +144,12 @@ sudo pip uninstall cryptography pyOpenSSL
 sudo pip install cryptography pyOpenSSL
 #+end_src
 
+Conda Emacs may run into ~undefined symbol: malloc_set_state~. In this case, we should include the following in ~.bashrc~. To find out the path of ~libc_malloc_debug.so~, we can use ~find /usr -name ~libc_malloc_debug.so~.
+#+begin_src sh
+export LD_PRELOAD=/usr/lib/libc_malloc_debug.so
+#+end_src
+
+
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
