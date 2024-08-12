@@ -53,6 +53,8 @@ keymap:
       not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
     exact_match: true
     remap:
+      Super-leftbrace: M-left
+      Super-rightbrace: M-right
       # edit
       Super-z: [Super-z, { set_mark: false }]
       Super-shift-z: [Super-shift-z, { set_mark: false }]
@@ -60,3 +62,5 @@ keymap:
       Super-c: [Super-c, { set_mark: false }]
       Super-v: [Super-v, { set_mark: false }]
       Super-backspace: [Shift-home, backspace, { set_mark: false }]
+      M-left: C-left
+      M-right: C-right
