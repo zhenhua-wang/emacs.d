@@ -817,6 +817,8 @@ The order of values may be different."
            ("s-q" . kill-current-buffer)
            ("s-=" . text-scale-increase)
            ("s--" . text-scale-decrease)
+           ("s-[" . previous-buffer)
+           ("s-]" . next-buffer)
            ;; window operations
            ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
