@@ -55,7 +55,6 @@ keymap:
     remap:
       Super-leftbrace: M-left
       Super-rightbrace: M-right
-      # edit
       Super-z: [Super-z, { set_mark: false }]
       Super-shift-z: [Super-shift-z, { set_mark: false }]
       Super-x: [Super-x, { set_mark: false }]
