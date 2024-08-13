@@ -159,7 +159,8 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
                ("TAB" . zw/smart-tab)
                ("C-c c e" . ess-complete-object-name)
                ("C-c C-c" . zw/ess-send-region-or-block)
-               ("s-'" . ess-bp-set)))
+               ("s-," . ess-bp-set)
+               ("s-." . ess-bp-set-conditional)))
   :config
   (require 'ess-site)
   (defun zw/ess-setup ()
