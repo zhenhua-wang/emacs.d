@@ -52,7 +52,8 @@
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle)
          ("s-," . dape-breakpoint-toggle)
          ("s-." . dape-breakpoint-expression)
-         ("s-/" . zw/dape))
+         ("s-/" . zw/dape)
+         ("s-'" . dape-watch-dwim))
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
