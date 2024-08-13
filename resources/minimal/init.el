@@ -9,12 +9,12 @@
 (require 'zw-startup)
 (require 'zw-base)
 
-;; test config
+;; minimal config
 (setq zw/minimal-config
       (expand-file-name "zw-minimal-config.el" user-emacs-directory))
 (when (not (file-exists-p zw/minimal-config))
   (with-temp-buffer (write-file zw/minimal-config)))
 (load zw/minimal-config)
-(defun zw/open-test-config ()
+(defun zw/open-minimal-config ()
   (interactive)
   (find-file zw/minimal-config))
