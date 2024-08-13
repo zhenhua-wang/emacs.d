@@ -836,14 +836,18 @@ The order of values may be different."
            ("s-b" . zw/left-side-window-toggle)
            ("s-B" . zw/right-side-window-toggle)
            ("C-x 1" . zw/maximize-window)
-           ;; misc commands
+           ;; ide
            ("s-K" . tab-bar-mode)
            ("s-i" . imenu)
-           ("s-o" . zw/open-in-external)
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
-           ("s-\\" . toggle-input-method)
            ("s-p" . zw/repl-run-in-path)
+           ("s-," . xref-go-back)
+           ("s-." . xref-find-definitions)
+           ("s-/" . xref-find-references)
+           ;; misc commands
+           ("s-o" . zw/open-in-external)
+           ("s-\\" . toggle-input-method)
            ("C-x C-t" . zw/find-file-tramp)
            :map minibuffer-mode-map
            ("<escape>" . minibuffer-keyboard-quit)
