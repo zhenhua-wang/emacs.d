@@ -842,9 +842,6 @@ The order of values may be different."
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
            ("s-p" . zw/repl-run-in-path)
-           ("s-," . xref-go-back)
-           ("s-." . xref-find-definitions)
-           ("s-/" . xref-find-references)
            ;; misc commands
            ("s-o" . zw/open-in-external)
            ("s-\\" . toggle-input-method)
