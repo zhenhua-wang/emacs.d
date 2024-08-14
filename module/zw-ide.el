@@ -50,10 +50,10 @@
 (use-package dape
   :commands (dape dape-breakpoint-toggle zw/dape zw/dape-in-path zw/dape-in-path-menu)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle)
-         ("s-/" . dape-breakpoint-toggle)
-         ("s-?" . dape-breakpoint-expression)
-         ("s-." . dape-watch-dwim)
-         ("s-," . dape-breakpoint-log)
+         ("s-t" . dape-breakpoint-toggle)
+         ("s-T" . dape-breakpoint-expression)
+         ("s-y" . dape-breakpoint-log)
+         ("s-Y" . dape-watch-dwim)
          ("M-<return>" . zw/dape))
   :config
   (setq dape-buffer-window-arrangement 'right)

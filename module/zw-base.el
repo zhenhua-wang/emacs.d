@@ -822,7 +822,6 @@ The order of values may be different."
            ;; window operations
            ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
-           ("s-t" . zw/new-window)
            ("s-<left>" . windmove-left)
            ("s-<right>" . windmove-right)
            ("s-<up>" . windmove-up)
@@ -830,7 +829,6 @@ The order of values may be different."
            ("s-+" . enlarge-window-horizontally)
            ("s-_" . shrink-window-horizontally)
            ("s-^" . enlarge-window)
-           ("s-T" . winner-undo)
            ("s-u" . winner-undo)
            ("s-U" . winner-redo)
            ("s-b" . zw/left-side-window-toggle)
