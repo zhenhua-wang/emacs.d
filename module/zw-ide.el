@@ -53,7 +53,8 @@
          ("s-/" . dape-breakpoint-toggle)
          ("s-?" . dape-breakpoint-expression)
          ("s-." . dape-watch-dwim)
-         ("s-," . zw/dape))
+         ("s-," . dape-breakpoint-remove-all)
+         ("s-'" . zw/dape))
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
