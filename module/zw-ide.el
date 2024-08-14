@@ -51,11 +51,11 @@
   :commands (dape dape-breakpoint-toggle zw/dape zw/dape-in-path zw/dape-in-path-menu)
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle)
          ("s-t" . dape-breakpoint-toggle)
-         ("C-s-t" . dape-breakpoint-expression)
-         ("s-y" . dape-breakpoint-log)
-         ("s-Y" . dape-watch-dwim)
-         ("s-S-y" . dape-watch-dwim)
-         ("M-<return>" . zw/dape))
+         ("s-y" . dape-breakpoint-expression)
+         ("s-Y" . dape-breakpoint-log)
+         ("s-S-y" . dape-breakpoint-log)
+         ("s-/" . dape-watch-dwim)
+         ("s-?" . zw/dape))
   :config
   (setq dape-buffer-window-arrangement 'right)
   ;; Save buffers on startup, useful for interpreted languages
