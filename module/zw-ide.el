@@ -52,8 +52,8 @@
   :bind (("<left-fringe> <mouse-1>" . dape-mouse-breakpoint-toggle)
          ("s-/" . dape-breakpoint-toggle)
          ("s-?" . dape-breakpoint-expression)
-         ("s-." . dape-watch-dwim)
-         ("s-," . dape-breakpoint-remove-all)
+         ("s-." . dape-breakpoint-log)
+         ("s-," . dape-watch-dwim)
          ("s-'" . zw/dape))
   :config
   (setq dape-buffer-window-arrangement 'right)
