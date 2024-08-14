@@ -161,8 +161,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
                ("C-c C-c" . zw/ess-send-region-or-block)
                ("s-t" . ess-bp-set)
                ("s-y" . ess-bp-set-conditional)
-               ("s-Y" . ess-bp-set-logger)
-               ("s-S-y" . ess-bp-set-logger)))
+               ("s-g" . ess-bp-set-logger)))
   :config
   (require 'ess-site)
   (defun zw/ess-setup ()
