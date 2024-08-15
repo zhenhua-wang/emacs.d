@@ -138,7 +138,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 
 (use-package python
   :bind ((:map python-mode-map
-               ("C-c C-d" . zw/dape)
+               ("C-c C-d" . nil)
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
                ("C-<return>" . zw/python-shell-send-line)
