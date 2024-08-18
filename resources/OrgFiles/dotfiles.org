@@ -1135,10 +1135,10 @@ Terminal=false
 ** Run or raise
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/run-or-raise/shortcuts.conf")
 #+begin_src conf
-<Ctrl><Super>e,emacs,emacs,
-<Ctrl><Super>k,kitty,kitty,
-<Ctrl><Super>f,firefox,firefox,
-<Ctrl><Super>n,nautilus,nautilus,
+<Ctrl><Super>e,emacs,,
+<Ctrl><Super>k,kitty,,
+<Ctrl><Super>f,firefox,,
+<Ctrl><Super>n,nautilus,,
 #+end_src
 
 * Local variables
