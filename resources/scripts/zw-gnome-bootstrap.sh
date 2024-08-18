@@ -31,7 +31,7 @@ git clone https://github.com/xremap/xremap-gnome ~/.local/share/gnome-shell/exte
 sudo systemctl enable bluetooth.service
 
 # research
-yay -S pandoc texlive-core texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
+yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # zsh
 yay -S zsh zsh-syntax-highlighting zsh-autosuggestions && chsh -s $(which zsh)
