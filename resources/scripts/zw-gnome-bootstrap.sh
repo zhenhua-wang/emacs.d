@@ -18,14 +18,17 @@ sudo systemctl enable gdm.service -f
 # gnome extra
 yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-clocks gnome-calculator gnome-disk-utility gnome-system-monitor baobab loupe
 
-# xremap (if not working on gnome wayland, try install 'xremap-gnome-bin')
+# xremap
 yay -S xremap-x11-bin
 sudo gpasswd -a $USER input
 echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
-if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
-    mkdir ~/.local/share/gnome-shell/extensions/
-fi
-git clone https://github.com/xremap/xremap-gnome ~/.local/share/gnome-shell/extensions/xremap@k0kubun.com
+######## if not working on gnome wayland, try 'xremap-gnome-bin' ########
+# yay -S xremap-gnome-bin
+# if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
+#     mkdir ~/.local/share/gnome-shell/extensions/
+# fi
+# git clone https://github.com/xremap/xremap-gnome ~/.local/share/gnome-shell/extensions/xremap@k0kubun.com
+######## end ########
 
 # bluetooth
 sudo systemctl enable bluetooth.service
