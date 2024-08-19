@@ -313,6 +313,12 @@ sudo fsck -p /dev/sda1
 - Launch Flatseal and select the troublesome Flatpak application.
 - Under the ~Environment — Variables~ section, add the line: ~QT_SCALE_FACTOR=1.5~
 
+*** Flatpak apply system theme
+#+begin_src sh
+sudo flatpak override --filesystem=xdg-config/gtk-3.0:ro
+sudo flatpak override --filesystem=xdg-config/gtk-4.0:ro
+#+end_src
+
 *** Customize Bash prompt
 Add the following to ~.bashrc~
 #+begin_src sh
