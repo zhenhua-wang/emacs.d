@@ -134,6 +134,6 @@ keymap:
       Super-x: [C-x, { set_mark: false }]
       Super-c: [C-c, { set_mark: false }]
       Super-v: [C-v, { set_mark: false }]
-      Super-backspace: [Shift-home, backspace, { set_mark: false }]
+      Super-backspace: [Shift-home, C-backspace, { set_mark: false }]
       M-left: C-left
       M-right: C-right
