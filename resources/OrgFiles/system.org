@@ -315,6 +315,8 @@ sudo fsck -p /dev/sda1
 
 *** Flatpak apply system theme
 #+begin_src sh
+sudo flatpak override --filesystem=$HOME/.themes/
+sudo flatpak override --filesystem=$HOME/.icons/
 sudo flatpak override --filesystem=xdg-config/gtk-3.0:ro
 sudo flatpak override --filesystem=xdg-config/gtk-4.0:ro
 #+end_src
