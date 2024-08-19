@@ -4,8 +4,9 @@ modmap:
       # swap left Super with left Alt
       LEFTMETA: LEFTALT
       LEFTALT: LEFTMETA
-      # map Capslock to Ctrl
+      # swap Capslock with right Ctrl
       CAPSLOCK: LEFTCTRL
+      RIGHTCTRL: CAPSLOCK
 
 keymap:
   - name: Emacs
