@@ -54,8 +54,6 @@ keymap:
       not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
     exact_match: true
     remap:
-      Super-leftbrace: M-left
-      Super-rightbrace: M-right
       Super-z: [Super-z, { set_mark: false }]
       Super-shift-z: [Super-shift-z, { set_mark: false }]
       Super-x: [Super-x, { set_mark: false }]
@@ -64,3 +62,7 @@ keymap:
       Super-backspace: [Shift-home, C-backspace, { set_mark: false }]
       M-left: C-left
       M-right: C-right
+      Super-leftbrace: M-left
+      Super-rightbrace: M-right
+      Super-shift-leftbrace: C-shift-tab
+      Super-shift-rightbrace: C-tab

@@ -115,6 +115,8 @@ keymap:
       Super-shift-t: C-shift-t
       Super-leftbrace: M-left
       Super-rightbrace: M-right
+      Super-shift-leftbrace: C-shift-tab
+      Super-shift-rightbrace: C-tab
       # command
       Super-backslash: C-backslash
       Super-minus: C-minus

@@ -357,5 +357,9 @@ at the mouse-down event to the position at mouse-up event."
                           (number-sequence 0 9)))
   (define-key global-map (car key-func) (cdr key-func)))
 
+(bind-keys :map global-map
+           ("s-{" . tab-line-switch-to-prev-tab)
+           ("s-}" . tab-line-switch-to-next-tab))
+
 ;; * Provide
 (provide 'zw-tab-line)
