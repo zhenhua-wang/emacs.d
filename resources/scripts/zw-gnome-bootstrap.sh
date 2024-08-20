@@ -55,6 +55,8 @@ yay -S firefox kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-rolle
 
 # flatpak applications
 flatpak install com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper io.github.mrvladus.List com.obsproject.Studio org.gnome.Showtime org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom
+sudo flatpak override --filesystem=$HOME/.themes
+sudo flatpak override --filesystem=$HOME/.icons
 
 # xorg for compatibility
 yay -S xorg-server
