@@ -32,6 +32,9 @@ keymap:
       # Beginning/End of file
       M-Shift-comma: { with_mark: C-home }
       M-Shift-dot: { with_mark: C-end }
+      # delete
+      delete: [delete, { set_mark: false }]
+      backspace: [backspace, { set_mark: false }]
       # Kill word backward
       Alt-backspace: [C-backspace, {set_mark: false}]
       # Mark

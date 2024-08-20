@@ -52,6 +52,8 @@ keymap:
       # Delete
       C-d: [delete, { set_mark: false }]
       M-d: [C-delete, { set_mark: false }]
+      delete: [delete, { set_mark: false }]
+      backspace: [backspace, { set_mark: false }]
       # Kill line
       C-k: [Shift-end, C-x, { set_mark: false }]
       # Kill word backward
