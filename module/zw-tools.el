@@ -2,11 +2,11 @@
 
 ;; * Vterm
 (use-package vterm
-  :if (display-graphic-p)
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . quit-window)
+               ("s-S-e" . quit-window)
                ("s-z" . vterm-undo)
                ("M-:" . nil)
                ("<escape>" . nil)
@@ -16,7 +16,8 @@
                ("<f11>" . nil)
                ("<f12>" . nil)))
   :init
-  (setq zw/term-function 'vterm)
+  (when (display-graphic-p)
+    (setq zw/term-function 'vterm))
   :config
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t
@@ -33,10 +34,6 @@
                      "source ~/.emacs.d/resources/scripts/zw-vterm-zsh-config.sh\n")
                   (vterm-send-string
                    "source ~/.emacs.d/resources/scripts/zw-vterm-bash-config.sh\n"))))))
-
-(use-package multi-vterm
-  :commands (multi-vterm)
-  :bind (("s-E" . multi-vterm)))
 
 ;; * Dired
 ;; ** main

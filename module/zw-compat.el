@@ -27,7 +27,8 @@
                 ("s-S-u" . winner-redo)
                 ("s-S-b" . zw/right-side-window-toggle)
                 ("s-S-p" . zw/conda-env-activate)
-                ("s-S-g" . magit-status))
+                ("s-S-g" . magit-status)
+                ("s-S-e" . vterm))
     :hook (after-init . zw/kkp-enable)
     :init
     (setq kkp-terminal-query-timeout 1)
