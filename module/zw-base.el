@@ -12,6 +12,11 @@
   "Get window's side, return nil if it is not side window."
   (window-parameter window 'window-side))
 
+(defun zw/window-first-non-side ()
+  "Get the first not side window."
+  (cl-find-if-not (lambda (window) (zw/window-side window))
+                  (window-list)))
+
 (defun zw/merge-list-symbols (dst src &optional prepend)
   "Merge lists, possibly symbols."
   (if prepend

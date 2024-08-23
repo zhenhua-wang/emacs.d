@@ -149,6 +149,8 @@
 ;; agenda keys
 (defun zw/open-agenda-dashboard ()
   (interactive)
+  (when (zw/window-side (selected-window))
+    (select-window (zw/window-first-non-side)))
   (when (and (not (file-directory-p zw/org-agenda-directory))
              (y-or-n-p (format "%s doesn't exist! Initialize? " zw/org-agenda-directory)))
     (make-directory zw/org-agenda-directory)
