@@ -1,12 +1,15 @@
 modmap:
-  - name: Global
+  - name: Swap Capslock with right Ctrl
     remap:
-      # swap left Super with left Alt
-      LEFTMETA: LEFTALT
-      LEFTALT: LEFTMETA
-      # swap Capslock with right Ctrl
       CAPSLOCK: LEFTCTRL
       RIGHTCTRL: CAPSLOCK
+
+  - name: Swap left Super with left Alt
+    remap:
+      LEFTMETA: LEFTALT
+      LEFTALT: LEFTMETA
+    device:
+      not: ['Apple Inc. Magic Keyboard']
 
 keymap:
   - name: Emacs
