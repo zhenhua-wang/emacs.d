@@ -1,15 +1,23 @@
 modmap:
-  - name: Swap Capslock with right Ctrl
+  - name: all keyboard
     remap:
+      # Swap Capslock with right Ctrl
       CAPSLOCK: LEFTCTRL
       RIGHTCTRL: CAPSLOCK
 
-  - name: Swap left Super with left Alt
+  - name: except mac keyboard
     remap:
+      # Swap left Super with left Alt
       LEFTMETA: LEFTALT
       LEFTALT: LEFTMETA
     device:
       not: ['Apple Inc. Magic Keyboard']
+
+  - name: mac keyboard
+    remap:
+      RIGHTALT: CAPSLOCK
+    device:
+      only: ['Apple Inc. Magic Keyboard']
 
 keymap:
   - name: Emacs
@@ -144,3 +152,8 @@ keymap:
       Super-backspace: [Shift-home, C-backspace, { set_mark: false }]
       M-left: C-left
       M-right: C-right
+
+  - name: System
+    exact_match: true
+    remap:
+      C-M-backspace: { launch: ["gnome-session-quit"] }
