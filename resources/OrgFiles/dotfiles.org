@@ -1138,6 +1138,7 @@ Terminal=false
 <Ctrl><Super>e,emacs,Emacs,
 <Ctrl><Super>k,kitty,kitty,
 <Ctrl><Super>f,firefox,firefox,
+<Ctrl><Super>g,com.google.Chrome,Google-chrome,
 <Ctrl><Super>n,nautilus,org.gnome.Nautilus,
 #+end_src
 
