@@ -64,3 +64,4 @@ yay -S xorg-server
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
 bash ~/.emacs.d/resources/scripts/zw-gnome-keymap.sh
+sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome

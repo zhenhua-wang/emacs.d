@@ -149,7 +149,6 @@ Conda Emacs may run into ~undefined symbol: malloc_set_state~. In this case, we 
 export LD_PRELOAD=/usr/lib/libc_malloc_debug.so
 #+end_src
 
-
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
@@ -299,8 +298,15 @@ sudo fsck -p /dev/sda1
 2. Set Gateway
 3. Set User Agent to ~AnyConnect Linux~
 
-*** Nuphy Air75 Fn keys in win mode
-~echo 'options hid_apple fnmode=0' | sudo tee -a /etc/modprobe.d/hid_apple.conf~
+*** Fn keys in win mode and mac mode
+#+begin_src conf
+# win mode
+echo 'options hid_apple fnmode=0' | sudo tee /etc/modprobe.d/hid_apple.conf
+# mac mode
+echo 'options hid_apple fnmode=1' | sudo tee /etc/modprobe.d/hid_apple.conf
+# update kernal
+sudo mkinitcpio -p linux
+#+end_src
 
 *** Steam proton
 - In general, proton can be use by ~Settings/compatibility/enable steam play for all other titles~
