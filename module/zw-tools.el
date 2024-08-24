@@ -405,11 +405,7 @@
   :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch))
   :config
-  (setq emacs-websearch-async t)
-  (let ((firefox-flatpak "org.mozilla.firefox"))
-    (when (executable-find firefox-flatpak)
-      (setq browse-url-firefox-program "org.mozilla.firefox"
-            browse-url-browser-function 'browse-url-firefox))))
+  (setq emacs-websearch-async t))
 
 ;; * Image scroll
 (use-package iscroll

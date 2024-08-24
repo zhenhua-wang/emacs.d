@@ -471,6 +471,12 @@ The order of values may be different."
 (when (daemonp)
   (server-start))
 
+;; ** browse url
+(let ((firefox-flatpak "org.mozilla.firefox"))
+  (when (executable-find firefox-flatpak)
+    (setq browse-url-firefox-program "org.mozilla.firefox"
+          browse-url-browser-function 'browse-url-firefox)))
+
 ;; ** Custom tools
 (defun zw/quit-window-kill-bufer ()
   "Quit window then kill buffer."
