@@ -472,9 +472,13 @@ The order of values may be different."
   (server-start))
 
 ;; ** browse url
-(let ((firefox-flatpak "org.mozilla.firefox"))
-  (when (executable-find firefox-flatpak)
-    (setq browse-url-firefox-program "org.mozilla.firefox"
+(let ((firefox-bin (cond ((executable-find "firefox")
+                          "firefox")
+                         ((executable-find "org.mozilla.firefox")
+                          "org.mozilla.firefox")
+                         (t nil))))
+  (when firefox-bin
+    (setq browse-url-firefox-program firefox-bin
           browse-url-browser-function 'browse-url-firefox)))
 
 ;; ** Custom tools
