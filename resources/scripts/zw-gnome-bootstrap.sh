@@ -16,7 +16,7 @@ emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (exp
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect gnome-remote-desktop gnome-firmware gnome-connections
 sudo systemctl enable gdm.service -f
 # gnome extra
-yay -S gnome-themes-extra gnome-browser-connector gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-clocks gnome-calculator gnome-disk-utility gnome-system-monitor baobab loupe
+yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals gnome-shell-extension-dash-to-panel ibus-rime rime-ice-git nautilus gnome-clocks gnome-calculator gnome-disk-utility gnome-system-monitor baobab loupe
 
 # xremap
 yay -S xremap-x11-bin
@@ -54,7 +54,7 @@ git config --global credential.helper store
 yay -S kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
-flatpak install org.mozilla.firefox com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Showtime org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome
+flatpak install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Showtime org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 
