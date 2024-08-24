@@ -33,9 +33,6 @@ echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rule
 # bluetooth
 sudo systemctl enable bluetooth.service
 
-# research
-yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
-
 # zsh
 yay -S zsh zsh-syntax-highlighting zsh-autosuggestions && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -52,6 +49,9 @@ git config --global credential.helper store
 
 # essential desktop
 yay -S kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
+
+# research
+yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # flatpak applications
 flatpak install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.baobab org.gnome.Loupe org.gnome.Connections com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
