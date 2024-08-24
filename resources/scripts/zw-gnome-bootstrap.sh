@@ -51,10 +51,10 @@ git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 
 # essential desktop
-yay -S firefox kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
+yay -S kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
 
 # flatpak applications
-flatpak install com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.baobab org.gnome.Loupe org.gnome.Connections com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Showtime org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
+flatpak install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.baobab org.gnome.Loupe org.gnome.Connections com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Showtime org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 
