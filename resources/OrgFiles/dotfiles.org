@@ -1137,7 +1137,7 @@ Terminal=false
 #+begin_src conf
 <Ctrl><Super>e,emacs,Emacs,
 <Ctrl><Super>k,kitty,kitty,
-<Ctrl><Super>f,org.mozilla.firefox,org.mozilla.firefox,
+<Ctrl><Super>f,org.mozilla.firefox,firefox,
 <Ctrl><Super>c,com.google.Chrome,Google-chrome,
 <Ctrl><Super>n,nautilus,org.gnome.Nautilus,
 #+end_src
