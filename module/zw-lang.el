@@ -60,8 +60,8 @@
   (defun zw/conda-postactivate ()
     (zw/conda-env-update)
     ;; set LD_LIBRARY_PATH after conda activate
-    (setenv "LD_LIBRARY_PATH"
-            (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
+    ;; (setenv "LD_LIBRARY_PATH"
+    ;;         (concat ":" (getenv "CONDA_PREFIX") "/lib/"))
     ;; set PROJ_LIB for using ggplot with sf in R
     (setenv "PROJ_LIB"
             (concat (getenv "CONDA_PREFIX") "/share/proj/"))
@@ -71,7 +71,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
              (conda-env-name-to-dir conda-env-current-name)))
   (defun zw/conda-postdeactivate ()
     (zw/conda-env-update)
-    (setenv "LD_LIBRARY_PATH")
+    ;; (setenv "LD_LIBRARY_PATH")
     (setenv "PROJ_LIB"))
   (add-hook 'conda-postactivate-hook 'zw/conda-postactivate)
   (add-hook 'conda-postdeactivate-hook 'zw/conda-postdeactivate))
