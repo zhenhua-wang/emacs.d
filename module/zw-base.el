@@ -207,13 +207,13 @@ The order of values may be different."
         ;; right side window
         ("\\*R \\(dired\\|view\\).*"
          (display-buffer-reuse-window display-buffer-in-side-window)
-         (window-width . 0.25)
+         (window-width . 0.28)
          (side . right)
          (slot . -1)
          (dedicated . t))
         ("\\*\\(R\\|Python\\).*"
          (display-buffer-reuse-window display-buffer-in-side-window)
-         (window-width . 0.25)
+         (window-width . 0.28)
          (side . right)
          (slot . 1)
          (dedicated . t))
