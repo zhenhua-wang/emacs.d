@@ -54,7 +54,7 @@ yay -S kitty fzf htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-
 yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # flatpak applications
-flatpak install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.baobab org.gnome.Loupe org.gnome.Connections com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Evince org.gimp.GIMP org.inkscape.Inkscape org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
+flatpak install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.baobab org.gnome.Loupe org.gnome.Connections com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gnome.Evince org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 
