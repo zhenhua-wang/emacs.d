@@ -330,6 +330,8 @@ The order of values may be different."
   (add-hook 'eshell-mode-hook
             (lambda ()
               (define-key eshell-mode-map (kbd "s-e") 'quit-window)
+              (define-key eshell-mode-map (kbd "s-E") 'quit-window)
+              (define-key eshell-mode-map (kbd "s-S-e") 'quit-window)
               (define-key eshell-mode-map (kbd "C-d") 'zw/eshell-quit))))
 
 ;; ** Tramp
@@ -826,6 +828,7 @@ The order of values may be different."
            ("s-S" . write-file)
            ;; term/shell
            ("s-e" . zw/term-start)
+           ("s-E" . eshell)
            ;; buffer operations
            ("C-<f5>" . revert-buffer-quick)
            ("s-r" . revert-buffer-quick)

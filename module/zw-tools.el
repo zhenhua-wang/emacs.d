@@ -6,7 +6,6 @@
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . quit-window)
-               ("s-S-e" . quit-window)
                ("s-z" . vterm-undo)
                ("M-:" . nil)
                ("<escape>" . nil)
@@ -16,8 +15,7 @@
                ("<f11>" . nil)
                ("<f12>" . nil)))
   :init
-  (when (display-graphic-p)
-    (setq zw/term-function 'vterm))
+  (setq zw/term-function 'vterm)
   :config
   (setq vterm-kill-buffer-on-exit t
         vterm-always-compile-module t

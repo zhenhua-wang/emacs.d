@@ -1183,8 +1183,8 @@
            ;; command
            ("<f1>" . ibuffer)
            ("s-G" . magit-status)
-           ("s-e" . vterm)
-           ("s-E" . multi-vterm)
+           ("s-e" . zw/term-start)
+           ("s-E" . eshell)
            ("s-P" . zw/conda-env-activate)
            :map vertico-map
            ("s-<tab>" . vertico-next)
