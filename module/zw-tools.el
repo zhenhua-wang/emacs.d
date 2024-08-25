@@ -6,6 +6,8 @@
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
                ("s-e" . quit-window)
+               ("s-E" . quit-window)
+               ("s-S-e" . quit-window)
                ("s-z" . vterm-undo)
                ("M-:" . nil)
                ("<escape>" . nil)
