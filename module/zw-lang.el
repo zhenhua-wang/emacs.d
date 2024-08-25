@@ -3,7 +3,8 @@
 ;; * Environment
 (use-package conda
   :commands (conda-env-activate conda-env-deactivate conda-env-candidates)
-  :bind (("s-P" . zw/conda-env-activate))
+  :bind (("s-P" . zw/conda-env-activate)
+         ("s-S-p" . zw/conda-env-activate))
   :init
   (defvar zw/conda-path '("/opt/anaconda/bin"
                           "/opt/miniconda3/bin"))

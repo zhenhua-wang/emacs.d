@@ -21,14 +21,6 @@
   (define-key cua--cua-keys-keymap (kbd "M-v") nil)
   ;; full-featured keybindings
   (use-package kkp
-    :bind (:map global-map
-                ("s-S-z" . undo-redo)
-                ("s-S-s" . write-file)
-                ("s-S-u" . winner-redo)
-                ("s-S-b" . zw/right-side-window-toggle)
-                ("s-S-p" . zw/conda-env-activate)
-                ("s-S-g" . magit-status)
-                ("s-S-e" . eshell))
     :hook (after-init . zw/kkp-enable)
     :init
     (setq kkp-terminal-query-timeout 1)

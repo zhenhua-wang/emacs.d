@@ -148,6 +148,7 @@
 ;; * Magit
 (use-package magit
   :bind (("s-G" . magit-status)
+         ("s-S-g" . magit-status)
          :map magit-mode-map
          ("C" . zw/magit-change-repo)
          ("q" . zw/magit-kill-buffers)
