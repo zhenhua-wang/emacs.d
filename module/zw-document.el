@@ -165,7 +165,7 @@
     (find-file file)))
 (bind-keys :map global-map
            ("<f9>" . zw/open-agenda-dashboard)
-           ("s-<f9>" . zw/open-agenda-file))
+           ("S-<f9>" . zw/open-agenda-file))
 
 ;; ** babel
 (with-eval-after-load "ob"
