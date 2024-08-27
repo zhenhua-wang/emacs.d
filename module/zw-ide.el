@@ -173,6 +173,7 @@
 
 ;; * Tabspaces
 (use-package tabspaces
+  :commands (tabspaces--local-buffer-p)
   :hook (after-init . tabspaces-mode)
   :custom
   (tabspaces-use-filtered-buffers-as-default t)
