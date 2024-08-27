@@ -21,8 +21,7 @@
                                dashboard-insert-items
                                dashboard-insert-newline
                                dashboard-insert-init-info))
-  (dashboard-items '((agenda . 5)
-                     ;; (recents . 5)
+  (dashboard-items '((recents . 5)
                      (projects . 5)))
   (dashboard-navigator-buttons
    `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
