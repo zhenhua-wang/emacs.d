@@ -606,6 +606,8 @@ The order of values may be different."
                     ((eq system-type 'darwin)
                      (concat (getenv "HOME")
                              "/Library/Fonts/")))))
+    (when (not (file-directory-p font-dest))
+      (make-directory font-dest))
     (dolist (font (directory-files-recursively "~/.emacs.d/resources/fonts" ""))
       (copy-file font font-dest t))
     (async-shell-command "fc-cache -fv")))
