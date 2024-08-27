@@ -3,7 +3,9 @@ cd ~
 sudo pacman -S --noconfirm --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd ~/yay && makepkg -si --noconfirm && cd ~
-alias yay='yay --noconfirm'
+yay() {
+    command yay --noconfirm "$@"
+}
 
 # fonts
 yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
