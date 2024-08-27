@@ -35,7 +35,8 @@
                          'prepend)
   (zw/merge-list-symbols 'nerd-icons-mode-icon-alist
                          '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
-                         'prepend))
+                         'prepend)
+  (advice-add 'zw/install-fonts :after 'nerd-icons-install-fonts))
 
 (use-package nerd-icons-completion
   :hook
