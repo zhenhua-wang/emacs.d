@@ -17,6 +17,7 @@ yay -S emacs-nativecomp emacs-lsp-booster aspell aspell-en
 # gnome core
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect gnome-remote-desktop gnome-firmware nautilus gnome-clocks gnome-calculator gnome-disk-utility gnome-system-monitor
 sudo systemctl enable gdm.service -f
+sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
 yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals ibus-rime rime-ice-git
 # xorg for compatibility
@@ -38,7 +39,7 @@ echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rule
 sudo systemctl enable bluetooth.service
 
 # zsh
-yay -S zsh zsh-syntax-highlighting zsh-autosuggestions && chsh -s $(which zsh)
+yay -S zsh zsh-syntax-highlighting zsh-autosuggestions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 echo -e 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
 echo -e 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
@@ -67,5 +68,5 @@ flatpak override --user org.mozilla.firefox --filesystem="/tmp"
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
 bash ~/.emacs.d/resources/scripts/zw-gnome-keymap.sh
-sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
+chsh -s $(which zsh)
 emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))' --eval '(defun zw/org-babel-tangle-linux (path) (if (eq system-type (intern "gnu/linux")) path "no"))' --eval '(defun zw/org-babel-tangle-not-exist (path) (if (file-exists-p path) "no" path))' --eval '(org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")'
