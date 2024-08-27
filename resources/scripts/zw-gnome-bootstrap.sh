@@ -4,7 +4,7 @@ sudo pacman -S --noconfirm --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd ~/yay && makepkg -si --noconfirm && cd ~
 yay() {
-    command yay --noconfirm --needed --removemake "$@"
+    command yay --batchinstall --sudoloop --noconfirm --needed --removemake "$@"
 }
 
 # fonts
