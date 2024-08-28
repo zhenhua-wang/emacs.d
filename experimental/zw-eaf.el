@@ -82,13 +82,14 @@
 (defvar zw/eaf-install-app-string
   (let* ((image-base-path (expand-file-name "straight/repos/eaf-image-viewer" user-emacs-directory))
          (image-build-path (replace-regexp-in-string "repos" "build" image-base-path))
-         (image-modules-path (expand-file-name "node_modules" image-base-path)))
+         (image-base-modules (expand-file-name "node_modules" image-base-path))
+         (image-build-modules (expand-file-name "node_modules" image-build-path)))
     (format "npm install %s --prefix %s && rm -rf %s && ln -sf %s %s"
             image-base-path
             image-base-path
-            image-build-path
-            image-modules-path
-            image-build-path)))
+            image-build-modules
+            image-base-modules
+            image-build-modules)))
 
 (defun zw/eaf-install-all ()
   "Install eaf environment, dependencies and apps."
