@@ -140,8 +140,8 @@ When using conda's R for plotting ~sf~ using ~ggplot~, we need to set the enviro
 OpenSSL and cryptography error might exist after updating miniconda3 in AUR. To solve this, try reinstall both ~cryptography~ and ~pyOpenSSL~ in base.
 #+begin_src sh
 source /opt/miniconda3/bin/activate
-sudo pip uninstall cryptography pyOpenSSL
-sudo pip install cryptography pyOpenSSL
+sudo /opt/miniconda3/bin/pip uninstall cryptography pyOpenSSL
+sudo /opt/miniconda3/bin/pip install cryptography pyOpenSSL
 #+end_src
 
 Conda Emacs may run into ~undefined symbol: malloc_set_state~. In this case, we should include the following in ~.bashrc~. To find out the path of ~libc_malloc_debug.so~, we can use ~find /usr -name ~libc_malloc_debug.so~.
