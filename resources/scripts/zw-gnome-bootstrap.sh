@@ -2,7 +2,7 @@ cd ~
 # yay
 sudo pacman -S --noconfirm --needed git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
-cd ~/yay && makepkg -si --noconfirm --force && cd ~
+cd ~/yay && git pull && makepkg -si --noconfirm && cd ~
 yay() {
     command yay --batchinstall --sudoloop --noconfirm --needed --removemake "$@"
 }
