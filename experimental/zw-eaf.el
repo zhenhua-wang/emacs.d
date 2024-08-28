@@ -78,7 +78,7 @@
 ;; install functions
 (defvar zw/eaf-install-env-string "/opt/miniconda3/bin/conda create -n eaf -y")
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
-(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf")
+(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs conda-forge::libxcb conda-forge::xcb-util-cursor conda-forge::xcb-util-wm conda-forge::xcb-util-image conda-forge::xcb-util-keysyms conda-forge::xcb-util-renderutil -y && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf")
 (defvar zw/eaf-install-app-string
   (let ((zw/eaf-image-viewer-path (expand-file-name
                                    "straight/repos/eaf-image-viewer" user-emacs-directory)))
