@@ -80,11 +80,15 @@
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
 (defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf")
 (defvar zw/eaf-install-app-string
-  (let ((zw/eaf-image-viewer-path (expand-file-name
-                                   "straight/repos/eaf-image-viewer" user-emacs-directory)))
-    (format "npm install %s --prefix %s && ln -sf %s/node_modules %s/node_modules"
-            zw/eaf-image-viewer-path zw/eaf-image-viewer-path
-            zw/eaf-image-viewer-path (replace-regexp-in-string "repos" "build" zw/eaf-image-viewer-path))))
+  (let* ((image-base-path (expand-file-name "straight/repos/eaf-image-viewer" user-emacs-directory))
+         (image-build-path (replace-regexp-in-string "repos" "build" image-base-path))
+         (image-modules-path (expand-file-name "node_modules" image-base-path)))
+    (format "npm install %s --prefix %s && rm -rf %s && ln -sf %s %s"
+            image-base-path
+            image-base-path
+            image-build-path
+            image-modules-path
+            image-build-path)))
 
 (defun zw/eaf-install-all ()
   "Install eaf environment, dependencies and apps."
