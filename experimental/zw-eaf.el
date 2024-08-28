@@ -89,7 +89,7 @@
 (defun zw/eaf-install-all ()
   "Install eaf environment, dependencies and apps."
   (interactive)
-  (async-shell-command (concat "yay -S --needed xcb-util-cursor xcb-util-wm xcb-util-keysyms && "
+  (async-shell-command (concat "yay -S --needed --noconfirm xcb-util-cursor xcb-util-wm xcb-util-keysyms && "
                                zw/eaf-install-env-string "&&"
                                zw/eaf-activate-env-string "&&"
                                zw/eaf-install-dependecies-string "&&"
