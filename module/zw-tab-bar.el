@@ -300,7 +300,7 @@
 
 (dolist (i (number-sequence 1 9))
   (define-key global-map
-              (kbd (format "C-s-%s" i))
+              (kbd (format "s-%s" (zw/translate-shift-number i)))
               (lambda ()
                 (interactive)
                 (let ((total-tabs (length (tab-bar-tabs))))
