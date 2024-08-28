@@ -20,7 +20,7 @@ sudo systemctl enable gdm.service -f
 sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
 yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals ibus-rime rime-ice-git
-# xorg for compatibility
+# xorg for gnome and eaf compatibility
 yay -S xorg-server xcb-util-cursor xcb-util-wm xcb-util-keysyms
 
 # xremap
