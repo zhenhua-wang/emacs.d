@@ -61,8 +61,12 @@
   (eaf-bind-key scroll_up_page "n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down_page "p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key copy_select "s-c" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key reload_document "s-r" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key zoom_out "s--" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key zoom_in "s-=" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_to_end "M->" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_to_begin "M-<" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding)
   (with-eval-after-load "tex"
     (add-to-list 'TeX-view-program-list '("eaf" eaf-pdf-synctex-forward-view))
     (add-to-list 'TeX-view-program-selection '(output-pdf "eaf"))))
