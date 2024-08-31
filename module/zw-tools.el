@@ -376,11 +376,24 @@
 (defun zw/dired-favorite ()
   "Select a favorite directory from a list and open it in dired mode."
   (interactive)
-  (let ((directories '("~/Pictures"
-                       "~/Documents"
-                       "~/Downloads"
-                       "~/Workspace")))
-    (dired (completing-read "Select directory: " directories))))
+  (let* ((directories '(("Pictures" . "~/Pictures")
+                        ("Documents" . "~/Documents")
+                        ("Downloads" . "~/Downloads")
+                        ("Workspace" . "~/Workspace")))
+         (dirs-icon (cl-mapcar
+                     (lambda (dir)
+                       (cons
+                        (concat (nerd-icons-icon-for-dir
+                                 (car dir)
+                                 :face 'dired-directory
+                                 :v-adjust 0.01)
+                                " "
+                                (car dir))
+                        (cdr dir)))
+                     directories))
+         (selection (completing-read "Select directory: " dirs-icon nil t))
+         (path (cdr (assoc selection dirs-icon))))
+    (dired path)))
 
 (define-key global-map (kbd "s-n") 'zw/dired-favorite)
 
