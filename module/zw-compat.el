@@ -15,6 +15,11 @@
 	         (eq window (minibuffer-selected-window))))))))
 
 (unless (display-graphic-p)
+  ;; mouse mode
+  (xterm-mouse-mode 1)
+  (menu-bar-mode 0)
+  (define-key global-map (kbd "<menu-bar> <mouse-1>") nil)
+  ;; cua mode
   (cua-mode 1)
   (define-key cua-global-keymap (kbd "C-<return>") nil)
   (define-key cua--cua-keys-keymap (kbd "C-v") nil)
