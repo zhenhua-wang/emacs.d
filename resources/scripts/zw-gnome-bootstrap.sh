@@ -7,6 +7,12 @@ yay() {
     command yay --batchinstall --sudoloop --noconfirm --needed --removemake "$@"
 }
 
+# pacman mirrors
+yay -S reflector rsync curl
+sudo reflector --verbose --country 'US,CN' -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+# Use the top 5 fastest mirrors among the top 50 by score
+# sudo reflector --verbose --country 'US,CN' --score 50 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist
+
 # fonts
 yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
 
