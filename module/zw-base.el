@@ -861,6 +861,7 @@ The order of values may be different."
            ("C-x 1" . zw/maximize-window)
            ;; ide
            ("s-K" . tab-bar-mode)
+           ("s-S-k" . tab-bar-mode)
            ("s-i" . imenu)
            ("s-h" . display-local-help)
            ("s-d" . eldoc)
