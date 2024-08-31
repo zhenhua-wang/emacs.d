@@ -52,6 +52,7 @@ echo -e 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.z
 echo -e "bindkey '^H' backward-kill-word" >> ~/.zshrc
 echo -e 'alias streamlink="streamlink --player mpv"' >> ~/.zshrc
 echo -e 'alias open="xdg-open"' >> ~/.zshrc
+echo -e 'alias pacman-mirror-update="sudo reflector --verbose --country 'US,CN' --score 50 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist"' >> ~/.zshrc
 
 # config git
 git config --global user.name "Zhenhua Wang"
