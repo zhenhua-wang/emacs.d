@@ -396,6 +396,7 @@
     (dired path)))
 
 (define-key global-map (kbd "s-n") 'zw/dired-favorite)
+(define-key zw-dired-sidebar-mode-map (kbd "f") 'zw/dired-favorite)
 
 ;; * Openwith
 (use-package openwith
