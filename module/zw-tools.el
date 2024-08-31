@@ -372,6 +372,18 @@
 (add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
 (add-hook 'zw-dired-sidebar-mode-hook 'zw/left-side-window-mode)
 
+;; ** favorite
+(defun zw/dired-favorite ()
+  "Select a favorite directory from a list and open it in dired mode."
+  (interactive)
+  (let ((directories '("~/Pictures"
+                       "~/Documents"
+                       "~/Downloads"
+                       "~/Workspace")))
+    (dired (completing-read "Select directory: " directories))))
+
+(define-key global-map (kbd "s-n") 'zw/dired-favorite)
+
 ;; * Openwith
 (use-package openwith
   :hook
