@@ -315,7 +315,7 @@
     (let* ((num-words (count-words-region (region-beginning) (region-end)))
            (plural (if (> num-words 1) "s" ""))
            (text (if (> (length (buffer-substring (region-beginning) (region-end))) 0)
-                     (format " %i word%s" num-words plural) "")))
+                     (format " %i word%s" num-words plural) (if (display-graphic-p) "" " "))))
       (concat
        (propertize (format " %s%s "
                            (nerd-icons-mdicon "nf-md-sticker_text"
