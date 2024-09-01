@@ -3,6 +3,8 @@ gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Super>Return
 gsettings set org.gnome.mutter overlay-key "Super_R"
 gsettings set org.gnome.desktop.input-sources xkb-options "[]"
 # keymaps
+gsettings set org.gnome.shell.keybindings show-screenshot-ui "['Print', 'LaunchA']"
+gsettings set org.gnome.shell.keybindings screenshot "['<Shift>Print', '<Shift>LaunchA']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys search "['<Super>space']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Control>backslash', '<Alt>space']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Control>backslash']"
