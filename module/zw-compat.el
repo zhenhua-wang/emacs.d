@@ -40,7 +40,7 @@
       (when (and (use-region-p)
                  delete-selection-mode)
         (delete-region (region-beginning) (region-end)))
-      (call-interactively 'xterm-paste))
+      (call-interactively 'xterm-paste nil (vector event)))
     (defun zw/kkp-enable ()
       (global-kkp-mode 1)
       (define-key global-map [xterm-paste] #'zw/xterm-paste)))

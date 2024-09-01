@@ -5,6 +5,7 @@
   :bind ((:map vterm-copy-mode-map
                ("<return>" . vterm-copy-mode))
          (:map vterm-mode-map
+               ([xterm-paste] . vterm-xterm-paste)
                ("s-e" . quit-window)
                ("s-E" . quit-window)
                ("s-S-e" . quit-window)
