@@ -78,7 +78,7 @@
    (append (mapcar (lambda (x)
                      (vector x `(lambda () (interactive) (conda-env-activate ,x) t)))
                    (conda-env-candidates))
-           (list "---")
+           (when (display-graphic-p) (list "---"))
            (list (vector "conda deactivate"
                          `(lambda () (interactive) (conda-env-deactivate) t))))))
 
