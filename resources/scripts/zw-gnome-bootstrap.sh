@@ -25,7 +25,7 @@ yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkma
 sudo systemctl enable gdm.service -f
 sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
-yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git
+yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock
 # xorg for gnome and eaf compatibility
 yay -S xorg-server xcb-util-cursor xcb-util-wm xcb-util-keysyms
 

@@ -27,6 +27,8 @@ gsettings set org.gnome.shell.extensions.vitals hide-icons true
 gsettings set org.gnome.shell.extensions.vitals fixed-widths true
 # caffeine
 gsettings set org.gnome.shell.extensions.caffeine restore-state true
+# weather
+gsettings set org.gnome.GWeather4 temperature-unit 'centigrade'
 # default app
 gio mime inode/directory org.gnome.Nautilus.desktop
 xdg-settings set default-web-browser org.mozilla.firefox.desktop
