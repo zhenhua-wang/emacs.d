@@ -14,7 +14,7 @@ sudo reflector --verbose --country 'US,CN' -l 5 --sort rate --save /etc/pacman.d
 # sudo reflector --verbose --country 'US,CN' --score 50 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist
 
 # fonts
-yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji
+yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-cn-fonts
 
 # emacs
 mv ~/emacs.d ~/.emacs.d
