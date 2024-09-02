@@ -21,6 +21,7 @@ gsettings set org.gnome.shell disable-user-extensions false
 gnome-extensions enable Vitals@CoreCoding.com
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 gnome-extensions enable caffeine@patapon.info
+gnome-extensions enable weatheroclock@CleoMenezesJr.github.io
 # vitals
 gsettings set org.gnome.shell.extensions.vitals hot-sensors "['__temperature_max__', '_memory_usage_']"
 gsettings set org.gnome.shell.extensions.vitals hide-icons true
