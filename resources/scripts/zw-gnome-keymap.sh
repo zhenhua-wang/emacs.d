@@ -13,6 +13,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "['<Shift><
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Super>grave']"
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Shift><Super>d']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-center "['<Alt><Super>c']"
 gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Super>q']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<Shift><Super>m']"
 gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>m']"
