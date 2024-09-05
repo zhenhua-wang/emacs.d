@@ -337,7 +337,6 @@ at the mouse-down event to the position at mouse-up event."
 ;; * Keymap
 ;; select tab
 (defun zw/tab-line-select (index)
-  (interactive)
   (let* ((visible-tabs (funcall tab-line-tabs-function))
          (n-visible-tabs (length visible-tabs))
          (selected-buffer (nth (- index 1) visible-tabs)))
@@ -354,12 +353,16 @@ at the mouse-down event to the position at mouse-up event."
                               (lambda ()
                                 (interactive)
                                 (zw/tab-line-select ,i))))
-                          (number-sequence 0 9)))
+                          (number-sequence 1 8)))
   (define-key global-map (car key-func) (cdr key-func)))
 
 (bind-keys :map global-map
            ("s-{" . tab-line-switch-to-prev-tab)
-           ("s-}" . tab-line-switch-to-next-tab))
+           ("s-}" . tab-line-switch-to-next-tab)
+           ("s-9" . (lambda ()
+                      (interactive)
+                      (zw/tab-line-select
+                       (length (funcall tab-line-tabs-function))))))
 
 ;; * Provide
 (provide 'zw-tab-line)
