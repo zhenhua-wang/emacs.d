@@ -126,7 +126,7 @@ conda install conda-forge::r-base conda-forge::r-tidyverse conda-forge::r-sf con
 ## python
 # don't use pip to install pyright
 conda install conda-forge::pyright
-pip install numpy scipy pandas matplotlib seaborn scikit-learn jupytext ipython tqdm
+pip install numpy scipy pandas matplotlib seaborn scikit-learn jupytext ipython tqdm geopandas libpysal
 #+end_src
 
 To use reticulate in R, set ~RETICULATE_PYTHON~ before importing.
