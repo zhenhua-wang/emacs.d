@@ -171,7 +171,8 @@
     "Remove git's index lock file, if it exists."
     (interactive)
     (let ((base (magit-toplevel)))
-      (delete-file (expand-file-name ".git/index.lock" base)))))
+      (when (y-or-n-p "Confirm deleting git index.lock?")
+        (delete-file (expand-file-name ".git/index.lock" base))))))
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
