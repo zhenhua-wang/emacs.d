@@ -94,7 +94,8 @@
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)
          ("<help> a" . consult-apropos)
-         ("s-f" . consult-line)
+         ("s-F" . consult-line)
+         ("s-S-f" . consult-line)
          ;; M-g bindings (goto-map)
          ("M-g g" . consult-goto-line)
          ("M-g o" . consult-outline)

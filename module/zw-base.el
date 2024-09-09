@@ -435,7 +435,8 @@ The order of values may be different."
            ("<right>" . isearch-repeat-forward)
            ("<left>" . isearch-repeat-backward)
            ("s-v" . isearch-yank-kill)
-           ("S-<insert>" . isearch-yank-kill))
+           ("S-<insert>" . isearch-yank-kill)
+           ("<escape>" . isearch-abort))
 
 ;; ** Ibuffer
 (with-eval-after-load "ibuffer"
@@ -842,6 +843,7 @@ The order of values may be different."
            ("s--" . text-scale-decrease)
            ("s-[" . previous-buffer)
            ("s-]" . next-buffer)
+           ("s-f" . isearch-forward)
            ;; window operations
            ("C-<f4>" . delete-window)
            ("s-w" . delete-window)
