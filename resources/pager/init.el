@@ -49,7 +49,11 @@
  ("<down>" . isearch-repeat-forward)
  ("<up>" . isearch-repeat-backward)
  ("<right>" . isearch-repeat-forward)
- ("<left>" . isearch-repeat-backward))
+ ("<left>" . isearch-repeat-backward)
+ ("s-<backspace>" . zw/isearch-clear-query)
+ ("C-<backspace>" . zw/isearch-delete-word)
+ ("M-<backspace>" . zw/isearch-delete-word)
+ ("<escape>" . isearch-abort))
 (advice-add 'self-insert-command :around
             (lambda (orig-fun N &optional C)
               (if (minibufferp)
@@ -65,6 +69,19 @@
       (unless isearch-mode (isearch-mode t))
       (let ((pasted-text (nth 1 event)))
         (isearch-yank-string pasted-text)))))
+(defun zw/isearch-clear-query ()
+  "Clear isearch query without exiting."
+  (interactive)
+  (isearch-del-char (length isearch-string)))
+(defun zw/isearch-delete-word ()
+  "Delete a word in isearch query."
+  (interactive)
+  (let* ((isearch-words (split-string isearch-string))
+         (num-words (length isearch-words)))
+    (if (<= num-words 1)
+        (zw/isearch-clear-query)
+      (isearch-del-char
+       (length (car (last isearch-words)))))))
 
 ;; pager
 (setq isearch-lazy-count t
