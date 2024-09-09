@@ -427,6 +427,21 @@ The order of values may be different."
       lazy-count-prefix-format "%s/%s "
       search-whitespace-regexp ".*?")
 
+(defun zw/isearch-clear-query ()
+  "Clear isearch query without exiting."
+  (interactive)
+  (isearch-del-char (length isearch-string)))
+
+(defun zw/isearch-delete-word ()
+  "Delete a word in isearch query."
+  (interactive)
+  (let* ((isearch-words (split-string isearch-string))
+         (num-words (length isearch-words)))
+    (if (<= num-words 1)
+        (zw/isearch-clear-query)
+      (isearch-del-char
+       (length (car (last isearch-words)))))))
+
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
@@ -436,6 +451,9 @@ The order of values may be different."
            ("<left>" . isearch-repeat-backward)
            ("s-v" . isearch-yank-kill)
            ("S-<insert>" . isearch-yank-kill)
+           ("s-<backspace>" . zw/isearch-clear-query)
+           ("C-<backspace>" . zw/isearch-delete-word)
+           ("M-<backspace>" . zw/isearch-delete-word)
            ("<escape>" . isearch-abort))
 
 ;; ** Ibuffer
