@@ -435,12 +435,14 @@ The order of values may be different."
 (defun zw/isearch-delete-word ()
   "Delete a word in isearch query."
   (interactive)
-  (let* ((isearch-words (split-string isearch-string))
-         (num-words (length isearch-words)))
-    (if (<= num-words 1)
-        (zw/isearch-clear-query)
-      (isearch-del-char
-       (length (car (last isearch-words)))))))
+  ;; remove last word
+  (let ((isearch-words (split-string isearch-string)))
+    (isearch-del-char
+     (length (car (last isearch-words)))))
+  ;; remove trailing whitespace
+  (let ((num-ws (- (length isearch-string)
+                   (length (string-trim-right isearch-string)))))
+    (isearch-del-char num-ws)))
 
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)
