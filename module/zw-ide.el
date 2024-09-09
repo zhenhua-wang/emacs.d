@@ -166,7 +166,12 @@
     (interactive)
     (let ((buffers (magit-mode-get-buffers)))
       (magit-restore-window-configuration)
-      (mapc #'kill-buffer buffers))))
+      (mapc #'kill-buffer buffers)))
+  (defun zw/magit-remove-git-lock-file ()
+    "Remove git's index lock file, if it exists."
+    (interactive)
+    (let ((base (magit-toplevel)))
+      (delete-file (expand-file-name ".git/index.lock" base)))))
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
