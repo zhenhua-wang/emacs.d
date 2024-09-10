@@ -446,6 +446,11 @@ The order of values may be different."
       (zw/isearch-clear-query))
     (isearch-update)))
 
+(defun zw/isearch-ignore ()
+  (interactive)
+  (ignore)
+  (isearch-update))
+
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)
            ("s-f" . isearch-repeat-forward)
@@ -458,6 +463,10 @@ The order of values may be different."
            ("s-<backspace>" . zw/isearch-clear-query)
            ("C-<backspace>" . zw/isearch-delete-word)
            ("M-<backspace>" . zw/isearch-delete-word)
+           ("C-<left>" . zw/isearch-ignore)
+           ("C-<right>" . zw/isearch-ignore)
+           ("M-<left>" . zw/isearch-ignore)
+           ("M-<right>" . zw/isearch-ignore)
            ("<escape>" . isearch-abort))
 
 ;; ** Ibuffer
