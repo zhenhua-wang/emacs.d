@@ -60,7 +60,7 @@ git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 
 # essential desktop
-yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils
+yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils easyeffects fprintd
 
 # research
 yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
