@@ -430,19 +430,21 @@ The order of values may be different."
 (defun zw/isearch-clear-query ()
   "Clear isearch query without exiting."
   (interactive)
-  (isearch-del-char (length isearch-string)))
+  (isearch-del-char (length isearch-string))
+  (isearch-update))
 
 (defun zw/isearch-delete-word ()
   "Delete a word in isearch query."
   (interactive)
-  ;; remove last word
-  (let ((isearch-words (split-string isearch-string)))
-    (isearch-del-char
-     (length (car (last isearch-words)))))
-  ;; remove trailing whitespace
-  (let ((num-ws (- (length isearch-string)
-                   (length (string-trim-right isearch-string)))))
-    (isearch-del-char num-ws)))
+  (let* ((isearch-string-trimed (string-trim-right isearch-string))
+         (isearch-string-trimed-reverse (reverse isearch-string-trimed))
+         (num-ws (- (length isearch-string)
+                    (length isearch-string-trimed)))
+         (pos-sep (string-match "\\s-+" isearch-string-trimed-reverse)))
+    (if pos-sep
+        (isearch-del-char (+ num-ws pos-sep))
+      (zw/isearch-clear-query))
+    (isearch-update)))
 
 (bind-keys :map isearch-mode-map
            ([remap isearch-delete-char] . isearch-del-char)
