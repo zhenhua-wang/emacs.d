@@ -33,6 +33,7 @@
   :commands (minibuffer-keyboard-quit)
   :bind (:map minibuffer-mode-map
               ("<escape>" . minibuffer-keyboard-quit)))
+
 (bind-keys
  ("<escape>" . keyboard-quit)
  ("s-q" . kill-emacs)
@@ -53,7 +54,12 @@
  ("s-<backspace>" . zw/isearch-clear-query)
  ("C-<backspace>" . zw/isearch-delete-word)
  ("M-<backspace>" . zw/isearch-delete-word)
+ ("C-<left>" . zw/isearch-ignore)
+ ("C-<right>" . zw/isearch-ignore)
+ ("M-<left>" . zw/isearch-ignore)
+ ("M-<right>" . zw/isearch-ignore)
  ("<escape>" . isearch-abort))
+
 (advice-add 'self-insert-command :around
             (lambda (orig-fun N &optional C)
               (if (minibufferp)
@@ -61,6 +67,7 @@
                 (progn
                   (unless isearch-mode (isearch-mode t))
                   (isearch-printing-char C N)))))
+
 (defun zw/pager-isearch-xterm-paste (event)
   (interactive "e")
   (if (minibufferp)
@@ -69,11 +76,13 @@
       (unless isearch-mode (isearch-mode t))
       (let ((pasted-text (nth 1 event)))
         (isearch-yank-string pasted-text)))))
+
 (defun zw/isearch-clear-query ()
   "Clear isearch query without exiting."
   (interactive)
   (isearch-del-char (length isearch-string))
   (isearch-update))
+
 (defun zw/isearch-delete-word ()
   "Delete a word in isearch query."
   (interactive)
@@ -87,6 +96,11 @@
       (zw/isearch-clear-query))
     (isearch-update)))
 
+(defun zw/isearch-ignore ()
+  (interactive)
+  (ignore)
+  (isearch-update))
+
 ;; pager
 (setq isearch-lazy-count t
       isearch-wrap-pause 'no
@@ -97,6 +111,7 @@
       visible-bell t
       hscroll-margin 1
       hscroll-step 1)
+
 (add-hook 'find-file-hook (lambda ()
                             (let ((inhibit-message t))
                               ;; pager
