@@ -1144,7 +1144,7 @@
                             (zw/launch-app-by-name "kitty")))
         (,(kbd "C-s-f") . (lambda ()
                             (interactive)
-                            (zw/launch-app-by-name "firefox")))
+                            (zw/launch-app-by-name "org.mozilla.firefox")))
         (,(kbd "C-s-n") . (lambda ()
                             (interactive)
                             (zw/launch-app-by-name "nautilus")))
