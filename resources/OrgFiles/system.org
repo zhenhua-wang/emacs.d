@@ -149,6 +149,25 @@ Conda Emacs may run into ~undefined symbol: malloc_set_state~. In this case, we 
 export LD_PRELOAD=/usr/lib/libc_malloc_debug.so
 #+end_src
 
+** Apply patch to libinput
+#+begin_src sh
+# install necessary packages
+sudo pacman -S meson ninja check
+# clone libinput
+git clone https://gitlab.freedesktop.org/libinput/libinput.git
+cd libinput
+# apply patch
+patch -Np1 -i LOCATION_TO_YOUR_PATCH.patch
+# build and install
+meson --prefix=/usr build/ \
+      -D tests=false \
+      -D documentation=false \
+      -D debug-gui=false
+ninja -C build/
+sudo ninja -C build/ install
+#+end_src
+
+
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
