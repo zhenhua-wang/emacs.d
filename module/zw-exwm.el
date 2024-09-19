@@ -955,14 +955,15 @@
     (app-launcher-run-app)))
 
 (defvar zw/launch-app-predicate nil)
-(defun zw/launch-app-by-name (name)
-  (let ((app (cl-find-if
-              (lambda (buffer)
-                (with-current-buffer buffer
-                  (and (or (not zw/launch-app-predicate)
-                           (funcall zw/launch-app-predicate buffer))
-                       (string= exwm-class-name name))))
-              (buffer-list))))
+(defun zw/launch-app-by-name (name &optional buffer-name)
+  (let* ((buffer-name (if buffer-name buffer-name name))
+         (app (cl-find-if
+               (lambda (buffer)
+                 (with-current-buffer buffer
+                   (and (or (not zw/launch-app-predicate)
+                            (funcall zw/launch-app-predicate buffer))
+                        (string= exwm-class-name buffer-name))))
+               (buffer-list))))
     (if app
         (zw/exwm--switch-to-buffer-show-desktop app)
       (zw/exwm-run-in-background name))))
@@ -1144,7 +1145,7 @@
                             (zw/launch-app-by-name "kitty")))
         (,(kbd "C-s-f") . (lambda ()
                             (interactive)
-                            (zw/launch-app-by-name "org.mozilla.firefox")))
+                            (zw/launch-app-by-name "org.mozilla.firefox" "firefox")))
         (,(kbd "C-s-n") . (lambda ()
                             (interactive)
                             (zw/launch-app-by-name "nautilus")))
