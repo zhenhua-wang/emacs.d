@@ -150,6 +150,7 @@ export LD_PRELOAD=/usr/lib/libc_malloc_debug.so
 #+end_src
 
 ** Apply patch to libinput
+https://wayland.freedesktop.org/libinput/doc/latest/building.html
 #+begin_src sh
 # install necessary packages
 sudo pacman -S meson ninja check
