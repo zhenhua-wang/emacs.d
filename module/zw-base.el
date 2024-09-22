@@ -260,7 +260,10 @@ The order of values may be different."
 (define-minor-mode zw/right-side-window-mode
   "Toggle right side window."
   :global nil
-  :keymap `((,(kbd "s-B") . zw/right-side-window-toggle)))
+  :keymap `((,(kbd "s-B") . zw/right-side-window-toggle))
+  :after-hook (progn
+                (setq-local display-buffer-base-action
+                            '((zw/display-buffer-in-largest-window)))))
 
 ;; ** Left side window
 (defvar zw/left-side-window-open-functions nil
