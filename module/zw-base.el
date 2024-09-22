@@ -292,6 +292,8 @@ The order of values may be different."
                       (list :inherit 'tab-bar
                             :height (face-attribute 'default :height)
                             :box nil))
+                (setq-local display-buffer-base-action
+                            '((zw/display-buffer-in-largest-window)))
                 (buffer-face-mode 1)
                 (zw/visual-line-disable)))
 

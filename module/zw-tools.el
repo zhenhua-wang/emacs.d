@@ -303,7 +303,6 @@
       (dired-revert)
       (setq-local dired-omit-size-limit nil
                   mode-line-format (zw/dired-sidebar--modeline-format)
-                  display-buffer-base-action '((zw/display-buffer-in-largest-window))
                   zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max)))))
 
 (defun zw/dired-sidebar-disable (buffer)
