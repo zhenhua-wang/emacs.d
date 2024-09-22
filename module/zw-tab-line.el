@@ -69,8 +69,9 @@
                   (pos-previous (- pos 1))
                   ;; (pos-next (+ pos 1))
                   ;; (buffer-pos (if (> pos-next max-index) pos-previous pos-next))
-                  (buffer-pos (if (< pos-previous 0) 1 pos-previous)))
-        (switch-to-buffer (nth buffer-pos group-buffers))))))
+                  (buffer-pos (if (< pos-previous 0) 1 pos-previous))
+                  (buf (nth buffer-pos group-buffers)))
+        (switch-to-buffer buf)))))
 
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 (add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
