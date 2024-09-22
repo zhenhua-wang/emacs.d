@@ -164,13 +164,13 @@
                ("M-<tab>" . company-manual-begin)
                ("C-M-i" . company-manual-begin)
                ("M-Y" . company-yasnippet)
+               ("C-<tab>" . company-yasnippet)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
                ("M-<" . company-select-first)
-               ("<tab>" . company-complete-selection)
-               ("C-<tab>" . company-yasnippet)))
+               ("<tab>" . company-complete-selection)))
   :init (setq company-idle-delay nil
               company-require-match 'never
               company-selection-wrap-around t
