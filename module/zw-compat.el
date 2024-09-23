@@ -45,6 +45,7 @@
       (global-kkp-mode 1)
       (define-key global-map [xterm-paste] #'zw/xterm-paste)))
   ;; clipborad for tty
+  (setenv "SSH_TTY")
   (use-package clipetty
     :hook (after-init . global-clipetty-mode))
   (with-eval-after-load "zw-theme"
