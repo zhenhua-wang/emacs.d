@@ -78,6 +78,7 @@ include ~/.config/kitty/font.conf
 map ctrl+shift+a no_op
 map ctrl+shift+e no_op
 map ctrl+shift+2 no_op
+map cmd+alt+r clear_terminal reset active
 map f11 toggle_fullscreen
 map cmd+shift+f launch --stdin-source=@screen_scrollback --stdin-add-formatting ~/.emacs.d/resources/pager/emacs-pager.sh
 map cmd+shift+t new_tab
