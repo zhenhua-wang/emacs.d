@@ -110,7 +110,14 @@ sudo systemctl enable tlp.service NetworkManager-dispatcher.service
 sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 #+end_src
 
-** Conda Research environment
+** Research
+*** Slurm
+#+begin_src sh
+# interactive jobs
+srun -n 4 --time=3:00:00 --mem=30G --partition=general --pty /bin/bash
+#+end_src
+
+*** Conda environment
 #+begin_src sh
 # emacs
 conda create -n emacs python=3.9
