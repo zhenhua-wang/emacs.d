@@ -71,9 +71,11 @@
   (defun zw/diff-hl-init ()
     (setq right-fringe-width 25)))
 
-;; * Indent guide
-(use-package indent-guide
-  :hook (python-mode . indent-guide-mode))
+;; * Indent bars
+(use-package indent-bars
+  :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
+  :custom (indent-bars-treesit-support t)
+  :hook (python-mode . indent-bars-mode))
 
 ;; * Provide
 (provide 'zw-appearance)
