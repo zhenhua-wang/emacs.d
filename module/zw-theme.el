@@ -59,6 +59,8 @@
     (doom-darken color aplha)))
 
 ;; * ZW theme
+(defvar zw/after-set-theme-hook nil
+  "Hook that gets run when after zw theme has been set.")
 (defun zw/theme-set-theme ()
   (let* ((dark-p                      (eq (frame-parameter nil 'background-mode) 'dark))
          (base-font-color             (face-foreground 'default nil 'default))
@@ -245,7 +247,9 @@
      `(markdown-code-face
        ((t (:inherit fixed-pitch :background ,block-color :extend t))))
      `(markdown-markup-face
-       ((t (:inherit (shadow fixed-pitch) :foreground unspecified :slant normal)))))))
+       ((t (:inherit (shadow fixed-pitch) :foreground unspecified :slant normal))))))
+  ;; after hook
+  (run-hooks 'zw/after-set-theme-hook))
 
 ;; * Load theme
 ;; temporary theme selector
