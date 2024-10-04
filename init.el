@@ -54,7 +54,7 @@
 (setq zw/user-config
       (expand-file-name "zw-user-config.el" user-emacs-directory))
 (when (not (file-exists-p zw/user-config))
-  (write-region "(require 'zw-dashboard)" nil zw/user-config))
+  (copy-file "~/.emacs.d/resources/scripts/zw-user-config.el" zw/user-config))
 (load zw/user-config)
 (defun zw/open-user-config ()
   (interactive)
