@@ -111,8 +111,7 @@ The order of values may be different."
 ;; ** UI
 (dolist (mode '(window-divider-mode
                 blink-cursor-mode
-                fringe-mode
-                zw/ui-padding-mode))
+                fringe-mode))
   (add-hook 'after-init-hook mode))
 
 (defvar zw/window-divider-foreground nil)
