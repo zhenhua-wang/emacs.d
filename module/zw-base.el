@@ -111,8 +111,38 @@ The order of values may be different."
 ;; ** UI
 (dolist (mode '(window-divider-mode
                 blink-cursor-mode
-                fringe-mode))
+                fringe-mode
+                zw/ui-padding-mode))
   (add-hook 'after-init-hook mode))
+
+(defvar zw/window-divider-foreground nil)
+(defvar zw/window-divider-background nil)
+(define-minor-mode zw/ui-padding-mode
+  "Toggle UI padding mode."
+  :global t
+  (if zw/ui-padding-mode
+      (progn
+        (modify-all-frames-parameters '((internal-border-width . 15)
+                                        (right-divider-width . 12)))
+        (setq zw/window-divider-foreground (face-foreground 'window-divider)
+              zw/window-divider-background (face-background 'window-divider))
+        (set-face-foreground 'window-divider (face-background 'default))
+        (set-face-background 'window-divider (face-background 'default))
+        (set-face-attribute 'mode-line nil
+                            :box (list :line-width 6
+                                       :color (face-background 'mode-line)
+                                       :style nil))
+        (set-face-attribute 'mode-line-inactive nil
+                            :box (list :line-width 6
+                                       :color (face-background 'mode-line-inactive)
+                                       :style nil)))
+    (progn
+      (modify-all-frames-parameters '((internal-border-width . 0)
+                                      (right-divider-width . 6)))
+      (set-face-foreground 'window-divider zw/window-divider-foreground)
+      (set-face-background 'window-divider zw/window-divider-background)
+      (set-face-attribute 'mode-line nil :box 'unspecified)
+      (set-face-attribute 'mode-line-inactive nil :box 'unspecified))))
 
 (setq-default use-dialog-box nil
               visible-bell t
