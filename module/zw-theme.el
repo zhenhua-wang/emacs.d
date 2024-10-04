@@ -250,6 +250,8 @@
 ;; * Load theme
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
+;; padding
+(defvar zw/ui-padding nil)
 (add-hook 'after-init-hook
           (lambda ()
             ;; default theme
@@ -257,7 +259,21 @@
               (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
             ;; load theme
             (ignore-errors (load zw/theme-selector))
-            (zw/theme-set-theme)))
+            (zw/theme-set-theme)
+            ;; padding
+            (when zw/ui-padding
+              (push '(internal-border-width . 15) default-frame-alist)
+              (setq window-divider-default-right-width 12)
+              (set-face-background 'window-divider (face-background 'default))
+              (set-face-foreground 'window-divider (face-background 'default))
+              (set-face-attribute 'mode-line nil
+                                  :box (list :line-width 6
+                                             :color (face-background 'mode-line)
+                                             :style nil))
+              (set-face-attribute 'mode-line-inactive nil
+                                  :box (list :line-width 6
+                                             :color (face-background 'mode-line-inactive)
+                                             :style nil)))))
 
 ;; load custom faces
 (add-hook 'server-after-make-frame-hook #'zw/theme-set-theme)
