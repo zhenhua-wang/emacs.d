@@ -122,8 +122,9 @@ The order of values may be different."
   (if zw/ui-padding-mode
       (progn
         (modify-all-frames-parameters '((internal-border-width . 15)
-                                        (right-divider-width . 12)))
-        (setq zw/window-divider-foreground (face-foreground 'window-divider)
+                                        (right-divider-width . 30)))
+        (setq window-divider-default-right-width 30
+              zw/window-divider-foreground (face-foreground 'window-divider)
               zw/window-divider-background (face-background 'window-divider))
         (set-face-foreground 'window-divider (face-background 'default))
         (set-face-background 'window-divider (face-background 'default))
@@ -138,6 +139,7 @@ The order of values may be different."
     (progn
       (modify-all-frames-parameters '((internal-border-width . 0)
                                       (right-divider-width . 6)))
+      (setq window-divider-default-right-width 6)
       (set-face-foreground 'window-divider zw/window-divider-foreground)
       (set-face-background 'window-divider zw/window-divider-background)
       (set-face-attribute 'mode-line nil :box 'unspecified)
