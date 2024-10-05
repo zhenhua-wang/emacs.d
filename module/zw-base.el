@@ -114,8 +114,8 @@ The order of values may be different."
                 fringe-mode))
   (add-hook 'after-init-hook mode))
 
-(defvar zw/window-divider-foreground nil)
-(defvar zw/window-divider-background nil)
+(defvar zw/vertical-border-foreground nil)
+(defvar zw/vertical-border-background nil)
 (define-minor-mode zw/ui-padding-mode
   "Toggle UI padding mode."
   :global t
@@ -124,8 +124,10 @@ The order of values may be different."
         (modify-all-frames-parameters '((internal-border-width . 15)
                                         (right-divider-width . 30)))
         (setq window-divider-default-right-width 30
-              zw/window-divider-foreground (face-foreground 'window-divider)
-              zw/window-divider-background (face-background 'window-divider))
+              zw/vertical-border-foreground (face-foreground 'vertical-border)
+              zw/vertical-border-background (face-background 'vertical-border))
+        (set-face-foreground 'vertical-border (face-background 'default))
+        (set-face-background 'vertical-border (face-background 'default))
         (set-face-foreground 'window-divider (face-background 'default))
         (set-face-background 'window-divider (face-background 'default))
         (set-face-attribute 'mode-line nil
@@ -140,8 +142,10 @@ The order of values may be different."
       (modify-all-frames-parameters '((internal-border-width . 0)
                                       (right-divider-width . 6)))
       (setq window-divider-default-right-width 6)
-      (set-face-foreground 'window-divider zw/window-divider-foreground)
-      (set-face-background 'window-divider zw/window-divider-background)
+      (set-face-foreground 'vertical-border zw/vertical-border-foreground)
+      (set-face-background 'vertical-border zw/vertical-border-background)
+      (set-face-foreground 'window-divider zw/vertical-border-foreground)
+      (set-face-background 'window-divider zw/vertical-border-background)
       (set-face-attribute 'mode-line nil :box 'unspecified)
       (set-face-attribute 'mode-line-inactive nil :box 'unspecified))))
 
