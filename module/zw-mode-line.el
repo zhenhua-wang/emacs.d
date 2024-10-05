@@ -178,7 +178,7 @@
     zw/modeline-separator))
 
 ;; ** remote
-(defcustom zw/modeline-remote-show-local nil
+(defcustom zw/modeline-remote-show-local t
   "Whether show local indicator on mode line."
   :type 'boolean)
 
