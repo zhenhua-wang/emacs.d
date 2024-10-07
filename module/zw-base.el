@@ -130,6 +130,10 @@ The order of values may be different."
         (set-face-background 'vertical-border (face-background 'default))
         (set-face-foreground 'window-divider (face-background 'default))
         (set-face-background 'window-divider (face-background 'default))
+        (set-face-attribute 'tab-bar nil
+                            :box (list :line-width 2
+                                       :color (face-background 'tab-bar)
+                                       :style nil))
         (set-face-attribute 'mode-line nil
                             :box (list :line-width 6
                                        :color (face-background 'mode-line)
@@ -146,6 +150,7 @@ The order of values may be different."
       (set-face-background 'vertical-border zw/vertical-border-background)
       (set-face-foreground 'window-divider zw/vertical-border-foreground)
       (set-face-background 'window-divider zw/vertical-border-background)
+      (set-face-attribute 'tab-bar nil :box 'unspecified)
       (set-face-attribute 'mode-line nil :box 'unspecified)
       (set-face-attribute 'mode-line-inactive nil :box 'unspecified))))
 
