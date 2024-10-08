@@ -102,7 +102,7 @@
     (set-face-attribute 'child-frame-border nil
                         :background highlight-color)
     (set-face-attribute 'zw/left-side-window-face nil
-                        :background block-color :height (face-attribute 'default :height))
+                        :height (face-attribute 'default :height))
     ;; user face
     (custom-theme-set-faces
      'user
