@@ -85,11 +85,8 @@
 (defun zw/tab-bar-format-env ()
   (let ((env (ignore-errors
                (substring-no-properties (string-trim (zw/modeline-env)))))
-        (icon (nerd-icons-faicon "nf-fa-desktop"
-                                 :height 0.85
-                                 :v-adjust 0.15))
-        (separator (if (display-graphic-p) " " "  ")))
-    `((env menu-item ,(if env (concat icon separator env) icon)
+        (separator " "))
+    `((env menu-item ,(when env (concat separator env))
            zw/tab-bar--env-menu :help "Click to activate environment"))))
 
 ;; ** dired
@@ -108,14 +105,15 @@
         (zw/dired-sidebar-enable buffer)))))
 
 (defun zw/tab-bar-format-dired ()
-  `((dired-button menu-item
-                  ,(propertize
-                    (nerd-icons-faicon
-                     "nf-fa-dedent"
-                     :height 0.85
-                     :v-adjust 0.15)
-                    'mouse-face 'highlight)
-                  zw/tab-bar--open-dired :help "Open dired in current directory")))
+  (let ((icon (if (display-graphic-p)
+                  (nerd-icons-faicon
+                   "nf-fa-dedent"
+                   :height 0.85
+                   :v-adjust 0.15)
+                "≡")))
+    `((dired-button menu-item
+                    ,(propertize icon 'mouse-face 'highlight)
+                    zw/tab-bar--open-dired :help "Open dired in current directory"))))
 
 ;; ** vterm
 (defun zw/tab-bar--open-vterm (event)
@@ -235,15 +233,13 @@
 (setq tab-bar-new-tab-choice "*scratch*"
       tab-bar-new-button-show nil
       tab-bar-close-button-show nil
-      tab-bar-separator (if (display-graphic-p) " " "  ")
+      tab-bar-separator " "
       tab-bar-auto-width nil
       tab-bar-tab-name-format-function 'zw/tab-bar-tab-name-format
       tab-bar-format '(zw/tab-bar-begin
                        ;; tab-bar-format-menu-bar
                        zw/tab-bar-format-dired
-                       tab-bar-separator
                        zw/tab-bar-format-env
-                       " "
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
                        tab-bar-format-align-right))
