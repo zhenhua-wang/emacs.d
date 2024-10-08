@@ -129,16 +129,21 @@ The order of values may be different."
   "Toggle UI padding mode."
   :global t
   (if zw/ui-padding-mode
-      (progn
+      (let ((bg-default (face-background 'default)))
         (modify-all-frames-parameters '((internal-border-width . 15)
                                         (right-divider-width . 30)))
         (setq window-divider-default-right-width 30
               zw/vertical-border-foreground (face-foreground 'vertical-border)
               zw/vertical-border-background (face-background 'vertical-border))
-        (set-face-foreground 'vertical-border (face-background 'default))
-        (set-face-background 'vertical-border (face-background 'default))
-        (set-face-foreground 'window-divider (face-background 'default))
-        (set-face-background 'window-divider (face-background 'default))
+        (custom-set-faces
+         `(vertical-border ((t (:foreground ,bg-default
+                                            :background ,bg-default))))
+         `(window-divider ((t (:foreground ,bg-default
+                                           :background ,bg-default))))
+         `(window-divider-first-pixel ((t (:foreground ,bg-default))))
+         `(window-divider-last-pixel ((t (:foreground ,bg-default))))
+         `(line-number ((t (:background ,bg-default))))
+         `(fringe ((t (:inherit default :background unspecified)))))
         (zw/ui-padding-face-box 'tab-bar)
         (zw/ui-padding-face-box 'mode-line)
         (zw/ui-padding-face-box 'mode-line-inactive))
@@ -146,10 +151,13 @@ The order of values may be different."
       (modify-all-frames-parameters '((internal-border-width . 0)
                                       (right-divider-width . 6)))
       (setq window-divider-default-right-width 6)
-      (set-face-foreground 'vertical-border zw/vertical-border-foreground)
-      (set-face-background 'vertical-border zw/vertical-border-background)
-      (set-face-foreground 'window-divider zw/vertical-border-foreground)
-      (set-face-background 'window-divider zw/vertical-border-background)
+      (custom-set-faces
+       `(vertical-border (( )))
+       `(window-divider (( )))
+       `(window-divider-first-pixel (( )))
+       `(window-divider-last-pixel (( )))
+       `(line-number (( )))
+       `(fringe (( ))))
       (zw/ui-padding-face-box 'tab-bar :reset)
       (zw/ui-padding-face-box 'mode-line :reset)
       (zw/ui-padding-face-box 'mode-line-inactive :reset))))
