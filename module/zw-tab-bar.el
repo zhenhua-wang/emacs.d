@@ -292,7 +292,8 @@
            ("<touchscreen-begin>" . zw/tab-bar-touchscreen-tab-select)
            ("<down-mouse-1>" . nil)
            ("<mouse-1>" . zw/tab-bar-click-tab-select)
-           ("<down-mouse-3>" . nil))
+           ("<down-mouse-3>" . nil)
+           ("<mouse-3>" . zw/tab-bar--env-menu))
 
 (dolist (i (number-sequence 1 9))
   (define-key global-map
