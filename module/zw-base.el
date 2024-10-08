@@ -114,6 +114,15 @@ The order of values may be different."
                 fringe-mode))
   (add-hook 'after-init-hook mode))
 
+(defun zw/ui-padding-face-box (face &optional reset)
+  (set-face-attribute
+   face nil
+   :box (if reset
+            'unspecified
+          (list :line-width 6
+                :color (face-background face)
+                :style nil))))
+
 (defvar zw/vertical-border-foreground nil)
 (defvar zw/vertical-border-background nil)
 (define-minor-mode zw/ui-padding-mode
@@ -130,18 +139,9 @@ The order of values may be different."
         (set-face-background 'vertical-border (face-background 'default))
         (set-face-foreground 'window-divider (face-background 'default))
         (set-face-background 'window-divider (face-background 'default))
-        (set-face-attribute 'tab-bar nil
-                            :box (list :line-width 2
-                                       :color (face-background 'tab-bar)
-                                       :style nil))
-        (set-face-attribute 'mode-line nil
-                            :box (list :line-width 6
-                                       :color (face-background 'mode-line)
-                                       :style nil))
-        (set-face-attribute 'mode-line-inactive nil
-                            :box (list :line-width 6
-                                       :color (face-background 'mode-line-inactive)
-                                       :style nil)))
+        (zw/ui-padding-face-box 'tab-bar)
+        (zw/ui-padding-face-box 'mode-line)
+        (zw/ui-padding-face-box 'mode-line-inactive))
     (progn
       (modify-all-frames-parameters '((internal-border-width . 0)
                                       (right-divider-width . 6)))
@@ -150,9 +150,9 @@ The order of values may be different."
       (set-face-background 'vertical-border zw/vertical-border-background)
       (set-face-foreground 'window-divider zw/vertical-border-foreground)
       (set-face-background 'window-divider zw/vertical-border-background)
-      (set-face-attribute 'tab-bar nil :box 'unspecified)
-      (set-face-attribute 'mode-line nil :box 'unspecified)
-      (set-face-attribute 'mode-line-inactive nil :box 'unspecified))))
+      (zw/ui-padding-face-box 'tab-bar :reset)
+      (zw/ui-padding-face-box 'mode-line :reset)
+      (zw/ui-padding-face-box 'mode-line-inactive :reset))))
 
 (setq-default use-dialog-box nil
               visible-bell t
