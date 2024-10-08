@@ -465,13 +465,18 @@
 
 ;; ** middle space
 (defun zw/modeline-middle-space (rhs)
-  (let ((middle-space (progn
-                        (add-face-text-property 0 (length rhs) 'mode-line t rhs)
-                        (string-pixel-width rhs))))
+  (let* ((middle-space (progn
+                         (add-face-text-property 0 (length rhs) 'mode-line t rhs)
+                         (string-pixel-width rhs)))
+         (vertical-border-p (not (or (display-graphic-p)
+                                     (window-at-side-p (selected-window) 'right))))
+         (vertical-border-width (if vertical-border-p 1 0)))
     (propertize
      " "
      'display
-     `((space :align-to (- (+ right right-fringe right-margin) (,middle-space)))))))
+     `((space :align-to (- (+ right right-fringe right-margin)
+                           (,vertical-border-width)
+                           (,middle-space)))))))
 
 ;; ** modeline right hand side
 (defun zw/modeline-rhs ()
