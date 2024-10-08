@@ -136,10 +136,9 @@ The order of values may be different."
               zw/vertical-border-foreground (face-foreground 'vertical-border)
               zw/vertical-border-background (face-background 'vertical-border))
         (custom-set-faces
-         `(vertical-border ((t (:foreground ,bg-default
-                                            :background ,bg-default))))
-         `(window-divider ((t (:foreground ,bg-default
-                                           :background ,bg-default))))
+         `(internal-border ((t (:background ,bg-default))))
+         `(vertical-border ((t (:foreground ,bg-default :background ,bg-default))))
+         `(window-divider ((t (:foreground ,bg-default :background ,bg-default))))
          `(window-divider-first-pixel ((t (:foreground ,bg-default))))
          `(window-divider-last-pixel ((t (:foreground ,bg-default))))
          `(line-number ((((type graphic)) (:background ,bg-default))))
@@ -152,6 +151,7 @@ The order of values may be different."
                                       (right-divider-width . 6)))
       (setq window-divider-default-right-width 6)
       (custom-set-faces
+       `(internal-border (( )))
        `(vertical-border (( )))
        `(window-divider (( )))
        `(window-divider-first-pixel (( )))
