@@ -75,10 +75,10 @@
                                         (face-foreground 'highlight nil 'default)))
          (highlight-alt-color         (face-foreground 'warning nil 'default))
          (highlight-alt-revert-color  highlight-revert-color)
+         (highlight-inactive-color    (zw/theme-emphasize-color
+                                       (face-background 'mode-line-inactive nil t) 0.05 dark-p))
          (block-color                 (zw/theme-emphasize-color
                                        (face-background 'default nil t) 0.06 dark-p))
-         (mode-line-inactive-color    (zw/theme-emphasize-color
-                                       (face-background 'mode-line-inactive nil t) 0.05 dark-p))
          (tab-bar-box                 (zw/theme-emphasize-color
                                        (face-background 'tab-bar nil t) 0.05 dark-p))
          (modeline-height             130)
@@ -101,6 +101,8 @@
                         :underline tab-bar-box :bold t)
     (set-face-attribute 'child-frame-border nil
                         :background highlight-color)
+    (set-face-attribute 'zw/left-side-window-face nil
+                        :background block-color :height (face-attribute 'default :height))
     ;; user face
     (custom-theme-set-faces
      'user
@@ -114,7 +116,7 @@
      `(zw/modeline-highlight-foreground-active
        ((t (:inherit mode-line :foreground ,highlight-color))))
      `(zw/modeline-highlight-background-inactive
-       ((t (:inherit zw/modeline-default-inactive :background ,mode-line-inactive-color))))
+       ((t (:inherit zw/modeline-default-inactive :background ,highlight-inactive-color))))
      `(zw/modeline-separator-active
        ((t (:inherit mode-line :background ,mode-line-color))))
      `(zw/modeline-local-active

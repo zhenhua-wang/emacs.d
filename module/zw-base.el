@@ -330,17 +330,19 @@ The order of values may be different."
     (dolist (func zw/left-side-window-open-functions)
       (funcall func))))
 
+(defface zw/left-side-window-face
+  `((t (:inherit 'tab-bar :box nil)))
+  "Face for left side window."
+  :group 'convenience)
+
 (define-minor-mode zw/left-side-window-mode
   "Toggle left side window."
   :global nil
   :keymap `((,(kbd "s-b") . zw/left-side-window-toggle)
             (,(kbd "s-q") . zw/left-side-window-toggle))
   :after-hook (progn
-                (setq buffer-face-mode-face
-                      (list :inherit 'tab-bar
-                            :height (face-attribute 'default :height)
-                            :box nil))
-                (setq-local display-buffer-base-action
+                (setq-local buffer-face-mode-face 'zw/left-side-window-face
+                            display-buffer-base-action
                             '((zw/display-buffer-in-largest-window)))
                 (buffer-face-mode 1)
                 (zw/visual-line-disable)))
