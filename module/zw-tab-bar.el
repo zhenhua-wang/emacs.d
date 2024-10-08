@@ -110,8 +110,8 @@
 (defun zw/tab-bar-format-dired ()
   `((dired-button menu-item
                   ,(propertize
-                    (nerd-icons-codicon
-                     "nf-cod-folder"
+                    (nerd-icons-faicon
+                     "nf-fa-dedent"
                      :height 0.85
                      :v-adjust 0.15)
                     'mouse-face 'highlight)
