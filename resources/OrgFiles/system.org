@@ -354,7 +354,7 @@ sudo flatpak override --filesystem=xdg-config/gtk-4.0:ro
 *** Customize Bash prompt
 Add the following to ~.bashrc~
 #+begin_src sh
-PS1='\[\033[1;37m\]\u\[\033[1;37m\]@\[\033[1;37m\]\h:\[\033[1;34m\]\w\[\033[1;32m\]$([ \j -gt 0 ] && echo " [bg \j]") \[\033[0m\]'
+PS1='\[\033[1m\]\u\[\033[1m\]@\[\033[1m\]\h:\[\033[1;34m\]\w\[\033[1;32m\]$([ \j -gt 0 ] && echo " [bg \j]") \[\033[0m\]'
 # fix for emacs tramp
 [[ $TERM == "dumb" ]] && PS1='$ ' && return
 #+end_src
