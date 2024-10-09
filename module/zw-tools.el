@@ -150,9 +150,12 @@
         (when (dired-move-to-filename nil)
           (dired-move-to-filename)
           (let* ((file (dired-get-filename 'relative t))
+                 (dir-face (if (boundp 'diredfl-dir-name)
+                               'diredfl-dir-name
+                             'dired-directory))
                  (icon (if (file-directory-p file)
                            (nerd-icons-icon-for-dir file
-                                                    :face 'dired-directory
+                                                    :face dir-face
                                                     :v-adjust 0.01)
                          (nerd-icons-icon-for-file file :v-adjust 0.01))))
             (when zw-dired-sidebar-mode
