@@ -433,13 +433,14 @@
                       (define-key map (vector 'mode-line 'mouse-1) 'flymake-start)
                       map)))
        (if (and (= num-errors 0) (= num-warnings 0))
-           (propertize (nerd-icons-octicon
-                        "nf-oct-check"
-                        :height 1
-                        :v-adjust 0.05)
-                       'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
-                       'mouse-face 'highlight
-                       'keymap keymap)
+           (concat (propertize (nerd-icons-octicon
+                                "nf-oct-check"
+                                :height 1
+                                :v-adjust 0.05)
+                               'face (zw/modeline-set-face 'success 'zw/modeline-default-inactive)
+                               'mouse-face 'highlight
+                               'keymap keymap)
+                   (if (display-graphic-p) "" " "))
          (concat (propertize (nerd-icons-faicon
                               "nf-fa-times_circle"
                               :height 1
