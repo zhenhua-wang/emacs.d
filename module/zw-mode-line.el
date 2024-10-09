@@ -161,7 +161,7 @@
             (height (floor (* (string-pixel-width " ")
                               2.7))))
         (zw/modeline--bar color width height))
-    ""))
+    " "))
 
 ;; ** seperator
 (defvar zw/modeline-separator
@@ -498,11 +498,11 @@
     ;; left
     '(:eval (zw/modeline-remote))
     '(:eval (zw/modeline-buffer-name 30 "..."))
-    '(:eval (zw/modeline-read-only))
+    (if (display-graphic-p) "" zw/modeline-separator)
     '(:eval (zw/modeline-text-scale))
+    '(:eval (zw/modeline-read-only))
     '(:eval (zw/modeline-lsp))
     '(:eval (zw/modeline-eglot))
-    (if (display-graphic-p) "" zw/modeline-separator)
     '(:eval (zw/modeline-flymake))
     '(:eval (zw/modeline-mark-count))
     '(:eval (zw/modeline-kmacro-recording))
