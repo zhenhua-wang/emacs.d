@@ -193,7 +193,6 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
   (setq ess-style 'RStudio-
         ess-nuke-trailing-whitespace-p t
         ess-ask-for-ess-directory nil
-        ess-local-process-name "R"
         ess-use-company nil
         ess-use-flymake t
         ess-eval-visibly-p 'nowait
