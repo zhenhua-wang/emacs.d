@@ -12,7 +12,15 @@
 (setq gc-cons-threshold most-positive-fixnum
       load-prefer-newer noninteractive
       frame-inhibit-implied-resize t
-      package-enable-at-startup nil)
+      package-enable-at-startup nil
+      auto-mode-case-fold nil
+      idle-update-delay 1.0
+      inhibit-compacting-font-caches t
+      redisplay-skip-fontification-on-input t
+      ;; startup
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message t
+      initial-scratch-message nil)
 
 ;; use package
 (setq use-package-always-defer t

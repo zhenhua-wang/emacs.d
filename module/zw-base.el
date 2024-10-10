@@ -199,8 +199,14 @@ The order of values may be different."
   (visual-line-mode -1)
   (setq-local truncate-lines 1))
 
-;; ** So long
+;; ** Speedup long line
 (add-hook 'after-init-hook 'global-so-long-mode)
+
+(setq-default bidi-display-reordering nil
+              bidi-inhibit-bpa t
+              long-line-threshold 1000
+              large-hscroll-threshold 1000
+              syntax-wholeline-max 1000)
 
 ;; ** Whitespace
 (dolist (mode '(prog-mode-hook

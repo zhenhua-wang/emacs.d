@@ -1,19 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(setq-default auto-mode-case-fold nil
-              inhibit-startup-screen t
-              initial-scratch-message nil
-              ;; speed up emacs
-              idle-update-delay 1.0
-              inhibit-compacting-font-caches t
-              redisplay-skip-fontification-on-input t
-              ;; optimize long file
-              bidi-display-reordering nil
-              bidi-inhibit-bpa t
-              long-line-threshold 1000
-              large-hscroll-threshold 1000
-              syntax-wholeline-max 1000)
-
 ;; Unset file-name-handler-alist temporarily and restore it later
 (unless (or (daemonp) noninteractive init-file-debug)
   (let ((old-file-name-handler-alist file-name-handler-alist))
