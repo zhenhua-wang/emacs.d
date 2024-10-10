@@ -79,6 +79,10 @@
                                        (face-background 'mode-line-inactive nil t) 0.05 dark-p))
          (block-color                 (zw/theme-emphasize-color
                                        (face-background 'default nil t) 0.06 dark-p))
+         (popup-color                 (zw/theme-emphasize-color
+                                       (face-background 'default nil t) 0.1 dark-p))
+         (popup-hl-color              (zw/theme-emphasize-color
+                                       (face-background 'default nil t) 0.2 dark-p))
          (tab-bar-box                 (zw/theme-emphasize-color
                                        (face-background 'tab-bar nil t) 0.05 dark-p))
          (modeline-height             130)
@@ -177,7 +181,9 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))
 
      ;; vertico
-     `(vertico-posframe-border ((t (:inherit child-frame-border))))
+     `(vertico-posframe ((t (:inherit child-frame-border :background ,popup-color))))
+     `(vertico-posframe-border ((t (:inherit default :background ,popup-color))))
+     `(vertico-current ((t (:inherit child-frame-border :background ,popup-hl-color :bold t))))
 
      ;; eglot
      `(eglot-highlight-symbol-face
