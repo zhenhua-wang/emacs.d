@@ -183,7 +183,7 @@
      ;; vertico
      `(vertico-posframe ((t (:inherit child-frame-border :background ,popup-color))))
      `(vertico-posframe-border ((t (:inherit default :background ,popup-color))))
-     `(vertico-current ((t (:inherit child-frame-border :background ,popup-hl-color :bold t))))
+     `(vertico-current ((((type graphic)) (:inherit child-frame-border :background ,popup-hl-color :bold t))))
 
      ;; eglot
      `(eglot-highlight-symbol-face
