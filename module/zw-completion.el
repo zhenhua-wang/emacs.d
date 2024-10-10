@@ -56,7 +56,7 @@
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
   :init
-  (setq vertico-posframe-border-width 12
+  (setq vertico-posframe-border-width 20
         vertico-posframe-poshandler 'posframe-poshandler-frame-center
         vertico-posframe-parameters '((left-fringe . 8)
                                       (right-fringe . 8))
