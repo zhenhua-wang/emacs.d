@@ -181,9 +181,9 @@
      `(company-posframe-inactive-backend-name ((t (:inherit company-tooltip :background unspecified))))
 
      ;; vertico
-     `(vertico-posframe ((t (:inherit child-frame-border :background ,popup-color))))
+     `(vertico-posframe ((t (:inherit default :background ,popup-color))))
      `(vertico-posframe-border ((t (:inherit default :background ,popup-color))))
-     `(vertico-current ((((type graphic)) (:inherit child-frame-border :background ,popup-hl-color :bold t))))
+     `(vertico-current ((((type graphic)) (:inherit default :background ,popup-hl-color :bold t))))
 
      ;; eglot
      `(eglot-highlight-symbol-face
