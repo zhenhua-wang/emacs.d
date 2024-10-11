@@ -61,7 +61,15 @@
         vertico-posframe-parameters '((left-fringe . 8)
                                       (right-fringe . 8))
         vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
-                                           (/ (display-pixel-height) (frame-char-width) 0.9)))))
+                                           (/ (display-pixel-height) (frame-char-width) 0.9))))
+  :config
+  (defun zw/vertico-posframe-refresh ()
+    "Refresh frames and buffers used for vertico-posframe."
+    (interactive)
+    (dolist (buffer (buffer-list))
+      (when (minibufferp buffer)
+        (posframe-refresh buffer))))
+  (advice-add 'zw/theme-set-theme :after 'zw/vertico-posframe-refresh))
 
 ;; * Marginalia
 (use-package marginalia
