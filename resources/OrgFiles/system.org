@@ -64,9 +64,6 @@ https://extensions.gnome.org/extension/2398/hide-universal-access/
 https://extensions.gnome.org/extension/5233/swap-finger-gestures-3-to-4/
 
 *** tricks
-**** firefox force wayland
-Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
-
 **** Easily find out what is being set
 1. Open a terminal window
 2. Run the command:
@@ -172,7 +169,6 @@ ninja -C builddir/
 sudo ninja -C builddir/ install
 #+end_src
 
-
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
@@ -267,11 +263,17 @@ Since we set global scale to 200%, we need to set ~autoScale=false~ in ~/.config
 - Re run grub config: ~sudo grub-mkconfig -o /boot/grub/grub.cfg~
 
 *** Firefox
-1. Messed up font rendering in Firefox PDF viewer
-   - disable "Allow websites to pick their own fonts" ( =browser.display.use_document_fonts= would be 0 in about:config ) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
+**** firefox force wayland
+Add ~MOZ_ENABLE_WAYLAND=1~ into ~/etc/environment~
 
-2. Ctrl or Cmd + trackpad or mouse wheel
-   - Set =mousewheel.with_meta.action= to 3 in about:config
+**** firefox enable gesture in x11
+Add ~MOZ_USE_XINPUT2=1~ into ~/etc/environment~
+
+**** Messed up font rendering in Firefox PDF viewer
+Disable "Allow websites to pick their own fonts" ( =browser.display.use_document_fonts= would be 0 in about:config ) https://www.reddit.com/r/firefox/comments/noxwav/comment/h041c28/?utm_source=share&utm_medium=web2x&context=3
+
+**** Ctrl or Cmd + trackpad or mouse wheel
+Set =mousewheel.with_meta.action= to 3 in about:config
 https://connect.mozilla.org/t5/discussions/ctrl-or-cmd-trackpad-or-mouse-wheel-on-firefox-109-macos/m-p/23108
 
 *** GPU and Tensorflow
