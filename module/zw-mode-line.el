@@ -381,6 +381,7 @@
                                 (mapcar (lambda (w)
                                           (format "[%s]" (lsp--workspace-print w)))
                                         workspaces)))))
+       (when (not (display-graphic-p)) " ")
        zw/modeline-separator))))
 
 (defun zw/modeline-eglot ()
@@ -395,6 +396,7 @@
                                (format "[%s/%s]"
                                        (eglot--major-modes server)
                                        (eglot--project-nickname server)))))
+       (when (not (display-graphic-p)) " ")
        zw/modeline-separator))))
 
 ;; ** major mode
