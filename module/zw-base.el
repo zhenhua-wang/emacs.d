@@ -784,7 +784,7 @@ The order of values may be different."
     (let* ((marker-string "*fringe-dummy*")
 	   (marker-length (length marker-string))
 	   (display-string
-	    (format " (%d lines)... "
+	    (format " {%d lines...} "
 		    (count-lines (overlay-start ov) (overlay-end ov)))))
       (overlay-put ov 'help-echo "<backtab> to toggle")
       (put-text-property 0 marker-length 'display
