@@ -148,6 +148,14 @@
      `(zw/tab-bar-tab-battery-load-critical
        ((t (:inherit (error zw/tab-bar-default-selected) :bold t))))
 
+     ;; tty menu
+     `(tty-menu-enabled-face
+       ((t (:background ,(face-background 'tooltip)))))
+     `(tty-menu-disabled-face
+       ((t (:background ,(face-background 'tooltip) :foreground ,(face-foreground 'tooltip)))))
+     `(tty-menu-selected-face
+       ((t (:background ,highlight-color :foreground ,highlight-revert-color :weight bold))))
+
      ;; vc
      '(vc-edited-state ((t (:foreground "#FF9F29"))))
      '(vc-locally-added-state ((t (:foreground "#3CCF4E"))))
