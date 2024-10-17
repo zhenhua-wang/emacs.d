@@ -8,5 +8,5 @@
 (setq
  zw/modeline-remote-show-local nil
  zw/tab-line-show-debug nil
- company-idle-delay 0
+ ;; company-idle-delay 0
  )
