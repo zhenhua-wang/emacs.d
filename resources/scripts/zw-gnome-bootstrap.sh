@@ -1,6 +1,6 @@
 cd ~
 # yay
-sudo pacman -S --noconfirm --needed git base-devel cmake inetutils
+sudo pacman -S --noconfirm --needed archlinux-keyring git base-devel cmake inetutils
 git clone https://aur.archlinux.org/yay.git
 cd ~/yay && git pull && makepkg -si --noconfirm && cd ~
 yay() {
