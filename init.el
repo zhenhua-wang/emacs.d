@@ -43,5 +43,6 @@
   (copy-file "~/.emacs.d/resources/scripts/zw-user-config.el" zw/user-config))
 (load zw/user-config)
 (defun zw/open-user-config ()
+  "Open user configuration file."
   (interactive)
   (find-file zw/user-config))
