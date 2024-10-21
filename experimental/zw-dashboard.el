@@ -32,8 +32,7 @@
        (lambda (&rest _) (zw/update-emacs-tangle-dotfiles))))))
   :init
   (defun zw/dashboard--modeline-name ()
-    (propertize (concat " " default-directory " "
-                        zw/modeline-separator)
+    (propertize (concat " Home " zw/modeline-separator)
                 'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                             'zw/modeline-default-inactive)))
   (defun zw/dashboard-init ()
