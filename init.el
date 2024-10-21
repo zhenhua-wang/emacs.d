@@ -16,10 +16,10 @@
 (push "~/.emacs.d/experimental" load-path)
 
 ;; base
+(require 'zw-base)
 (require 'zw-package)
 (require 'zw-compat)
 (require 'zw-startup)
-(require 'zw-base)
 ;; appearance
 (require 'zw-theme)
 (require 'zw-appearance)
