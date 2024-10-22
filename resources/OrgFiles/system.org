@@ -353,6 +353,13 @@ sudo flatpak override --filesystem=xdg-config/gtk-3.0:ro
 sudo flatpak override --filesystem=xdg-config/gtk-4.0:ro
 #+end_src
 
+*** Flatpak run command line tools in app
+flatpak run --command=[cl-tool] [app] [arguments to cl-tool]
+#+begin_src sh
+# example
+flatpak run --command=sumo-gui org.eclipse.sumo -c my_config_file.sumocfg --full-output output.xml
+#+end_src
+
 *** Customize Bash prompt
 Add the following to ~.bashrc~
 #+begin_src sh
