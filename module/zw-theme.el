@@ -280,7 +280,8 @@
             (zw/theme-set-theme)))
 
 ;; load custom faces
-(add-hook 'server-after-make-frame-hook #'zw/theme-set-theme)
+(when (daemonp)
+  (add-hook 'server-after-make-frame-hook #'zw/theme-set-theme))
 (advice-add #'consult-theme
             :after (lambda (arg)
                      (zw/theme-set-theme)
