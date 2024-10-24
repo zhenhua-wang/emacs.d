@@ -169,8 +169,8 @@
   (after-init . global-company-mode)
   (company-mode . yas-minor-mode)
   :bind ((:map company-mode-map
-               ("M-<tab>" . zw/company-manual-begin)
-               ("C-M-i" . zw/company-manual-begin)
+               ("M-<tab>" . company-manual-begin)
+               ("C-M-i" . company-manual-begin)
                ("M-Y" . company-yasnippet)
                ("C-<tab>" . company-yasnippet)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
@@ -223,12 +223,7 @@
   (advice-add 'company-dabbrev--prefix :around 'company-backend--prefix-advice)
   ;; auto-complete in text-mode
   (add-hook 'text-mode-hook (lambda ()
-                              (setq-local company-idle-delay 0)))
-  ;; always preselect the first in manual completion
-  (defun zw/company-manual-begin ()
-    (interactive)
-    (let ((company-selection-default 0))
-      (call-interactively 'company-manual-begin))))
+                              (setq-local company-idle-delay 0))))
 
 (use-package company-prescient
   :hook

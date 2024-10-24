@@ -9,7 +9,7 @@
 (setq zw/modeline-remote-show-local nil
       zw/tab-line-show-debug nil)
 
-;; auto complete with preselection
+;; auto complete
 ;; (setq company-idle-delay 0
-;;       company-selection-default nil
-;;       company-frontends '(company-pseudo-tooltip-frontend))
+;;       company-frontends '(company-pseudo-tooltip-frontend
+;;                           company-echo-metadata-frontend))
