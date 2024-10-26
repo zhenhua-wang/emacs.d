@@ -64,12 +64,12 @@
                                            (/ (display-pixel-height) (frame-char-width) 0.9))))
   :config
   (defun zw/vertico-posframe-refresh ()
-    "Refresh frames and buffers used for vertico-posframe."
+    "Refresh vertico-posframe."
     (interactive)
-    (dolist (buffer (buffer-list))
-      (when (minibufferp buffer)
-        (posframe-refresh buffer))))
-  (advice-add 'zw/theme-set-theme :after 'zw/vertico-posframe-refresh))
+    (vertico-posframe-cleanup)
+    (when (> (minibuffer-depth) 0)
+      (vertico-posframe--show vertico-posframe--buffer 0)))
+  (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-refresh))
 
 ;; * Marginalia
 (use-package marginalia
