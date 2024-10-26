@@ -17,7 +17,9 @@
     (when (find-font fixed-pitch-font)
       (set-face-attribute 'fixed-pitch nil :font fixed-pitch-font))
     (when (find-font variable-pitch-font)
-      (set-face-attribute 'variable-pitch nil :font variable-pitch-font))))
+      (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
+  ;; load nerd icons
+  (ignore-errors (nerd-icons-set-font)))
 
 (use-package nerd-icons
   :config
@@ -270,7 +272,6 @@
 ;; * Load theme
 (defun zw/theme-load-ui ()
   (zw/theme-set-font)
-  (ignore-errors (nerd-icons-set-font))
   (zw/theme-set-theme))
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
