@@ -63,13 +63,18 @@
         vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
                                            (/ (display-pixel-height) (frame-char-width) 0.9))))
   :config
+  (defun zw/vertico-posframe-init ()
+    "Initialize vertico-posframe UI."
+    (setq vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
+                                             (/ (display-pixel-height) (frame-char-width) 0.9)))))
   (defun zw/vertico-posframe-refresh ()
     "Refresh vertico-posframe."
     (interactive)
     (vertico-posframe-cleanup)
     (when (> (minibuffer-depth) 0)
       (vertico-posframe--show vertico-posframe--buffer 0)))
-  (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-refresh))
+  (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-init)
+  (add-hook 'server-after-make-frame-hook 'zw/vertico-posframe-refresh))
 
 ;; * Marginalia
 (use-package marginalia

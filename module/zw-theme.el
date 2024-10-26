@@ -1,22 +1,23 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Font
-(let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
-      (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0))
-      (emoji-font (font-spec :name "Noto Color Emoji" :size 13.0))
-      (fixed-pitch-font (font-spec :name "JetBrains Mono"))
-      (variable-pitch-font (font-spec :name "EB Garamond")))
-  (when (find-font default-font)
-    (set-face-attribute 'default nil :font default-font))
-  (when (find-font cn-font)
-    (dolist (charset '(kana han cjk-misc bopomofo))
-      (set-fontset-font t charset cn-font)))
-  (when (find-font emoji-font)
-    (set-fontset-font t 'symbol emoji-font))
-  (when (find-font fixed-pitch-font)
-    (set-face-attribute 'fixed-pitch nil :font fixed-pitch-font))
-  (when (find-font variable-pitch-font)
-    (set-face-attribute 'variable-pitch nil :font variable-pitch-font)))
+(defun zw/theme-set-font ()
+  (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
+        (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0))
+        (emoji-font (font-spec :name "Noto Color Emoji" :size 13.0))
+        (fixed-pitch-font (font-spec :name "JetBrains Mono"))
+        (variable-pitch-font (font-spec :name "EB Garamond")))
+    (when (find-font default-font)
+      (set-face-attribute 'default nil :font default-font))
+    (when (find-font cn-font)
+      (dolist (charset '(kana han cjk-misc bopomofo))
+        (set-fontset-font t charset cn-font)))
+    (when (find-font emoji-font)
+      (set-fontset-font t 'symbol emoji-font))
+    (when (find-font fixed-pitch-font)
+      (set-face-attribute 'fixed-pitch nil :font fixed-pitch-font))
+    (when (find-font variable-pitch-font)
+      (set-face-attribute 'variable-pitch nil :font variable-pitch-font))))
 
 (use-package nerd-icons
   :config
@@ -268,6 +269,9 @@
   (run-hooks 'zw/after-set-theme-hook))
 
 ;; * Load theme
+(defun zw/theme-load-ui ()
+  (zw/theme-set-font)
+  (zw/theme-set-theme))
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
 (add-hook 'after-init-hook
@@ -277,10 +281,11 @@
               (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
             ;; load theme
             (ignore-errors (load zw/theme-selector))
-            (zw/theme-set-theme)))
+            (zw/theme-load-ui)))
 
 ;; load custom faces
-(add-hook 'server-after-make-frame-hook #'zw/theme-set-theme)
+(when (daemonp)
+  (add-hook 'server-after-make-frame-hook #'zw/theme-load-ui))
 (advice-add #'consult-theme
             :after (lambda (arg)
                      (zw/theme-set-theme)
