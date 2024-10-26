@@ -13,3 +13,7 @@
 ;; (setq company-idle-delay 0
 ;;       company-frontends '(company-pseudo-tooltip-frontend
 ;;                           company-echo-metadata-frontend))
+
+;; default maximize all frames
+;; (push '(fullscreen . maximized) default-frame-alist)
+;; (push '(undecorated . t) default-frame-alist)
