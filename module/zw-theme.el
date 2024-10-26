@@ -21,7 +21,6 @@
 
 (use-package nerd-icons
   :config
-  (ignore-errors (nerd-icons-set-font))
   (zw/merge-list-symbols 'nerd-icons/mdicon-alist
                          '(("nf-md-firefox_web_browser" . "󰈹")
                            ("nf-md-visual_studio_code" . "󰨞"))
@@ -271,6 +270,7 @@
 ;; * Load theme
 (defun zw/theme-load-ui ()
   (zw/theme-set-font)
+  (ignore-errors (nerd-icons-set-font))
   (zw/theme-set-theme))
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
