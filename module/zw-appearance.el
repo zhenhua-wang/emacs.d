@@ -1,8 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Posframe
-(use-package posframe
-  :if (zw/icon-displayable-p))
+(use-package posframe)
 
 ;; * Rain bow delimiters
 (use-package rainbow-delimiters

@@ -54,17 +54,14 @@
   :hook (vertico-mode . vertico-posframe-mode)
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
-  :init
-  (setq vertico-posframe-border-width 20
-        vertico-posframe-poshandler 'posframe-poshandler-frame-center
-        vertico-posframe-parameters '((left-fringe . 8)
-                                      (right-fringe . 8))
-        vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
-                                           (/ (display-pixel-height) (frame-char-width) 0.9))))
   :config
   (defun zw/vertico-posframe-init ()
     "Initialize vertico-posframe UI."
-    (setq vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
+    (setq vertico-posframe-border-width 20
+          vertico-posframe-poshandler 'posframe-poshandler-frame-center
+          vertico-posframe-parameters '((left-fringe . 8)
+                                        (right-fringe . 8))
+          vertico-posframe-width (floor (min (/ (display-pixel-width) (frame-char-width) 1.2)
                                              (/ (display-pixel-height) (frame-char-width) 0.9)))))
   (defun zw/vertico-posframe-refresh ()
     "Refresh vertico-posframe."
