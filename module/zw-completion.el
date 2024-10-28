@@ -61,7 +61,9 @@
           vertico-posframe-poshandler 'posframe-poshandler-frame-center
           vertico-posframe-parameters '((left-fringe . 8)
                                         (right-fringe . 8))
-          vertico-posframe-width (floor (/ (display-pixel-width) (frame-char-width) 1.5))))
+          vertico-posframe-width (floor (/ (display-pixel-width) (frame-char-width) 1.5)))
+    (when (not (display-graphic-p))
+      (standard-display-unicode-special-glyphs)))
   (defun zw/vertico-posframe-refresh ()
     "Refresh vertico-posframe."
     (interactive)
