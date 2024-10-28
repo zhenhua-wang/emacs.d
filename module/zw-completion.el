@@ -51,7 +51,6 @@
            (cl-remove-if (lambda (x) (string-suffix-p "/" x)) files))))
 
 (use-package vertico-posframe
-  :if (zw/icon-displayable-p)
   :hook (vertico-mode . vertico-posframe-mode)
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
