@@ -2,6 +2,7 @@
 (require 'zw-theme-extra)
 ;; (require 'zw-eaf)
 ;; (require 'zw-copilot)
+;; (require 'zw-tool-bar)
 
 (add-hook 'zw/after-set-theme-hook 'zw/ui-padding-mode)
 (add-hook 'after-init-hook 'keycast-tab-bar-mode)
@@ -17,8 +18,3 @@
 ;; default maximize all frames
 ;; (push '(fullscreen . maximized) default-frame-alist)
 ;; (push '(undecorated . t) default-frame-alist)
-
-;; left tool-bar
-;; (push '(tool-bar-lines . 1)   initial-frame-alist)
-;; (push '(tool-bar-position . left)   initial-frame-alist)
-;; (setq tool-bar-style 'image)
