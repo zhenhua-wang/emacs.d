@@ -17,3 +17,8 @@
 ;; default maximize all frames
 ;; (push '(fullscreen . maximized) default-frame-alist)
 ;; (push '(undecorated . t) default-frame-alist)
+
+;; left tool-bar
+;; (push '(tool-bar-lines . 1)   initial-frame-alist)
+;; (push '(tool-bar-position . left)   initial-frame-alist)
+;; (setq tool-bar-style 'image)
