@@ -8,8 +8,16 @@
 (setq tool-bar-separator-image-expression
       (tool-bar--image-expression "separator"))
 
+;; functions
+(defun zw/tool-bar-home ()
+  (interactive)
+  (let ((home-buff-name "*scratch*"))
+    (if (string= (buffer-name) home-buff-name)
+        (switch-to-buffer nil)
+      (switch-to-buffer home-buff-name))))
+
 ;; items
-(tool-bar-add-item "home" 'zw/open-user-config 'zw/open-user-config :label "Emacs")
+(tool-bar-add-item "home" 'zw/tool-bar-home 'zw/open-user-config :label "Emacs")
 (define-key-after (default-value 'tool-bar-map) [separator-1] menu-bar-separator)
 (tool-bar-add-item-from-menu 'find-file "new" nil :label "New File")
 (tool-bar-add-item-from-menu 'menu-find-file-existing "open" nil :label "Open")
