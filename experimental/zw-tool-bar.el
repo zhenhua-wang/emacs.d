@@ -10,6 +10,7 @@
 
 ;; functions
 (defun zw/tool-bar-home ()
+  "Switch to scratch buffer."
   (interactive)
   (let ((home-buff-name "*scratch*"))
     (if (string= (buffer-name) home-buff-name)
@@ -17,7 +18,7 @@
       (switch-to-buffer home-buff-name))))
 
 ;; items
-(tool-bar-add-item "home" 'zw/tool-bar-home 'zw/open-user-config :label "Emacs")
+(tool-bar-add-item "home" 'zw/tool-bar-home 'zw/tool-bar-home :label "Emacs")
 (define-key-after (default-value 'tool-bar-map) [separator-1] menu-bar-separator)
 (tool-bar-add-item-from-menu 'find-file "new" nil :label "New File")
 (tool-bar-add-item-from-menu 'menu-find-file-existing "open" nil :label "Open")
