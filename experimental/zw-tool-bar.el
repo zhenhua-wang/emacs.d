@@ -11,7 +11,7 @@
 
 ;; functions
 (defun zw/tool-bar-add-item (command image help-echo)
-  "Add button (24px) on tab-bar."
+  "Add button (20px) on tab-bar."
   (define-key-after (default-value 'tool-bar-map) (vector command)
     `(menu-item "Open user configuration file" ,command
                 :enable t
