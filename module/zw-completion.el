@@ -70,6 +70,7 @@
     (when (> (minibuffer-depth) 0)
       (vertico-posframe--show vertico-posframe--buffer 0)))
   (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-init)
+  (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-refresh)
   (add-hook 'server-after-make-frame-hook 'zw/vertico-posframe-refresh))
 
 ;; * Marginalia
