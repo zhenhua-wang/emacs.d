@@ -23,6 +23,7 @@
         eglot-stay-out-of '(company)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
   ;; speedup eglot
+  (setq jsonrpc-event-hook nil)
   (fset #'jsonrpc--log-event #'ignore)
   (setf (plist-get eglot-events-buffer-config :size) 0)
   ;; flymake-start after eglot publishDiagnostics
