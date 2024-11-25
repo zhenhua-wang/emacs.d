@@ -25,7 +25,11 @@
           (conda-env-deactivate)
         (conda-env-activate env))))
   :config
-  (setq conda-message-on-environment-switch nil)
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args
+        "-i --simple-prompt --InteractiveShell.display_page=True")
+  (add-to-list 'python-shell-completion-native-disabled-interpreters
+               "ipython")
   (or (cl-loop for dir in (list conda-anaconda-home
                                 "~/.anaconda"
                                 "~/.miniconda"
@@ -46,15 +50,6 @@
       (message "Cannot find Anaconda installation"))
   ;; update conda environment
   (defun zw/conda-env-update ()
-    (cond ((executable-find "ipython")
-           (setq python-shell-interpreter "ipython"
-                 python-shell-interpreter-args
-                 "-i --simple-prompt --InteractiveShell.display_page=True")
-           (add-to-list 'python-shell-completion-native-disabled-interpreters
-                        "ipython"))
-          (t
-           (setq python-shell-interpreter "python3"
-                 python-shell-interpreter-args "-i")))
     ;; refresh current buffer
     (when (buffer-file-name)
       (revert-buffer-quick)))
