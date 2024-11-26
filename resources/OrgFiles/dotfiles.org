@@ -71,7 +71,6 @@ options(menu.graphics=FALSE)
 # default conf
 font_size 15.0
 cursor_trail 3
-cursor_trail_decay 0.1 0.4
 window_margin_width 0 3
 confirm_os_window_close 1
 hide_window_decorations yes
