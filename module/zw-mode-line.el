@@ -275,23 +275,7 @@
                           total-line-number))
                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                             'zw/modeline-default-inactive)))
-   ((eq major-mode 'pdf-view-mode)
-    (propertize (concat
-                 (number-to-string
-                  (pdf-view-current-page))
-                 "/"
-                 (or
-                  (ignore-errors
-                    (number-to-string
-                     (pdf-cache-number-of-pages)))
-                  "???")
-                 " ")
-                'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                            'zw/modeline-default-inactive)))
-   (t
-    (propertize "%l:%c %p "
-                'face (zw/modeline-set-face 'zw/modeline-line-column-active
-                                            'zw/modeline-default-inactive)))))
+   (t "")))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
@@ -503,6 +487,7 @@
     (if (display-graphic-p) "" zw/modeline-separator)
     '(:eval (zw/modeline-text-scale))
     '(:eval (zw/modeline-read-only))
+    '(:eval (zw/modeline-line-column))
     '(:eval (zw/modeline-lsp))
     '(:eval (zw/modeline-eglot))
     '(:eval (zw/modeline-flymake))
