@@ -88,8 +88,7 @@ The order of values may be different."
 (setq-default default-directory (concat (getenv "HOME") "/")
               confirm-kill-emacs 'yes-or-no-p
               large-file-warning-threshold nil
-              use-short-answers t
-              cursor-type 'box)
+              use-short-answers t)
 
 ;; default coding
 (set-default-coding-systems 'utf-8)
