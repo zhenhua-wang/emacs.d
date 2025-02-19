@@ -181,32 +181,33 @@
                ("M->" . company-select-last)
                ("M-<" . company-select-first)
                ("<tab>" . company-complete-selection)))
-  :init (setq company-idle-delay nil
-              company-require-match 'never
-              company-selection-wrap-around t
-              company-minimum-prefix-length 1
-              company-abort-on-unique-match nil
-              company-abort-manual-when-too-short t
-              company-icon-size '(auto-scale . 20)
-              company-icon-margin 2
-              company-tooltip-limit 14
-              company-tooltip-align-annotations t
-              company-tooltip-minimum-width 40
-              company-dabbrev-minimum-length 4
-              company-dabbrev-ignore-invisible t
-              company-dabbrev-ignore-case 'keep-prefix
-              company-dabbrev-downcase nil
-              company-dabbrev-other-buffers 'all
-              company-dabbrev-code-other-buffers t
-              company-dabbrev-char-regexp "[[:word:]_-]+"
-              company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
-              company-transformers '(company-sort-prefer-same-case-prefix)
-              company-global-modes '(not message-mode help-mode
-                                         vterm-mode eshell-mode)
-              company-backends '(company-files
-                                 company-capf
-                                 (company-dabbrev :with company-ispell)
-                                 company-yasnippet))
+  :init
+  (setq company-idle-delay nil
+        company-require-match 'never
+        company-selection-wrap-around t
+        company-minimum-prefix-length 1
+        company-abort-on-unique-match nil
+        company-abort-manual-when-too-short t
+        company-icon-size '(auto-scale . 20)
+        company-icon-margin 2
+        company-tooltip-limit 14
+        company-tooltip-align-annotations t
+        company-tooltip-minimum-width 40
+        company-dabbrev-minimum-length 4
+        company-dabbrev-ignore-invisible t
+        company-dabbrev-ignore-case 'keep-prefix
+        company-dabbrev-downcase nil
+        company-dabbrev-other-buffers 'all
+        company-dabbrev-code-other-buffers t
+        company-dabbrev-char-regexp "[[:word:]_-]+"
+        company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
+        company-transformers '(company-sort-prefer-same-case-prefix)
+        company-global-modes '(not message-mode help-mode
+                                   vterm-mode eshell-mode)
+        company-backends '(company-files
+                           company-capf
+                           (company-dabbrev :with company-ispell)
+                           company-yasnippet))
   ;; use literal completion for company-mode
   (defun company-completion-styles (capf-fn &rest args)
     (let ((completion-styles '(basic partial-completion)))
