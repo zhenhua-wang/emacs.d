@@ -436,12 +436,14 @@
   :config
   (setq emacs-websearch-async t))
 
-;; * Image scroll
-(use-package iscroll
+;; * Ultra scroll
+(use-package ultra-scroll
+  :straight '(ultra-scroll :host github :repo "jdtsmith/ultra-scroll")
+  :init
+  (setq scroll-conservatively 101
+        scroll-margin 0)
   :hook
-  (image-mode . iscroll-mode)
-  (org-mode . iscroll-mode)
-  (markdown-mode . iscroll-mode))
+  (after-init . ultra-scroll-mode))
 
 ;; * Flyspell correct
 (use-package flyspell-correct
