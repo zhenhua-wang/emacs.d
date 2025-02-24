@@ -304,34 +304,25 @@
 This command should be bound to a drag event.  It moves the tab
 at the mouse-down event to the position at mouse-up event."
   (interactive "e")
-  (let* ((from-str (posn-string (event-start event)))
-         (to-str (posn-string (event-end event)))
-	 (from-rowcol (posn-col-row (event-start event)))
-	 (to-rowcol (posn-col-row (event-end event)))
-	 (from (tab-line--get-tab-property 'tab (car from-str)))
-         (to (tab-line--get-tab-property 'tab (car to-str)))
-         (group (zw/tab-line-buffer-group (get-buffer from)))
-         (group-buffers (zw/tab-line-get-group-buffers group)))
-    ;; Only adjust if the two tabs are different
-    ;; if going left to right add on the right and vice versa if going right to left
-    (ignore-errors
-      (unless (or (eq from to) (eq from t) (eq to t))
-        (puthash group
-	         (reverse (let (value)
-		            (dolist (elt group-buffers value)
-			      ;; add the element in its new position moving leftwards
-			      (if (and (equal elt (get-buffer to)) (> (car from-rowcol) (car to-rowcol)))
-			          (setq value (cons (get-buffer from) value)))
-			      ;; add all other elements in old position
-			      (if (not (equal elt (get-buffer from)))
-			          (setq value (cons elt value)))
-			      ;; add the element in its new position moving rightwards
-			      (if (and (equal elt (get-buffer to)) (>= (car to-rowcol) (car from-rowcol)))
-			          (setq value (cons (get-buffer from) value)))
-			      )))
-                 zw/tab-line-group--hash-table)
-        (message "move %s p:%s to %s p:%s" from-str (car from-rowcol) to-str (car to-rowcol))
-        (force-mode-line-update)))))
+  (let* ((posnp1 (tab-line-event-start event))
+         (posnp2 (event-end event))
+         (string1 (car (posn-string posnp1)))
+         (string2 (car (posn-string posnp2)))
+         (buffer1 (when string1 (tab-line--get-tab-property 'tab string1)))
+         (buffer2 (when string2 (tab-line--get-tab-property 'tab string2)))
+         (window1 (posn-window posnp1))
+         (window2 (posn-window posnp2))
+         (group (zw/tab-line-buffer-group buffer1))
+         (buffers (zw/tab-line-get-group-buffers group))
+         (pos1 (when buffer1 (seq-position buffers buffer1)))
+         (pos2 (when buffer2 (seq-position buffers buffer2))))
+    (when (and (eq window1 window2) buffer1 pos2)
+      (setq buffers (delq buffer1 buffers))
+      (cl-pushnew buffer1 (nthcdr pos2 buffers))
+      (puthash group buffers zw/tab-line-group--hash-table)
+      (set-window-parameter window1 'tab-line-cache nil)
+      (with-selected-window window1 (force-mode-line-update))
+      (message "move %s p:%s to %s p:%s" string1 (+ pos1 1) string2 (+ pos2 1)))))
 
 (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab)
 
