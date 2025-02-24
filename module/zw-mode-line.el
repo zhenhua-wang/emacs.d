@@ -345,6 +345,8 @@
         (concat
          (propertize (concat (car icon-face)
                              (zw/modeline-separator-thin)
+                             (project-name (project-current))
+                             "/"
                              (or branch "Untracked"))
                      'face (zw/modeline-set-face (cdr icon-face)
                                                  'zw/modeline-default-inactive)
