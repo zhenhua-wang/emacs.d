@@ -105,7 +105,7 @@
           (dired-subtree-insert)))
       (revert-buffer)))
   :config
-  (setq dired-subtree-use-backgrounds t))
+  (setq dired-subtree-use-backgrounds nil))
 
 ;; ** dired icon
 (defun zw/dired-icon ()
