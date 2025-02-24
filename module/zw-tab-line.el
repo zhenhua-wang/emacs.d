@@ -54,8 +54,7 @@
 (defun zw/tab-line-group-remove-buffer (buffer)
   (let* ((group (zw/tab-line-buffer-group buffer))
          (group-buffers (zw/tab-line-get-group-buffers group)))
-    (puthash group
-             (cl-remove buffer group-buffers)
+    (puthash group (delq buffer group-buffers)
              zw/tab-line-group--hash-table)))
 
 (defun zw/tab-line-kill-buffer-switch-to-previous ()
