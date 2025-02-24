@@ -353,6 +353,16 @@
   (zw/maximize-window)
   (zw/dired-sidebar-disable (current-buffer)))
 
+(defun zw/dired-sidebar-post-command-hook ()
+  (cond ((bobp)
+         (call-interactively 'move-end-of-line)
+         (dired-move-to-filename))
+        ((eobp)
+         (backward-char 1)
+         (dired-move-to-filename)
+         (when (not (eq this-command 'dired-next-line))
+           (call-interactively 'move-end-of-line)))))
+
 (define-minor-mode zw-dired-sidebar-mode
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
@@ -369,7 +379,8 @@
     (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action))
   (unless (derived-mode-p 'dired-mode)
-    (error "`zw-dired-sidebar-mode' should be enabled only in `dired-mode'")))
+    (error "`zw-dired-sidebar-mode' should be enabled only in `dired-mode'"))
+  (add-hook 'post-command-hook 'zw/dired-sidebar-post-command-hook nil 'local))
 
 ;; register in zw/left-side-window
 (add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
