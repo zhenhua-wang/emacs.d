@@ -361,6 +361,12 @@
          (backward-char 1)
          (dired-move-to-filename)
          (when (not (eq this-command 'dired-next-line))
+           (call-interactively 'move-end-of-line)))
+        ;; stop move when go beyong file name
+        ((< (point) (save-excursion (dired-move-to-filename) (point)))
+         (dired-move-to-filename)
+         (when (eq this-command 'right-char)
+           (dired-previous-line 1)
            (call-interactively 'move-end-of-line)))))
 
 (define-minor-mode zw-dired-sidebar-mode
