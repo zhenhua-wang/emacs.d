@@ -256,6 +256,7 @@
 (defvar zw/modeline-line-column-show-p nil)
 
 (defun zw/modeline-line-column-toggle ()
+  "Toggle line column on mode line"
   (interactive)
   (setq zw/modeline-line-column-show-p
         (if zw/modeline-line-column-show-p nil t)))
