@@ -253,6 +253,13 @@
             zw/modeline-separator)))
 
 ;; ** line column
+(defvar zw/modeline-line-column-show-p nil)
+
+(defun zw/modeline-line-column-toggle ()
+  (interactive)
+  (setq zw/modeline-line-column-show-p
+        (if zw/modeline-line-column-show-p nil t)))
+
 (defun zw/modeline-line-column ()
   (cond
    ((member major-mode '(org-agenda-mode
@@ -275,7 +282,11 @@
                           total-line-number))
                 'face (zw/modeline-set-face 'zw/modeline-line-column-active
                                             'zw/modeline-default-inactive)))
-   (t "")))
+   (t (if zw/modeline-line-column-show-p
+          (propertize "%l:%c %p "
+                      'face (zw/modeline-set-face 'zw/modeline-line-column-active
+                                                  'zw/modeline-default-inactive))
+        ""))))
 
 ;; ** encoding
 (defun zw/modeline-encoding ()
