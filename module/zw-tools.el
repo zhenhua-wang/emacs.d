@@ -360,7 +360,8 @@
         ((eobp)
          (backward-char 1)
          (dired-move-to-filename)
-         (when (not (eq this-command 'dired-next-line))
+         (when (not (memq this-command
+                          '(dired-next-line end-of-buffer)))
            (call-interactively 'move-end-of-line)))
         ;; stop move when go beyong file name
         ((< (point) (save-excursion (dired-move-to-filename) (point)))
