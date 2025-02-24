@@ -774,8 +774,7 @@ The order of values may be different."
                                        xref-find-definitions-other-frame
                                        xref-find-references))
 
-;; ** Folding
-;; *** Hideshow
+;; ** Hideshow
 (defface collapsed-face '((t (:inherit highlight))) "Collapsed Overlay")
 (defvar collapsed-face 'collapsed-face)
 (define-fringe-bitmap 'hs-marker [0 24 24 126 126 24 24 0])
@@ -807,7 +806,7 @@ The order of values may be different."
   (bind-keys :map hs-minor-mode-map
              ("<backtab>" . zw/toggle-fold)))
 
-;; *** Outline
+;; ** Outline
 (defun zw/outline--level ()
   (length (match-string 2)))
 (defun zw/outline-previous-invisible-p ()
