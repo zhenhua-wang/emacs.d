@@ -142,7 +142,7 @@
         ;; hide leading whitespace
         (when zw-dired-sidebar-mode
           (beginning-of-line)
-          (let* ((beg (point))
+          (let* ((beg (+ (point) (if (display-graphic-p) 0 1)))
                  (end (progn (dired-move-to-filename) (point)))
                  (overlay-highlight (make-overlay beg end)))
             (overlay-put overlay-highlight 'invisible t)))
