@@ -291,7 +291,7 @@ at the first function to return non-nil.")
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
 
 (use-package poly-rmarkdown
-  :straight '(poly-rmarkdown :host github :repo "zhenhua-wang/poly-rmarkdown")
+  :straight (:host github :repo "zhenhua-wang/poly-rmarkdown")
   :commands (poly-rmarkdown-mode))
 
 ;; * Code cell

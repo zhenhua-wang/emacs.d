@@ -935,7 +935,7 @@
 
 ;; ** app launcher
 (use-package app-launcher
-  :straight '(app-launcher :host github :repo "zhenhua-wang/app-launcher"))
+  :straight (:host github :repo "zhenhua-wang/app-launcher"))
 
 ;; add nerd-icons-completion support
 (defun app-launcher-nerd-icons-completion-get-icon (orig-func cand cat)

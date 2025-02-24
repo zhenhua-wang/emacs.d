@@ -3,8 +3,8 @@
 (use-package eaf
   :demand t
   :if (display-graphic-p)
-  :straight '(eaf :host github :repo "emacs-eaf/emacs-application-framework"
-                  :files ("*"))
+  :straight (eaf :host github :repo "emacs-eaf/emacs-application-framework"
+                 :files ("*"))
   :hook (eaf-mode . zw/eaf-setup)
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
@@ -48,8 +48,7 @@
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
   :demand t
-  :straight (:type git :host github :repo "emacs-eaf/eaf-pdf-viewer"
-                   :files ("*"))
+  :straight (:host github :repo "emacs-eaf/eaf-pdf-viewer" :files ("*"))
   :config
   (setq eaf-pdf-default-zoom  2
         eaf-pdf-dark-mode "ignore")
@@ -69,8 +68,7 @@
 (use-package eaf-image-viewer
   :if (display-graphic-p)
   :demand t
-  :straight (:type git :host github :repo "emacs-eaf/eaf-image-viewer"
-                   :files ("*"))
+  :straight (:host github :repo "emacs-eaf/eaf-image-viewer" :files ("*"))
   :config
   (eaf-bind-key reload_image "s-r" eaf-image-viewer-keybinding))
 

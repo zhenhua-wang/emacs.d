@@ -431,14 +431,14 @@
 
 ;; * Web search
 (use-package emacs-websearch
-  :straight '(emacs-websearch :host github :repo "zhenhua-wang/emacs-websearch")
+  :straight (:host github :repo "zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch))
   :config
   (setq emacs-websearch-async t))
 
 ;; * Ultra scroll
 (use-package ultra-scroll
-  :straight '(ultra-scroll :host github :repo "jdtsmith/ultra-scroll")
+  :straight (:host github :repo "jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101
         scroll-margin 0)
