@@ -1,11 +1,9 @@
 elpa/
-straight/
 auto-save-list/
 eln-cache/
 var/
 transient/
 
+recentf
+projects
 network-security.data
-projectile-bookmarks.eld
-emacs-minimal.el
-emacs.el
