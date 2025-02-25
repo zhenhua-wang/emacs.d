@@ -21,6 +21,7 @@
 ;; user path
 (setq auto-save-list-file-prefix (expand-file-name "auto-save/sessions/" user-emacs-directory))
 (push "~/.emacs.d/module" load-path)
+(setq custom-file 'null-device)
 
 ;; keybinding
 (require 'zw-package)
