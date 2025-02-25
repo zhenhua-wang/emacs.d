@@ -22,10 +22,6 @@
       inhibit-startup-echo-area-message t
       initial-scratch-message nil)
 
-;; use package
-(setq use-package-always-defer t
-      use-package-expand-minimally t)
-
 ;; user interface
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)

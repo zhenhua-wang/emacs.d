@@ -207,7 +207,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 
 (use-package ess-smart-assign
   :after ess
-  :straight (:host github :repo "zhenhua-wang/ess-smart-assign")
+  :vc (:url "https://github.com/zhenhua-wang/ess-smart-assign")
   :bind ((:map ess-r-mode-map
                ("=" . ess-smart-assign))
          (:map inferior-ess-r-mode-map

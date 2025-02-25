@@ -53,7 +53,7 @@
         doom-themes-enable-italic nil))
 
 (use-package adwaita-dark-theme
-  :straight (:host github :repo "zhenhua-wang/zw-adwaita-theme"))
+  :vc (:url "https://github.com/zhenhua-wang/zw-adwaita-theme"))
 
 (defun zw/theme-emphasize-color (color aplha dark-p)
   (if dark-p

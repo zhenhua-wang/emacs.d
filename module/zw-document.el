@@ -12,7 +12,7 @@
 ;; * Org mode
 ;; ** main
 (use-package org
-  :straight (:type built-in)
+  :ensure nil
   :mode (("\\.org$" . org-mode))
   :bind ((:map org-mode-map
                ("C-c =" . nil)
@@ -40,7 +40,6 @@
 
 ;; org contrib
 (use-package org-contrib
-  :straight (:host github :repo "emacsmirror/org-contrib")
   :after org
   :config
   (require 'ox-extra)
@@ -291,7 +290,7 @@ at the first function to return non-nil.")
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
 
 (use-package poly-rmarkdown
-  :straight (:host github :repo "zhenhua-wang/poly-rmarkdown")
+  :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
   :commands (poly-rmarkdown-mode))
 
 ;; * Code cell
@@ -317,7 +316,7 @@ at the first function to return non-nil.")
 
 ;; * Latex
 (use-package tex
-  :straight auctex
+  :ensure auctex
   :commands (latex-mode LaTeX-mode)
   :init
   (setq TeX-PDF-mode t

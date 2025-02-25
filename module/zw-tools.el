@@ -39,7 +39,7 @@
 ;; * Dired
 ;; ** main
 (use-package dired
-  :straight (:type built-in)
+  :ensure nil
   :hook
   (dired-mode . dired-async-mode)
   (dired-mode . dired-omit-mode)
@@ -449,14 +449,14 @@
 
 ;; * Web search
 (use-package emacs-websearch
-  :straight (:host github :repo "zhenhua-wang/emacs-websearch")
+  :vc (:url "https://github.com/zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch))
   :config
   (setq emacs-websearch-async t))
 
 ;; * Ultra scroll
 (use-package ultra-scroll
-  :straight (:host github :repo "jdtsmith/ultra-scroll")
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101
         scroll-margin 0)

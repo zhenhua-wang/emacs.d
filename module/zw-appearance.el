@@ -72,7 +72,7 @@
 
 ;; * Indent bars
 (use-package indent-bars
-  :straight (:host github :repo "jdtsmith/indent-bars")
+  :vc (:url "https://github.com/jdtsmith/indent-bars")
   :custom (indent-bars-treesit-support t)
   :hook (python-mode . indent-bars-mode))
 

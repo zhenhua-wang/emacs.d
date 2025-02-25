@@ -25,11 +25,13 @@
 ;; keybinding
 (require 'zw-package)
 (use-package kkp
+  :ensure t
   :commands (kkp-enable-in-terminal))
 (use-package clipetty
+  :ensure t
   :bind ("C-c" . kill-ring-save))
 (use-package delsel
-  :straight (:type built-in)
+  :ensure nil
   :commands (minibuffer-keyboard-quit)
   :bind (:map minibuffer-mode-map
               ("<escape>" . minibuffer-keyboard-quit)))

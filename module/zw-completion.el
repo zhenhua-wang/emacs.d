@@ -10,8 +10,6 @@
 
 ;; * Vertico
 (use-package vertico
-  :straight (vertico :files (:defaults "extensions/*")
-                     :includes (vertico-directory))
   :hook
   (after-init . vertico-mode)
   (vertico-mode . vertico-multiform-mode)

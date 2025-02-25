@@ -3,8 +3,7 @@
 (use-package eaf
   :demand t
   :if (display-graphic-p)
-  :straight (eaf :host github :repo "emacs-eaf/emacs-application-framework"
-                 :files ("*"))
+  :vc (:url "https://github.com/emacs-eaf/emacs-application-framework")
   :hook (eaf-mode . zw/eaf-setup)
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
@@ -48,7 +47,7 @@
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
   :demand t
-  :straight (:host github :repo "emacs-eaf/eaf-pdf-viewer" :files ("*"))
+  :vc (:url "https://github.com/emacs-eaf/eaf-pdf-viewer")
   :config
   (setq eaf-pdf-default-zoom  2
         eaf-pdf-dark-mode "ignore")
@@ -68,7 +67,7 @@
 (use-package eaf-image-viewer
   :if (display-graphic-p)
   :demand t
-  :straight (:host github :repo "emacs-eaf/eaf-image-viewer" :files ("*"))
+  :vc (:url "https://github.com/emacs-eaf/eaf-image-viewer")
   :config
   (eaf-bind-key reload_image "s-r" eaf-image-viewer-keybinding))
 
@@ -77,16 +76,9 @@
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
 (defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf")
 (defvar zw/eaf-install-app-string
-  (let* ((image-base-path (expand-file-name "straight/repos/eaf-image-viewer" user-emacs-directory))
-         (image-build-path (replace-regexp-in-string "repos" "build" image-base-path))
-         (image-base-modules (expand-file-name "node_modules" image-base-path))
-         (image-build-modules (expand-file-name "node_modules" image-build-path)))
-    (format "npm install %s --prefix %s && rm -rf %s && ln -sf %s %s"
-            image-base-path
-            image-base-path
-            image-build-modules
-            image-base-modules
-            image-build-modules)))
+  (let* ((image-path (expand-file-name "eaf-image-viewer" package-user-dir))
+         (image-modules (expand-file-name "node_modules" image-path)))
+    (format "npm install %s --prefix %s" image-path image-path)))
 
 (defun zw/eaf-install-all ()
   "Install eaf environment, dependencies and apps."
@@ -99,9 +91,8 @@
 (defun zw/eaf-update-app ()
   "Update eaf apps."
   (interactive)
-  (dolist (pkg '("eaf-pdf-viewer" "eaf-image-viewer"))
-    (straight-pull-package pkg)
-    (straight-check-package pkg))
+  (dolist (pkg '(eaf-pdf-viewer eaf-image-viewer))
+    (package-vc-upgrade (cadr (assq pkg package-alist))))
   (async-shell-command (concat zw/eaf-activate-env-string "&&"
                                zw/eaf-install-app-string)))
 

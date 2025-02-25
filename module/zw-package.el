@@ -1,26 +1,21 @@
 ;; -*- lexical-binding: t -*-
 
-;; config
-(setq straight-repository-branch "develop"
-      straight-use-package-by-default t)
-(if (executable-find "watchexec")
-    (setq straight-check-for-modifications '(watch-files find-when-checking))
-  (setq straight-check-for-modifications '(check-on-save find-when-checking)))
-;; bootstrap
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+(require 'use-package-ensure)
+(require 'package)
+(setq use-package-always-ensure t
+      use-package-always-defer t
+      use-package-expand-minimally t
+      use-package-vc-prefer-newest t
+      package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+
+(defun zw/package-upgrade-all ()
+  "Upgrade all installed packages."
+  (interactive)
+  (package-upgrade-all)
+  (package-vc-upgrade-all))
 
 (provide 'zw-package)
