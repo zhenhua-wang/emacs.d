@@ -7,10 +7,11 @@
       use-package-always-defer t
       use-package-expand-minimally t
       use-package-vc-prefer-newest t
+      package-native-compile t
       package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
+(package-activate-all)
 
 (defun zw/package-upgrade-all ()
   "Upgrade all installed packages."
