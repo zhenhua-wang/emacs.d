@@ -197,7 +197,7 @@
 
      ;; eglot
      `(eglot-highlight-symbol-face
-       ((t (:inherit bold :background ,highlight-color :foreground ,highlight-revert-color))))
+       ((t (:inherit bold :box t))))
 
      ;; org with variable font
      `(org-level-8 ((t (:inherit (outline-8 variable-pitch)))))
