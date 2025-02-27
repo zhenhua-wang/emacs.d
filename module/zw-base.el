@@ -198,6 +198,7 @@ The order of values may be different."
 (defun zw/visual-line-disable ()
   (visual-line-mode -1)
   (setq-local truncate-lines 1))
+(add-hook 'package-menu-mode-hook 'zw/visual-line-disable)
 
 ;; ** Speedup long line
 (add-hook 'after-init-hook 'global-so-long-mode)
