@@ -12,6 +12,7 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-activate-all)
+(add-hook 'package-menu-mode-hook 'zw/visual-line-disable)
 
 ;; HACK: DO NOT save `package-selected-packages' to `custom-file'
 ;; @see https://github.com/jwiegley/use-package/issues/383#issuecomment-247801751
