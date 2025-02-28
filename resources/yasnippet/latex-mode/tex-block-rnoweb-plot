@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: latex insert r noweb plot chunk
+# key: <rp
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+\begin{figure}[t!]
+\centering
+<<visualization, fig=TRUE>>=
+$0
+@
+\caption{$1}
+\end{figure}
