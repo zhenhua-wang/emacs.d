@@ -301,9 +301,9 @@ at the first function to return non-nil.")
       (apply orig-fun args)))
   (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice))
 
-(use-package poly-rmarkdown
-  :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
-  :commands (poly-rmarkdown-mode poly-rnw-mode))
+(use-package poly-rliteral
+  :vc (:url "https://github.com/zhenhua-wang/poly-rliteral")
+  :commands (poly-rliteral-rmd-mode poly-rliteral-rnw-mode))
 
 ;; * Code cell
 ;; This requires the python library: jupytext.
