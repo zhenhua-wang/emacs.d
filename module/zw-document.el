@@ -267,7 +267,6 @@ at the first function to return non-nil.")
   (add-to-list 'markdown-code-lang-modes '("r" . ess-r-mode)))
 
 ;; * Polymode
-;; BUG: revert in inner buffer would lose font-lock
 (use-package polymode
   :commands polymode-mode
   :hook ((polymode-init-host . zw/polymode-host-init)
@@ -276,7 +275,8 @@ at the first function to return non-nil.")
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
                ("M-p" . polymode-previous-chunk)
-               ("M-n" . polymode-next-chunk)))
+               ("M-n" . polymode-next-chunk)
+               ("s-r" . zw/polymode-revert-buffer-quick)))
   :init
   (setq poly-lock-allow-fontification t
         poly-lock-allow-background-adjustment t
@@ -290,7 +290,13 @@ at the first function to return non-nil.")
     (display-line-numbers-mode -1)
     (zw-outline-mode -1))
   ;; run kill-buffer in host buffer, which solves the font lock issue
-  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer))
+  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
+  ;; HACK: revert in inner buffer would lose font-lock
+  (defun zw/polymode-revert-buffer-quick (&optional auto-save)
+    (interactive "P")
+    (if (buffer-base-buffer)
+        (message "disable revert buffer inside innermode")
+      (revert-buffer-quick auto-save))))
 
 (use-package poly-rmarkdown
   :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
