@@ -42,7 +42,9 @@
       (if (executable-find "dunstify")
           (call-process-shell-command
            "dunstify -u critical -i dialog-error EXWM 'wmctrl not detected. EAF requires wmctrl in EXWM'" nil 0)
-        (display-warning :emergency "wmctrl not detected. EAF requires wmctrl in EXWM")))))
+        (display-warning :emergency "wmctrl not detected. EAF requires wmctrl in EXWM"))))
+  ;; advise poly-rliteral callback
+  (advice-add 'poly-rliteral--async-callback-find-file :around #'eaf--find-file-advisor))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
