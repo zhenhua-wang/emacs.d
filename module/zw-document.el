@@ -294,7 +294,7 @@ at the first function to return non-nil.")
 
 (use-package poly-rmarkdown
   :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
-  :commands (poly-rmarkdown-mode))
+  :commands (poly-rmarkdown-mode poly-rnw-mode))
 
 ;; * Code cell
 ;; This requires the python library: jupytext.
