@@ -482,6 +482,7 @@ The order of values may be different."
 ;; ** Open address
 (add-hook 'text-mode-hook 'goto-address-mode)
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+(setq goto-address-url-face '(:weight bold :underline t))
 
 ;; ** Isearch
 (setq isearch-lazy-count t
