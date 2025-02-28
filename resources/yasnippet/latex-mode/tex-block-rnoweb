@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: latex insert r noweb chunk
+# key: <r
+# --
+
+<<$1>>=
+$0
+@
