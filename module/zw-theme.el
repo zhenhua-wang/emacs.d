@@ -222,7 +222,7 @@
      `(org-latex-and-related
        ((t (:inherit fixed-pitch))))
      `(org-link
-       ((t (:inherit fixed-pitch :underline t))))
+       ((t (:inherit (link fixed-pitch) :underline t))))
      `(org-special-keyword
        ((t (:inherit fixed-pitch))))
      `(org-checkbox
