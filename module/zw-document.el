@@ -294,7 +294,17 @@ at the first function to return non-nil.")
 
 (use-package poly-rmarkdown
   :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
-  :commands (poly-rmarkdown-mode poly-rnw-mode))
+  :commands (poly-rmarkdown-mode poly-rnw-mode)
+  :bind ((:map poly-rnw-mode-map
+               ("C-c C-e" . zw/poly-rnw-sweave)))
+  :config
+  (defun zw/poly-rnw-sweave ()
+    "Sweave Rnw file."
+    (interactive)
+    (if (and (boundp poly-rnw-mode) poly-rnw-mode)
+        (async-shell-command
+         (format "R CMD Sweave --pdf %s" (buffer-file-name)))
+      (message "Sweave outside of Rnw file is not supported"))))
 
 ;; * Code cell
 ;; This requires the python library: jupytext.
