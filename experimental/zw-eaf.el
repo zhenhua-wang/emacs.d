@@ -44,7 +44,10 @@
            "dunstify -u critical -i dialog-error EXWM 'wmctrl not detected. EAF requires wmctrl in EXWM'" nil 0)
         (display-warning :emergency "wmctrl not detected. EAF requires wmctrl in EXWM"))))
   ;; advise poly-rliteral callback
-  (advice-add 'poly-rliteral--async-callback-find-file :around #'eaf--find-file-advisor))
+  (defun zw/eaf--find-file-advisor (orig-fn file &rest args)
+    (with-selected-window (get-largest-window (selected-frame) nil)
+      (eaf--find-file orig-fn file nil args)))
+  (advice-add 'poly-rliteral--async-callback-find-file :around #'zw/eaf--find-file-advisor))
 
 (use-package eaf-pdf-viewer
   :if (display-graphic-p)
