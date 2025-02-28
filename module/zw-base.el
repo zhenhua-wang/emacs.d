@@ -685,7 +685,7 @@ The order of values may be different."
              (outline-invisible-p)))
     (outline-toggle-children))
    ((and (featurep 'hideshow) hs-minor-mode
-         (hs-already-hidden-p))
+         (ignore-errors (hs-already-hidden-p)))
     (zw/toggle-fold))
    (t (indent-for-tab-command arg))))
 
