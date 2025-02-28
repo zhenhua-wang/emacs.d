@@ -275,8 +275,7 @@ at the first function to return non-nil.")
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
                ("M-p" . polymode-previous-chunk)
-               ("M-n" . polymode-next-chunk)
-               ("s-r" . zw/polymode-revert-buffer-quick)))
+               ("M-n" . polymode-next-chunk)))
   :init
   (setq poly-lock-allow-fontification t
         poly-lock-allow-background-adjustment t
@@ -292,11 +291,12 @@ at the first function to return non-nil.")
   ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; HACK: revert in inner buffer would lose font-lock
-  (defun zw/polymode-revert-buffer-quick (&optional auto-save)
-    (interactive "P")
-    (if (buffer-base-buffer)
+  (defun zw/polymode-revert-advice (orig-fun &rest args)
+    (if (and (boundp polymode-mode) polymode-mode
+             (buffer-base-buffer))
         (message "disable revert buffer inside innermode")
-      (revert-buffer-quick auto-save))))
+      (apply orig-fun args)))
+  (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice))
 
 (use-package poly-rmarkdown
   :vc (:url "https://github.com/zhenhua-wang/poly-rmarkdown")
