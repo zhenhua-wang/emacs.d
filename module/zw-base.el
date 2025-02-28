@@ -255,7 +255,7 @@ The order of values may be different."
          (window-height . 0.2)
          (side . top)
          (slot . -1))
-        ("\\*\\(polymode export\\|compilation\\).*"
+        ("\\*\\(Async Shell Command\\|compilation\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . top)
