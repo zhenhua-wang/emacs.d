@@ -6,8 +6,8 @@
 
 \begin{figure}[t!]
 \centering
-<<visualization, fig=TRUE>>=
+<<$1, fig=TRUE>>=
 $0
 @
-\caption{$1}
+\caption{$2}
 \end{figure}
