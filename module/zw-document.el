@@ -248,7 +248,6 @@ at the first function to return non-nil.")
 ;; * Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
-  :mode ("\\.rmd\\'" . gfm-mode)
   :init
   (setq markdown-enable-math t
         markdown-enable-wiki-links t
