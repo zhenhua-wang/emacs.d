@@ -339,7 +339,8 @@ at the first function to return non-nil.")
         TeX-save-query nil
         TeX-source-correlate-mode t
         TeX-source-correlate-method 'synctex
-        TeX-source-correlate-start-server t)
+        TeX-source-correlate-start-server t
+        tex-fontify-script nil)
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
