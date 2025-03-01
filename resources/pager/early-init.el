@@ -6,10 +6,6 @@
       frame-inhibit-implied-resize t
       package-enable-at-startup nil)
 
-;; use package
-(setq use-package-always-defer t
-      use-package-expand-minimally t)
-
 ;; user interface
 (menu-bar-mode 0)
 (setq-default mode-line-format nil)
