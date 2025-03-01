@@ -439,10 +439,6 @@
          ("C-h v" . helpful-variable)
          ("C-h k" . helpful-key)))
 
-;; * Which Key
-(use-package which-key
-  :hook (after-init . which-key-mode))
-
 ;; * keycast
 (use-package keycast
   :bind ("s-k" . keycast-tab-bar-mode))

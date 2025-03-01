@@ -565,6 +565,9 @@ The order of values may be different."
 (add-hook 'text-mode-hook 'flyspell-mode)
 ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+;; ** Which key
+(add-hook 'after-init-hook 'which-key-mode)
+
 ;; ** Server mode
 (when (daemonp)
   (server-start))
