@@ -11,9 +11,9 @@
       zw/tab-line-show-debug nil)
 
 ;; auto complete
-;; (setq company-idle-delay 0
-;;       company-frontends '(company-pseudo-tooltip-frontend
-;;                           company-echo-metadata-frontend))
+(setq company-idle-delay 0
+      company-frontends '(company-pseudo-tooltip-frontend
+                          company-echo-metadata-frontend))
 
 ;; default maximize all frames
 ;; (push '(fullscreen . maximized) default-frame-alist)
