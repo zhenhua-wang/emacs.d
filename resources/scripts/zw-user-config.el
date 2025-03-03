@@ -12,6 +12,7 @@
 
 ;; auto complete
 (setq company-idle-delay 0
+      company-selection-default nil
       company-frontends '(company-pseudo-tooltip-frontend
                           company-echo-metadata-frontend))
 
