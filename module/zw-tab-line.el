@@ -282,20 +282,13 @@
         x-underline-at-descent-line t))
 
 ;; * Enable
-(global-tab-line-mode 1)
-(defun zw/tab-line-hide ()
-  (when (and (featurep 'tab-line)
-             tab-line-mode
-             (not (zw/tab-line-buffer-group-visible-p)))
-    (tab-line-mode -1)))
-(add-hook 'buffer-list-update-hook 'zw/tab-line-hide)
-
-(defun zw/tab-line-window-hide (window)
-  (with-selected-window window
-    (zw/tab-line-hide)))
+(defun zw/tab-line-show ()
+  (when (zw/tab-line-buffer-group-visible-p)
+    (tab-line-mode 1)))
 (defun zw/tab-line-init ()
-  (add-hook 'window-buffer-change-functions 'zw/tab-line-window-hide nil t))
-(add-hook 'tab-line-mode-hook 'zw/tab-line-init)
+  (require 'tab-line))
+(add-hook 'buffer-list-update-hook 'zw/tab-line-show)
+(add-hook 'emacs-startup-hook 'zw/tab-line-init)
 
 ;; * Drag move
 (defun tab-line-mouse-move-tab (event)
@@ -323,7 +316,8 @@ at the mouse-down event to the position at mouse-up event."
       (with-selected-window window1 (force-mode-line-update))
       (message "move %s p:%s to %s p:%s" string1 (+ pos1 1) string2 (+ pos2 1)))))
 
-(keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab)
+(with-eval-after-load "tab-line"
+  (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab))
 
 ;; * Keymap
 ;; select tab
