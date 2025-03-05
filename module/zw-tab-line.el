@@ -288,7 +288,7 @@
 (defun zw/tab-line-init ()
   (require 'tab-line))
 (add-hook 'buffer-list-update-hook 'zw/tab-line-show)
-(add-hook 'emacs-startup-hook 'zw/tab-line-init)
+(add-hook 'after-init-hook 'zw/tab-line-init)
 
 ;; * Drag move
 (defun tab-line-mouse-move-tab (event)
