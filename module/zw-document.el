@@ -146,11 +146,9 @@
       org-agenda-files (cl-mapcar (lambda (file) (expand-file-name file zw/org-agenda-directory))
                                   zw/org-agenda-files))
 ;; init agenda
-(unless (file-directory-p zw/org-agenda-directory)
-  (make-directory zw/org-agenda-directory))
 (let ((first-org-file (car org-agenda-files)))
   (unless (file-exists-p first-org-file)
-    (make-empty-file first-org-file)))
+    (make-empty-file first-org-file t)))
 ;; agenda keys
 (defun zw/open-agenda-dashboard ()
   (interactive)
