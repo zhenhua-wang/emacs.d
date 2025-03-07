@@ -60,13 +60,13 @@ git config --global user.email "wang_zhenhua1996@icloud.com"
 git config --global credential.helper store
 
 # essential desktop
-yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils easyeffects fprintd
+yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-utils fprintd
 
 # research
 yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # flatpak applications
-flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.Loupe org.gnome.Connections org.gnome.Snapshot com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources
+flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.Loupe org.gnome.Connections org.gnome.Snapshot com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources com.github.wwmm.easyeffects
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 # grant firefox permission to temp folder
