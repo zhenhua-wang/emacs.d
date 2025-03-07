@@ -287,7 +287,8 @@
     (tab-line-mode 1)))
 (defun zw/tab-line-init ()
   (require 'tab-line)
-  (add-hook 'buffer-list-update-hook 'zw/tab-line-show))
+  (add-hook 'buffer-list-update-hook 'zw/tab-line-show)
+  (add-hook 'after-revert-hook 'zw/tab-line-show))
 (add-hook 'after-init-hook 'zw/tab-line-init)
 
 ;; * Drag move
