@@ -132,11 +132,17 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
      (buffer-substring-no-properties beg end)))
   (next-line))
 
+(defun zw/python-shell-send-above ()
+  (interactive)
+  (zw/python-start-shell-before-send-string
+   (buffer-substring-no-properties (point-min) (point))))
+
 (use-package python
   :bind ((:map python-mode-map
                ("C-c C-d" . nil)
                ("C-c C-c" . zw/python-shell-send-region-or-block)
                ("C-c C-b" . zw/python-shell-send-buffer)
+               ("C-c C-a" . zw/python-shell-send-above)
                ("C-<return>" . zw/python-shell-send-line)
                ("C-M-<left>" . python-nav-backward-sexp-safe)
                ("C-M-<right>" . python-nav-forward-sexp-safe)))
@@ -156,6 +162,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
                ("TAB" . zw/smart-tab)
                ("C-c c e" . ess-complete-object-name)
                ("C-c C-c" . zw/ess-send-region-or-block)
+               ("C-c C-a" . zw/ess-send-above)
                ("s-t" . ess-bp-set)
                ("s-," . ess-bp-set-conditional)
                ("s-." . ess-bp-set-logger)))
@@ -182,6 +189,9 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
           (goto-char end))
       (progn (ess-eval-paragraph 'nowait)
              (forward-paragraph))))
+  (defun zw/ess-send-above ()
+    (interactive)
+    (ess-eval-region (point-min) (point) 'nowait))
   ;; fix freezing in macos by creating your process using pipe
   ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
   ;; (setq process-connection-type nil)
