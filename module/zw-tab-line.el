@@ -292,7 +292,7 @@
 (add-hook 'after-init-hook 'zw/tab-line-init)
 
 ;; * Drag move
-(defun tab-line-mouse-move-tab (event)
+(defun zw/tab-line-mouse-move-tab (event)
   "Move a tab to a different position on the tab line.
 This command should be bound to a drag event.  It moves the tab
 at the mouse-down event to the position at mouse-up event."
@@ -318,7 +318,7 @@ at the mouse-down event to the position at mouse-up event."
       (message "move %s p:%s to %s p:%s" string1 (+ pos1 1) string2 (+ pos2 1)))))
 
 (with-eval-after-load "tab-line"
-  (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'tab-line-mouse-move-tab))
+  (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'zw/tab-line-mouse-move-tab))
 
 ;; * Keymap
 ;; select tab
