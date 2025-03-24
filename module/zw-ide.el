@@ -58,6 +58,7 @@
          ("C-c C-d" . zw/dape))
   :config
   (setq dape-buffer-window-arrangement 'right)
+  (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
   ;; Save buffers on startup, useful for interpreted languages
   (add-hook 'dape-on-start-hooks
             (defun dape--save-on-start ()
