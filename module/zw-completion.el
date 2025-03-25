@@ -183,7 +183,7 @@
   (setq company-idle-delay nil
         company-require-match 'never
         company-selection-wrap-around t
-        company-minimum-prefix-length 1
+        company-minimum-prefix-length 2
         company-abort-on-unique-match nil
         company-abort-manual-when-too-short t
         company-icon-size '(auto-scale . 20)
