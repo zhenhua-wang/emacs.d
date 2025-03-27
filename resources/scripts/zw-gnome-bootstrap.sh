@@ -25,7 +25,9 @@ yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkma
 sudo systemctl enable gdm.service -f
 sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
-yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock sushi rygel gnome-user-share gnome-calendar
+yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock sushi rygel gnome-user-share gnome-calendar gnome-characters gnome-connections loupe snapshot
+# gnome experiment
+yay -S grilo-plugins gvfs-afc gvfs-dnssd gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
 # xorg for gnome and eaf compatibility
 yay -S xorg-server xcb-util-cursor xcb-util-wm xcb-util-keysyms
 
@@ -66,7 +68,7 @@ yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-util
 yay -S pandoc-cli texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra miniconda3
 
 # flatpak applications
-flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal org.gnome.Loupe org.gnome.Connections org.gnome.Snapshot com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources com.github.wwmm.easyeffects
+flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom com.google.Chrome net.nokyan.Resources com.github.wwmm.easyeffects
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 # grant firefox permission to temp folder
