@@ -205,7 +205,7 @@
     (concat (zw/modeline--bar color width height)
             " "
             (nerd-icons-mdicon
-             "nf-md-home_analytics"
+             "nf-md-layers_triple"
              :height 1
              :v-adjust 0.1)
             " ")))
@@ -235,16 +235,18 @@
                               'keymap (funcall create-keymap (cdr pair))
                               'face '(:height 0.9)
                               'mouse-face 'highlight))
-                pairs)))
+                pairs))
+         (separator (concat (nerd-icons-octicon
+                             "nf-oct-triangle_right"
+                             :height 0.9
+                             :v-adjust 0.1
+                             :face 'shadow)
+                            (unless (display-graphic-p) " "))))
     (concat (when (string-empty-p (car dirs))
               (propertize "/" 'keymap (funcall create-keymap "/")
                           'mouse-face 'highlight))
             (when (cl-remove-if 'string-empty-p dirs)
-              (string-join dirs (nerd-icons-octicon
-                                 "nf-oct-triangle_right"
-                                 :height 0.9
-                                 :v-adjust 0.1
-                                 :face 'shadow)))
+              (string-join dirs separator))
             " ")))
 
 (defvar zw/dired-sidebar-header-line-beg 0)
