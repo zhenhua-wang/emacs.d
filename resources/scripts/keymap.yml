@@ -1,3 +1,11 @@
+shared:
+  editors: &editors
+    - emacs
+    - Emacs
+    - emacs.Emacs
+    - kitty
+    - kitty.kitty
+
 modmap:
   - name: all keyboard
     remap:
@@ -22,7 +30,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: *editors
     exact_match: true
     remap:
       # Arrow
@@ -109,7 +117,7 @@ keymap:
 
   - name: Apple keymap
     application:
-      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: *editors
     exact_match: true
     remap:
       # tab
