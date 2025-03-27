@@ -203,7 +203,7 @@
         (height (floor (* (string-pixel-width " ")
                           2.5))))
     (concat (zw/modeline--bar color width height)
-            " "
+            (when (display-graphic-p) " ")
             (nerd-icons-mdicon
              "nf-md-layers_triple"
              :height 1
@@ -236,12 +236,17 @@
                               'face '(:height 0.9)
                               'mouse-face 'highlight))
                 pairs))
-         (separator (concat (nerd-icons-octicon
-                             "nf-oct-triangle_right"
-                             :height 0.9
-                             :v-adjust 0.1
-                             :face 'shadow)
-                            (unless (display-graphic-p) " "))))
+         (separator (if (display-graphic-p)
+                        (nerd-icons-octicon
+                         "nf-oct-triangle_right"
+                         :height 0.9
+                         :v-adjust 0.1
+                         :face 'shadow)
+                      (concat " "
+                              (nerd-icons-faicon
+                               "nf-fa-caret_right"
+                               :face 'shadow)
+                              " "))))
     (concat (when (string-empty-p (car dirs))
               (propertize "/" 'keymap (funcall create-keymap "/")
                           'mouse-face 'highlight))
@@ -385,6 +390,8 @@
     (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-backward-action)
     (,(kbd "<header-line> <triple-wheel-down>") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-backward-action)
+    (,(kbd "<header-line> <wheel-right>") . zw/dired-sidebar-header-line-wheel-forward-action)
+    (,(kbd "<header-line> <wheel-left>") . zw/dired-sidebar-header-line-wheel-backward-action)
     (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
     (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action))
   (unless (derived-mode-p 'dired-mode)
