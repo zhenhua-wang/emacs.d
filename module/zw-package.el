@@ -19,5 +19,6 @@
   (interactive)
   (package-upgrade-all)
   (package-vc-upgrade-all))
+(defalias 'zw/package-update-all 'zw/package-upgrade-all)
 
 (provide 'zw-package)
