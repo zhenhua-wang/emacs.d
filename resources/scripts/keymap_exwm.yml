@@ -1,3 +1,4 @@
+# make sure to use 'xremap-x11-bin' in EXWM to enable application-specific remapping.
 shared:
   editors: &editors
     - emacs
