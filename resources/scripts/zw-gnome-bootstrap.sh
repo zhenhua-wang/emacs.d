@@ -28,7 +28,7 @@ sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock sushi rygel gnome-user-share gnome-calendar gnome-characters gnome-connections gnome-font-viewer loupe snapshot
 # gnome experiment
 yay -S grilo-plugins gvfs-afc gvfs-dnssd gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
-# xorg for gnome and eaf compatibility
+# xorg and eaf compatibility
 yay -S xorg-server xorg-xhost xcb-util-cursor xcb-util-wm xcb-util-keysyms
 
 # xremap
