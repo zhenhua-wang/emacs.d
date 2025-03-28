@@ -1,3 +1,18 @@
+shared:
+  editors: &editors
+    - emacs
+    - Emacs
+    - emacs.Emacs
+    - kitty
+    - kitty.kitty
+
+  emacs: &emacs
+    - emacs
+    - Emacs
+    - emacs.Emacs
+    - kitty
+    - kitty.kitty
+
 modmap:
   - name: all keyboard
     remap:
@@ -22,7 +37,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: *editors
     exact_match: true
     remap:
       # Arrow
@@ -58,14 +73,14 @@ keymap:
 
   - name: Emacs Rime
     application:
-      only: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+      only: *emacs
     exact_match: true
     remap:
       C-backslash: Super-backslash
 
   - name: Apple keymap
     application:
-      not: [emacs, Emacs, emacs.Emacs, kitty, kitty.kitty]
+      not: *editors
     exact_match: true
     remap:
       Super-z: [Super-z, { set_mark: false }]
