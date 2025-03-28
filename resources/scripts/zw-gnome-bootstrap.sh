@@ -29,7 +29,7 @@ yay -S gnome-themes-extra gnome-shell-extension-appindicator gnome-shell-extensi
 # gnome experiment
 yay -S grilo-plugins gvfs-afc gvfs-dnssd gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
 # xorg for gnome and eaf compatibility
-yay -S xorg-server xcb-util-cursor xcb-util-wm xcb-util-keysyms
+yay -S xorg-server xorg-xhost xcb-util-cursor xcb-util-wm xcb-util-keysyms
 
 # xremap
 yay -S xremap-x11-bin
