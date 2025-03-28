@@ -167,8 +167,3 @@ keymap:
       Super-backspace: [Shift-home, C-backspace, { set_mark: false }]
       M-left: C-left
       M-right: C-right
-
-  - name: System
-    exact_match: true
-    remap:
-      C-M-backspace: { launch: ["gnome-session-quit"] }
