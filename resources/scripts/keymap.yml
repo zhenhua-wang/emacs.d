@@ -6,6 +6,13 @@ shared:
     - kitty
     - kitty.kitty
 
+  emacs: &emacs
+    - emacs
+    - Emacs
+    - emacs.Emacs
+    - kitty
+    - kitty.kitty
+
 modmap:
   - name: all keyboard
     remap:
@@ -110,7 +117,7 @@ keymap:
 
   - name: Emacs Rime
     application:
-      only: [emacs, Emacs, emacs.Emacs]
+      only: *emacs
     exact_match: true
     remap:
       C-backslash: Super-backslash
