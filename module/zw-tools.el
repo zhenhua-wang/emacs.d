@@ -433,12 +433,13 @@
   :hook
   (after-init . openwith-mode)
   :config
-  (setq openwith-associations
+  (setq zw/openwith-associations-ext
+        '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
+          "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
+          "webm" "ogg" "mkv")
+        openwith-associations
         (list
-         (list (openwith-make-extension-regexp
-                '("doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"
-                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm"
-                  "webm" "ogg" "mkv"))
+         (list (openwith-make-extension-regexp zw/openwith-associations-ext)
                open-app-command
                '(file)))))
 
