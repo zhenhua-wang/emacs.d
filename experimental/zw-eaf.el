@@ -7,7 +7,8 @@
   :hook (eaf-mode . zw/eaf-setup)
   :init
   (setq zw/eaf-bin "~/.conda/envs/eaf/bin"
-        eaf-python-command (expand-file-name "python3" zw/eaf-bin))
+        eaf-python-command (expand-file-name "python3" zw/eaf-bin)
+        eaf-find-file-ext-blacklist '("md" "org" "html" "htm"))
   (defun zw/eaf-setup ()
     (setq eaf-buffer-background-color (face-background 'default))
     ;; dired-sidebar open focus eaf buffer
