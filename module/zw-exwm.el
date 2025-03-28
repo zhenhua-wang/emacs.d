@@ -3,7 +3,7 @@
 ;; * exwm init
 (use-package exwm
   :demand t
-  :straight (:host github :repo "emacs-exwm/exwm" :files ("*")))
+  :vc (:url "https://github.com/emacs-exwm/exwm"))
 
 ;; start server for ipc
 (server-start)
@@ -82,7 +82,7 @@
                        ("Xft/lcdfilter" . "lcddefault")
                        ("Xft/Antialias" . 1)
                        ("Xft/Hinting" . 1)))
-(exwm-xsettings-enable)
+(exwm-xsettings-mode)
 
 ;; ** background
 (add-hook 'exwm-workspace-switch-hook
@@ -591,7 +591,7 @@
 
 ;; ** systemtray
 (require 'exwm-systemtray)
-(exwm-systemtray-enable)
+(exwm-systemtray-mode)
 (setq exwm-systemtray-background-color 'transparent
       exwm-systemtray-icon-gap 1)
 
@@ -657,11 +657,11 @@
 ;; ** exwm randr
 ;; Set the screen resolution (update this to be the correct resolution for your screen!)
 (require 'exwm-randr)
-(exwm-randr-enable)
+(exwm-randr-mode)
 (add-hook 'exwm-randr-screen-change-hook #'zw/exwm-show-wallpaper)
 
 (use-package emacs-xrandr
-  :straight (:host github :repo "zhenhua-wang/emacs-xrandr"))
+  :vc (:url "https://github.com/zhenhua-wang/emacs-xrandr"))
 
 ;; ** exwm switch buffer
 (defun zw/exwm--switch-to-buffer-show-desktop (buffer &rest args)
@@ -935,7 +935,7 @@
 
 ;; ** app launcher
 (use-package app-launcher
-  :straight (:host github :repo "zhenhua-wang/app-launcher"))
+  :vc (:url "https://github.com/zhenhua-wang/app-launcher"))
 
 ;; add nerd-icons-completion support
 (defun app-launcher-nerd-icons-completion-get-icon (orig-func cand cat)
@@ -971,7 +971,7 @@
 ;; ** CPU temperature
 (use-package emacs-cpu-temperature
   :demand t
-  :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
+  :vc (:url "https://github.com/zhenhua-wang/emacs-cpu-temperature")
   :hook ((exwm-init . cpu-temperature-mode)
          (cpu-temperature-mode . zw/exwm-cpu-temperature-init))
   :config

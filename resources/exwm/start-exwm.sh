@@ -4,6 +4,15 @@
 pkill xremap
 xremap ~/.emacs.d/resources/scripts/keymap_exwm.yml --watch=device &
 
+# Set permissions
+xhost +SI:localuser:$USER
+
+# Set fallback cursor
+xsetroot -cursor_name left_ptr
+
+# Set keyboard repeat rate
+xset r rate 200 60
+
 # Set the screen DPI (uncomment this if needed!)
 xrdb ~/.cache/emacs/Xresources   # set emacs dpi
 # xrandr --dpi 168                  # set default app dpi
