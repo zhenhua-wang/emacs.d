@@ -3,6 +3,7 @@
 ;; (require 'zw-eaf)
 ;; (require 'zw-copilot)
 ;; (require 'zw-tool-bar)
+;; (require 'zw-theme-auto)
 
 (add-hook 'zw/after-set-theme-hook 'zw/ui-padding-mode)
 (add-hook 'after-init-hook 'keycast-tab-bar-mode)
