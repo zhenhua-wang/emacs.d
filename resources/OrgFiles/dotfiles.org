@@ -117,14 +117,75 @@ inactive_tab_foreground #444
 inactive_tab_background #999
 active_tab_font_style   bold
 inactive_tab_font_style normal
-
-# BEGIN_KITTY_THEME
-include current-theme.conf
-# END_KITTY_THEME
 #+end_src
 
-** Theme
-#+HEADER: :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/current-theme.conf")
+** Light theme
+#+name: kitty-light-theme
+#+begin_src conf
+# The basic colors
+foreground                      #383a42
+background                      #fafafa
+selection_foreground            #383a42
+selection_background            #dfdfdf
+
+# Cursor colors
+cursor                          #383a42
+cursor_text_color               #fafafa
+
+# kitty window border colors
+active_border_color     #0184bc
+inactive_border_color   #c6c7c7
+
+# Tab bar colors
+active_tab_foreground   #fafafa
+active_tab_background   #383a42
+inactive_tab_foreground #f0f0f0
+inactive_tab_background #c6c7c7
+
+# The basic 16 colors
+# black
+color0 #383a42
+color8 #c6c7c7
+
+# red
+color1 #e45649
+color9 #e45649
+
+# green
+color2  #50a14f
+color10 #50a14f
+
+# yellow
+color3  #986801
+color11 #986801
+
+# blue
+color4  #4078f2
+color12 #4078f2
+
+# magenta
+color5  #a626a4
+color13 #b751b6
+
+# cyan
+color6  #005478
+color14 #0184bc
+
+# white
+color7  #f0f0f0
+color15 #383a42
+#+end_src
+
+#+begin_src conf :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/light-theme.auto.conf") :noweb yes
+<<kitty-light-theme>>
+#+end_src
+
+#+begin_src conf :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/no-preference-theme.auto.conf") :noweb yes
+<<kitty-light-theme>>
+#+end_src
+
+** Dark theme
+#+HEADER: :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/dark-theme.auto.conf")
 #+begin_src conf
 background                #1d1d1d
 foreground                #deddda
