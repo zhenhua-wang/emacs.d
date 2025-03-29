@@ -293,6 +293,7 @@
 
 ;; backends for prog-mode
 (dolist (mode '(prog-mode-hook
+                comint-mode-hook
                 minibuffer-setup-hook
                 inferior-python-mode-hook))
   (add-hook mode

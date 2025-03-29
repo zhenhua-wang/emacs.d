@@ -57,7 +57,8 @@
          ("s-/" . dape-watch-dwim)
          ("C-c C-d" . zw/dape))
   :config
-  (setq dape-buffer-window-arrangement 'right)
+  (setq dape-buffer-window-arrangement 'right
+        dape-variable-auto-expand-alist '((hover . 1)))
   (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
   ;; Save buffers on startup, useful for interpreted languages
   (add-hook 'dape-on-start-hooks
