@@ -56,6 +56,7 @@
          ("s-." . dape-breakpoint-log)
          ("s-/" . dape-watch-dwim)
          ("C-c C-d" . zw/dape))
+  :hook (dape-info-parent-mode . zw/visual-line-disable)
   :config
   (setq dape-buffer-window-arrangement 'right
         dape-variable-auto-expand-alist '((hover . 1)))
