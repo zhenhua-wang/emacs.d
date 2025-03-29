@@ -183,7 +183,7 @@
   (setq company-idle-delay nil
         company-require-match 'never
         company-selection-wrap-around t
-        company-minimum-prefix-length 2
+        company-minimum-prefix-length 1
         company-abort-on-unique-match nil
         company-abort-manual-when-too-short t
         company-icon-size '(auto-scale . 20)
@@ -297,7 +297,8 @@
                 inferior-python-mode-hook))
   (add-hook mode
             (lambda ()
-              (setq-local company-backends
+              (setq-local company-minimum-prefix-length 2
+                          company-backends
                           '(company-files company-capf)))))
 ;; backends for ess-r-mode
 (add-hook 'ess-r-mode-hook
