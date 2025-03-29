@@ -117,11 +117,6 @@
 
 (add-hook 'tab-line-mode-hook 'zw/tab-line-set-face)
 
-;; fix issue when switching theme
-(advice-add 'consult-theme :after (lambda (arg)
-                                    (zw/tab-line-set-face)
-                                    (tab-line-format)))
-
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
   (format " %s " (buffer-name buffer)))
@@ -288,7 +283,12 @@
 (defun zw/tab-line-init ()
   (require 'tab-line)
   (add-hook 'buffer-list-update-hook 'zw/tab-line-show)
-  (add-hook 'after-revert-hook 'zw/tab-line-show))
+  (add-hook 'after-revert-hook 'zw/tab-line-show)
+  ;; fix issue when switching theme
+  (advice-add 'zw/theme-load-ui :after (lambda ()
+                                         (zw/tab-line-set-face)
+                                         (tab-line-format)
+                                         (tab-line-force-update t))))
 (add-hook 'after-init-hook 'zw/tab-line-init)
 
 ;; * Drag move

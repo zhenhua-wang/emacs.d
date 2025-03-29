@@ -1,18 +1,10 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package auto-dark
-  :hook (after-init . auto-dark-mode)
+  :hook ((after-init . auto-dark-mode)
+         (auto-dark-dark-mode . zw/theme-load-ui)
+         (auto-dark-light-mode . zw/theme-load-ui))
   :config
-  (setq auto-dark-themes '((adwaita-dark) (doom-one-light)))
-  (add-hook 'auto-dark-dark-mode-hook
-            (lambda ()
-              (zw/theme-load-ui)
-              (zw/tab-line-set-face)
-              (tab-line-format)))
-  (add-hook 'auto-dark-light-mode-hook
-            (lambda ()
-              (zw/theme-load-ui)
-              (zw/tab-line-set-face)
-              (tab-line-format))))
+  (setq auto-dark-themes '((adwaita-dark) (doom-one-light))))
 
-(provide 'zw-theme-extra)
+(provide 'zw-theme-auto)
