@@ -44,6 +44,7 @@
  ("s-z" . undo-only)
  ("s-S-z" . undo-redo)
  ("C-d" . backward-delete-char)
+ ("RET" . zw/pager-copy-this)
  :map isearch-mode-map
  ([remap isearch-delete-char] . isearch-del-char)
  ([xterm-paste] . isearch-xterm-paste)
@@ -70,6 +71,12 @@
                 (progn
                   (unless isearch-mode (isearch-mode t))
                   (isearch-printing-char C N)))))
+
+(defun zw/pager-copy-this ()
+  (interactive)
+  (let ((symbol (thing-at-point 'symbol t)))
+    (kill-new symbol)
+    (message (format "\"%s\" saved to kill ring" symbol))))
 
 (defun zw/pager-isearch-xterm-paste (event)
   (interactive "e")
