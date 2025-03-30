@@ -312,6 +312,7 @@
       ;; refresh display
       (dired-revert)
       (setq-local dired-omit-size-limit nil
+                  line-spacing 1
                   mode-line-format (zw/dired-sidebar--modeline-format)
                   zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max)))))
 
