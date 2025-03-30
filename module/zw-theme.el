@@ -275,13 +275,16 @@
   (zw/theme-set-theme))
 ;; temporary theme selector
 (defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
+;; indicator for whether to initialize theme
+(defvar zw/theme-init-p t)
 (add-hook 'after-init-hook
           (lambda ()
             ;; default theme
             (when (not (file-exists-p zw/theme-selector))
               (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
             ;; load theme
-            (ignore-errors (load zw/theme-selector))
+            (when zw/theme-init-p
+              (ignore-errors (load zw/theme-selector)))
             (zw/theme-load-ui)))
 
 ;; load custom faces

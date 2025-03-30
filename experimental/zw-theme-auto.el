@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
+(setq zw/theme-init-p nil)
+
 (use-package auto-dark
   :hook ((after-init . auto-dark-mode)
          (auto-dark-dark-mode . zw/theme-load-ui)
