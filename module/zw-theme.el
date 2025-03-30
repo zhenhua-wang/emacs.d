@@ -2,7 +2,7 @@
 
 ;; * Font
 (defun zw/theme-set-font ()
-  (let ((default-font (font-spec :name "Noto Sans Mono" :size 15.0))
+  (let ((default-font (font-spec :name "Adwaita Mono" :size 14.0))
         (cn-font (font-spec :name "Noto Sans Mono CJK SC" :size 13.0))
         (emoji-font (font-spec :name "Noto Color Emoji" :size 13.0))
         (fixed-pitch-font (font-spec :name "JetBrains Mono"))
