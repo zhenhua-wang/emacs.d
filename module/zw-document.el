@@ -41,9 +41,11 @@
 ;; org contrib
 (use-package org-contrib
   :after org
+  :hook (org-mode . zw/org-init)
   :config
-  (require 'ox-extra)
-  (ox-extras-activate '(ignore-headlines)))
+  (defun zw/org-init ()
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines))))
 
 ;; auto tangle
 (use-package org-auto-tangle
