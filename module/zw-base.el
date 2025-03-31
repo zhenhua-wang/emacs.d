@@ -448,7 +448,7 @@ The order of values may be different."
         "\\.\\(?:csv\\|pdf\\|out\\)$"
         "\\.\\(?:mpg\\|mpeg\\|mp3\\|mp4\\)$"
         "\\.\\(?:avi\\|wmv\\|wav\\|mov\\|flv\\|ogm\\|ogg\\|mkv\\)$"
-        "\\.\\(?:doc\\|xls\\|ppt\\|odt\\|ods\\|odg\\|odp\\)$"))
+        "\\.\\(?:doc?x\\|xls?x\\|ppt?x\\|odt\\|ods\\|odg\\|odp\\)$"))
 
 (with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
