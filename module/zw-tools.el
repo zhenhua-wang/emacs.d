@@ -474,7 +474,7 @@
 ;; * Flyspell correct
 (use-package flyspell-correct
   :after flyspell
-  :bind ((:map flyspell-mode-map ("M-$" . flyspell-correct-at-point))))
+  :bind (("M-$" . flyspell-correct-at-point)))
 
 ;; * Rime
 (use-package rime

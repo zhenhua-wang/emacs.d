@@ -36,11 +36,10 @@
                  (not (buffer-modified-p)))
             (flymake-start t))))))
 
-(when (executable-find "emacs-lsp-booster")
-  (use-package eglot-booster
-    :vc (:url "https://github.com/jdtsmith/eglot-booster")
-    :after eglot
-    :config (eglot-booster-mode)))
+(use-package eglot-booster
+  :when (executable-find "emacs-lsp-booster")
+  :vc (:url "https://github.com/jdtsmith/eglot-booster")
+  :hook (after-init . eglot-booster-mode))
 
 (use-package consult-eglot
   :after eglot
