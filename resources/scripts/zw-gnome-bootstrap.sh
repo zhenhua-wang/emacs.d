@@ -49,15 +49,15 @@ sudo systemctl enable bluetooth.service
 # zsh
 yay -S zsh zsh-syntax-highlighting zsh-autosuggestions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-echo -e '' >> ~/.zshrc
-echo -e '##### begin config #####' >> ~/.zshrc
+sed -i '/##### begin zw config #####/,/##### end zw config #####/d' ~/.zshrc
+echo -e '##### begin zw config #####' >> ~/.zshrc
 echo -e 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
 echo -e 'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
 echo -e "bindkey '^H' backward-kill-word" >> ~/.zshrc
 echo -e 'alias streamlink="streamlink --player mpv"' >> ~/.zshrc
 echo -e 'alias open="xdg-open"' >> ~/.zshrc
 echo -e 'alias pacman-mirror-update="sudo reflector --verbose --country 'US,CN' --score 50 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist"' >> ~/.zshrc
-echo -e '##### end config #####' >> ~/.zshrc
+echo -e '##### end zw config #####' >> ~/.zshrc
 
 # config git
 git config --global user.name "Zhenhua Wang"
