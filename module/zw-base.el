@@ -443,13 +443,12 @@ The order of values may be different."
       recentf-exclude
       '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
         "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\|webp\\)$"
-        ".mpg" ".mpeg" ".mp3" ".mp4"
-        ".avi" ".wmv" ".wav" ".mov" ".flv"
-        ".ogm" ".ogg" ".mkv"
-        ".doc" ".xls" ".ppt" ".odt" ".ods" ".odg" ".odp"
         "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-        "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
-        "~/.conda/" ".csv" ".pdf" ".out"))
+        "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/" "~/.conda/"
+        "\\.\\(?:csv\\|pdf\\|out\\)$"
+        "\\.\\(?:mpg\\|mpeg\\|mp3\\|mp4\\)$"
+        "\\.\\(?:avi\\|wmv\\|wav\\|mov\\|flv\\|ogm\\|ogg\\|mkv\\)$"
+        "\\.\\(?:doc\\|xls\\|ppt\\|odt\\|ods\\|odg\\|odp\\)$"))
 
 (with-eval-after-load "recentf"
   (push (expand-file-name recentf-save-file) recentf-exclude)
