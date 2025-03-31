@@ -18,7 +18,7 @@ yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-cn-fonts
 
 # emacs
 mv ~/emacs.d ~/.emacs.d
-yay -S emacs-nativecomp emacs-lsp-booster aspell aspell-en
+yay -S emacs emacs-lsp-booster aspell aspell-en
 
 # gnome core
 yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkmanager xdg-desktop-portal-gnome xdg-user-dirs gst-plugins-good power-profiles-daemon switcheroo-control flatpak malcontent iio-sensor-proxy networkmanager-openconnect gnome-remote-desktop gnome-firmware nautilus gnome-clocks gnome-calculator gnome-disk-utility gnome-logs
