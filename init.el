@@ -18,7 +18,8 @@
 ;; base
 (require 'zw-base)
 (require 'zw-package)
-(require 'zw-compat)
+(unless (display-graphic-p)
+  (require 'zw-tty))
 (require 'zw-startup)
 ;; appearance
 (require 'zw-theme)
