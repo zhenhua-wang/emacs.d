@@ -169,6 +169,15 @@ ninja -C builddir/
 sudo ninja -C builddir/ install
 #+end_src
 
+** Waydroid
+#+begin_src sh
+yay -S waydroid
+# init with GApps support
+sudo waydroid init -s GAPPS
+# enable service
+sudo systemctl enable waydroid-container.service
+#+end_src
+
 ** Misc
 *** Dell closing lid doesn't suspend
 https://askubuntu.com/a/1030789
