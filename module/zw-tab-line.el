@@ -1,10 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Group
-(defcustom zw/tab-line-kill-buffer-switch-to-previous t
-  "Switch to previous buffer on tab-line after kill buffer"
-  :type 'boolean)
-
 (defcustom zw/tab-line-buffer-group-alist
   '(((memq major-mode '(helpful-mode
                         help-mode
@@ -57,25 +53,7 @@
     (puthash group (delq buffer group-buffers)
              zw/tab-line-group--hash-table)))
 
-(defun zw/tab-line-kill-buffer-switch-to-previous ()
-  (let ((buffer (current-buffer)))
-    (when (and zw/tab-line-kill-buffer-switch-to-previous
-               (eq buffer (window-buffer (selected-window)))
-               ;; ignore switching when 'find-alternate-file is called
-               (not (backtrace-frame 0 'find-alternate-file)))
-      (when-let* ((group (zw/tab-line-buffer-group buffer))
-                  (group-buffers (zw/tab-line-get-group-buffers group))
-                  (max-index (- (length group-buffers) 1))
-                  (pos (cl-position buffer group-buffers))
-                  (pos-previous (- pos 1))
-                  ;; (pos-next (+ pos 1))
-                  ;; (buffer-pos (if (> pos-next max-index) pos-previous pos-next))
-                  (buffer-pos (if (< pos-previous 0) 1 pos-previous))
-                  (buf (nth buffer-pos group-buffers)))
-        (switch-to-buffer buf)))))
-
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
-(add-hook 'kill-buffer-hook 'zw/tab-line-kill-buffer-switch-to-previous)
 
 (defun zw/tab-line-buffer-group-visible-p ()
   (zw/tab-line-buffer-group (current-buffer)))
@@ -323,6 +301,23 @@ at the mouse-down event to the position at mouse-up event."
   (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'zw/tab-line-mouse-move-tab))
 
 ;; * Keymap
+;; kill buffer and select to previous
+(defun zw/tab-line-kill-buffer-switch-to-previous ()
+  (interactive)
+  (call-interactively 'kill-current-buffer)
+  (let ((buffer (current-buffer)))
+    (when (eq buffer (window-buffer (selected-window)))
+      (when-let* ((group (zw/tab-line-buffer-group buffer))
+                  (group-buffers (zw/tab-line-get-group-buffers group))
+                  (max-index (- (length group-buffers) 1))
+                  (pos (cl-position buffer group-buffers))
+                  (pos-previous (- pos 1))
+                  ;; (pos-next (+ pos 1))
+                  ;; (buffer-pos (if (> pos-next max-index) pos-previous pos-next))
+                  (buffer-pos (if (< pos-previous 0) 1 pos-previous))
+                  (buf (nth buffer-pos group-buffers)))
+        (switch-to-buffer buf)))))
+
 ;; select tab
 (defun zw/tab-line-select (index)
   (let* ((visible-tabs (funcall tab-line-tabs-function))
@@ -345,6 +340,7 @@ at the mouse-down event to the position at mouse-up event."
   (define-key global-map (car key-func) (cdr key-func)))
 
 (bind-keys :map global-map
+           ("s-q" . zw/tab-line-kill-buffer-switch-to-previous)
            ("s-{" . tab-line-switch-to-prev-tab)
            ("s-}" . tab-line-switch-to-next-tab)
            ("s-9" . (lambda ()
