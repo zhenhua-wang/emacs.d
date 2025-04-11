@@ -60,7 +60,9 @@
 (defun zw/tab-line-kill-buffer-switch-to-previous ()
   (let ((buffer (current-buffer)))
     (when (and zw/tab-line-kill-buffer-switch-to-previous
-               (eq buffer (window-buffer (selected-window))))
+               (eq buffer (window-buffer (selected-window)))
+               ;; ignore switching when 'find-alternate-file is called
+               (not (backtrace-frame 0 'find-alternate-file)))
       (when-let* ((group (zw/tab-line-buffer-group buffer))
                   (group-buffers (zw/tab-line-get-group-buffers group))
                   (max-index (- (length group-buffers) 1))
