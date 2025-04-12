@@ -20,21 +20,22 @@
   :config
   (advice-add 'eaf-install :override (lambda (&rest _)))
   (advice-add 'eaf-install-and-update :override (lambda (&rest _)))
-  (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File))
   (defun zw/eaf-open-in-external (orig-fun)
     (if (eq major-mode 'eaf-mode)
         (let ((buffer-file-name (eaf-get-path-or-url)))
           (funcall orig-fun))
       (funcall orig-fun)))
   (advice-add 'zw/open-in-external :around 'zw/eaf-open-in-external)
-  (defun zw/eaf-tab-line-icon (orig-fun buffer)
-    (with-current-buffer buffer
-      (if (eq major-mode 'eaf-mode)
-          (pcase eaf--buffer-app-name
-            ("pdf-viewer" (nerd-icons-icon-for-file "pdf.pdf"))
-            ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange)))
-        (funcall orig-fun buffer))))
-  (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
+  (with-eval-after-load "zw-tab-line"
+    (defun zw/eaf-tab-line-icon (orig-fun buffer)
+      (with-current-buffer buffer
+        (if (eq major-mode 'eaf-mode)
+            (pcase eaf--buffer-app-name
+              ("pdf-viewer" (nerd-icons-icon-for-file "pdf.pdf"))
+              ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange)))
+          (funcall orig-fun buffer))))
+    (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
+    (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File)))
   (advice-add 'zw/modeline-init :after
               (lambda () (setq eaf-mode-line-format mode-line-format)))
   ;; grab keybord in exwm
