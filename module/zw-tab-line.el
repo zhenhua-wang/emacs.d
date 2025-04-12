@@ -28,12 +28,12 @@
   (cl-remove-if-not 'buffer-live-p
                     (gethash group zw/tab-line-group--hash-table)))
 
-;; store after-index for 'find-alternate-file
 (defvar zw/tab-line-group--after-index nil)
 (defun zw/tab-line-group--save-after-index ()
+  ;; store after-index for 'find-alternate-file
   (when (backtrace-frame 0 'find-alternate-file)
     (let* ((buffer (current-buffer))
-           (group (zw/tab-line-buffer-group new-buffer))
+           (group (zw/tab-line-buffer-group buffer))
            (group-buffers (zw/tab-line-get-group-buffers group)))
       (setq zw/tab-line-group--after-index
             (- (cl-position buffer group-buffers) 1)))))
@@ -44,7 +44,9 @@
              (not (minibufferp))
              (zw/tab-line-buffer-group-visible-p)
              (not (zw/hidden-buffer-p new-buffer)))
-    (let* ((after-index (or zw/tab-line-group--after-index
+    (let* ((group (zw/tab-line-buffer-group new-buffer))
+           (group-buffers (zw/tab-line-get-group-buffers group))
+           (after-index (or zw/tab-line-group--after-index
                             (cl-position after-buffer group-buffers))))
       (when (not (memq new-buffer group-buffers))
         (setq group-buffers
