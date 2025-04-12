@@ -28,32 +28,47 @@
   (cl-remove-if-not 'buffer-live-p
                     (gethash group zw/tab-line-group--hash-table)))
 
-(defun zw/tab-line-group-add-buffer (buffer)
-  (when (and (buffer-live-p buffer)
+;; store after-index for 'find-alternate-file
+(defvar zw/tab-line-group--after-index nil)
+(defun zw/tab-line-group--save-after-index ()
+  (when (backtrace-frame 0 'find-alternate-file)
+    (let* ((buffer (current-buffer))
+           (group (zw/tab-line-buffer-group new-buffer))
+           (group-buffers (zw/tab-line-get-group-buffers group)))
+      (setq zw/tab-line-group--after-index
+            (- (cl-position buffer group-buffers) 1)))))
+(add-hook 'kill-buffer-hook 'zw/tab-line-group--save-after-index)
+
+(defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
+  (when (and (buffer-live-p new-buffer)
              (not (minibufferp))
              (zw/tab-line-buffer-group-visible-p)
-             (not (zw/hidden-buffer-p buffer)))
-    (let* ((group (zw/tab-line-buffer-group buffer))
-           (group-buffers (zw/tab-line-get-group-buffers group))
-           (other-buffer (other-buffer buffer t)))
-      (when (not (memq buffer group-buffers))
+             (not (zw/hidden-buffer-p new-buffer)))
+    (let* ((after-index (or zw/tab-line-group--after-index
+                            (cl-position after-buffer group-buffers))))
+      (when (not (memq new-buffer group-buffers))
         (setq group-buffers
-              (if (memq other-buffer group-buffers)
-                  (zw/insert-after group-buffers other-buffer buffer)
-                (append group-buffers (list buffer))))
+              (if after-index
+                  (zw/insert-at-index group-buffers new-buffer (+ after-index 1))
+                (append group-buffers (list new-buffer)))
+              ;; reset
+              zw/tab-line-group--after-index nil)
         (puthash group group-buffers
                  zw/tab-line-group--hash-table)))))
 
+(defun zw/tab-line-group-add-buffer (buffer)
+  (zw/tab-line-group-add-buffer-after
+   (other-buffer buffer t) buffer))
+
 (defun zw/tab-line-group-add-current-buffer ()
   (zw/tab-line-group-add-buffer (current-buffer)))
+(add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 
 (defun zw/tab-line-group-remove-buffer (buffer)
   (let* ((group (zw/tab-line-buffer-group buffer))
          (group-buffers (zw/tab-line-get-group-buffers group)))
     (puthash group (delq buffer group-buffers)
              zw/tab-line-group--hash-table)))
-
-(add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 
 (defun zw/tab-line-buffer-group-visible-p ()
   (zw/tab-line-buffer-group (current-buffer)))
@@ -64,15 +79,6 @@
 
 ;; ** polymode
 (with-eval-after-load "polymode"
-  (defun zw/tab-line-remove-polymode-inner (base-buffer)
-    (cl-map 'list
-            'zw/tab-line-group-remove-buffer
-            (zw/indirect-buffers base-buffer)))
-  (defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
-    (let* ((group (zw/tab-line-buffer-group new-buffer))
-           (group-buffers (zw/tab-line-get-group-buffers group)))
-      (puthash group (zw/insert-after group-buffers after-buffer new-buffer)
-               zw/tab-line-group--hash-table)))
   (add-hook 'polymode-after-switch-buffer-hook
             (lambda (old-buffer new-buffer)
               (zw/tab-line-group-remove-buffer new-buffer)
@@ -80,7 +86,9 @@
               (zw/tab-line-group-remove-buffer old-buffer)))
   (add-hook 'polymode-init-inner-hook
             (lambda ()
-              (zw/tab-line-remove-polymode-inner (buffer-base-buffer)))))
+              (cl-map 'list
+                      'zw/tab-line-group-remove-buffer
+                      (zw/indirect-buffers (buffer-base-buffer))))))
 
 ;; * Appearence
 ;; ** face

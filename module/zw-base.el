@@ -48,15 +48,11 @@ The order of values may be different."
          (eq (buffer-base-buffer) base-buffer)))
      (buffer-list))))
 
-(defun zw/insert-after (list after-item new-item &optional replace)
-  "Insert NEW-ITEM into LIST after the first occurrence of AFTER-ITEM."
-  (let ((pos (cl-position after-item list)))
-    (if pos
-        (append (cl-subseq list 0 pos)
-                (unless replace (list after-item))
-                (list new-item)
-                (cl-subseq list (1+ pos)))
-      (throw 'not-found "after-item not found in list"))))
+(defun zw/insert-at-index (list element index)
+  "Insert ELEMENT at INDEX in LIST. Returns a new list."
+  (append (cl-subseq list 0 index)
+          (list element)
+          (cl-subseq list index)))
 
 (defun zw/define-menu (menu-name items)
   (let* ((menu (easy-menu-create-menu menu-name items))
