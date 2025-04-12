@@ -58,12 +58,10 @@
         (puthash group group-buffers
                  zw/tab-line-group--hash-table)))))
 
-(defun zw/tab-line-group-add-buffer (buffer)
-  (zw/tab-line-group-add-buffer-after
-   (other-buffer buffer t) buffer))
-
 (defun zw/tab-line-group-add-current-buffer ()
-  (zw/tab-line-group-add-buffer (current-buffer)))
+  (let ((buffer (current-buffer)))
+    (zw/tab-line-group-add-buffer-after
+     (other-buffer buffer t) buffer)))
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
 
 (defun zw/tab-line-group-remove-buffer (buffer)
