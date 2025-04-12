@@ -29,7 +29,7 @@
                     (gethash group zw/tab-line-group--hash-table)))
 
 (defvar zw/tab-line-group--after-index nil)
-(defun zw/tab-line-group--save-after-index ()
+(defun zw/tab-line-group-save-after-index ()
   ;; store after-index for 'find-alternate-file
   (when (backtrace-frame 0 'find-alternate-file)
     (let* ((buffer (current-buffer))
@@ -37,7 +37,7 @@
            (group-buffers (zw/tab-line-get-group-buffers group)))
       (setq zw/tab-line-group--after-index
             (- (cl-position buffer group-buffers) 1)))))
-(add-hook 'kill-buffer-hook 'zw/tab-line-group--save-after-index)
+(add-hook 'kill-buffer-hook 'zw/tab-line-group-save-after-index)
 
 (defun zw/tab-line-group-add-buffer-after (after-buffer new-buffer)
   (when (and (buffer-live-p new-buffer)
