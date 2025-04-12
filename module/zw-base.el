@@ -554,11 +554,12 @@ The order of values may be different."
      (concat open-app-command " " (shell-quote-argument buffer-file-name))
      nil 0)))
 
-;; ** Flyspell
+;; ** Flyspell and dictionary
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
       ispell-alternate-dictionary (file-truename "~/.emacs.d/resources/english-words.txt")
-      flyspell-issue-message-flag nil)
+      flyspell-issue-message-flag nil
+      dictionary-server "dict.org")
 
 (add-hook 'outline-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
