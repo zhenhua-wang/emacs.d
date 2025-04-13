@@ -53,7 +53,7 @@ DesktopNames=exwm
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/applications/emacs-client.desktop")
 #+begin_src conf
 [Desktop Entry]
-Name=Emacs-Q
+Name=Emacs-Client
 GenericName=Text Editor
 Comment=Edit text
 Exec=emacsclient -r -n %F
