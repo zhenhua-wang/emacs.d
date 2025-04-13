@@ -569,7 +569,8 @@ The order of values may be different."
 (add-hook 'after-init-hook 'which-key-mode)
 
 ;; ** Server mode
-(when (daemonp)
+(autoload 'server-running-p "server")
+(unless (server-running-p)
   (server-start))
 
 ;; ** browse url
