@@ -49,6 +49,22 @@ X-LightDM-DesktopName=exwm
 DesktopNames=exwm
 #+end_src
 
+* Emacsclient
+#+HEADER: :tangle (zw/org-babel-tangle-linux "~/.local/share/applications/emacs-client.desktop")
+#+begin_src conf
+[Desktop Entry]
+Name=Emacs-Q
+GenericName=Text Editor
+Comment=Edit text
+Exec=emacsclient -c -r %F
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupNotify=true
+StartupWMClass=Emacs
+#+end_src
+
 * SDDM
 #+HEADER: :tangle (zw/org-babel-tangle-linux "/sudo::/etc/sddm.conf")
 #+begin_src conf
