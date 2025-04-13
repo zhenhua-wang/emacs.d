@@ -245,6 +245,8 @@
                        tab-bar-format-align-right))
 
 ;; * Enable
+(defvar zw/tab-bar-after-init-hook nil
+  "Hook run after `zw/tab-bar-init`.")
 (defun zw/tab-bar-init ()
   (tab-rename "Main" 1)
   (tab-bar-mode 1)
@@ -262,7 +264,9 @@
                  (not (zerop (string-to-number (cdr perc-charged)))))))
     (when (and have-battery-status-p
                tab-bar-show)
-      (display-battery-mode 1))))
+      (display-battery-mode 1)))
+  ;; run hooks
+  (run-hooks 'zw/tab-bar-after-init-hook))
 (add-hook 'after-init-hook 'zw/tab-bar-init)
 
 ;; * Keymap
