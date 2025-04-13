@@ -69,6 +69,9 @@
   (eaf-bind-key scroll_to_end "M->" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_to_begin "M-<" eaf-pdf-viewer-keybinding)
   (eaf-bind-key nil "M-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key toggle_presentation_mode "s-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key quit_presentation_mode "q" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key action_quit "<escape>" eaf-pdf-viewer-keybinding)
   (with-eval-after-load "tex"
     (add-to-list 'TeX-view-program-list '("eaf" eaf-pdf-synctex-forward-view))
     (add-to-list 'TeX-view-program-selection '(output-pdf "eaf"))))
