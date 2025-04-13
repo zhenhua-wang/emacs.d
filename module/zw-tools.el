@@ -453,7 +453,8 @@
 
 ;; * keycast
 (use-package keycast
-  :bind ("s-k" . keycast-tab-bar-mode))
+  :bind ("s-k" . keycast-tab-bar-mode)
+  :hook (tab-bar-mode . keycast-tab-bar-mode))
 
 ;; * Web search
 (use-package emacs-websearch

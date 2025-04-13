@@ -6,7 +6,6 @@
 ;; (require 'zw-theme-auto)
 
 (add-hook 'zw/after-set-theme-hook 'zw/ui-padding-mode)
-(add-hook 'tab-bar-mode-hook 'keycast-tab-bar-mode)
 
 (setq zw/modeline-remote-show-local nil
       zw/tab-line-show-debug nil)
