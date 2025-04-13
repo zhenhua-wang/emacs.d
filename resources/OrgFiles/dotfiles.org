@@ -56,7 +56,7 @@ DesktopNames=exwm
 Name=Emacs-Client
 GenericName=Text Editor
 Comment=Edit text
-Exec=emacsclient -r -n %F
+Exec=emacsclient -r -n --alternate-editor=emacs %F
 Icon=emacs
 Type=Application
 Terminal=false
