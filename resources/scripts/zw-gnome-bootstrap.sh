@@ -43,8 +43,9 @@ echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rule
 # git clone https://github.com/xremap/xremap-gnome ~/.local/share/gnome-shell/extensions/xremap@k0kubun.com
 ######## end ########
 
-# bluetooth
+# hardware
 sudo systemctl enable bluetooth.service
+sudo usermod -a -G video $USER
 
 # zsh
 yay -S zsh zsh-syntax-highlighting zsh-autosuggestions
