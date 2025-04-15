@@ -570,9 +570,9 @@ The order of values may be different."
 
 ;; ** Server mode
 (autoload 'server-running-p "server")
-(when (and (not (server-running-p))
-           (or (display-graphic-p) (daemonp)))
-  (server-start))
+(when (or (display-graphic-p) (daemonp))
+  (unless (server-running-p)
+    (server-start)))
 
 ;; ** browse url
 (let ((firefox-bin (cond ((executable-find "firefox")
