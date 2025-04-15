@@ -570,7 +570,8 @@ The order of values may be different."
 
 ;; ** Server mode
 (autoload 'server-running-p "server")
-(unless (server-running-p)
+(when (and (not (server-running-p))
+           (or (display-graphic-p) (daemonp)))
   (server-start))
 
 ;; ** browse url
