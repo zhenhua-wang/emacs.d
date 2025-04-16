@@ -1,5 +1,5 @@
 shared:
-  editors: &editors
+  disabled: &disabled
     - emacs
     - Emacs
     - emacs.Emacs
@@ -37,7 +37,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: *editors
+      not: *disabled
     exact_match: true
     remap:
       # Arrow
@@ -124,7 +124,7 @@ keymap:
 
   - name: Apple keymap
     application:
-      not: *editors
+      not: *disabled
     exact_match: true
     remap:
       # tab

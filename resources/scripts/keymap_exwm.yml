@@ -1,6 +1,6 @@
 # make sure to use 'xremap-x11-bin' in EXWM to enable application-specific remapping.
 shared:
-  editors: &editors
+  disabled: &disabled
     - emacs
     - Emacs
     - emacs.Emacs
@@ -38,7 +38,7 @@ modmap:
 keymap:
   - name: Emacs
     application:
-      not: *editors
+      not: *disabled
     exact_match: true
     remap:
       # Arrow
@@ -81,7 +81,7 @@ keymap:
 
   - name: Apple keymap
     application:
-      not: *editors
+      not: *disabled
     exact_match: true
     remap:
       Super-z: [Super-z, { set_mark: false }]
