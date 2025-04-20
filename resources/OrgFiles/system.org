@@ -371,6 +371,18 @@ PS1='\[\033[1m\]\u\[\033[1m\]@\[\033[1m\]\h:\[\033[1;34m\]\w\[\033[1;32m\]$([ \j
 [[ $TERM == "dumb" ]] && PS1='$ ' && return
 #+end_src
 
+*** Plymouth
+- Install: ~yay -S plymouth~
+- Edit ~/etc/mkinitcpio.conf~
+  - Insert ~plymouth~ into ~HOOKS~
+    e.g. ~HOOKS=(base udev plymouth autodetect keyboard keymap modconf block filesystems fsck)~
+- For systemd-boot, edit boot file ~/boot/loader/entries/*.conf~
+  - e.g. append ~quiet splash~ to options
+- Rebuild kernel: ~sudo mkinitcpio -p linux~
+- Change theme
+  - Copy theme folder to ~/usr/share/plymouth/themes/~
+  - ~sudo plymouth-set-default-theme -R framework~
+
 * MacOS
 ** Homebrew
 #+begin_src shell
