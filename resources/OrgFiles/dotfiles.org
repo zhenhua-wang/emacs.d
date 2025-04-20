@@ -311,7 +311,7 @@ timer_id = None
 
 
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
-    CLOCK_FG = as_rgb(color_as_int(opts.cursor))
+    CLOCK_FG = as_rgb(color_as_int(opts.selection_foreground))
     CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
     DATE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
     DATE_BG = as_rgb(color_as_int(opts.active_tab_background))
