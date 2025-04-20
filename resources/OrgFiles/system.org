@@ -340,6 +340,9 @@ sudo mkinitcpio -p linux
 - Use ~protontricks~ inject dll (e.g. NBA2K_Hook.dll) into process (NBA2K20.exe)
   - ~flatpak install com.github.Matoking.protontricks~
   - Double click ~NBA2K_Hook.dll~ and select ~NBA2K20.exe~
+- When adding non-steam games, make sure that ~target~ and ~start in~ are in the same folder. For example,
+  - target: /run/user/1000/doc/1d4cd709/RA2/RA2MD.exe
+  - start in: /run/user/1000/doc/1d4cd709/RA2
 
 *** Flatpak font scale
 - Launch Flatseal and select the troublesome Flatpak application.
