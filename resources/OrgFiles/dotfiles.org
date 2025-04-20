@@ -138,27 +138,52 @@ inactive_tab_font_style normal
 ** Light theme
 #+name: kitty-light-theme
 #+begin_src conf
-background #f8f8f8
-foreground #2a2b33
-cursor #bbbbbb
-selection_background #e5e5e6
-color0 #000000
-color8 #000000
-color1 #de3d35
-color9 #de3d35
-color2 #3e953a
-color10 #3e953a
-color3 #d2b67b
-color11 #d2b67b
-color4 #2f5af3
-color12 #2f5af3
-color5 #950095
-color13 #a00095
-color6 #3e953a
-color14 #3e953a
-color7 #bbbbbb
-color15 #ffffff
-selection_foreground #2a2b33
+# The basic colors
+foreground                      #383a42
+background                      #fafafa
+selection_foreground            #383a42
+selection_background            #dfdfdf
+
+# Cursor colors
+cursor                          #383a42
+cursor_text_color               #fafafa
+
+# kitty window border colors
+active_border_color     #0184bc
+inactive_border_color   #c6c7c7
+
+# The basic 16 colors
+# black
+color0 #383a42
+color8 #c6c7c7
+
+# red
+color1 #e45649
+color9 #e45649
+
+# green
+color2  #50a14f
+color10 #50a14f
+
+# yellow
+color3  #986801
+color11 #986801
+
+# blue
+color4  #4078f2
+color12 #4078f2
+
+# magenta
+color5  #a626a4
+color13 #b751b6
+
+# cyan
+color6  #005478
+color14 #0184bc
+
+# white
+color7  #f0f0f0
+color15 #383a42
 #+end_src
 
 #+begin_src conf :tangle (zw/org-babel-tangle-not-exist "~/.config/kitty/light-theme.auto.conf") :noweb yes
