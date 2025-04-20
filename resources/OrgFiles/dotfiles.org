@@ -306,15 +306,15 @@ from kitty.tab_bar import (
     draw_tab_with_powerline)
 
 opts = get_options()
-CLOCK_FG = as_rgb(color_as_int(opts.cursor))
-CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
-DATE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
-DATE_BG = as_rgb(color_as_int(opts.active_tab_background))
 REFRESH_TIME = 10
 timer_id = None
 
 
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
+    CLOCK_FG = as_rgb(color_as_int(opts.cursor))
+    CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
+    DATE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+    DATE_BG = as_rgb(color_as_int(opts.active_tab_background))
     if not is_last:
         return screen.cursor.x
 
