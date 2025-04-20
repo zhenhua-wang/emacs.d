@@ -86,7 +86,7 @@
 ;; install functions
 (defvar zw/eaf-install-env-string "/opt/miniconda3/bin/conda create -n eaf -y")
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
-(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging PyQt6-WebEngine PyQt6 PyQt6-sip setuptools sexpdata epc pymupdf")
+(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging epc sexpdata tld lxml PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6 setuptools pymupdf")
 (defvar zw/eaf-install-app-string
   (let* ((image-path (expand-file-name "eaf-image-viewer" package-user-dir))
          (image-modules (expand-file-name "node_modules" image-path)))
