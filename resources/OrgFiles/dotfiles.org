@@ -152,6 +152,14 @@ cursor_text_color               #fafafa
 active_border_color     #0184bc
 inactive_border_color   #c6c7c7
 
+# tab bar colors
+active_tab_background     #EEEEEE
+active_tab_foreground     #000000
+inactive_tab_foreground   #4f4f4f
+inactive_tab_background   #c6c7c7
+tab_bar_background        none
+tab_bar_margin_color      none
+
 # The basic 16 colors
 # black
 color0 #383a42
