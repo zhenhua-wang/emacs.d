@@ -25,6 +25,7 @@
 -   (optional) Note Color Emoji: https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
 -   (optional) JetBrains Mono: https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
 -   (optional) EB Garamond: https://fonts.google.com/download?family=EB%20Garamond
+-   (optional) emacs-lsp-booster: https://aur.archlinux.org/packages/emacs-lsp-booster
 
 # Installation
 
