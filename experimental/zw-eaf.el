@@ -91,12 +91,14 @@
   :demand t
   :vc (:url "https://github.com/emacs-eaf/eaf-browser")
   :config
+  (defun zw/eaf-webengine-zoom-level-string ()
+    (shell-command-to-string
+     "gsettings get org.gnome.desktop.interface text-scaling-factor"))
   (setq eaf-browser-continue-where-left-off t
         eaf-browser-enable-adblocker t
         browse-url-browser-function 'eaf-open-browser)
-  (when-let ((zoom-level (shell-command-to-string
-                          "gsettings get org.gnome.desktop.interface text-scaling-factor")))
-    (setq eaf-webengine-default-zoom (string-to-number zoom-level)))
+  (when-let ((zoom-level-string (zw/eaf-webengine-zoom-level-string)))
+    (setq eaf-webengine-default-zoom (string-to-number zoom-level-string)))
   (eaf-bind-key zoom_out "s--" eaf-browser-keybinding)
   (eaf-bind-key zoom_in "s-=" eaf-browser-keybinding)
   (eaf-bind-key undo_action "s-z" eaf-browser-keybinding)
