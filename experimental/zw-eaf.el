@@ -32,10 +32,13 @@
         (if (eq major-mode 'eaf-mode)
             (pcase eaf--buffer-app-name
               ("pdf-viewer" (nerd-icons-icon-for-file "pdf.pdf"))
-              ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange)))
+              ("image-viewer" (nerd-icons-faicon "nf-fa-image" :face 'nerd-icons-orange))
+              ("browser" (nerd-icons-devicon "nf-dev-chrome" :face 'nerd-icons-blue)))
           (funcall orig-fun buffer))))
     (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
-    (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File)))
+    (add-to-list 'zw/tab-line-buffer-group-alist
+                 '((and (eq major-mode 'eaf-mode) (file-exists-p eaf--buffer-url)) . File))
+    (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . EAF)))
   (advice-add 'zw/modeline-init :after
               (lambda () (setq eaf-mode-line-format mode-line-format)))
   ;; grab keybord in exwm
@@ -83,14 +86,36 @@
   :config
   (eaf-bind-key reload_image "s-r" eaf-image-viewer-keybinding))
 
+(use-package eaf-browser
+  :if (display-graphic-p)
+  :demand t
+  :vc (:url "https://github.com/emacs-eaf/eaf-browser")
+  :config
+  (setq eaf-browser-continue-where-left-off t
+        eaf-browser-enable-adblocker t
+        browse-url-browser-function 'eaf-open-browser)
+  (eaf-bind-key zoom_out "s--" eaf-browser-keybinding)
+  (eaf-bind-key zoom_in "s-=" eaf-browser-keybinding)
+  (eaf-bind-key copy_text "s-c" eaf-browser-keybinding)
+  (eaf-bind-key yank_text "s-v" eaf-browser-keybinding)
+  (eaf-bind-key select_all_or_input_text "s-a" eaf-browser-keybinding))
+
 ;; install functions
+(defvar zw/eaf-apps '(eaf-pdf-viewer eaf-image-viewer eaf-browser))
 (defvar zw/eaf-install-env-string "/opt/miniconda3/bin/conda create -n eaf -y")
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
 (defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging epc sexpdata tld lxml PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6 setuptools pymupdf")
 (defvar zw/eaf-install-app-string
-  (let* ((image-path (expand-file-name "eaf-image-viewer" package-user-dir))
-         (image-modules (expand-file-name "node_modules" image-path)))
-    (format "npm install %s --prefix %s" image-path image-path)))
+  (mapconcat
+   (lambda (app)
+     (when-let* ((app-name (symbol-name app))
+                 (image-path (expand-file-name app-name package-user-dir)))
+       (format "npm install %s --prefix %s" image-path image-path)))
+   ;; remove non-nodejs apps
+   (cl-remove-if (lambda (app)
+                   (member app '(eaf-pdf-viewer)))
+                 zw/eaf-apps)
+   "&&"))
 
 (defun zw/eaf-install-all ()
   "Install eaf environment, dependencies and apps."
@@ -103,8 +128,8 @@
 (defun zw/eaf-update-app ()
   "Update eaf apps."
   (interactive)
-  (dolist (pkg '(eaf-pdf-viewer eaf-image-viewer))
-    (package-vc-upgrade (cadr (assq pkg package-alist))))
+  (dolist (app zw/eaf-apps)
+    (package-vc-upgrade (cadr (assq app package-alist))))
   (async-shell-command (concat zw/eaf-activate-env-string "&&"
                                zw/eaf-install-app-string)))
 
