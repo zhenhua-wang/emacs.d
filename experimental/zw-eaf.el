@@ -96,9 +96,17 @@
         browse-url-browser-function 'eaf-open-browser)
   (eaf-bind-key zoom_out "s--" eaf-browser-keybinding)
   (eaf-bind-key zoom_in "s-=" eaf-browser-keybinding)
+  (eaf-bind-key undo_action "s-z" eaf-browser-keybinding)
+  (eaf-bind-key redo_action "s-Z" eaf-browser-keybinding)
   (eaf-bind-key copy_text "s-c" eaf-browser-keybinding)
   (eaf-bind-key yank_text "s-v" eaf-browser-keybinding)
-  (eaf-bind-key select_all_or_input_text "s-a" eaf-browser-keybinding))
+  (eaf-bind-key select_all_or_input_text "s-a" eaf-browser-keybinding)
+  (eaf-bind-key search_text_forward "s-f" eaf-browser-keybinding)
+  (eaf-bind-key history_forward "s-]" eaf-browser-keybinding)
+  (eaf-bind-key history_backward "s-[" eaf-browser-keybinding)
+  (eaf-bind-key close_buffer "s-w" eaf-browser-keybinding)
+  (eaf-bind-key scroll_to_begin "M-<" eaf-browser-keybinding)
+  (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding))
 
 ;; install functions
 (defvar zw/eaf-apps '(eaf-pdf-viewer eaf-image-viewer eaf-browser))
