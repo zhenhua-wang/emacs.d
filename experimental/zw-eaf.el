@@ -94,6 +94,9 @@
   (setq eaf-browser-continue-where-left-off t
         eaf-browser-enable-adblocker t
         browse-url-browser-function 'eaf-open-browser)
+  (when-let ((zoom-level (shell-command-to-string
+                          "gsettings get org.gnome.desktop.interface text-scaling-factor")))
+    (setq eaf-webengine-default-zoom (string-to-number zoom-level)))
   (eaf-bind-key zoom_out "s--" eaf-browser-keybinding)
   (eaf-bind-key zoom_in "s-=" eaf-browser-keybinding)
   (eaf-bind-key undo_action "s-z" eaf-browser-keybinding)
@@ -106,7 +109,8 @@
   (eaf-bind-key history_backward "s-[" eaf-browser-keybinding)
   (eaf-bind-key close_buffer "s-w" eaf-browser-keybinding)
   (eaf-bind-key scroll_to_begin "M-<" eaf-browser-keybinding)
-  (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding))
+  (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding)
+  (eaf-bind-key emacs-websearch "s-t" eaf-browser-keybinding))
 
 ;; install functions
 (defvar zw/eaf-apps '(eaf-pdf-viewer eaf-image-viewer eaf-browser))
