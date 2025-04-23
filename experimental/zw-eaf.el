@@ -142,8 +142,6 @@
   (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding)
   (eaf-bind-key insert_or_scroll_up_page "n" eaf-browser-keybinding)
   (eaf-bind-key insert_or_scroll_down_page "p" eaf-browser-keybinding)
-  (eaf-bind-key scroll_up "<down>" eaf-browser-keybinding)
-  (eaf-bind-key scroll_down "<up>" eaf-browser-keybinding)
   (eaf-bind-key emacs-websearch "s-t" eaf-browser-keybinding))
 
 ;; install functions
