@@ -1204,7 +1204,6 @@ Terminal=false
 <Ctrl><Super>e,emacs,Emacs,
 <Ctrl><Super>k,kitty,kitty,
 <Ctrl><Super>f,org.mozilla.firefox,firefox,
-<Ctrl><Super>z,app.zen_browser.zen,zen,
 <Ctrl><Super>n,nautilus,org.gnome.Nautilus,
 #+end_src
 
