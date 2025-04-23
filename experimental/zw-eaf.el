@@ -99,6 +99,7 @@
         browse-url-browser-function 'eaf-open-browser)
   (when-let ((zoom-level-string (zw/eaf-webengine-zoom-level-string)))
     (setq eaf-webengine-default-zoom (string-to-number zoom-level-string)))
+  (eaf-bind-key refresh_page "s-r" eaf-browser-keybinding)
   (eaf-bind-key zoom_out "s--" eaf-browser-keybinding)
   (eaf-bind-key zoom_in "s-=" eaf-browser-keybinding)
   (eaf-bind-key undo_action "s-z" eaf-browser-keybinding)
