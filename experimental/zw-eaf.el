@@ -87,7 +87,6 @@
   (eaf-bind-key reload_image "s-r" eaf-image-viewer-keybinding))
 
 (use-package eaf-browser
-  :disabled
   :if (display-graphic-p)
   :demand t
   :vc (:url "https://github.com/emacs-eaf/eaf-browser")
