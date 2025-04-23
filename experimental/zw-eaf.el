@@ -146,7 +146,7 @@
 (defvar zw/eaf-apps '(eaf-pdf-viewer eaf-image-viewer eaf-browser))
 (defvar zw/eaf-install-env-string "/opt/miniconda3/bin/conda create -n eaf -y")
 (defvar zw/eaf-activate-env-string  "source /opt/miniconda3/bin/activate eaf")
-(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging epc sexpdata tld lxml PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6 setuptools pymupdf")
+(defvar zw/eaf-install-dependecies-string "conda install conda-forge::python conda-forge::nodejs -y && pip install packaging epc sexpdata tld lxml PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6 setuptools pymupdf requests")
 (defvar zw/eaf-install-app-string
   (mapconcat
    (lambda (app)
