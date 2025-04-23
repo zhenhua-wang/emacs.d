@@ -91,6 +91,29 @@
   :demand t
   :vc (:url "https://github.com/emacs-eaf/eaf-browser")
   :config
+  ;; save closed urls
+  (defvar zw/eaf-browser-n-closed-urls 5)
+  (defvar zw/eaf-browser--closed-urls nil)
+  (defun zw/eaf-browser--kill-hook ()
+    (when (and eaf--buffer-app-name
+               (string= eaf--buffer-app-name "browser"))
+      (add-to-list 'zw/eaf-browser--closed-urls eaf--buffer-url)
+      (when (and zw/eaf-browser-n-closed-urls
+                 (length> zw/eaf-browser--closed-urls
+                          zw/eaf-browser-n-closed-urls))
+        (setq zw/eaf-browser--closed-urls
+              (cl-subseq zw/eaf-browser--closed-urls
+                         0 zw/eaf-browser-n-closed-urls)))))
+  (add-hook 'kill-buffer-hook 'zw/eaf-browser--kill-hook)
+  ;; restore closed urls
+  (defun zw/eaf-browser-restore-url ()
+    "Restore the recent closed url in EAF browser."
+    (interactive)
+    (if zw/eaf-browser--closed-urls
+        (progn (eaf-open-browser (car zw/eaf-browser--closed-urls))
+               (setq zw/eaf-browser--closed-urls (cdr zw/eaf-browser--closed-urls)))
+      (message "No recently closed URLs")))
+  (eaf-bind-key zw/eaf-browser-restore-url "s-T" eaf-browser-keybinding)
   (defun zw/eaf-webengine-zoom-level-string ()
     (shell-command-to-string
      "gsettings get org.gnome.desktop.interface text-scaling-factor"))
