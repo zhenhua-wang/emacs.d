@@ -1205,6 +1205,7 @@ Terminal=false
 <Ctrl><Super>k,kitty,kitty,
 <Ctrl><Super>f,org.mozilla.firefox,firefox,
 <Ctrl><Super>n,nautilus,org.gnome.Nautilus,
+<Ctrl><Super>z,app.zen_browser.zen,zen,
 #+end_src
 
 * Local variables
