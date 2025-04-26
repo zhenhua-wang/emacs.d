@@ -274,7 +274,8 @@
   (zw/theme-set-font)
   (zw/theme-set-theme))
 ;; temporary theme selector
-(defvar zw/theme-selector (expand-file-name "zw-select-theme.el" user-emacs-directory))
+(defvar zw/theme-selector-name (if (display-graphic-p) "zw-select-theme.el" "zw-select-theme-tty.el"))
+(defvar zw/theme-selector (expand-file-name zw/theme-selector-name user-emacs-directory))
 ;; indicator for whether to initialize theme
 (defvar zw/theme-init-p t)
 (add-hook 'after-init-hook
