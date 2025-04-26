@@ -4,6 +4,7 @@
 ;; (require 'zw-copilot)
 ;; (require 'zw-tool-bar)
 ;; (require 'zw-theme-auto)
+;; (setq zw/theme-auto-enable 'gui)
 
 (add-hook 'zw/after-set-theme-hook 'zw/ui-padding-mode)
 

@@ -278,13 +278,15 @@
 (defvar zw/theme-selector (expand-file-name zw/theme-selector-name user-emacs-directory))
 ;; indicator for whether to initialize theme
 (defvar zw/theme-init-p t)
+(defvar zw/theme-init-before-hook nil)
 (add-hook 'after-init-hook
           (lambda ()
-            ;; default theme
-            (when (not (file-exists-p zw/theme-selector))
-              (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
-            ;; load theme
+            (run-hooks 'zw/theme-init-before-hook)
             (when zw/theme-init-p
+              ;; default theme
+              (when (not (file-exists-p zw/theme-selector))
+                (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
+              ;; load theme
               (ignore-errors (load zw/theme-selector)))
             (zw/theme-load-ui)))
 
