@@ -1,7 +1,13 @@
 ;; -*- lexical-binding: t -*-
 
 (defcustom zw/theme-auto-enable t
-  "Whether to enable automatic theme."
+  "Whether to enable automatic theme.
+
+Possible values:
+- 'gui  : Enable automatic theme only when in GUI.
+- 'tui  : Enable automatic theme only when in TUI.
+- t     : Always enable automatic theme.
+- nil   : Disable automatic theme enabling."
   :type '(choice (const :tag "Enable for GUI" gui)
                  (const :tag "Enable for TUI" tui)
                  (const :tag "Enable" t)
