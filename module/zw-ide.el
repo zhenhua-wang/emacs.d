@@ -245,6 +245,7 @@
   :if (display-graphic-p)
   :hook (eglot-managed-mode . eldoc-box-hover-mode)
   :config
+  (setq eldoc-box-max-pixel-height 350)
   (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4)))
 
 ;; * Provide
