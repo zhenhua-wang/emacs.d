@@ -240,5 +240,12 @@
   ;; side window
   (setq zw/right-side-window-buffer-list-predicate 'zw/tabspace-local-buffer-p))
 
+;; * Eldoc box
+(use-package eldoc-box
+  :if (display-graphic-p)
+  :hook (eglot-managed-mode . eldoc-box-hover-mode)
+  :config
+  (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4)))
+
 ;; * Provide
 (provide 'zw-ide)

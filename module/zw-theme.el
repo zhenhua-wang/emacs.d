@@ -199,6 +199,10 @@
      `(eglot-highlight-symbol-face
        ((t (:inherit bold :background ,highlight-color :foreground ,highlight-revert-color))))
 
+     ;; eldoc
+     `(eldoc-box-body ((t (:background ,popup-color))))
+     `(eldoc-box-border ((t (:background ,highlight-color))))
+
      ;; org with variable font
      `(org-level-8 ((t (:inherit (outline-8 variable-pitch)))))
      `(org-level-7 ((t (:inherit (outline-7 variable-pitch)))))
