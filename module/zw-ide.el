@@ -243,8 +243,13 @@
 ;; * Eldoc box
 (use-package eldoc-box
   :if (display-graphic-p)
+  :bind (("<escape>" . zw/eldoc-box-keyboard-quit))
   :hook (eglot-managed-mode . eldoc-box-hover-mode)
   :config
+  (defun zw/eldoc-box-keyboard-quit ()
+    (interactive)
+    (eldoc-box-quit-frame)
+    (call-interactively 'keyboard-quit))
   (setq eldoc-box-max-pixel-height 350)
   (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4)))
 
