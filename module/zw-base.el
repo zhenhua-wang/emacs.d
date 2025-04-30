@@ -549,10 +549,15 @@ The order of values may be different."
 (defun zw/open-in-external ()
   "Open visited file in default external program."
   (interactive)
-  (when buffer-file-name
+  (cond
+   (buffer-file-name
     (call-process-shell-command
      (concat open-app-command " " (shell-quote-argument buffer-file-name))
-     nil 0)))
+     nil 0))
+   ((derived-mode-p 'dired-mode)
+    (call-process-shell-command
+     "xdg-open ."
+     nil 0))))
 
 ;; ** Flyspell and dictionary
 (setq ispell-program-name "aspell"
