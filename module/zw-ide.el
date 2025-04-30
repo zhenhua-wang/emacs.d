@@ -251,7 +251,8 @@
     (eldoc-box-quit-frame)
     (call-interactively 'keyboard-quit))
   (setq eldoc-box-max-pixel-height 350)
-  (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4)))
+  (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4))
+  (add-hook 'zw/tab-line-before-kill-buffer-hook 'eldoc-box-reset-frame))
 
 ;; * Provide
 (provide 'zw-ide)

@@ -310,8 +310,10 @@ at the mouse-down event to the position at mouse-up event."
 
 ;; * Keymap
 ;; kill buffer and select to previous
+(defvar zw/tab-line-before-kill-buffer-hook nil)
 (defun zw/tab-line-kill-buffer-switch-to-previous ()
   (interactive)
+  (run-hooks 'zw/tab-line-before-kill-buffer-hook)
   (let ((buffer-switch))
     (when-let* ((buffer (current-buffer))
                 (group (zw/tab-line-buffer-group buffer))
