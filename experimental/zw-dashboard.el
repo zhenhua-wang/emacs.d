@@ -23,7 +23,8 @@
                                dashboard-insert-init-info))
   (dashboard-items '((agenda    . 5)
                      ;; (recents . 5)
-                     (projects . 5)))
+                     ;; (projects . 5)
+                     ))
   (dashboard-navigator-buttons
    `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
        "Homepage" "Browse homepage"
