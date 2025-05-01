@@ -229,7 +229,6 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
   :config
   (defun zw/csv-init ()
     (csv-guess-set-separator)
-    (csv-align-mode 1)
     (zw/visual-line-disable)))
 
 ;; * Provide
