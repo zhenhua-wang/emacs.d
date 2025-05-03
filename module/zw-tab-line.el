@@ -121,15 +121,16 @@
          (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
          (buffer (get-buffer tab))
          (selected-p (eq buffer (window-buffer)))
-         (tab-face (if selected-p
-                       (if (mode-line-window-selected-p)
-                           'tab-line-tab-current
-                         'tab-line-tab)
-                     'tab-line-tab-inactive))
+         (window-selected-p (mode-line-window-selected-p))
+         (text-face (if selected-p
+                        (if window-selected-p
+                            'tab-line-tab-current
+                          'tab-line-tab)
+                      'tab-line-tab-inactive))
          (icon (zw/tab-line-tab-icon buffer))
          (icon-face-raw (get-text-property 0 'face icon))
          (icon-face (if selected-p
-                        (if (mode-line-window-selected-p)
+                        (if window-selected-p
                             (list :inherit icon-face-raw
                                   :box (face-attribute 'tab-line-tab-current :box nil t)
                                   :height (face-attribute 'tab-line-tab-current :height)
@@ -141,19 +142,14 @@
                                 :background (face-background 'tab-line-tab nil t)
                                 :overline (face-attribute 'tab-line-tab :overline)))
                       'tab-line-tab-inactive))
-         (space-face (if selected-p
-                         (if (mode-line-window-selected-p)
-                             'tab-line-tab-current
-                           'tab-line-tab)
-                       'tab-line-tab-inactive))
-         (space (propertize " " 'face space-face
+         (space (propertize " " 'face text-face
                             'keymap tab-line-tab-map
                             'mouse-face 'tab-line-highlight)))
     (concat space
             (propertize icon 'face icon-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
-            (propertize tab-string 'face tab-face
+            (propertize tab-string 'face text-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
             space)))
