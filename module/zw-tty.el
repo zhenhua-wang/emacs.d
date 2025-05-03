@@ -52,5 +52,8 @@
   (bind-keys :map global-map
              ("<f12>" . nil)))
 
+;; * Browser
+(setq browse-url-browser-function 'eww-browse-url)
+
 ;; * Provide
 (provide 'zw-tty)
