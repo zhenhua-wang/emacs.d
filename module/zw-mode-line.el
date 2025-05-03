@@ -224,7 +224,7 @@
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-buffer-name-active 'zw/modeline-default-inactive))
-                 'help-echo (concat "File: " (buffer-file-name) ", Encoding:" (zw/modeline-encoding)))
+                 'help-echo (concat "Encoding:" (zw/modeline-encoding) ", File: " buffer-file-truename))
      " "
      zw/modeline-separator)))
 
