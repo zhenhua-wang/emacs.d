@@ -107,7 +107,7 @@
 
 ;; ** tab name
 (defun zw/tab-line-tab-name (buffer &optional _buffers)
-  (format " %s " (buffer-name buffer)))
+  (format " %s " (truncate-string-to-width (buffer-name buffer) 20 nil nil "…")))
 
 (defun zw/tab-line-tab-icon (buffer)
   (with-current-buffer buffer
@@ -115,11 +115,17 @@
         (nerd-icons-icon-for-file buffer-file-name)
       (nerd-icons-icon-for-mode major-mode))))
 
-(defun zw/tab-line-tab-name-format (orig-fun &rest args)
-  (let* ((tab-string (apply orig-fun args))
+(defun zw/tab-line-tab-name-format (tab tabs)
+  (let* ((buffer-p (bufferp tab))
+         (tab-string (funcall tab-line-tab-name-function tab tabs))
          (buffer-name (string-trim (string-replace tab-line-close-button "" tab-string)))
-         (buffer (get-buffer buffer-name))
+         (buffer (get-buffer tab))
          (selected-p (eq buffer (window-buffer)))
+         (tab-face (if selected-p
+                       (if (mode-line-window-selected-p)
+                           'tab-line-tab-current
+                         'tab-line-tab)
+                     'tab-line-tab-inactive))
          (icon (zw/tab-line-tab-icon buffer))
          (icon-face-raw (get-text-property 0 'face icon))
          (icon-face (if selected-p
@@ -147,11 +153,10 @@
             (propertize icon 'face icon-face
                         'keymap tab-line-tab-map
                         'mouse-face 'tab-line-highlight)
-            tab-string
+            (propertize tab-string 'face tab-face
+                        'keymap tab-line-tab-map
+                        'mouse-face 'tab-line-highlight)
             space)))
-
-(advice-add 'tab-line-tab-name-format-default :around
-            'zw/tab-line-tab-name-format)
 
 ;; ** bar
 (defun zw/tab-line-bar ()
@@ -251,6 +256,7 @@
 ;; * Config
 (with-eval-after-load "tab-line"
   (setq tab-line-tab-name-function #'zw/tab-line-tab-name
+        tab-line-tab-name-format-function 'zw/tab-line-tab-name-format
         tab-line-tabs-function #'zw/tab-line-tabs-function
         tab-line-new-button-show nil
         tab-line-close-button-show t
