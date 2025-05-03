@@ -41,6 +41,12 @@
                  '((and (eq major-mode 'eaf-mode) (file-exists-p eaf--buffer-url)) . File)))
   (advice-add 'zw/modeline-init :after
               (lambda () (setq eaf-mode-line-format mode-line-format)))
+  ;; always open eaf buffers in the largest window
+  (add-to-list 'display-buffer-alist
+               `(,(lambda (buffer _action)
+                    (with-current-buffer buffer
+                      (derived-mode-p 'eaf-mode)))
+                 (display-buffer-reuse-mode-window zw/display-buffer-in-largest-window)))
   ;; grab keybord in exwm
   (with-eval-after-load "exwm"
     (if (executable-find "wmctrl")
