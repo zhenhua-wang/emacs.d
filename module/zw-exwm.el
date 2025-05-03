@@ -138,7 +138,7 @@
          (dialog-x (floor (* (- display-width dialog-width) 0.5)))
          (dialog-y (floor (+ (* (- display-height dialog-height) 0.5) panel-y)))
          (float-header-line (list " "
-                                  '(:eval (propertize (zw/modeline-buffer-name 30 "...")
+                                  '(:eval (propertize (zw/modeline-buffer-name)
                                                       'face 'zw/modeline-process-active))
                                   '(:eval (zw/modeline-middle-space (zw/exwm-float-header-line-rhs)))
                                   '(:eval (zw/exwm-float-header-line-rhs))))
