@@ -214,7 +214,7 @@
 (defun zw/modeline-buffer-name ()
   (let* ((max-length (floor (* 0.3 (window-width))))
          (ellipse "...")
-         (file-name (or buffer-file-truename (buffer-name)))
+         (file-name (or (abbreviate-file-name (buffer-file-name)) (buffer-name)))
          (file-name-abbrev (if (length< file-name max-length)
                                file-name
                              (truncate-string-to-width file-name max-length nil nil ellipse))))
