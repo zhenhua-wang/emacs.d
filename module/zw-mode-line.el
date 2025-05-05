@@ -214,13 +214,14 @@
 (defun zw/modeline-buffer-name ()
   (let* ((max-length (floor (* 0.3 (window-width))))
          (ellipse "...")
-         (file-name (or (abbreviate-file-name (buffer-file-name)) (buffer-name)))
-         (file-name-abbrev (if (length< file-name max-length)
-                               file-name
-                             (truncate-string-to-width file-name max-length nil nil ellipse))))
+         (file-name (buffer-file-name))
+         (buffer-name (or (when file-name (abbreviate-file-name file-name)) (buffer-name)))
+         (buffer-name-abbrev (if (length< buffer-name max-length)
+                                 buffer-name
+                               (truncate-string-to-width buffer-name max-length nil nil ellipse))))
     (concat
      " "
-     (propertize file-name-abbrev
+     (propertize buffer-name-abbrev
                  'face (if (and (buffer-file-name) (buffer-modified-p))
                            (zw/modeline-set-face 'zw/modeline-modified-active 'zw/modeline-default-inactive)
                          (zw/modeline-set-face 'zw/modeline-buffer-name-active 'zw/modeline-default-inactive))
