@@ -403,6 +403,19 @@
 (add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
 (add-hook 'zw-dired-sidebar-mode-hook 'zw/left-side-window-mode)
 
+;; ** dired tab line
+(add-to-list 'zw/tab-line-buffer-group-alist
+             '((and (eq major-mode 'dired-mode)
+                    (not zw-dired-sidebar-mode))
+               . File))
+(add-hook 'zw-dired-sidebar-mode-hook
+          (lambda ()
+            (tab-line-mode -1)
+            (let* ((group 'File)
+                   (group-buffers (zw/tab-line-get-group-buffers group)))
+              (puthash group (delq (current-buffer) group-buffers)
+                       zw/tab-line-group--hash-table))))
+
 ;; ** favorite
 (defun zw/dired-favorite ()
   "Select a favorite directory from a list and open it in dired mode."
