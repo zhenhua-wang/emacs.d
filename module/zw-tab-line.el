@@ -151,6 +151,7 @@
                         'mouse-face 'tab-line-highlight)
             (propertize tab-string 'face text-face
                         'keymap tab-line-tab-map
+                        'tab tab
                         'mouse-face 'tab-line-highlight)
             space)))
 
