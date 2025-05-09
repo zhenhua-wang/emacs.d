@@ -36,9 +36,7 @@
               ("browser" (nerd-icons-devicon "nf-dev-chrome" :face 'nerd-icons-blue)))
           (funcall orig-fun buffer))))
     (advice-add 'zw/tab-line-tab-icon :around 'zw/eaf-tab-line-icon)
-    (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . EAF))
-    (add-to-list 'zw/tab-line-buffer-group-alist
-                 '((and (eq major-mode 'eaf-mode) (file-exists-p eaf--buffer-url)) . File)))
+    (add-to-list 'zw/tab-line-buffer-group-alist '((eq major-mode 'eaf-mode) . File)))
   (advice-add 'zw/modeline-init :after
               (lambda () (setq eaf-mode-line-format mode-line-format)))
   ;; always open eaf buffers in the largest window
