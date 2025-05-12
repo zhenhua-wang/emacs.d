@@ -76,7 +76,13 @@
     (let* ((file (dired-get-filename nil t)))
       (message "Opening %s..." file)
       (call-process "xdg-open" nil 0 nil file)
-      (message "Opening %s done" file))))
+      (message "Opening %s done" file)))
+  (defun zw/dired-copy-current-directory ()
+    "Copy the current dired directory path to the clipboard."
+    (interactive)
+    (let ((dir (dired-current-directory)))
+      (kill-new dir)
+      (message "Copied: %s" dir))))
 
 (use-package diredfl
   :hook
