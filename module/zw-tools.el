@@ -329,6 +329,7 @@
         (kill-buffer buffer)
         (dired dir)))))
 
+(defvar zw/dired-sidebar-init-dir nil)
 (defun zw/dired-sidebar-toggle ()
   "Toggle dired on left side."
   (interactive)
@@ -338,7 +339,17 @@
                    (ignore-errors (file-name-directory (buffer-file-name)))
                    default-directory)))
          (buffer (dired-noselect dir)))
-    (zw/dired-sidebar-enable buffer)))
+    (zw/dired-sidebar-enable buffer))
+  ;; set current init directory
+  (setq zw/dired-sidebar-init-dir default-directory))
+
+(defun zw/dired-sidebar-jump-init-dir ()
+  "Jump to the init directory where `zw/dired-sidebar-toggle` is called."
+  (interactive)
+  (let ((init-dir default-directory))
+    (dired--find-possibly-alternative-file zw/dired-sidebar-init-dir)
+    (zw/dired-sidebar-enable (current-buffer))
+    (setq zw/dired-sidebar-init-dir init-dir)))
 
 (defun zw/dired-sidebar-find-file ()
   (interactive)
@@ -389,6 +400,7 @@
   :lighter " Dired-Sidebar"
   :keymap
   `((,(kbd "q") . zw/kill-bufer-quit-window)
+    (,(kbd "<backtab>") . zw/dired-sidebar-jump-init-dir)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)
     (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
