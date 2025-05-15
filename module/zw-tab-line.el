@@ -63,6 +63,7 @@
     (zw/tab-line-group-add-buffer-after
      (other-buffer buffer t) buffer)))
 (add-hook 'buffer-list-update-hook 'zw/tab-line-group-add-current-buffer)
+(add-hook 'after-change-major-mode-hook 'zw/tab-line-group-add-current-buffer)
 
 (defun zw/tab-line-group-remove-buffer (buffer)
   (let* ((group (zw/tab-line-buffer-group buffer))
@@ -274,6 +275,7 @@
 (defun zw/tab-line-init ()
   (require 'tab-line)
   (add-hook 'buffer-list-update-hook 'zw/tab-line-show)
+  (add-hook 'after-change-major-mode-hook 'zw/tab-line-show)
   (add-hook 'after-revert-hook 'zw/tab-line-show)
   ;; fix issue when switching theme
   (advice-add 'zw/theme-load-ui :after (lambda ()
