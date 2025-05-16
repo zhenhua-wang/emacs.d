@@ -149,9 +149,18 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
   :hook (inferior-python-mode . zw/right-side-window-mode)
   :config (setq python-shell-dedicated 'project))
 
+;; register run repl
+(defun zw/python-run-repl ()
+  (interactive)
+  (require 'python)
+  (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
+                             (list nil (when (project-current) 'project) 'show)))
+(add-to-list 'zw/repl-run-function '(python-mode . zw/python-run-repl))
+(add-to-list 'zw/repl-run-function '(python-ts-mode . zw/python-run-repl))
+
 ;; * R
 (use-package ess
-  :commands (R zw/run-R-in-path)
+  :commands R
   :hook
   (ess-mode . zw/ess-setup)
   (inferior-ess-mode . zw/inferior-ess-setup)
@@ -222,6 +231,13 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
                ("=" . ess-smart-assign))
          (:map inferior-ess-r-mode-map
                ("=" . ess-smart-assign))))
+
+;; register run repl
+(defun zw/R-run-repl ()
+  (interactive)
+  (require 'ess)
+  (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
+(add-to-list 'zw/repl-run-function '(ess-r-mode . zw/R-run-repl))
 
 ;; * CSV
 (use-package csv-mode

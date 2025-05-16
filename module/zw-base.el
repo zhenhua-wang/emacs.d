@@ -758,15 +758,22 @@ The order of values may be different."
             (,path-var-symbol path))
        (apply ,repl-func ,repl-args))))
 
+(defcustom zw/repl-run-function nil
+  "A list of tuples where each tuple consists of a major mode and a corresponding function.
+The first element of each tuple is a major mode symbol (e.g., 'python-mode),
+and the second element is a function to start the REPL for that mode.
+
+If set to nil, no REPL will be automatically started."
+  :type '(alist :key-type symbol :value-type function)
+  :group 'zw)
+
 (defun zw/repl-run-in-path ()
+  "Run the REPL associated with the current major mode."
   (interactive)
-  (cond
-   ((eq major-mode 'ess-r-mode)
-    (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
-   ((memq major-mode '(python-mode python-ts-mode))
-    (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
-                               (list nil (when (project-current) 'project) 'show)))
-   (t (message "No REPL registered with current buffer"))))
+  (let ((repl-func (cdr (assoc major-mode zw/repl-run-function))))
+    (if repl-func
+        (funcall repl-func)
+      (message "No REPL registered with the current buffer"))))
 
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil
