@@ -47,3 +47,9 @@
   "Open user configuration file."
   (interactive)
   (find-file zw/user-config))
+
+;; load frame parameters
+(setq zw/frame-parameters
+      (expand-file-name "zw-frame-parameters.el" user-emacs-directory))
+(when (file-exists-p zw/frame-parameters)
+  (load zw/frame-parameters))
