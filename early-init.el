@@ -26,8 +26,7 @@
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(push '(fullscreen . maximized) initial-frame-alist)
-(push '(undecorated . t) initial-frame-alist)
+(push '(undecorated . t)      default-frame-alist)
 (setq-default mode-line-format nil)
 
 ;; user directory
@@ -38,3 +37,9 @@
       native-comp-async-query-on-exit t
       ;; native-comp-jit-compilation nil
       native-comp-async-report-warnings-errors nil)
+
+;; load frame parameters
+(setq zw/frame-parameters
+      (expand-file-name "zw-frame-parameters.el" user-emacs-directory))
+(when (file-exists-p zw/frame-parameters)
+  (load zw/frame-parameters))
