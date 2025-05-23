@@ -361,8 +361,8 @@ The order of values may be different."
                       nil zw/frame-parameters)
       (write-region
        (format "(push '(width . %s) initial-frame-alist)\n(push '(height . %s) initial-frame-alist)"
-               (+ (frame-parameter nil 'width) 28)
-               (+ (frame-parameter nil 'height) 10))
+               (frame-parameter nil 'width)
+               (frame-parameter nil 'height))
        nil zw/frame-parameters))))
 (add-hook 'kill-emacs-hook 'zw/save-frame-parameters)
 
