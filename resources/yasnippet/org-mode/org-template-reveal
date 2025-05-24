@@ -6,6 +6,6 @@
 #+AUTHOR: Zhenhua Wang
 #+SUBTITLE: ${2:institute}
 #+EMAIL: zhenhua.wang@mail.missouri.edu
-#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-html-reveal.setup
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/templates/zw-html-reveal.setup
 
 $0

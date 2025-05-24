@@ -5,7 +5,7 @@
 #+title: ${1:title}
 #+AUTHOR: Zhenhua Wang
 #+EMAIL: zhenhua.wang@mail.missouri.edu
-#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-latex-beamer-simple.setup
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/templates/zw-latex-beamer-simple.setup
 #+LaTeX_HEADER: \institute{${2:institute}}
 
 $0
