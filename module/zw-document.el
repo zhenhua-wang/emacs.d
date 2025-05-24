@@ -57,7 +57,7 @@
          (markdown-mode . toc-org-mode))
   :config (setq toc-org-max-depth 1))
 
-;; ** ox latex
+;; ** latex
 ;; htmlize.el is needed for exporting colorful codes to html
 (with-eval-after-load "ox-latex"
   (require 'ox-beamer)
@@ -70,8 +70,6 @@
        (setq org-latex-create-formula-image-program 'dvisvgm))))
   ;; latex '(latex script entities)
   (setq org-highlight-latex-and-related '(latex entities))
-  ;; org-export
-  (setq org-latex-listings 't)
   ;; language alias
   (add-to-list 'org-latex-listings-langs '(ess-r "R"))
   (add-to-list 'org-latex-classes

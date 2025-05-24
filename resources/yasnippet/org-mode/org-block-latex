@@ -3,6 +3,6 @@
 # key: <latex
 # --
 
-#+begin_export latex
+#+begin_src latex
 $0
-#+end_export
+#+end_src
