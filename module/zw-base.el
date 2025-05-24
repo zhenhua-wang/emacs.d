@@ -899,6 +899,9 @@ If set to nil, no REPL will be automatically started."
     (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))
 
 (add-hook 'prog-mode-hook 'zw-outline-mode)
+(dolist (mode '(css-mode-hook
+                css-ts-mode-hook))
+  (add-hook mode (lambda () (zw-outline-mode -1))))
 
 ;; * Editor
 ;; ** Copy
