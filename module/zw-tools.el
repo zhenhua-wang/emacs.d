@@ -492,7 +492,8 @@
   :vc (:url "https://github.com/zhenhua-wang/emacs-websearch")
   :bind (("s-l" . emacs-websearch))
   :config
-  (setq emacs-websearch-async t))
+  (setq emacs-websearch-async t
+        emacs-websearch-engine 'google))
 
 ;; * Ultra scroll
 (use-package ultra-scroll
