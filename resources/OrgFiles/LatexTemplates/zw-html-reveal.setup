@@ -1,0 +1,4 @@
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_REVEAL_JS_VERSION: 4
+#+REVEAL_THEME: white
+#+OPTIONS: timestamp:nil toc:1 num:nil

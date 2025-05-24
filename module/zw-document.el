@@ -84,6 +84,10 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+;; ** reveal
+(use-package ox-reveal
+  :hook (org-mode . (lambda() (require 'ox-reveal))))
+
 ;; ** theme
 (use-package org-modern
   :hook

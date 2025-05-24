@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: org html reveal template
+# key: <template-html-reveal
+# --
+#+title: ${1:title}
+#+AUTHOR: Zhenhua Wang
+#+EMAIL: zhenhua.wang@mail.missouri.edu
+#+SETUPFILE: ~/.emacs.d/resources/OrgFiles/LatexTemplates/zw-html-reveal.setup
+
+$0
