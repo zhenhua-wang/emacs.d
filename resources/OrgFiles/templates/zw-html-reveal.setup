@@ -5,7 +5,6 @@
 #+REVEAL_TITLE_SLIDE: <h1 class="title">%t</h1><br>%a<br><em>%s</em><br><em>%e</em>
 #+OPTIONS: timestamp:nil toc:1 num:nil
 #+HTML_HEAD: <style>
-#+HTML_HEAD: .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { text-transform: none !important; }
 #+HTML_HEAD: .reveal h3 { text-align: left; position: fixed; top: 50px; left: 0; }
 #+HTML_HEAD: .reveal p { text-align: left; }
 #+HTML_HEAD: .reveal table { margin: auto; border-collapse: collapse; border-spacing: 0; font-size: 0.7em; }
