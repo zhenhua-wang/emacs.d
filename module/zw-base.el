@@ -898,10 +898,12 @@ If set to nil, no REPL will be automatically started."
     (remove-hook 'before-change-functions 'zw/outline-reveal-before-change t)
     (remove-hook 'save-place-after-find-file-hook 'zw/outline-reveal t))))
 
-(add-hook 'prog-mode-hook 'zw-outline-mode)
-(dolist (mode '(css-mode-hook
-                css-ts-mode-hook))
-  (add-hook mode (lambda () (zw-outline-mode -1))))
+(defvar zw/outline-mode-ignore '(css-mode)
+  "List of major modes to ignore when enabling `zw-outline-mode`.")
+(defun zw/outline-mode-init ()
+  (unless (apply #'derived-mode-p zw/outline-mode-ignore)
+    (zw-outline-mode 1)))
+(add-hook 'prog-mode-hook 'zw/outline-mode-init)
 
 ;; * Editor
 ;; ** Copy
