@@ -4,22 +4,8 @@
 #+REVEAL_TRANS: slide
 #+OPTIONS: timestamp:nil toc:1 num:nil
 #+HTML_HEAD: <style>
-#+HTML_HEAD: .reveal p {
-#+HTML_HEAD:     text-align: left;
-#+HTML_HEAD: }
-#+HTML_HEAD: .reveal table {
-#+HTML_HEAD:     font-size: 0.5em;
-#+HTML_HEAD:     overflow: auto;
-#+HTML_HEAD:     max-height: 600px;
-#+HTML_HEAD: }
-#+HTML_HEAD: .reveal code {
-#+HTML_HEAD:     color: LightSlateGray;
-#+HTML_HEAD: }
-#+HTML_HEAD: div.legalese {
-#+HTML_HEAD:     font-size: 1.4vh;
-#+HTML_HEAD:     position: fixed;
-#+HTML_HEAD:     left: 3px;
-#+HTML_HEAD:     bottom: 3px;
-#+HTML_HEAD:     z-index: 50;
-#+HTML_HEAD: }
+#+HTML_HEAD: .reveal h3 { text-align: left; }
+#+HTML_HEAD: .reveal p { text-align: left; }
+#+HTML_HEAD: .reveal table { margin: auto; border-collapse: collapse; border-spacing: 0; font-size: 0.7em; }
+#+HTML_HEAD: .reveal img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 #+HTML_HEAD: </style>
