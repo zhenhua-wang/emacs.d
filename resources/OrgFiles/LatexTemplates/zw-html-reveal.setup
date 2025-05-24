@@ -2,7 +2,6 @@
 #+REVEAL_REVEAL_JS_VERSION: 4
 #+REVEAL_THEME: white
 #+OPTIONS: timestamp:nil toc:1 num:nil
-#+OPTIONS: tex:mathjax
 #+HTML_HEAD: <script>
 #+HTML_HEAD:   window.MathJax = {
 #+HTML_HEAD:     tex: {
