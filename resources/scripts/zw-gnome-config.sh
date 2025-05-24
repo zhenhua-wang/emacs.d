@@ -32,6 +32,7 @@ gsettings set org.gnome.GWeather4 temperature-unit 'centigrade'
 # default app
 gio mime inode/directory org.gnome.Nautilus.desktop
 xdg-settings set default-web-browser org.mozilla.firefox.desktop
+xdg-mime default org.mozilla.firefox.desktop application/xhtml+xml
 xdg-mime default emacs-client.desktop text/plain
 xdg-mime default emacs-client.desktop text/x-tex
 # ibus
