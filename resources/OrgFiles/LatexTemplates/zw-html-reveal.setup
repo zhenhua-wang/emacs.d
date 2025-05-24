@@ -1,35 +1,5 @@
 #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
-#+REVEAL_REVEAL_JS_VERSION: 4
+#+REVEAL_VERSION: 4
 #+REVEAL_THEME: white
+#+REVEAL_TRANS: slide
 #+OPTIONS: timestamp:nil toc:1 num:nil
-#+HTML_HEAD: <script>
-#+HTML_HEAD:   window.MathJax = {
-#+HTML_HEAD:     tex: {
-#+HTML_HEAD:       ams: {
-#+HTML_HEAD:         multlineWidth: '85%'
-#+HTML_HEAD:       },
-#+HTML_HEAD:       tags: 'ams',
-#+HTML_HEAD:       tagSide: 'right',
-#+HTML_HEAD:       tagIndent: '.8em'
-#+HTML_HEAD:     },
-#+HTML_HEAD:     chtml: {
-#+HTML_HEAD:       scale: 1.0,
-#+HTML_HEAD:       displayAlign: 'center',
-#+HTML_HEAD:       displayIndent: '0em'
-#+HTML_HEAD:     },
-#+HTML_HEAD:     svg: {
-#+HTML_HEAD:       scale: 1.0,
-#+HTML_HEAD:       displayAlign: 'center',
-#+HTML_HEAD:       displayIndent: '0em'
-#+HTML_HEAD:     },
-#+HTML_HEAD:     output: {
-#+HTML_HEAD:       font: 'mathjax-modern',
-#+HTML_HEAD:       displayOverflow: 'overflow'
-#+HTML_HEAD:     }
-#+HTML_HEAD:   };
-#+HTML_HEAD: </script>
-#+HTML_HEAD: <script
-#+HTML_HEAD:   id="MathJax-script"
-#+HTML_HEAD:   async
-#+HTML_HEAD:   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-#+HTML_HEAD: </script>

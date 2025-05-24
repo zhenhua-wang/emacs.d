@@ -85,8 +85,10 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;; ** reveal
-(use-package ox-reveal
-  :hook (org-mode . (lambda() (require 'ox-reveal))))
+(use-package org-re-reveal
+  :hook (org-mode . (lambda() (require 'org-re-reveal)))
+  :config
+  (add-to-list 'org-re-reveal-plugins 'math))
 
 ;; ** theme
 (use-package org-modern
