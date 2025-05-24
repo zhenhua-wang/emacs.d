@@ -2,7 +2,7 @@
 #+REVEAL_VERSION: 4
 #+REVEAL_THEME: white
 #+REVEAL_TRANS: fade
-#+REVEAL_TITLE_SLIDE: <h1 class="title">%t</h1><br><br>%a<br><em>%s</em><br><em>%e</em>
+#+REVEAL_TITLE_SLIDE: <h1 class="title">%t</h1><br>%a<br><em>%s</em><br><em>%e</em>
 #+OPTIONS: timestamp:nil toc:1 num:nil
 #+HTML_HEAD: <style>
 #+HTML_HEAD: .reveal h3 { text-align: left; position: fixed; top: 50px; left: 0; }
