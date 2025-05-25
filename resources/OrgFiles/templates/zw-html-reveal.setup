@@ -9,7 +9,7 @@
 #+HTML_HEAD: .reveal h3 { text-align: left; position: fixed; top: 50px; left: 0; }
 #+HTML_HEAD: .reveal p { text-align: left; }
 #+HTML_HEAD: .reveal table { margin: auto; border-collapse: collapse; border-spacing: 0; font-size: 0.7em; }
-#+HTML_HEAD: .reveal img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+#+HTML_HEAD: .reveal img { display: block; margin: auto; width: auto; }
 #+HTML_HEAD: #table-of-contents { text-align: left; }
 #+HTML_HEAD: #text-table-of-contents a { color: #222222; }
 #+HTML_HEAD: </style>
