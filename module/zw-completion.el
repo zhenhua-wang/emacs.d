@@ -54,7 +54,7 @@
   :bind (:map vertico-multiform-map
               ("M-p" . nil))
   :config
-  (defun zw/vertico-posframe-init ()
+  (defun zw/vertico-posframe-init (&rest args)
     "Initialize vertico-posframe UI."
     (setq vertico-posframe-border-width 20
           vertico-posframe-poshandler 'posframe-poshandler-frame-center
@@ -67,7 +67,7 @@
     (vertico-posframe-cleanup)
     (when (> (minibuffer-depth) 0)
       (vertico-posframe--show vertico-posframe--buffer 0)))
-  (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-init)
+  (advice-add 'vertico-posframe--show :before 'zw/vertico-posframe-init)
   (add-hook 'zw/after-set-theme-hook 'zw/vertico-posframe-refresh)
   (add-hook 'server-after-make-frame-hook 'zw/vertico-posframe-refresh))
 

@@ -1059,7 +1059,6 @@
     (apply orig-func args)))
 
 (advice-add 'vertico-posframe--show :around 'zw/exwm-vertico-posframe--show-advice)
-(setq vertico-posframe-width (floor (/ (display-pixel-width) (frame-char-width) 1.5)))
 
 ;; * exwm keymap
 ;; ** exwm prefix keys
