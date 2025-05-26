@@ -211,14 +211,14 @@
      zw/modeline-separator)))
 
 ;; ** buffer name
-(defun zw/modeline-buffer-name (&optional no-truncate-p)
+(defun zw/modeline-buffer-name (&optional fullname-p truncate-p)
   (let* ((max-length (floor (* 0.3 (window-width))))
          (ellipse "...")
          (file-name (buffer-file-name))
-         (buffer-name (or (when file-name (abbreviate-file-name file-name)) (buffer-name)))
-         (buffer-name-abbrev (if (or no-truncate-p (length< buffer-name max-length))
-                                 buffer-name
-                               (truncate-string-to-width buffer-name max-length nil nil ellipse))))
+         (buffer-name (if (and fullname-p file-name) (abbreviate-file-name file-name) (buffer-name)))
+         (buffer-name-abbrev (if (and truncate-p (length> buffer-name max-length))
+                                 (truncate-string-to-width buffer-name max-length nil nil ellipse)
+                               buffer-name)))
     (concat
      " "
      (propertize buffer-name-abbrev
@@ -498,7 +498,7 @@
     '(:eval (zw/modeline-bar))
     ;; left
     '(:eval (zw/modeline-remote))
-    '(:eval (zw/modeline-buffer-name))
+    '(:eval (zw/modeline-buffer-name nil :truncate))
     (if (display-graphic-p) "" zw/modeline-separator)
     '(:eval (zw/modeline-text-scale))
     '(:eval (zw/modeline-read-only))
@@ -524,7 +524,7 @@
                            '(:eval (zw/modeline-bar))
                            '(:eval (zw/modeline-remote))
                            '(:eval (propertize
-                                    (zw/modeline-buffer-name :no-truncate)
+                                    (zw/modeline-buffer-name)
                                     'face (zw/modeline-set-face 'zw/modeline-major-mode-active
                                                                 'zw/modeline-default-inactive)))
                            '(:eval (zw/modeline-text-scale))
