@@ -639,7 +639,7 @@ The order of values may be different."
   "update zw/emacs and tangle dotfiles"
   (interactive)
   (require 'org)
-  (let ((msg (string-trim (shell-command-to-string "cd ~/.emacs.d && git pull"))))
+  (let ((msg (shell-command-to-string "cd ~/.emacs.d && git pull")))
     (org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")
     (message (concat "emacs update:\n " msg))))
 
