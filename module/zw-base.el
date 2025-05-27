@@ -641,7 +641,7 @@ The order of values may be different."
   (require 'org)
   (let ((msg (string-trim (shell-command-to-string "cd ~/.emacs.d && git pull"))))
     (org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")
-    (message "%s" (concat "emacs update:\n " test-msg))))
+    (message "%s" (concat "emacs update:\n " msg))))
 
 ;; show scratch buffer in new window
 (defun zw/new-window ()
