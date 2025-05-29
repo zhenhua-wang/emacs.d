@@ -2,8 +2,7 @@
 
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
-  :hook ((prog-mode . zw/activate-copilot)
-         (polymode-init-inner . (lambda () (copilot-mode -1))))
+  :hook ((prog-mode . zw/activate-copilot))
   :bind (("C-<tab>" . copilot-complete)
          :map copilot-completion-map
          ("C-g" . 'copilot-clear-overlay)
@@ -21,6 +20,8 @@
   (defun zw/activate-copilot ()
     (if (> (buffer-size) copilot-max-char)
         (message "Buffer size exceeds copilot max char limit. Copilot will not be activated.")
-      (copilot-mode 1))))
+      (copilot-mode 1)))
+  (with-eval-after-load "polymode"
+    (zw/polymode-disable-advice #'copilot-mode)))
 
 (provide 'zw-copilot)
