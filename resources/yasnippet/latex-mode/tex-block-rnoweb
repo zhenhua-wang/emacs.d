@@ -3,6 +3,6 @@
 # key: <r
 # --
 
-<<$1>>=
+<<$1, echo=${2:TRUE}, results=${3:hide}>>=
 $0
 @
