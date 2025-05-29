@@ -299,10 +299,11 @@ at the first function to return non-nil.")
       (display-line-numbers-mode -1)))
   ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
-  ;; HACK: revert in polymode would lose font-lock
+  ;; HACK: revert in inner buffer would lose font-lock
   (defun zw/polymode-revert-advice (orig-fun &rest args)
-    (if (and (boundp polymode-mode) polymode-mode)
-        (message "disable revert buffer in polymode")
+    (if (and (boundp polymode-mode) polymode-mode
+             (buffer-base-buffer))
+        (message "disable revert buffer inside innermode")
       (apply orig-fun args)))
   (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice)
   (defun zw/polymode-outline-mode-advice (orig-fun &rest args)
