@@ -4,10 +4,10 @@
 # expand-env: ((yas-indent-line 'fixed))
 # --
 
-\begin{figure}[t!]
+\begin{figure}[${2:t!}]
 \centering
-<<$1, fig=TRUE>>=
+<<$1, echo=${3:TRUE}, fig=TRUE>>=
 $0
 @
-\caption{$2}
+\caption{$4}
 \end{figure}
