@@ -353,22 +353,23 @@ The order of values may be different."
 
 ;; ** save frame parameters
 (defun zw/save-frame-parameters ()
-  (when (display-graphic-p)
-    (when (not (file-exists-p zw/frame-parameters))
-      (make-empty-file zw/frame-parameters))
-    (if (frame-parameter nil 'fullscreen)
-        (write-region "(push '(fullscreen . maximized) initial-frame-alist)"
-                      nil zw/frame-parameters)
-      (write-region
-       (format "(push '(width . %s) initial-frame-alist)\n\
+  (when (boundp 'zw/frame-parameters)
+    (when (display-graphic-p)
+      (when (not (file-exists-p zw/frame-parameters))
+        (make-empty-file zw/frame-parameters))
+      (if (frame-parameter nil 'fullscreen)
+          (write-region "(push '(fullscreen . maximized) initial-frame-alist)"
+                        nil zw/frame-parameters)
+        (write-region
+         (format "(push '(width . %s) initial-frame-alist)\n\
 (push '(height . %s) initial-frame-alist)\n\
 (push '(left . %s) initial-frame-alist)\n\
 (push '(top . %s) initial-frame-alist)"
-               (frame-parameter nil 'width)
-               (frame-parameter nil 'height)
-               (frame-parameter nil 'left)
-               (frame-parameter nil 'top))
-       nil zw/frame-parameters))))
+                 (frame-parameter nil 'width)
+                 (frame-parameter nil 'height)
+                 (frame-parameter nil 'left)
+                 (frame-parameter nil 'top))
+         nil zw/frame-parameters)))))
 (add-hook 'kill-emacs-hook 'zw/save-frame-parameters)
 
 ;; * Tool
