@@ -276,8 +276,6 @@ at the first function to return non-nil.")
 (use-package polymode
   :vc (:url "https://github.com/zhenhua-wang/polymode")
   :commands polymode-mode
-  :hook ((polymode-init-host . zw/polymode-host-init)
-         (polymode-init-inner . zw/polymode-inner-init))
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
@@ -289,28 +287,18 @@ at the first function to return non-nil.")
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  (defun zw/polymode-host-init ()
-    (font-lock-update))
-  (defun zw/polymode-inner-init ()
-    (buffer-face-mode -1)
-    (when (and (buffer-base-buffer)
-               (not (with-current-buffer (buffer-base-buffer)
-                      display-line-numbers-mode)))
-      (display-line-numbers-mode -1)))
   ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
-  ;; HACK: revert in inner buffer would lose font-lock
-  (defun zw/polymode-revert-advice (orig-fun &rest args)
-    (if (and (boundp polymode-mode) polymode-mode
-             (buffer-base-buffer))
-        (message "disable revert buffer inside innermode")
-      (apply orig-fun args)))
-  (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice)
-  (defun zw/polymode-outline-mode-advice (orig-fun &rest args)
-    (if (and (boundp polymode-mode) polymode-mode)
-        (message "disable zw-outline-mode in polymode")
-      (apply orig-fun args)))
-  (pm-around-advice #'zw/outline-mode-init #'zw/polymode-revert-advice))
+  ;; disable some modes for innermode
+  (defun zw/polymode-disable-advice (symbol)
+    (advice-add symbol :around (lambda (orig-fun &rest args)
+                                 (if (and (boundp polymode-mode) polymode-mode
+                                          (buffer-base-buffer))
+                                     (message "disable %s inside innermode" symbol)
+                                   (apply orig-fun args)))))
+  (zw/polymode-disable-advice #'buffer-face-mode)
+  (zw/polymode-disable-advice #'display-line-numbers-mode)
+  (zw/polymode-disable-advice #'zw-outline-mode))
 
 (use-package poly-rliteral
   :vc (:url "https://github.com/zhenhua-wang/poly-rliteral")
