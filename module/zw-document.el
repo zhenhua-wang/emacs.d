@@ -281,10 +281,8 @@ at the first function to return non-nil.")
                ("M-p" . polymode-previous-chunk)
                ("M-n" . polymode-next-chunk)))
   :init
-  (setq poly-lock-allow-fontification t
-        poly-lock-allow-background-adjustment t
-        ;; disable this for now because of reverse-typing issue in poly-R
-        polymode-lsp-integration nil)
+  ;; disable lsp because of reverse-typing issue in poly-R
+  (setq polymode-lsp-integration nil)
   :config
   ;; disable some modes for innermode
   (defun zw/polymode-disable-advice (symbol)
