@@ -287,8 +287,6 @@ at the first function to return non-nil.")
         ;; disable this for now because of reverse-typing issue in poly-R
         polymode-lsp-integration nil)
   :config
-  ;; run kill-buffer in host buffer, which solves the font lock issue
-  (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; disable some modes for innermode
   (defun zw/polymode-disable-advice (symbol)
     (advice-add symbol :around (lambda (orig-fun &rest args)
