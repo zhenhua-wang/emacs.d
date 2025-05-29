@@ -275,7 +275,6 @@ at the first function to return non-nil.")
 ;; * Polymode
 (use-package polymode
   :vc (:url "https://github.com/zhenhua-wang/polymode")
-  :commands polymode-mode
   :bind ((:map polymode-mode-map
                ("C-c C-e" . polymode-export)
                ("C-c C-b" . polymode-eval-buffer)
