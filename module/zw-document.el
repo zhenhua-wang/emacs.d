@@ -295,8 +295,7 @@ at the first function to return non-nil.")
     (when (and (buffer-base-buffer)
                (not (with-current-buffer (buffer-base-buffer)
                       display-line-numbers-mode)))
-      (display-line-numbers-mode -1))
-    (zw-outline-mode -1))
+      (display-line-numbers-mode -1)))
   ;; run kill-buffer in host buffer, which solves the font lock issue
   (pm-around-advice #'kill-buffer #'polymode-with-current-base-buffer)
   ;; HACK: revert in polymode would lose font-lock
@@ -304,7 +303,12 @@ at the first function to return non-nil.")
     (if (and (boundp polymode-mode) polymode-mode)
         (message "disable revert buffer in polymode")
       (apply orig-fun args)))
-  (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice))
+  (pm-around-advice #'revert-buffer-quick #'zw/polymode-revert-advice)
+  (defun zw/polymode-outline-mode-advice (orig-fun &rest args)
+    (if (and (boundp polymode-mode) polymode-mode)
+        (message "disable zw-outline-mode in polymode")
+      (apply orig-fun args)))
+  (pm-around-advice #'zw/outline-mode-init #'zw/polymode-revert-advice))
 
 (use-package poly-rliteral
   :vc (:url "https://github.com/zhenhua-wang/poly-rliteral")
