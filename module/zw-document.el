@@ -274,6 +274,7 @@ at the first function to return non-nil.")
 
 ;; * Polymode
 (use-package polymode
+  :vc (:url "https://github.com/zhenhua-wang/polymode")
   :commands polymode-mode
   :hook ((polymode-init-host . zw/polymode-host-init)
          (polymode-init-inner . zw/polymode-inner-init))
