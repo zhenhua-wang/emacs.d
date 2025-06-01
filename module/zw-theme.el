@@ -99,6 +99,8 @@
     (set-face-attribute 'tab-bar nil
                         :inherit 'unspecified :foreground ui-color :height tab-bar-height
                         :weight 'regular :box tab-bar-box)
+    (set-face-attribute 'tab-line-tab-inactive nil
+                        :foreground shadow-color)
     (set-face-attribute 'tab-line nil
                         :inherit 'unspecified :foreground ui-color :background tab-bar-color
                         :underline tab-bar-box)
