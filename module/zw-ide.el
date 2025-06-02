@@ -177,7 +177,7 @@
       (when (y-or-n-p "Confirm deleting git index.lock?")
         (delete-file (expand-file-name ".git/index.lock" base)))))
   (with-eval-after-load "zw-tab-line"
-    (add-to-list 'zw/tab-line-buffer-group-alist '((magit-file-relative-name) . File))))
+    (add-to-list 'zw/tab-line-buffer-group-alist '((magit-file-relative-name) . File) :append)))
 
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
