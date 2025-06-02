@@ -25,11 +25,11 @@
 
 # % font
 #+LATEX_HEADER: \setbeamerfont{structure}{family=\sffamily,series=\mdseries}
-#+LATEX_HEADER: \setbeamerfont{title}{size=\LARGE,series=\bfseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{title}{size=\huge,series=\bfseries,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{subtitle}{size=\normalsize,parent=title}
-#+LATEX_HEADER: \setbeamerfont{date}{size=\scriptsize,series=\mdseries,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{author}{size=\large,series=\mdseries,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{institute}{size=\scriptsize,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{date}{size=\scriptsize,series=\mdseries,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{section in toc}{size=\large,series=\bfseries,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{section in head/foot}{size=\tiny,parent=structure}
 #+LATEX_HEADER: \setbeamerfont{subsection in toc}{size=\small,series=\mdseries,parent={section in toc}}
