@@ -316,7 +316,7 @@ at the mouse-down event to the position at mouse-up event."
 ;; * Keymap
 ;; kill buffer and select to previous
 (defvar zw/tab-line-before-kill-buffer-hook nil)
-(defun zw/tab-line-kill-buffer-switch-to-previous ()
+(defun zw/tab-line-kill-buffer-switch-to-next ()
   (interactive)
   (run-hooks 'zw/tab-line-before-kill-buffer-hook)
   (let ((buffer-switch))
@@ -326,9 +326,9 @@ at the mouse-down event to the position at mouse-up event."
                 (max-index (- (length group-buffers) 1))
                 (pos (cl-position buffer group-buffers))
                 (pos-previous (- pos 1))
-                ;; (pos-next (+ pos 1))
-                ;; (buffer-pos (if (> pos-next max-index) pos-previous pos-next))
-                (buffer-pos (if (< pos-previous 0) 1 pos-previous)))
+                ;; (buffer-pos (if (< pos-previous 0) 1 pos-previous))
+                (pos-next (+ pos 1))
+                (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
       (setq buffer-switch (nth buffer-pos group-buffers)))
     (call-interactively 'kill-current-buffer)
     (when buffer-switch
@@ -356,7 +356,7 @@ at the mouse-down event to the position at mouse-up event."
   (define-key global-map (car key-func) (cdr key-func)))
 
 (bind-keys :map global-map
-           ("s-q" . zw/tab-line-kill-buffer-switch-to-previous)
+           ("s-q" . zw/tab-line-kill-buffer-switch-to-next)
            ("s-{" . tab-line-switch-to-prev-tab)
            ("s-}" . tab-line-switch-to-next-tab)
            ("s-9" . (lambda ()
