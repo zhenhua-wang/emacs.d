@@ -8,7 +8,6 @@
                                              'makefile-mode 'snippet-mode)
                              (file-remote-p default-directory))
                    (eglot-ensure))))
-  ((LaTeX-mode latex-mode) . eglot-ensure)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-i" . consult-eglot-symbols)
