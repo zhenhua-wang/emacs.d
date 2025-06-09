@@ -252,7 +252,12 @@
     (interactive)
     (eldoc-box-quit-frame)
     (call-interactively 'keyboard-quit))
-  (setq eldoc-box-max-pixel-height 350)
+  (defun zw/eldoc-box--default-position-function (width _)
+    (pcase-let ((`(,offset-l ,offset-r ,offset-t) eldoc-box-offset))
+      (cons (- (frame-outer-width (selected-frame)) width offset-r)
+            offset-t)))
+  (setq eldoc-box-max-pixel-height 350
+        eldoc-box-position-function 'zw/eldoc-box--default-position-function)
   (add-to-list 'eldoc-box-frame-parameters '(internal-border-width . 4))
   (add-hook 'zw/tab-line-before-kill-buffer-hook 'eldoc-box-reset-frame))
 
