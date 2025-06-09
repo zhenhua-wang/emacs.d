@@ -293,7 +293,8 @@ at the first function to return non-nil.")
   (zw/polymode-disable-advice #'buffer-face-mode)
   (zw/polymode-disable-advice #'display-line-numbers-mode)
   (zw/polymode-disable-advice #'zw-outline-mode)
-  (zw/polymode-disable-advice #'revert-buffer-quick))
+  (zw/polymode-disable-advice #'revert-buffer-quick)
+  (zw/polymode-disable-advice #'eglot-ensure))
 
 (use-package poly-rliteral
   :vc (:url "https://github.com/zhenhua-wang/poly-rliteral")

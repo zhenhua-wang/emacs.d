@@ -6,9 +6,9 @@
   (prog-mode . (lambda ()
                  (unless (or (derived-mode-p 'emacs-lisp-mode 'lisp-mode
                                              'makefile-mode 'snippet-mode)
-                             (and (featurep 'polymode) polymode-mode)
                              (file-remote-p default-directory))
                    (eglot-ensure))))
+  (LaTeX-mode . eglot-ensure)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
               ("s-i" . consult-eglot-symbols)
