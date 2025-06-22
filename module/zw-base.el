@@ -476,25 +476,15 @@ The order of values may be different."
 (add-hook 'after-init-hook 'savehist-mode)
 
 ;; ** Scroll
-(setq scroll-step 0
-      scroll-margin 0
-      scroll-conservatively 101
-      scroll-preserve-screen-position t
-      make-cursor-line-fully-visible nil
-      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-      mouse-wheel-scroll-amount-horizontal 2
-      mouse-wheel-progressive-speed nil
-      auto-window-vscroll nil
-      fast-but-imprecise-scrolling t)
-
 (when (fboundp 'pixel-scroll-precision-mode)
-  (pixel-scroll-precision-mode t)
-  (setq touch-screen-precision-scroll t)
-  (bind-keys :map pixel-scroll-precision-mode-map
-             ("<prior>" . nil)
-             ("<next>" . nil)
-             ("<header-line> <wheel-up>" . nil)
-             ("<header-line> <wheel-down>" . nil)))
+  (add-hook 'after-init-hook 'pixel-scroll-precision-mode)
+  (with-eval-after-load "pixel-scroll"
+    (setq touch-screen-precision-scroll t)
+    (bind-keys :map pixel-scroll-precision-mode-map
+               ("<prior>" . nil)
+               ("<next>" . nil)
+               ("<header-line> <wheel-up>" . nil)
+               ("<header-line> <wheel-down>" . nil))))
 
 ;; ** Save place
 (add-hook 'after-init-hook 'save-place-mode)
