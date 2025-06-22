@@ -353,7 +353,8 @@ at the first function to return non-nil.")
   (auctex-latexmk-setup))
 
 (use-package reftex
-  :hook (LaTeX-mode . reftex-mode)
+  :hook ((latex-mode . reftex-mode)
+         (LaTeX-mode . reftex-mode))
   :bind ((:map reftex-mode-map
                ("s-s" . zw/latex-rescan-on-save)
                ("C-x C-s" . zw/latex-rescan-on-save)))
