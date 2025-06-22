@@ -167,12 +167,9 @@
 (use-package company
   :hook
   (after-init . global-company-mode)
-  (company-mode . yas-minor-mode)
   :bind ((:map company-mode-map
                ("M-<tab>" . company-manual-begin)
                ("C-M-i" . company-manual-begin)
-               ("M-Y" . company-yasnippet)
-               ("C-<tab>" . company-yasnippet)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
@@ -204,8 +201,7 @@
                                    vterm-mode eshell-mode)
         company-backends '(company-files
                            company-capf
-                           (company-dabbrev :with company-ispell)
-                           company-yasnippet))
+                           (company-dabbrev :with company-ispell)))
   ;; use literal completion for company-mode
   (defun company-completion-styles (capf-fn &rest args)
     (let ((completion-styles '(basic partial-completion)))
@@ -319,7 +315,7 @@
               (setq-local company-backends
                           '(company-files
                             company-reftex-labels company-reftex-citations
-                            company-capf company-yasnippet)))))
+                            company-capf)))))
 ;; backends for shell
 (use-package company-shell
   :commands (company-shell)
