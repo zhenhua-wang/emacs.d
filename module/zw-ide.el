@@ -11,7 +11,6 @@
   ((latex-mode LaTeX-mode) . eglot-ensure)
   :bind (:map eglot-mode-map
               ([remap display-local-help] . nil)
-              ("s-i" . consult-eglot-symbols)
               ("s-h" . display-local-help)
               ("s-d" . eldoc))
   :config
@@ -40,11 +39,6 @@
   :when (executable-find "emacs-lsp-booster")
   :vc (:url "https://github.com/jdtsmith/eglot-booster")
   :hook (after-init . eglot-booster-mode))
-
-(use-package consult-eglot
-  :after eglot
-  :bind (:map eglot-mode-map
-              ("s-i" . consult-eglot-symbols)))
 
 ;; * Dape
 (use-package dape
