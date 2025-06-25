@@ -186,8 +186,10 @@ The order of values may be different."
 
 ;; ** Highlight line
 (add-hook 'after-init-hook 'global-hl-line-mode)
-(dolist (mode '(eshell-mode-hook shell-mode-hook term-mode-hook vterm-mode-hook))
-  (add-hook mode (lambda () (setq-local global-hl-line-mode nil))))
+(defun zw/global-hl-line-disable ()
+  (setq-local global-hl-line-mode nil))
+(dolist (mode '(eshell-mode-hook shell-mode-hook term-mode-hook))
+  (add-hook mode 'zw/global-hl-line-disable))
 
 ;; ** Warp long line
 (add-hook 'after-init-hook 'global-visual-line-mode)
@@ -270,7 +272,7 @@ The order of values may be different."
          (slot . 1)
          (dedicated . t))
         ;; bottom side buffer
-        ("\\*.*\\(e?shell\\|v?term\\).*"
+        ("\\*.*\\(e?shell\\|term\\|eat\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . bottom)

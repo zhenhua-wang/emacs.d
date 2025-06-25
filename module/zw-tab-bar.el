@@ -115,31 +115,6 @@
                     ,(propertize icon 'mouse-face 'highlight)
                     zw/tab-bar--open-dired :help "Open dired in current directory"))))
 
-;; ** vterm
-(defun zw/tab-bar--open-vterm (event)
-  (interactive "e")
-  (let ((sidebar-window (cl-remove-if-not
-                         (lambda (window)
-                           (with-selected-window window
-                             (and (window-buffer window)
-                                  (featurep 'vterm)
-                                  (eq major-mode 'vterm-mode))))
-                         (window-list))))
-    (if sidebar-window
-        (with-selected-window (car sidebar-window)
-          (quit-window))
-      (vterm))))
-
-(defun zw/tab-bar-format-vterm ()
-  `((vterm-button menu-item
-                  ,(propertize
-                    (nerd-icons-codicon
-                     "nf-cod-terminal_powershell"
-                     :height 0.85
-                     :v-adjust 0.15)
-                    'mouse-face 'highlight)
-                  zw/tab-bar--open-vterm :help "Open vterm")))
-
 ;; ** repl
 (defun zw/tab-bar--open-repl (event)
   (interactive "e")

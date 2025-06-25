@@ -214,7 +214,7 @@
 (dolist (func '(find-file
                 switch-to-buffer
                 exwm-workspace-switch-to-buffer
-                vterm multi-vterm
+                eat
                 zw/dired-sidebar-toggle
                 zw/right-side-window-toggle
                 magit-status

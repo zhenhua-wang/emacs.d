@@ -198,7 +198,7 @@
         company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
         company-transformers '(company-sort-prefer-same-case-prefix)
         company-global-modes '(not message-mode help-mode
-                                   vterm-mode eshell-mode)
+                                   eat-mode eshell-mode)
         company-backends '(company-files
                            company-capf
                            (company-dabbrev :with company-ispell)))

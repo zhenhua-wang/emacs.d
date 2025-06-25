@@ -1,40 +1,25 @@
 ;; -*- lexical-binding: t -*-
 
-;; * Vterm
-(use-package vterm
-  :bind ((:map vterm-copy-mode-map
-               ("<return>" . vterm-copy-mode))
-         (:map vterm-mode-map
-               ([xterm-paste] . vterm-xterm-paste)
+;; * Terminal
+(use-package eat
+  :bind ((:map eat-mode-map
                ("s-e" . quit-window)
                ("s-E" . quit-window)
-               ("s-S-e" . quit-window)
-               ("s-z" . vterm-undo)
-               ("M-:" . nil)
-               ("<escape>" . nil)
-               ("<f1>" . nil)
-               ("<f9>" . nil)
-               ("<f10>" . nil)
-               ("<f11>" . nil)
-               ("<f12>" . nil)))
+               ("s-S-e" . quit-window))
+         (:map eat-semi-char-mode-map
+               ("s-v" . eat-yank)
+               ("s-z" . zw/eat-undo)))
+  :hook
+  ((eshell-load . eat-eshell-mode)
+   (eshell-load . eat-eshell-visual-command-mode)
+   (eat-mode . zw/global-hl-line-disable))
   :init
-  (setq zw/term-function 'vterm)
+  (setq zw/term-function 'eat)
   :config
-  (setq vterm-kill-buffer-on-exit t
-        vterm-always-compile-module t
-        vterm-tramp-shells '(("ssh" "/usr/bin/bash")
-                             ("scp" "/usr/bin/bash")
-                             ("docker" "/bin/sh")))
-  (when (executable-find "/usr/bin/zsh")
-    (setq vterm-shell "/usr/bin/zsh"))
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (unless (file-remote-p default-directory)
-                (if (string-match-p "zsh" vterm-shell)
-                    (vterm-send-string
-                     "source ~/.emacs.d/resources/scripts/zw-vterm-zsh-config.sh\n")
-                  (vterm-send-string
-                   "source ~/.emacs.d/resources/scripts/zw-vterm-bash-config.sh\n"))))))
+  (setq eat-kill-buffer-on-exit t)
+  (defun zw/eat-undo ()
+    (interactive)
+    (eat--send-input nil (kbd "C-_"))))
 
 ;; * Dired
 ;; ** main
