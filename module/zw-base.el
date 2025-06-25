@@ -376,7 +376,11 @@ The order of values may be different."
 
 ;; * Tool
 ;; ** Term
-(defvar zw/term-function 'eshell)
+(defcustom zw/term-function 'eshell
+  "Function used to launch a terminal."
+  :type '(choice (const eshell)
+                 (function)))
+
 (defun zw/term-start ()
   (interactive)
   (call-interactively zw/term-function))

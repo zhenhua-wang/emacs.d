@@ -16,13 +16,12 @@
    (eat-mode . zw/global-hl-line-disable)
    (eat-mode . zw/eat-modeline-format))
   :custom
+  (zw/term-function 'eat)
+  (eat-kill-buffer-on-exit t)
   (eat-semi-char-non-bound-keys
    '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
      [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
-  :init
-  (setq zw/term-function 'eat)
   :config
-  (setq eat-kill-buffer-on-exit t)
   (defun zw/eat-toggle-emacs-mode ()
     (interactive)
     (if eat--semi-char-mode
