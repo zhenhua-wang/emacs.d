@@ -10,14 +10,7 @@
                ("s-e" . quit-window)
                ("s-E" . quit-window)
                ("s-S-e" . quit-window)
-               ("s-z" . vterm-undo)
-               ("M-:" . nil)
-               ("<escape>" . nil)
-               ("<f1>" . nil)
-               ("<f9>" . nil)
-               ("<f10>" . nil)
-               ("<f11>" . nil)
-               ("<f12>" . nil)))
+               ("s-z" . vterm-undo)))
   :hook
   (vterm-mode . zw/vterm-setup)
   (vterm-mode . zw/vterm-modeline-setup)
@@ -26,6 +19,9 @@
   (zw/term-function 'vterm)
   (vterm-kill-buffer-on-exit t)
   (vterm-always-compile-module t)
+  (vterm-keymap-exceptions '("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x"
+                             "M-o" "C-y" "M-y" "M-:" "<escape>" "<f1>"
+                             "<f9>" "<f10>" "<f11>" "<f12>"))
   (vterm-tramp-shells '(("ssh" "/usr/bin/bash")
                         ("scp" "/usr/bin/bash")
                         ("docker" "/bin/sh")))
