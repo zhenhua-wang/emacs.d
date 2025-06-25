@@ -14,7 +14,8 @@
   ((eshell-load . eat-eshell-mode)
    (eshell-load . eat-eshell-visual-command-mode)
    (eat-mode . zw/global-hl-line-disable)
-   (eat-mode . zw/eat-modeline-format))
+   (eat-mode . zw/eat-modeline-format)
+   (eat-exec . zw/eat-setup))
   :custom
   (zw/term-function 'eat)
   (eat-kill-buffer-on-exit t)
@@ -22,6 +23,15 @@
    '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
      [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
   :config
+  (defun zw/eat-setup (&rest args)
+    (unless (file-remote-p default-directory)
+      (if (string-match-p "zsh" shell-file-name)
+          (eat--send-string
+           (eat-term-parameter eat-terminal 'eat--process)
+           "source \"$EAT_SHELL_INTEGRATION_DIR/zsh\"\n")
+        (eat--send-string
+         (eat-term-parameter eat-terminal 'eat--process)
+         "source \"$EAT_SHELL_INTEGRATION_DIR/bash\"\n"))))
   (defun zw/eat-toggle-emacs-mode ()
     (interactive)
     (if eat--semi-char-mode
