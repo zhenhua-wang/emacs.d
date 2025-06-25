@@ -15,6 +15,10 @@
    (eshell-load . eat-eshell-visual-command-mode)
    (eat-mode . zw/global-hl-line-disable)
    (eat-mode . zw/eat-modeline-format))
+  :custom
+  (eat-semi-char-non-bound-keys
+   '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
+     [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
   :init
   (setq zw/term-function 'eat)
   :config
