@@ -6,7 +6,7 @@
                ("s-e" . quit-window)
                ("s-E" . quit-window)
                ("s-S-e" . quit-window)
-               ("C-c C-e" . zw/eat-toggle-emacs-mode))
+               ("s-t" . zw/eat-toggle-emacs-mode))
          (:map eat-semi-char-mode-map
                ("s-v" . eat-yank)
                ("s-z" . zw/eat-undo)))
@@ -49,6 +49,7 @@
       (if (display-graphic-p) "" zw/modeline-separator)
       '(:eval (zw/modeline-text-scale))
       '(:eval (zw/modeline-read-only))
+      '(:eval (zw/modeline-line-column))
       '(:eval (zw/modeline-mark-count))
       '(:eval (zw/modeline-kmacro-recording))
       ;; right
