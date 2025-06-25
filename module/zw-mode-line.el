@@ -266,7 +266,6 @@
   (cond
    ((member major-mode '(org-agenda-mode
                          image-mode
-                         eat-mode
                          exwm-mode))
     "")
    ((eq major-mode 'dired-mode)
