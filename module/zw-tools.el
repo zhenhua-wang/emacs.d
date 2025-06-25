@@ -19,6 +19,7 @@
   :custom
   (zw/term-function 'eat)
   (eat-kill-buffer-on-exit t)
+  (eat-query-before-killing-running-terminal t)
   (eat-semi-char-non-bound-keys
    '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
      [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
