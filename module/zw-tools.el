@@ -28,10 +28,10 @@
       (if (string-match-p "zsh" shell-file-name)
           (eat--send-string
            (eat-term-parameter eat-terminal 'eat--process)
-           "source \"$EAT_SHELL_INTEGRATION_DIR/zsh\"\n")
+           "source $EAT_SHELL_INTEGRATION_DIR/zsh\n")
         (eat--send-string
          (eat-term-parameter eat-terminal 'eat--process)
-         "source \"$EAT_SHELL_INTEGRATION_DIR/bash\"\n"))))
+         "source $EAT_SHELL_INTEGRATION_DIR/bash\n"))))
   (defun zw/eat-toggle-emacs-mode ()
     (interactive)
     (if eat--semi-char-mode
