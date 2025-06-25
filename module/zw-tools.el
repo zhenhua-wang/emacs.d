@@ -29,7 +29,7 @@
     (eat--send-input nil (kbd "C-_")))
   (defun zw/eat-modeline-buffername ()
     (propertize
-     (concat eat-buffer-name
+     (concat " " eat-buffer-name
              (unless eat--semi-char-mode
                (format " (%s) " (cond
                                  (eat--line-mode "Line")
