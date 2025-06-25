@@ -1,57 +1,52 @@
 ;; -*- lexical-binding: t -*-
 
 ;; * Terminal
-(use-package eat
-  :bind ((:map eat-mode-map
+(use-package vterm
+  :bind ((:map vterm-copy-mode-map
+               ("s-t" . vterm-copy-mode))
+         (:map vterm-mode-map
+               ([xterm-paste] . vterm-xterm-paste)
+               ("s-t" . vterm-copy-mode)
                ("s-e" . quit-window)
                ("s-E" . quit-window)
                ("s-S-e" . quit-window)
-               ("s-t" . zw/eat-toggle-emacs-mode))
-         (:map eat-semi-char-mode-map
-               ("s-v" . eat-yank)
-               ("s-z" . zw/eat-undo)))
+               ("s-z" . vterm-undo)
+               ("M-:" . nil)
+               ("<escape>" . nil)
+               ("<f1>" . nil)
+               ("<f9>" . nil)
+               ("<f10>" . nil)
+               ("<f11>" . nil)
+               ("<f12>" . nil)))
   :hook
-  ((eshell-load . eat-eshell-mode)
-   (eshell-load . eat-eshell-visual-command-mode)
-   (eat-mode . zw/global-hl-line-disable)
-   (eat-mode . zw/eat-modeline-format)
-   (eat-exec . zw/eat-setup))
+  (vterm-mode . zw/vterm-setup)
+  (vterm-mode . zw/vterm-modeline-setup)
+  (vterm-mode . zw/global-hl-line-disable)
   :custom
-  (zw/term-function 'eat)
-  (eat-kill-buffer-on-exit t)
-  (eat-query-before-killing-running-terminal t)
-  (eat-semi-char-non-bound-keys
-   '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
-     [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
+  (zw/term-function 'vterm)
+  (vterm-kill-buffer-on-exit t)
+  (vterm-always-compile-module t)
+  (vterm-tramp-shells '(("ssh" "/usr/bin/bash")
+                        ("scp" "/usr/bin/bash")
+                        ("docker" "/bin/sh")))
   :config
-  (defun zw/eat-setup (&rest args)
+  (defun zw/vterm-setup ()
     (unless (file-remote-p default-directory)
-      (if (string-match-p "zsh" shell-file-name)
-          (eat--send-string
-           (eat-term-parameter eat-terminal 'eat--process)
-           "source $EAT_SHELL_INTEGRATION_DIR/zsh\n")
-        (eat--send-string
-         (eat-term-parameter eat-terminal 'eat--process)
-         "source $EAT_SHELL_INTEGRATION_DIR/bash\n"))))
-  (defun zw/eat-toggle-emacs-mode ()
-    (interactive)
-    (if eat--semi-char-mode
-        (eat-emacs-mode)
-      (eat-semi-char-mode)))
-  (defun zw/eat-undo ()
-    (interactive)
-    (eat--send-input nil (kbd "C-_")))
-  (defun zw/eat-modeline-buffername ()
+      (let* ((base-dir (expand-file-name "elpa" user-emacs-directory))
+             (dirs (directory-files base-dir t "^[^.]" t))
+             (vterm-dir (seq-find (lambda (f)
+                                    (string-match-p "vterm" (file-name-nondirectory f)))
+                                  dirs))
+             (shell-type (if (string-match-p "zsh" vterm-shell) "zsh" "bash")))
+        (vterm-send-string
+         (format "source %s/etc/emacs-vterm-%s.sh\n" vterm-dir shell-type)))))
+  (defun zw/vterm-modeline-buffername ()
     (propertize
-     (concat " " eat-buffer-name
-             (unless eat--semi-char-mode
-               (format " (%s) " (cond
-                                 (eat--line-mode "Line")
-                                 (eat--char-mode "Char")
-                                 (t "Emacs")))))
+     (concat " " vterm-buffer-name
+             (if vterm-copy-mode " (copy) " " "))
      'face (zw/modeline-set-face 'zw/modeline-buffer-name-active
                                  'zw/modeline-default-inactive)))
-  (defun zw/eat-modeline-format ()
+  (defun zw/vterm-modeline-setup ()
     (setq-local
      mode-line-format
      (list
@@ -59,7 +54,7 @@
       '(:eval (zw/modeline-bar))
       ;; left
       '(:eval (zw/modeline-remote))
-      '(:eval (zw/eat-modeline-buffername))
+      '(:eval (zw/vterm-modeline-buffername))
       (if (display-graphic-p) "" zw/modeline-separator)
       '(:eval (zw/modeline-text-scale))
       '(:eval (zw/modeline-read-only))
