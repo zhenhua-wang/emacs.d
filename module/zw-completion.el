@@ -197,8 +197,6 @@
         company-dabbrev-char-regexp "[[:word:]_-]+"
         company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
         company-transformers '(company-sort-prefer-same-case-prefix)
-        company-global-modes '(not message-mode help-mode
-                                   eat-mode eshell-mode)
         company-backends '(company-files
                            company-capf
                            (company-dabbrev :with company-ispell)))
