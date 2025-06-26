@@ -25,7 +25,7 @@
      [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
   (eat-shell-prompt-annotation-success-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-check_circle")))
   (eat-shell-prompt-annotation-failure-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-times_circle")))
-  (eat-shell-prompt-annotation-running-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-play_circle")))
+  (eat-shell-prompt-annotation-running-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-play_circle_o")))
   :config
   (defun zw/eat-setup (&rest args)
     (unless (file-remote-p default-directory)
