@@ -35,7 +35,7 @@
                                   dirs))
              (shell-type (if (string-match-p "zsh" vterm-shell) "zsh" "bash")))
         (vterm-send-string
-         (format "source %s/etc/emacs-vterm-%s.sh\nclear\n" vterm-dir shell-type)))))
+         (format "source %s/etc/emacs-vterm-%s.sh&&clear\n" vterm-dir shell-type)))))
   (defun zw/vterm-modeline-buffername ()
     (propertize
      (concat " " vterm-buffer-name
