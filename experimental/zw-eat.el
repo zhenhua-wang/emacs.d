@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package eat
+  :vc (:url "https://codeberg.org/akib/emacs-eat.git")
   :bind ((:map eat-mode-map
                ("s-e" . quit-window)
                ("s-E" . quit-window)

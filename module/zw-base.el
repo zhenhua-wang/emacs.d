@@ -272,7 +272,7 @@ The order of values may be different."
          (slot . 1)
          (dedicated . t))
         ;; bottom side buffer
-        ("\\*.*\\(e?shell\\|v?term\\).*"
+        ("\\*.*\\(e?shell\\|v?term\\|eat\\).*"
          (display-buffer-in-side-window)
          (window-height . 0.2)
          (side . bottom)
