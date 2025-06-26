@@ -26,7 +26,7 @@
   :config
   (defun zw/eat-setup (&rest args)
     (unless (file-remote-p default-directory)
-      (let ((shell-type (if (string-match-p "zsh" shell-file-name) "zsh" "bash")))
+      (let ((shell-type (if (string-match-p "zsh" eat-shell) "zsh" "bash")))
         (eat--send-string
          (eat-term-parameter eat-terminal 'eat--process)
          (format "source $EAT_SHELL_INTEGRATION_DIR/%s\n" shell-type)))))
