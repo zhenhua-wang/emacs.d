@@ -23,6 +23,9 @@
   (eat-semi-char-non-bound-keys
    '([?\C-x] [?\C-\\] [?\C-q] [?\C-g] [?\C-h] [?\e ?\C-c] [?\C-u]
      [?\e ?x] [?\e ?:] [?\e ?!] [?\e ?&]))
+  (eat-shell-prompt-annotation-success-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-check_circle")))
+  (eat-shell-prompt-annotation-failure-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-times_circle")))
+  (eat-shell-prompt-annotation-running-margin-indicator (format "%s " (nerd-icons-faicon "nf-fa-play_circle")))
   :config
   (defun zw/eat-setup (&rest args)
     (unless (file-remote-p default-directory)
