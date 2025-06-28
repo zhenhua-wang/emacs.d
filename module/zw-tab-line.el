@@ -331,7 +331,7 @@ at the mouse-down event to the position at mouse-up event."
                 (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
       (setq buffer-switch (nth buffer-pos group-buffers)))
     (call-interactively 'kill-current-buffer)
-    (when buffer-switch
+    (when (and buffer-switch (buffer-live-p buffer-switch))
       (switch-to-buffer buffer-switch))))
 
 ;; select tab
