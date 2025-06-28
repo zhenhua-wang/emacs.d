@@ -314,9 +314,17 @@ at the mouse-down event to the position at mouse-up event."
   (keymap-set tab-line-tab-map "<tab-line> <drag-mouse-1>" #'zw/tab-line-mouse-move-tab))
 
 ;; * Keymap
-;; kill buffer and select to previous
+;; kill buffer and switch
+(defcustom zw/tab-line-kill-buffer-and-switch-type 'next
+  "Determines which buffer to switch to after killing the current one.
+
+- If set to `next`, switch to the next buffer in the tab line.
+- If set to `previous`, switch to the previous buffer."
+  :type '(choice (const :tag "Switch to next buffer" next)
+                 (const :tag "Switch to previous buffer" previous)))
+
 (defvar zw/tab-line-before-kill-buffer-hook nil)
-(defun zw/tab-line-kill-buffer-switch-to-next ()
+(defun zw/tab-line-kill-buffer-and-switch ()
   (interactive)
   (run-hooks 'zw/tab-line-before-kill-buffer-hook)
   (let ((buffer-switch))
@@ -326,9 +334,12 @@ at the mouse-down event to the position at mouse-up event."
                 (max-index (- (length group-buffers) 1))
                 (pos (cl-position buffer group-buffers))
                 (pos-previous (- pos 1))
-                ;; (buffer-pos (if (< pos-previous 0) 1 pos-previous))
                 (pos-next (+ pos 1))
-                (buffer-pos (if (> pos-next max-index) pos-previous pos-next)))
+                (buffer-pos (cond
+                             ((eq zw/tab-line-kill-buffer-and-switch-type 'previous)
+                              (if (< pos-previous 0) 1 pos-previous))
+                             ((eq zw/tab-line-kill-buffer-and-switch-type 'next)
+                              (if (> pos-next max-index) pos-previous pos-next)))))
       (setq buffer-switch (nth buffer-pos group-buffers)))
     (call-interactively 'kill-current-buffer)
     (when (and buffer-switch (buffer-live-p buffer-switch))
@@ -356,7 +367,7 @@ at the mouse-down event to the position at mouse-up event."
   (define-key global-map (car key-func) (cdr key-func)))
 
 (bind-keys :map global-map
-           ("s-q" . zw/tab-line-kill-buffer-switch-to-next)
+           ("s-q" . zw/tab-line-kill-buffer-and-switch)
            ("s-{" . tab-line-switch-to-prev-tab)
            ("s-}" . tab-line-switch-to-next-tab)
            ("s-9" . (lambda ()
