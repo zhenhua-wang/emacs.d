@@ -1183,7 +1183,7 @@
            ("s-B" . zw/right-side-window-toggle)
            ;; command
            ("<f1>" . ibuffer)
-           ("s-G" . magit-status)
+           ("s-g" . magit-status)
            ("s-e" . zw/term-start)
            ("s-E" . eshell)
            ("s-P" . zw/conda-env-activate)
