@@ -144,10 +144,11 @@
   (eaf-bind-key close_buffer "s-w" eaf-browser-keybinding)
   (eaf-bind-key scroll_to_begin "M-<" eaf-browser-keybinding)
   (eaf-bind-key scroll_to_bottom "M->" eaf-browser-keybinding)
-  (eaf-bind-key nil "n" eaf-browser-keybinding)
-  (eaf-bind-key nil "p" eaf-browser-keybinding)
+  (eaf-bind-key emacs-websearch "s-t" eaf-browser-keybinding)
+  ;; disable all alphabets
   (eaf-bind-key nil "SPC" eaf-browser-keybinding)
-  (eaf-bind-key emacs-websearch "s-t" eaf-browser-keybinding))
+  (cl-loop for c from ?a to ?z
+           do (eaf-bind-key nil (string c) eaf-browser-keybinding)))
 
 ;; install functions
 (defvar zw/eaf-apps '(eaf-pdf-viewer eaf-image-viewer eaf-browser))
