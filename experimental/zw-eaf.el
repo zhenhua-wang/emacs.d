@@ -158,7 +158,7 @@
   (mapconcat
    (lambda (app)
      (when-let* ((app-name (symbol-name app))
-                 (image-path (expand-file-name app-name package-user-dir)))
+                 (image-path (file-name-directory (find-library-name app-name))))
        (format "npm install %s --prefix %s" image-path image-path)))
    ;; remove non-nodejs apps
    (cl-remove-if (lambda (app)
