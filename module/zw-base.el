@@ -935,6 +935,7 @@ If set to nil, no REPL will be automatically started."
            ("s-<f11>" . zw/presentation-mode)
            ("<f1>" . ibuffer)
            ;; disable some weird keys
+           ("<f2>" . nil)
            ("C-z" . nil)
            ("<prior>" . nil)
            ("<next>" . nil)
