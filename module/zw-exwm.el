@@ -1069,7 +1069,7 @@
         ?\M-x
         ?\M-&
         ?\M-:
-        ,(elt (kbd "<f9>") 0)))
+        ,(elt (kbd "<f2>") 0)))
 
 ;; ** exwm simulate keys
 (setq exwm-input-simulation-keys

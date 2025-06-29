@@ -20,8 +20,8 @@
   (vterm-kill-buffer-on-exit t)
   (vterm-always-compile-module t)
   (vterm-keymap-exceptions '("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x"
-                             "M-o" "C-y" "M-y" "M-:" "<escape>" "<f1>"
-                             "<f9>" "<f10>" "<f11>" "<f12>"))
+                             "M-o" "C-y" "M-y" "M-:" "<escape>"
+                             "<f1>" "<f2>" "<f10>" "<f11>" "<f12>"))
   (vterm-tramp-shells '(("ssh" "/usr/bin/bash")
                         ("scp" "/usr/bin/bash")
                         ("docker" "/bin/sh")))
