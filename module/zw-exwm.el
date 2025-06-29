@@ -1182,7 +1182,7 @@
            ("s-b" . zw/dired-sidebar-toggle)
            ("s-B" . zw/right-side-window-toggle)
            ;; command
-           ("<f1>" . ibuffer)
+           (zw/ibuffer-key . ibuffer)
            ("s-g" . magit-status)
            ("s-e" . zw/term-start)
            ("s-E" . eshell)
