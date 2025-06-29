@@ -123,7 +123,8 @@
             (lambda ()
               (bind-keys :map org-agenda-mode-map
                          ("s-q" . org-agenda-exit)
-                         ("q" . org-agenda-exit))))
+                         ("q" . org-agenda-exit)
+                         ("<f2>" . org-agenda-exit))))
   ;; default agenda
   (setq org-log-done 'time
         org-agenda-window-setup 'only-window
