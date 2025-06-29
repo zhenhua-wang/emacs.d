@@ -551,8 +551,7 @@ The order of values may be different."
 
 ;; ** Ibuffer
 (with-eval-after-load "ibuffer"
-  (define-key ibuffer-mode-map (kbd zw/ibuffer-key) 'quit-window))
-(defvar zw/ibuffer-key (if (display-graphic-p) "s-<XF86AudioMute>" "s-<volume-mute>"))
+  (define-key ibuffer-mode-map (kbd "<f1>") 'quit-window))
 
 ;; ** Winner mode
 (add-hook 'after-init-hook 'winner-mode)
@@ -934,7 +933,7 @@ If set to nil, no REPL will be automatically started."
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f12>" . zw/update-emacs-tangle-dotfiles)
            ("s-<f11>" . zw/presentation-mode)
-           (zw/ibuffer-key . ibuffer)
+           ("<f1>" . ibuffer)
            ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
