@@ -934,7 +934,7 @@ If set to nil, no REPL will be automatically started."
            ("<escape>" . keyboard-quit) ;keyboard-escape-quit
            ("<f12>" . zw/update-emacs-tangle-dotfiles)
            ("s-<f11>" . zw/presentation-mode)
-           ("zw/ibuffer-key" . ibuffer)
+           (zw/ibuffer-key . ibuffer)
            ;; disable some weird keys
            ("C-z" . nil)
            ("<prior>" . nil)
