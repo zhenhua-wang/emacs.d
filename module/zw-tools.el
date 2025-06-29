@@ -28,11 +28,7 @@
   :config
   (defun zw/vterm-setup ()
     (unless (file-remote-p default-directory)
-      (let* ((base-dir (expand-file-name "elpa" user-emacs-directory))
-             (dirs (directory-files base-dir t "^[^.]" t))
-             (vterm-dir (seq-find (lambda (f)
-                                    (string-match-p "vterm" (file-name-nondirectory f)))
-                                  dirs))
+      (let* ((vterm-dir (file-name-directory (find-library-name "vterm")))
              (shell-type (if (string-match-p "zsh" vterm-shell) "zsh" "bash")))
         (vterm-send-string
          (format "source %s/etc/emacs-vterm-%s.sh&&clear\n" vterm-dir shell-type)))))
