@@ -254,7 +254,7 @@
      `(org-agenda-date-today
        ((t (:box t))))
      `(org-agenda-date-weekend-today
-       ((t (:box t))))
+       ((t (:inherit org-agenda-date-today))))
 
      ;; markdown with variable font
      `(markdown-header-face-6 ((t (:inherit (outline-6 variable-pitch)))))
