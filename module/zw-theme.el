@@ -253,6 +253,8 @@
        ((t (:inherit fixed-pitch :background ,block-color))))
      `(org-agenda-date-today
        ((t (:box t))))
+     `(org-agenda-date-weekend-today
+       ((t (:box t))))
 
      ;; markdown with variable font
      `(markdown-header-face-6 ((t (:inherit (outline-6 variable-pitch)))))
