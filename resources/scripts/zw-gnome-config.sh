@@ -35,6 +35,7 @@ xdg-settings set default-web-browser org.mozilla.firefox.desktop
 xdg-mime default org.mozilla.firefox.desktop application/xhtml+xml
 xdg-mime default emacs-client.desktop text/plain
 xdg-mime default emacs-client.desktop text/x-tex
+xdg-mime default emacs-client.desktop application/x-shellscript
 # ibus
 dconf write /desktop/ibus/general/hotkey/triggers "['<Ctrl>backslash', '<Alt>space']"
 dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'rime']"
