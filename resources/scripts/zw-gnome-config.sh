@@ -33,9 +33,9 @@ gsettings set org.gnome.GWeather4 temperature-unit 'centigrade'
 gio mime inode/directory org.gnome.Nautilus.desktop
 xdg-settings set default-web-browser org.mozilla.firefox.desktop
 xdg-mime default org.mozilla.firefox.desktop application/xhtml+xml
-xdg-mime default emacs-client.desktop text/plain
-xdg-mime default emacs-client.desktop text/x-tex
-xdg-mime default emacs-client.desktop application/x-shellscript
+for mime in text/english text/plain text/x-makefile text/x-c++hdr text/x-c++src text/x-chdr text/x-csrc text/x-java text/x-moc text/x-pascal text/x-tcl text/x-tex application/x-shellscript text/x-c text/x-c++ x-scheme-handler/org-protocol; do
+    xdg-mime default emacs-client.desktop "$mime"
+done
 # ibus
 dconf write /desktop/ibus/general/hotkey/triggers "['<Ctrl>backslash', '<Alt>space']"
 dconf write /desktop/ibus/general/preload-engines "['xkb:us::eng', 'rime']"
