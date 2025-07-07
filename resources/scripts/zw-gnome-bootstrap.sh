@@ -83,3 +83,9 @@ bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
 bash ~/.emacs.d/resources/scripts/zw-gnome-keymap.sh
 chsh -s $(which zsh)
 emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (expand-file-name "~/.cache/emacs/"))' --eval '(defun zw/org-babel-tangle-linux (path) (if (eq system-type (intern "gnu/linux")) path "no"))' --eval '(defun zw/org-babel-tangle-not-exist (path) (if (file-exists-p path) "no" path))' --eval '(org-babel-tangle-file "~/.emacs.d/resources/OrgFiles/dotfiles.org")'
+
+# recommended
+printf "\n%*s\n" 80 '' | tr ' ' '-'
+echo "Recommended GNOME extensions:"
+echo "Run or raise, Legacy (GTK3) theme scheme auto switcher, GSConnect, Dynamic panel"
+printf "%*s\n\n" 80 '' | tr ' ' '-'
