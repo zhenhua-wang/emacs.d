@@ -119,7 +119,8 @@ map cmd+shift+9 goto_tab 9
 map cmd+shift+left previous_tab
 map cmd+shift+right next_tab
 # tab bar
-tab_bar_style slant
+tab_bar_style powerline
+tab_powerline_style slanted
 # tab_separator ""
 # tab_title_template "{index}: {title}"
 # tab_bar_edge bottom
