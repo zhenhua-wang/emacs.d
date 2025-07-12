@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org reveal text div block
+# key: <reveal-text-block
+# --
+
+#+REVEAL_HTML: <div style="text-align: ${1:left}; font-size: ${2:20}px;">
+$0
+#+REVEAL_HTML: </div>

@@ -119,22 +119,20 @@ map cmd+shift+9 goto_tab 9
 map cmd+shift+left previous_tab
 map cmd+shift+right next_tab
 # tab bar
-tab_bar_style powerline
+tab_separator ""
+tab_title_template "{index}: {title}"
+tab_bar_edge bottom
+tab_bar_style custom
 tab_powerline_style slanted
-# tab_separator ""
-# tab_title_template "{index}: {title}"
-# tab_bar_edge bottom
-# tab_bar_style custom
-# tab_powerline_style slanted
-# tab_bar_min_tabs 1
-# bell_on_tab "🔔 "
-# tab_activity_symbol "⌛ "
-# active_tab_foreground   #000
-# active_tab_background   #eee
-# inactive_tab_foreground #444
-# inactive_tab_background #999
-# active_tab_font_style   bold
-# inactive_tab_font_style normal
+tab_bar_min_tabs 1
+bell_on_tab "🔔 "
+tab_activity_symbol "⌛ "
+active_tab_foreground   #000
+active_tab_background   #eee
+inactive_tab_foreground #444
+inactive_tab_background #999
+active_tab_font_style   bold
+inactive_tab_font_style normal
 #+end_src
 
 ** Light theme
