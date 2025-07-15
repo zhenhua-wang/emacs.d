@@ -129,7 +129,7 @@
   (setq org-log-done 'time
         org-agenda-window-setup 'only-window
         org-agenda-restore-windows-after-quit t
-        org-agenda-overriding-header "🗓️ Agenda"
+        org-agenda-overriding-header " Agenda \n"
         org-agenda-block-separator ?-
         org-agenda-format-date "%a. %b %d %Y"
         org-agenda-time-grid
@@ -142,7 +142,7 @@
   (setq org-agenda-custom-commands
         '(("d" "Dashboard"
            ((agenda "")
-            (alltodo "" ((org-agenda-overriding-header "\n⚡ To Do")
+            (alltodo "" ((org-agenda-overriding-header "\n To Do")
                          (org-agenda-sorting-strategy '(priority-down))
                          (org-agenda-todo-keyword-format ""))))))))
 
