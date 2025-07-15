@@ -3,6 +3,7 @@
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+STARTUP: beamer
 
+# % packages
 #+LATEX_HEADER: \usepackage{lipsum}
 #+LATEX_HEADER: \usepackage{graphicx,xcolor}
 #+LATEX_HEADER: \usepackage{mathtools}
@@ -11,9 +12,95 @@
 #+LATEX_HEADER: \usepackage{algorithm}
 #+LATEX_HEADER: \usepackage[noend]{algpseudocode}
 
-# % beamer
-#+LATEX_HEADER: \usetheme{Madrid}
-#+LATEX_HEADER: \usefonttheme{professionalfonts}
+# % font
+#+LATEX_HEADER: \setbeamerfont{structure}{family=\sffamily,series=\mdseries}
+#+LATEX_HEADER: \setbeamerfont{title}{size=\LARGE,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{subtitle}{size=\normalsize,parent=title}
+#+LATEX_HEADER: \setbeamerfont{date}{size=\scriptsize,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{author}{size=\large,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{institute}{size=\scriptsize,series=\mdseries,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{section in toc}{size=\large,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{section in head/foot}{size=\tiny,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{subsection in toc}{size=\small,parent={section in toc}}
+#+LATEX_HEADER: \setbeamerfont{frametitle}{size=\Large,parent=structure}
+#+LATEX_HEADER: \setbeamerfont{framesubtitle}{parent=frametitle,size=\large}
+#+LATEX_HEADER: \setbeamerfont{caption}{size=\footnotesize}
+#+LATEX_HEADER: \setbeamerfont{item}{parent=structure,series=\mdseries}
+#+LATEX_HEADER: \setbeamerfont{block title}{size=\large,series=\mdseries,parent={structure,block body}}
+
+# % color
+#+LATEX_HEADER: \definecolor{MutedRed}{rgb}{0.97, 0.92, 0.92}
+#+LATEX_HEADER: \definecolor{MutedGreen}{rgb}{0.92, 0.97, 0.92}
+#+LATEX_HEADER: \definecolor{MutedBlue}{rgb}{0.92, 0.92, 0.97}
+#+LATEX_HEADER: \definecolor{MutedBlack}{rgb}{0.95, 0.95, 0.95}
+#+LATEX_HEADER: \definecolor{MediumRed}{rgb}{0.925, 0.345, 0.345}
+#+LATEX_HEADER: \definecolor{MediumGreen}{rgb}{0.37, 0.7, 0.66}
+#+LATEX_HEADER: \definecolor{MediumBlue}{rgb}{0.015, 0.315, 0.45}
+#+LATEX_HEADER: \definecolor{MediumBlack}{rgb}{0.219, 0.259, 0.349}
+#+LATEX_HEADER: \definecolor{DarkBlue}{rgb}{0.05, 0.15, 0.35}
+#+LATEX_HEADER: \usecolortheme[named=DarkBlue]{structure}
+#+LATEX_HEADER: \setbeamercolor{title}{bg=DarkBlue,fg=white}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=DarkBlue,fg=white}
+#+LATEX_HEADER: \setbeamercolor{block title}{fg=white,bg=MediumBlue}
+#+LATEX_HEADER: \setbeamercolor{block body}{fg=black,bg=MutedBlue}
+#+LATEX_HEADER: \setbeamercolor{block title example}{fg=white,bg=MediumGreen}
+#+LATEX_HEADER: \setbeamercolor{block body example}{fg=black,bg=MutedGreen}
+#+LATEX_HEADER: \setbeamercolor{block title alerted}{fg=white,bg=MediumRed}
+#+LATEX_HEADER: \setbeamercolor{block body alerted}{fg=black,bg=MutedRed}
+
+# % inner
+#+LATEX_HEADER: \pgfdeclareverticalshading[lower.bg,upper.bg]{bmb@transition}{200cm}{%
+#+LATEX_HEADER: color(0pt)=(lower.bg); color(2pt)=(lower.bg); color(4pt)=(lower.bg)}
+#+LATEX_HEADER: \setbeamersize{text margin left=2em,text margin right=2em}
+#+LATEX_HEADER: \setbeamertemplate{footline}[frame number]
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \setbeamertemplate{blocks}[rounded][shadow=true]
+#+LATEX_HEADER: \setbeamertemplate{enumerate items}[default]
+#+LATEX_HEADER: \setbeamertemplate{enumerate subitem}[default]
+#+LATEX_HEADER: \setbeamertemplate{itemize items}[circle]
+#+LATEX_HEADER: \setbeamertemplate{itemize subitem}[circle]
+#+LATEX_HEADER: % table of contents (overview) settings
+#+LATEX_HEADER: \setbeamertemplate{section in toc}[sections numbered]
+#+LATEX_HEADER: \setbeamertemplate{subsection in toc}{%
+#+LATEX_HEADER:     \leavevmode
+#+LATEX_HEADER:     \leftskip=3.2em
+#+LATEX_HEADER:     \rlap{\hskip-2em\inserttocsectionnumber.\inserttocsubsectionnumber}
+#+LATEX_HEADER:     \inserttocsubsection\par
+#+LATEX_HEADER: }
+#+LATEX_HEADER: % title page customization
+#+LATEX_HEADER: \setbeamertemplate{title page}{%
+#+LATEX_HEADER:     \vspace{6em}
+#+LATEX_HEADER:     \begingroup
+#+LATEX_HEADER:     \centering
+#+LATEX_HEADER:     % ------------------------
+#+LATEX_HEADER:     \begin{beamercolorbox}[sep=10pt,center,shadow=true,rounded=true]{title}
+#+LATEX_HEADER:         \usebeamerfont{title}\inserttitle\par%
+#+LATEX_HEADER:         \ifx\insertsubtitle\@empty%
+#+LATEX_HEADER:         \else%
+#+LATEX_HEADER:         \vskip0.25em%
+#+LATEX_HEADER:         {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+#+LATEX_HEADER:         \fi%
+#+LATEX_HEADER:     \end{beamercolorbox}%
+#+LATEX_HEADER:     \vskip0.5em\par
+#+LATEX_HEADER:     % ------------------------
+#+LATEX_HEADER:     \begin{beamercolorbox}[sep=8pt,center]{author}
+#+LATEX_HEADER:         \usebeamerfont{author}\insertauthor
+#+LATEX_HEADER:     \end{beamercolorbox}
+#+LATEX_HEADER:     \vskip-1em
+#+LATEX_HEADER:     % ------------------------
+#+LATEX_HEADER:     \begin{beamercolorbox}[sep=8pt,center]{institute}
+#+LATEX_HEADER:         \usebeamerfont{institute}\insertinstitute
+#+LATEX_HEADER:     \end{beamercolorbox}
+#+LATEX_HEADER:     % ------------------------
+#+LATEX_HEADER:     \begin{beamercolorbox}[sep=8pt,center]{date}
+#+LATEX_HEADER:         \usebeamerfont{date}\insertdate
+#+LATEX_HEADER:     \end{beamercolorbox}\vskip0.5em
+#+LATEX_HEADER:     % ------------------------
+#+LATEX_HEADER:     {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+#+LATEX_HEADER:     \endgroup
+#+LATEX_HEADER:     \vfill
+#+LATEX_HEADER: }
+#+LATEX_HEADER: % section page customization
 #+LATEX_HEADER: \AtBeginSection[]{
 #+LATEX_HEADER:   \begin{frame}
 #+LATEX_HEADER:   \vfill
@@ -24,42 +111,3 @@
 #+LATEX_HEADER:   \vfill
 #+LATEX_HEADER:   \end{frame}
 #+LATEX_HEADER: }
-#+LATEX_HEADER: \makeatletter
-#+LATEX_HEADER: \setbeamertemplate{footline}
-#+LATEX_HEADER: {
-#+LATEX_HEADER:   \leavevmode%
-#+LATEX_HEADER:   \hbox{%
-#+LATEX_HEADER:   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
-#+LATEX_HEADER:     \usebeamerfont{author in #+LATEX_HEADER: head/foot}\insertshortauthor%
-#+LATEX_HEADER:   \end{beamercolorbox}%
-#+LATEX_HEADER:   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-#+LATEX_HEADER:     \usebeamerfont{title in head/foot}\insertshorttitle
-#+LATEX_HEADER:   \end{beamercolorbox}%
-#+LATEX_HEADER:   \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-#+LATEX_HEADER:     \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
-#+LATEX_HEADER:     \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-#+LATEX_HEADER:   \end{beamercolorbox}}%
-#+LATEX_HEADER:   \vskip0pt%
-#+LATEX_HEADER: }
-#+LATEX_HEADER: \makeatother
-
-# % code highlighting https://denbeke.be/blog/programming/syntax-highlighting-in-latex/
-#+LATEX_HEADER: \usepackage{listings}
-#+LATEX_HEADER: \lstset{
-#+LATEX_HEADER:         backgroundcolor=\color[rgb]{0.973000, 0.973000, 0.973000},
-#+LATEX_HEADER:         keywordstyle=\color[rgb]{0.000000, 0.000000, 0.635294},
-#+LATEX_HEADER:         commentstyle=\color[rgb]{0.497495, 0.497587, 0.497464},
-#+LATEX_HEADER:         stringstyle=\color[rgb]{0.558215, 0.000000, 0.135316},
-#+LATEX_HEADER:         basicstyle=\ttfamily\small,
-#+LATEX_HEADER:         columns=fullflexible,
-#+LATEX_HEADER:         basewidth={0.5em,0.4em},
-#+LATEX_HEADER:         showspaces=false,
-#+LATEX_HEADER:         showstringspaces=false,
-#+LATEX_HEADER:         showtabs=false,
-#+LATEX_HEADER:         breakatwhitespace=true,
-#+LATEX_HEADER:         breaklines=true
-#+LATEX_HEADER:         }
-
-# % code results highlighting
-#+LATEX_HEADER: \RequirePackage{fancyvrb}
-#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatcom = {\color[rgb]{0.5,0,0}}}
