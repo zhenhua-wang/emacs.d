@@ -87,5 +87,5 @@ emacs -Q --batch --eval "(require 'org)" --eval '(setq user-emacs-directory (exp
 # recommended
 printf "\n%*s\n" 80 '' | tr ' ' '-'
 echo "Recommended GNOME extensions:"
-echo "Run or raise, Legacy (GTK3) theme scheme auto switcher, GSConnect, Dynamic panel"
+echo "Run or raise, Legacy (GTK3) theme scheme auto switcher, GSConnect, Dynamic panel, Dash to dock"
 printf "%*s\n\n" 80 '' | tr ' ' '-'
