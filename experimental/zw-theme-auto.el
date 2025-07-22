@@ -28,10 +28,8 @@ Possible values:
              (auto-dark-light-mode . zw/theme-load-ui))
       :init
       (setq auto-dark-themes '((adwaita-dark) (doom-one-light)))
-      (defun advice/auto-dark--enable-themes (auto-dark--enable-themes &rest args)
-        (let ((custom-safe-themes t))
-          (apply auto-dark--enable-themes args)))
-      (advice-add 'auto-dark--enable-themes :around 'advice/auto-dark--enable-themes)
+      (add-to-list 'custom-safe-themes "5c7720c63b729140ed88cf35413f36c728ab7c70f8cd8422d9ee1cedeb618de5")
+      (add-to-list 'custom-safe-themes "4f90496204362626124e55366e966b2f61c1baaec3acd6d3bf6ba42c1871ada9")
       (auto-dark-mode))))
 (add-hook 'zw/theme-init-before-hook 'zw/theme-auto)
 
