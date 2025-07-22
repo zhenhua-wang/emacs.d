@@ -27,9 +27,8 @@ Possible values:
       :hook ((auto-dark-dark-mode . zw/theme-load-ui)
              (auto-dark-light-mode . zw/theme-load-ui))
       :init
-      (setq auto-dark-themes '((adwaita-dark) (doom-one-light)))
-      (add-to-list 'custom-safe-themes "5c7720c63b729140ed88cf35413f36c728ab7c70f8cd8422d9ee1cedeb618de5")
-      (add-to-list 'custom-safe-themes "4f90496204362626124e55366e966b2f61c1baaec3acd6d3bf6ba42c1871ada9")
+      (setq auto-dark-themes '((adwaita-dark) (doom-one-light))
+            custom-safe-themes t)
       (auto-dark-mode))))
 (add-hook 'zw/theme-init-before-hook 'zw/theme-auto)
 
