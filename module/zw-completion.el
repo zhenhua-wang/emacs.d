@@ -202,6 +202,7 @@
                            (company-dabbrev :with company-ispell)))
   (defun zw/company-manual-begin ()
     (interactive)
+    (company-abort)
     (if (looking-back "<\\w*")
         (call-interactively 'company-yasnippet)
       (company-manual-begin)))
