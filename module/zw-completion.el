@@ -168,8 +168,8 @@
   :hook
   (after-init . global-company-mode)
   :bind ((:map company-mode-map
-               ("M-<tab>" . company-manual-begin)
-               ("C-M-i" . company-manual-begin)
+               ("M-<tab>" . zw/company-manual-begin)
+               ("C-M-i" . zw/company-manual-begin)
                ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
@@ -200,6 +200,11 @@
         company-backends '(company-files
                            company-capf
                            (company-dabbrev :with company-ispell)))
+  (defun zw/company-manual-begin ()
+    (interactive)
+    (if (looking-back "<\\w*")
+        (call-interactively 'company-yasnippet)
+      (company-manual-begin)))
   ;; use literal completion for company-mode
   (defun company-completion-styles (capf-fn &rest args)
     (let ((completion-styles '(basic partial-completion)))
