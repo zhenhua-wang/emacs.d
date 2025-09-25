@@ -34,6 +34,9 @@ modmap:
     device:
       only: ['Apple Inc. Magic Keyboard']
 
+# Workround for wayland apps
+keypress_delay_ms: 10
+
 keymap:
   - name: Emacs
     application:
