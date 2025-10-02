@@ -25,7 +25,7 @@ yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkma
 sudo systemctl enable gdm.service -f
 sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
-yay -S gnome-themes-extra gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock rygel gnome-user-share gnome-calendar gnome-characters gnome-connections gnome-font-viewer snapshot loupe papers showtime
+yay -S gnome-themes-extra gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock rygel gnome-user-share gnome-calendar gnome-characters gnome-connections gnome-font-viewer snapshot loupe papers showtime gnome-software
 # gnome experiment
 yay -S grilo-plugins gvfs-afc gvfs-dnssd gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
 # xorg and eaf compatibility
