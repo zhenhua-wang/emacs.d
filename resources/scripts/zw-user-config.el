@@ -2,6 +2,7 @@
 (require 'zw-theme-extra)
 ;; (require 'zw-eaf)
 ;; (require 'zw-copilot)
+;; (require 'zw-eat)
 ;; (require 'zw-tool-bar)
 ;; (require 'zw-theme-auto)
 ;; (setq zw/theme-auto-enable 'gui)
