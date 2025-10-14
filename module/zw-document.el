@@ -337,7 +337,10 @@ at the first function to return non-nil.")
         tex-fontify-script nil)
   :config
   ;; revert the PDF-buffer after the TeX compilation has finished
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (setq TeX-view-program-selection
+        (append (assq-delete-all 'output-pdf TeX-view-program-selection)
+                '((output-pdf "xdg-open")))))
 
 (use-package auctex-latexmk
   :after tex
