@@ -118,6 +118,8 @@ map cmd+shift+8 goto_tab 8
 map cmd+shift+9 goto_tab 9
 map cmd+shift+left previous_tab
 map cmd+shift+right next_tab
+map cmd+shift+, move_tab_backward
+map cmd+shift+. move_tab_forward
 # tab bar
 tab_separator ""
 tab_title_template "{index}: {title}"
