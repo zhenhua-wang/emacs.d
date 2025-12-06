@@ -44,7 +44,10 @@
   :hook
   ;; trigger autoload nerd-icons from here
   (vertico-mode . nerd-icons-completion-mode)
-  (marginalia-mode . nerd-icons-completion-marginalia-setup))
+  (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :config
+  (add-to-list 'nerd-icons-completion-category-icons
+               '(environment . (nerd-icons-mdicon "nf-md-flask_outline" nerd-icons-green))))
 
 ;; * Default theme
 (use-package doom-themes

@@ -15,12 +15,21 @@
         ;; (setenv "PATH" (concat conda-path ":" (getenv "PATH")))
         (setq conda--executable-path conda-exec))))
   ;; quick activate
+  (defun zw/conda-env-table (string pred action)
+    "Completion table for conda environments with metadata."
+    (if (eq action 'metadata)
+        '(metadata (category . environment))
+      (complete-with-action
+       action
+       (append (conda-env-candidates)
+               '("Conda deactivate"))
+       string pred)))
   (defun zw/conda-env-activate ()
     (interactive)
     (let* ((deactivate "Conda deactivate")
            (env (completing-read
-                 "Conda switch environment:"
-                 (append (conda-env-candidates) `(,deactivate)))))
+                 "Conda switch environment: "
+                 #'zw/conda-env-table)))
       (if (string= env deactivate)
           (conda-env-deactivate)
         (conda-env-activate env))))
