@@ -15,10 +15,28 @@
         ;; (setenv "PATH" (concat conda-path ":" (getenv "PATH")))
         (setq conda--executable-path conda-exec))))
   ;; quick activate
+  (defvar zw/conda-env-deactivate "Conda deactivate")
+  (defun zw/conda-env-annotation (cand)
+    "Annotate current Conda environment."
+    (let ((current (if (boundp 'conda-env-current-name)
+                       conda-env-current-name "None"))
+          (hl-color (face-background 'highlight)))
+      (cond
+       ;; highlight active env
+       ((string= cand current)
+        (concat
+         (propertize " (current)" 'face `(:weight bold :foreground ,hl-color))
+         " "))
+       ;; show marker for deactivate action
+       ((string= cand zw/conda-env-deactivate)
+        (propertize " (exit)" 'face 'font-lock-comment-face))
+       (t ""))))
   (defun zw/conda-env-table (string pred action)
     "Completion table for conda environments with metadata."
     (if (eq action 'metadata)
-        '(metadata (category . environment))
+        '(metadata
+          (category . environment)
+          (annotation-function . zw/conda-env-annotation))
       (complete-with-action
        action
        (append (conda-env-candidates)
