@@ -123,7 +123,7 @@ map cmd+shift+. move_tab_forward
 # tab bar
 tab_separator ""
 tab_title_template "{index}: {title}"
-tab_bar_edge bottom
+tab_bar_edge top
 tab_bar_style custom
 tab_powerline_style slanted
 tab_bar_min_tabs 1
