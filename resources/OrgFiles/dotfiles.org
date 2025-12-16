@@ -328,14 +328,16 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
     CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
     BATTERY_FG = as_rgb(color_as_int(opts.active_tab_foreground))
     BATTERY_BG = as_rgb(color_as_int(opts.active_tab_background))
+    battery_percent = get_battery_cells()
     if not is_last:
         return screen.cursor.x
 
     cells = [
         (CLOCK_BG, screen.cursor.bg, ""),
         (CLOCK_FG, CLOCK_BG, datetime.datetime.now().strftime("  %H:%M ")),
-        (BATTERY_FG, BATTERY_BG, f" {get_battery_cells()}% "),
     ]
+    if battery_percent is not None:
+        cells.append((BATTERY_FG, BATTERY_BG, f" {battery_percent}% "))
 
     right_status_length = 0
     for _, _, cell in cells:
