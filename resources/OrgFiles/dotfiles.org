@@ -314,18 +314,27 @@ REFRESH_TIME = 10
 timer_id = None
 
 
+def get_battery_cells():
+    try:
+        with open("/sys/class/power_supply/BAT1/capacity", "r") as f:
+            percent = int(f.read())
+        return percent
+    except FileNotFoundError:
+        return None
+
+
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
     CLOCK_FG = as_rgb(color_as_int(opts.selection_foreground))
     CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
-    DATE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
-    DATE_BG = as_rgb(color_as_int(opts.active_tab_background))
+    BATTERY_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+    BATTERY_BG = as_rgb(color_as_int(opts.active_tab_background))
     if not is_last:
         return screen.cursor.x
 
     cells = [
         (CLOCK_BG, screen.cursor.bg, ""),
         (CLOCK_FG, CLOCK_BG, datetime.datetime.now().strftime("  %H:%M ")),
-        (DATE_FG, DATE_BG, datetime.datetime.now().strftime("  %Y/%m/%d ")),
+        (BATTERY_FG, BATTERY_BG, f" {get_battery_cells()}% "),
     ]
 
     right_status_length = 0
