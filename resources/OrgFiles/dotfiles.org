@@ -313,10 +313,16 @@ opts = get_options()
 REFRESH_TIME = 10
 timer_id = None
 
+power_supply = Path("/sys/class/power_supply")
+for dev in power_supply.iterdir():
+    type_file = dev / "type"
+    if type_file.exists() and type_file.read_text().strip() == "Battery":
+        capacity_path = dev / "capacity"
+
 
 def get_battery_cells():
     try:
-        with open("/sys/class/power_supply/BAT1/capacity", "r") as f:
+        with open(capacity_path, "r") as f:
             percent = int(f.read())
         return percent
     except FileNotFoundError:
