@@ -299,6 +299,7 @@ symbol_map U+2500-U+259f Symbols Nerd Font Mono
 #+HEADER: :tangle (zw/org-babel-tangle-linux "~/.config/kitty/tab_bar.py")
 #+begin_src python
 import datetime
+from pathlib import Path
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, get_options, add_timer
 from kitty.utils import color_as_int
