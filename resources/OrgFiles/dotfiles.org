@@ -331,7 +331,7 @@ def get_battery_cells():
         with open(capacity_path, "r") as f:
             percent = int(f.read())
         return percent
-    except FileNotFoundError:
+    except Exception:
         return None
 
 
