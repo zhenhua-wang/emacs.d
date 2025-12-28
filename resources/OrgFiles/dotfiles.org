@@ -303,6 +303,7 @@ from pathlib import Path
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, get_options, add_timer
 from kitty.utils import color_as_int
+from kitty.rgb import to_color
 from kitty.tab_bar import (
     DrawData,
     ExtraData,
@@ -338,8 +339,6 @@ def get_battery_cells():
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
     CLOCK_FG = as_rgb(color_as_int(opts.selection_foreground))
     CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
-    BATTERY_FG = as_rgb(color_as_int(opts.active_tab_foreground))
-    BATTERY_BG = as_rgb(color_as_int(opts.active_tab_background))
     battery_percent = get_battery_cells()
     if not is_last:
         return screen.cursor.x
@@ -349,6 +348,13 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
         (CLOCK_FG, CLOCK_BG, datetime.datetime.now().strftime("  %H:%M ")),
     ]
     if battery_percent is not None:
+        if battery_percent <= 30:
+            BATTERY_FG = as_rgb(int(to_color("#000000")))
+            BATTERY_BG = as_rgb(int(to_color("#e06c75")))
+            battery_percent = f"󰂃 {battery_percent}"
+        else:
+            BATTERY_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+            BATTERY_BG = as_rgb(color_as_int(opts.active_tab_background))
         cells.append((BATTERY_FG, BATTERY_BG, f" {battery_percent}% "))
 
     right_status_length = 0
