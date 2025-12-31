@@ -72,7 +72,7 @@ yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-util
 yay -S texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra pandoc-bin miniconda3
 
 # flatpak applications
-flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper com.obsproject.Studio org.gimp.GIMP org.libreoffice.LibreOffice us.zoom.Zoom net.nokyan.Resources org.gnome.Solanum com.github.wwmm.easyeffects app.zen_browser.zen
+flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper org.libreoffice.LibreOffice us.zoom.Zoom net.nokyan.Resources org.gnome.Solanum com.github.wwmm.easyeffects app.zen_browser.zen
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 # grant firefox permission to temp folder
