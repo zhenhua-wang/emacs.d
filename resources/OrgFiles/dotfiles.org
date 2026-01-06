@@ -316,8 +316,8 @@ REFRESH_TIME = 10
 timer_id = None
 
 power_supply = Path("/sys/class/power_supply")
-capacity_path = next(
-    (dev / "capacity"
+battery_path = next(
+    (dev
      for dev in power_supply.iterdir()
      if dev.is_dir()
      and dev.name.startswith("BAT")
@@ -329,9 +329,9 @@ capacity_path = next(
 
 def get_battery_cells():
     try:
-        with open(capacity_path, "r") as f:
-            percent = int(f.read())
-        return percent
+        capacity = int((battery_path / "capacity").read_text().strip())
+        status = (battery_path / "status").read_text().strip()
+        return capacity, status
     except Exception:
         return None
 
@@ -339,7 +339,7 @@ def get_battery_cells():
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
     CLOCK_FG = as_rgb(color_as_int(opts.selection_foreground))
     CLOCK_BG = as_rgb(color_as_int(opts.selection_background))
-    battery_percent = get_battery_cells()
+    battery_percent, battery_status = get_battery_cells()
     if not is_last:
         return screen.cursor.x
 
@@ -348,7 +348,11 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
         (CLOCK_FG, CLOCK_BG, datetime.datetime.now().strftime("  %H:%M ")),
     ]
     if battery_percent is not None:
-        if battery_percent <= 30:
+        if battery_status == "Charging":
+            BATTERY_FG = as_rgb(int(to_color("#000000")))
+            BATTERY_BG = as_rgb(int(to_color("#98c379")))
+            battery_percent = f"󰂄 {battery_percent}"
+        elif battery_percent <= 30:
             BATTERY_FG = as_rgb(int(to_color("#000000")))
             BATTERY_BG = as_rgb(int(to_color("#e06c75")))
             battery_percent = f"󰂃 {battery_percent}"
