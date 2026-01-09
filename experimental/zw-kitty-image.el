@@ -25,4 +25,4 @@
     (kitty-image--write-tty test1)
     (sit-for 2)))
 
-(provide 'zw-eaf)
+(provide 'zw-kitty-image)
