@@ -9,7 +9,7 @@
     (write-region data nil "/dev/tty" t 0)))
 
 (defun zw/kitty-display-image (file)
-  "Test direct image display in Kitty terminal."
+  "Display image in Kitty, fit to terminal height while preserving aspect ratio."
   (interactive
    (list (read-file-name "Image: " default-directory nil t)))
   (let* ((buffer (get-buffer-create zw/kitty-image-buffer))
@@ -18,14 +18,25 @@
                  (insert-file-contents-literally file)
                  (buffer-string)))
          (b64 (base64-encode-string data t))
-         (test1 (format "\x1b_Ga=T,f=100,z=-1,t=d;%s\x1b\\" b64)))
-    (with-current-buffer buffer
-      (read-only-mode -1)
-      (erase-buffer)
-      (read-only-mode 1)
-      (zw/kitty-image--write-tty test1))
-    (switch-to-buffer buffer)
-    (sit-for 2)))
+         (rows (window-body-height))
+         (cursor-up (format "\x1b[%dA" 10))
+         (chunk-size 4096)
+         (len (length b64))
+         (pos 0)
+         (first t))
+    (while (< pos len)
+      (let* ((end (min len (+ pos chunk-size)))
+             (chunk (substring b64 pos end))
+             (more (if (< end len) "1" "0"))
+             (prefix (if first cursor-up "")))
+        (setq first nil)
+        (zw/kitty-image--write-tty
+         (if (= pos 0)
+             (format "%s\x1b_Ga=T,f=100,z=-1,t=d,r=%d,m=%s;%s\x1b\\"
+                     prefix rows more chunk)
+           (format "\x1b_Gm=%s;%s\x1b\\" more chunk)))
+        (setq pos end)))
+    (switch-to-buffer buffer)))
 
 (defun zw/kitty-clear-image ()
   "Clear all kitty graphics from the terminal."
