@@ -20,8 +20,8 @@
     (sit-for 2)))
 
 (defun kitty-clear-image ()
-  (interactive)
   "Clear all kitty graphics from the terminal."
+  (interactive)
   (kitty-image--write-tty "\e_Ga=d\e\\"))
 
 (provide 'zw-kitty-image)
