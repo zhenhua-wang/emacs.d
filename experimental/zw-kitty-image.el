@@ -11,7 +11,7 @@
         (write-region-inhibit-fsync t))
     (write-region data nil "/dev/tty" t 0)))
 
-(defun kitty-image-test-direct-display (file)
+(defun kitty-image-display (file)
   "Test direct image display in Kitty terminal."
   (interactive
    (list (read-file-name "Image: " default-directory nil t)))
