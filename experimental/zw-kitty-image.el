@@ -76,4 +76,18 @@
 (advice-add 'zw/tab-line-kill-buffer-and-switch :before
             'zw/kill-kitty-image-advice)
 
+(defun zw/file-image-by-extension-p (file)
+  (member (downcase (file-name-extension file))
+          '("png" "jpg" "jpeg" "gif" "webp" "svg")))
+
+(defun zw/kitty-dired-find-file (&rest args)
+  (let ((file (dired-get-file-for-visit)))
+    (if (ignore-errors (zw/file-image-by-extension-p file))
+        (zw/kitty-display-image file)
+      (dired-find-file)))
+  (zw/dired-sidebar-enable (current-buffer)))
+
+(advice-add 'zw/dired-sidebar-find-file :around
+            'zw/kitty-dired-find-file)
+
 (provide 'zw-kitty-image)
