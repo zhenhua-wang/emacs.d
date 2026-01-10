@@ -27,7 +27,7 @@
                   (lsh (aref s 22)  8) (aref s 23))))
         (cons w h)))))
 
-(defvar zw/kitty-image-max-height 2000)
+(defvar zw/kitty-image-max-height 1000)
 
 (defun zw/kitty-display-image (file)
   "Display image in Kitty; scale down to fit max height only if too large."
@@ -39,7 +39,7 @@
                  (insert-file-contents-literally file)
                  (buffer-string)))
          (b64 (base64-encode-string data t))
-         (rows (max 1 (1- (window-body-height))))
+         (rows (max 1 (window-body-height)))
          (img-h (cdr (zw/png-size-px file)))
          (need-resize (> img-h zw/kitty-image-max-height))
          (cursor-up (format "\x1b[%dA" 10))
