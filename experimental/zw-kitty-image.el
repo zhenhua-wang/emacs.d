@@ -27,7 +27,7 @@
                   (lsh (aref s 22)  8) (aref s 23))))
         (cons w h)))))
 
-(defvar zw/kitty-image-max-height 1000)
+(defvar zw/kitty-image-max-height 2000)
 
 (defun zw/kitty-display-image (file)
   "Display image in Kitty; scale down to fit max height only if too large."
