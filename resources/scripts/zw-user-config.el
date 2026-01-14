@@ -6,6 +6,7 @@
 ;; (require 'zw-tool-bar)
 ;; (require 'zw-theme-auto)
 ;; (setq zw/theme-auto-enable 'gui)
+;; (require 'zw-kitty-image)
 
 (add-hook 'zw/after-set-theme-hook 'zw/ui-padding-mode)
 
