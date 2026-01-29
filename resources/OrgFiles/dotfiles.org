@@ -526,6 +526,7 @@ fade-exclude = ["class_g != 'Dunst'"];
 #+begin_src conf
 patch:
   style/horizontal: true
+  style/inline_preedit: false
 #+end_src
 
 * Rime
