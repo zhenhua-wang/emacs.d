@@ -1021,7 +1021,7 @@
 
 ;; ** consult
 (setq consult--buffer-display #'zw/exwm--switch-to-buffer-show-desktop)
-(setq consult--source-workspace
+(setq consult-source-workspace
       (list :name     "EXWM Workspace Buffer"
             :narrow   ?w
             :history  'buffer-name-history

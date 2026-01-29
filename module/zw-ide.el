@@ -193,9 +193,9 @@
   ;; filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
     ;; hide full buffer list (still available with "b" prefix)
-    (consult-customize consult--source-buffer :hidden t :default nil)
+    (consult-customize consult-source-buffer :hidden t :default nil)
     ;; set consult-workspace buffer list
-    (defvar consult--source-workspace
+    (defvar consult-source-workspace
       (list :name     "Workspace Buffer"
             :narrow   ?w
             :history  'buffer-name-history
@@ -207,7 +207,7 @@
                                   :sort 'visibility
                                   :as #'buffer-name)))
       "Set workspace buffer list for consult-buffer.")
-    (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+    (add-to-list 'consult-buffer-sources 'consult-source-workspace))
   ;; filter tab-lines
   (with-eval-after-load "zw-tab-line"
     (defun zw/tabspace-filter-tab-line (old-func)
