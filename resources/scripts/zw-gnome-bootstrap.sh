@@ -34,7 +34,7 @@ yay -S xorg-server xorg-xhost xcb-util-cursor xcb-util-wm xcb-util-keysyms
 # xremap
 yay -S xremap-x11-bin
 sudo gpasswd -a $USER input
-echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
+echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess", MODE:="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-input.rules
 ######## if not working on gnome wayland, try 'xremap-gnome-bin' ########
 # yay -S xremap-gnome-bin
 # if [ ! -d ~/.local/share/gnome-shell/extensions/ ]; then
