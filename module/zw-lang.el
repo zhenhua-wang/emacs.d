@@ -106,28 +106,21 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 
 ;; * Python
 (defun zw/python-start-shell-before-send-string (code-string)
-  (cond
-   ((python-shell-get-process)
-    (python-shell-send-string code-string))
-   (t
-    (let* ((process (save-selected-window
-                      (run-python (python-shell-parse-command)
-                                  (when (project-current) 'project) 'show))))
-      ;; setup REPL
-      (process-send-string
-       process (concat "\n" python-shell-eval-setup-code "\n"
-                       "\n" python-shell-eval-file-setup-code "\n"))
-      (with-current-buffer (current-buffer)
-        (let ((inhibit-quit nil))
-          (run-hooks 'python-shell-first-prompt-hook)))
-      ;; send code-string
-      (process-send-string process (concat code-string "\n"))))))
+  (let ((process (python-shell-get-process)))
+    (unless process
+      ;; run-python is usually better than manual process management
+      ;; because it handles buffer creation and hooks correctly.
+      (save-selected-window
+        (run-python (python-shell-parse-command)
+                    (when (project-current) 'project) 'show))
+      (setq process (python-shell-get-process))
+      ;; Wait briefly for the process to live
+      (accept-process-output process 1.0))
+    (python-shell-send-string code-string)))
 
-(defun zw/python-region-or-block-string (forward-func backward-func)
-  (if mark-active
-      (let ((beg (region-beginning))
-            (end (region-end)))
-        (buffer-substring-no-properties beg end))
+(defun zw/python-get-region-or-block (forward-func backward-func)
+  (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
     (let* ((current-line-empty-p
             (string-match-p "\\`\\s-*$" (thing-at-point 'line)))
            (beg (if current-line-empty-p
@@ -138,28 +131,29 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
       (buffer-substring-no-properties beg end))))
 
 (defun zw/python-shell-send-region-or-block ()
+  "Send active region or current paragraph to Python REPL."
   (interactive)
   (zw/python-start-shell-before-send-string
-   (zw/python-region-or-block-string 'forward-paragraph 'backward-paragraph))
-  ;; deactivate mark after idle
+   (zw/python-get-region-or-block 'forward-paragraph 'backward-paragraph))
   (sit-for 0.1)
   (goto-char (region-end))
   (deactivate-mark))
 
 (defun zw/python-shell-send-buffer ()
+  "Send the whole buffer to the Python REPL."
   (interactive)
   (zw/python-start-shell-before-send-string
    (buffer-substring-no-properties (point-min) (point-max))))
 
 (defun zw/python-shell-send-line ()
+  "Send current line and move to the next."
   (interactive)
-  (let ((beg (save-excursion (beginning-of-line) (point)))
-        (end (save-excursion (end-of-line) (point))))
-    (zw/python-start-shell-before-send-string
-     (buffer-substring-no-properties beg end)))
+  (zw/python-start-shell-before-send-string
+   (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
   (next-line))
 
 (defun zw/python-shell-send-above ()
+  "Send all code from the start of the buffer to the current point."
   (interactive)
   (zw/python-start-shell-before-send-string
    (buffer-substring-no-properties (point-min) (point))))
