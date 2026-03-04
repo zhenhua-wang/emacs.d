@@ -56,6 +56,7 @@
 (use-package kitty-graphics
   :vc (:url "https://github.com/cashmeredev/kitty-graphics.el")
   :config
+  (defun kitty-gfx--supported-p () t)
   (kitty-graphics-mode 1))
 
 ;; * Provide
