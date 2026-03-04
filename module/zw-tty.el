@@ -55,7 +55,6 @@
 ;; * Kitty image
 (use-package kitty-graphics
   :vc (:url "https://github.com/cashmeredev/kitty-graphics.el")
-  :if (and (not (display-graphic-p)) (getenv "KITTY_PID"))
   :config
   (kitty-graphics-mode 1))
 
