@@ -1,0 +1,22 @@
+diff --git a/src/evdev-mt-touchpad-gestures.c b/src/evdev-mt-touchpad-gestures.c
+index 50956207..4474395f 100644
+--- a/src/evdev-mt-touchpad-gestures.c
++++ b/src/evdev-mt-touchpad-gestures.c
+@@ -38,7 +38,7 @@ enum gesture_cancelled {
+ #define DEFAULT_GESTURE_SWITCH_TIMEOUT usec_from_millis(100)
+ #define DEFAULT_GESTURE_SWIPE_TIMEOUT usec_from_millis(150)
+ #define DEFAULT_GESTURE_PINCH_TIMEOUT usec_from_millis(300)
+-#define DRAG_3FG_OR_SWIPE_TIMEOUT usec_from_millis(80)
++#define DRAG_3FG_OR_SWIPE_TIMEOUT usec_from_millis(0)
+ 
+ #define HOLD_AND_MOTION_THRESHOLD 0.5 /* mm */
+ #define PINCH_DISAMBIGUATION_MOVE_THRESHOLD 1.5 /* mm */
+@@ -2327,7 +2327,7 @@ tp_3fg_drag_get_enabled(struct libinput_device *device)
+ static enum libinput_config_3fg_drag_state
+ tp_3fg_drag_default(struct tp_dispatch *tp)
+ {
+-	return LIBINPUT_CONFIG_3FG_DRAG_DISABLED;
++	return LIBINPUT_CONFIG_3FG_DRAG_ENABLED_3FG;
+ }
+ 
+ static enum libinput_config_3fg_drag_state
