@@ -86,6 +86,7 @@ options(menu.graphics=FALSE)
 #+begin_src conf
 # default conf
 font_size 14.0
+font_family family="JetBrains Mono"
 # cursor_trail 3
 # cursor_trail_decay 0.1 0.4
 touch_scroll_multiplier 20.0
