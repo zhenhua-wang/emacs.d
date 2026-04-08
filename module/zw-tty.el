@@ -65,12 +65,10 @@
   '((t :inherit default))
   "Face for the special glyph that keeps the buffer background.")
 
-(let ((tbl (or standard-display-table (make-display-table))))
-  (set-display-table-slot tbl 'truncation
-                          (make-glyph-code ?\u00bb 'zw-special-glyph-face))
-  (set-display-table-slot tbl 'wrap
-                          (make-glyph-code ?\u21b5 'zw-special-glyph-face))
-  (set-window-display-table (selected-window) tbl))
+(set-display-table-slot standard-display-table 'truncation
+                        (make-glyph-code ?\u00bb 'zw-special-glyph-face))
+(set-display-table-slot standard-display-table 'wrap
+                        (make-glyph-code ?\u21b5 'zw-special-glyph-face))
 
 ;; * Provide
 (provide 'zw-tty)
