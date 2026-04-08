@@ -15,7 +15,6 @@
 (use-package kkp
   :hook (tty-setup . zw/kkp-enable)
   :init
-  (setq kkp-terminal-query-timeout 1)
   (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
     (interactive)
     (kkp--terminal-teardown (kkp--selected-terminal))
