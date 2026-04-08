@@ -13,7 +13,7 @@
 
 ;; * Keyboard
 (use-package kkp
-  :hook (after-init . zw/kkp-enable)
+  :hook (tty-setup . zw/kkp-enable)
   :init
   (setq kkp-terminal-query-timeout 1)
   (cl-defun zw/kkp-restart (&optional (terminal (kkp--selected-terminal)))
