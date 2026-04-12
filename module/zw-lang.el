@@ -228,8 +228,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
     "Start R if needed without stealing focus, then run the command."
     (let ((script-window (selected-window)))
       (unless (ignore-errors (ess-get-process))
-        (save-window-excursion
-          (run-ess-r)))
+        (run-ess-r))
       (select-window script-window)
       (apply orig-fun args)))
   (advice-add 'zw/ess-send-region-or-block :around #'zw/ess-start-R-before-send-advisor)
