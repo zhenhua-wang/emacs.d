@@ -152,6 +152,8 @@
          ("s-q" . zw/magit-kill-buffers))
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  ;; fix error #5551
+  (remove-hook 'git-commit-setup-hook #'git-commit-setup-capf)
   (defun zw/magit-change-repo ()
     (interactive)
     (let ((dir (magit-read-repository)))
