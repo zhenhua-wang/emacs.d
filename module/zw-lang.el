@@ -210,6 +210,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
                 '(:eval (nth ess--busy-count ess-busy-strings))))
   (defun zw/ess-indent ()
     (setq-local indent-line-function #'ess-r-indent-line))
+  ;; ess send code
   (defun zw/ess-send-region-or-block ()
     (interactive)
     (if mark-active
@@ -222,9 +223,17 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
   (defun zw/ess-send-above ()
     (interactive)
     (ess-eval-region (point-min) (point) 'nowait))
-  ;; fix freezing in macos by creating your process using pipe
-  ;; https://emacs.stackexchange.com/questions/40603/process-input-seems-buggy-in-emacs-on-os-x
-  ;; (setq process-connection-type nil)
+  ;; ensure R is running before sending
+  (defun zw/ess-start-R-before-send-advisor (orig-fun &rest args)
+    "Ensure R is running and keep focus on the current window."
+    (save-selected-window
+      (unless (ignore-errors (ess-get-process))
+        (run-ess-r)
+        (apply orig-fun args))))
+  (advice-add 'zw/ess-send-region-or-block :around #'zw/ess-start-R-before-send-advisor)
+  (advice-add 'zw/ess-send-above :around #'zw/ess-start-R-before-send-advisor)
+  (advice-add 'ess-eval-region-or-line-visibly-and-step :around #'zw/ess-start-R-before-send-advisor)
+  ;; other
   (setq ess-style 'RStudio-
         ess-nuke-trailing-whitespace-p t
         ess-ask-for-ess-directory nil
