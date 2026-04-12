@@ -225,11 +225,13 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
     (ess-eval-region (point-min) (point) 'nowait))
   ;; ensure R is running before sending
   (defun zw/ess-start-R-before-send-advisor (orig-fun &rest args)
-    "Ensure R is running and keep focus on the current window."
-    (save-selected-window
+    "Start R if needed without stealing focus, then run the command."
+    (let ((script-window (selected-window)))
       (unless (ignore-errors (ess-get-process))
-        (run-ess-r)
-        (apply orig-fun args))))
+        (save-window-excursion
+          (run-ess-r)))
+      (select-window script-window)
+      (apply orig-fun args)))
   (advice-add 'zw/ess-send-region-or-block :around #'zw/ess-start-R-before-send-advisor)
   (advice-add 'zw/ess-send-above :around #'zw/ess-start-R-before-send-advisor)
   (advice-add 'ess-eval-region-or-line-visibly-and-step :around #'zw/ess-start-R-before-send-advisor)
