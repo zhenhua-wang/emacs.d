@@ -233,6 +233,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
       (apply orig-fun args))
     (advice-add 'zw/ess-send-region-or-block :around #'zw/ess-start-R-before-send-advisor)
     (advice-add 'zw/ess-send-above :around #'zw/ess-start-R-before-send-advisor)
+    (advice-add 'ess-eval-buffer :around #'zw/ess-start-R-before-send-advisor)
     (advice-add 'ess-eval-region-or-line-visibly-and-step :around #'zw/ess-start-R-before-send-advisor))
   ;; other
   (setq ess-style 'RStudio-
