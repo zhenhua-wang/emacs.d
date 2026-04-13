@@ -163,6 +163,7 @@ The order of values may be different."
 (setq-default use-dialog-box nil
               visible-bell t
               cursor-in-non-selected-windows nil
+              highlight-nonselected-windows nil
               indent-tabs-mode nil
               enable-recursive-minibuffers t
               tooltip-hide-delay 600)
@@ -200,7 +201,8 @@ The order of values may be different."
 ;; ** Speedup long line
 (add-hook 'after-init-hook 'global-so-long-mode)
 
-(setq-default bidi-display-reordering nil
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right
               bidi-inhibit-bpa t
               long-line-threshold 1000
               large-hscroll-threshold 1000
@@ -907,6 +909,7 @@ If set to nil, no REPL will be automatically started."
 (setq-default
  ;; save clipboard before kill ring
  save-interprogram-paste-before-kill t
+ kill-do-not-save-duplicates t
  select-enable-clipboard t
  ;; copy while draging mouse
  mouse-drag-copy-region t)
