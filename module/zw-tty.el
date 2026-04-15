@@ -53,12 +53,11 @@
 
 ;; * Kitty image
 (use-package kitty-graphics
-  :vc (:url "https://github.com/cashmeredev/kitty-graphics.el"
-            :rev "af41db8b92739bbbb273d08d1a8426cc8a08f4a5")
+  :vc (:url "https://github.com/cashmeredev/kitty-graphics.el")
   :demand t
+  :hook (kkp-terminal-setup-complete . kitty-graphics-mode)
   :config
   (defun kitty-gfx--kitty-detect () t)
-  (kitty-graphics-mode 1)
   (setq kitty-gfx-preferred-protocol 'kitty))
 
 ;; * Special glyph
