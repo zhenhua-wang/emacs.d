@@ -57,7 +57,7 @@
             :rev "af41db8b92739bbbb273d08d1a8426cc8a08f4a5")
   :demand t
   :config
-  (defun kitty-gfx--supported-p () t)
+  (defun kitty-gfx--kitty-detect () t)
   (kitty-graphics-mode 1)
   (setq kitty-gfx-preferred-protocol 'kitty))
 
