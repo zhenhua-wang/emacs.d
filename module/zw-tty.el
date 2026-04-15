@@ -54,7 +54,7 @@
 ;; * Kitty image
 (use-package kitty-graphics
   :vc (:url "https://github.com/cashmeredev/kitty-graphics.el"
-            :rev "f7bd1f752f40b4607813835c7e9ac0311c58097b")
+            :rev "af41db8b92739bbbb273d08d1a8426cc8a08f4a5")
   :demand t
   :config
   (defun kitty-gfx--supported-p () t)
