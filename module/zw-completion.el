@@ -29,7 +29,7 @@
         vertico-count 12
         vertico-cycle t
         vertico-preselect 'directory
-        ;; fix strange history ordering
+        ;; consistent history ordering
         vertico-sort-history-duplicate 0)
   :config
   ;; Do not allow the cursor in the minibuffer prompt
