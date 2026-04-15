@@ -58,7 +58,8 @@
   :demand t
   :config
   (defun kitty-gfx--supported-p () t)
-  (kitty-graphics-mode 1))
+  (kitty-graphics-mode 1)
+  (setq kitty-gfx-preferred-protocol 'kitty))
 
 ;; * Special glyph
 (defface zw-special-glyph-face
