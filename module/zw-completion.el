@@ -30,7 +30,7 @@
         vertico-cycle t
         vertico-preselect 'directory
         ;; fix strange history ordering
-        vertico-sort-history-decay 0)
+        vertico-sort-history-duplicate 0)
   :config
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
