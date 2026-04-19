@@ -57,8 +57,7 @@
   :demand t
   :hook (kkp-terminal-setup-complete . kitty-graphics-mode)
   :config
-  (defun kitty-gfx--kitty-detect () t)
-  (setq kitty-gfx-preferred-protocol 'kitty))
+  (defun kitty-gfx--kitty-detect () t))
 
 ;; * Special glyph
 (defface zw-special-glyph-face
