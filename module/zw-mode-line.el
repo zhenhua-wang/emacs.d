@@ -371,7 +371,8 @@
              (branch-face (if (and branch (not on-main-branch))
                               (zw/modeline-set-face 'zw/modeline-vc-other-branch-active
                                                     'zw/modeline-default-inactive)
-                            base-face))
+                            (zw/modeline-set-face 'zw/modeline-vc-active
+                                                  'zw/modeline-default-inactive)))
              (help-echo (format "VC root: %s" (project-root current-project)))
              (prefix (concat icon
                              (zw/modeline-separator-thin)
