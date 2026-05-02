@@ -593,6 +593,8 @@ The order of values may be different."
 (add-hook 'after-init-hook 'which-key-mode)
 
 ;; ** Server mode
+(setq server-socket-dir "~/.cache/emacs/server")
+
 (autoload 'server-running-p "server")
 (when (or (display-graphic-p) (daemonp))
   (unless (server-running-p)
