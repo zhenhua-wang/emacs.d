@@ -73,6 +73,10 @@
   "VC untracked face for active modeline"
   :group 'zw/modeline-active)
 
+(defface zw/modeline-vc-other-branch-active
+  '((t :inherit zw/modeline-highlight-foreground-active))
+  "Face for branch name when not on main/master.")
+
 (defface zw/modeline-encoding-active
   '((t (:inherit zw/modeline-default-active)))
   "Encoding face for active modeline"
@@ -346,23 +350,37 @@
     (when (and buffer-file-name current-project)
       (let* ((backend (vc-backend buffer-file-name))
              (state (vc-state buffer-file-name backend))
-             (branch (when vc-mode (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
-             (icon-face (cond
-                         ((eq state 'up-to-date)
-                          `(,(nerd-icons-devicon "nf-dev-git_branch") . zw/modeline-vc-active))
-                         ((not branch)
-                          `(,(nerd-icons-octicon "nf-oct-git_pull_request_closed") . zw/modeline-vc-untracked-active))
-                         (t
-                          `(,(nerd-icons-devicon "nf-dev-git_compare") . zw/modeline-vc-modified-active)))))
-        (concat
-         (propertize (concat (car icon-face)
+             (branch (when vc-mode
+                       (substring-no-properties vc-mode
+                                                (+ (if (eq backend 'Hg) 2 3) 2))))
+             (on-main-branch (and branch (member branch '("main" "master"))))
+             (icon-face
+              (cond
+               ((eq state 'up-to-date)
+                (cons (nerd-icons-devicon "nf-dev-git_branch")
+                      'zw/modeline-vc-active))
+               ((not branch)
+                (cons (nerd-icons-octicon "nf-oct-git_pull_request_closed")
+                      'zw/modeline-vc-untracked-active))
+               (t
+                (cons (nerd-icons-devicon "nf-dev-git_compare")
+                      'zw/modeline-vc-modified-active))))
+             (icon (car icon-face))
+             (base-face (zw/modeline-set-face (cdr icon-face)
+                                              'zw/modeline-default-inactive))
+             (branch-face (if (and branch (not on-main-branch))
+                              (zw/modeline-set-face 'zw/modeline-vc-other-branch-active
+                                                    'zw/modeline-default-inactive)
+                            base-face))
+             (help-echo (format "VC root: %s" (project-root current-project)))
+             (prefix (concat icon
                              (zw/modeline-separator-thin)
-                             (project-name (project-current))
-                             "/"
-                             (or branch "Untracked"))
-                     'face (zw/modeline-set-face (cdr icon-face)
-                                                 'zw/modeline-default-inactive)
-                     'help-echo (format "VC root: %s" (project-root current-project)))
+                             (project-name current-project)
+                             "/"))
+             (branch-text (or branch "Untracked")))
+        (concat
+         (propertize prefix      'face base-face   'help-echo help-echo)
+         (propertize branch-text 'face branch-face 'help-echo help-echo)
          zw/modeline-separator)))))
 
 ;; ** LSP
