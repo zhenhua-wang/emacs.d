@@ -28,3 +28,6 @@
 
 ;; remote users
 ;; (setq browse-url-browser-function 'eww-browse-url)
+
+;; fix permission issue for slurm interaction jobs
+;; (setq server-socket-dir "~/.cache/emacs/server")
