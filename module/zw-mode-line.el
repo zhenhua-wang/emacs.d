@@ -74,7 +74,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-vc-other-branch-active
-  '((t :inherit zw/modeline-highlight-foreground-active))
+  '((t :inherit zw/modeline-highlight-foreground-active :bold t))
   "Face for branch name when not on main/master.")
 
 (defface zw/modeline-encoding-active
