@@ -64,7 +64,7 @@
   :group 'zw/modeline-active)
 
 (defface zw/modeline-vc-modified-active
-  '((t (:inherit zw/modeline-modified-active :bold t)))
+  `((t (:inherit (zw/modeline-vc-active zw/modeline-modified-active) :bold t)))
   "VC modified face for active modeline"
   :group 'zw/modeline-active)
 
