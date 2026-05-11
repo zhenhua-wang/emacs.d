@@ -98,7 +98,7 @@
     (set-face-attribute 'mode-line nil
                         :height modeline-height :box 'unspecified)
     (set-face-attribute 'mode-line-inactive nil
-                        :inherit 'mode-line :foreground shadow-color :box 'unspecified)
+                        :foreground shadow-color :box 'unspecified)
     (set-face-attribute 'tab-bar nil
                         :inherit 'unspecified :foreground ui-color :height tab-bar-height
                         :weight 'regular :box tab-bar-box)
@@ -125,15 +125,15 @@
      `(zw/modeline-modified-active
        ((t (:inherit zw/modeline-buffer-name-active :foreground ,highlight-alt-color))))
      `(zw/modeline-highlight-foreground-active
-       ((t (:inherit mode-line :foreground ,highlight-color))))
+       ((t (:foreground ,highlight-color))))
      `(zw/modeline-highlight-background-inactive
        ((t (:inherit zw/modeline-default-inactive :background ,highlight-inactive-color))))
      `(zw/modeline-separator-active
-       ((t (:inherit mode-line :background ,mode-line-color))))
+       ((t (:background ,mode-line-color))))
      `(zw/modeline-local-active
-       ((t (:inherit mode-line :foreground ,highlight-revert-color :background ,highlight-color))))
+       ((t (:foreground ,highlight-revert-color :background ,highlight-color))))
      `(zw/modeline-remote-active
-       ((t (:inherit mode-line :foreground ,highlight-alt-revert-color :background ,highlight-alt-color))))
+       ((t (:foreground ,highlight-alt-revert-color :background ,highlight-alt-color))))
      `(zw/modeline-major-mode-active
        ((t (:inherit zw/modeline-default-active :bold t))))
      `(zw/modeline-lsp-active
