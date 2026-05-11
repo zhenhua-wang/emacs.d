@@ -561,7 +561,7 @@
       (cancel-timer zw/modeline--ring-bell-timer)
       (setq zw/modeline--ring-bell-timer nil))
     ;; ring bell
-    (face-remap-add-relative 'mode-line :background bell-color)
+    (face-remap-add-relative 'mode-line-active :background bell-color)
     (set-face-background 'zw/modeline-separator-active bell-color)
     (force-mode-line-update)
     ;; set timer
@@ -571,9 +571,9 @@
                             (with-current-buffer buf
                               (setq face-remapping-alist
                                     (cl-remove-if (lambda (cookie)
-                                                    (eq (car cookie) 'mode-line))
+                                                    (eq (car cookie) 'mode-line-active))
                                                   face-remapping-alist))
-                              (set-face-background 'zw/modeline-separator-active (face-background 'mode-line))
+                              (set-face-background 'zw/modeline-separator-active (face-background 'mode-line-active))
                               (force-mode-line-update)))))))
 
 (setq ring-bell-function 'zw/modeline-ring-bell
