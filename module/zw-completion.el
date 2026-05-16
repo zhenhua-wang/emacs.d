@@ -218,12 +218,6 @@
     (interactive)
     (let* ((company-backends '((company-dabbrev :with company-ispell))))
       (call-interactively 'company-manual-begin)))
-  ;; prefix return nil when it's empty
-  (defun zw/company-backend--prefix-advice (orig-fun &rest args)
-    (let ((prefix (apply orig-fun args)))
-      (unless (string= (car prefix) "")
-        prefix)))
-  (advice-add 'company-dabbrev--prefix :around 'zw/company-backend--prefix-advice)
   ;; auto-complete in text-mode
   (add-hook 'text-mode-hook (lambda ()
                               (setq-local company-idle-delay 0))))

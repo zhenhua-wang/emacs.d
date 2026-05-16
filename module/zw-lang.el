@@ -150,7 +150,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
   (interactive)
   (zw/python-start-shell-before-send-string
    (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
-  (next-line))
+  (forward-line))
 
 (defun zw/python-shell-send-above ()
   "Send all code from the start of the buffer to the current point."
