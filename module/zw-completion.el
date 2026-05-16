@@ -172,7 +172,7 @@
   :bind ((:map company-mode-map
                ("M-<tab>" . zw/company-manual-begin)
                ("C-M-i" . zw/company-manual-begin)
-               ("M-<iso-lefttab>" . zw/company-dabbrev-ispell))
+               ("M-<iso-lefttab>" . company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
@@ -199,15 +199,23 @@
         company-dabbrev-char-regexp "[[:word:]_-]+"
         company-dabbrev-ignore-buffers "\\.\\(?:pdf\\|gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)\\'"
         company-transformers '(company-sort-prefer-same-case-prefix)
-        company-backends '(company-files
+        company-backends '(zw/company-yasnippet-after-angle
+                           company-files
                            company-capf
                            (company-dabbrev :with company-ispell)))
+  ;; manual complete
   (defun zw/company-manual-begin ()
     (interactive)
     (company-abort)
-    (if (looking-back "<\\w*" (line-beginning-position))
-        (call-interactively 'company-yasnippet)
+    (when (looking-back "\\w" (line-beginning-position))
       (company-manual-begin)))
+  ;; check yasnippet using angle
+  (defun zw/company-yasnippet-after-angle (command &optional arg &rest rest)
+    (interactive (list 'interactive))
+    (if (eq command 'prefix)
+        (and (looking-back "<\\w*" (line-beginning-position))
+             (company-yasnippet 'prefix))
+      (apply #'company-yasnippet command arg rest)))
   ;; use literal completion for company-mode
   (defun zw/company-completion-styles (capf-fn &rest args)
     (let ((completion-styles '(basic partial-completion)))
@@ -217,7 +225,7 @@
   (defun zw/company-dabbrev-ispell ()
     (interactive)
     (let* ((company-backends '((company-dabbrev :with company-ispell))))
-      (call-interactively 'company-manual-begin)))
+      (call-interactively 'zw/company-manual-begin)))
   ;; auto-complete in text-mode
   (add-hook 'text-mode-hook (lambda ()
                               (setq-local company-idle-delay 0))))
