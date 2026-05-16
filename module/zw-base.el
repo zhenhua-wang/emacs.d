@@ -94,13 +94,12 @@ The order of values may be different."
   (when (or (not (called-interactively-p 'any))
             buffer-file-name)
     ad-do-it))
-;; make scratch and dashboard unkillable
+;; make scratch unkillable
 (add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
 (defun zw/dont-kill-scratch ()
-  (if (not (string= (buffer-name) "*scratch*"))
-      t
-    (and (message "Not allowed to kill %s" (buffer-name))
-         nil)))
+  "Prevent killing the *scratch* buffer."
+  (not (and (string= (buffer-name) "*scratch*")
+            (message "Not allowed to kill %s" (buffer-name)))))
 
 ;; * Appearance
 ;; ** UI
@@ -356,23 +355,22 @@ The order of values may be different."
 
 ;; ** save frame parameters
 (defun zw/save-frame-parameters ()
-  (when (boundp 'zw/frame-parameters)
-    (when (display-graphic-p)
-      (when (not (file-exists-p zw/frame-parameters))
-        (make-empty-file zw/frame-parameters))
-      (if (frame-parameter nil 'fullscreen)
-          (write-region "(push '(fullscreen . maximized) initial-frame-alist)"
-                        nil zw/frame-parameters)
-        (write-region
-         (format "(push '(width . %s) initial-frame-alist)\n\
+  (when (and (boundp 'zw/frame-parameters)
+             (display-graphic-p))
+    (when (not (file-exists-p zw/frame-parameters))
+      (make-empty-file zw/frame-parameters))
+    (write-region
+     (if (frame-parameter nil 'fullscreen)
+         "(push '(fullscreen . maximized) initial-frame-alist)"
+       (format "(push '(width . %s) initial-frame-alist)\n\
 (push '(height . %s) initial-frame-alist)\n\
 (push '(left . %s) initial-frame-alist)\n\
 (push '(top . %s) initial-frame-alist)"
-                 (frame-parameter nil 'width)
-                 (frame-parameter nil 'height)
-                 (frame-parameter nil 'left)
-                 (frame-parameter nil 'top))
-         nil zw/frame-parameters)))))
+               (frame-parameter nil 'width)
+               (frame-parameter nil 'height)
+               (frame-parameter nil 'left)
+               (frame-parameter nil 'top)))
+     nil zw/frame-parameters)))
 (add-hook 'kill-emacs-hook 'zw/save-frame-parameters)
 
 ;; * Tool
