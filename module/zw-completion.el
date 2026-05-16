@@ -208,7 +208,7 @@
     (interactive)
     (company-abort)
     (cond
-     ((looking-back "<\\w+" (line-beginning-position))
+     ((looking-back "<\\w*" (line-beginning-position))
       (call-interactively 'company-yasnippet))
      ((looking-back "\\w" (line-beginning-position))
       (company-manual-begin))))
