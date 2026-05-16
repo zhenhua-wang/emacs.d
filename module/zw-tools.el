@@ -483,8 +483,7 @@
 
 ;; * Openwith
 (use-package openwith
-  :hook
-  (after-init . openwith-mode))
+  :hook (after-init . openwith-mode))
 
 ;; * Helpful
 (use-package helpful
