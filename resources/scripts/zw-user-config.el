@@ -21,9 +21,9 @@
                           company-echo-metadata-frontend))
 
 ;; open externally
-(zw/merge-and-mutate-symbol-lists 'zw/openwith-associations-ext
-                                  '("png" "gif" "bmp" "tif" "jpeg" "jpg"
-                                    "pdf" "ps" "ps.gz" "dvi"))
+;; (zw/merge-and-mutate-symbol-lists 'zw/openwith-associations-ext
+;;                                   '("png" "gif" "bmp" "tif" "jpeg" "jpg"
+;;                                     "pdf" "ps" "ps.gz" "dvi"))
 
 ;; disable preselection
 ;; (setq company-selection-default nil)
