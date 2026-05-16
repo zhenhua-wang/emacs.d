@@ -69,7 +69,7 @@
                ("s-f" . isearch-forward)
                ("<tab>" . zw/dired-subtree-toggle)
                ("TAB" . zw/dired-subtree-toggle)
-               ("q" . zw/kill-bufer-quit-window)
+               ("q" . zw/kill-buffer-quit-window)
                ("o" . zw/dired-open-externally)))
   :init
   (setq dired-dwim-target t
@@ -420,7 +420,7 @@
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
   :keymap
-  `((,(kbd "q") . zw/kill-bufer-quit-window)
+  `((,(kbd "q") . zw/kill-buffer-quit-window)
     (,(kbd "<backtab>") . zw/dired-sidebar-jump-init-dir)
     (,(kbd "^") . zw/dired-sidebar-up-directory)
     (,(kbd "RET") . zw/dired-sidebar-find-file)

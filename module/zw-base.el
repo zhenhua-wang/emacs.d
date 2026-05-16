@@ -66,7 +66,7 @@ The order of values may be different."
 (defvar zw/previous-frame nil)
 (defvar zw/active-frame nil)
 (defvar zw/active-window nil)
-(defvar zw/active-window-non-minibufer nil)
+(defvar zw/active-window-non-minibuffer nil)
 (defun zw/update-active-ui (&rest _)
   "Update active UI."
   (let ((frame (selected-frame))
@@ -76,7 +76,7 @@ The order of values may be different."
       (setq zw/previous-frame zw/active-frame)
       (setq zw/active-frame frame))
     (setq zw/active-window window)
-    (setq zw/active-window-non-minibufer (or mini window))))
+    (setq zw/active-window-non-minibuffer (or mini window))))
 (add-hook 'window-selection-change-functions #'zw/update-active-ui)
 
 ;; * Config
@@ -332,7 +332,7 @@ The order of values may be different."
                                    (eq (zw/window-side window) 'left))
                                  (window-list)))
         (with-selected-window left-side-window
-          (zw/kill-bufer-quit-window)))
+          (zw/kill-buffer-quit-window)))
     (dolist (func zw/left-side-window-open-functions)
       (funcall func))))
 
@@ -606,12 +606,12 @@ The order of values may be different."
           browse-url-browser-function 'browse-url-firefox)))
 
 ;; ** Custom tools
-(defun zw/quit-window-kill-bufer ()
+(defun zw/quit-window-kill-buffer ()
   "Quit window then kill buffer."
   (interactive)
   (quit-window 'kill))
 
-(defun zw/kill-bufer-quit-window ()
+(defun zw/kill-buffer-quit-window ()
   "Kill buffer then quit window."
   (interactive)
   (if (one-window-p)

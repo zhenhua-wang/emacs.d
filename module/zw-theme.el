@@ -58,10 +58,10 @@
 (use-package adwaita-dark-theme
   :vc (:url "https://github.com/zhenhua-wang/zw-adwaita-theme"))
 
-(defun zw/theme-emphasize-color (color aplha dark-p)
+(defun zw/theme-emphasize-color (color alpha dark-p)
   (if dark-p
-      (doom-lighten color aplha)
-    (doom-darken color aplha)))
+      (doom-lighten color alpha)
+    (doom-darken color alpha)))
 
 ;; * ZW theme
 (defvar zw/after-set-theme-hook nil

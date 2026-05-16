@@ -46,7 +46,7 @@
   :bind ((:map global-map
                ("s-i" . lsp-ui-imenu))
          (:map lsp-ui-imenu-mode-map
-               ("s-i" . zw/kill-bufer-quit-window)
+               ("s-i" . zw/kill-buffer-quit-window)
                ("<return>" . lsp-ui-imenu--visit)
                ("s-f" . isearch-forward))
          (:map lsp-ui-mode-map
