@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-;; * Orederless
+;; * Orderless
 (use-package orderless
   :custom
   (completion-category-defaults nil)
@@ -97,7 +97,7 @@
          ("C-c h" . consult-history)
          ("C-c m" . consult-mode-command)
          ("C-c k" . consult-kmacro)
-         ("C-c o" . consult-open-externally)
+         ("C-c o" . zw/consult-open-externally)
          ;; C-x bindings (ctl-x-map)
          ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
@@ -141,7 +141,7 @@
     (if (executable-find "rg")
         (call-interactively 'consult-ripgrep)
       (call-interactively 'consult-grep)))
-  (defun consult-open-externally (file)
+  (defun zw/consult-open-externally (file)
     "Open FILE using system's default application."
     (interactive "fOpen externally: ")
     (if (and (eq system-type 'windows-nt)
@@ -172,7 +172,7 @@
   :bind ((:map company-mode-map
                ("M-<tab>" . zw/company-manual-begin)
                ("C-M-i" . zw/company-manual-begin)
-               ("M-<iso-lefttab>" . company-dabbrev-ispell))
+               ("M-<iso-lefttab>" . zw/company-dabbrev-ispell))
          (:map company-active-map
                ("<escape>" . company-abort)
                ("M->" . company-select-last)
@@ -209,21 +209,21 @@
         (call-interactively 'company-yasnippet)
       (company-manual-begin)))
   ;; use literal completion for company-mode
-  (defun company-completion-styles (capf-fn &rest args)
+  (defun zw/company-completion-styles (capf-fn &rest args)
     (let ((completion-styles '(basic partial-completion)))
       (apply capf-fn args)))
-  (advice-add 'company-capf :around #'company-completion-styles)
+  (advice-add 'company-capf :around #'zw/company-completion-styles)
   ;; start dabbrev with ispell
-  (defun company-dabbrev-ispell ()
+  (defun zw/company-dabbrev-ispell ()
     (interactive)
     (let* ((company-backends '((company-dabbrev :with company-ispell))))
       (call-interactively 'company-manual-begin)))
   ;; prefix return nil when it's empty
-  (defun company-backend--prefix-advice (orig-fun &rest args)
+  (defun zw/company-backend--prefix-advice (orig-fun &rest args)
     (let ((prefix (apply orig-fun args)))
       (unless (string= (car prefix) "")
         prefix)))
-  (advice-add 'company-dabbrev--prefix :around 'company-backend--prefix-advice)
+  (advice-add 'company-dabbrev--prefix :around 'zw/company-backend--prefix-advice)
   ;; auto-complete in text-mode
   (add-hook 'text-mode-hook (lambda ()
                               (setq-local company-idle-delay 0))))
