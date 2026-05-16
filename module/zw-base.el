@@ -17,15 +17,15 @@
   (cl-find-if-not (lambda (window) (zw/window-side window))
                   (window-list)))
 
-(defun zw/merge-list-symbols (dst src &optional prepend)
-  "Merge lists, possibly symbols."
-  (if prepend
-      (set dst
-           (append (if (symbolp src) (eval src) src)
-                   (if (symbolp dst) (eval dst) dst)))
-    (set dst
-         (append (if (symbolp dst) (eval dst) dst)
-                 (if (symbolp src) (eval src) src)))))
+(defun zw/merge-and-mutate-symbol-lists (dst src &optional prepend)
+  "Merge symbol lists, mutating DST in place."
+  (unless (symbolp dst)
+    (user-error "DST must be a quoted symbol (variable name), not a raw list"))
+  (let ((dst-val (symbol-value dst))
+        (src-val (if (symbolp src) (symbol-value src) src)))
+    (set dst (if prepend
+                 (append src-val dst-val)
+               (append dst-val src-val)))))
 
 (defun zw/list-same-elements (list1 list2)
   "Test if LIST1 and LIST2 hold the same values.

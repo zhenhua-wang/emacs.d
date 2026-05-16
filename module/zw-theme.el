@@ -23,21 +23,21 @@
 
 (use-package nerd-icons
   :config
-  (zw/merge-list-symbols 'nerd-icons/mdicon-alist
-                         '(("nf-md-firefox_web_browser" . "󰈹")
-                           ("nf-md-visual_studio_code" . "󰨞"))
-                         'prepend)
-  (zw/merge-list-symbols 'nerd-icons-regexp-icon-alist
-                         '(("^firefox:.*" nerd-icons-mdicon "nf-md-firefox")
-                           ("^discord:.*" nerd-icons-mdicon "nf-md-discord")
-                           ("^Code:.*" nerd-icons-mdicon "nf-md-visual_studio_code"))
-                         'prepend)
-  (zw/merge-list-symbols 'nerd-icons-extension-icon-alist
-                         '(("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
-                         'prepend)
-  (zw/merge-list-symbols 'nerd-icons-mode-icon-alist
-                         '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
-                         'prepend)
+  (zw/merge-and-mutate-symbol-lists 'nerd-icons/mdicon-alist
+                                    '(("nf-md-firefox_web_browser" . "󰈹")
+                                      ("nf-md-visual_studio_code" . "󰨞"))
+                                    'prepend)
+  (zw/merge-and-mutate-symbol-lists 'nerd-icons-regexp-icon-alist
+                                    '(("^firefox:.*" nerd-icons-mdicon "nf-md-firefox")
+                                      ("^discord:.*" nerd-icons-mdicon "nf-md-discord")
+                                      ("^Code:.*" nerd-icons-mdicon "nf-md-visual_studio_code"))
+                                    'prepend)
+  (zw/merge-and-mutate-symbol-lists 'nerd-icons-extension-icon-alist
+                                    '(("rmd" nerd-icons-octicon "nf-oct-markdown" :face nerd-icons-lblue))
+                                    'prepend)
+  (zw/merge-and-mutate-symbol-lists 'nerd-icons-mode-icon-alist
+                                    '((ess-r-mode nerd-icons-sucicon "nf-seti-r" :face nerd-icons-lblue))
+                                    'prepend)
   (advice-add 'zw/install-fonts :after (lambda () (nerd-icons-install-fonts t))))
 
 (use-package nerd-icons-completion
