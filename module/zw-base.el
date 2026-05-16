@@ -89,17 +89,18 @@ The order of values may be different."
 (set-default-coding-systems 'utf-8)
 
 ;; disable saving for buffers not visiting a file
-(defadvice save-buffer (around interactive-no-visited-file-name activate)
+(defun zw/save-buffer-around-advice (orig-fun &rest args)
   "When called interactively, disable for buffers not visiting a file."
   (when (or (not (called-interactively-p 'any))
             buffer-file-name)
-    ad-do-it))
+    (apply orig-fun args)))
+(advice-add 'save-buffer :around #'zw/save-buffer-around-advice)
 ;; make scratch unkillable
-(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
 (defun zw/dont-kill-scratch ()
   "Prevent killing the *scratch* buffer."
   (not (and (string= (buffer-name) "*scratch*")
             (message "Not allowed to kill %s" (buffer-name)))))
+(add-hook 'kill-buffer-query-functions #'zw/dont-kill-scratch)
 
 ;; * Appearance
 ;; ** UI
