@@ -285,7 +285,7 @@ at the first function to return non-nil.")
   ;; disable some modes for innermode
   (defun zw/polymode-disable-advice (symbol)
     (advice-add symbol :around (lambda (orig-fun &rest args)
-                                 (if (and (boundp polymode-mode) polymode-mode
+                                 (if (and (boundp 'polymode-mode) polymode-mode
                                           (buffer-base-buffer))
                                      (message "disable %s inside innermode" symbol)
                                    (apply orig-fun args)))))
