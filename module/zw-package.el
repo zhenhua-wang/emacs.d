@@ -1,8 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-(require 'use-package-ensure)
 (require 'package)
+(require 'use-package-ensure)
 (setq use-package-always-ensure t
       use-package-always-defer t
       use-package-expand-minimally t

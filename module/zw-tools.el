@@ -209,7 +209,7 @@
                         'zw/modeline-buffer-name-active
                         'zw/modeline-default-inactive)))))
 
-(defun zw/dired-siderbar-display (buffer)
+(defun zw/dired-sidebar-display (buffer)
   ;; bury dired buffers that have the same root as sidebar
   (dolist (window (window-list))
     (let ((buf (window-buffer window)))
@@ -335,7 +335,7 @@
       (dired-hide-details-mode t)
       (dired-omit-mode 1)
       (zw/dired-sidebar-format-header-line)
-      (zw/dired-siderbar-display buffer)
+      (zw/dired-sidebar-display buffer)
       ;; refresh display
       (dired-revert)
       (setq-local dired-omit-size-limit nil

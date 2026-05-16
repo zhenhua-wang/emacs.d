@@ -17,7 +17,7 @@
   "Get `group' for buffer."
   (with-current-buffer buffer
     (cdr (cl-find-if
-          (lambda (pred-group) (eval (car pred-group)))
+          (lambda (pred-group) (eval (car pred-group) t))
           zw/tab-line-buffer-group-alist))))
 
 ;; group hash table
