@@ -207,8 +207,11 @@
   (defun zw/company-manual-begin ()
     (interactive)
     (company-abort)
-    (when (looking-back "\\w" (line-beginning-position))
-      (company-manual-begin)))
+    (cond
+     ((looking-back "<\\w+" (line-beginning-position))
+      (call-interactively 'company-yasnippet))
+     ((looking-back "\\w" (line-beginning-position))
+      (company-manual-begin))))
   ;; check yasnippet using angle
   (defun zw/company-yasnippet-after-angle (command &optional arg &rest rest)
     (interactive (list 'interactive))
