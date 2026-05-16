@@ -89,12 +89,13 @@ The order of values may be different."
 (set-default-coding-systems 'utf-8)
 
 ;; disable saving for buffers not visiting a file
-(defun zw/save-buffer-around-advice (orig-fun &rest args)
-  "When called interactively, disable for buffers not visiting a file."
-  (when (or (not (called-interactively-p 'any))
-            buffer-file-name)
-    (apply orig-fun args)))
-(advice-add 'save-buffer :around #'zw/save-buffer-around-advice)
+(defun zw/save-file-buffer ()
+  "Save the current buffer, but only if it is visiting a file when called interactively."
+  (interactive)
+  (if (and (called-interactively-p 'any)
+           (not buffer-file-name))
+      (message "Buffer is not visiting a file; use M-x write-file to save.")
+    (save-buffer)))
 ;; make scratch unkillable
 (defun zw/dont-kill-scratch ()
   "Prevent killing the *scratch* buffer."
@@ -963,7 +964,7 @@ If set to nil, no REPL will be automatically started."
            ("s-c" . kill-ring-save)
            ("s-v" . yank)
            ("s-a" . mark-whole-buffer)
-           ("s-s" . save-buffer)
+           ("s-s" . zw/save-file-buffer)
            ("s-S" . write-file)
            ("s-S-s" . write-file)
            ;; term/shell
