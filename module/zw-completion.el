@@ -205,7 +205,7 @@
   (defun zw/company-manual-begin ()
     (interactive)
     (company-abort)
-    (if (looking-back "<\\w*")
+    (if (looking-back "<\\w*" (line-beginning-position))
         (call-interactively 'company-yasnippet)
       (company-manual-begin)))
   ;; use literal completion for company-mode

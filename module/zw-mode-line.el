@@ -167,7 +167,7 @@
         (zw/modeline--bar color width height))
     " "))
 
-;; ** seperator
+;; ** separator
 (defvar zw/modeline-separator
   (propertize " " 'face 'zw/modeline-default-active))
 
@@ -263,8 +263,7 @@
 (defun zw/modeline-line-column-toggle ()
   "Toggle line column on mode line"
   (interactive)
-  (setq zw/modeline-line-column-show-p
-        (if zw/modeline-line-column-show-p nil t)))
+  (setq zw/modeline-line-column-show-p (not zw/modeline-line-column-show-p)))
 
 (defun zw/modeline-line-column ()
   (cond
