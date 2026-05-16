@@ -20,21 +20,10 @@
       company-frontends '(company-pseudo-tooltip-frontend
                           company-echo-metadata-frontend))
 
-;; open multimedia externally
-(with-eval-after-load "open-with"
-  (setq openwith-associations
-        (list
-         (list (openwith-make-extension-regexp
-                '(;; videos and audios
-                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "webm" "ogg" "mkv"
-                  ;; images
-                  "xbm" "pbm" "pgm" "ppm" "pnm"
-                  ;; "png" "gif" "bmp" "tif" "jpeg" "jpg"
-                  ;; documents
-                  ;; "pdf" "ps" "ps.gz" "dvi"
-                  "doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"))
-               open-app-command
-               '(file)))))
+;; open externally
+(zw/merge-and-mutate-symbol-lists 'zw/openwith-associations-ext
+                                  '("png" "gif" "bmp" "tif" "jpeg" "jpg"
+                                    "pdf" "ps" "ps.gz" "dvi"))
 
 ;; disable preselection
 ;; (setq company-selection-default nil)
