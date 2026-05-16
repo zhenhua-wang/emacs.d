@@ -21,19 +21,20 @@
                           company-echo-metadata-frontend))
 
 ;; open multimedia externally
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '(;; videos and audios
-                "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "webm" "ogg" "mkv"
-                ;; images
-                "xbm" "pbm" "pgm" "ppm" "pnm"
-                ;; "png" "gif" "bmp" "tif" "jpeg" "jpg"
-                ;; documents
-                ;; "pdf" "ps" "ps.gz" "dvi"
-                "doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"))
-             open-app-command
-             '(file))))
+(with-eval-after-load "open-with"
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '(;; videos and audios
+                  "mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "webm" "ogg" "mkv"
+                  ;; images
+                  "xbm" "pbm" "pgm" "ppm" "pnm"
+                  ;; "png" "gif" "bmp" "tif" "jpeg" "jpg"
+                  ;; documents
+                  ;; "pdf" "ps" "ps.gz" "dvi"
+                  "doc" "docx" "xls" "xlsx" "ppt" "pptx" "odt" "ods" "odg" "odp"))
+               open-app-command
+               '(file)))))
 
 ;; disable preselection
 ;; (setq company-selection-default nil)
