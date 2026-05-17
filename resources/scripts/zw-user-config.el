@@ -24,6 +24,9 @@
 ;; (zw/merge-and-mutate-symbol-lists 'zw/openwith-associations-ext
 ;;                                   '("png" "gif" "bmp" "tif" "jpeg" "jpg"
 ;;                                     "pdf" "ps" "ps.gz" "dvi"))
+;; uncomment this, if org compile didn't open pdf externally
+;; (with-eval-after-load 'mailcap
+;;   (mailcap-add "application/pdf" (concat open-app-command " %s")))
 
 ;; disable preselection
 ;; (setq company-selection-default nil)
