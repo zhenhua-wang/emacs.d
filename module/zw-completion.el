@@ -80,16 +80,19 @@
          ("M-A" . marginalia-cycle))
   :hook (vertico-mode . marginalia-mode)
   :config
-  ;; show mode on/off
-  (defun marginalia-annotate-command (cand)
-    (when-let ((sym (intern-soft cand)))
-      (concat
-       (when (boundp sym)
-         (if (symbol-value sym)
-             (propertize " [On]" 'face 'marginalia-on)
-           (propertize " [Off]" 'face 'marginalia-off)))
-       (marginalia-annotate-binding cand)
-       (marginalia--documentation (marginalia--function-doc sym))))))
+  (defun zw/marginalia-minor-mode-state (cand)
+    "Return an [On]/[Off] annotation for CAND if it names a minor mode."
+    (when-let* ((sym (intern-soft cand))
+                ((memq sym minor-mode-list)))
+      (if (and (boundp sym) (symbol-value sym))
+          (propertize " [on]"  'face 'marginalia-on)
+        (propertize " [off]" 'face 'marginalia-off))))
+  (defun zw/marginalia-annotate-command-with-state (orig cand)
+    "Prepend on/off state to the original marginalia command annotation."
+    (concat (zw/marginalia-minor-mode-state cand)
+            (funcall orig cand)))
+  (advice-add 'marginalia-annotate-command :around
+              #'zw/marginalia-annotate-command-with-state))
 
 ;; * Consult
 (use-package consult
