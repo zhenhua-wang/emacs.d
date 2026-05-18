@@ -37,19 +37,10 @@
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
   ;; use vertico as the interface for completion-at-point
-  (setq completion-in-region-function
-        (lambda (&rest args)
-          (apply (if vertico-mode
-                     #'consult-completion-in-region
-                   #'completion--in-region)
-                 args)))
+  (setq completion-in-region-function #'consult-completion-in-region)
   ;; Sort directories before files (vertico-multiform-mode)
   (setq vertico-multiform-categories
-        '((file (vertico-sort-function . sort-directories-first))))
-  (defun sort-directories-first (files)
-    (setq files (vertico-sort-history-length-alpha files))
-    (nconc (cl-remove-if-not (lambda (x) (string-suffix-p "/" x)) files)
-           (cl-remove-if (lambda (x) (string-suffix-p "/" x)) files))))
+        '((file (vertico-sort-function . vertico-sort-directories-first)))))
 
 (use-package vertico-posframe
   :hook (vertico-mode . vertico-posframe-mode)
