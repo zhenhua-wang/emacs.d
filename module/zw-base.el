@@ -582,7 +582,8 @@ The order of values may be different."
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")
       ispell-alternate-dictionary (file-truename "~/.emacs.d/resources/english-words.txt")
       flyspell-issue-message-flag nil
-      dictionary-server "dict.org")
+      dictionary-server "dict.org"
+      dictionary-use-single-buffer t)
 
 (add-hook 'outline-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
