@@ -75,8 +75,10 @@ yay -S texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextr
 flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper us.zoom.Zoom net.nokyan.Resources org.gnome.Solanum app.zen_browser.zen
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
-# grant firefox permission to temp folder
+# flatpak configs
 flatpak override --user org.mozilla.firefox --filesystem="/tmp"
+flatpak override --user --env=GTK_IM_MODULE=ibus org.mozilla.firefox
+flatpak override --user --env=GTK_IM_MODULE=ibus io.github.zen_browser.zen
 
 # config
 bash ~/.emacs.d/resources/scripts/zw-gnome-config.sh
