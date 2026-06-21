@@ -13,6 +13,12 @@ sudo reflector --verbose --country 'US,CN' -l 5 --sort rate --save /etc/pacman.d
 # Use the top 5 fastest mirrors among the top 50 by score
 # sudo reflector --verbose --country 'US,CN' --score 50 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist
 
+# add archlinuxcn
+grep -q '\[archlinuxcn\]' /etc/pacman.conf || \
+    echo -e "\n[archlinuxcn]\nServer = https://repo.archlinuxcn.org/\$arch" | \
+        sudo tee -a /etc/pacman.conf
+yay -Sy archlinuxcn-keyring
+
 # fonts
 yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-cn-fonts
 
