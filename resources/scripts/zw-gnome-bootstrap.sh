@@ -31,7 +31,7 @@ yay -S gdm gnome-shell gnome-control-center gnome-keyring gnome-tweaks networkma
 sudo systemctl enable gdm.service -f
 sudo ln -s /usr/bin/gnome-session-quit /usr/bin/logout-gnome
 # gnome extra
-yay -S gnome-themes-extra gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock rygel gnome-user-share gnome-calendar gnome-characters gnome-connections gnome-font-viewer snapshot loupe papers showtime gnome-software
+yay -S gnome-themes-extra gnome-shell-extension-caffeine gnome-shell-extension-vitals baobab ibus-rime rime-ice-git gnome-weather gnome-shell-extension-weather-oclock rygel gnome-user-share gnome-calendar gnome-characters gnome-connections gnome-font-viewer snapshot loupe papers gnome-software
 # gnome experiment
 yay -S grilo-plugins gvfs-afc gvfs-dnssd gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-onedrive gvfs-smb gvfs-wsdd
 # xorg and eaf compatibility
@@ -78,7 +78,7 @@ yay -S kitty htop fastfetch ripgrep mpv yt-dlp streamlink file-roller exfat-util
 yay -S texlive-basic texlive-latexextra texlive-fontsrecommended texlive-binextra texlive-mathscience texlive-plaingeneric texlive-bibtexextra pandoc-bin miniconda3
 
 # flatpak applications
-flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper us.zoom.Zoom net.nokyan.Resources org.gnome.Solanum app.zen_browser.zen
+flatpak --assumeyes install org.mozilla.firefox com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal com.github.johnfactotum.Foliate de.haeckerfelix.Fragments io.gitlab.adhami3310.Impression app.drey.Warp com.github.finefindus.eyedropper us.zoom.Zoom net.nokyan.Resources org.gnome.Solanum org.gnome.Showtime app.zen_browser.zen
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --filesystem=$HOME/.icons
 # flatpak configs
