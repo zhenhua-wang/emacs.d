@@ -70,6 +70,16 @@
 (defun zw/tab-bar-begin ()
   (propertize " " 'face '(:height 1.2) 'display '(raise -0.1)))
 
+;; ** context menu
+(defun zw/tab-bar-context-menu (event)
+  "Show a context menu on right-click in the tab bar."
+  (interactive "e")
+  (let ((menu (make-sparse-keymap "Tab Bar Menu")))
+    (define-key menu [save-buffers-kill-emacs]
+                '(menu-item "Save Buffers & Kill Emacs" save-buffers-kill-emacs
+                            :help "Offer to save each buffer, then exit Emacs"))
+    (popup-menu menu event)))
+
 ;; ** env
 (defun zw/tab-bar--env-menu (event)
   (interactive "e")
@@ -272,7 +282,7 @@
            ("<down-mouse-1>" . nil)
            ("<mouse-1>" . zw/tab-bar-click-tab-select)
            ("<down-mouse-3>" . nil)
-           ("<mouse-3>" . zw/tab-bar--env-menu))
+           ("<mouse-3>" . zw/tab-bar-context-menu))
 
 (dolist (i (number-sequence 1 9))
   (define-key global-map
