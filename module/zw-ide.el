@@ -146,66 +146,6 @@
 (use-package magit-todos
   :hook (magit-mode . magit-todos-mode))
 
-;; * Tabspaces
-(use-package tabspaces
-  :commands (tabspaces--local-buffer-p)
-  :hook (after-init . tabspaces-mode)
-  :custom
-  (tabspaces-use-filtered-buffers-as-default t)
-  (tabspaces-default-tab "Main")
-  (tabspaces-remove-to-default t)
-  ;; sessions
-  (tabspaces-session nil)
-  (tabspaces-session-auto-restore nil)
-  :init
-  (defun zw/tabspace-local-buffer-p (buffer &optional frame)
-    (or (tabspaces--local-buffer-p buffer)
-        (memq buffer (frame-parameter frame 'buried-buffer-list))))
-  ;; filter Buffers for Consult-Buffer
-  (with-eval-after-load 'consult
-    ;; hide full buffer list (still available with "b" prefix)
-    (consult-customize consult-source-buffer :hidden t :default nil)
-    ;; set consult-workspace buffer list
-    (defvar consult-source-workspace
-      (list :name     "Workspace Buffer"
-            :narrow   ?w
-            :history  'buffer-name-history
-            :category 'buffer
-            :state    #'consult--buffer-state
-            :default  t
-            :items    (lambda () (consult--buffer-query
-                                  :predicate #'zw/tabspace-local-buffer-p
-                                  :sort 'visibility
-                                  :as #'buffer-name)))
-      "Set workspace buffer list for consult-buffer.")
-    (add-to-list 'consult-buffer-sources 'consult-source-workspace))
-  ;; filter tab-lines
-  (with-eval-after-load "zw-tab-line"
-    (defun zw/tabspace-filter-tab-line (old-func)
-      (cl-remove-if-not (lambda (buffer)
-                          (zw/tabspace-local-buffer-p buffer))
-                        (funcall old-func)))
-    (advice-add 'zw/tab-line-buffer-group-buffers :around
-                #'zw/tabspace-filter-tab-line)
-    (defun zw/tabspace-add-buffer-to-frame (window)
-      (unless (window-minibuffer-p window)
-        (let ((buffer (window-buffer window)))
-          (set-frame-parameter
-           nil 'buffer-list
-           (push buffer (frame-parameter nil 'buffer-list))))))
-    (defun zw/tabspace-tab-line-setup ()
-      (add-hook 'window-buffer-change-functions
-                'zw/tabspace-add-buffer-to-frame nil t))
-    (add-hook 'tab-line-mode-hook 'zw/tabspace-tab-line-setup))
-  ;; open dashboard in default tab
-  (with-eval-after-load "dashboard"
-    (defun zw/tabspace-dashboard (&rest _)
-      (tab-bar-select-tab-by-name "Main"))
-    (advice-add 'dashboard-open :before #'zw/tabspace-dashboard)
-    (advice-add 'dashboard-initialize :before #'zw/tabspace-dashboard))
-  ;; side window
-  (setq zw/right-side-window-buffer-list-predicate 'zw/tabspace-local-buffer-p))
-
 ;; * Eldoc box
 (use-package eldoc-box
   :if (display-graphic-p)
