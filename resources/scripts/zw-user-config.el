@@ -34,6 +34,10 @@
 ;; default maximize all frames
 ;; (push '(fullscreen . maximized) default-frame-alist)
 
+;; hide emacs buffers
+;; (with-eval-after-load 'consult
+;;   (add-to-list 'consult-buffer-filter "\\`\\*.*\\*\\'"))
+
 ;; remote users
 ;; (setq browse-url-browser-function 'eww-browse-url)
 
