@@ -72,13 +72,45 @@
 
 ;; ** context menu
 (defun zw/tab-bar-context-menu (event)
-  "Show a context menu on right-click in the tab bar."
+  "Show a context menu in the tab bar at EVENT."
   (interactive "e")
-  (let ((menu (make-sparse-keymap "Tab Bar Menu")))
-    (define-key menu [save-buffers-kill-emacs]
-                '(menu-item "Save Buffers & Kill Emacs" save-buffers-kill-emacs
-                            :help "Offer to save each buffer, then exit Emacs"))
-    (popup-menu menu event)))
+  (popup-menu
+   (easy-menu-create-menu
+    "Tab Bar Menu"
+    '(["Open Dired Sidebar"
+       zw/left-side-window-toggle
+       :help "Toggle the Dired sidebar"]
+
+      ["Open REPL"
+       zw/right-side-window-toggle
+       :help "Toggle the right-side REPL window"]
+
+      ["Open Terminal"
+       zw/term-start
+       :help "Open a terminal in the current directory"]
+
+      "---"
+
+      ["Save Buffers & Kill Emacs"
+       save-buffers-kill-emacs
+       :help "Offer to save each buffer, then exit Emacs"]))
+   event))
+
+(defun zw/tab-bar-format-context-menu ()
+  "Return a tab-bar button that opens the context menu."
+  `((context-menu-button
+     menu-item
+     ,(propertize
+       (if (display-graphic-p)
+           (nerd-icons-faicon
+            "nf-fa-dedent"
+            :height 0.85
+            :v-adjust 0.15)
+         "≡")
+       'mouse-face 'highlight
+       'help-echo "Open tab-bar menu")
+     zw/tab-bar-context-menu
+     :help "Open tab-bar menu")))
 
 ;; ** env
 (defun zw/tab-bar--env-menu (event)
@@ -98,47 +130,6 @@
         (separator " "))
     `((env menu-item ,(when env (concat separator env))
            zw/tab-bar--env-menu :help "Click to activate environment"))))
-
-;; ** dired
-(defun zw/tab-bar--open-dired (event)
-  (interactive "e")
-  (let ((sidebar-window (cl-remove-if-not
-                         (lambda (window)
-                           (with-selected-window window
-                             (and (window-buffer window)
-                                  zw-dired-sidebar-mode)))
-                         (window-list))))
-    (if sidebar-window
-        (with-selected-window (car sidebar-window)
-          (kill-buffer (current-buffer)))
-      (let ((buffer (dired-noselect default-directory)))
-        (zw/dired-sidebar-enable buffer)))))
-
-(defun zw/tab-bar-format-dired ()
-  (let ((icon (if (display-graphic-p)
-                  (nerd-icons-faicon
-                   "nf-fa-dedent"
-                   :height 0.85
-                   :v-adjust 0.15)
-                "≡")))
-    `((dired-button menu-item
-                    ,(propertize icon 'mouse-face 'highlight)
-                    zw/tab-bar--open-dired :help "Open dired in current directory"))))
-
-;; ** repl
-(defun zw/tab-bar--open-repl (event)
-  (interactive "e")
-  (zw/right-side-window-toggle))
-
-(defun zw/tab-bar-format-repl ()
-  `((repl-button menu-item
-                 ,(propertize
-                   (nerd-icons-codicon
-                    "nf-cod-code"
-                    :height 0.9
-                    :v-adjust 0.15)
-                   'mouse-face 'highlight)
-                 zw/tab-bar--open-repl :help "Open REPL side window")))
 
 ;; ** battery
 (defun zw/tab-bar-update-battery-status ()
@@ -222,8 +213,7 @@
       tab-bar-auto-width nil
       tab-bar-tab-name-format-function 'zw/tab-bar-tab-name-format
       tab-bar-format '(zw/tab-bar-begin
-                       ;; tab-bar-format-menu-bar
-                       zw/tab-bar-format-dired
+                       zw/tab-bar-format-context-menu
                        zw/tab-bar-format-env
                        tab-bar-format-tabs
                        ;; zw/tab-bar-format-file-path
@@ -282,7 +272,7 @@
            ("<down-mouse-1>" . nil)
            ("<mouse-1>" . zw/tab-bar-click-tab-select)
            ("<down-mouse-3>" . nil)
-           ("<mouse-3>" . zw/tab-bar-context-menu))
+           ("<mouse-3>" . nil))
 
 (dolist (i (number-sequence 1 9))
   (define-key global-map
