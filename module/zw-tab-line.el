@@ -325,25 +325,39 @@ at the mouse-down event to the position at mouse-up event."
 
 (defvar zw/tab-line-before-kill-buffer-hook nil)
 (defun zw/tab-line-kill-buffer-and-switch ()
+  "Kill current buffer and switch to an adjacent tab in its group."
   (interactive)
   (run-hooks 'zw/tab-line-before-kill-buffer-hook)
-  (let ((buffer-switch))
-    (when-let* ((buffer (current-buffer))
-                (group (zw/tab-line-buffer-group buffer))
-                (group-buffers (zw/tab-line-get-group-buffers group))
-                (max-index (- (length group-buffers) 1))
-                (pos (cl-position buffer group-buffers))
-                (pos-previous (- pos 1))
-                (pos-next (+ pos 1))
-                (buffer-pos (cond
-                             ((eq zw/tab-line-kill-buffer-and-switch-type 'previous)
-                              (if (< pos-previous 0) 1 pos-previous))
-                             ((eq zw/tab-line-kill-buffer-and-switch-type 'next)
-                              (if (> pos-next max-index) pos-previous pos-next)))))
-      (setq buffer-switch (nth buffer-pos group-buffers)))
-    (call-interactively 'kill-current-buffer)
-    (when (and buffer-switch (buffer-live-p buffer-switch))
-      (switch-to-buffer buffer-switch))))
+  (let* ((window (selected-window))
+         (dedicated (window-dedicated-p window))
+         (buffer-kill (current-buffer))
+         (buffer-switch
+          (when-let* ((group (zw/tab-line-buffer-group buffer-kill))
+                      (group-buffers (zw/tab-line-get-group-buffers group))
+                      (max-index (1- (length group-buffers)))
+                      (pos (cl-position buffer-kill group-buffers))
+                      (pos-previous (1- pos))
+                      (pos-next (1+ pos))
+                      (buffer-pos
+                       (cond
+                        ((eq zw/tab-line-kill-buffer-and-switch-type 'previous)
+                         (if (< pos-previous 0) 1 pos-previous))
+                        ((eq zw/tab-line-kill-buffer-and-switch-type 'next)
+                         (if (> pos-next max-index) pos-previous pos-next)))))
+            (nth buffer-pos group-buffers))))
+    (if (and buffer-switch (buffer-live-p buffer-switch))
+        (progn
+          ;; Show the replacement FIRST: killing a buffer shown in a
+          ;; dedicated window would delete the window.
+          (unwind-protect
+              (progn
+                (set-window-dedicated-p window nil)
+                (set-window-buffer window buffer-switch))
+            (set-window-dedicated-p window dedicated))
+          (kill-buffer buffer-kill))
+      ;; No other tab in the group: kill normally (dedicated window
+      ;; gets deleted -- panel closes with its last buffer).
+      (call-interactively 'kill-current-buffer))))
 
 ;; select tab
 (defun zw/tab-line-select (index)
