@@ -286,33 +286,44 @@ The order of values may be different."
 
 ;; ** Right side window
 (defvar zw/right-side-window-buffer-list-predicate nil)
+
+(defun zw/right-side-window--buffers ()
+  "Return all live buffers managed by `zw/right-side-window-mode'.
+A buffer qualifies when `zw/right-side-window-mode' is enabled in
+it and, if `zw/right-side-window-buffer-list-predicate' is
+non-nil, that predicate returns non-nil for the buffer."
+  (cl-remove-if-not
+   (lambda (buffer)
+     (with-current-buffer buffer
+       (and zw/right-side-window-mode
+            (or (null zw/right-side-window-buffer-list-predicate)
+                (funcall zw/right-side-window-buffer-list-predicate
+                         buffer)))))
+   (buffer-list)))
+
 (defun zw/right-side-window-toggle ()
   "Toggle right side windows."
   (interactive)
-  (let ((right-side-buffers (cl-remove-if-not
-                             (lambda (buffer)
-                               (with-current-buffer buffer
-                                 (and zw/right-side-window-mode
-                                      (or (null zw/right-side-window-buffer-list-predicate)
-                                          (funcall zw/right-side-window-buffer-list-predicate
-                                                   buffer)))))
-                             (buffer-list))))
-    (if right-side-buffers
-        (let ((right-side-visible-buffers (cl-remove-if-not
-                                           (lambda (buffer)
-                                             (get-buffer-window buffer))
-                                           right-side-buffers)))
-          (if right-side-visible-buffers
-              (dolist (buffer right-side-visible-buffers)
-                (let ((buffer-window (get-buffer-window buffer)))
-                  (when buffer-window
-                    (if  (eq buffer-window (window-main-window))
-                        (previous-buffer)
-                      (delete-window buffer-window)))))
-            (dolist (buffer (reverse right-side-buffers))
-              (display-buffer buffer)
-              (set-window-dedicated-p (get-buffer-window buffer) t))))
-      (message "No buffer in right side window."))))
+  (let* ((buffers (zw/right-side-window--buffers))
+         (windows (seq-mapcat 'get-buffer-window-list buffers)))
+    (cond
+     ;; Hide: quit all windows showing right-side buffers.
+     (windows
+      (dolist (window windows)
+        (when (window-live-p window)
+          (quit-window nil window))))
+     ;; Show: restore the last-buried right-side buffer.  Relies on
+     ;; `quit-window' burying buffers to the end of `buffer-list' in
+     ;; the hide branch, so the most recently hidden one sorts last.
+     (buffers
+      (when-let ((window (display-buffer
+                          (car (reverse buffers))
+                          '((zw/display-buffer-in-largest-window)
+                            (inhibit-same-window . t)))))
+        (when (window-live-p window)
+          (set-window-dedicated-p window 'right-side))))
+     (t
+      (message "No buffer in right side window.")))))
 
 (define-minor-mode zw/right-side-window-mode
   "Toggle right side window."
