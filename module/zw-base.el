@@ -292,9 +292,10 @@ The order of values may be different."
   (let ((right-side-buffers (cl-remove-if-not
                              (lambda (buffer)
                                (with-current-buffer buffer
-                                 (and zw/right-side-window-buffer-list-predicate
-                                      (funcall zw/right-side-window-buffer-list-predicate buffer)
-                                      zw/right-side-window-mode)))
+                                 (and zw/right-side-window-mode
+                                      (or (null zw/right-side-window-buffer-list-predicate)
+                                          (funcall zw/right-side-window-buffer-list-predicate
+                                                   buffer)))))
                              (buffer-list))))
     (if right-side-buffers
         (let ((right-side-visible-buffers (cl-remove-if-not
