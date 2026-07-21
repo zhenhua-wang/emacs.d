@@ -307,17 +307,21 @@ non-nil, that predicate returns non-nil for the buffer."
   (let* ((buffers (zw/right-side-window--buffers))
          (windows (seq-mapcat 'get-buffer-window-list buffers)))
     (cond
-     ;; Hide: quit all windows showing right-side buffers.
+     ;; Hide: delete right-side windows (or, if one is the frame's sole
+     ;; main window, switch it to the most recent non-right-side buffer).
      (windows
       (dolist (window windows)
         (when (window-live-p window)
-          (quit-window nil window))))
-     ;; Show: restore the last-buried right-side buffer.  Relies on
-     ;; `quit-window' burying buffers to the end of `buffer-list' in
-     ;; the hide branch, so the most recently hidden one sorts last.
+          (if (eq window (window-main-window))
+              (let ((switch-to-prev-buffer-skip
+                     (lambda (_window buffer _bury-or-kill)
+                       (memq buffer buffers))))
+                (switch-to-prev-buffer window))
+            (delete-window window)))))
+     ;; Show: restore the most recently used right-side buffer.
      (buffers
       (when-let ((window (display-buffer
-                          (car (reverse buffers))
+                          (car buffers)
                           '((zw/display-buffer-in-largest-window)
                             (inhibit-same-window . t)))))
         (when (window-live-p window)
