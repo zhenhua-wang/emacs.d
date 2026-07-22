@@ -341,21 +341,23 @@ non-nil, that predicate returns non-nil for the buffer."
 (defvar zw/left-side-window-open-functions nil
   "List of functions to open left side window.")
 
+(defun zw/left-side-window--windows ()
+  "Return all windows on the left side of the selected frame."
+  (cl-remove-if-not (lambda (window) (eq (zw/window-side window) 'left))
+                    (window-list)))
+
 (defun zw/left-side-window-toggle ()
   "Open left side window."
   (interactive)
   (if (eq (zw/window-side (selected-window)) 'left)
-      (dolist (left-side-window (cl-remove-if-not
-                                 (lambda (window)
-                                   (eq (zw/window-side window) 'left))
-                                 (window-list)))
+      (dolist (left-side-window (zw/left-side-window--windows))
         (with-selected-window left-side-window
           (zw/kill-buffer-quit-window)))
     (dolist (func zw/left-side-window-open-functions)
       (funcall func))))
 
 (defface zw/left-side-window-face
-  `((t (:inherit 'tab-bar :box nil)))
+  '((t :inherit tab-bar :box nil))
   "Face for left side window."
   :group 'convenience)
 
