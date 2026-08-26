@@ -309,16 +309,16 @@
 ;; load custom faces
 (when (daemonp)
   (add-hook 'server-after-make-frame-hook #'zw/theme-load-ui))
-(advice-add #'consult-theme
-            :after (lambda (arg)
-                     (zw/theme-set-theme)
-                     (setq zw/modeline-bg (face-background 'mode-line nil t))
-                     (let ((default-theme (car custom-enabled-themes)))
-                       (if default-theme
-                           (write-region (format "(load-theme '%s t)" default-theme)
-                                         nil zw/theme-selector)
-                         (write-region "(set-face-attribute 'mode-line-highlight nil :inherit 'unspecified)"
-                                       nil zw/theme-selector)))))
+(advice-add #'consult-theme :after
+            (lambda (_)
+              (zw/theme-set-theme)
+              (setq zw/modeline-bg (face-background 'mode-line nil t))
+              (write-region
+               (concat ";; -*- lexical-binding: t; -*-\n\n"
+                       (if-let ((theme (car custom-enabled-themes)))
+                           (format "(load-theme '%s t)\n" theme)
+                         "(set-face-attribute 'mode-line-highlight nil :inherit 'unspecified)\n"))
+               nil zw/theme-selector)))
 
 ;; * Provide
 (provide 'zw-theme)
