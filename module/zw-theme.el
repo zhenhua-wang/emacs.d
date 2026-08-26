@@ -292,13 +292,16 @@
 ;; indicator for whether to initialize theme
 (defvar zw/theme-init-p t)
 (defvar zw/theme-init-before-hook nil)
+
 (add-hook 'after-init-hook
           (lambda ()
             (run-hooks 'zw/theme-init-before-hook)
             (when zw/theme-init-p
               ;; default theme
               (when (not (file-exists-p zw/theme-selector))
-                (write-region "(load-theme 'adwaita-dark t)" nil zw/theme-selector))
+                (write-region
+                 ";; -*- lexical-binding: t; -*-\n\n(load-theme 'adwaita-dark t)\n"
+                 nil zw/theme-selector))
               ;; load theme
               (ignore-errors (load zw/theme-selector)))
             (zw/theme-load-ui)))
