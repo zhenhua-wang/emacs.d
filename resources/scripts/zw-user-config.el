@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'zw-dashboard)
 (require 'zw-theme-extra)
 (require 'zw-treesit)
