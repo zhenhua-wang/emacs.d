@@ -377,19 +377,20 @@ non-nil, that predicate returns non-nil for the buffer."
 (defun zw/save-frame-parameters ()
   (when (and (boundp 'zw/frame-parameters)
              (display-graphic-p))
-    (when (not (file-exists-p zw/frame-parameters))
-      (make-empty-file zw/frame-parameters))
     (write-region
-     (if (frame-parameter nil 'fullscreen)
-         "(push '(fullscreen . maximized) initial-frame-alist)"
-       (format "(push '(width . %s) initial-frame-alist)\n\
+     (concat
+      ";; -*- lexical-binding: t; -*-\n\n"
+      (if (frame-parameter nil 'fullscreen)
+          "(push '(fullscreen . maximized) initial-frame-alist)"
+        (format "(push '(width . %s) initial-frame-alist)\n\
 (push '(height . %s) initial-frame-alist)\n\
 (push '(left . %s) initial-frame-alist)\n\
 (push '(top . %s) initial-frame-alist)"
-               (frame-parameter nil 'width)
-               (frame-parameter nil 'height)
-               (frame-parameter nil 'left)
-               (frame-parameter nil 'top)))
+                (frame-parameter nil 'width)
+                (frame-parameter nil 'height)
+                (frame-parameter nil 'left)
+                (frame-parameter nil 'top)))
+      "\n")
      nil zw/frame-parameters)))
 (add-hook 'kill-emacs-hook 'zw/save-frame-parameters)
 
