@@ -234,7 +234,6 @@
 
 ;; ** frontend
 (use-package company-posframe
-  :if (zw/icon-displayable-p)
   :hook
   (company-mode . company-posframe-mode)
   :bind ((:map company-posframe-active-map
