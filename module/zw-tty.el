@@ -64,6 +64,9 @@
   '((t :inherit default))
   "Face for the special glyph that keeps the buffer background.")
 
+;; enable unicode on special glyphs
+(standard-display-unicode-special-glyphs)
+;; customized glyphs
 (set-display-table-slot standard-display-table 'truncation
                         (make-glyph-code ?\u00bb 'zw-special-glyph-face))
 (set-display-table-slot standard-display-table 'wrap
