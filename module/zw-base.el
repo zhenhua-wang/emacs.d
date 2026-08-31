@@ -815,11 +815,16 @@ If set to nil, no REPL will be automatically started."
 
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil
-      flymake-fringe-indicator-position nil
-      flymake-margin-indicator-position nil
       ;; show flymake when cursor hovers
       help-at-pt-timer-delay 0.9
-      help-at-pt-display-when-idle 'never)
+      help-at-pt-display-when-idle 'never
+      ;; disable indicator
+      flymake-indicator-type 'margins
+      flymake-autoresize-margins nil
+      flymake-margin-indicators-string
+      '((error "" compilation-error) (warning "" compilation-warning)
+        (note "" compilation-info)))
+
 (add-hook 'prog-mode-hook 'flymake-mode)
 
 ;; ** Xref
