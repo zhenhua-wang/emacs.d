@@ -20,7 +20,8 @@
         eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
         eglot-stay-out-of '(company)
-        eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
+        eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider
+                                            :inlayHintProvider))
   ;; speedup eglot
   (setq jsonrpc-event-hook nil)
   (fset #'jsonrpc--log-event #'ignore)
