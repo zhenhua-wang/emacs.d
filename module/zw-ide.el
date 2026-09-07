@@ -17,16 +17,12 @@
   (setq read-process-output-max (* 1024 1024)
         eglot-autoshutdown t
         eglot-sync-connect nil
-        eglot-connect-timeout nil
         eglot-send-changes-idle-time 0.5
+        eglot-events-buffer-config '(:size 0 :format 'short)
         eglot-stay-out-of '(company)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider
                                             :inlayHintProvider
                                             :semanticTokensProvider))
-  ;; speedup eglot
-  (setq jsonrpc-event-hook nil)
-  (fset #'jsonrpc--log-event #'ignore)
-  (setf (plist-get eglot-events-buffer-config :size) 0)
   ;; flymake-start after eglot publishDiagnostics
   (cl-defmethod eglot-handle-notification :after
     (_server (_method (eql textDocument/publishDiagnostics)) &key uri
