@@ -320,7 +320,7 @@ non-nil, that predicate returns non-nil for the buffer."
             (delete-window window)))))
      ;; Show: restore the most recently used right-side buffer.
      (buffers
-      (when-let ((window (display-buffer
+      (when-let* ((window (display-buffer
                           (car buffers)
                           '((zw/display-buffer-in-largest-window)
                             (inhibit-same-window . t)))))

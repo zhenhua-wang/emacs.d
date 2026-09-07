@@ -315,7 +315,7 @@
               (setq zw/modeline-bg (face-background 'mode-line nil t))
               (write-region
                (concat ";; -*- lexical-binding: t; -*-\n\n"
-                       (if-let ((theme (car custom-enabled-themes)))
+                       (if-let* ((theme (car custom-enabled-themes)))
                            (format "(load-theme '%s t)\n" theme)
                          "(set-face-attribute 'mode-line-highlight nil :inherit 'unspecified)\n"))
                nil zw/theme-selector)))
