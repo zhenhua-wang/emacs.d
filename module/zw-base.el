@@ -757,6 +757,9 @@ non-nil, that predicate returns non-nil for the buffer."
     (async-shell-command "fc-cache -fv")))
 
 ;; * IDE
+;; ** Treesit
+(setopt treesit-enabled-modes t)
+
 ;; ** REPL
 (defvar zw/repl-env-path '(("~/.conda/envs/" . "bin/"))
   "Environment path should be formated as (env-dir . exec-dir).")
