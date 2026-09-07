@@ -53,12 +53,11 @@
   :hook ((after-init . global-diff-hl-mode)
          (diff-hl-mode . diff-hl-flydiff-mode)
          (diff-hl-mode . zw/diff-hl-init)
-         (dired-mode . (lambda ()
-                         (unless (file-remote-p default-directory)
-                           (diff-hl-dired-mode 1)))))
+         (dired-mode . diff-hl-dired-mode))
   :init (setq diff-hl-side 'right
               diff-hl-draw-borders nil
               diff-hl-show-staged-changes nil
+              diff-hl-disable-on-remote t
               diff-hl-fallback-to-margin t)
   :config
   ;; Integration with magit
