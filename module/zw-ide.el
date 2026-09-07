@@ -35,11 +35,6 @@
                  (not (buffer-modified-p)))
             (flymake-start t))))))
 
-(use-package eglot-booster
-  :when (executable-find "emacs-lsp-booster")
-  :vc (:url "https://github.com/jdtsmith/eglot-booster")
-  :hook (after-init . eglot-booster-mode))
-
 ;; * Dape
 (use-package dape
   :commands (dape dape-breakpoint-toggle zw/dape zw/dape-in-path zw/dape-in-path-menu)
