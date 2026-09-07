@@ -21,7 +21,8 @@
         eglot-send-changes-idle-time 0.5
         eglot-stay-out-of '(company)
         eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider
-                                            :inlayHintProvider))
+                                            :inlayHintProvider
+                                            :semanticTokensProvider))
   ;; speedup eglot
   (setq jsonrpc-event-hook nil)
   (fset #'jsonrpc--log-event #'ignore)
