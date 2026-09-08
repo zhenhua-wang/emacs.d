@@ -196,7 +196,8 @@
                 (insert "  ")))
             (insert (concat icon " "))))
         (forward-line 1)))))
-(add-hook 'dired-after-readin-hook 'zw/dired-icon :append)
+(with-eval-after-load "nerd-icons"
+  (add-hook 'dired-after-readin-hook #'zw/dired-icon :append))
 
 ;; ** dired side bar
 (defun zw/dired-sidebar--modeline-format ()
