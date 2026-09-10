@@ -200,199 +200,161 @@
   (add-hook 'dired-after-readin-hook #'zw/dired-icon :append))
 
 ;; ** dired side bar
+;; *** core: configure new dired buffers BEFORE their first readin,
+;; so every navigation is one readin (no revert, no double VC spawn)
+(defun zw/dired-sidebar--presetup ()
+  (setq-local dired-omit-size-limit nil
+              line-spacing 1)
+  (zw-dired-sidebar-mode 1)
+  (dired-hide-details-mode 1)
+  (dired-omit-mode 1))
+
+(defmacro zw/dired-sidebar--with-presetup (&rest body)
+  "Any dired buffer created inside BODY is born as a sidebar buffer."
+  (declare (indent 0))
+  `(let ((dired-mode-hook (cons #'zw/dired-sidebar--presetup dired-mode-hook)))
+     ,@body))
+
+(defmacro zw/dired-sidebar--navigate (&rest body)
+  "Run BODY with presetup, then enable the resulting buffer."
+  (declare (indent 0))
+  `(progn (zw/dired-sidebar--with-presetup ,@body)
+          (zw/dired-sidebar-enable (current-buffer))))
+
+;; *** display
 (defun zw/dired-sidebar--modeline-format ()
-  (list "%e"
-        '(:eval (zw/modeline-bar))
-        '(:eval (zw/modeline-remote))
-        '(:eval (propertize
-                 (zw/modeline-line-column)
-                 'face (zw/modeline-set-face
-                        'zw/modeline-buffer-name-active
-                        'zw/modeline-default-inactive)))))
+  (list "%e" '(:eval (zw/modeline-bar)) '(:eval (zw/modeline-remote))
+        '(:eval (propertize (zw/modeline-line-column)
+                            'face (zw/modeline-set-face
+                                   'zw/modeline-buffer-name-active
+                                   'zw/modeline-default-inactive)))))
 
 (defun zw/dired-sidebar-display (buffer)
-  ;; bury dired buffers that have the same root as sidebar
-  (dolist (window (window-list))
-    (let ((buf (window-buffer window)))
-      (when (eq buf buffer)
-        (with-selected-window window
-          (bury-buffer)))))
-  ;; display sidebar
+  (dolist (window (get-buffer-window-list buffer))
+    (with-selected-window window (bury-buffer)))
   (let ((window (display-buffer-in-side-window
-                 buffer `((side . left) (slot . -99)
-                          (window-width . 0.2)
+                 buffer '((side . left) (slot . -99) (window-width . 0.2)
                           (preserve-size . (t . nil))))))
     (select-window window)
     (set-window-dedicated-p window t)))
 
-(defun zw/dired-sidebar-header-line-prefix ()
-  (let ((color (face-background 'header-line))
-        (width 1)
-        (height (floor (* (string-pixel-width " ")
-                          2.5))))
-    (concat (zw/modeline--bar color width height)
-            (when (display-graphic-p) " ")
-            (nerd-icons-mdicon
-             "nf-md-layers_triple"
-             :height 1
-             :v-adjust 0.1)
-            " ")))
+;; *** header line: (BREADCRUMB . PREFIX) built once per buffer, cached;
+;; only the substring scrolling runs on redisplay
+(defvar-local zw/dired-sidebar--header nil)
+(defvar-local zw/dired-sidebar-header-line-beg 0)
+
+(defun zw/dired-sidebar--header ()
+  (or zw/dired-sidebar--header
+      (setq zw/dired-sidebar--header
+            (cons (zw/dired-sidebar-header-line-main)
+                  (concat (zw/modeline--bar (face-background 'header-line) 1
+                                            (floor (* (string-pixel-width " ") 2.5)))
+                          (when (display-graphic-p) " ")
+                          (nerd-icons-mdicon "nf-md-layers_triple"
+                                             :height 1 :v-adjust 0.1)
+                          " ")))))
 
 (defun zw/dired-sidebar-header-line-main ()
-  (let* ((abbrev-path (substring-no-properties
-                       (abbreviate-file-name default-directory) 0 -1))
-         (dirs (split-string abbrev-path "/"))
-         (locs (number-sequence 1 (length dirs)))
-         (parent-dirs (cl-mapcar
-                       (lambda (loc)
-                         (string-join
-                          (cl-subseq dirs 0 loc) "/"))
-                       locs))
-         (pairs (cl-mapcar 'cons dirs parent-dirs))
-         (create-keymap (lambda (dir)
-                          (let ((map (make-sparse-keymap)))
-                            (define-key map [header-line mouse-2]
-                                        (lambda ()
-                                          (interactive)
-                                          (dired dir)
-                                          (zw/dired-sidebar-enable (current-buffer))))
-                            map)))
-         (dirs (cl-mapcar
-                (lambda (pair)
-                  (propertize (car pair)
-                              'keymap (funcall create-keymap (cdr pair))
-                              'face '(:height 0.9)
-                              'mouse-face 'highlight))
-                pairs))
-         (separator (if (display-graphic-p)
-                        (nerd-icons-octicon
-                         "nf-oct-triangle_right"
-                         :height 0.9
-                         :v-adjust 0.1
-                         :face 'shadow)
-                      (concat " "
-                              (nerd-icons-faicon
-                               "nf-fa-caret_right"
-                               :face 'shadow)
-                              " "))))
-    (concat (when (string-empty-p (car dirs))
-              (propertize "/" 'keymap (funcall create-keymap "/")
-                          'mouse-face 'highlight))
-            (when (cl-remove-if 'string-empty-p dirs)
-              (string-join dirs separator))
-            " ")))
-
-(defvar zw/dired-sidebar-header-line-beg 0)
-(defun zw/dired-sidebar-header-line-format ()
-  (let* ((format (zw/dired-sidebar-header-line-main))
-         (format-width (length format))
-         (format-prefix (zw/dired-sidebar-header-line-prefix))
-         (format-prefix-width (length format-prefix))
-         (window-width (- (window-width) format-prefix-width)))
-    (concat
-     format-prefix
-     (substring
-      format
-      (cond ((or (< zw/dired-sidebar-header-line-beg 0)
-                 (< format-width window-width))
-             0)
-            ((> zw/dired-sidebar-header-line-beg
-                (- format-width window-width))
-             (- format-width window-width))
-            (t zw/dired-sidebar-header-line-beg))))))
+  "Clickable breadcrumb of `default-directory'."
+  (let* ((path (substring-no-properties
+                (abbreviate-file-name default-directory) 0 -1))
+         (jump (lambda (dir)
+                 (define-keymap "<header-line> <mouse-2>"
+                   (lambda () (interactive)
+                     (zw/dired-sidebar--with-presetup (dired dir))
+                     (zw/dired-sidebar-enable (current-buffer))))))
+         (crumbs (cl-loop for name in (split-string path "/")
+                          for dir = name then (concat dir "/" name)
+                          collect (propertize name 'keymap (funcall jump dir)
+                                              'face '(:height 0.9)
+                                              'mouse-face 'highlight)))
+         (sep (if (display-graphic-p)
+                  (nerd-icons-octicon "nf-oct-triangle_right"
+                                      :height 0.9 :v-adjust 0.1 :face 'shadow)
+                (concat " " (nerd-icons-faicon "nf-fa-caret_right" :face 'shadow) " "))))
+    (concat (when (string-empty-p (car crumbs))
+              (propertize "/" 'keymap (funcall jump "/") 'mouse-face 'highlight))
+            (string-join crumbs sep) " ")))
 
 (defun zw/dired-sidebar-header-line-max ()
-  (- (+ (length (zw/dired-sidebar-header-line-main))
-        (length (zw/dired-sidebar-header-line-prefix)))
-     (window-width)))
+  (let ((h (zw/dired-sidebar--header)))
+    (- (+ (length (car h)) (length (cdr h))) (window-width))))
 
-(defun zw/dired-sidebar-header-line-wheel-backward-action ()
-  (interactive)
-  (when (> zw/dired-sidebar-header-line-beg 0)
-    (setq zw/dired-sidebar-header-line-beg
-          (- zw/dired-sidebar-header-line-beg 1))))
+(defun zw/dired-sidebar-header-line-format ()
+  (let ((h (zw/dired-sidebar--header)))
+    (concat (cdr h)
+            (substring (car h)
+                       (max 0 (min zw/dired-sidebar-header-line-beg
+                                   (zw/dired-sidebar-header-line-max)))))))
 
-(defun zw/dired-sidebar-header-line-wheel-forward-action ()
-  (interactive)
-  (when (< zw/dired-sidebar-header-line-beg
-           (zw/dired-sidebar-header-line-max))
-    (setq zw/dired-sidebar-header-line-beg
-          (+ zw/dired-sidebar-header-line-beg 1))))
+(defun zw/dired-sidebar-header-line-scroll (n)
+  (setq zw/dired-sidebar-header-line-beg
+        (max 0 (min (+ zw/dired-sidebar-header-line-beg n)
+                    (zw/dired-sidebar-header-line-max)))))
 
-(defun zw/dired-sidebar-format-header-line ()
-  (setq-local
-   header-line-format
-   (list "%e" '(:eval (zw/dired-sidebar-header-line-format)))))
-
+;; *** enable / disable
 (defun zw/dired-sidebar-enable (buffer)
   (with-current-buffer buffer
     (when (eq major-mode 'dired-mode)
-      ;; rename buffer
-      (let* ((dir (abbreviate-file-name (dired-current-directory)))
-             (name (concat " :" dir)))
-        (rename-buffer name))
-      ;; enable modes
-      (zw-dired-sidebar-mode 1)
-      (dired-hide-details-mode t)
-      (dired-omit-mode 1)
-      (zw/dired-sidebar-format-header-line)
+      (rename-buffer
+       (concat " :" (abbreviate-file-name (dired-current-directory))) t)
+      (unless zw-dired-sidebar-mode   ; reused plain dired buffer
+        (zw/dired-sidebar--presetup)
+        (dired-revert))
+      (setq-local mode-line-format (zw/dired-sidebar--modeline-format)
+                  header-line-format
+                  '("%e" (:eval (zw/dired-sidebar-header-line-format)))
+                  zw/dired-sidebar--header nil)
       (zw/dired-sidebar-display buffer)
-      ;; refresh display
-      (dired-revert)
-      (setq-local dired-omit-size-limit nil
-                  line-spacing 1
-                  mode-line-format (zw/dired-sidebar--modeline-format)
-                  zw/dired-sidebar-header-line-beg (zw/dired-sidebar-header-line-max)))))
+      ;; window is live now: scroll breadcrumb to its tail
+      (setq zw/dired-sidebar-header-line-beg
+            (zw/dired-sidebar-header-line-max)))))
 
 (defun zw/dired-sidebar-disable (buffer)
   (with-current-buffer buffer
     (when zw-dired-sidebar-mode
-      (let* ((dir (abbreviate-file-name (dired-current-directory))))
+      (let ((dir (abbreviate-file-name (dired-current-directory))))
         (kill-buffer buffer)
         (dired dir)))))
 
+;; *** navigation
 (defvar zw/dired-sidebar-init-dir nil)
+
 (defun zw/dired-sidebar-toggle ()
-  "Toggle dired on left side."
+  "Open the project root (or current directory) in the left sidebar."
   (interactive)
-  ;; open current directory in sidebar
-  (let* ((dir (abbreviate-file-name
-               (or (vc-root-dir)
-                   (ignore-errors (file-name-directory (buffer-file-name)))
-                   default-directory)))
-         (buffer (dired-noselect dir)))
-    (zw/dired-sidebar-enable buffer))
-  ;; set current init directory
+  (let ((dir (abbreviate-file-name
+              (or (vc-root-dir)
+                  (ignore-errors (file-name-directory (buffer-file-name)))
+                  default-directory))))
+    (zw/dired-sidebar-enable
+     (zw/dired-sidebar--with-presetup (dired-noselect dir))))
   (setq zw/dired-sidebar-init-dir default-directory))
 
 (defun zw/dired-sidebar-jump-init-dir ()
-  "Jump to the init directory where `zw/dired-sidebar-toggle` is called."
+  "Jump to the directory where `zw/dired-sidebar-toggle' was called."
   (interactive)
   (let ((init-dir default-directory))
-    (dired--find-possibly-alternative-file zw/dired-sidebar-init-dir)
-    (zw/dired-sidebar-enable (current-buffer))
+    (zw/dired-sidebar--navigate
+      (dired--find-possibly-alternative-file zw/dired-sidebar-init-dir))
     (setq zw/dired-sidebar-init-dir init-dir)))
 
 (defun zw/dired-sidebar-find-file ()
   (interactive)
-  (dired-find-file)
-  (zw/dired-sidebar-enable (current-buffer)))
-
-(defun zw/dired-sidebar-mouse-find-file (event)
-  (interactive "e")
-  (let (pos)
-    (save-excursion
-      (setq pos (posn-point (event-start event)))
-      (let ((click-func (ignore-errors (get-text-property pos 'click-func))))
-        (if click-func
-            (funcall click-func)
-          (dired-mouse-find-file event)))))
-  (zw/dired-sidebar-enable (current-buffer)))
+  (zw/dired-sidebar--navigate (dired-find-file)))
 
 (defun zw/dired-sidebar-up-directory ()
   (interactive)
   (goto-char (point-min))
-  (dired-up-directory)
+  (zw/dired-sidebar--navigate (dired-up-directory)))
+
+(defun zw/dired-sidebar-mouse-find-file (event)
+  (interactive "e")
+  (let* ((pos (posn-point (event-start event)))
+         (fn (ignore-errors (get-text-property pos 'click-func))))
+    (if fn
+        (save-excursion (goto-char pos) (funcall fn))
+      (zw/dired-sidebar--with-presetup (dired-mouse-find-file event))))
   (zw/dired-sidebar-enable (current-buffer)))
 
 (defun zw/dired-sidebar-maximize ()
@@ -400,6 +362,7 @@
   (zw/maximize-window)
   (zw/dired-sidebar-disable (current-buffer)))
 
+;; *** minor mode
 (defun zw/dired-sidebar-post-command-hook ()
   (cond ((bobp)
          (call-interactively 'move-end-of-line)
@@ -407,41 +370,48 @@
         ((eobp)
          (backward-char 1)
          (dired-move-to-filename)
-         (when (not (memq this-command
-                          '(dired-next-line end-of-buffer)))
+         (unless (memq this-command '(dired-next-line end-of-buffer))
            (call-interactively 'move-end-of-line)))
-        ;; stop move when go beyong file name
+        ;; stop move when going beyond file name
         ((< (point) (save-excursion (dired-move-to-filename) (point)))
          (dired-move-to-filename)
          (when (eq this-command 'right-char)
            (dired-previous-line 1)
            (call-interactively 'move-end-of-line)))))
 
+(defvar zw-dired-sidebar-mode-map
+  (let* ((scroll (lambda (n)
+                   (lambda () (interactive)
+                     (zw/dired-sidebar-header-line-scroll n))))
+         (map (define-keymap
+                "q"         #'zw/kill-buffer-quit-window
+                "<backtab>" #'zw/dired-sidebar-jump-init-dir
+                "^"         #'zw/dired-sidebar-up-directory
+                "RET"       #'zw/dired-sidebar-find-file
+                "<mouse-2>" #'zw/dired-sidebar-mouse-find-file
+                "C-x 1"     #'zw/dired-sidebar-maximize
+                "M-n"       (funcall scroll 1)
+                "M-p"       (funcall scroll -1))))
+    (pcase-dolist (`(,evt . ,n) '((right . 1) (down . 1) (left . -1) (up . -1)))
+      (dolist (mult '("" "triple-"))
+        (keymap-set map (format "<header-line> <%swheel-%s>" mult evt)
+                    (funcall scroll n))))
+    map))
+
 (define-minor-mode zw-dired-sidebar-mode
   "Toggle zw-dired-sidebar mode."
   :lighter " Dired-Sidebar"
-  :keymap
-  `((,(kbd "q") . zw/kill-buffer-quit-window)
-    (,(kbd "<backtab>") . zw/dired-sidebar-jump-init-dir)
-    (,(kbd "^") . zw/dired-sidebar-up-directory)
-    (,(kbd "RET") . zw/dired-sidebar-find-file)
-    (,(kbd "<mouse-2>") . zw/dired-sidebar-mouse-find-file)
-    (,(kbd "C-x 1") . zw/dired-sidebar-maximize)
-    (,(kbd "<header-line> <triple-wheel-right>") . zw/dired-sidebar-header-line-wheel-forward-action)
-    (,(kbd "<header-line> <triple-wheel-left>") . zw/dired-sidebar-header-line-wheel-backward-action)
-    (,(kbd "<header-line> <triple-wheel-down>") . zw/dired-sidebar-header-line-wheel-forward-action)
-    (,(kbd "<header-line> <triple-wheel-up>") . zw/dired-sidebar-header-line-wheel-backward-action)
-    (,(kbd "<header-line> <wheel-right>") . zw/dired-sidebar-header-line-wheel-forward-action)
-    (,(kbd "<header-line> <wheel-left>") . zw/dired-sidebar-header-line-wheel-backward-action)
-    (,(kbd "M-n") . zw/dired-sidebar-header-line-wheel-forward-action)
-    (,(kbd "M-p") . zw/dired-sidebar-header-line-wheel-backward-action))
-  (unless (derived-mode-p 'dired-mode)
-    (error "`zw-dired-sidebar-mode' should be enabled only in `dired-mode'"))
-  (add-hook 'post-command-hook 'zw/dired-sidebar-post-command-hook nil 'local))
+  (cond ((not (derived-mode-p 'dired-mode))
+         (setq zw-dired-sidebar-mode nil)
+         (error "`zw-dired-sidebar-mode' should be enabled only in `dired-mode'"))
+        (zw-dired-sidebar-mode
+         (add-hook 'post-command-hook #'zw/dired-sidebar-post-command-hook nil t))
+        (t
+         (remove-hook 'post-command-hook #'zw/dired-sidebar-post-command-hook t))))
 
 ;; register in zw/left-side-window
-(add-to-list 'zw/left-side-window-open-functions 'zw/dired-sidebar-toggle)
-(add-hook 'zw-dired-sidebar-mode-hook 'zw/left-side-window-mode)
+(add-to-list 'zw/left-side-window-open-functions #'zw/dired-sidebar-toggle)
+(add-hook 'zw-dired-sidebar-mode-hook #'zw/left-side-window-mode)
 
 ;; ** dired tab line
 (with-eval-after-load "zw-tab-line"
