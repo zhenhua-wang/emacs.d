@@ -274,7 +274,8 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 
 ;; * CSV
 (use-package csv-mode
-  :hook ((csv-mode . zw/csv-init))
+  :hook ((csv-mode . zw/csv-init)
+         (csv-mode . csv-align-mode))
   :config
   (defun zw/csv-init ()
     (csv-guess-set-separator)
