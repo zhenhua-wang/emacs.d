@@ -210,10 +210,18 @@
   (dired-omit-mode 1))
 
 (defmacro zw/dired-sidebar--with-presetup (&rest body)
-  "Any dired buffer created inside BODY is born as a sidebar buffer."
+  "Any dired buffer created inside BODY is born as a sidebar buffer.
+Uses add/remove-hook instead of let-binding `dired-mode-hook':
+let-binding a hook var before its package has loaded creates a
+lexical (inert) binding, which Emacs 30 rejects with
+\"Defining as dynamic an already lexical var\" when the package's
+`defcustom' later runs inside that binding."
   (declare (indent 0))
-  `(let ((dired-mode-hook (cons #'zw/dired-sidebar--presetup dired-mode-hook)))
-     ,@body))
+  `(unwind-protect
+       (progn
+         (add-hook 'dired-mode-hook #'zw/dired-sidebar--presetup)
+         ,@body)
+     (remove-hook 'dired-mode-hook #'zw/dired-sidebar--presetup)))
 
 (defmacro zw/dired-sidebar--navigate (&rest body)
   "Run BODY with presetup, then enable the resulting buffer."
