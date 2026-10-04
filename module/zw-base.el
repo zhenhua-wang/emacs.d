@@ -321,9 +321,9 @@ non-nil, that predicate returns non-nil for the buffer."
      ;; Show: restore the most recently used right-side buffer.
      (buffers
       (when-let* ((window (display-buffer
-                          (car buffers)
-                          '((zw/display-buffer-in-largest-window)
-                            (inhibit-same-window . t)))))
+                           (car buffers)
+                           '((zw/display-buffer-in-largest-window)
+                             (inhibit-same-window . t)))))
         (when (window-live-p window)
           (set-window-dedicated-p window 'right-side))))
      (t
@@ -761,60 +761,55 @@ non-nil, that predicate returns non-nil for the buffer."
 (setopt treesit-enabled-modes t)
 
 ;; ** REPL
+;;; Options
 (defvar zw/repl-env-path '(("~/.conda/envs/" . "bin/"))
-  "Environment path should be formated as (env-dir . exec-dir).")
-
-(defun zw/repl-path (&optional exec keep-tramp-prefix)
-  (let* ((exec (or exec
-                   (read-string "No exec is registered with current major mode.\nEnter manually: ")))
-         (tramp-env-prefix (when (file-remote-p default-directory)
-                             (let ((vec (tramp-dissect-file-name default-directory)))
-                               (tramp-make-tramp-file-name
-                                (tramp-file-name-method vec)
-                                (tramp-file-name-user vec)
-                                (tramp-file-name-domain vec)
-                                (tramp-file-name-host vec)))))
-         (exec-env-path (cl-mapcar (lambda (path)
-                                     (cons (concat tramp-env-prefix (car path))
-                                           (cdr path)))
-                                   zw/repl-env-path)))
-    (cons exec (cl-remove-if-not
-                (lambda (full-path)
-                  (file-exists-p (concat (when (not keep-tramp-prefix) tramp-env-prefix) full-path)))
-                (apply #'append
-                       (cl-mapcar
-                        (lambda (dir)
-                          (cl-mapcar (lambda (path)
-                                       (let ((env-path (if (and tramp-env-prefix (not keep-tramp-prefix))
-                                                           (string-replace tramp-env-prefix "" path)
-                                                         path)))
-                                         (expand-file-name exec (expand-file-name (cdr dir) env-path))))
-                                     (ignore-errors (directory-files (car dir) t "^[^.]"))))
-                        exec-env-path))))))
-
-(defmacro zw/repl-run-in-path-macro (path-var repl-func &optional repl-args)
-  (let ((path-var-symbol (eval path-var)))
-    `(let* ((path (completing-read (format "Specify %s path: " ,path-var-symbol)
-                                   (zw/repl-path ,path-var-symbol)))
-            (,path-var-symbol path))
-       (apply ,repl-func ,repl-args))))
+  "Alist of (ENVS-DIR . BIN-SUBDIR) searched for executables.")
 
 (defcustom zw/repl-run-function nil
-  "A list of tuples where each tuple consists of a major mode and a corresponding function.
-The first element of each tuple is a major mode symbol (e.g., 'python-mode),
-and the second element is a function to start the REPL for that mode.
-
-If set to nil, no REPL will be automatically started."
+  "Alist of (MAJOR-MODE . FUNCTION), where FUNCTION starts that mode's REPL."
   :type '(alist :key-type symbol :value-type function)
   :group 'zw)
 
+;;; Core
+(defun zw/repl-path (exec &optional keep-tramp-prefix)
+  "Return EXEC followed by its paths in each env of `zw/repl-env-path'.
+If `default-directory' is remote, search the remote host; the paths
+keep their TRAMP prefix only when KEEP-TRAMP-PREFIX is non-nil."
+  (let* ((remote (file-remote-p default-directory))
+         (name (file-name-nondirectory exec))
+         (found (seq-mapcat
+                 (pcase-lambda (`(,envs . ,bin))
+                   (file-expand-wildcards
+                    (file-name-concat (concat remote envs) "[!.]*" bin name) t))
+                 zw/repl-env-path)))
+    (cons exec (if keep-tramp-prefix found (mapcar #'file-local-name found)))))
+
+(defun zw/repl--read-path (&optional interpreters)
+  "Prompt for a path to one of INTERPRETERS (a string or list of strings).
+If INTERPRETERS is nil, ask for an executable name first."
+  (let ((names (ensure-list
+                (or interpreters
+                    (read-string "No exec is registered with current major mode.\nEnter manually: ")))))
+    (completing-read (format "Specify %s path: " (string-join names "/"))
+                     (delete-dups (seq-mapcat #'zw/repl-path names)))))
+
+(defun zw/repl--call-with-path (path-var repl-func &optional repl-args interpreters)
+  "Call REPL-FUNC on REPL-ARGS with PATH-VAR bound to a prompted path.
+INTERPRETERS (a string or list of strings) names the executables to
+look up; it defaults to the current value of PATH-VAR."
+  (cl-progv (list path-var)
+      (list (zw/repl--read-path (or interpreters (symbol-value path-var))))
+    (apply repl-func repl-args)))
+
+;;; Commands
 (defun zw/repl-run-in-path ()
-  "Run the REPL associated with the current major mode."
+  "Run the REPL registered for the current major mode.
+If none is registered, ask for an executable and run it with comint."
   (interactive)
-  (let ((repl-func (cdr (assoc major-mode zw/repl-run-function))))
-    (if repl-func
-        (funcall repl-func)
-      (message "No REPL registered with the current buffer"))))
+  (if-let* ((repl-func (alist-get major-mode zw/repl-run-function)))
+      (funcall repl-func)
+    (let ((path (zw/repl--read-path)))
+      (pop-to-buffer (make-comint (file-name-nondirectory path) path)))))
 
 ;; ** Flymake
 (setq flymake-no-changes-timeout nil

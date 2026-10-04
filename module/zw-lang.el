@@ -174,8 +174,9 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 (defun zw/python-run-repl ()
   (interactive)
   (require 'python)
-  (zw/repl-run-in-path-macro 'python-shell-interpreter 'run-python
-                             (list nil (when (project-current) 'project) 'show)))
+  (zw/repl--call-with-path 'python-shell-interpreter #'run-python
+                           (list nil (when (project-current) 'project) 'show)
+                           '("python" "ipython")))
 (add-to-list 'zw/repl-run-function '(python-mode . zw/python-run-repl))
 (add-to-list 'zw/repl-run-function '(python-ts-mode . zw/python-run-repl))
 
@@ -269,7 +270,7 @@ conda install -c conda-forge glib libxkbcommon gcc=12.1.0 ncurses"
 (defun zw/R-run-repl ()
   (interactive)
   (require 'ess)
-  (zw/repl-run-in-path-macro 'inferior-ess-r-program 'run-ess-r))
+  (zw/repl--call-with-path 'inferior-ess-r-program #'run-ess-r))
 (add-to-list 'zw/repl-run-function '(ess-r-mode . zw/R-run-repl))
 
 ;; * CSV
